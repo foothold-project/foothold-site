@@ -523,11 +523,19 @@ function toggleFS(){
   else document.exitFullscreen();
 }
 document.getElementById('fsb').onclick=toggleFS;
-let x0=null;
-document.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+let x0=null,y0=null,scrollBox=null,scrollX0=null;
+document.addEventListener('touchstart',e=>{
+  x0=e.touches[0].clientX; y0=e.touches[0].clientY;
+  scrollBox=e.target.closest('.gantt,.tw');
+  scrollX0=scrollBox?scrollBox.scrollLeft:null;
+},{passive:true});
 document.addEventListener('touchend',e=>{
-  if(x0===null)return; const d=e.changedTouches[0].clientX-x0;
-  if(Math.abs(d)>50)go(d<0?i+1:i-1); x0=null;
+  if(x0===null){return}
+  const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0;
+  const boxScrolled = scrollBox && Math.abs(scrollBox.scrollLeft-scrollX0)>3;
+  const mostlyHorizontal = Math.abs(dx)>Math.abs(dy);
+  if(!boxScrolled && mostlyHorizontal && Math.abs(dx)>50) go(dx<0?i+1:i-1);
+  x0=null;y0=null;scrollBox=null;scrollX0=null;
 },{passive:true});
 go(0);
 
