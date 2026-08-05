@@ -46,7 +46,7 @@ h2.sec{font-size:.82rem;font-weight:800;padding-bottom:7px;
   display:flex;align-items:baseline;gap:9px}
 h2.sec .en{font-size:.6rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase}
 
-.docs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.docs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 a.doc{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--rule);
   border-top:3px solid var(--dim);padding:17px 19px 19px;text-decoration:none;color:inherit;transition:.16s}
 a.doc:hover{border-color:var(--dim);box-shadow:0 3px 0 var(--dim-soft);transform:translateY(-2px)}
@@ -83,12 +83,13 @@ a.doc.main .go{color:var(--note)}
 .arch a{color:var(--ink-2);text-decoration:none;border-bottom:1px dotted var(--ink-3)}
 .arch a:hover{color:var(--dim);border-bottom-color:var(--dim)}
 
+@page{ size:A4 portrait; margin:14mm 12mm; }
 @media print{
   body{background-image:none;background:#fff}
   .wrap{max-width:none;padding:0}
   a.doc{break-inside:avoid;border:1px solid #bbb!important;box-shadow:none!important;transform:none!important}
   a.doc .go{display:none}
-  .docs{grid-template-columns:repeat(3,1fr)}
+  .docs{grid-template-columns:repeat(2,1fr)}
   .team{grid-template-columns:repeat(5,1fr)}
   a[href^="http"]::after{content:" (" attr(href) ")";font-size:.85em;color:#666}
 }
@@ -114,6 +115,10 @@ a.doc.main .go{color:var(--note)}
 footer{margin-top:clamp(36px,5vh,56px);padding-top:18px;border-top:1px solid var(--rule);
   font-size:.66rem;color:var(--ink-3);font-family:'Consolas',monospace;line-height:1.8}
 footer b{color:var(--ink-2);font-family:inherit}
+.doc.learn{border-top-color:var(--stop)}
+.doc.learn .tag{color:var(--stop)}
+@media(max-width:1080px){.docs{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:640px){.docs{grid-template-columns:1fr!important}}
 </style>
 </head>
 <body>
@@ -148,6 +153,21 @@ footer b{color:var(--ink-2);font-family:inherit}
 
 <h2 class="sec">문서 <span class="en">Documents</span></h2>
 <div class="docs">
+
+  <a class="doc learn" href="curriculum.html">
+  <div class="tag">Learn · 5인 공통</div>
+  <div class="t">학습 커리큘럼</div>
+  <div class="d">로봇도 강화학습도 처음인 사람을 위한 <b>순서</b>.
+  무엇을 <b>안 배워도 되는지</b>부터 정하고, 구간 A를 다 함께 지난 뒤 다섯 갈래로 나뉜다.</div>
+  <ul>
+  <li>구간 A · 공통 기반 17단계</li>
+  <li>구간 B · 역할별 다섯 갈래</li>
+  <li>구간 C · 실전 8단계</li>
+  <li>도식 · 용어 풀이 · 관문 점검</li>
+  <li>일정이 밀리면 자르는 순서</li>
+  </ul>
+  <div class="go">읽기 →</div>
+  </a>
 
   <a class="doc main" href="encyclopedia.html">
     <div class="tag">Reference · 상시 갱신</div>
@@ -215,7 +235,6 @@ footer b{color:var(--ink-2);font-family:inherit}
   <div class="st" style="border-left-color:var(--note)"><div class="k">멘토 확인 대기</div>
     <div class="v">5건<small>실기 접근 · 판정 기준 · 안전</small></div></div>
 </div>
-
 
 <footer>
   <b>팀 FOOTHOLD</b> · 오흥재 · 임석헌 · 맹라현 · 이민우 · 오현민<br>
