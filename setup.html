@@ -337,39 +337,79 @@ nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
 python -c "import torch; print(torch.cuda.get_device_name(0)); print(torch.cuda.get_arch_list())"</pre>
 </div>
 
+<h3>🔴 Isaac Sim 공식 요구사양 — 생각보다 높습니다</h3>
+<div class="tw">
+<table class="stop">
+<thead><tr><th>등급</th><th>GPU</th><th>VRAM</th></tr></thead>
+<tbody>
+<tr><td><b>최소</b></td><td><b>GeForce RTX 4080</b></td><td><b>16 GB</b></td></tr>
+<tr><td>권장</td><td>GeForce RTX 5080</td><td>16 GB</td></tr>
+<tr><td>이상적</td><td>RTX PRO 6000 Blackwell</td><td>48 GB</td></tr>
+<tr><td><b>미지원</b></td><td colspan="2"><b>RT 코어가 없는 GPU</b> — GTX 전 계열, A100 · H100 포함</td></tr>
+</tbody>
+</table>
+</div>
+<p class="src">출처 —
+  <a href="https://docs.isaacsim.omniverse.nvidia.com/latest/installation/requirements.html" target="_blank" rel="noopener">Isaac Sim 공식 요구사양 ↗</a>
+  · <b>AI-WS01의 RTX 5080이 정확히 “권장” 등급</b>입니다.</p>
+
+<blockquote class="warn">
+  ⚠️ <b>이 문턱은 팀원 대부분이 못 넘습니다.</b> RTX 3060·4060 급도 <b>공식 최소 미달</b>입니다.<br>
+  그래서 <b>워크스테이션 공유는 선택이 아니라 기본 전제</b>입니다.
+</blockquote>
+
 <h3>내 PC로 어디까지 되나</h3>
 <div class="tw">
 <table>
-<thead><tr><th>내 환경</th><th>예상</th><th>근거</th></tr></thead>
+<thead><tr><th>내 환경</th><th>Isaac Sim</th><th>비고</th></tr></thead>
 <tbody>
-<tr><td><b>RTX 50 시리즈</b></td><td><b>전부 가능</b></td><td>AI-WS01에서 실증</td></tr>
-<tr><td>RTX 40 / 30 · VRAM 8 GB 이상</td>
-    <td>재생은 가능할 것.<br><b>학습은 환경 수를 줄여야 할 수 있음</b></td>
-    <td style="color:var(--note)">⚠️ <b>우리가 측정 안 함</b></td></tr>
-<tr><td>RTX 20 · VRAM 6 GB 이하</td><td><b>미확인</b></td><td>시도해 보고 결과를 팀에 공유</td></tr>
-<tr><td><b>GPU 없음 · 내장 그래픽 · 맥</b></td>
-    <td style="color:var(--stop)"><b>Isaac Sim 실행 불가</b></td>
-    <td>Isaac Sim 은 NVIDIA RTX GPU를 요구합니다</td></tr>
+<tr><td><b>RTX 5080 (AI-WS01)</b></td><td><b>전부 가능</b></td><td>실증 완료 · 공식 “권장” 등급</td></tr>
+<tr><td>RTX 4080 이상 · 16 GB</td><td>가능</td><td>공식 최소 충족</td></tr>
+<tr><td>RTX 30/40 · VRAM 16 GB 미만</td>
+    <td style="color:var(--note)"><b>공식 최소 미달</b></td>
+    <td>돌 수도 있으나 <b>보장 없음</b> · 복잡한 장면에서 실패</td></tr>
+<tr><td><b>GTX 계열</b> (예: GTX 1650 Ti)</td>
+    <td style="color:var(--stop)"><b>원천적으로 불가</b></td>
+    <td><b>RT 코어가 없습니다.</b> 드라이버·VRAM 문제가 아니라 <b>하드웨어에 그 기능이 없음</b></td></tr>
+<tr><td>GPU 없음 · 내장 그래픽 · 맥</td>
+    <td style="color:var(--stop)"><b>불가</b></td><td>—</td></tr>
 </tbody>
 </table>
 </div>
 
-<blockquote class="warn">
-  ⚠️ <b>위 표에서 “가능할 것”은 추정입니다.</b> 우리가 실제로 측정한 건 <b>RTX 5080 ×2 하나뿐</b>입니다.<br>
-  각자 돌려보고 <b>되든 안 되든 §10 형식으로 보고</b>해 주세요. 그게 이 표를 추정에서 실측으로 바꿉니다.
-</blockquote>
-
-<h3>GPU가 없거나 약하면 — 그래도 할 일이 있습니다</h3>
-<div class="key">
-  <ol style="margin:.3rem 0 0 1.2rem">
-    <li><b>워크스테이션(AI-WS01)을 원격으로 씁니다.</b> GPU가 2장이라 <b>동시에 2명</b>까지 각자 학습할 수 있습니다.
-      <span style="color:var(--ink-3)">(⚠️ “2장을 묶어 1개 학습을 2배로”는 아닙니다 — §8 참조)</span></li>
-    <li><b>환경 구축 자체는 각자 PC에서도 해보세요.</b> STEP 1~7까지는 GPU 성능과 무관합니다.
-      설치 과정에서 겪는 <b>함정(§5)을 직접 겪어보는 것</b>이 이 문서의 절반입니다.</li>
-    <li><b>코드를 읽고 고치는 데는 GPU가 필요 없습니다.</b>
-      학습 커리큘럼 <a href="curriculum.html">A13(코드 읽기)·A17(AI에게 코드 시킬 때)</a>은 노트북에서 그대로 진행됩니다.</li>
-  </ol>
+<h3>★ 그래서 노트북으로는 무엇을 하나 — 생각보다 많습니다</h3>
+<p>Isaac Sim이 안 돌아도 <b>학습 커리큘럼 A트랙 17절 중 대부분</b>은 노트북에서 그대로 진행됩니다.
+  특히 <b>실습이 있는 A6·A7이 가능</b>합니다.</p>
+<div class="tw">
+<table>
+<thead><tr><th>절</th><th>노트북</th><th>왜</th></tr></thead>
+<tbody>
+<tr><td>A1 ~ A5 · A8 · A11 · A12 · A14 ~ A17</td><td><b>가능</b></td><td>개념 · 설계 · 표 만들기</td></tr>
+<tr><td><b>A6 MuJoCo에서 Go2 세우기</b></td><td><b>가능</b></td>
+    <td><b>MuJoCo는 CPU 물리 엔진</b>입니다. RT 코어도 큰 VRAM도 필요 없습니다</td></tr>
+<tr><td><b>A7 규칙으로 걷게 해보고 실패하기</b></td><td><b>가능</b></td>
+    <td>MuJoCo 위에서 합니다. <b>이 프로젝트에서 물리 감각을 얻는 유일한 절</b></td></tr>
+<tr><td>A13 코드 읽기</td><td><b>가능</b></td><td>읽고 고치는 데 GPU가 필요 없습니다</td></tr>
+<tr><td>A9 첫 학습 · A10 보상 실험</td>
+    <td style="color:var(--note)"><b>워크스테이션 원격</b></td><td>GPU 2장이라 동시 2인</td></tr>
+</tbody>
+</table>
 </div>
+
+<div class="key">
+  <div class="kh">노트북 담당자에게</div>
+  <p style="color:var(--ink);margin:.2rem 0"><b>A6·A7을 먼저 하세요.</b>
+    선행 사례는 이 단계를 건너뛰고 바로 강화학습으로 가서
+    “발을 왜 안 떼는지”를 물리적 직관 없이 <b>석 달을 헤맸습니다</b>
+    (<a href="curriculum.html">커리큘럼 A7</a>).
+    노트북에서 할 수 있는 이 두 절이 <b>팀 전체의 진단 속도를 좌우합니다.</b></p>
+</div>
+
+<blockquote>
+  <b>미래 방향</b> — AI-WS01에 <b>리눅스 멀티부트</b>를 구성해 팀원이 원격으로 붙는 안을 검토 중입니다.
+  리눅스가 Isaac Sim·Isaac Lab의 1차 지원 플랫폼이고, 다중 사용자 접속도 훨씬 수월합니다.
+  <span class="src">⚠️ 아직 구성 안 함 — 결정되면 이 문서에 절차를 추가합니다.</span>
+</blockquote>
 </section>
 
 <!-- ══════ 2 ══════ -->

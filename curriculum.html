@@ -1259,6 +1259,42 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>실기 배포 제어</td><td class="nv">50 Hz</td><td class="nn">step_dt = 0.02 s</td></tr><tr><td>시뮬 물리</td><td class="nv">200 Hz</td><td class="nn">sim dt = 0.005 s</td></tr><tr><td>시뮬 정책</td><td class="nv">40 Hz</td><td class="nn">decimation 5</td></tr><tr><td>참고 · Isaac Lab 기본</td><td class="nv">decimation 8</td><td class="nn">에피소드 20 s</td></tr></tbody></table>
   <div class="nt-note">⚠️ <b>학습 때 정책 주기와 실기 제어 주기가 다르면</b> 정책이 배운 “한 스텝의 크기”가 달라집니다. 맞추거나, 다르다면 그 사실을 반드시 기록하세요.</div></div></div>
 </section>
+<section class="slide" data-stage="구간 A · 공통" data-title="로봇과 이야기하는 법" data-id="A5.5">
+  <div class="head"><div class="sid">A5.5 · 신설</div><h2>로봇과 이야기하는 법</h2></div>
+  <p class="oneline"><span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>이 낸 숫자가 <b>어떤 배관을 타고</b> 실제 모터까지 가는지. 여기를 모르면 뒤가 전부 뜬금없어집니다.</p>
+  <div class="blk">
+    <div class="lbl">왜 이걸 하나</div>
+    <p>A5까지는 <b>개념</b>이었습니다. “정책이 목표 각도를 내고 PD가 <span class="term">토크<span class="pop"><span class="ph">토크 · torque</span><b>돌리는 힘</b>입니다. 미는 힘(N)과 다릅니다 — 회전축을 중심으로 <b>얼마나 세게 비트는가</b>예요.<br>문손잡이를 잡고 돌릴 때, 손잡이 끝을 잡으면 쉽고 축 가까이를 잡으면 어렵죠. 같은 힘인데 토크가 다릅니다.<br>단위는 <b>N·m</b>. Go2 무릎은 <b>45.43 N·m</b>까지 냅니다.</span></span>를 만든다.” 맞습니다.
+    그런데 그 숫자가 <b>실제 로봇에 어떻게 전달되는지</b>는 아직 한 번도 안 봤습니다.</p>
+    <p>선행 사례는 이 내용을 <b>맨 마지막에</b> 정리했고, 회고에 이렇게 적었습니다 —
+    <i>“이걸 먼저 안 잡아서 뒤에 쓴 글이 전부 뜬금없어졌다.”</i>
+    <b>그래서 우리는 여기서 봅니다.</b></p>
+  </div>
+  <div class="blk">
+    <div class="lbl">무엇을 배우나</div>
+    <p><b>① 다섯 층.</b> 우리가 만드는 건 ④와 ⑤뿐입니다. 나머지는 주어진 것입니다.</p>
+    <div class="tw"><table class=""><thead><tr><th>층</th><th>무엇</th><th>우리가</th></tr></thead><tbody><tr><td>① 하드웨어</td><td>모터 12 · <span class="term">IMU<span class="pop"><span class="ph">IMU · Inertial Measurement Unit · 관성 측정 장치</span><b>스마트폰에 든 그 센서입니다.</b> 폰을 기울이면 화면이 도는 것, 그게 IMU예요.<br>로봇이 <b>얼마나 기울었는지(자세)</b>와 <b>얼마나 빨리 도는지(각속도)</b>를 초당 500번 알려줍니다.<br>단 <b>위치나 속도는 못 잽니다</b> — 이게 A12에서 급소가 됩니다.</span></span> · 배터리</td><td>못 바꿈</td></tr><tr><td>② 펌웨어</td><td>Unitree 내장 제어기</td><td>못 바꿈 · <b>모드만 전환</b></td></tr><tr><td>③ 통신</td><td>SDK2 · DDS — 로봇 ↔ PC</td><td>설정만</td></tr><tr><td>④ 배포 코드</td><td><span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span>을 모으고 행동을 보냄</td><td><b>우리가 짬</b></td></tr><tr><td>⑤ 정책</td><td>신경망</td><td><b>우리가 학습시킴</b></td></tr></tbody></table></div>
+    <p><b>② 두 갈래 명령.</b> 로봇에 명령을 보내는 길이 <b>두 개</b>이고, 섞으면 사고가 납니다.</p>
+    <div class="tw"><table class=""><thead><tr><th>방식</th><th>무엇을 보내나</th><th>누가 쓰나</th></tr></thead><tbody><tr><td>고수준 (내장 제어기)</td><td>“앞으로 0.5 m/s 가라”</td><td>Unitree 앱 · 기본 상태</td></tr><tr><td><b>저수준</b></td><td><b>관절 12개의 목표 각도</b></td><td><b>우리</b></td></tr></tbody></table></div>
+    <p><b>③ 그래서 반드시 먼저 할 일 —</b> 저수준으로 가려면 <b>내장 제어기를 끕니다.</b>
+    안 끄면 두 제어기가 동시에 살아 서로 싸웁니다 (A16에서 다시 나옵니다).</p>
+    <p><b>④ 로봇이 보내오는 것.</b> 관절 각도·<span class="term">각속도<span class="pop"><span class="ph">각속도 · angular velocity</span><b>얼마나 빨리 회전하는가</b>. 속도가 '초당 몇 미터'라면 각속도는 <b>'초당 몇 도(또는 라디안)'</b>입니다.<br>IMU가 직접 재주는 값이라 로봇이 확실히 아는 몇 안 되는 숫자입니다.</span></span>·추정 토크·모터 온도·IMU·배터리.
+    <b>이 중 정책 입력에 들어가는 건 일부뿐</b>입니다 — 나머지는 기록용입니다 (A12).</p>
+  </div>
+  <div class="box warn">
+    <div class="bt">⚠️ 눈에 안 보여서 제일 오래 걸리는 곳</div>
+    <p>통신 계층은 <b>고장 나도 에러가 안 납니다.</b> 그냥 값이 안 오거나, 옛날 값이 오거나,
+    이름이 달라 못 찾을 뿐입니다. 선행 사례가 여기서 며칠을 썼습니다 —
+    네트워크 인터페이스 이름이 실제와 달라 토픽이 아예 안 보였습니다.</p>
+  </div>
+  <div class="box check">
+    <div class="bt">이렇게 확인한다</div>
+    <p>“정책이 낸 숫자가 모터까지 가는 길”을 <b>다섯 층으로 나눠 말할 수 있다.</b>
+    그리고 <b>고수준과 저수준을 왜 섞으면 안 되는지</b> 설명할 수 있다.</p>
+  </div>
+
+</section>
+
 
 <!-- A6 -->
 <section class="slide" data-stage="구간 A · 공통" data-title="MuJoCo에서 Go2 세우기" data-id="A6">
@@ -1975,6 +2011,37 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 </aside>
 </div>
 </section>
+<section class="slide" data-stage="구간 A · 공통" data-title="학습과 실기의 계약서" data-id="A12.5">
+  <div class="head"><div class="sid">A12.5 · 신설</div><h2>학습과 실기의 계약서</h2></div>
+  <p class="oneline">A12가 “무엇을 넣나”라면, 여기는 <b>“학습 때와 실기 때가 같은가”</b>입니다. 선행 사례 실패의 최대 원인이 여기였습니다.</p>
+  <div class="blk">
+    <div class="lbl">왜 이걸 하나</div>
+    <p>A12에서 <span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span>을 잘 설계했다고 합시다. 그런데 <b>학습할 때 쓴 약속과 실기에서 쓰는 약속이
+    다르면</b> <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>은 자기가 배운 것과 다른 세상을 보게 됩니다.</p>
+    <p>무서운 건 <b>에러가 안 난다</b>는 것입니다. 코드는 돌고, 로봇만 이상하게 움직입니다.
+    선행 사례가 <b>석 달</b>을 쓴 문제가 전부 이 범주였습니다.</p>
+  </div>
+  <div class="blk">
+    <div class="lbl">무엇을 배우나 — 여섯 가지 계약</div>
+    <div class="tw"><table class="stop"><thead><tr><th>#</th><th>계약</th><th>틀리면</th></tr></thead><tbody><tr><td>①</td><td><b>관절 순서</b> — 정책 순서 ≠ SDK 순서</td><td><b>의도한 다리와 다른 다리</b>가 움직인다</td></tr><tr><td>②</td><td><b>기본 관절 각도</b> — 행동의 기준점</td><td>가만히 있어도 이상한 자세</td></tr><tr><td>③</td><td><b>행동 스케일</b> — 한 스텝의 크기</td><td>너무 작으면 안 움직이고, 크면 발작</td></tr><tr><td>④</td><td><b>직전 행동의 의미</b> — 가공 전 원값인가, 가공 후 목표각인가</td><td>★ <b>가장 많이 틀리는 곳.</b> 서 있는데 다리를 접는다</td></tr><tr><td>⑤</td><td><b>제어 주파수</b> — 학습 40~50 Hz vs 실기 50 Hz</td><td>정책이 배운 “한 걸음”의 시간이 달라진다</td></tr><tr><td>⑥</td><td><b>PD 게인</b> — kp · kd</td><td>뻣뻣하거나 흐물거린다 (A4)</td></tr></tbody></table></div>
+    <p><b>이걸 표로 만들어 두는 것</b>이 이 절의 산출물입니다.
+    학습 쪽 값과 실기 쪽 값을 <b>나란히</b> 적고, 하나씩 눈으로 대조합니다.</p>
+  </div>
+  <div class="box warn">
+    <div class="bt">★ 왜 “한 번 만들면 끝”이 아닌가</div>
+    <p><span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span>을 바꾸거나 관측을 하나 추가할 때마다 <b>이 표가 낡습니다.</b>
+    그리고 낡은 줄 모른 채 실기에 올리면, 원인을 알 수 없는 실패가 납니다.</p>
+    <p><b>규칙 — 실기에 올리기 전에는 매번 이 표를 다시 대조한다.</b>
+    A15의 「실기 진입 게이트」 ③번이 바로 이것입니다.</p>
+  </div>
+  <div class="box check">
+    <div class="bt">이렇게 확인한다</div>
+    <p>여섯 계약을 <b>표로 만들었고</b>, 학습 쪽과 실기 쪽 값이 같다는 것을
+    <b>파일과 줄 번호를 짚어가며</b> 보일 수 있다.</p>
+  </div>
+
+</section>
+
 
 <!-- A13 -->
 <section class="slide" data-stage="구간 A · 공통" data-title="우리가 쓸 코드 읽기" data-id="A13">
@@ -2122,6 +2189,43 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 </aside>
 </div>
 </section>
+<section class="slide" data-stage="구간 A · 공통" data-title="무엇을 얼마나 흔들 것인가" data-id="A14.5">
+  <div class="head"><div class="sid">A14.5 · 신설</div><h2>무엇을 얼마나 흔들 것인가</h2></div>
+  <p class="oneline"><span class="term">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.</span></span>는 <b>많이 걸수록 좋은 게 아닙니다.</b> 무엇을 얻고 무엇을 잃는지 기록하며 하나씩 넣습니다.</p>
+  <div class="blk">
+    <div class="lbl">왜 이걸 하나</div>
+    <p>A14에서 “시뮬과 현실은 다르다”를 봤습니다. 그 간극을 메우는 <b>주된 수단이 도메인 랜덤화</b>이고,
+    선행 사례가 석 달 만에 성공한 <b>직접 원인</b>도 이것이었습니다.</p>
+    <p>그런데 그 사람은 <b>어떤 범위로 걸었는지를 기록에 남기지 않았습니다.</b>
+    “성공의 원인”이라면서 값이 없습니다. <b>우리는 그러지 않기 위해 이 절을 둡니다.</b></p>
+  </div>
+  <div class="blk">
+    <div class="lbl">무엇을 배우나</div>
+    <p><b>① 흔들 수 있는 것들.</b> 크게 네 갈래입니다.</p>
+    <div class="tw"><table class=""><thead><tr><th>갈래</th><th>항목</th><th>왜 흔드나</th></tr></thead><tbody><tr><td>지면</td><td>마찰계수 · 복원력</td><td><b>우리 주제의 핵심</b> — 모래·자갈이 여기</td></tr><tr><td>로봇</td><td>질량 · 무게중심 · 모터 세기</td><td>개체차 · 짐을 실었을 때</td></tr><tr><td>신호</td><td><span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span> 잡음 · 제어 지연</td><td>실기 센서는 깨끗하지 않다</td></tr><tr><td>외란</td><td>밀치기 · 초기 자세</td><td>넘어질 뻔한 상황을 겪게</td></tr></tbody></table></div>
+    <p><b>② 많이 걸면 나빠집니다.</b> 이건 직관과 반대라 반드시 숫자로 기억하세요.</p>
+    <div class="tw"><table class=""><thead><tr><th>조건</th><th>측면 밀기 저항</th><th>최고 속도</th></tr></thead><tbody><tr><td>기본</td><td>43 ± 2 N</td><td>1.1 m/s</td></tr><tr><td>몸통 속도 관측 제거</td><td>22 ± 0 N</td><td>—</td></tr><tr><td>거기에 랜덤화까지</td><td><b>13 ± 5 N</b></td><td><b>0.9 m/s</b></td></tr></tbody></table></div>
+    <p class="src" style="font-size:.8rem;color:var(--ink-3)">Xie 외, <i>Dynamics Randomization Revisited</i>, ICRA 2021 — A14의 논문 카드 참조</p>
+    <p><b>③ 그래서 방법은 하나입니다 — 한 번에 하나만 넣고, 잃은 것을 적는다.</b></p>
+  </div>
+  <div class="blk">
+    <div class="lbl">산출물 — 랜덤화 손익 기록표</div>
+    <div class="tw"><table class=""><thead><tr><th>항목</th><th>범위</th><th>얻은 것</th><th><b>잃은 것</b></th></tr></thead><tbody><tr><td>(예) 지면 마찰</td><td>U(0.5, 1.25)</td><td>미끄러운 면 생존율 ↑</td><td><b>최고 속도 ↓</b></td></tr><tr><td>…</td><td>우리가 정한 값</td><td>측정한 지표</td><td><b>반드시 적을 것</b></td></tr></tbody></table></div>
+    <p><b>“잃은 것” 칸을 비워두지 마세요.</b> 비어 있다면 아직 측정을 안 한 것입니다.</p>
+  </div>
+  <div class="box warn">
+    <div class="bt">⚠️ 남의 기본값을 그대로 쓰지 말 것</div>
+    <p>A11에 적어둔 참고 범위(마찰 U(0.5,1.25) 등)는 <b>다른 로봇·다른 과제</b>의 값입니다.
+    출발점으로는 쓰되, <b>우리 값은 우리가 재서 이 표를 채웁니다.</b></p>
+  </div>
+  <div class="box check">
+    <div class="bt">이렇게 확인한다</div>
+    <p>랜덤화 항목마다 <b>범위 · 얻은 것 · 잃은 것</b>이 적힌 표가 있다.
+    그리고 “왜 이 범위인가”에 <b>측정으로</b> 답할 수 있다.</p>
+  </div>
+
+</section>
+
 
 <!-- A15 -->
 <section class="slide" data-stage="구간 A · 공통" data-title="무엇을 성공이라 부를 것인가" data-id="A15">
