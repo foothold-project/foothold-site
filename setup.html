@@ -85,8 +85,16 @@ blockquote.warn b{color:var(--ink)}
   padding:.85rem 3.4rem .85rem 1rem;overflow-x:auto;font-size:.79rem;line-height:1.7;
   font-family:'Consolas','D2Coding','Courier New',monospace;white-space:pre;
   -webkit-overflow-scrolling:touch}
-.cb pre .c{color:#8b98ab}          /* 주석 */
-.cb pre .k{color:#7fd8cc}          /* 강조 */
+/* ── 코드 문법 강조 ──
+   실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
+.cb pre .c{color:#6f7a88;font-style:italic}   /* 주석 */
+.cb pre .k{color:#5eb0ef;font-weight:700}     /* 키워드 */
+.cb pre .f{color:#f0c674}                     /* 명령 · 함수 */
+.cb pre .b{color:#c39ac9}                     /* 파이썬 내장 */
+.cb pre .s{color:#9ece6a}                     /* 문자열 */
+.cb pre .n{color:#e59f6a}                     /* 숫자 */
+.cb pre .v{color:#7ee0d0}                     /* 변수 */
+.cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
 .cb .copy{position:absolute;top:.5rem;right:.5rem;background:#2b323d;color:#c3cbd8;
   border:1px solid #3a4250;border-radius:4px;font-family:inherit;font-size:.6rem;
   font-weight:800;letter-spacing:.08em;padding:.24rem .5rem;cursor:pointer;transition:.14s}
@@ -190,7 +198,11 @@ details.trap .cb{margin:.5rem 0 .2rem}
   .cb,.ck,.tw,.key,.tree,blockquote,details.trap{break-inside:avoid;page-break-inside:avoid}
   .cb pre{background:#f4f5f7!important;color:#161c26!important;border:1px solid #ccc!important;
     white-space:pre-wrap!important;word-break:break-all}
-  .cb pre .c{color:#666!important} .cb pre .k{color:#0e7a6e!important}
+  /* 종이에서는 색이 흐리게 나올 수 있다 — 굵기·기울기로도 구분되게 (hl.py 와 같은 규칙) */
+  .cb pre .c{color:#777!important;font-style:italic}
+  .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
+  .cb pre .s{color:#2a6b2a!important}
+  .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
   /* 인쇄에서는 함정을 모두 펼친다.
      ⚠️ display 만으로는 안 된다 — 크롬은 닫힌 <details> 를 content-visibility 로 숨긴다.
      아래가 없으면 함정 6개 내용이 PDF에서 통째로 빠진다(실측). */
@@ -420,10 +432,10 @@ Isaac-Velocity-Rough-Unitree-Go2-v0     <span class="c"># 험지. 목록에 없�
   <div class="lbl">내 GPU 확인</div>
   <button class="copy" type="button">복사</button>
 <pre><span class="c"># 이름 · VRAM · 드라이버</span>
-nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+<span class="f">nvidia-smi</span> <span class="o">--query-gpu</span>=name,memory.total,driver_version <span class="o">--format</span>=csv
 
 <span class="c"># torch 가 내 GPU를 지원하는지</span>
-python -c "import torch; print(torch.cuda.get_device_name(0)); print(torch.cuda.get_arch_list())"</pre>
+<span class="f">python</span> <span class="o">-c</span> <span class="s">&quot;import torch; print(torch.cuda.get_device_name(0)); print(torch.cuda.get_arch_list())&quot;</span></pre>
 </div>
 
 <h3>🔴 Isaac Sim 공식 요구사양 — 생각보다 높습니다</h3>
@@ -508,13 +520,13 @@ python -c "import torch; print(torch.cuda.get_device_name(0)); print(torch.cuda.
   <div class="lbl">PowerShell</div>
   <button class="copy" type="button">복사</button>
   <pre><span class="c"># 1) GPU·드라이버 확인 — 570 이상이어야 함</span>
-nvidia-smi
+<span class="f">nvidia-smi</span>
 
 <span class="c"># 2) 디스크 여유 20GB 이상 확인</span>
-Get-Volume -DriveLetter C
+Get-Volume <span class="o">-DriveLetter</span> C
 
 <span class="c"># 3) git 설치 여부</span>
-git --version</pre>
+<span class="f">git</span> <span class="o">--version</span></pre>
 </div>
 <p><b>Anaconda 또는 Miniconda가 필요합니다.</b> 없으면 <a href="https://www.anaconda.com/docs/getting-started/miniconda/install" target="_blank" rel="noopener">Miniconda ↗</a>를 먼저 설치하세요.<br>
 ※ 관리자 권한은 <b>필요 없습니다.</b> 전부 사용자 폴더에 설치됩니다.</p>
@@ -526,29 +538,29 @@ git --version</pre>
 
 <h3><span class="step">STEP 1</span>Python 3.11 전용 환경 만들기</h3>
 <div class="cb"><button class="copy" type="button">복사</button>
-<pre>conda create -n isaac311 python=3.11 -y
-conda activate isaac311
-python --version          <span class="c"># → Python 3.11.x 여야 함</span></pre></div>
+<pre><span class="f">conda</span> create <span class="o">-n</span> isaac311 <span class="f">python</span>=<span class="n">3.11</span> <span class="o">-y</span>
+<span class="f">conda</span> activate isaac311
+<span class="f">python</span> <span class="o">--version</span>          <span class="c"># → Python 3.11.x 여야 함</span></pre></div>
 <blockquote class="warn">⚠️ <b><code>conda activate</code>를 반드시 하세요.</b> 뒤에 나올 <code>isaaclab.bat</code>이
   <code>%CONDA_PREFIX%</code>로 파이썬을 찾습니다. PATH만 건드리면 <b>베이스 환경에 잘못 설치</b>됩니다 (함정 ③).</blockquote>
 
 <h3><span class="step">STEP 2</span>PyTorch를 cu128로 설치 <span style="color:var(--stop)">★ 순서 중요</span></h3>
 <div class="cb"><button class="copy" type="button">복사</button>
-<pre>pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 `
-    --index-url https://download.pytorch.org/whl/cu128</pre></div>
+<pre><span class="f">pip</span> install torch==<span class="n">2.7.0</span> torchvision==<span class="n">0.22.0</span> torchaudio==<span class="n">2.7.0</span> `
+    <span class="o">--index-url</span> https://download.pytorch.org/whl/cu128</pre></div>
 <blockquote><b>왜 먼저 하나</b> — Isaac Sim이 <code>torch==2.7.0</code>을 요구하는데, 그냥 두면
   PyPI 기본 wheel(<b>CPU 전용</b>)이 깔립니다. 먼저 cu128을 깔아두면 <code>2.7.0+cu128</code>이
   <code>==2.7.0</code> 조건을 만족해 <b>덮어쓰이지 않습니다.</b> (실측 확인)</blockquote>
 
 <h3><span class="step">STEP 3</span>Isaac Sim 설치</h3>
 <div class="cb"><button class="copy" type="button">복사</button>
-<pre>pip install "isaacsim[all]==5.1.0.0" --extra-index-url https://pypi.nvidia.com</pre></div>
+<pre><span class="f">pip</span> install <span class="s">&quot;isaacsim[all]==5.1.0.0&quot;</span> <span class="o">--extra-index-url</span> https://pypi.nvidia.com</pre></div>
 <p>소요 약 4분.</p>
 
 <h3><span class="step">STEP 4</span>첫 실행 — Kit 런타임 자동 수신</h3>
 <div class="cb"><button class="copy" type="button">복사</button>
-<pre>$env:OMNI_KIT_ACCEPT_EULA="YES"
-python -c "from isaacsim import SimulationApp; app=SimulationApp({'headless':True}); print('OK'); app.close()"</pre></div>
+<pre><span class="v">$env:OMNI_KIT_ACCEPT_EULA</span>=<span class="s">&quot;YES&quot;</span>
+<span class="f">python</span> <span class="o">-c</span> <span class="s">&quot;from isaacsim import SimulationApp; app=SimulationApp({&#x27;headless&#x27;:True}); print(&#x27;OK&#x27;); app.close()&quot;</span></pre></div>
 <blockquote class="warn">⏱ <b>첫 실행만 6~7분 걸립니다.</b> Kit 런타임 약 5 GB를 자동으로 받고 초기화합니다(초기화만 385초).
   두 번째부터는 20초 내외입니다. <b>멈춘 게 아니니 기다리세요.</b></blockquote>
 
@@ -563,17 +575,17 @@ git describe --tags       <span class="c"># → v2.3.2 여야 함</span></pre></
 
 <h3><span class="step">STEP 6</span>빌드 도구 문제 선처리</h3>
 <div class="cb"><button class="copy" type="button">복사</button>
-<pre>pip install "setuptools&lt;81" wheel
-pip install "flatdict==4.0.1" --no-build-isolation</pre></div>
+<pre><span class="f">pip</span> install <span class="s">&quot;setuptools&lt;81&quot;</span> wheel
+<span class="f">pip</span> install <span class="s">&quot;flatdict==4.0.1&quot;</span> <span class="o">--no-build-isolation</span></pre></div>
 <blockquote>최신 setuptools(83+)에서 <code>pkg_resources</code>가 빠졌는데 <code>flatdict</code>가 그걸 씁니다 (함정 ④).</blockquote>
 
 <h3><span class="step">STEP 7</span>Isaac Lab 설치</h3>
 <div class="cb"><button class="copy" type="button">복사</button>
-<pre>conda activate isaac311       <span class="c"># ★ 다시 한 번 확인</span>
-cd C:\isaac\IsaacLab
-.\isaaclab.bat --install rsl_rl
-pip install -e source/isaaclab
-pip install "packaging==23.0"   <span class="c"># isaacsim이 요구하는 핀으로 복구</span></pre></div>
+<pre><span class="f">conda</span> activate isaac311       <span class="c"># ★ 다시 한 번 확인</span>
+<span class="f">cd</span> C:\isaac\IsaacLab
+.\isaaclab.bat <span class="o">--install</span> rsl_rl
+<span class="f">pip</span> install <span class="o">-e</span> source/isaaclab
+<span class="f">pip</span> install <span class="s">&quot;packaging==23.0&quot;</span>   <span class="c"># isaacsim이 요구하는 핀으로 복구</span></pre></div>
 <blockquote><code>rsl_rl</code>만 설치합니다. 우리 프로젝트는 다른 RL 프레임워크(rl_games·skrl·sb3)를 쓰지 않습니다.</blockquote>
 
 <h3><span class="step">STEP 8</span>Windows 우회 스크립트 만들기 <span style="color:var(--stop)">★ 필수</span></h3>
@@ -581,45 +593,45 @@ pip install "packaging==23.0"   <span class="c"># isaacsim이 요구하는 핀�
 <div class="cb">
   <div class="lbl">play_go2_win.py</div>
   <button class="copy" type="button">복사</button>
-<pre><span class="c"># Windows 우회: Isaac Sim Kit 로드 전에 "네이티브 확장을 가진" 패키지를 선점 import</span>
+<pre><span class="c"># Windows 우회: Isaac Sim Kit 로드 전에 &quot;네이티브 확장을 가진&quot; 패키지를 선점 import</span>
 <span class="c">#   - tensordict : access violation 0xC0000005 (헤드리스에서도 발생)</span>
 <span class="c">#   - h5py       : entrypoint not found 0xC0000139 (GUI 모드에서 발생)</span>
-import torch                       # noqa
-from tensordict import TensorDict  # noqa
-import rsl_rl.runners              # noqa
-import h5py                        # noqa
-import runpy, sys, os
-SCRIPT = os.path.join("scripts", "reinforcement_learning", "rsl_rl", "play.py")
-sys.path.insert(0, os.path.dirname(os.path.abspath(SCRIPT)))   <span class="c"># cli_args 를 찾게</span>
-sys.argv = [SCRIPT] + sys.argv[1:]
-runpy.run_path(SCRIPT, run_name="__main__")</pre></div>
+<span class="k">import</span> torch                       <span class="c"># noqa</span>
+<span class="k">from</span> tensordict <span class="k">import</span> TensorDict  <span class="c"># noqa</span>
+<span class="k">import</span> rsl_rl.runners              <span class="c"># noqa</span>
+<span class="k">import</span> h5py                        <span class="c"># noqa</span>
+<span class="k">import</span> runpy, sys, os
+SCRIPT = os.path.<span class="f">join</span>(<span class="s">&quot;scripts&quot;</span>, <span class="s">&quot;reinforcement_learning&quot;</span>, <span class="s">&quot;rsl_rl&quot;</span>, <span class="s">&quot;play.py&quot;</span>)
+sys.path.<span class="f">insert</span>(<span class="n">0</span>, os.path.<span class="f">dirname</span>(os.path.<span class="f">abspath</span>(SCRIPT)))   <span class="c"># cli_args 를 찾게</span>
+sys.argv = [SCRIPT] + sys.argv[<span class="n">1</span>:]
+runpy.<span class="f">run_path</span>(SCRIPT, run_name=<span class="s">&quot;__main__&quot;</span>)</pre></div>
 
 <p><b>학습용</b> <code>C:\isaac\IsaacLab\train_go2_win.py</code> 도 같이 만듭니다.
   <b>위와 완전히 같고 <code>SCRIPT</code> 한 줄만 <code>train.py</code> 로 바꿉니다.</b></p>
 <div class="cb">
   <div class="lbl">train_go2_win.py</div>
   <button class="copy" type="button">복사</button>
-<pre><span class="c"># Windows 우회: Isaac Sim Kit 로드 전에 "네이티브 확장을 가진" 패키지를 선점 import</span>
+<pre><span class="c"># Windows 우회: Isaac Sim Kit 로드 전에 &quot;네이티브 확장을 가진&quot; 패키지를 선점 import</span>
 <span class="c">#   - tensordict : access violation 0xC0000005 (헤드리스에서도 발생)</span>
 <span class="c">#   - h5py       : entrypoint not found 0xC0000139 (GUI 모드에서 발생)</span>
-import torch                       # noqa
-from tensordict import TensorDict  # noqa
-import rsl_rl.runners              # noqa
-import h5py                        # noqa
-import runpy, sys, os
-SCRIPT = os.path.join("scripts", "reinforcement_learning", "rsl_rl", "train.py")
-sys.path.insert(0, os.path.dirname(os.path.abspath(SCRIPT)))   <span class="c"># cli_args 를 찾게</span>
-sys.argv = [SCRIPT] + sys.argv[1:]
-runpy.run_path(SCRIPT, run_name="__main__")</pre></div>
+<span class="k">import</span> torch                       <span class="c"># noqa</span>
+<span class="k">from</span> tensordict <span class="k">import</span> TensorDict  <span class="c"># noqa</span>
+<span class="k">import</span> rsl_rl.runners              <span class="c"># noqa</span>
+<span class="k">import</span> h5py                        <span class="c"># noqa</span>
+<span class="k">import</span> runpy, sys, os
+SCRIPT = os.path.<span class="f">join</span>(<span class="s">&quot;scripts&quot;</span>, <span class="s">&quot;reinforcement_learning&quot;</span>, <span class="s">&quot;rsl_rl&quot;</span>, <span class="s">&quot;train.py&quot;</span>)
+sys.path.<span class="f">insert</span>(<span class="n">0</span>, os.path.<span class="f">dirname</span>(os.path.<span class="f">abspath</span>(SCRIPT)))   <span class="c"># cli_args 를 찾게</span>
+sys.argv = [SCRIPT] + sys.argv[<span class="n">1</span>:]
+runpy.<span class="f">run_path</span>(SCRIPT, run_name=<span class="s">&quot;__main__&quot;</span>)</pre></div>
 
 <h3><span class="step">STEP 9</span>최종 실행</h3>
 <div class="cb"><button class="copy" type="button">복사</button>
-<pre>conda activate isaac311
-cd C:\isaac\IsaacLab
-$env:OMNI_KIT_ACCEPT_EULA="YES"
+<pre><span class="f">conda</span> activate isaac311
+<span class="f">cd</span> C:\isaac\IsaacLab
+<span class="v">$env:OMNI_KIT_ACCEPT_EULA</span>=<span class="s">&quot;YES&quot;</span>
 
-python play_go2_win.py --task <span class="k">Isaac-Velocity-Rough-Unitree-Go2-Play-v0</span> `
-    --num_envs 32 --use_pretrained_checkpoint --headless --video --video_length 200</pre></div>
+<span class="f">python</span> play_go2_win.py <span class="o">--task</span> Isaac-Velocity-Rough-Unitree-Go2-Play-v0 `
+    <span class="o">--num_envs</span> <span class="n">32</span> <span class="o">--use_pretrained_checkpoint</span> <span class="o">--headless</span> <span class="o">--video</span> <span class="o">--video_length</span> <span class="n">200</span></pre></div>
 
 <p><b>성공하면 아래 4개가 생깁니다:</b></p>
 <div class="tree">C:\isaac\IsaacLab\.pretrained_checkpoints\rsl_rl\Isaac-Velocity-Rough-Unitree-Go2-v0\
@@ -928,9 +940,9 @@ C:\Users\&lt;사용자&gt;\AppData\Local\pip\Cache\      (삭제 가능)</div>
 <h2><span class="n">10</span>각자 설치 후 보고할 것</h2>
 <p>팀 채널에 아래를 붙여넣어 주세요. <b>전원이 같은 환경인지 확인하는 용도</b>입니다.</p>
 <div class="cb"><button class="copy" type="button">복사</button>
-<pre>conda activate isaac311
-python -c "import torch,sys; print('py',sys.version.split()[0]); print('torch',torch.__version__,torch.version.cuda); print('sm_120', 'sm_120' in torch.cuda.get_arch_list()); print('gpu',torch.cuda.device_count())"
-cd C:\isaac\IsaacLab; git describe --tags</pre></div>
+<pre><span class="f">conda</span> activate isaac311
+<span class="f">python</span> <span class="o">-c</span> <span class="s">&quot;import torch,sys; print(&#x27;py&#x27;,sys.version.split()[0]); print(&#x27;torch&#x27;,torch.__version__,torch.version.cuda); print(&#x27;sm_120&#x27;, &#x27;sm_120&#x27; in torch.cuda.get_arch_list()); print(&#x27;gpu&#x27;,torch.cuda.device_count())&quot;</span>
+<span class="f">cd</span> C:\isaac\IsaacLab; <span class="f">git</span> describe <span class="o">--tags</span></pre></div>
 
 <p><b>기대 출력</b></p>
 <div class="tree">py 3.11.x
