@@ -352,8 +352,10 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 .fdia .f-ink{fill:var(--ink)} .fdia .f-dim{fill:var(--dim)}
 .fdia .f-note{fill:var(--note)} .fdia .f-stop{fill:var(--stop)}
 
-/* 용어 툴팁 — 페이지 이동 없이 */
-.term{border-bottom:2px dotted var(--note);cursor:help;font-weight:700;color:inherit}
+/* 용어 툴팁 — 올려두면 설명, 누르면 용어 사전으로 간다 */
+.term{border-bottom:2px dotted var(--note);cursor:pointer;font-weight:700;color:inherit;
+  text-decoration:none}
+.term:hover{border-bottom-style:solid}
 /* .pop 은 내용 보관용일 뿐 — 화면에 뜨는 건 body 직속 #termpop 이다.
    이유: section.slide 에 animation(transform)이 걸려 있어 그 안에서는 position:fixed 가
    섹션 기준으로 잡힌다(CSS 명세). 조상 transform 을 피하려면 body 로 빼내는 수밖에 없다. */
@@ -367,9 +369,21 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   animation:popIn .14s ease}
 #termpop.on{display:block}
 @keyframes popIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-#termpop b{color:var(--dim)}
+
+/* ★ 팝업은 배경이 항상 뒤집힌다(bg=--ink, 글자=--paper).
+   그래서 강조색도 뒤집어 잡아야 한다 — 평소 쓰는 --dim/--note 를 그대로 쓰면
+   밝은 모드에서 '어두운 배경 + 어두운 청록'이 되어 안 보인다. */
+#termpop{--pop-a:#3ec7b4;--pop-n:#e2a53c}
+@media (prefers-color-scheme:dark){#termpop{--pop-a:#0a5f56;--pop-n:#8a5600}}
+:root[data-theme="dark"] #termpop{--pop-a:#0a5f56;--pop-n:#8a5600}
+:root[data-theme="light"] #termpop{--pop-a:#3ec7b4;--pop-n:#e2a53c}
+#termpop b{color:var(--pop-a)}
 #termpop .ph{display:block;font-weight:800;color:var(--paper);margin-bottom:.35rem;
   padding-bottom:.3rem;border-bottom:1px solid rgba(255,255,255,.18);font-size:.75rem}
+/* 사전으로 가는 안내줄 */
+#termpop .pmore{display:block;margin-top:.5rem;padding-top:.4rem;font-size:.68rem;font-weight:700;
+  color:var(--pop-n);border-top:1px solid rgba(255,255,255,.18)}
+@media (hover:none){ #termpop .pmore::after{content:' — 한 번 더 누르면 이동';opacity:.75;font-weight:400} }
 @media print{.term{border-bottom:none}#termpop{display:none!important}}
 
 .prefs{margin:1.6rem 0 .4rem}
@@ -812,14 +826,14 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
   <div class="blk">
     <div class="lbl">무엇을 배우나</div>
-    <p><strong>관절 12개.</strong> Go2는 다리가 4개, 다리마다 관절이 3개라 총 12개입니다. 이 12를 <strong><span class="term">DOF<span class="pop"><span class="ph">DOF · Degree of Freedom · 자유도</span><b>독립적으로 움직일 수 있는 방향의 개수</b>입니다.<br>문은 경첩 하나로 열리니 1자유도, 사람 어깨는 앞뒤·좌우·회전이 되니 3자유도예요.<br>Go2는 다리 4개 × 관절 3개 = <b>12자유도</b>입니다.</span></span>(자유도)</strong>라고 부릅니다.</p>
+    <p><strong>관절 12개.</strong> Go2는 다리가 4개, 다리마다 관절이 3개라 총 12개입니다. 이 12를 <strong><a class="term" href="encyclopedia.html#t-dof" data-t="DOF">DOF<span class="pop"><span class="ph">DOF · Degree of Freedom · 자유도</span><b>독립적으로 움직일 수 있는 방향의 개수</b>입니다.<br>문은 경첩 하나로 열리니 1자유도, 사람 어깨는 앞뒤·좌우·회전이 되니 3자유도예요.<br>Go2는 다리 4개 × 관절 3개 = <b>12자유도</b>입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>(자유도)</strong>라고 부릅니다.</p>
     <ul>
       <li><strong>hip abduction</strong> — 다리를 옆으로 벌리는 관절</li>
       <li><strong>hip pitch</strong> — 다리를 앞뒤로 흔드는 관절. 사람의 고관절에 해당</li>
       <li><strong>knee</strong> — 무릎</li>
     </ul>
     <p>관절마다 두 종류의 숫자가 나옵니다. <strong>지금 각도가 얼마인가</strong>(12개), <strong>얼마나 빨리 움직이는 중인가</strong>(12개).</p>
-    <p><strong><span class="term">IMU<span class="pop"><span class="ph">IMU · Inertial Measurement Unit · 관성 측정 장치</span><b>스마트폰에 든 그 센서입니다.</b> 폰을 기울이면 화면이 도는 것, 그게 IMU예요.<br>로봇이 <b>얼마나 기울었는지(자세)</b>와 <b>얼마나 빨리 도는지(각속도)</b>를 초당 500번 알려줍니다.<br>단 <b>위치나 속도는 못 잽니다</b> — 이게 A12에서 급소가 됩니다.</span></span> 하나.</strong> 스마트폰에 들어 있는 그 센서입니다. 로봇이 얼마나 기울었는지(자세), 얼마나 빨리 도는지(<span class="term">각속도<span class="pop"><span class="ph">각속도 · angular velocity</span><b>얼마나 빨리 회전하는가</b>. 속도가 '초당 몇 미터'라면 각속도는 <b>'초당 몇 도(또는 라디안)'</b>입니다.<br>IMU가 직접 재주는 값이라 로봇이 확실히 아는 몇 안 되는 숫자입니다.</span></span>)를
+    <p><strong><a class="term" href="encyclopedia.html#t-imu" data-t="IMU">IMU<span class="pop"><span class="ph">IMU · Inertial Measurement Unit · 관성 측정 장치</span><b>스마트폰에 든 그 센서입니다.</b> 폰을 기울이면 화면이 도는 것, 그게 IMU예요.<br>로봇이 <b>얼마나 기울었는지(자세)</b>와 <b>얼마나 빨리 도는지(각속도)</b>를 초당 500번 알려줍니다.<br>단 <b>위치나 속도는 못 잽니다</b> — 이게 A12에서 급소가 됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 하나.</strong> 스마트폰에 들어 있는 그 센서입니다. 로봇이 얼마나 기울었는지(자세), 얼마나 빨리 도는지(<a class="term" href="encyclopedia.html#t-imu" data-t="각속도">각속도<span class="pop"><span class="ph">각속도 · angular velocity</span><b>얼마나 빨리 회전하는가</b>. 속도가 '초당 몇 미터'라면 각속도는 <b>'초당 몇 도(또는 라디안)'</b>입니다.<br>IMU가 직접 재주는 값이라 로봇이 확실히 아는 몇 안 되는 숫자입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>)를
     <strong>초당 500번</strong> 알려줍니다.</p>
   </div>
 <figure class="fdia">
@@ -869,7 +883,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <ul>
       <li><strong>몸통이 얼마나 빨리 가고 있는지 — 재는 센서가 아예 없습니다.</strong> 자동차 속도계 같은 게 없다는 뜻입니다. 이 사실 하나가 나중에 프로젝트 설계 전체를 바꿉니다(A12에서 다시 나옵니다)</li>
       <li><strong>지금 어느 방향을 보고 있는지</strong> — 나침반(자력계)이 없어서 방향이 계속 조금씩 틀어집니다</li>
-      <li><strong>관절에 힘이 얼마나 걸리는지</strong> — <span class="term">토크<span class="pop"><span class="ph">토크 · torque</span><b>돌리는 힘</b>입니다. 미는 힘(N)과 다릅니다 — 회전축을 중심으로 <b>얼마나 세게 비트는가</b>예요.<br>문손잡이를 잡고 돌릴 때, 손잡이 끝을 잡으면 쉽고 축 가까이를 잡으면 어렵죠. 같은 힘인데 토크가 다릅니다.<br>단위는 <b>N·m</b>. Go2 무릎은 <b>45.43 N·m</b>까지 냅니다.</span></span> 센서가 없고, 모터에 흐르는 전류로 <strong>추정</strong>합니다</li>
+      <li><strong>관절에 힘이 얼마나 걸리는지</strong> — <a class="term" href="encyclopedia.html#t-torque" data-t="토크">토크<span class="pop"><span class="ph">토크 · torque</span><b>돌리는 힘</b>입니다. 미는 힘(N)과 다릅니다 — 회전축을 중심으로 <b>얼마나 세게 비트는가</b>예요.<br>문손잡이를 잡고 돌릴 때, 손잡이 끝을 잡으면 쉽고 축 가까이를 잡으면 어렵죠. 같은 힘인데 토크가 다릅니다.<br>단위는 <b>N·m</b>. Go2 무릎은 <b>45.43 N·m</b>까지 냅니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 센서가 없고, 모터에 흐르는 전류로 <strong>추정</strong>합니다</li>
     </ul>
   </div>
 
@@ -887,7 +901,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
   <div class="box check">
     <div class="bt">이렇게 확인한다</div>
-    <p>“<span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>이 볼 수 있는 숫자”와 “볼 수 없는 숫자”를 나눠서 말할 수 있다.</p>
+    <p>“<a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>이 볼 수 있는 숫자”와 “볼 수 없는 숫자”를 나눠서 말할 수 있다.</p>
   </div>
 
 <div class="fld">
@@ -914,7 +928,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <div class="blk">
     <div class="lbl">왜 이걸 하나</div>
     <p>로봇이 균형을 잡으려면 “내가 지금 얼마나 기울었나”를 알아야 합니다. 그런데 “기울었다”를 컴퓨터에 어떻게 전달할까요?
-    여기서 <strong>좌표계</strong>와 <strong>회전</strong>이 필요해집니다. 이걸 모르면 <span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span> 벡터의 절반이 무슨 뜻인지 모른 채 지나갑니다.</p>
+    여기서 <strong>좌표계</strong>와 <strong>회전</strong>이 필요해집니다. 이걸 모르면 <a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 벡터의 절반이 무슨 뜻인지 모른 채 지나갑니다.</p>
   </div>
 
   <div class="blk">
@@ -927,7 +941,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     </ul>
     <p>같은 방향도 어느 기준으로 보느냐에 따라 숫자가 완전히 달라집니다.</p>
 
-    <p><strong>② <span class="term">쿼터니언<span class="pop"><span class="ph">쿼터니언 · quaternion</span><b>회전을 숫자 4개로 표현하는 방법</b>입니다.<br>각도 3개(롤·피치·요)로도 되지만, 그 방식은 특정 자세에서 축이 겹쳐 <b>계산이 무너지는 구간</b>이 생깁니다.<br>쿼터니언은 그 문제가 없어서 로봇·게임·항공에서 표준으로 씁니다. 뜻을 몰라도 쓸 수는 있습니다.</span></span>은 자세를 숫자 4개로 표현한 것입니다.</strong> <span class="term">IMU<span class="pop"><span class="ph">IMU · Inertial Measurement Unit · 관성 측정 장치</span><b>스마트폰에 든 그 센서입니다.</b> 폰을 기울이면 화면이 도는 것, 그게 IMU예요.<br>로봇이 <b>얼마나 기울었는지(자세)</b>와 <b>얼마나 빨리 도는지(각속도)</b>를 초당 500번 알려줍니다.<br>단 <b>위치나 속도는 못 잽니다</b> — 이게 A12에서 급소가 됩니다.</span></span>가 이 형태로 자세를 알려줍니다.
+    <p><strong>② <a class="term" href="encyclopedia.html#t-quat" data-t="쿼터니언">쿼터니언<span class="pop"><span class="ph">쿼터니언 · quaternion</span><b>회전을 숫자 4개로 표현하는 방법</b>입니다.<br>각도 3개(롤·피치·요)로도 되지만, 그 방식은 특정 자세에서 축이 겹쳐 <b>계산이 무너지는 구간</b>이 생깁니다.<br>쿼터니언은 그 문제가 없어서 로봇·게임·항공에서 표준으로 씁니다. 뜻을 몰라도 쓸 수는 있습니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>은 자세를 숫자 4개로 표현한 것입니다.</strong> <a class="term" href="encyclopedia.html#t-imu" data-t="IMU">IMU<span class="pop"><span class="ph">IMU · Inertial Measurement Unit · 관성 측정 장치</span><b>스마트폰에 든 그 센서입니다.</b> 폰을 기울이면 화면이 도는 것, 그게 IMU예요.<br>로봇이 <b>얼마나 기울었는지(자세)</b>와 <b>얼마나 빨리 도는지(각속도)</b>를 초당 500번 알려줍니다.<br>단 <b>위치나 속도는 못 잽니다</b> — 이게 A12에서 급소가 됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>가 이 형태로 자세를 알려줍니다.
     “왜 4개나 필요하지? 3개(앞뒤·좌우·회전)면 되지 않나?”라고 생각할 수 있는데, 숫자 3개로 표현하면
     특정 자세에서 표현이 망가지는 문제(짐벌락)가 생깁니다. 그래서 4개를 씁니다.</p>
 
@@ -1092,7 +1106,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
   <div class="box danger">
     <div class="bt">실측으로 확인된 것</div>
-    <p><strong>kp=40</strong>으로 학습한 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>은 실제 로봇으로 옮겼을 때 성공했고,
+    <p><strong>kp=40</strong>으로 학습한 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>은 실제 로봇으로 옮겼을 때 성공했고,
     <strong>kp=160</strong>은 다른 조건을 어떻게 바꿔도 실패했습니다. 게인 값 하나가 프로젝트 성패를 가릅니다.</p>
   </div>
 
@@ -1261,10 +1275,10 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 </section>
 <section class="slide" data-stage="구간 A · 공통" data-title="로봇과 이야기하는 법" data-id="A5.5">
   <div class="head"><div class="sid">A5.5 · 신설</div><h2>로봇과 이야기하는 법</h2></div>
-  <p class="oneline"><span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>이 낸 숫자가 <b>어떤 배관을 타고</b> 실제 모터까지 가는지. 여기를 모르면 뒤가 전부 뜬금없어집니다.</p>
+  <p class="oneline"><a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>이 낸 숫자가 <b>어떤 배관을 타고</b> 실제 모터까지 가는지. 여기를 모르면 뒤가 전부 뜬금없어집니다.</p>
   <div class="blk">
     <div class="lbl">왜 이걸 하나</div>
-    <p>A5까지는 <b>개념</b>이었습니다. “정책이 목표 각도를 내고 PD가 <span class="term">토크<span class="pop"><span class="ph">토크 · torque</span><b>돌리는 힘</b>입니다. 미는 힘(N)과 다릅니다 — 회전축을 중심으로 <b>얼마나 세게 비트는가</b>예요.<br>문손잡이를 잡고 돌릴 때, 손잡이 끝을 잡으면 쉽고 축 가까이를 잡으면 어렵죠. 같은 힘인데 토크가 다릅니다.<br>단위는 <b>N·m</b>. Go2 무릎은 <b>45.43 N·m</b>까지 냅니다.</span></span>를 만든다.” 맞습니다.
+    <p>A5까지는 <b>개념</b>이었습니다. “정책이 목표 각도를 내고 PD가 <a class="term" href="encyclopedia.html#t-torque" data-t="토크">토크<span class="pop"><span class="ph">토크 · torque</span><b>돌리는 힘</b>입니다. 미는 힘(N)과 다릅니다 — 회전축을 중심으로 <b>얼마나 세게 비트는가</b>예요.<br>문손잡이를 잡고 돌릴 때, 손잡이 끝을 잡으면 쉽고 축 가까이를 잡으면 어렵죠. 같은 힘인데 토크가 다릅니다.<br>단위는 <b>N·m</b>. Go2 무릎은 <b>45.43 N·m</b>까지 냅니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>를 만든다.” 맞습니다.
     그런데 그 숫자가 <b>실제 로봇에 어떻게 전달되는지</b>는 아직 한 번도 안 봤습니다.</p>
     <p>선행 사례는 이 내용을 <b>맨 마지막에</b> 정리했고, 회고에 이렇게 적었습니다 —
     <i>“이걸 먼저 안 잡아서 뒤에 쓴 글이 전부 뜬금없어졌다.”</i>
@@ -1273,12 +1287,12 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <div class="blk">
     <div class="lbl">무엇을 배우나</div>
     <p><b>① 다섯 층.</b> 우리가 만드는 건 ④와 ⑤뿐입니다. 나머지는 주어진 것입니다.</p>
-    <div class="tw"><table class=""><thead><tr><th>층</th><th>무엇</th><th>우리가</th></tr></thead><tbody><tr><td>① 하드웨어</td><td>모터 12 · <span class="term">IMU<span class="pop"><span class="ph">IMU · Inertial Measurement Unit · 관성 측정 장치</span><b>스마트폰에 든 그 센서입니다.</b> 폰을 기울이면 화면이 도는 것, 그게 IMU예요.<br>로봇이 <b>얼마나 기울었는지(자세)</b>와 <b>얼마나 빨리 도는지(각속도)</b>를 초당 500번 알려줍니다.<br>단 <b>위치나 속도는 못 잽니다</b> — 이게 A12에서 급소가 됩니다.</span></span> · 배터리</td><td>못 바꿈</td></tr><tr><td>② 펌웨어</td><td>Unitree 내장 제어기</td><td>못 바꿈 · <b>모드만 전환</b></td></tr><tr><td>③ 통신</td><td>SDK2 · DDS — 로봇 ↔ PC</td><td>설정만</td></tr><tr><td>④ 배포 코드</td><td><span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span>을 모으고 행동을 보냄</td><td><b>우리가 짬</b></td></tr><tr><td>⑤ 정책</td><td>신경망</td><td><b>우리가 학습시킴</b></td></tr></tbody></table></div>
+    <div class="tw"><table class=""><thead><tr><th>층</th><th>무엇</th><th>우리가</th></tr></thead><tbody><tr><td>① 하드웨어</td><td>모터 12 · <a class="term" href="encyclopedia.html#t-imu" data-t="IMU">IMU<span class="pop"><span class="ph">IMU · Inertial Measurement Unit · 관성 측정 장치</span><b>스마트폰에 든 그 센서입니다.</b> 폰을 기울이면 화면이 도는 것, 그게 IMU예요.<br>로봇이 <b>얼마나 기울었는지(자세)</b>와 <b>얼마나 빨리 도는지(각속도)</b>를 초당 500번 알려줍니다.<br>단 <b>위치나 속도는 못 잽니다</b> — 이게 A12에서 급소가 됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> · 배터리</td><td>못 바꿈</td></tr><tr><td>② 펌웨어</td><td>Unitree 내장 제어기</td><td>못 바꿈 · <b>모드만 전환</b></td></tr><tr><td>③ 통신</td><td>SDK2 · DDS — 로봇 ↔ PC</td><td>설정만</td></tr><tr><td>④ 배포 코드</td><td><a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>을 모으고 행동을 보냄</td><td><b>우리가 짬</b></td></tr><tr><td>⑤ 정책</td><td>신경망</td><td><b>우리가 학습시킴</b></td></tr></tbody></table></div>
     <p><b>② 두 갈래 명령.</b> 로봇에 명령을 보내는 길이 <b>두 개</b>이고, 섞으면 사고가 납니다.</p>
     <div class="tw"><table class=""><thead><tr><th>방식</th><th>무엇을 보내나</th><th>누가 쓰나</th></tr></thead><tbody><tr><td>고수준 (내장 제어기)</td><td>“앞으로 0.5 m/s 가라”</td><td>Unitree 앱 · 기본 상태</td></tr><tr><td><b>저수준</b></td><td><b>관절 12개의 목표 각도</b></td><td><b>우리</b></td></tr></tbody></table></div>
     <p><b>③ 그래서 반드시 먼저 할 일 —</b> 저수준으로 가려면 <b>내장 제어기를 끕니다.</b>
     안 끄면 두 제어기가 동시에 살아 서로 싸웁니다 (A16에서 다시 나옵니다).</p>
-    <p><b>④ 로봇이 보내오는 것.</b> 관절 각도·<span class="term">각속도<span class="pop"><span class="ph">각속도 · angular velocity</span><b>얼마나 빨리 회전하는가</b>. 속도가 '초당 몇 미터'라면 각속도는 <b>'초당 몇 도(또는 라디안)'</b>입니다.<br>IMU가 직접 재주는 값이라 로봇이 확실히 아는 몇 안 되는 숫자입니다.</span></span>·추정 토크·모터 온도·IMU·배터리.
+    <p><b>④ 로봇이 보내오는 것.</b> 관절 각도·<a class="term" href="encyclopedia.html#t-imu" data-t="각속도">각속도<span class="pop"><span class="ph">각속도 · angular velocity</span><b>얼마나 빨리 회전하는가</b>. 속도가 '초당 몇 미터'라면 각속도는 <b>'초당 몇 도(또는 라디안)'</b>입니다.<br>IMU가 직접 재주는 값이라 로봇이 확실히 아는 몇 안 되는 숫자입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>·추정 토크·모터 온도·IMU·배터리.
     <b>이 중 정책 입력에 들어가는 건 일부뿐</b>입니다 — 나머지는 기록용입니다 (A12).</p>
   </div>
   <div class="box warn">
@@ -1318,7 +1332,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
       <li><strong>PD 제어를 붙여 세웁니다.</strong> ← 전환점. A4의 공식이 실제로 작동하는 순간입니다</li>
       <li><strong>kp를 20 → 40 → 160으로 바꿉니다.</strong> 20은 흐물거리고, 160은 딱딱하게 떨립니다. 왜 40 근처를 쓰는지 알게 됩니다</li>
       <li><strong>옆에서 밀어봅니다.</strong> 힘을 주고 회복하는지 관찰합니다. 나중에 “외란 회복률” 지표가 될 것의 실물입니다</li>
-      <li><strong><span class="term">IMU<span class="pop"><span class="ph">IMU · Inertial Measurement Unit · 관성 측정 장치</span><b>스마트폰에 든 그 센서입니다.</b> 폰을 기울이면 화면이 도는 것, 그게 IMU예요.<br>로봇이 <b>얼마나 기울었는지(자세)</b>와 <b>얼마나 빨리 도는지(각속도)</b>를 초당 500번 알려줍니다.<br>단 <b>위치나 속도는 못 잽니다</b> — 이게 A12에서 급소가 됩니다.</span></span> 값을 읽어 <code>projected_gravity</code>를 계산합니다.</strong> A3에서 배운 걸 검증합니다</li>
+      <li><strong><a class="term" href="encyclopedia.html#t-imu" data-t="IMU">IMU<span class="pop"><span class="ph">IMU · Inertial Measurement Unit · 관성 측정 장치</span><b>스마트폰에 든 그 센서입니다.</b> 폰을 기울이면 화면이 도는 것, 그게 IMU예요.<br>로봇이 <b>얼마나 기울었는지(자세)</b>와 <b>얼마나 빨리 도는지(각속도)</b>를 초당 500번 알려줍니다.<br>단 <b>위치나 속도는 못 잽니다</b> — 이게 A12에서 급소가 됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 값을 읽어 <code>projected_gravity</code>를 계산합니다.</strong> A3에서 배운 걸 검증합니다</li>
     </ol>
   </div>
 
@@ -1425,7 +1439,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 <!-- A8 -->
 <section class="slide" data-stage="구간 A · 공통" data-title="강화학습 개념" data-id="A8">
   <div class="head"><div class="sid">A8 · 선행 A7</div><h2>강화학습 개념</h2></div>
-  <p class="oneline">다섯 단어만 알면 됩니다. <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span> · <span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span> · PPO · 커리큘럼 · <span class="term">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.</span></span>.</p>
+  <p class="oneline">다섯 단어만 알면 됩니다. <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> · <a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> · PPO · 커리큘럼 · <a class="term" href="encyclopedia.html#t-domainrand" data-t="도메인 랜덤화">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>.</p>
 
   <div class="blk">
     <div class="lbl">기본 구조</div>
@@ -1531,7 +1545,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <div class="blk">
     <div class="lbl">순서</div>
     <ol>
-      <li><strong>먼저 아무렇게나 움직여 봅니다.</strong> <span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span>·행동·<span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span>이 실제로 어떤 숫자인지 화면에 찍어 봅니다</li>
+      <li><strong>먼저 아무렇게나 움직여 봅니다.</strong> <a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>·행동·<a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>이 실제로 어떤 숫자인지 화면에 찍어 봅니다</li>
       <li><strong>이미 만들어진 라이브러리로 풀어봅니다.</strong> 되는 걸 먼저 보는 게 중요합니다. 직접 만드는 건 나중입니다</li>
       <li><strong>학습 그래프를 띄웁니다.</strong> 여기가 이 단계의 진짜 목적입니다</li>
     </ol>
@@ -1544,7 +1558,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
       <tbody>
         <tr><td><b>mean_reward</b></td><td>평균 점수. 잘하고 있나</td><td>안 오르거나 갑자기 튄다</td></tr>
         <tr><td><b>episode_length</b></td><td>한 판을 얼마나 오래 버티나</td><td>짧게 유지 = 계속 실패 중</td></tr>
-        <tr><td><b>KL</b></td><td><span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>이 한 번에 얼마나 바뀌었나</td><td>폭주 = 학습률이 너무 큼</td></tr>
+        <tr><td><b>KL</b></td><td><a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>이 한 번에 얼마나 바뀌었나</td><td>폭주 = 학습률이 너무 큼</td></tr>
         <tr><td><b>value_loss</b></td><td>critic이 잘 배우고 있나</td><td>발산 = 보상 크기가 이상함</td></tr>
       </tbody>
     </table></div>
@@ -1623,13 +1637,13 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
 <!-- A10 -->
 <section class="slide" data-stage="구간 A · 공통" data-title="보상 해킹 직접 만들어보기" data-id="A10">
-  <div class="head"><div class="sid">A10 · 선행 A9 · 가장 중요한 실습</div><h2><span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span> 해킹, 직접 만들어보기</h2></div>
+  <div class="head"><div class="sid">A10 · 선행 A9 · 가장 중요한 실습</div><h2><a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 해킹, 직접 만들어보기</h2></div>
   <p class="oneline">일부러 망가진 보상을 줘서, “점수는 오르는데 결과는 엉망”인 상태를 눈에 익힙니다.</p>
 
   <div class="blk">
     <div class="lbl">왜 이게 가장 중요한가</div>
     <p>강화학습은 <strong>에러를 내지 않습니다.</strong> 보상 설계가 잘못돼도 프로그램은 멀쩡히 몇 시간 돌아가고,
-    그래프도 예쁘게 올라가고, 결과 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>만 이상합니다. <strong>아무도 안 알려줍니다.</strong></p>
+    그래프도 예쁘게 올라가고, 결과 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>만 이상합니다. <strong>아무도 안 알려줍니다.</strong></p>
     <p>웹 개발이면 버그가 화면에 보이고, 데이터 분석이면 숫자가 이상하게 나옵니다.
     그런데 여기서는 “돌아가는 것”과 “맞는 것”이 완전히 분리됩니다.
     <strong>그래서 이상한 걸 알아보는 눈이 유일한 방어선입니다.</strong> 특히 코드를 AI에게 맡길 거라면 더 그렇습니다.</p>
@@ -1781,10 +1795,10 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <div class="blk">
     <div class="lbl">직접 바꿔보며 느낄 것</div>
     <ul>
-      <li><code>clip_param</code>을 0.05 / 0.2 / 0.5로 — <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>을 얼마나 과감하게 바꿀지</li>
+      <li><code>clip_param</code>을 0.05 / 0.2 / 0.5로 — <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>을 얼마나 과감하게 바꿀지</li>
       <li>학습률을 너무 크게 → KL이 폭주하는 걸 관찰</li>
       <li><code>gamma</code>를 0.9 / 0.99로 — 눈앞만 보는가, 멀리 보는가</li>
-      <li><strong><span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span> 정규화를 껐다 켜보기</strong> — 실제 로봇 배포 시 1순위 버그의 정체입니다</li>
+      <li><strong><a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 정규화를 껐다 켜보기</strong> — 실제 로봇 배포 시 1순위 버그의 정체입니다</li>
     </ul>
   </div>
 
@@ -1846,14 +1860,14 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
 <!-- A12 -->
 <section class="slide" data-stage="구간 A · 공통" data-title="관측 설계 · 관문" data-id="A12">
-  <div class="head"><div class="sid">A12 · 선행 A8+A2 · 관문</div><h2><span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span> 설계 — 이 프로젝트의 급소</h2></div>
+  <div class="head"><div class="sid">A12 · 선행 A8+A2 · 관문</div><h2><a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 설계 — 이 프로젝트의 급소</h2></div>
   <p class="oneline">로봇에게 무엇을 보여줄지 정하는 단계. 여기서 틀리면 5개월 뒤에야 알게 됩니다.</p>
 
   <div class="blk">
     <div class="lbl">넣을 수 있는 것</div>
-    <p><span class="term">각속도<span class="pop"><span class="ph">각속도 · angular velocity</span><b>얼마나 빨리 회전하는가</b>. 속도가 '초당 몇 미터'라면 각속도는 <b>'초당 몇 도(또는 라디안)'</b>입니다.<br>IMU가 직접 재주는 값이라 로봇이 확실히 아는 몇 안 되는 숫자입니다.</span></span>(3) · 중력방향(3) · 명령속도(3) · 관절각(12) · 관절속도(12) · 직전행동(12) · 보행위상(2) = <strong>47개</strong></p>
+    <p><a class="term" href="encyclopedia.html#t-imu" data-t="각속도">각속도<span class="pop"><span class="ph">각속도 · angular velocity</span><b>얼마나 빨리 회전하는가</b>. 속도가 '초당 몇 미터'라면 각속도는 <b>'초당 몇 도(또는 라디안)'</b>입니다.<br>IMU가 직접 재주는 값이라 로봇이 확실히 아는 몇 안 되는 숫자입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>(3) · 중력방향(3) · 명령속도(3) · 관절각(12) · 관절속도(12) · 직전행동(12) · 보행위상(2) = <strong>47개</strong></p>
     <p>전부 로봇 몸 안에서 나오는 정보입니다. 그래서 이 설계를 <strong>blind(눈이 없는)</strong> 방식이라고 부릅니다.
-    카메라도 라이다도 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span> 입력에 쓰지 않습니다.</p>
+    카메라도 라이다도 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 입력에 쓰지 않습니다.</p>
   </div>
 
   <div class="blk">
@@ -2016,8 +2030,8 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <p class="oneline">A12가 “무엇을 넣나”라면, 여기는 <b>“학습 때와 실기 때가 같은가”</b>입니다. 선행 사례 실패의 최대 원인이 여기였습니다.</p>
   <div class="blk">
     <div class="lbl">왜 이걸 하나</div>
-    <p>A12에서 <span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span>을 잘 설계했다고 합시다. 그런데 <b>학습할 때 쓴 약속과 실기에서 쓰는 약속이
-    다르면</b> <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>은 자기가 배운 것과 다른 세상을 보게 됩니다.</p>
+    <p>A12에서 <a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>을 잘 설계했다고 합시다. 그런데 <b>학습할 때 쓴 약속과 실기에서 쓰는 약속이
+    다르면</b> <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>은 자기가 배운 것과 다른 세상을 보게 됩니다.</p>
     <p>무서운 건 <b>에러가 안 난다</b>는 것입니다. 코드는 돌고, 로봇만 이상하게 움직입니다.
     선행 사례가 <b>석 달</b>을 쓴 문제가 전부 이 범주였습니다.</p>
   </div>
@@ -2029,7 +2043,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   </div>
   <div class="box warn">
     <div class="bt">★ 왜 “한 번 만들면 끝”이 아닌가</div>
-    <p><span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span>을 바꾸거나 관측을 하나 추가할 때마다 <b>이 표가 낡습니다.</b>
+    <p><a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>을 바꾸거나 관측을 하나 추가할 때마다 <b>이 표가 낡습니다.</b>
     그리고 낡은 줄 모른 채 실기에 올리면, 원인을 알 수 없는 실패가 납니다.</p>
     <p><b>규칙 — 실기에 올리기 전에는 매번 이 표를 다시 대조한다.</b>
     A15의 「실기 진입 게이트」 ③번이 바로 이것입니다.</p>
@@ -2058,9 +2072,9 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <div class="blk">
     <div class="lbl">읽는 순서 — 이 순서를 지키세요</div>
     <ol>
-      <li><strong><span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span> 목록</strong> — <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>이 무엇을 보는지. A12와 대조</li>
-      <li><strong><span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span> 항목 전체</strong> — 이름과 가중치를 전부 표로 옮겨 적습니다</li>
-      <li><strong><span class="term">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.</span></span> 설정</strong> — 무엇을 어떤 범위로 흔드는지</li>
+      <li><strong><a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 목록</strong> — <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>이 무엇을 보는지. A12와 대조</li>
+      <li><strong><a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 항목 전체</strong> — 이름과 가중치를 전부 표로 옮겨 적습니다</li>
+      <li><strong><a class="term" href="encyclopedia.html#t-domainrand" data-t="도메인 랜덤화">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 설정</strong> — 무엇을 어떤 범위로 흔드는지</li>
       <li><strong>커리큘럼 설정</strong> — 언제 지형이 어려워지고 언제 쉬워지는지</li>
       <li><strong>로봇 설정</strong> — kp/kd와 관절 순서. <span class="no">A6에서 만든 12관절 표와 반드시 대조</span></li>
       <li><strong>지형 설정</strong> — 어떤 종류의 지형이 만들어지는지</li>
@@ -2098,7 +2112,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 <!-- A14 -->
 <section class="slide" data-stage="구간 A · 공통" data-title="시뮬과 현실의 간극" data-id="A14">
   <div class="head"><div class="sid">A14 · 선행 A13</div><h2>시뮬과 현실의 간극</h2></div>
-  <p class="oneline">시뮬레이션에서 완벽했던 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>이 실제 로봇에서 무너지는 다섯 가지 이유.</p>
+  <p class="oneline">시뮬레이션에서 완벽했던 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>이 실제 로봇에서 무너지는 다섯 가지 이유.</p>
 
   <div class="blk">
     <div class="lbl">왜 이걸 알아야 하나</div>
@@ -2114,7 +2128,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
         <tr><td><b>모터 모델</b></td><td>모터를 이상적이라 가정하면 실기에서 한 걸음도 못 걷고 넘어짐</td><td>Go2는 모터 구조가 단순해 1순위는 아님</td></tr>
         <tr><td><b>제어 지연</b></td><td>신경망 계산에 15~19ms가 걸리는데 시뮬은 0이라고 가정. 시뮬이 실제보다 훨씬 관대해짐</td><td><span class="ok">지연을 넣고, 지연값도 랜덤하게</span></td></tr>
         <tr><td><b>관절 마찰</b></td><td>실제 관절은 뻑뻑함. 무시하면 특히 계단에서 성능 저하</td><td>실측해서 범위로 반영</td></tr>
-        <tr><td><b><span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span> 부족</b></td><td>몸통 속도를 모르면 옆에서 밀 때 버티는 힘이 43N → 22N으로 반토막</td><td>비대칭 actor-critic (A12)</td></tr>
+        <tr><td><b><a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 부족</b></td><td>몸통 속도를 모르면 옆에서 밀 때 버티는 힘이 43N → 22N으로 반토막</td><td>비대칭 actor-critic (A12)</td></tr>
         <tr><td><b>접촉 부드러움</b></td><td>딱딱한 바닥만 가정하고 배우면 모래·매트에서 불안정</td><td>접촉 강성도 랜덤하게</td></tr>
       </tbody>
     </table></div>
@@ -2191,7 +2205,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 </section>
 <section class="slide" data-stage="구간 A · 공통" data-title="무엇을 얼마나 흔들 것인가" data-id="A14.5">
   <div class="head"><div class="sid">A14.5 · 신설</div><h2>무엇을 얼마나 흔들 것인가</h2></div>
-  <p class="oneline"><span class="term">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.</span></span>는 <b>많이 걸수록 좋은 게 아닙니다.</b> 무엇을 얻고 무엇을 잃는지 기록하며 하나씩 넣습니다.</p>
+  <p class="oneline"><a class="term" href="encyclopedia.html#t-domainrand" data-t="도메인 랜덤화">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>는 <b>많이 걸수록 좋은 게 아닙니다.</b> 무엇을 얻고 무엇을 잃는지 기록하며 하나씩 넣습니다.</p>
   <div class="blk">
     <div class="lbl">왜 이걸 하나</div>
     <p>A14에서 “시뮬과 현실은 다르다”를 봤습니다. 그 간극을 메우는 <b>주된 수단이 도메인 랜덤화</b>이고,
@@ -2202,7 +2216,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <div class="blk">
     <div class="lbl">무엇을 배우나</div>
     <p><b>① 흔들 수 있는 것들.</b> 크게 네 갈래입니다.</p>
-    <div class="tw"><table class=""><thead><tr><th>갈래</th><th>항목</th><th>왜 흔드나</th></tr></thead><tbody><tr><td>지면</td><td>마찰계수 · 복원력</td><td><b>우리 주제의 핵심</b> — 모래·자갈이 여기</td></tr><tr><td>로봇</td><td>질량 · 무게중심 · 모터 세기</td><td>개체차 · 짐을 실었을 때</td></tr><tr><td>신호</td><td><span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span> 잡음 · 제어 지연</td><td>실기 센서는 깨끗하지 않다</td></tr><tr><td>외란</td><td>밀치기 · 초기 자세</td><td>넘어질 뻔한 상황을 겪게</td></tr></tbody></table></div>
+    <div class="tw"><table class=""><thead><tr><th>갈래</th><th>항목</th><th>왜 흔드나</th></tr></thead><tbody><tr><td>지면</td><td>마찰계수 · 복원력</td><td><b>우리 주제의 핵심</b> — 모래·자갈이 여기</td></tr><tr><td>로봇</td><td>질량 · 무게중심 · 모터 세기</td><td>개체차 · 짐을 실었을 때</td></tr><tr><td>신호</td><td><a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 잡음 · 제어 지연</td><td>실기 센서는 깨끗하지 않다</td></tr><tr><td>외란</td><td>밀치기 · 초기 자세</td><td>넘어질 뻔한 상황을 겪게</td></tr></tbody></table></div>
     <p><b>② 많이 걸면 나빠집니다.</b> 이건 직관과 반대라 반드시 숫자로 기억하세요.</p>
     <div class="tw"><table class=""><thead><tr><th>조건</th><th>측면 밀기 저항</th><th>최고 속도</th></tr></thead><tbody><tr><td>기본</td><td>43 ± 2 N</td><td>1.1 m/s</td></tr><tr><td>몸통 속도 관측 제거</td><td>22 ± 0 N</td><td>—</td></tr><tr><td>거기에 랜덤화까지</td><td><b>13 ± 5 N</b></td><td><b>0.9 m/s</b></td></tr></tbody></table></div>
     <p class="src" style="font-size:.8rem;color:var(--ink-3)">Xie 외, <i>Dynamics Randomization Revisited</i>, ICRA 2021 — A14의 논문 카드 참조</p>
@@ -2237,7 +2251,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="tw"><table>
       <thead><tr><th>지표</th><th>무엇을 보나</th><th>기준</th></tr></thead>
       <tbody>
-        <tr><td><b>지형별 통과율</b></td><td>지형 종류마다 몇 번 시도해서 몇 번 도착했나</td><td>기준 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>보다 떨어지지 않기</td></tr>
+        <tr><td><b>지형별 통과율</b></td><td>지형 종류마다 몇 번 시도해서 몇 번 도착했나</td><td>기준 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>보다 떨어지지 않기</td></tr>
         <tr><td><b>속도 추종 오차</b></td><td>가라는 속도대로 가는가</td><td>험지에서 가장 먼저 무너지는 지표</td></tr>
         <tr><td><b>넘어진 횟수</b></td><td>몸통이 땅에 닿은 횟수</td><td><span class="no">0에 가까워야</span> 현장 이야기가 가능</td></tr>
         <tr><td><b>외란 회복률</b></td><td>옆에서 밀었을 때 다시 걷는가</td><td>충격 크기별로 기록</td></tr>
@@ -2249,7 +2263,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
   <div class="box danger">
     <div class="bt">반드시 각인할 것</div>
-    <p><strong>학습 그래프의 <span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span>값은 성능 지표가 아닙니다.</strong> 보상은 우리가 임의로 설계한 점수 체계일 뿐입니다.
+    <p><strong>학습 그래프의 <a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>값은 성능 지표가 아닙니다.</strong> 보상은 우리가 임의로 설계한 점수 체계일 뿐입니다.
     보상이 올라가도 실제 보행은 나빠질 수 있습니다 — A10에서 직접 다섯 번 본 그대로입니다.</p>
     <p><strong>보상 곡선과 위 여섯 지표를 항상 같이 봅니다.</strong> “보상 20 달성!”은 보고가 아닙니다.</p>
   </div>
@@ -2311,7 +2325,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="lbl">지켜야 할 것</div>
     <ul>
       <li><strong>실기 작업은 최소 2인.</strong> 한 명은 아무것도 안 하고 <strong>비상정지만</strong> 담당합니다</li>
-      <li><strong>첫 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span> 실행은 반드시 로봇을 매단 상태에서.</strong> 발이 땅에 닿으면 안 됩니다. 이건 예외 없습니다</li>
+      <li><strong>첫 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 실행은 반드시 로봇을 매단 상태에서.</strong> 발이 땅에 닿으면 안 됩니다. 이건 예외 없습니다</li>
       <li><strong>내장 제어기(MCF)를 끄는 순간 모터에 힘이 빠져 로봇이 주저앉습니다.</strong> 매달지 않고 끄면 그대로 바닥에 떨어집니다</li>
       <li><strong>자세를 천천히 올립니다.</strong> 현재 자세에서 목표 자세로 2~3초에 걸쳐. 급하게 하면 다리가 튕깁니다</li>
       <li>리튬 배터리 — 충격 주의, 충전 중 자리 비우지 않기</li>
@@ -2355,7 +2369,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <div class="box danger">
     <div class="bt">가장 위험한 두 가지</div>
     <ul>
-      <li><strong>① <span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span>에 <code>base_lin_vel</code>을 넣습니다.</strong> 시뮬은 오히려 잘 되고, <strong>실제 로봇에 올리는 날 무너집니다.</strong> 발견이 11월입니다</li>
+      <li><strong>① <a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>에 <code>base_lin_vel</code>을 넣습니다.</strong> 시뮬은 오히려 잘 되고, <strong>실제 로봇에 올리는 날 무너집니다.</strong> 발견이 11월입니다</li>
       <li><strong>② <code>legged_gym</code> 코드를 제안합니다.</strong> 우리 GPU(RTX 5080)에서는 <strong>실행 자체가 안 됩니다.</strong> 모르고 따라가면 며칠을 날립니다</li>
     </ul>
   </div>
@@ -2372,7 +2386,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <ol>
       <li>제약 블록을 <strong>매번</strong> 붙인다. 귀찮아 보이지만 한 번 빠뜨려 생긴 버그가 며칠을 먹습니다</li>
       <li>AI가 준 숫자를 <strong>A11 표와 대조</strong>한다</li>
-      <li><span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span> 함수는 <strong>“이렇게 될 것 같다”를 먼저 적고</strong> 받는다. 판정 기준 없이 받으면 맞는지 알 수 없습니다</li>
+      <li><a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 함수는 <strong>“이렇게 될 것 같다”를 먼저 적고</strong> 받는다. 판정 기준 없이 받으면 맞는지 알 수 없습니다</li>
       <li><strong>검증 코드도 같이</strong> 시킨다 — 관측값 출력, 개수 확인, 범위 체크. AI가 잘하는 일입니다</li>
       <li><span class="no">모르는 코드를 실제 로봇에 올리지 않는다.</span> 예외 없습니다</li>
     </ol>
@@ -2412,7 +2426,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="tw"><table>
       <thead><tr><th>분야</th><th>하는 일</th><th>주 / 부</th></tr></thead>
       <tbody>
-        <tr><td><b>POLICY</b></td><td><span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>을 어떻게 학습시킬 것인가 — <span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span> 설계와 <span class="term">하이퍼파라미터<span class="pop"><span class="ph">하이퍼파라미터 · hyperparameter</span><b>학습을 시작하기 전에 사람이 정해줘야 하는 설정값</b>입니다. 학습률, 배치 크기, 에피소드 길이 같은 것들.<br>학습으로 저절로 정해지는 값(가중치)과 구분됩니다.</span></span>의 최종 결정권</td><td>임석헌 / 맹라현</td></tr>
+        <tr><td><b>POLICY</b></td><td><a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>을 어떻게 학습시킬 것인가 — <a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 설계와 <a class="term" href="encyclopedia.html#t-hparam" data-t="하이퍼파라미터">하이퍼파라미터<span class="pop"><span class="ph">하이퍼파라미터 · hyperparameter</span><b>학습을 시작하기 전에 사람이 정해줘야 하는 설정값</b>입니다. 학습률, 배치 크기, 에피소드 길이 같은 것들.<br>학습으로 저절로 정해지는 값(가중치)과 구분됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>의 최종 결정권</td><td>임석헌 / 맹라현</td></tr>
         <tr><td><b>ENV</b></td><td>무엇을 겪게 할 것인가 — 지형을 만들고 난이도를 조절</td><td>맹라현 / 오흥재</td></tr>
         <tr><td><b>INFRA</b></td><td>어디서 돌리고 실제 로봇에 어떻게 올리는가</td><td>이민우 / 오현민</td></tr>
         <tr><td><b>EVAL</b></td><td>잘 됐는지 어떻게 아는가 — 측정과 기록</td><td>오현민 / 임석헌</td></tr>
@@ -2430,7 +2444,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
   <div class="box danger">
     <div class="bt">절대 나누면 안 되는 것</div>
-    <p><strong>12관절 표 · <span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span> 벡터 구성 · 여섯 개 지표 · 안전 절차 · 실험 기록 규칙.</strong></p>
+    <p><strong>12관절 표 · <a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 벡터 구성 · 여섯 개 지표 · 안전 절차 · 실험 기록 규칙.</strong></p>
     <p>이유는 각각 다릅니다. 12관절 표는 실기 사고 1순위 원인이라 서로 실수를 잡아야 하고,
     <strong>안전 절차는 사고가 모르는 사람 한 명에게서 나기 때문</strong>입니다.</p>
   </div>
@@ -2438,8 +2452,8 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
 <!-- POLICY -->
 <section class="slide" data-stage="구간 B · 분야별" data-title="POLICY 정책·학습" data-id="B·P">
-  <div class="head"><div class="sid">구간 B · POLICY</div><h2>POLICY — <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>·학습</h2><p class="sub">주 임석헌 / 부 맹라현</p></div>
-  <p class="oneline">정책이 잘 걷게 만드는 책임. <span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span> 설계와 설정값의 최종 결정권을 가집니다.</p>
+  <div class="head"><div class="sid">구간 B · POLICY</div><h2>POLICY — <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>·학습</h2><p class="sub">주 임석헌 / 부 맹라현</p></div>
+  <p class="oneline">정책이 잘 걷게 만드는 책임. <a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 설계와 설정값의 최종 결정권을 가집니다.</p>
   <div class="tw"><table>
     <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
     <tbody>
@@ -2456,7 +2470,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 <!-- ENV -->
 <section class="slide" data-stage="구간 B · 분야별" data-title="ENV 환경·지형" data-id="B·E">
   <div class="head"><div class="sid">구간 B · ENV</div><h2>ENV — 환경·지형</h2><p class="sub">주 맹라현 / 부 오흥재</p></div>
-  <p class="oneline"><span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>이 무엇을 겪을지 결정합니다. 3D 툴 경험이 그대로 쓰이는 분야입니다.</p>
+  <p class="oneline"><a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>이 무엇을 겪을지 결정합니다. 3D 툴 경험이 그대로 쓰이는 분야입니다.</p>
   <div class="box myth">
     <div class="bt">왜 이 배정인가</div>
     <p>Isaac Lab의 지형은 결국 <strong>삼각형 메시</strong>입니다. Blender에서 만들어 넣을 수 있습니다.
@@ -2466,12 +2480,12 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <div class="tw"><table>
     <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
     <tbody>
-      <tr><td><b>E1</b></td><td>Isaac Lab 환경 구조 — <span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span>·<span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span>·종료·랜덤화·커리큘럼·지형을 관리하는 8개 부품이 각각 무엇을 하는지</td><td>구조도 1장</td></tr>
+      <tr><td><b>E1</b></td><td>Isaac Lab 환경 구조 — <a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>·<a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>·종료·랜덤화·커리큘럼·지형을 관리하는 8개 부품이 각각 무엇을 하는지</td><td>구조도 1장</td></tr>
       <tr><td><b>E2</b></td><td>지형 종류와 파라미터 — 계단·경사·불규칙·기둥. <b>난이도를 결정하는 숫자가 무엇인지</b></td><td>지형 파라미터 표</td></tr>
       <tr><td><b>E3</b></td><td><b><code>trimesh</code>로 지형 만들기</b> — Isaac Lab 지형 생성기가 실제로 쓰는 라이브러리다. <span class="ok">서버 없이 노트북 CPU로 연습 가능</span></td><td>지형 메시 3종</td></tr>
       <tr><td><b>E4</b></td><td><b><code>usd-core</code>로 파일 구조 익히기</b> — Isaac Sim 설치 없이 USD 파일을 읽고 쓸 수 있다</td><td>USD 다루기</td></tr>
       <tr><td><b>E5</b></td><td>지형 커리큘럼 로직 — 통과율 0.5~0.9를 유지하도록 자동 승급·강등시키는 방식</td><td>커리큘럼 설계안</td></tr>
-      <tr><td><b>E6</b></td><td><span class="term">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.</span></span> 설계 — 항목별 범위와 <b>성능 손실 기록표 템플릿</b></td><td>손실 기록표</td></tr>
+      <tr><td><b>E6</b></td><td><a class="term" href="encyclopedia.html#t-domainrand" data-t="도메인 랜덤화">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 설계 — 항목별 범위와 <b>성능 손실 기록표 템플릿</b></td><td>손실 기록표</td></tr>
     </tbody>
   </table></div>
   <p class="sub"><strong>E3 + E4만으로 서버 없이 지형 파이프라인의 대부분을 완성할 수 있습니다.</strong> 서버가 준비되면 붙이기만 하면 됩니다.</p>
@@ -2488,7 +2502,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
       <tr><td><b>I2</b></td><td><b>CUDA · 드라이버 · PyTorch 버전 맞추기</b> — RTX 5080은 최신 세대라 구버전 PyTorch로는 아예 안 돈다. <code>get_device_capability()</code>가 <code>(12, 0)</code>으로 나오는지 확인하는 게 모든 것의 전제</td><td><span class="no">관문 — 여기 막히면 이후 전부 무의미</span></td></tr>
       <tr><td><b>I3</b></td><td>Docker + NVIDIA 공식 컨테이너 — 설치 삽질을 크게 줄일 수 있다</td><td>컨테이너 실행</td></tr>
       <tr><td><b>I4</b></td><td>Isaac Sim / Isaac Lab 설치 + <b>재현 절차서 작성</b></td><td>절차서</td></tr>
-      <tr><td><b>I5</b></td><td>실험 운영 — 예약 규칙, <span class="term">체크포인트<span class="pop"><span class="ph">체크포인트 · checkpoint</span><b>학습 도중 저장해둔 신경망 상태 파일</b>입니다.<br>학습은 오래 걸리니 중간중간 저장하고, 나중에 그 지점부터 이어가거나 <b>학습 없이 재생만</b> 할 수 있습니다.</span></span> 백업, GPU 2장을 각각 다른 실험에 쓰기</td><td>운영 규칙</td></tr>
+      <tr><td><b>I5</b></td><td>실험 운영 — 예약 규칙, <a class="term" href="encyclopedia.html#t-checkpoint" data-t="체크포인트">체크포인트<span class="pop"><span class="ph">체크포인트 · checkpoint</span><b>학습 도중 저장해둔 신경망 상태 파일</b>입니다.<br>학습은 오래 걸리니 중간중간 저장하고, 나중에 그 지점부터 이어가거나 <b>학습 없이 재생만</b> 할 수 있습니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 백업, GPU 2장을 각각 다른 실험에 쓰기</td><td>운영 규칙</td></tr>
       <tr><td><b>I6</b></td><td>ROS2 + 통신 기초</td><td>노드·토픽 실습</td></tr>
       <tr><td><b>I7</b></td><td><b>실제 로봇 통신과 내장 제어기 끄는 절차</b></td><td>배포 절차서</td></tr>
       <tr><td><b>I8</b></td><td>AWS — GPU 할당량 신청(승인에 며칠 걸림), 저렴한 Spot 사용법, 비용 관리</td><td>할당량 승인</td></tr>
@@ -2502,7 +2516,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <p class="oneline">“잘 됐다”를 숫자로 말할 수 있게 만드는 책임.</p>
   <div class="box danger">
     <div class="bt">이 분야가 프로젝트의 숨은 급소입니다</div>
-    <p>A12에서 봤듯 우리는 몸통 속도를 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>에 안 줍니다. 그런데 그 결정에는 아무도 안 짚은 결과가 하나 있습니다 —
+    <p>A12에서 봤듯 우리는 몸통 속도를 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>에 안 줍니다. 그런데 그 결정에는 아무도 안 짚은 결과가 하나 있습니다 —
     <strong>정책이 속도를 못 보는 것과, 우리가 속도를 못 재는 것은 별개 문제인데 원인이 같습니다.</strong></p>
     <p>그래서 여섯 지표 중 <strong>속도 추종 오차 · 무개입 주행거리 · 에너지 소모</strong> 세 개가
     현재 실제 로봇에서 <strong>측정할 방법이 없습니다.</strong></p>
@@ -2557,7 +2571,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
 <!-- C1 -->
 <section class="slide" data-stage="구간 C · 실전" data-title="C1 환경 재현" data-id="C1">
-  <div class="head"><div class="sid">C1 · 선행 구간 A 전체 + I4</div><h2>환경 재현 — 공개 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span> 한 번 완주</h2></div>
+  <div class="head"><div class="sid">C1 · 선행 구간 A 전체 + I4</div><h2>환경 재현 — 공개 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 한 번 완주</h2></div>
   <p class="oneline">전원이 각자, 공개된 Go2 학습을 처음부터 끝까지 한 번 돌려봅니다.</p>
   <div class="blk">
     <div class="lbl">왜 전원이 하나</div>
@@ -2573,7 +2587,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
 <!-- C2 -->
 <section class="slide" data-stage="구간 C · 실전" data-title="C2 기준 정책 확립" data-id="C2">
-  <div class="head"><div class="sid">C2</div><h2>기준 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span> 확립</h2></div>
+  <div class="head"><div class="sid">C2</div><h2>기준 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 확립</h2></div>
   <p class="oneline">앞으로 모든 실험을 비교할 “기준선”을 만듭니다.</p>
   <div class="blk">
     <p>기본 험지 정책을 학습시키고 여섯 지표를 <strong>숫자로</strong> 기록합니다.
@@ -2592,7 +2606,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
 <!-- C3 -->
 <section class="slide" data-stage="구간 C · 실전" data-title="C3 보상 단일변수 실험" data-id="C3">
-  <div class="head"><div class="sid">C3</div><h2><span class="term">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).</span></span> 실험 — 한 번에 하나씩</h2></div>
+  <div class="head"><div class="sid">C3</div><h2><a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 실험 — 한 번에 하나씩</h2></div>
   <p class="oneline">보상 항목을 하나씩만 바꾸며 지표가 어떻게 변하는지 기록합니다.</p>
   <div class="blk">
     <p>A10에서 CartPole로 예측했던 것을, 이제 진짜 로봇 학습에서 검증합니다.</p>
@@ -2610,7 +2624,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
 <!-- C4 -->
 <section class="slide" data-stage="구간 C · 실전" data-title="C4 랜덤화 단일변수 실험" data-id="C4">
-  <div class="head"><div class="sid">C4</div><h2><span class="term">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.</span></span> 실험</h2></div>
+  <div class="head"><div class="sid">C4</div><h2><a class="term" href="encyclopedia.html#t-domainrand" data-t="도메인 랜덤화">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다 — 과하면 '아무 데서나 못하는' 정책이 됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 실험</h2></div>
   <p class="oneline">랜덤화를 하나씩 추가하며 시뮬 성능이 얼마나 떨어지는지 기록합니다.</p>
   <div class="blk">
     <p>A14에서 본 “1.1 → 0.9 m/s” 같은 표를 우리 손으로 만듭니다.
@@ -2629,7 +2643,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <p class="oneline">ENV 분야에서 만든 지형을 실제 학습에 투입합니다.</p>
   <div class="box check">
     <div class="bt">통과 조건</div>
-    <p>기준 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span> 대비 <strong>무엇이 어떻게 달라졌는지를 지표로 설명</strong>할 수 있다.
+    <p>기준 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 대비 <strong>무엇이 어떻게 달라졌는지를 지표로 설명</strong>할 수 있다.
     “더 잘 걷는 것 같다”는 통과가 아닙니다.</p>
   </div>
 </section>
@@ -2637,7 +2651,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 <!-- C6 -->
 <section class="slide" data-stage="구간 C · 실전" data-title="C6 다른 엔진에서 검증 · 관문" data-id="C6">
   <div class="head"><div class="sid">C6 · 관문</div><h2>다른 물리 엔진에서 검증</h2></div>
-  <p class="oneline">Isaac Lab에서 배운 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>을 MuJoCo로 옮겨 걷는지 봅니다. 실기 전 마지막 시험입니다.</p>
+  <p class="oneline">Isaac Lab에서 배운 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>을 MuJoCo로 옮겨 걷는지 봅니다. 실기 전 마지막 시험입니다.</p>
   <div class="blk">
     <div class="lbl">왜 두 개의 시뮬레이터를 쓰나</div>
     <p>정책이 <strong>“그 시뮬레이터에서만 통하는 꼼수”</strong>를 배웠을 수 있기 때문입니다.
@@ -2666,8 +2680,8 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
       <li>유선으로 연결하고 통신이 되는지 확인합니다 (로봇 상태가 들어오는지)</li>
       <li><strong>내장 제어기를 끕니다.</strong> 이 순간 모터 힘이 빠져 로봇이 주저앉습니다 — 매달았으니 괜찮습니다</li>
       <li>현재 자세에서 학습 시 기본 자세로 <strong>2~3초에 걸쳐 천천히</strong> 옮깁니다</li>
-      <li><span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span> 추론을 초당 50번 돌리기 시작합니다</li>
-      <li><span class="no">시뮬과 실기에서 <span class="term">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).</span></span>값을 각각 출력해 숫자를 비교합니다</span> — 배포 버그의 80%가 여기서 잡힙니다</li>
+      <li><a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 추론을 초당 50번 돌리기 시작합니다</li>
+      <li><span class="no">시뮬과 실기에서 <a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>값을 각각 출력해 숫자를 비교합니다</span> — 배포 버그의 80%가 여기서 잡힙니다</li>
       <li>공중에서 “정지” 명령으로 자세 유지 확인 → 저속 전진 확인 → <strong>그 다음에야 땅에 내립니다</strong></li>
     </ol>
   </div>
@@ -2698,7 +2712,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <p class="oneline">뒤에서부터 자릅니다. 앞을 자르면 뒤가 전부 무너집니다.</p>
   <div class="cards">
     <div class="mini"><div class="n">1순위로 자름</div><h4>3DGS 확장축</h4><p>실제 공간을 3D로 복원하는 부분. 애초에 “되면 하는” 조건부 항목이었습니다.</p></div>
-    <div class="mini"><div class="n">2순위</div><h4>커스텀 지형 (C5)</h4><p>기준 <span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>만으로도 발표는 됩니다. 우리 지형은 있으면 좋은 것입니다.</p></div>
+    <div class="mini"><div class="n">2순위</div><h4>커스텀 지형 (C5)</h4><p>기준 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>만으로도 발표는 됩니다. 우리 지형은 있으면 좋은 것입니다.</p></div>
     <div class="mini"><div class="n">3순위</div><h4>실험 라운드 축소 (C3·C4)</h4><p>항목 수를 줄이되 <strong>표 형식은 남깁니다.</strong> 표가 있어야 “체계적으로 했다”가 됩니다.</p></div>
     <div class="mini"><div class="n">4순위</div><h4>실기 배포 (C7)</h4><p>못 하면 <strong>“왜 못 했는지”가 결과물</strong>이 됩니다. 장비를 못 구한 것도 실증 결과의 일부입니다.</p></div>
   </div>
@@ -2888,10 +2902,15 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     var t = e.target.closest && e.target.closest('.term');
     if (t) show(t); else if (cur) hide();
   });
+  /* .term 은 <a href="encyclopedia.html#t-…"> 다. 클릭은 막지 않는다 — 사전으로 간다.
+     다만 터치 기기에는 hover 가 없어서, 그대로 두면 설명을 볼 방법이 사라진다.
+     그래서 손가락에서는 첫 탭 = 설명, 두 번째 탭 = 이동. */
+  var TOUCH = !window.matchMedia || window.matchMedia('(hover: none)').matches;
   document.addEventListener('click', function(e){
     var t = e.target.closest && e.target.closest('.term');
-    if (t){ e.preventDefault(); e.stopPropagation(); if (cur === t) hide(); else show(t); }
-    else hide();
+    if (!t){ hide(); return; }
+    if (TOUCH && cur !== t){ e.preventDefault(); show(t); return; }
+    hide();                       /* 이동 직전 팝업을 지운다 — 뒤로가기로 돌아오면 남아 있다 */
   });
   ['scroll','resize'].forEach(function(ev){ window.addEventListener(ev, hide, true); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') hide(); });
