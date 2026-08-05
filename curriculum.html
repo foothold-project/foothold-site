@@ -1200,7 +1200,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <p class="p-one">“새 정책이 옛 정책에서 <b>너무 멀리 가지 못하게 잘라내는</b>” 한 가지 장치로 학습을 안정시킨 방법입니다. 지금 사족보행 학습은 거의 전부 이걸 씁니다.</p>
   <div class="p-grid">
     <div class="p-why"><div class="p-h">왜 중요한가</div><p>강화학습은 한 번에 크게 고치면 무너집니다. PPO 이전에는 "얼마나 고쳐야 안 무너지나"를 매번 손으로 맞췄는데, PPO는 그걸 <b>자동으로 제한</b>합니다. 우리가 쓰는 rsl_rl 도 PPO 구현입니다.</p></div>
-    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">알고리즘 계열</span><span class="pn-v">on-policy</span></div><div class="pn-r"><span class="pn-k">핵심 장치</span><span class="pn-v">clipped surrogate objective</span></div></div>
+    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">클리핑 폭 ε</span><span class="pn-v">0.2</span></div><div class="pn-r"><span class="pn-k">클리핑 없앴을 때 점수</span><span class="pn-v">-0.39</span></div><div class="pn-r"><span class="pn-k">ε=0.2 일 때 점수</span><span class="pn-v">0.82</span></div><div class="pn-r"><span class="pn-k">알고리즘 계열</span><span class="pn-v">on-policy</span></div></div>
   </div>
   <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>우리가 그대로 씁니다.</b> A8에서 개념을, A13에서 설정값을 봅니다. 수식을 이해할 필요는 없고 <b>“한 번에 조금씩만 고친다”</b>는 성질만 알면 됩니다.</div>
   <div class="p-lim"><span class="p-lk">한계</span>on-policy 라 데이터를 많이 먹습니다. 그래서 실물이 아니라 <b>시뮬레이터가 필요</b>합니다.</div>
@@ -1303,11 +1303,11 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <div class="p-meta">Rudin, Hoeller, Reist, Hutter · ETH Zurich · CoRL 2021</div>
   <p class="p-one">로봇 수천 마리를 <b>GPU 한 장 안에서 동시에</b> 걷게 해, 며칠 걸리던 학습을 분 단위로 줄였습니다.</p>
   <div class="p-grid">
-    <div class="p-why"><div class="p-h">왜 중요한가</div><p>이 논문이 없었으면 우리 프로젝트는 5개월 안에 불가능했습니다. <b>우리가 쓰는 legged_gym 코드베이스가 바로 이 논문의 공개 코드</b>입니다.</p></div>
-    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">평지 정책 학습</span><span class="pn-v">약 4분</span></div><div class="pn-r"><span class="pn-k">험지 정책 학습</span><span class="pn-v">약 20분</span></div><div class="pn-r"><span class="pn-k">필요 장비</span><span class="pn-v">GPU 1장</span></div></div>
+    <div class="p-why"><div class="p-h">왜 중요한가</div><p>이 논문이 없었으면 우리 프로젝트는 5개월 안에 불가능했습니다. <b>우리 파이프라인의 개념적 뿌리</b>입니다 — 다만 실행 스택은 legged_gym 이 아니라 <b>Isaac Lab</b> 입니다. legged_gym 은 저자(ETH RSL)가 유지보수 축소를 공식 선언했고, 기반인 Isaac Gym Preview 도 NVIDIA 가 legacy 로 지정했습니다. 이 논문의 “게임식 지형 커리큘럼”은 Isaac Lab 에 그대로 계승돼 개념은 100% 유효합니다.</p></div>
+    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">평지 정책 학습</span><span class="pn-v">4분 미만</span></div><div class="pn-r"><span class="pn-k">험지 정책 학습</span><span class="pn-v">약 20분</span></div><div class="pn-r"><span class="pn-k">병렬 로봇 수</span><span class="pn-v">4096</span></div><div class="pn-r"><span class="pn-k">업데이트 횟수</span><span class="pn-v">1500회</span></div><div class="pn-r"><span class="pn-k">필요 장비</span><span class="pn-v">RTX A6000 1장</span></div><div class="pn-r"><span class="pn-k">하드웨어 배포 속도 제한</span><span class="pn-v">0.6 m/s</span></div></div>
   </div>
   <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>우리 파이프라인의 뿌리입니다.</b> A9에서 첫 학습을 돌릴 때 이 구조 위에서 돕니다.</div>
-  <div class="p-lim"><span class="p-lk">한계</span>“분 안에 걷는다”는 <b>시뮬레이션 안에서만</b> 해당합니다. 실물로 옮기는 문제는 이 논문의 범위가 아닙니다.</div>
+  <div class="p-lim"><span class="p-lk">한계</span>저자들은 <b>실기 이관까지 했습니다.</b> 다만 지형 높이맵이 불완전해 시뮬↔실기 강건성이 떨어졌고, 그래서 <b>하드웨어에서는 최고 명령속도를 0.6 m/s 로 낮춰</b> 돌렸다고 밝힙니다. “가장 강건한 정책을 얻는 것이 이 연구의 목적이 아니다”라고 스스로 범위를 좁힙니다. (A16 안전 절차와 직결)</div>
 </aside>
 </div>
 </section>
@@ -1450,7 +1450,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <p class="p-one">작은 로봇개가 <b>자기 키의 두 배</b> 높이를 뛰어오르고 넓은 틈을 건너뛰게 만든 연구입니다.</p>
   <div class="p-grid">
     <div class="p-why"><div class="p-h">왜 중요한가</div><p>“사족보행이 어디까지 갈 수 있나”의 현재 상한선입니다. 우리 목표(모래·자갈 적응)와는 방향이 다르지만, <b>보상 설계가 얼마나 결과를 바꾸는지</b>를 보여주는 사례로 A10에서 봅니다.</p></div>
-    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">점프 높이</span><span class="pn-v">로봇 키의 약 2배 (0.5 m)</span></div><div class="pn-r"><span class="pn-k">건넌 틈 길이</span><span class="pn-v">로봇 길이의 약 2배 (0.8 m)</span></div><div class="pn-r"><span class="pn-k">오른 경사</span><span class="pn-v">37°</span></div></div>
+    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">점프 높이</span><span class="pn-v">0.5 m (고관절 높이 26 cm 의 2배)</span></div><div class="pn-r"><span class="pn-k">건넌 틈 길이</span><span class="pn-v">0.8 m (몸길이 40 cm 의 2배)</span></div><div class="pn-r"><span class="pn-k">오른 경사</span><span class="pn-v">37°</span></div><div class="pn-r"><span class="pn-k">카메라</span><span class="pn-v">RealSense D435 · 10 Hz</span></div></div>
   </div>
   <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>참고만 합니다.</b> 우리가 이걸 재현하려 하면 5개월이 부족합니다 — A16 「자르는 순서」에서 제일 먼저 잘리는 축입니다.</div>
   <div class="p-lim"><span class="p-lk">한계</span>전방 카메라(시각)를 씁니다. <b>우리 blind 경로와는 전제가 다릅니다.</b></div>
@@ -1623,6 +1623,21 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 <div class="prefs">
 <div class="prefs-h">이 절의 근거 — 원문으로 이어집니다</div>
 
+<aside class="pref" id="ref-lee2020">
+  <div class="p-top">
+    <span class="p-tag">논문</span>
+    <a class="p-title" href="https://arxiv.org/abs/2010.11251" target="_blank" rel="noopener">Learning Quadrupedal Locomotion over Challenging Terrain <span class="p-ext">↗</span></a>
+  </div>
+  <div class="p-meta">Lee, Hwangbo, Wellhausen, Koltun, Hutter · ETH Zurich · Science Robotics 2020</div>
+  <p class="p-one">카메라도 라이다도 없이 <b>다리 감각만으로</b> 진흙·눈·급류·수풀을 통과한 컨트롤러. 시뮬 안에서만 아는 정답을 가진 <b>선생</b>을 한 단계 끼워 학습시켰습니다.</p>
+  <div class="p-grid">
+    <div class="p-why"><div class="p-h">왜 중요한가</div><p><b>A12 급소의 원조 해법</b>입니다. 우리가 “시뮬엔 있고 실물엔 없다”고 정리한 네 가지(몸통 속도·지형 높이맵·마찰·강성)가 바로 이 논문이 말하는 <b>특권 정보</b>입니다. 그리고 <b>세상을 전부 시뮬레이션할 필요가 없다</b>는 것도 보였습니다 — 딱딱한 지형 몇 종류만 시뮬했는데 진흙·이끼·눈으로 그냥 일반화됐습니다.</p></div>
+    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">학습 비용</span><span class="pn-v">교사 12시간 + 학생 4시간</span></div><div class="pn-r"><span class="pn-k">사용 장비</span><span class="pn-v">데스크톱 1대 (RTX 2080)</span></div><div class="pn-r"><span class="pn-k">DARPA SubT 60분 미션 4회</span><span class="pn-v">실패 0</span></div><div class="pn-r"><span class="pn-k">이끼 위 속도</span><span class="pn-v">0.452 vs 0.199 m/s</span></div><div class="pn-r"><span class="pn-k">학습에 없던 10 kg 짐을 지고</span><span class="pn-v">13.4 cm 턱 통과</span></div></div>
+  </div>
+  <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>읽되 그대로 쓰지는 않습니다.</b> 우리는 이 2단계 방식 대신 DreamWaQ 의 1단계를 씁니다 — “왜 안 쓰는가”를 설명하려면 이걸 먼저 읽어야 합니다.</div>
+  <div class="p-lim"><span class="p-lk">한계</span>저자 자인 — 걸음걸이가 <b>트롯 하나뿐</b>이고, 무엇보다 <b>절벽으로 가라고 명령하면 그냥 갑니다.</b> 눈이 없으니까요. 이 자기 고백이 정확히 「in the wild」(A15) 의 출발점입니다.</div>
+</aside>
+
 <aside class="pref" id="ref-rma">
   <div class="p-top">
     <span class="p-tag">논문</span>
@@ -1632,10 +1647,10 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <p class="p-one">로봇이 <b>지금 밟고 있는 땅이 어떤 땅인지</b>를 최근 움직임만 보고 짐작해, 1초도 안 되어 걸음을 바꾸는 방법입니다.</p>
   <div class="p-grid">
     <div class="p-why"><div class="p-h">왜 중요한가</div><p><b>우리 주제("미경험 지형 적응")의 직계 조상</b>입니다. 지면 물성을 <b>측정할 수 없다</b>는 A12의 급소를 정면으로 다룬 최초의 실용적 답입니다.</p></div>
-    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">성공률 (적응 있음)</span><span class="pn-v">73.5%</span></div><div class="pn-r"><span class="pn-k">성공률 (적응 제거)</span><span class="pn-v">52.1%</span></div><div class="pn-r"><span class="pn-k">적응 소요 시간</span><span class="pn-v">0.5초 이내</span></div></div>
+    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">시뮬 성공률 (적응 있음)</span><span class="pn-v">73.5%</span></div><div class="pn-r"><span class="pn-k">시뮬 성공률 (적응 제거)</span><span class="pn-v">52.1%</span></div><div class="pn-r"><span class="pn-k">적응 소요 시간</span><span class="pn-v">1초 미만</span></div><div class="pn-r"><span class="pn-k">적응 모듈 / 기저 정책</span><span class="pn-v">10 Hz / 100 Hz</span></div><div class="pn-r"><span class="pn-k">실기: 메모리폼·굴곡 폼</span><span class="pn-v">100%</span></div><div class="pn-r"><span class="pn-k">실기: 15 cm 단차 내려서기</span><span class="pn-v">80%</span></div></div>
   </div>
   <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>우리가 참고하는 핵심 구조</b>입니다. A12를 읽은 직후에 보면 "왜 이런 걸 만들었나"가 바로 이해됩니다.</div>
-  <div class="p-lim"><span class="p-lk">한계</span>2단계(선생–학생) 학습이라 파이프라인이 깁니다. 뒤에 나온 DreamWaQ 는 이걸 <b>한 단계로 줄였습니다</b>.</div>
+  <div class="p-lim"><span class="p-lk">한계</span>저자 스스로 <b>눈이 없는 한계</b>를 명시합니다 — 계단을 내려가다 크게 흔들리는 것 같은 큰 외란에서는 실패하고, 믿을 만한 보행 로봇을 만들려면 결국 <b>온보드 시각이 필요</b>하다고 씁니다. 또 2단계(선생–학생) 학습이라 파이프라인이 깁니다 — 뒤에 나온 DreamWaQ 가 이걸 한 단계로 줄였습니다.</div>
 </aside>
 
 <aside class="pref" id="ref-dreamwaq">
@@ -1650,7 +1665,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">외란 생존율 (DreamWaQ)</span><span class="pn-v">95.23%</span></div><div class="pn-r"><span class="pn-k">외란 생존율 (비교군)</span><span class="pn-v">20.51%</span></div><div class="pn-r"><span class="pn-k">견딘 충격 속도</span><span class="pn-v">1.121 m/s (비교군 0.511)</span></div><div class="pn-r"><span class="pn-k">야외 코스 완주</span><span class="pn-v">430 m</span></div></div>
   </div>
   <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>우리가 채택한 구조의 원본입니다.</b> 구간 B·POLICY 에서 정독합니다.</div>
-  <div class="p-lim"><span class="p-lk">한계</span>“상상”이라 해도 <b>지형을 진짜로 아는 건 아닙니다.</b> 극단적으로 미끄러운 면은 여전히 어렵습니다.</div>
+  <div class="p-lim"><span class="p-lk">한계</span>저자 자인 — 적응이 <b>다리로 장애물을 먼저 때려봐야</b> 작동합니다. 부딪히기 전에 미리 걸음을 계획하려면 결국 카메라·라이다 통합이 필요하다고 명시합니다.<br>⚠️ KAIST 공식 구현 공개는 확인되지 않습니다 — 유통되는 것은 커뮤니티 재구현입니다.</div>
 </aside>
 </div>
 </section>
@@ -1751,6 +1766,40 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   <div class="nt-h">도메인 랜덤화 — 무엇을 흔드나</div>
   <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>지면 마찰</td><td class="nv">범위 미기재</td><td class="nn">선행 사례가 값을 안 남김</td></tr><tr><td>모터 세기</td><td class="nv">범위 미기재</td><td class="nn"></td></tr><tr><td>구동 지연</td><td class="nv">범위 미기재</td><td class="nn"></td></tr><tr><td>센서 잡음</td><td class="nv">범위 미기재</td><td class="nn"></td></tr><tr><td>초기 자세 · 질량 · 무게중심</td><td class="nv">범위 미기재</td><td class="nn"></td></tr></tbody></table>
   <div class="nt-note">🔴 <b>선행 사례의 가장 큰 공백입니다.</b> "성공의 직접 원인"이라면서 범위를 안 적었습니다. 참고로 legged_gym 기본값은 마찰 U(0.5, 1.25), 관절 각도 잡음 ±0.01 rad, 10초마다 ±1 m/s 밀치기입니다. <b>우리는 이 범위를 반드시 기록으로 남깁니다.</b></div></div></div>
+
+<div class="prefs">
+<div class="prefs-h">이 절의 근거 — 원문으로 이어집니다</div>
+
+<aside class="pref" id="ref-dr-revisit">
+  <div class="p-top">
+    <span class="p-tag">논문</span>
+    <a class="p-title" href="https://arxiv.org/abs/2011.02404" target="_blank" rel="noopener">Dynamics Randomization Revisited: A Case Study for Quadrupedal Locomotion <span class="p-ext">↗</span></a>
+  </div>
+  <div class="p-meta">Xie, Da, van de Panne, Babich, Garg · ICRA 2021</div>
+  <p class="p-one">“도메인 랜덤화는 많이 걸수록 좋다”를 <b>실험으로 반박한</b> 논문입니다. 흔들수록 정책이 소심해져 <b>성능이 떨어집니다.</b></p>
+  <div class="p-grid">
+    <div class="p-why"><div class="p-h">왜 중요한가</div><p><b>이 절에 적힌 두 숫자가 전부 이 논문에서 나옵니다.</b> “몸통 속도를 모르면 버티는 힘이 반토막”도, “불필요한 랜덤화로 최고 속도 18% 하락”도 여기 근거가 있습니다. A14를 읽을 때 이 카드를 같이 보면 그 표가 주장이 아니라 실측이 됩니다.</p></div>
+    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">측면 밀기 저항 (기본)</span><span class="pn-v">43 ± 2 N</span></div><div class="pn-r"><span class="pn-k">속도 피드백 제거 시</span><span class="pn-v">22 ± 0 N</span></div><div class="pn-r"><span class="pn-k">거기에 랜덤화까지 더하면</span><span class="pn-v">13 ± 5 N</span></div><div class="pn-r"><span class="pn-k">트로팅 최고속도 (랜덤화 없음)</span><span class="pn-v">1.1 m/s</span></div><div class="pn-r"><span class="pn-k">트로팅 최고속도 (랜덤화 함)</span><span class="pn-v">0.9 m/s</span></div></div>
+  </div>
+  <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>우리 랜덤화 설계의 판단 기준</b>입니다. 항목을 하나 넣을 때마다 “무엇을 얻고 무엇을 잃었나”를 기록하는 근거가 됩니다.</div>
+  <div class="p-lim"><span class="p-lk">한계</span>로봇이 Unitree Laikago 이고 시뮬은 Isaac Gym 입니다. Go2 에 숫자가 그대로 오지는 않습니다 — <b>가져올 것은 값이 아니라 “흔들면 잃는 것이 있다”는 구조</b>입니다.</div>
+</aside>
+
+<aside class="pref" id="ref-tan2018">
+  <div class="p-top">
+    <span class="p-tag">논문</span>
+    <a class="p-title" href="https://arxiv.org/abs/1804.10332" target="_blank" rel="noopener">Sim-to-Real: Learning Agile Locomotion For Quadruped Robots <span class="p-ext">↗</span></a>
+  </div>
+  <div class="p-meta">Tan 외 · Google Brain · RSS 2018</div>
+  <p class="p-one">시뮬 물리를 실제 로봇에 맞춰 <b>먼저 고친 다음</b> 랜덤화를 얹어야 전이된다는 것을, 자기들 실패 기록과 함께 보여준 논문입니다.</p>
+  <div class="p-grid">
+    <div class="p-why"><div class="p-h">왜 중요한가</div><p>두 가지 상식을 깹니다. ① <b>랜덤화를 세게 걸면 다 된다</b>는 틀렸습니다 — 모터 모델과 지연이 틀려 있으면 아무리 흔들어도 안 넘어갑니다. ② <b>정보를 더 주면 좋아진다</b>도 틀렸습니다 — 관측을 4개에서 12개로 늘렸더니 실기 성능이 오히려 나빠졌습니다.</p></div>
+    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">실측 제어 지연</span><span class="pn-v">3 ms (PD) / 15~19 ms (상위)</span></div><div class="pn-r"><span class="pn-k">시뮬 지연 랜덤화 범위</span><span class="pn-v">0 ~ 40 ms</span></div><div class="pn-r"><span class="pn-k">갤로핑 시뮬 → 실기</span><span class="pn-v">1.34 → 1.18 m/s</span></div><div class="pn-r"><span class="pn-k">트로팅 시뮬 → 실기</span><span class="pn-v">0.50 → 0.60 m/s</span></div><div class="pn-r"><span class="pn-k">학습 100개 중 실기 배포</span><span class="pn-v">상위 3개</span></div></div>
+  </div>
+  <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>A14에 적힌 “제어 지연 15~19 ms”가 이 논문의 숫자입니다.</b> 우리가 지연을 왜 랜덤화 항목에 넣는지의 근거입니다.</div>
+  <div class="p-lim"><span class="p-lk">한계</span>저자 자인이 이 논문의 진짜 값어치입니다 — 갤로핑은 <b>실기에서 즉시 넘어졌고</b>, 트로팅은 <b>어떤 정책은 되고 어떤 건 안 되는 복불복</b>이었습니다. 랜덤화로 학습한 정책은 평균 성능이 떨어지고 보수적으로 행동합니다.</div>
+</aside>
+</div>
 </section>
 
 <!-- A15 -->
