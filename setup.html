@@ -312,7 +312,7 @@ Get-Volume -DriveLetter C
 <span class="c"># 3) git 설치 여부</span>
 git --version</pre>
 </div>
-<p><b>Anaconda 또는 Miniconda가 필요합니다.</b> 없으면 Miniconda를 먼저 설치하세요.<br>
+<p><b>Anaconda 또는 Miniconda가 필요합니다.</b> 없으면 <a href="https://www.anaconda.com/docs/getting-started/miniconda/install" target="_blank" rel="noopener">Miniconda ↗</a>를 먼저 설치하세요.<br>
 ※ 관리자 권한은 <b>필요 없습니다.</b> 전부 사용자 폴더에 설치됩니다.</p>
 </section>
 
@@ -544,12 +544,12 @@ pip uninstall -y isaaclab isaaclab_assets isaaclab_contrib isaaclab_mimic isaacl
 <table>
 <thead><tr><th>대상</th><th>출처</th><th>비고</th></tr></thead>
 <tbody>
-<tr><td><b>Isaac Sim 5.1.0.0</b></td><td><code>https://pypi.nvidia.com</code><br>NVIDIA 공식 pip 인덱스</td><td>wheel 태그 <code>cp311</code></td></tr>
-<tr><td>Kit 런타임 ~5 GB</td><td><code>d4i3qtqj3r0z5.cloudfront.net</code><br>첫 실행 시 자동</td><td><code>%LOCALAPPDATA%\ov\</code> 에 캐시</td></tr>
-<tr><td><b>Isaac Lab v2.3.2</b></td><td><a href="https://github.com/isaac-sim/IsaacLab" target="_blank" rel="noopener">github.com/isaac-sim/IsaacLab</a><br>커밋 <code>37ddf626871758333d6ed89cf64ad702aef127d0</code></td><td>★ 태그 고정 필수</td></tr>
-<tr><td>rsl_rl 3.1.2</td><td>PyPI (<code>rsl-rl-lib</code>)</td><td>ETH RSL 학습 라이브러리. Isaac Lab이 핀 고정</td></tr>
-<tr><td>PyTorch cu128</td><td><code>download.pytorch.org/whl/cu128</code></td><td>기본 PyPI 아님</td></tr>
-<tr><td><b>사전학습 Go2 체크포인트</b></td><td><code>omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/IsaacLab/PretrainedCheckpoints/rsl_rl/Isaac-Velocity-Rough-Unitree-Go2-v0/checkpoint.pt</code></td><td>6.56 MB<br><code>--use_pretrained_checkpoint</code>로 자동 수신</td></tr>
+<tr><td><b>Isaac Sim 5.1.0.0</b></td><td><a href="https://pypi.nvidia.com" target="_blank" rel="noopener"><code>pypi.nvidia.com</code> ↗</a><br>NVIDIA 공식 pip 인덱스</td><td>wheel 태그 <code>cp311</code></td></tr>
+<tr><td>Kit 런타임 ~5 GB</td><td><code>d4i3qtqj3r0z5.cloudfront.net</code><br>첫 실행 시 자동 · 직접 받을 일 없음</td><td><code>%LOCALAPPDATA%\ov\</code> 에 캐시</td></tr>
+<tr><td><b>Isaac Lab v2.3.2</b></td><td><a href="https://github.com/isaac-sim/IsaacLab" target="_blank" rel="noopener">github.com/isaac-sim/IsaacLab</a><br>커밋 <code>37ddf626871758333d6ed89cf64ad702aef127d0</code><br><a href="https://github.com/isaac-sim/IsaacLab/releases/tag/v2.3.2" target="_blank" rel="noopener">v2.3.2 릴리스 ↗</a></td><td>★ 태그 고정 필수</td></tr>
+<tr><td>rsl_rl 3.1.2</td><td><a href="https://pypi.org/project/rsl-rl-lib/" target="_blank" rel="noopener">PyPI <code>rsl-rl-lib</code> ↗</a></td><td>ETH RSL 학습 라이브러리. Isaac Lab이 핀 고정</td></tr>
+<tr><td>PyTorch cu128</td><td><a href="https://download.pytorch.org/whl/cu128" target="_blank" rel="noopener"><code>download.pytorch.org/whl/cu128</code> ↗</a></td><td>기본 PyPI 아님</td></tr>
+<tr><td><b>사전학습 Go2 체크포인트</b></td><td><a href="https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/IsaacLab/PretrainedCheckpoints/rsl_rl/Isaac-Velocity-Rough-Unitree-Go2-v0/checkpoint.pt" target="_blank" rel="noopener">체크포인트 직접 내려받기 ↗</a><br><code style="font-size:.86em;word-break:break-all">omniverse-content-production.s3-us-west-2.amazonaws.com/…/Isaac-Velocity-Rough-Unitree-Go2-v0/checkpoint.pt</code></td><td>6.56 MB<br><code>--use_pretrained_checkpoint</code>로 자동 수신</td></tr>
 </tbody>
 </table>
 </div>
@@ -559,6 +559,22 @@ pip uninstall -y isaaclab isaaclab_assets isaaclab_contrib isaaclab_mimic isaacl
 Isaac-Velocity-Flat-Unitree-Go2-Play-v0   평지 재생용
 Isaac-Velocity-Rough-Unitree-Go2-v0       험지 학습용   <b>← 우리 베이스라인</b>
 Isaac-Velocity-Rough-Unitree-Go2-Play-v0  험지 재생용</div>
+
+<blockquote class="warn">
+  <b>⚠️ 저장소가 둘입니다 — 헷갈리기 쉬우니 미리 정리합니다.</b><br><br>
+  이 가이드가 세우는 것은 <b>IsaacLab</b> 하나입니다. 여기서 <b>학습과 재생</b>이 다 됩니다.<br>
+  그런데 학습 커리큘럼 A13은 <a href="https://github.com/unitreerobotics/unitree_rl_lab" target="_blank" rel="noopener">unitree_rl_lab ↗</a>
+  코드를 읽으라고 합니다. <b>다른 저장소가 맞습니다.</b><br><br>
+  <table style="min-width:0;margin:.4rem 0 .2rem">
+  <tr><td style="padding:.3rem .6rem .3rem 0"><b>IsaacLab</b></td>
+      <td style="padding:.3rem 0">학습 · 재생 · 지형 · 사전학습 체크포인트 — <b>지금 세우는 것</b></td></tr>
+  <tr><td style="padding:.3rem .6rem .3rem 0;border:none"><b>unitree_rl_lab</b></td>
+      <td style="padding:.3rem 0;border:none">Go2 <b>실기 배포</b> 코드(C++ 컨트롤러 · FSM · 관절 매핑) —
+      IsaacLab 에는 이게 없습니다</td></tr>
+  </table>
+  <b>지금은 설치하지 마세요.</b> 실물 로봇에 올릴 때가 되면 그때 붙입니다.
+  단 그 저장소는 <b>Isaac Lab 2.3.x</b>를 요구하므로, 지금 v2.3.2로 고정해 두는 것이 그때를 위한 준비이기도 합니다.
+</blockquote>
 
 <p><b>teacher-student 증류 예제도 포함돼 있습니다</b> — 우리 프로젝트의 핵심 구조입니다.</p>
 <div class="tree">source/isaaclab_rl/isaaclab_rl/rsl_rl/distillation_cfg.py
