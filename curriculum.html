@@ -789,6 +789,14 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="bt">이렇게 확인한다</div>
     <p>다섯 명의 설명이 서로 어긋나지 않는다. 어긋나는 부분이 있으면 그게 지금 맞춰야 할 것입니다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">선행 사례가 <b>가장 늦게 쓴 글이 「인터페이스 구조」</b>였습니다. 그리고 회고에 이렇게 적었습니다 — <i>“이걸 먼저 안 잡아서 뒤에 쓴 글이 전부 뜬금없어졌다.”</i> 그래서 우리는 <b>여기서 한 번 보고 갑니다.</b></p>
+<div class="nt">
+  <div class="nt-h">실물까지 가는 길은 5층입니다</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>① 로봇 하드웨어</td><td class="nv">모터 12 · IMU · 배터리</td><td class="nn">우리가 못 바꾸는 것</td></tr><tr><td>② 펌웨어</td><td class="nv">Unitree 내장</td><td class="nn">못 바꿈 · 모드만 전환</td></tr><tr><td>③ 통신 (SDK2 · DDS)</td><td class="nv">로봇 ↔ PC</td><td class="nn">눈에 안 보이는 배관</td></tr><tr><td>④ 배포 코드</td><td class="nv">관측을 모으고 행동을 보냄</td><td class="nn">우리가 짜는 것</td></tr><tr><td>⑤ 정책</td><td class="nv">신경망</td><td class="nn">우리가 학습시키는 것</td></tr></tbody></table>
+  <div class="nt-note"><b>우리가 실제로 만드는 건 ④와 ⑤뿐입니다.</b> 그런데 문제가 터지면 다섯 층 어디서든 날 수 있고, 증상만 보고는 어느 층인지 모릅니다 — 이 프로젝트가 어려운 진짜 이유가 이것입니다.</div></div></div>
 </section>
 
 <!-- A2 -->
@@ -881,6 +889,21 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="bt">이렇게 확인한다</div>
     <p>“<span class="term">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.</span></span>이 볼 수 있는 숫자”와 “볼 수 없는 숫자”를 나눠서 말할 수 있다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">“로봇이 무엇을 아는가”는 결국 <b>어떤 값을 읽을 수 있는가</b>입니다. 선행 사례가 실기에서 실제로 읽은 값들이 아래입니다.</p>
+<div class="nt">
+  <div class="nt-h">실물 Go2 에서 읽히는 값</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>관절 각도 · 각속도</td><td class="nv">12 + 12</td><td class="nn">가장 믿을 만한 값</td></tr><tr><td>추정 토크</td><td class="nv">12</td><td class="nn">★ <b>토크 센서가 없습니다</b> — 전류로 추정한 값</td></tr><tr><td>모터 온도</td><td class="nv">12</td><td class="nn">오래 걸으면 올라갑니다</td></tr><tr><td>IMU (자세 · 각속도)</td><td class="nv">초당 500회</td><td class="nn"></td></tr><tr><td>배터리 상태</td><td class="nv">전압 · 잔량</td><td class="nn"></td></tr><tr><td>몸통 기본 높이</td><td class="nv">약 0.35 m</td><td class="nn">서 있을 때</td></tr></tbody></table>
+  <div class="nt-note">⚠️ <b>“토크 센서가 있다”고 쓰면 틀립니다.</b> 모터 전류에서 <b>추정</b>한 값이라 실제 토크와 오차가 있습니다. 보고서에 쓸 때 “추정 토크”라고 적으세요.</div></div><div class="fx" id="fx-F-obs">
+  <div class="fx-top"><span class="fx-id">F-obs</span><span class="fx-sym">읽을 수 있는 값과 정책이 쓰는 값은 다릅니다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">위 목록에는 온도·배터리도 있지만 <b>정책 입력에는 안 들어갑니다.</b> 학습 때 없던 값을 실기에서 넣으면 정책이 이해하지 못합니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">“정보가 많을수록 좋다”고 생각해 관측을 늘렸다가 성능이 <b>떨어진</b> 보고가 있습니다(A12 논문).</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v"><b>기록은 다 하되, 정책 입력은 학습 때와 정확히 같게.</b> 이 구분이 A12의 출발점입니다.</span></div>
+  </div>
+</div></div>
 </section>
 
 <!-- A3 -->
@@ -957,6 +980,21 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <p>아무 쿼터니언 값을 하나 잡고 <code>projected_gravity</code>를 직접 계산해서, 그 값이 왜 그렇게 나왔는지 설명한다.
     (<code>scipy.spatial.transform.Rotation</code>으로 몇 줄이면 됩니다.)</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">이 절은 개념이 어려운 게 아니라 <b>부호 하나 틀리면 조용히 망가지는</b> 게 문제입니다. 선행 사례의 코드에는 <b>틀린 버전이 주석으로 남아</b> 있습니다.</p>
+<div class="fx" id="fx-F15">
+  <div class="fx-top"><span class="fx-id">F15</span><span class="fx-sym">기울기 계산이 반대로 나왔다</span><span class="fx-cost">조용한 버그</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">회전 행렬을 <b>전치할 때 행과 열을 헷갈렸습니다.</b> <code>R<sup>T</sup>·[0,0,−1]</code> 은 <b>3번째 행</b>을 써야 하는데 3번째 <b>열</b>을 썼습니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">자세 추정 부호가 반대로. <b>에러는 안 납니다</b> — 숫자가 그냥 이상할 뿐입니다.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">올바른 성분으로 교체하고 <b>단위 테스트로 고정</b>. A3 과제가 정확히 이걸 손으로 검산하는 것입니다.</span></div>
+  </div>
+</div><div class="nt">
+  <div class="nt-h">부호·순서가 갈리는 지점</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>쿼터니언 순서</td><td class="nv">sim = WXYZ / ROS = XYZW</td><td class="nn">섞이면 자세가 통째로 틀림</td></tr><tr><td>중력 벡터 (world)</td><td class="nv">[0, 0, −1]</td><td class="nn">아래가 −</td></tr><tr><td>projected_gravity</td><td class="nv">회전행렬 전치 × 중력</td><td class="nn">★ 여기서 전치를 틀린다</td></tr></tbody></table>
+  <div class="nt-note"><b>“에러가 안 나니까 맞다”가 통하지 않는 구간입니다.</b> 손으로 한 번 검산하고 테스트로 박아두세요.</div></div></div>
 </section>
 
 <!-- A4 -->
@@ -1084,6 +1122,25 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v"><b>feed-forward 토크는 해결책이 아니라 진단 도구</b>로만 씀.</span></div>
   </div><div class="fx-left"><span class="fx-lk">남은 문제</span>보정을 빼면 다시 안 걸음 → 진짜 원인은 다른 곳(도메인 랜덤화)에 있었음</div>
 </div></div>
+
+<div class="prefs">
+<div class="prefs-h">이 절의 근거 — 원문으로 이어집니다</div>
+
+<aside class="pref" id="ref-action-space">
+  <div class="p-top">
+    <span class="p-tag">논문</span>
+    <a class="p-title" href="https://arxiv.org/abs/1611.01055" target="_blank" rel="noopener">Learning Locomotion Skills Using DeepRL: Does the Choice of Action Space Matter? <span class="p-ext">↗</span></a>
+  </div>
+  <div class="p-meta">Peng &amp; van de Panne · UBC · SCA 2017</div>
+  <p class="p-one">“신경망이 <b>토크를 직접 낼까, 목표 각도를 낼까</b>”를 실험으로 비교한 논문입니다. 답은 <b>목표 각도(PD 타깃)</b>였습니다.</p>
+  <div class="p-grid">
+    <div class="p-why"><div class="p-h">왜 중요한가</div><p>사족보행 강화학습이 왜 하나같이 <b>PD 제어기를 사이에 끼우는지</b>의 근거입니다. 토크를 직접 내게 하면 학습이 훨씬 느리고 동작도 거칩니다. A4에서 “왜 굳이 PD를 거치나”가 여기서 풀립니다.</p></div>
+    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">비교한 행동 공간</span><span class="pn-v">토크 · PD 타깃 · 속도 등</span></div><div class="pn-r"><span class="pn-k">결론</span><span class="pn-v">PD 타깃이 학습 속도·안정성 우위</span></div></div>
+  </div>
+  <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>우리가 PD 타깃을 쓰는 이유</b>입니다. A4를 읽고 “왜 신경망이 토크를 직접 안 내지?”가 남으면 이 카드를 보세요.</div>
+  <div class="p-lim"><span class="p-lk">한계</span>보행 과제 중심의 비교이고, 로봇도 시뮬레이션 캐릭터입니다. 결론의 방향은 이후 사족보행 연구가 계속 따랐지만 <b>수치를 그대로 인용하지는 마세요.</b></div>
+</aside>
+</div>
 </section>
 
 <!-- A5 -->
@@ -1193,6 +1250,14 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="bt">이렇게 확인한다</div>
     <p>빈 종이에 그림을 그리고, 각 화살표에서 무엇이 무엇으로 바뀌는지 말로 설명한다. 팀 채팅방에 사진을 올려 서로 확인하세요.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">루프가 <b>세 개</b>입니다. 학습할 때와 실기에서 도는 주기가 <b>다르고</b>, 그 차이를 모르면 “시뮬에선 됐는데 실기에선 안 된다”의 원인을 영원히 못 찾습니다.</p>
+<div class="nt">
+  <div class="nt-h">선행 사례가 실제로 쓴 주기</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>실기 배포 제어</td><td class="nv">50 Hz</td><td class="nn">step_dt = 0.02 s</td></tr><tr><td>시뮬 물리</td><td class="nv">200 Hz</td><td class="nn">sim dt = 0.005 s</td></tr><tr><td>시뮬 정책</td><td class="nv">40 Hz</td><td class="nn">decimation 5</td></tr><tr><td>참고 · Isaac Lab 기본</td><td class="nv">decimation 8</td><td class="nn">에피소드 20 s</td></tr></tbody></table>
+  <div class="nt-note">⚠️ <b>학습 때 정책 주기와 실기 제어 주기가 다르면</b> 정책이 배운 “한 스텝의 크기”가 달라집니다. 맞추거나, 다르다면 그 사실을 반드시 기록하세요.</div></div></div>
 </section>
 
 <!-- A6 -->
@@ -1230,6 +1295,47 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="bt">이렇게 확인한다</div>
     <p>PD 제어로 로봇이 <strong>5초 이상</strong> 서 있다. kp 세 가지의 차이를 영상이나 그래프로 설명할 수 있다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">MuJoCo를 왜 켜는지부터 분명히 합시다. <b>학습하려고 켜는 게 아닙니다.</b> 학습은 Isaac Lab에서 하고, MuJoCo는 <b>실기에 올리기 전 마지막 관문</b>입니다.</p>
+<div class="fx" id="fx-F4">
+  <div class="fx-top"><span class="fx-id">F4</span><span class="fx-sym">실기가 안 돼서 MuJoCo로 돌려봤더니 거기서도 안 됐다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">하드웨어 문제가 아니라 <b>정책·정합성 문제</b>였습니다. 다른 엔진에서도 똑같이 실패했으니까요.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">실기 실패 <b>뒤에야</b> 다른 시뮬레이터로 검증. 순서가 거꾸로였습니다.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">이후 <b>“MuJoCo를 통과한 정책만 실기에 올린다”</b>를 규칙으로 만듦.</span></div>
+  </div><div class="fx-left"><span class="fx-lk">남은 문제</span>이 규칙을 처음부터 세웠으면 몇 주를 아꼈을 것 — <b>우리는 처음부터 세웁니다</b></div>
+</div><div class="fx" id="fx-F-pose">
+  <div class="fx-top"><span class="fx-id">F-pose</span><span class="fx-sym">로봇을 세웠는데 그대로 쓰러졌다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">초기 관절 각도를 <b>한 번만 넣고</b> 끝냈습니다. 중력은 계속 당기는데 잡아주는 게 없으면 넘어집니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">시뮬 첫 실행에서 바로 보임.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">PD 제어기로 <b>매 스텝 목표 각도를 유지</b>해야 합니다. A4가 여기서 필요해집니다.</span></div>
+  </div>
+</div><div class="nt">
+  <div class="nt-h">이 절에서 확인할 숫자</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>Go2 몸통 기본 높이</td><td class="nv">약 0.35 m</td><td class="nn">서 있을 때</td></tr><tr><td>관절 수</td><td class="nv">12</td><td class="nn">다리 4 × 관절 3</td></tr><tr><td>접촉 판정 임계</td><td class="nv">1.0 N</td><td class="nn">이보다 크면 “발이 닿았다”</td></tr></tbody></table>
+  </div></div>
+
+<div class="prefs">
+<div class="prefs-h">이 절의 근거 — 원문으로 이어집니다</div>
+
+<aside class="pref" id="ref-mujoco">
+  <div class="p-top">
+    <span class="p-tag">논문</span>
+    <a class="p-title" href="https://doi.org/10.1109/IROS.2012.6386109" target="_blank" rel="noopener">MuJoCo: A physics engine for model-based control <span class="p-ext">↗</span></a>
+  </div>
+  <div class="p-meta">Todorov, Erez, Tassa · University of Washington · IROS 2012</div>
+  <p class="p-one">로봇 몸을 좌표가 아니라 <b>관절 각도</b>로 다루고 접촉을 볼록 최적화로 근사해, “보기 위한 시뮬레이터”가 아니라 <b>제어 계산을 실제로 돌릴 수 있는</b> 시뮬레이터를 연 엔진.</p>
+  <div class="p-grid">
+    <div class="p-why"><div class="p-h">왜 중요한가</div><p>A6에서 우리가 실제로 켜는 도구입니다. <b>가볍고 노트북에서 돕니다.</b> 나중에 학습한 정책을 실기에 올리기 전 <b>다른 엔진에서도 걷는지 확인</b>하는 자리이기도 합니다.</p></div>
+    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">동역학 평가 속도</span><span class="pn-v">초당 약 400,000회</span></div><div class="pn-r"><span class="pn-k">실시간 대비</span><span class="pn-v">약 5,000배</span></div><div class="pn-r"><span class="pn-k">접촉 6개일 때 감속</span><span class="pn-v">약 3.4배</span></div></div>
+  </div>
+  <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>A6에서 켭니다.</b> 학습용이 아니라 <b>검증용</b>이라는 위치를 기억하세요 — 학습은 Isaac Lab에서 합니다.</div>
+  <div class="p-lim"><span class="p-lk">한계</span>저자 스스로 밝힌 한계 — 속도를 위해 접촉 조건 일부를 <b>일부러 뺐고</b>, 그 결과 “<b>떨어진 거리에서의 접촉</b>”이 생깁니다. MuJoCo의 그 유명한 <b>말랑한 접촉</b>이 여기서 나옵니다. 접촉 정확도는 검증되지 않았다고도 적혀 있습니다.</div>
+</aside>
+</div>
 </section>
 
 <!-- A7 -->
@@ -1266,6 +1372,18 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="bt">이렇게 확인한다</div>
     <p>“지형마다 규칙을 새로 써야 하는데 지형은 무한하다”를 <strong>자기 실험 결과로</strong> 설명한다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i"><b>이 절은 선행 사례에 없습니다.</b> 그 사람은 규칙 기반 보행을 건너뛰고 바로 강화학습으로 갔고, 그래서 <b>“발을 왜 안 떼는지”를 물리적 직관 없이 석 달을 헤맸습니다.</b></p>
+<div class="fx" id="fx-F1">
+  <div class="fx-top"><span class="fx-id">F1</span><span class="fx-sym">실기에 올렸더니 발을 떼지 않았다</span><span class="fx-cost">1/30 → 4/27</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">학습 조건이 너무 깨끗했고, 무엇보다 <b>“발을 든다는 게 물리적으로 무엇인지”를 몸으로 모르는 상태</b>였습니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">실기 육안. 원인을 특정하지 못한 채 보상만 계속 바꿨습니다.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">결국 도메인 랜덤화와 게인 조정으로 해결 — 하지만 <b>거기까지 3개월</b>이 걸렸습니다.</span></div>
+  </div><div class="fx-left"><span class="fx-lk">남은 문제</span><b>A7이 있는 이유가 이것입니다.</b> 규칙으로 한 번 걷게 해보면 “발을 든다 = 무게를 세 다리로 옮긴다”가 몸에 남습니다. 그 감각이 있으면 진단이 빨라집니다.</div>
+</div></div>
 </section>
 
 <!-- A8 -->
@@ -1330,6 +1448,18 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="bt">이렇게 확인한다</div>
     <p>다섯 단어를 각각 한 문장으로 설명한다. 커리큘럼과 도메인 랜덤화의 차이를 말한다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">개념 자체는 다섯 단어면 끝납니다. 다만 <b>초보가 반드시 오해하는 지점</b>이 하나 있어 짚고 갑니다.</p>
+<div class="fx" id="fx-F-stand">
+  <div class="fx-top"><span class="fx-id">F-stand</span><span class="fx-sym">학습을 시켰는데 로봇이 그냥 버티고만 있다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">★ <b>행동이 실제 관절 움직임으로 이어지는 경험이 안 쌓이면,</b> 정책은 걷는 법이 아니라 <b>“넘어지지 않고 버티는 법”</b>을 배웁니다. 그게 점수를 잃지 않는 가장 쉬운 답이거든요.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">보상은 조금씩 오르는데 영상에서 로봇이 미동도 안 함.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">행동 스케일·PD 게인·접촉 판정을 먼저 점검합니다. <b>보상을 고치기 전에</b> 이걸 봅니다.</span></div>
+  </div><div class="fx-left"><span class="fx-lk">남은 문제</span>A10 보상 해킹과 증상이 비슷해 보이지만 <b>원인이 다릅니다</b> — 이건 배관 문제입니다</div>
+</div></div>
 
 <div class="prefs">
 <div class="prefs-h">이 절의 근거 — 원문으로 이어집니다</div>
@@ -1643,6 +1773,39 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="bt">이렇게 확인한다</div>
     <p>표를 안 보고 대부분을 말한다. AI가 범위 밖 값을 주면 그 자리에서 알아챈다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">“이 값이 이상한가?”를 <b>느낌이 아니라 기준으로</b> 판단하려면 표가 필요합니다. 아래는 선행 사례의 실측값과 공개 코드베이스 기본값입니다. <b>우리 값은 우리가 다시 재야 합니다.</b></p>
+<div class="nt">
+  <div class="nt-h">보행 관련 — 선행 사례 실측</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>발 들림 목표 높이</td><td class="nv">0.08 m</td><td class="nn">지면 기준</td></tr><tr><td>발 높이 목표 (몸 기준)</td><td class="nv">−0.27</td><td class="nn">base frame</td></tr><tr><td>관절 추종 오차</td><td class="nv">약 0.2 rad</td><td class="nn">이보다 크면 게인·토크 의심</td></tr><tr><td>접촉 판정 임계</td><td class="nv">1.0 N</td><td class="nn"></td></tr><tr><td>명령 속도 범위</td><td class="nv">vx ±1.0 · vy ±0.4 · wz ±1.0</td><td class="nn">m/s · rad/s</td></tr></tbody></table>
+  </div><div class="nt">
+  <div class="nt-h">학습 설정 — 공개 코드베이스 기본값</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>병렬 환경</td><td class="nv">4096</td><td class="nn">이보다 늘려도 이득이 없다는 보고</td></tr><tr><td>환경당 스텝</td><td class="nv">24</td><td class="nn">배치 98,304</td></tr><tr><td>미니배치</td><td class="nv">24,576</td><td class="nn"></td></tr><tr><td>에폭</td><td class="nv">5</td><td class="nn"></td></tr><tr><td>클리핑 폭 ε</td><td class="nv">0.2</td><td class="nn">PPO</td></tr><tr><td>엔트로피 계수</td><td class="nv">0.01</td><td class="nn"></td></tr><tr><td>γ / λ</td><td class="nv">0.99 / 0.95</td><td class="nn"></td></tr><tr><td>업데이트 횟수</td><td class="nv">험지 1500 / 평지 300</td><td class="nn"></td></tr></tbody></table>
+  </div><div class="nt">
+  <div class="nt-h">도메인 랜덤화 — 참고 범위</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>지면 마찰</td><td class="nv">U(0.5, 1.25)</td><td class="nn"></td></tr><tr><td>관절 각도 잡음</td><td class="nv">± 0.01 rad</td><td class="nn"></td></tr><tr><td>관절 속도 잡음</td><td class="nv">± 1.5 rad/s</td><td class="nn"></td></tr><tr><td>몸통 각속도 잡음</td><td class="nv">± 0.2 rad/s</td><td class="nn"></td></tr><tr><td>지형 높이 잡음</td><td class="nv">± 0.1 m</td><td class="nn"></td></tr><tr><td>밀치기</td><td class="nv">10초마다 ± 1 m/s</td><td class="nn"></td></tr></tbody></table>
+  <div class="nt-note">⚠️ 이건 <b>남의 기본값</b>입니다. 그대로 쓰지 말고 <b>하나씩 넣으며 무엇을 얻고 잃었는지 기록</b>하세요 — A14의 논문이 “많이 걸수록 좋다”를 정면으로 반박합니다.</div></div></div>
+
+<div class="prefs">
+<div class="prefs-h">이 절의 근거 — 원문으로 이어집니다</div>
+
+<aside class="pref" id="ref-isaacgym">
+  <div class="p-top">
+    <span class="p-tag">논문</span>
+    <a class="p-title" href="https://arxiv.org/abs/2108.10470" target="_blank" rel="noopener">Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning <span class="p-ext">↗</span></a>
+  </div>
+  <div class="p-meta">Makoviychuk 외 · NVIDIA · 2021</div>
+  <p class="p-one">물리 시뮬과 신경망 학습을 <b>둘 다 GPU에 올려 CPU를 거치지 않게</b> 만들어, 클러스터가 필요하던 학습을 GPU 한 장으로 끌어내린 도구.</p>
+  <div class="p-grid">
+    <div class="p-why"><div class="p-h">왜 중요한가</div><p><b>“4096개가 기준선”이라는 숫자 감각의 출처</b>입니다. 예전엔 CPU 수천 코어가 필요하던 실험을 이제 우리 워크스테이션 한 대로 합니다. A11의 표에 나오는 값들이 여기서 왔습니다.</p></div>
+    <div class="p-num"><div class="p-h">논문이 보고한 숫자</div><div class="pn-r"><span class="pn-k">기존 CPU 시뮬 대비</span><span class="pn-v">100 ~ 1000배</span></div><div class="pn-r"><span class="pn-k">ANYmal 학습 (A100 1장)</span><span class="pn-v">2분 미만</span></div><div class="pn-r"><span class="pn-k">처리량</span><span class="pn-v">초당 최대 70만 스텝</span></div><div class="pn-r"><span class="pn-k">병렬 환경</span><span class="pn-v">4,096 ~ 16,384</span></div></div>
+  </div>
+  <div class="p-ours"><span class="p-ok">우리와의 관계</span><b>개념은 계승, 도구는 교체.</b> NVIDIA가 legacy로 지정했고 후속이 Isaac Lab입니다 — 설치 대상이 아닙니다.</div>
+  <div class="p-lim"><span class="p-lk">한계</span>저자 자인 — <b>환경을 4096개보다 늘리면 이득이 없고 오히려 학습이 느려지며 어색한 걸음이 나옵니다.</b> “많을수록 좋다”가 아닙니다. 또 가장 화려한 비교 수치는 <b>베스트 시드</b> 기준입니다.</div>
+</aside>
+</div>
 </section>
 
 <!-- A12 -->
@@ -1848,6 +2011,21 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     </ul>
     <p>이 세 표가 <strong>앞으로 모든 실험의 기준 문서</strong>가 됩니다. 지금 만들어두면 서버가 준비된 날 바로 실험을 시작할 수 있습니다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">코드를 읽는 목적은 <b>“여기를 고치면 저기가 바뀐다”</b>를 아는 것입니다. 선행 사례가 <b>가장 오래 헤맨 곳도 코드였고</b>, 원인은 알고리즘이 아니라 <b>정합성</b>이었습니다.</p>
+<div class="nt">
+  <div class="nt-h">★ 학습 때와 실기 때가 같아야 하는 6가지</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>① 관절 순서</td><td class="nv">정책 ≠ SDK</td><td class="nn">틀리면 다른 다리가 움직인다</td></tr><tr><td>② 기본 관절 각도</td><td class="nv">default_joint_pos</td><td class="nn">행동의 기준점</td></tr><tr><td>③ 행동 스케일</td><td class="nv">action_scale</td><td class="nn">한 스텝의 크기</td></tr><tr><td>④ last_action 의미</td><td class="nv">★ 가공 전 원값</td><td class="nn">가장 많이 틀리는 곳</td></tr><tr><td>⑤ 제어 주파수</td><td class="nv">학습 vs 실기</td><td class="nn">A5 참조</td></tr><tr><td>⑥ PD 게인</td><td class="nv">kp · kd</td><td class="nn">A4 참조</td></tr></tbody></table>
+  <div class="nt-note"><b>이 여섯이 이 프로젝트 실패의 최대 원인입니다.</b> 코드를 읽을 때 이것부터 표로 만들어 두세요.</div></div><div class="fx" id="fx-F5">
+  <div class="fx-top"><span class="fx-id">F5</span><span class="fx-sym">가만히 서 있는데 다리를 과하게 접었다</span><span class="fx-cost">정합성 ④</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">★ <code>last_action</code> 에 <b>가공된 목표 각도</b>가 들어갔습니다. 학습 때는 <b>가공 전 원값</b>이었습니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">실기 자세가 학습 영상과 다름. <b>코드를 한 줄씩 대조</b>해서야 찾았습니다.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">원값으로 교체 → 다리가 펴짐.</span></div>
+  </div>
+</div></div>
 </section>
 
 <!-- A14 -->
@@ -1982,6 +2160,24 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <p class="sub">실험이 쏟아지기 시작하면 규칙을 만들 시간이 없습니다. 한가한 지금 만들어야 합니다.</p>
   </div>
 
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">지표를 정할 때 반드시 던져야 할 질문이 있습니다 — <b>“이 숫자를 편법으로 좋게 만들 수 있는가?”</b> 선행 사례는 이 질문을 늦게 해서 실험 하나를 통째로 다시 했습니다.</p>
+<div class="fx" id="fx-F17">
+  <div class="fx-top"><span class="fx-id">F17</span><span class="fx-sym">“그냥 느리게 걸어서 덜 뜨거운 것 아닌가”</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">지표가 <b>속도와 무관하게</b> 정의돼 있었습니다. 천천히 걸으면 모든 부담이 줄어드니 점수가 좋아집니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">발표에서 나올 반박을 미리 그려보다 발견.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v"><b>명령 속도를 못 따라가면 벌점</b>을 별도로 넣고, 지표를 <b>속도로 나눠</b> 정규화.</span></div>
+  </div><div class="fx-left"><span class="fx-lk">남은 문제</span>우리 지표에도 같은 질문을 던져야 합니다 — <b>“느리게 가면 좋아지는 지표인가?”</b></div>
+</div><div class="nt">
+  <div class="nt-h">실기 진입 게이트 — 통과 전 실물 금지</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>① 학습 시뮬에서 완주</td><td class="nv">필수</td><td class="nn">Isaac Lab</td></tr><tr><td>② 다른 엔진에서 완주</td><td class="nv">필수</td><td class="nn">MuJoCo — A6</td></tr><tr><td>③ 정합성 6종 대조</td><td class="nv">필수</td><td class="nn">A13</td></tr><tr><td>④ 안전 절차 숙지</td><td class="nv">필수</td><td class="nn">A16</td></tr></tbody></table>
+  <div class="nt-note"><b>②를 건너뛴 것이 선행 사례가 몇 주를 잃은 원인입니다.</b></div></div><div class="nt">
+  <div class="nt-h">실험 기록 규칙</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>개발용 / 평가용 분리</td><td class="nv">반드시</td><td class="nn">튜닝에 쓴 로그로 최종 비교 금지</td></tr><tr><td>시드 기록</td><td class="nv">반드시</td><td class="nn">시드만 바꿔도 결과가 뒤집힌다</td></tr><tr><td>한 번에 바꾸는 항목</td><td class="nv">1개</td><td class="nn">두 개면 원인을 못 찾는다</td></tr></tbody></table>
+  </div></div>
+
 <div class="prefs">
 <div class="prefs-h">이 절의 근거 — 원문으로 이어집니다</div>
 
@@ -2024,6 +2220,21 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <p><strong>안전 체크리스트</strong>를 만들어 실기 세션마다 종이로 체크합니다.
     이 문서가 있다는 사실 자체가 멘토와 심사에서 신뢰를 삽니다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i"><b>“잘 걷는다”에는 “멈출 수 있다”가 포함됩니다.</b> 그리고 실물에서 제일 먼저 사고가 나는 지점은 보행 성능이 아니라 <b>모드 충돌</b>입니다.</p>
+<div class="fx" id="fx-F-mode">
+  <div class="fx-top"><span class="fx-id">F-mode</span><span class="fx-sym">명령을 보냈는데 로봇이 엉뚱하게 움직였다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">Go2에는 <b>내장 보행 제어기(sport mode)</b>가 있습니다. 그걸 끄지 않고 저수준 명령을 보내면 <b>두 제어기가 동시에 살아</b> 서로 충돌합니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">어느 명령이 적용되는지 불명확한 채 로봇이 요동침.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">저수준 제어 전에 <b>반드시 모드를 전환</b>합니다. 선택이 아니라 순서입니다.</span></div>
+  </div><div class="fx-left"><span class="fx-lk">남은 문제</span>A12에서 본 것과 같은 뿌리 — 내장 제어기를 끄면 몸통 속도와 지형 높이맵이 <b>함께</b> 사라집니다</div>
+</div><div class="nt">
+  <div class="nt-h">실물 켜기 전 체크</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>공간</td><td class="nv">반경 2 m 이상 · 장애물 없음</td><td class="nn">넘어질 방향을 비워둘 것</td></tr><tr><td>사람</td><td class="nv">최소 2명</td><td class="nn">한 명은 로봇에서 손을 떼지 않는다</td></tr><tr><td>비상 정지</td><td class="nv">위치 확인 · 실제로 눌러볼 것</td><td class="nn">“있다”와 “된다”는 다름</td></tr><tr><td>배터리</td><td class="nv">충분한지 확인</td><td class="nn">중간에 꺼지면 그대로 낙하</td></tr><tr><td>첫 명령</td><td class="nv">가장 느린 속도</td><td class="nn">참고: 공개 논문도 실기는 0.6 m/s 로 제한</td></tr></tbody></table>
+  <div class="nt-note"><b>모드 전환 → 자세 유지 확인 → 그 다음에 걷기.</b> 순서를 건너뛰지 마세요.</div></div></div>
 </section>
 
 <!-- A17 -->
@@ -2070,6 +2281,21 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     예상 부작용은 종종걸음이 되는 것. 표준 구현과 가중치 범위를 알려주고, <strong>그 부작용을 확인할 측정 코드도 같이</strong> 만들어줘.”</p>
     <p>차이는 <strong>“만들어줘”가 아니라 “이 판단이 맞는지 같이 보자”</strong>입니다. 판단의 주체가 사람일 때 AI가 훨씬 정확해집니다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">우리는 AI로 코드를 씁니다. 그런데 <b>강화학습 코드에서 AI가 틀리는 곳은 정해져 있습니다</b> — 알고리즘이 아니라 <b>정합성</b>입니다. 선행 사례의 최대 시간 손실도 정확히 거기였습니다.</p>
+<div class="nt">
+  <div class="nt-h">AI가 특히 자주 틀리는 6곳 — 생성 후 반드시 사람이 확인</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>관절 순서 매핑</td><td class="nv">★★</td><td class="nn">그럴듯하게 지어냅니다</td></tr><tr><td>last_action 의미</td><td class="nv">★★</td><td class="nn">가공 전/후를 혼동</td></tr><tr><td>쿼터니언 순서</td><td class="nv">★★</td><td class="nn">WXYZ ↔ XYZW</td></tr><tr><td>회전행렬 전치</td><td class="nv">★</td><td class="nn">행과 열</td></tr><tr><td>행동 스케일 · 기본각도</td><td class="nv">★</td><td class="nn">학습과 실기가 갈라짐</td></tr><tr><td>제어 주파수</td><td class="nv">★</td><td class="nn">조용히 다름</td></tr></tbody></table>
+  <div class="nt-note"><b>공통점 — 전부 에러를 안 냅니다.</b> 코드는 돌고, 로봇만 이상하게 움직입니다.</div></div><div class="fx" id="fx-F-ai">
+  <div class="fx-top"><span class="fx-id">F-ai</span><span class="fx-sym">AI가 짜준 코드가 돌아가는데 로봇이 이상하다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">AI는 <b>문법적으로 맞는 코드</b>를 씁니다. 그런데 위 6가지는 문법이 아니라 <b>약속</b>입니다 — 학습 쪽과 배포 쪽이 같은 약속을 쓰는지는 코드만 봐서는 모릅니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">실기에서만 증상이 남. 시뮬에서는 정상.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v"><b>정합성 6종을 표로 만들어 두고</b> AI가 짠 코드를 그 표와 대조합니다. A13이 그 표를 만드는 절입니다.</span></div>
+  </div><div class="fx-left"><span class="fx-lk">남은 문제</span><b>규칙 — AI에게 “왜 이렇게 했는지” 근거를 묻고, 근거가 코드 밖(문서·실측)에 있으면 직접 확인한다.</b></div>
+</div></div>
 </section>
 
 <!-- ══════════════════ 구간 B ══════════════════ -->

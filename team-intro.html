@@ -298,6 +298,11 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
   *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 
+/* 병합 후 세로 리듬 보정 — 6장이 같은 높이에서 본문을 시작하게 한다 */
+[data-deck="ko"] .p2{margin-top:1.7rem}
+@media (max-width:820px){ [data-deck="ko"] .p2{margin-top:0} }
+@media print{ [data-deck="ko"] .p2{margin-top:15mm} }
+
 /* ═══════════ 킥오프 4장 — 범위 격리 이관 ═══════════
    두 문서가 .eyebrow · h1 · h2 · .sub 등을 다른 값으로 쓰기 때문에
    (실측 43개 충돌) 그대로 합치면 팀소개 레이아웃이 깨진다.
@@ -319,6 +324,7 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
 [data-deck="ko"] h2 .en{font-size:.6rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase}
 [data-deck="ko"] .sub{color:var(--ink-2);font-size:clamp(.7rem,.86vw,.8rem);line-height:1.6}
 [data-deck="ko"] .tbd{color:var(--note);font-weight:700}
+[data-deck="ko"] .p1{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(22px,3vw,44px);flex:1;align-content:center}
 [data-deck="ko"] .mark{margin-bottom:12px}
 [data-deck="ko"] .mark .name{font-size:clamp(2rem,4.2vw,3.2rem);font-weight:800;letter-spacing:-.045em;line-height:.95;display:block}
 [data-deck="ko"] .mark .ko{font-size:.72rem;color:var(--ink-3);font-weight:600}
@@ -339,6 +345,7 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
 [data-deck="ko"] .gr{background:var(--paper-2);border-left:2.5px solid var(--ink);padding:8px 11px}
 [data-deck="ko"] .gr .t{font-size:.66rem;font-weight:800;margin-bottom:2px}
 [data-deck="ko"] .gr .d{font-size:.62rem;color:var(--ink-2);line-height:1.45}
+[data-deck="ko"] .p2{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(22px,3vw,42px);flex:1;align-content:center}
 [data-deck="ko"] .tags{display:flex;gap:7px;margin-bottom:10px}
 [data-deck="ko"] .tags span{font-size:.6rem;font-weight:800;padding:4px 10px;background:var(--dim);color:#fff;letter-spacing:.06em}
 [data-deck="ko"] .tags span.alt{background:var(--ink)}
@@ -358,6 +365,7 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
 [data-deck="ko"] .stack .sl{font-size:.56rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:5px}
 [data-deck="ko"] .stack .sv{font-size:clamp(.63rem,.77vw,.71rem);line-height:1.7;color:var(--ink-2);font-family:'Consolas',monospace}
 [data-deck="ko"] .stack .sv b{color:var(--ink);font-family:inherit}
+[data-deck="ko"] .gantt{flex:1;display:flex;flex-direction:column;justify-content:center}
 [data-deck="ko"] table.g{width:100%;border-collapse:collapse;font-size:clamp(.56rem,.7vw,.66rem);table-layout:fixed}
 [data-deck="ko"] table.g th{background:var(--ink);color:var(--paper);padding:4px 7px;font-weight:700;font-size:.57rem;
            letter-spacing:.03em;text-align:left}
@@ -380,9 +388,9 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
 [data-deck="ko"] .ms i.note{background:var(--note)}
 [data-deck="ko"] .ms .mk{background:var(--note);color:#fff;font-weight:800;padding:1px 6px;font-size:.56rem;
         font-family:'Consolas',monospace;margin-right:5px}
-[data-deck="ko"] 좌측 표를 그 안에서 세로 중앙에 놓는다.
-   표의 행 높이는 건드리지 않는다. */
-.p4>div{display:flex;flex-direction:column;min-width:0}
+[data-deck="ko"] .p4{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(22px,3vw,40px);
+     flex:1;align-content:center;align-items:stretch}
+[data-deck="ko"] .p4>div{display:flex;flex-direction:column;min-width:0}
 [data-deck="ko"] .p4>div:first-child{justify-content:center}
 [data-deck="ko"] table.d{width:100%;border-collapse:collapse;font-size:clamp(.62rem,.76vw,.71rem)}
 [data-deck="ko"] table.d th{background:var(--ink);color:var(--paper);padding:6px 9px;text-align:left;font-size:.58rem;letter-spacing:.06em;font-weight:700}
@@ -396,10 +404,7 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
 [data-deck="ko"] .me .mt{font-size:clamp(.68rem,.82vw,.76rem);font-weight:800;margin-bottom:3px}
 [data-deck="ko"] .me .md{font-size:clamp(.62rem,.76vw,.7rem);color:var(--ink-2);line-height:1.5}
 [data-deck="ko"] .me .md code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;font-size:.94em}
-[data-deck="ko"] 슬라이드 상단 패딩은 vh 기반이라
-   화면 높이에 따라 라인 위치가 변한다. 그래서 세로 회피만으로는 불충분하고
-   가로로도 라인을 물러나게 한다. (모바일은 버튼이 없으므로 해제) */
-.eyebrow{padding-right:104px}
+[data-deck="ko"] .eyebrow{padding-right:104px}
 @media(max-width:900px){
 [data-deck="ko"] .eyebrow{padding-right:0}
 }
@@ -416,13 +421,10 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
 [data-deck="ko"]{position:relative;inset:auto;
     height:auto;min-height:calc(100vh - 64px);
     padding:22px 16px 24px;
-    display:none;                     /* 숨긴 장은 자리를 차지하지 않게 */
+    display:none;                     
     opacity:1;visibility:visible;transform:none;transition:none;}
 [data-deck="ko"].on{display:flex}
-[data-deck="ko"] 1fr) 이라 자식이 콘텐츠 최소폭 아래로 줄지 않는다.
-     minmax(0,
-[data-deck="ko"] 1fr) + min-width:0 이 있어야 표·긴 단어가 부모를 밀어내지 않는다. */
-  .p1,
+[data-deck="ko"] .p1,
 [data-deck="ko"] .p2,
 [data-deck="ko"] .p4,
 [data-deck="ko"] .hero,
@@ -447,21 +449,21 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
 [data-deck="ko"] .phase,
 [data-deck="ko"] .why,
 [data-deck="ko"] .mini{gap:10px}
+[data-deck="ko"] .gantt{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
 [data-deck="ko"] .gantt::after{content:'← 좌우로 밀어서 전체 일정 보기';
     display:block;font-size:.62rem;color:var(--ink-3);margin-top:7px;}
 [data-deck="ko"] table.g{min-width:680px}
 [data-deck="ko"] .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+[data-deck="ko"] table.d{min-width:0;font-size:.7rem;table-layout:fixed}
 [data-deck="ko"] table.d td,
 [data-deck="ko"] table.d th{padding:7px 8px;word-break:keep-all;overflow-wrap:anywhere}
 [data-deck="ko"] table.d td.o{width:38%}
+[data-deck="ko"] h1{font-size:1.35rem}
 [data-deck="ko"] .pname{font-size:1.22rem}
 [data-deck="ko"] .mark .name{font-size:2.3rem}
 [data-deck="ko"] .slogan{font-size:1rem}
 [data-deck="ko"] .sub,
 [data-deck="ko"] .pdesc{font-size:.82rem}
-[data-deck="ko"] iOS Safari는 Fullscreen API 자체를 제한한다)
-     ──────────────────────────────────────────────────── */
-  #deck{padding-bottom:68px}
 [data-deck="ko"] .fs{display:none}
 [data-deck="ko"] .nav{width:40px;height:40px;font-size:1rem;flex:0 0 auto}
 [data-deck="ko"] #pg{font-size:.8rem;min-width:50px;flex:0 0 auto}
@@ -470,9 +472,7 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
 [data-deck="ko"] .fs{font-size:.58rem;padding:10px 9px}
 }
 @media print{
-[data-deck="ko"] )이 걸리는 것을 해제.
-     이게 없으면 활성 슬라이드 1장만 인쇄된다. */
-  .slide{display:flex!important;position:relative!important;min-height:0!important}
+[data-deck="ko"]{display:flex!important;position:relative!important;min-height:0!important}
 [data-deck="ko"]{position:relative;opacity:1!important;visibility:visible!important;transform:none!important;
          break-after:page;height:204mm;width:100%;padding:9mm 11mm 7mm}
 [data-deck="ko"]:last-child{break-after:auto}
@@ -486,6 +486,7 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
 [data-deck="ko"] .rule,
 [data-deck="ko"] .pstep{break-inside:avoid}
 [data-deck="ko"] tr{break-inside:avoid}
+[data-deck="ko"] .p1,
 [data-deck="ko"] .p2,
 [data-deck="ko"] .p4{align-content:center!important}
 [data-deck="ko"] .p1{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)!important}
