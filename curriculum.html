@@ -476,6 +476,62 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   .pref .p-ext{display:none}
 }
 
+/* ═══ 실전 기록 (Layer 2/3) ═══ */
+.fld{margin:1.6rem 0;padding:.9rem 1rem 1rem;background:var(--paper-2);
+  border:1px solid var(--rule);border-left:3px solid var(--note);max-width:var(--measure)}
+.fld-h{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;
+  padding-bottom:.5rem;margin-bottom:.6rem;border-bottom:1px solid var(--rule)}
+.fld-t{font-size:.6rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--note);background:var(--note-soft);padding:.16rem .45rem}
+.fld-s{font-size:.66rem;color:var(--ink-3)}
+.fld-s a{color:var(--dim)}
+.fld-i{font-size:.8rem;color:var(--ink-2);line-height:1.7;margin:0 0 .85rem}
+
+.fx{background:var(--card);border:1px solid var(--rule);margin:.55rem 0;padding:.6rem .75rem .65rem}
+.fx-top{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;margin-bottom:.45rem}
+.fx-id{font-size:.56rem;font-weight:800;letter-spacing:.08em;color:var(--stop);
+  background:var(--stop-soft);padding:.12rem .35rem;flex:0 0 auto;font-family:'Consolas',monospace}
+.fx-sym{font-size:.82rem;font-weight:700;color:var(--ink);line-height:1.45}
+.fx-cost{font-size:.58rem;font-weight:800;color:var(--stop);border:1px solid var(--stop);
+  padding:.1rem .35rem;flex:0 0 auto}
+.fx-r{display:grid;grid-template-columns:6.4rem minmax(0,1fr);gap:.5rem;padding:.2rem 0;font-size:.76rem}
+.fx-k{font-size:.6rem;font-weight:800;letter-spacing:.06em;color:var(--ink-3);
+  text-transform:uppercase;padding-top:.14rem}
+.fx-v{color:var(--ink-2);line-height:1.6}
+.fx-fix .fx-k{color:var(--dim)}
+.fx-fix .fx-v{color:var(--ink)}
+.fx-left{margin-top:.45rem;padding:.4rem .55rem;background:var(--note-soft);font-size:.72rem;
+  color:var(--ink-2);line-height:1.6}
+.fx-lk{font-size:.56rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--note);margin-right:.4rem}
+
+.nt{background:var(--card);border:1px solid var(--rule);margin:.55rem 0 .8rem;padding:.6rem .75rem .5rem}
+.nt-h{font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:.45rem}
+.nt-t{width:100%;border-collapse:collapse;font-size:.75rem}
+.nt-t th{text-align:left;font-size:.58rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-3);padding:.2rem .3rem .3rem 0;border-bottom:1px solid var(--rule)}
+.nt-t td{padding:.28rem .3rem .28rem 0;border-bottom:1px dotted var(--rule);color:var(--ink-2);vertical-align:top}
+.nt-t td.nv{font-weight:800;color:var(--dim);white-space:nowrap;font-family:'Consolas',monospace;font-size:.94em}
+.nt-t td.nn{color:var(--ink-3);font-size:.94em}
+.nt-t tr:last-child td{border-bottom:none}
+.nt-note{margin-top:.45rem;padding-top:.4rem;border-top:1px solid var(--rule);
+  font-size:.71rem;color:var(--ink-3);line-height:1.6}
+.nt-note code{font-family:'Consolas',monospace;background:var(--paper-2);padding:.03rem .2rem}
+
+@media (max-width:700px){
+  .fld{padding:.7rem .75rem .8rem}
+  .fx-r{grid-template-columns:1fr;gap:.1rem}
+  .fx-k{padding-top:.25rem}
+  .nt{overflow-x:auto}
+  .nt-t{min-width:420px}
+}
+@media print{
+  .fld{break-inside:auto}
+  .fx,.nt{break-inside:avoid;page-break-inside:avoid}
+  .fld-s a::after{content:' (' attr(href) ')';font-size:.9em;color:var(--ink-3)}
+}
+
 </style>
 </head>
 <body>
@@ -917,6 +973,28 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="bt">이렇게 확인한다</div>
     <p>“kp를 2배로 올리면 로봇이 어떻게 변할까?”에 답할 수 있다. (더 빠르고 단단해지지만 진동과 충격이 커진다.)</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">PD 게인은 "잘 되는 값"을 찾는 문제처럼 보이지만, <b>실제로는 잘못된 값이 실패를 감춰서</b> 더 위험합니다. 아래 두 사례가 5개월짜리 프로젝트에서 3개월을 날린 원인입니다.</p>
+<div class="nt">
+  <div class="nt-h">선행 사례가 최종적으로 쓴 값</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>Kp (stiffness)</td><td class="nv">20</td><td class="nn">초기엔 더 높게 썼다가 낮춤</td></tr><tr><td>Kd (damping)</td><td class="nv">0.5</td><td class="nn"></td></tr><tr><td>관절 추종 오차</td><td class="nv">약 0.2 rad</td><td class="nn">이보다 크면 게인·토크를 의심</td></tr><tr><td>실기 제어 주파수</td><td class="nv">50 Hz</td><td class="nn">step_dt = 0.02 s</td></tr></tbody></table>
+  <div class="nt-note">⚠️ 이건 <b>그 사람의 로봇·정책 조합</b>에서 나온 값입니다. 우리 값은 우리가 재야 합니다.</div></div><div class="fx" id="fx-F13">
+  <div class="fx-top"><span class="fx-id">F13</span><span class="fx-sym">Kp를 올렸더니 걷기 시작했다</span><span class="fx-cost">실패 은폐</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">Kp가 높으면 <b>부정확한 목표 각도도 힘으로 끌려갑니다.</b> 정책이 제대로 배웠는지 알 수 없게 됩니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">무릎이 과하게 접히고 몸통 기울기가 커지며 토크가 한계에 닿음.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">Kp를 <b>낮추고</b> 정책 쪽을 고침. 게인은 마지막에 만짐.</span></div>
+  </div>
+</div><div class="fx" id="fx-F12">
+  <div class="fx-top"><span class="fx-id">F12</span><span class="fx-sym">실기에서만 토크를 더 넣어 움직이게 만들었다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">학습할 때의 모터 모델과 실기의 모터 모델이 <b>달라집니다.</b> 간극을 줄이려다 새 간극을 만듭니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">MuJoCo에서 통통 튀고, 같은 쪽 발이 함께 뜨는 비정상 보행이 나옴.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v"><b>feed-forward 토크는 해결책이 아니라 진단 도구</b>로만 씀.</span></div>
+  </div><div class="fx-left"><span class="fx-lk">남은 문제</span>보정을 빼면 다시 안 걸음 → 진짜 원인은 다른 곳(도메인 랜덤화)에 있었음</div>
+</div></div>
 </section>
 
 <!-- A5 -->
@@ -1199,6 +1277,21 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <p>학습이 실패한 그래프를 보고 “아마 이것 때문일 것”이라고 원인 후보를 댈 수 있다.</p>
   </div>
 
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">학습이 끝나면 영상을 봅니다. <b>그런데 영상이 제일 잘 속입니다.</b> 선행 사례는 "영상만 보면 잘 걷는 것처럼 보였다"에서 출발해 석 달을 헤맸습니다.</p>
+<div class="nt">
+  <div class="nt-h">학습 실행 설정</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>병렬 환경 수</td><td class="nv">4096</td><td class="nn">GPU 1장 기준</td></tr><tr><td>최대 반복</td><td class="nv">10000</td><td class="nn"></td></tr><tr><td>시뮬 dt / decimation</td><td class="nv">0.005 s / 8</td><td class="nn">정책 주기 = 0.04 s</td></tr><tr><td>에피소드 길이</td><td class="nv">20 s</td><td class="nn"></td></tr><tr><td>행동 스케일</td><td class="nv">0.5 → 0.25</td><td class="nn">중간에 낮춤</td></tr><tr><td>신경망 (actor)</td><td class="nv">512 → 256 → 128, ELU</td><td class="nn"></td></tr></tbody></table>
+  <div class="nt-note">학습 중 <code>--video --video_interval 1000</code> 로 영상을 남기면 곡선과 대조할 수 있습니다.</div></div><div class="fx" id="fx-F-video">
+  <div class="fx-top"><span class="fx-id">F-video</span><span class="fx-sym">보상 곡선도 오르고 영상도 걷는 것처럼 보였다</span><span class="fx-cost">석 달</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">시뮬레이션 카메라는 <b>발이 땅에 실제로 닿았는지</b>를 보여주지 않습니다. 미끄러져도 앞으로 갑니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">실기에 올렸더니 발을 아예 떼지 않음.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v"><b>보상 항목별 로그</b>를 따로 봅니다. 특히 발 관련 항목이 0에 붙어 있으면 그건 학습이 안 된 것입니다.</span></div>
+  </div>
+</div></div>
+
 <div class="prefs">
 <div class="prefs-h">이 절의 근거 — 원문으로 이어집니다</div>
 
@@ -1290,6 +1383,60 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="bt">이렇게 확인한다</div>
     <p>처음 보는 이상한 보행 영상을 보고, 원인 후보를 <strong>두 개 이상</strong> 댈 수 있다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">아래는 <b>전부 실제로 일어난 일</b>입니다. 하나같이 "규칙은 지켰는데 원하는 게 아닌" 결과입니다. 보상 설계가 이 프로젝트의 실제 난이도인 이유입니다.</p>
+<div class="fx" id="fx-F8">
+  <div class="fx-top"><span class="fx-id">F8</span><span class="fx-sym">발을 더 들라고 했더니 몸을 낮췄다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">발 높이를 <b>몸 기준</b>으로 쟀습니다. 몸을 내리면 발을 안 들어도 조건이 충족됩니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">영상에서 로봇이 주저앉듯 걸음.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">기준을 몸이 아닌 <b>지면</b>으로 바꿈.</span></div>
+  </div>
+</div><div class="fx" id="fx-F9">
+  <div class="fx-top"><span class="fx-id">F9</span><span class="fx-sym">발 높이를 더 올렸더니 발을 옆으로 들었다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">"높이"만 봤지 <b>어느 방향으로</b>는 안 봤습니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">보행이 게처럼 됨.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">체공 시간 항목을 빼고 지면 기준 높이 하나로 단순화.</span></div>
+  </div>
+</div><div class="fx" id="fx-F10">
+  <div class="fx-top"><span class="fx-id">F10</span><span class="fx-sym">미끄러짐에 벌을 줬더니 발을 아예 안 뗐다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v"><b>발을 안 떼면 미끄러지지도 않습니다.</b> 벌점을 피하는 가장 쉬운 답을 찾은 것입니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">체공 시간 로그가 거의 0.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">벌점 크기를 10분의 1로 되돌림.</span></div>
+  </div>
+</div><div class="fx" id="fx-F3">
+  <div class="fx-top"><span class="fx-id">F3</span><span class="fx-sym">체공 시간 보상이 계속 0이었다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">기준을 넘겨 상을 받는 것보다 <b>발을 붙이고 0을 받는 게 쉬웠습니다.</b> 국소 최적에 갇힘.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">보상 항목별 로그.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">평지 대신 <b>지형 커리큘럼</b>을 넣어 발을 들 수밖에 없게 만듦.</span></div>
+  </div>
+</div><div class="fx" id="fx-F2">
+  <div class="fx-top"><span class="fx-id">F2</span><span class="fx-sym">중요한 보상의 가중치를 크게 키웠다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">한 항목이 커지면 <b>다른 항목이 전부 무시</b>됩니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">시뮬레이션에서조차 못 걷게 됨.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">원래 값으로 되돌림. <b>한 번에 하나씩만</b>.</span></div>
+  </div>
+</div><div class="fx" id="fx-F16">
+  <div class="fx-top"><span class="fx-id">F16</span><span class="fx-sym">온도를 낮추라고 했더니 오히려 더 뜨거워졌다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">★ <b>온도는 결과이지 원인이 아닙니다.</b> 정책은 온도 지표만 낮추는 빈틈을 찾아냈습니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">480초 측정에서 열 부하 44.2 → 58.7로 <b>악화</b>. 게다가 10 m 직진에 방향이 18도 틀어짐.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">온도가 아니라 <b>토크와 소비 전력</b>에 직접 벌점 → 34.2 (기준 대비 −22.5%).</span></div>
+  </div><div class="fx-left"><span class="fx-lk">남은 문제</span>"지표가 결과이면 해킹당한다"가 이 프로젝트 전체의 교훈</div>
+</div><div class="fx" id="fx-F17">
+  <div class="fx-top"><span class="fx-id">F17</span><span class="fx-sym">"안 걸으면 안 뜨겁다"</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">천천히 걸으면 모든 벌점이 줄어듭니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">명령 속도 대비 실제 속도가 계속 낮음.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v"><b>명령 속도를 못 따라가면 벌점</b>을 별도로 추가 (허용 오차 약 0.1 m/s).</span></div>
+  </div>
+</div></div>
 
 <div class="prefs">
 <div class="prefs-h">이 절의 근거 — 원문으로 이어집니다</div>
@@ -1444,6 +1591,35 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <p>“<code>base_lin_vel</code>을 왜 빼는가”를 세 문장으로 설명한다.</p>
   </div>
 
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">A12는 "무엇을 넣을까"입니다. 그런데 <b>실제로 프로젝트를 죽이는 건 "학습 때와 실기 때가 같은가"</b>입니다. 아래 두 버그가 선행 사례에서 가장 오래 걸린 문제였습니다.</p>
+<div class="nt">
+  <div class="nt-h">선행 사례의 관측 구성</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>보행 관측 차원</td><td class="nv">47</td><td class="nn">+열 정보 30 = 77</td></tr><tr><td>직전 행동 위치</td><td class="nv">obs[33:45]</td><td class="nn">12개</td></tr><tr><td>행동 → 목표각도</td><td class="nv">default + scale × action</td><td class="nn"></td></tr><tr><td>관절 순서 매핑</td><td class="nv">[3,4,5,0,1,2,9,10,11,6,7,8]</td><td class="nn">정책 순서 ≠ SDK 순서</td></tr><tr><td>명령 범위</td><td class="nv">vx ±1.0 · vy ±0.4 · wz ±1.0</td><td class="nn">m/s, rad/s</td></tr></tbody></table>
+  </div><div class="fx" id="fx-F5">
+  <div class="fx-top"><span class="fx-id">F5</span><span class="fx-sym">가만히 서 있는데 다리를 과하게 접었다</span><span class="fx-cost">정합성 버그</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">★ <code>last_action</code> 에 <b>가공된 목표 각도</b>가 들어갔습니다. 학습 때는 <b>가공 전 원값</b>이었습니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">실기 자세가 학습 영상과 다름. 코드를 한 줄씩 대조해서 찾음.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">원값으로 교체 → 다리가 펴짐.</span></div>
+  </div>
+</div><div class="fx" id="fx-F14">
+  <div class="fx-top"><span class="fx-id">F14</span><span class="fx-sym">의도한 다리와 다른 다리가 움직였다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">정책이 쓰는 관절 순서와 로봇 SDK의 관절 순서가 <b>다릅니다.</b></span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">왼쪽 앞다리를 시켰는데 오른쪽이 움직임.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">매핑 표를 명시적으로 만들어 변환.</span></div>
+  </div>
+</div><div class="fx" id="fx-F15">
+  <div class="fx-top"><span class="fx-id">F15</span><span class="fx-sym">기울기 계산이 틀렸다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">회전 행렬을 <b>전치할 때 행과 열을 헷갈렸습니다.</b> (A3에서 배운 그 계산)</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">자세 추정이 이상함. 부호가 반대로 나옴.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">올바른 성분으로 교체. <b>단위 테스트로 고정</b>.</span></div>
+  </div>
+</div></div>
+
 <div class="prefs">
 <div class="prefs-h">이 절의 근거 — 원문으로 이어집니다</div>
 
@@ -1553,6 +1729,28 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
     <div class="bt">이렇게 확인한다</div>
     <p>다섯 원인을 말할 수 있고, “랜덤화 다 넣읍시다”라는 제안에 근거를 대고 반박할 수 있다.</p>
   </div>
+
+<div class="fld">
+<div class="fld-h"><span class="fld-t">실전 기록</span><span class="fld-s">선행 사례에서 실제로 일어난 일 · <a href="https://iamjaehka13.blog/categories/unitree-go2/" target="_blank" rel="noopener">출처 ↗</a></span></div>
+<p class="fld-i">선행 사례가 <b>3개월 만에 성공한 직접 원인</b>은 알고리즘도 보상도 아니었습니다. <b>도메인 랜덤화</b>와 <b>적절한 게인</b> 두 가지였습니다.</p>
+<div class="fx" id="fx-F1">
+  <div class="fx-top"><span class="fx-id">F1</span><span class="fx-sym">실기에 올렸더니 발을 떼지 않았다</span><span class="fx-cost">1/30 → 4/27 · 약 3개월</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">학습 조건이 <b>너무 깨끗했습니다.</b> 하나의 조건에만 맞는 정책이 나온 것.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">실기 육안. 처음엔 원인을 특정하지 못함.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">도메인 랜덤화 도입 + 게인 조정.</span></div>
+  </div>
+</div><div class="fx" id="fx-F4">
+  <div class="fx-top"><span class="fx-id">F4</span><span class="fx-sym">실기가 안 돼서 MuJoCo로 다시 돌려봤더니 거기서도 안 됐다</span></div>
+  <div class="fx-body">
+    <div class="fx-r"><span class="fx-k">원인</span><span class="fx-v">하드웨어 문제가 아니라 <b>정책·정합성 문제</b>였습니다.</span></div>
+    <div class="fx-r"><span class="fx-k">어떻게 알아냈나</span><span class="fx-v">실기 실패 <b>후에야</b> 다른 시뮬레이터로 검증.</span></div>
+    <div class="fx-r fx-fix"><span class="fx-k">해결</span><span class="fx-v">이후 <b>MuJoCo를 통과한 정책만 실기에 올리는 규칙</b>을 만듦.</span></div>
+  </div><div class="fx-left"><span class="fx-lk">남은 문제</span>이 규칙을 처음부터 세웠으면 몇 주를 아꼈을 것 — 우리는 처음부터 세웁니다</div>
+</div><div class="nt">
+  <div class="nt-h">도메인 랜덤화 — 무엇을 흔드나</div>
+  <table class="nt-t"><thead><tr><th>항목</th><th>값</th><th>비고</th></tr></thead><tbody><tr><td>지면 마찰</td><td class="nv">범위 미기재</td><td class="nn">선행 사례가 값을 안 남김</td></tr><tr><td>모터 세기</td><td class="nv">범위 미기재</td><td class="nn"></td></tr><tr><td>구동 지연</td><td class="nv">범위 미기재</td><td class="nn"></td></tr><tr><td>센서 잡음</td><td class="nv">범위 미기재</td><td class="nn"></td></tr><tr><td>초기 자세 · 질량 · 무게중심</td><td class="nv">범위 미기재</td><td class="nn"></td></tr></tbody></table>
+  <div class="nt-note">🔴 <b>선행 사례의 가장 큰 공백입니다.</b> "성공의 직접 원인"이라면서 범위를 안 적었습니다. 참고로 legged_gym 기본값은 마찰 U(0.5, 1.25), 관절 각도 잡음 ±0.01 rad, 10초마다 ±1 m/s 밀치기입니다. <b>우리는 이 범위를 반드시 기록으로 남깁니다.</b></div></div></div>
 </section>
 
 <!-- A15 -->
