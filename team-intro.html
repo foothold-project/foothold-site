@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>팀 소개 · 인공지능사관학교 7기 도약과정</title>
+<title>팀 소개 · 프로젝트 킥오프 — FOOTHOLD</title>
 <style>
 /* ============================================================
    설계 노트
@@ -297,6 +297,206 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
   .roles{grid-template-columns:repeat(3,1fr)!important}
   *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
+
+/* ═══════════ 킥오프 4장 — 범위 격리 이관 ═══════════
+   두 문서가 .eyebrow · h1 · h2 · .sub 등을 다른 값으로 쓰기 때문에
+   (실측 43개 충돌) 그대로 합치면 팀소개 레이아웃이 깨진다.
+   그래서 킥오프 규칙 전체를 [data-deck="ko"] 안으로 가둔다.
+   전역 규칙(:root·html·body·#deck·#chrome)은 팀소개 것을 그대로 쓴다. */
+[data-deck="ko"] *{margin:0;padding:0;box-sizing:border-box}
+[data-deck="ko"]{position:absolute;inset:0;z-index:1;
+  padding:clamp(24px,3.6vh,44px) clamp(36px,5vw,80px) clamp(60px,7.5vh,84px);
+  display:flex;flex-direction:column;
+  opacity:0;visibility:hidden;transform:translateX(28px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s}
+[data-deck="ko"].on{opacity:1;visibility:visible;transform:none}
+[data-deck="ko"] .eyebrow{font-size:clamp(.58rem,.7vw,.66rem);letter-spacing:.22em;font-weight:700;color:var(--dim);
+  text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:5px}
+[data-deck="ko"] .eyebrow::after{content:'';flex:1;height:1px;background:var(--rule)}
+[data-deck="ko"] h1{font-size:clamp(1.35rem,2.2vw,1.85rem);font-weight:800;letter-spacing:-.02em;line-height:1.2}
+[data-deck="ko"] h2{font-size:clamp(.78rem,1vw,.9rem);font-weight:800;padding-bottom:6px;border-bottom:1.5px solid var(--ink);
+   margin-bottom:11px;display:flex;align-items:baseline;gap:9px}
+[data-deck="ko"] h2 .en{font-size:.6rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase}
+[data-deck="ko"] .sub{color:var(--ink-2);font-size:clamp(.7rem,.86vw,.8rem);line-height:1.6}
+[data-deck="ko"] .tbd{color:var(--note);font-weight:700}
+[data-deck="ko"] .mark{margin-bottom:12px}
+[data-deck="ko"] .mark .name{font-size:clamp(2rem,4.2vw,3.2rem);font-weight:800;letter-spacing:-.045em;line-height:.95;display:block}
+[data-deck="ko"] .mark .ko{font-size:.72rem;color:var(--ink-3);font-weight:600}
+[data-deck="ko"] .slogan{font-size:clamp(.86rem,1.15vw,1rem);font-weight:600;line-height:1.5;
+  padding-left:14px;border-left:3px solid var(--dim);margin-bottom:18px}
+[data-deck="ko"] .mini{display:grid;gap:8px}
+[data-deck="ko"] .mini .m{display:grid;grid-template-columns:5.4em 1fr;gap:10px;font-size:clamp(.66rem,.8vw,.74rem);line-height:1.5}
+[data-deck="ko"] .mini .m b{color:var(--dim);font-weight:800}
+[data-deck="ko"] .mini .m span{color:var(--ink-2)}
+[data-deck="ko"] .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+[data-deck="ko"] .rc{background:#fff;border:1px solid var(--rule);border-top:3px solid var(--dim);padding:10px 12px}
+[data-deck="ko"] .rc.lead{border-top-color:var(--note)}
+[data-deck="ko"] .rc .t{font-size:.55rem;font-weight:800;letter-spacing:.12em;color:var(--dim);text-transform:uppercase;margin-bottom:2px}
+[data-deck="ko"] .rc.lead .t{color:var(--note)}
+[data-deck="ko"] .rc .n{font-size:clamp(.82rem,1vw,.94rem);font-weight:800;margin-bottom:3px}
+[data-deck="ko"] .rc .s{font-size:clamp(.62rem,.76vw,.7rem);color:var(--ink-2);line-height:1.45}
+[data-deck="ko"] .grules{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+[data-deck="ko"] .gr{background:var(--paper-2);border-left:2.5px solid var(--ink);padding:8px 11px}
+[data-deck="ko"] .gr .t{font-size:.66rem;font-weight:800;margin-bottom:2px}
+[data-deck="ko"] .gr .d{font-size:.62rem;color:var(--ink-2);line-height:1.45}
+[data-deck="ko"] .tags{display:flex;gap:7px;margin-bottom:10px}
+[data-deck="ko"] .tags span{font-size:.6rem;font-weight:800;padding:4px 10px;background:var(--dim);color:#fff;letter-spacing:.06em}
+[data-deck="ko"] .tags span.alt{background:var(--ink)}
+[data-deck="ko"] .pname{font-size:clamp(1.25rem,2vw,1.7rem);font-weight:800;letter-spacing:-.025em;line-height:1.2;margin-bottom:8px}
+[data-deck="ko"] .pdesc{font-size:clamp(.75rem,.92vw,.85rem);color:var(--ink-2);line-height:1.6;margin-bottom:18px}
+[data-deck="ko"] .why{display:grid;gap:11px}
+[data-deck="ko"] .why .w{background:#fff;border:1px solid var(--rule);border-left:3px solid var(--dim);padding:11px 14px}
+[data-deck="ko"] .why .wl{font-size:.58rem;font-weight:800;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;margin-bottom:4px}
+[data-deck="ko"] .why .wt{font-size:clamp(.68rem,.83vw,.76rem);line-height:1.55;color:var(--ink-2)}
+[data-deck="ko"] .why .wt b{color:var(--ink)}
+[data-deck="ko"] .feat{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+[data-deck="ko"] .f{background:#fff;border:1px solid var(--rule);padding:11px 13px;position:relative}
+[data-deck="ko"] .f .fn{font-family:'Consolas',monospace;font-size:.62rem;font-weight:700;color:var(--dim);margin-bottom:4px}
+[data-deck="ko"] .f .ft{font-size:clamp(.7rem,.86vw,.78rem);font-weight:800;margin-bottom:4px}
+[data-deck="ko"] .f .fd{font-size:clamp(.62rem,.76vw,.7rem);color:var(--ink-2);line-height:1.5}
+[data-deck="ko"] .stack{margin-top:11px;background:var(--paper-2);padding:10px 13px;border:1px solid var(--rule)}
+[data-deck="ko"] .stack .sl{font-size:.56rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:5px}
+[data-deck="ko"] .stack .sv{font-size:clamp(.63rem,.77vw,.71rem);line-height:1.7;color:var(--ink-2);font-family:'Consolas',monospace}
+[data-deck="ko"] .stack .sv b{color:var(--ink);font-family:inherit}
+[data-deck="ko"] table.g{width:100%;border-collapse:collapse;font-size:clamp(.56rem,.7vw,.66rem);table-layout:fixed}
+[data-deck="ko"] table.g th{background:var(--ink);color:var(--paper);padding:4px 7px;font-weight:700;font-size:.57rem;
+           letter-spacing:.03em;text-align:left}
+[data-deck="ko"] table.g th.mo{text-align:center;font-family:'Consolas',monospace;font-size:.56rem;
+              border-left:1px solid rgba(255,255,255,.22)}
+[data-deck="ko"] table.g th.wk{text-align:center;font-family:'Consolas',monospace;font-size:.5rem;font-weight:600;
+              background:#2a3444;padding:2px 0;color:#c7ccd4}
+[data-deck="ko"] table.g th.wk.mk{background:var(--note);color:#fff;font-weight:800}
+[data-deck="ko"] table.g td{border-bottom:1px solid var(--rule);padding:5px 7px;vertical-align:middle}
+[data-deck="ko"] table.g td.ph{font-weight:800;color:var(--dim);white-space:nowrap;background:var(--dim-soft);font-size:.62rem}
+[data-deck="ko"] table.g td.tk{color:var(--ink-2);line-height:1.35;font-size:.63rem}
+[data-deck="ko"] table.g td.ow{font-size:.55rem;color:var(--ink-3);font-weight:700;white-space:nowrap;letter-spacing:-.02em}
+[data-deck="ko"] table.g td.c{padding:3px 1px}
+[data-deck="ko"] .b{height:9px;background:var(--dim);border-radius:1px}
+[data-deck="ko"] .b.soft{background:transparent;border:1.2px solid var(--dim)}
+[data-deck="ko"] .b.note{background:var(--note)}
+[data-deck="ko"] .ms{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;font-size:.62rem;color:var(--ink-2);align-items:center}
+[data-deck="ko"] .ms i{display:inline-block;width:10px;height:9px;background:var(--dim);margin-right:5px;vertical-align:-1px;font-style:normal;border-radius:1px}
+[data-deck="ko"] .ms i.soft{background:transparent;border:1.2px solid var(--dim)}
+[data-deck="ko"] .ms i.note{background:var(--note)}
+[data-deck="ko"] .ms .mk{background:var(--note);color:#fff;font-weight:800;padding:1px 6px;font-size:.56rem;
+        font-family:'Consolas',monospace;margin-right:5px}
+[data-deck="ko"] 좌측 표를 그 안에서 세로 중앙에 놓는다.
+   표의 행 높이는 건드리지 않는다. */
+.p4>div{display:flex;flex-direction:column;min-width:0}
+[data-deck="ko"] .p4>div:first-child{justify-content:center}
+[data-deck="ko"] table.d{width:100%;border-collapse:collapse;font-size:clamp(.62rem,.76vw,.71rem)}
+[data-deck="ko"] table.d th{background:var(--ink);color:var(--paper);padding:6px 9px;text-align:left;font-size:.58rem;letter-spacing:.06em;font-weight:700}
+[data-deck="ko"] table.d td{border-bottom:1px solid var(--rule);padding:8px 9px;vertical-align:top;line-height:1.5}
+[data-deck="ko"] table.d td.o{font-weight:800;width:32%}
+[data-deck="ko"] table.d td.o small{display:block;font-weight:600;color:var(--dim);font-family:'Consolas',monospace;font-size:.9em;margin-top:2px}
+[data-deck="ko"] table.d td.dod{color:var(--ink-2)}
+[data-deck="ko"] table.d tr.key td{background:var(--dim-soft)}
+[data-deck="ko"] .meth{display:grid;gap:9px}
+[data-deck="ko"] .me{background:#fff;border:1px solid var(--rule);border-left:3px solid var(--ink);padding:10px 13px}
+[data-deck="ko"] .me .mt{font-size:clamp(.68rem,.82vw,.76rem);font-weight:800;margin-bottom:3px}
+[data-deck="ko"] .me .md{font-size:clamp(.62rem,.76vw,.7rem);color:var(--ink-2);line-height:1.5}
+[data-deck="ko"] .me .md code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;font-size:.94em}
+[data-deck="ko"] 슬라이드 상단 패딩은 vh 기반이라
+   화면 높이에 따라 라인 위치가 변한다. 그래서 세로 회피만으로는 불충분하고
+   가로로도 라인을 물러나게 한다. (모바일은 버튼이 없으므로 해제) */
+.eyebrow{padding-right:104px}
+@media(max-width:900px){
+[data-deck="ko"] .eyebrow{padding-right:0}
+}
+[data-deck="ko"] .nav{background:none;border:1px solid var(--rule);color:var(--ink-2);width:25px;height:25px;cursor:pointer;
+     font-size:.7rem;display:grid;place-items:center;transition:.15s}
+[data-deck="ko"] .nav:hover{border-color:var(--dim);color:var(--dim)}
+[data-deck="ko"] .nav:disabled{opacity:.28;cursor:default}
+[data-deck="ko"] #pg{font-family:'Consolas',monospace;font-size:.66rem;font-weight:700;min-width:42px;text-align:center}
+[data-deck="ko"] #pg b{color:var(--dim)}
+[data-deck="ko"] .fs{background:none;border:1px solid var(--rule);color:var(--ink-2);padding:5px 9px;font-size:.58rem;
+    letter-spacing:.1em;font-weight:700;cursor:pointer;text-transform:uppercase}
+[data-deck="ko"] .fs:hover{border-color:var(--dim);color:var(--dim)}
+@media (max-width:820px){
+[data-deck="ko"]{position:relative;inset:auto;
+    height:auto;min-height:calc(100vh - 64px);
+    padding:22px 16px 24px;
+    display:none;                     /* 숨긴 장은 자리를 차지하지 않게 */
+    opacity:1;visibility:visible;transform:none;transition:none;}
+[data-deck="ko"].on{display:flex}
+[data-deck="ko"] 1fr) 이라 자식이 콘텐츠 최소폭 아래로 줄지 않는다.
+     minmax(0,
+[data-deck="ko"] 1fr) + min-width:0 이 있어야 표·긴 단어가 부모를 밀어내지 않는다. */
+  .p1,
+[data-deck="ko"] .p2,
+[data-deck="ko"] .p4,
+[data-deck="ko"] .hero,
+[data-deck="ko"] .collab{grid-template-columns:minmax(0,1fr)!important;gap:18px!important;align-content:start!important}
+[data-deck="ko"] .rgrid,
+[data-deck="ko"] .feat,
+[data-deck="ko"] .grules,
+[data-deck="ko"] .roles{grid-template-columns:minmax(0,1fr)!important;gap:10px!important}
+[data-deck="ko"] .p1>*,
+[data-deck="ko"] .p2>*,
+[data-deck="ko"] .p4>*,
+[data-deck="ko"] .hero>*,
+[data-deck="ko"] .collab>*,
+[data-deck="ko"] .rgrid>*,
+[data-deck="ko"] .feat>*,
+[data-deck="ko"] .grules>*,
+[data-deck="ko"] .roles>*{min-width:0}
+[data-deck="ko"] .stack .sv{overflow-wrap:anywhere}
+[data-deck="ko"] .goals,
+[data-deck="ko"] .meth,
+[data-deck="ko"] .rules,
+[data-deck="ko"] .phase,
+[data-deck="ko"] .why,
+[data-deck="ko"] .mini{gap:10px}
+[data-deck="ko"] .gantt::after{content:'← 좌우로 밀어서 전체 일정 보기';
+    display:block;font-size:.62rem;color:var(--ink-3);margin-top:7px;}
+[data-deck="ko"] table.g{min-width:680px}
+[data-deck="ko"] .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+[data-deck="ko"] table.d td,
+[data-deck="ko"] table.d th{padding:7px 8px;word-break:keep-all;overflow-wrap:anywhere}
+[data-deck="ko"] table.d td.o{width:38%}
+[data-deck="ko"] .pname{font-size:1.22rem}
+[data-deck="ko"] .mark .name{font-size:2.3rem}
+[data-deck="ko"] .slogan{font-size:1rem}
+[data-deck="ko"] .sub,
+[data-deck="ko"] .pdesc{font-size:.82rem}
+[data-deck="ko"] iOS Safari는 Fullscreen API 자체를 제한한다)
+     ──────────────────────────────────────────────────── */
+  #deck{padding-bottom:68px}
+[data-deck="ko"] .fs{display:none}
+[data-deck="ko"] .nav{width:40px;height:40px;font-size:1rem;flex:0 0 auto}
+[data-deck="ko"] #pg{font-size:.8rem;min-width:50px;flex:0 0 auto}
+}
+@media (max-width:400px){
+[data-deck="ko"] .fs{font-size:.58rem;padding:10px 9px}
+}
+@media print{
+[data-deck="ko"] )이 걸리는 것을 해제.
+     이게 없으면 활성 슬라이드 1장만 인쇄된다. */
+  .slide{display:flex!important;position:relative!important;min-height:0!important}
+[data-deck="ko"]{position:relative;opacity:1!important;visibility:visible!important;transform:none!important;
+         break-after:page;height:204mm;width:100%;padding:9mm 11mm 7mm}
+[data-deck="ko"]:last-child{break-after:auto}
+[data-deck="ko"] table,
+[data-deck="ko"] figure,
+[data-deck="ko"] .rc,
+[data-deck="ko"] .role,
+[data-deck="ko"] .f,
+[data-deck="ko"] .me,
+[data-deck="ko"] .gr,
+[data-deck="ko"] .rule,
+[data-deck="ko"] .pstep{break-inside:avoid}
+[data-deck="ko"] tr{break-inside:avoid}
+[data-deck="ko"] .p2,
+[data-deck="ko"] .p4{align-content:center!important}
+[data-deck="ko"] .p1{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)!important}
+[data-deck="ko"] .p2{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)!important}
+[data-deck="ko"] .p4{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)!important}
+[data-deck="ko"] .rgrid{grid-template-columns:repeat(3,1fr)!important}
+[data-deck="ko"] .feat{grid-template-columns:repeat(2,1fr)!important}
+[data-deck="ko"] .grules{grid-template-columns:repeat(2,1fr)!important}
+[data-deck="ko"] *{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+}
+
 </style>
 </head>
 <body>
@@ -488,6 +688,171 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
       </div>
     </div>
 
+  </div>
+</section>
+
+<section class="slide" data-deck="ko">
+  <div class="eyebrow">Project Overview</div>
+  <div class="p2">
+    <div>
+      <div class="tags"><span>실증 프로젝트</span><span class="alt">Physical AI</span></div>
+      <div class="pname">4족 보행 로봇용<br>강화학습 기반 험지 적응 정책</div>
+      <div class="pdesc">사족보행 로봇이 모래·자갈·계단처럼 <b>겪어보지 않은 지형</b>에서도 넘어지지 않고 이동하도록,
+        시뮬레이션에서 보행 정책을 학습시키고 그 결과가 <b>실제 환경 조건에서도 통하는지</b>를 검증한다.</div>
+      <div class="why">
+        <div class="w">
+          <div class="wl">문제 · 배경</div>
+          <div class="wt">바퀴는 평탄한 곳에서만 최적이다. 계단·잔해·비정형 지형에서는 <b>발 디딜 곳을 골라 딛는 다리</b>가 필요하다.
+            그런데 다리 로봇은 본질적으로 불안정해 <b>넘어지면서 붙잡는 것</b>이 보행이고, 지형의 경우의 수는 무한해 규칙으로 다 쓸 수 없다.
+            결국 경험으로 배워야 하는데, <b>실물은 넘어지면 부서지고, 필요한 실패는 수백만 번이다.</b></div>
+        </div>
+        <div class="w">
+          <div class="wl">타겟 · 적용 대상</div>
+          <div class="wt">제조·산업 현장에서 <b>사람이 반복 순회하기 어려운 비정형 구역</b>· 설비 하부, 배관 주변,
+            바닥이 고르지 않은 협소 통로, 의 점검·모니터링 임무. 바퀴형 로봇은 진입하지 못하고
+            사람이 들어가기엔 반복 부담이 큰 구간이 1차 대상이다.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2>핵심 기능 <span class="en">Core Features</span></h2>
+      <div class="feat">
+        <div class="f"><div class="fn">01</div><div class="ft">시뮬레이션 보행 정책 학습</div>
+          <div class="fd">물리 시뮬레이터에서 수천 개 로봇을 동시에 학습시켜, 넘어지는 비용 없이 보행 정책을 획득</div></div>
+        <div class="f"><div class="fn">02</div><div class="ft">접촉 기반 적응 · 지형 커리큘럼</div>
+          <div class="fd">모래·자갈은 눈으로 봐도 밀도를 알 수 없다. 보고 판단하는 대신 <b>밟아보고 지형을 식별</b>하게 학습시키고, 쉬운 지형부터 자동 승급시킨다</div></div>
+        <div class="f"><div class="fn">03</div><div class="ft">실공간 재구성 검증 환경</div>
+          <div class="fd">실제 공간을 촬영해 3D로 복원하고, 그 안에서 학습된 정책이 통하는지 검증한다 <b>(확장 축)</b></div></div>
+        <div class="f"><div class="fn">04</div><div class="ft">정량 검증 · 실증 리포트</div>
+          <div class="fd">지형별 통과 성공률·속도추종 오차·낙상 횟수·외란 회복률로 결과를 수치화하고 재현 가능하게 기록</div></div>
+      </div>
+      <div class="stack">
+        <div class="sl">기술 스택</div>
+        <div class="sv">
+          <b>학습 환경</b> NVIDIA Isaac Sim / Isaac Lab · PhysX<br>
+          <b>평가 환경</b> MuJoCo (sim2sim 교차검증)<br>
+          <b>학습</b> PPO (rsl_rl) · Python · PyTorch<br>
+          <b>공간 재구성</b> COLMAP · 3D Gaussian Splatting · Blender<br>
+          <b>검증·전달</b> TensorBoard · 대시보드 · 시연 영상
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-deck="ko">
+  <div class="eyebrow">Project Schedule</div>
+  <h1 style="margin-bottom:3px">프로젝트 일정표</h1>
+  <p class="sub" style="margin-bottom:12px">20주. <b>1단계는 전원이 같은 것을 각자 한 번씩 완주한다</b>. 한 사람만 환경을 알면 그 사람이 5개월 내내 병목이 된다.
+    이후 축을 나누되 실험은 변수별로 분담한다. 각 단계는 <b>그 시점에서 멈춰도 발표 가능한 산출물</b>을 남긴다.</p>
+  <div class="gantt">
+    <table class="g">
+      <colgroup><col style="width:10%"><col style="width:25%"><col style="width:9%"><col span="20" style="width:2.8%"></colgroup>
+      <tr>
+        <th rowspan="2">단계</th><th rowspan="2">세부 과업</th><th rowspan="2">담당</th>
+        <th class="mo" colspan="4">8월</th><th class="mo" colspan="4">9월</th>
+        <th class="mo" colspan="5">10월</th><th class="mo" colspan="4">11월</th><th class="mo" colspan="3">12월</th>
+      </tr>
+      <tr>
+        <th class="wk">1</th><th class="wk">2</th><th class="wk">3</th><th class="wk mk">4</th>
+        <th class="wk">5</th><th class="wk">6</th><th class="wk">7</th><th class="wk">8</th>
+        <th class="wk mk">9</th><th class="wk">10</th><th class="wk">11</th><th class="wk">12</th><th class="wk">13</th>
+        <th class="wk mk">14</th><th class="wk">15</th><th class="wk">16</th><th class="wk">17</th>
+        <th class="wk mk">18</th><th class="wk">19</th><th class="wk mk">20</th>
+      </tr>
+
+      <tr><td class="ph" rowspan="4">기반 구축</td>
+        <td class="tk">학습 환경 구축 · 버전 고정 <span style="color:var(--ink-3)">(각자 자기 머신)</span></td><td class="ow"><b style="color:var(--dim)">전원</b></td>
+        <td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr>
+        <td class="tk">도메인 스터디 · 용어·논문 공동 정리</td><td class="ow"><b style="color:var(--dim)">전원</b></td>
+        <td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr>
+        <td class="tk">문제정의 · 수요 조사 · 수행계획서</td><td class="ow">오흥재+<b style="color:var(--dim)">전원</b></td>
+        <td class="c"><div class="b note"></div></td><td class="c"><div class="b note"></div></td><td class="c"><div class="b note"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr>
+        <td class="tk">공개 정책 재현, <b>각자 1회 완주</b></td><td class="ow"><b style="color:var(--dim)">전원</b></td>
+        <td class="c"></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr><td class="ph" rowspan="4">정책 이해</td>
+        <td class="tk">보상 구조 분석 · 지표 판독 체계</td><td class="ow">임석헌·오현민</td>
+        <td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr>
+        <td class="tk">시뮬 지형 제작 파이프라인</td><td class="ow">맹라현·오흥재</td>
+        <td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr>
+        <td class="tk">실험 자동화 · 결과 수집 체계</td><td class="ow">이민우·오현민</td>
+        <td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr>
+        <td class="tk">단일변수 실험 <span style="color:var(--ink-3)">(변수별 분담)</span></td><td class="ow"><b style="color:var(--dim)">전원</b></td>
+        <td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><div class="b note"></div></td><td class="c"><div class="b note"></div></td><td class="c"><div class="b note"></div></td><td class="c"><div class="b note"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr><td class="ph" rowspan="3">확장</td>
+        <td class="tk">커스텀 험지 커리큘럼 설계·학습</td><td class="ow">맹라현·임석헌</td>
+        <td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr>
+        <td class="tk">도메인 랜덤화 · 강건성 확보</td><td class="ow">임석헌·이민우</td>
+        <td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr>
+        <td class="tk">실공간 재구성 <span style="color:var(--ink-3)">(확장 축)</span></td><td class="ow">오흥재·맹라현</td>
+        <td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><div class="b soft"></div></td><td class="c"><div class="b soft"></div></td><td class="c"><div class="b soft"></div></td><td class="c"><div class="b soft"></div></td><td class="c"><div class="b soft"></div></td><td class="c"><div class="b soft"></div></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr><td class="ph" rowspan="2">실증 검증</td>
+        <td class="tk">비교 실험 · 정량 지표 산출</td><td class="ow">오현민·임석헌</td>
+        <td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
+      <tr>
+        <td class="tk">현장 조건 검증 · 검증 리포트</td><td class="ow">오흥재·이민우</td>
+        <td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td><td class="c"></td><td class="c"></td></tr>
+      <tr><td class="ph" rowspan="1">발표</td>
+        <td class="tk">시연 영상 · 최종 발표 준비</td><td class="ow">맹라현+<b style="color:var(--dim)">전원</b></td>
+        <td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><div class="b soft"></div></td><td class="c"><div class="b"></div></td><td class="c"><div class="b"></div></td></tr>
+    </table>
+    <div class="ms">
+      <span><i></i>수행 기간</span>
+      <span><i class="soft"></i>확장 축(조건부 착수)</span>
+      <span><i class="note"></i>최대 난이도, 변수를 한 번에 하나만 바꾼다</span>
+      <span><b class="mk">W4 · 9 · 14 · 18 · 20</b>마일스톤, 각 시점의 산출물로 진행을 판정</span>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-deck="ko">
+  <div class="eyebrow">Deliverables &amp; Methods</div>
+  <h1 style="margin-bottom:3px">산출물 목표 &amp; 수행 방법</h1>
+  <p class="sub" style="margin-bottom:14px">완료 기준(DoD)은 <b>말이 아니라 확인 가능한 상태</b>로 적었다.</p>
+  <div class="p4">
+    <div>
+      <table class="d">
+        <tr><th>산출물 · 완료 시점</th><th>완료 기준 (Definition of Done)</th></tr>
+        <tr class="key"><td class="o">실증 수행계획서<small>W4 · 8월 말</small></td>
+          <td class="dod">문제정의·수요 근거·검증 시나리오·평가지표 확정. <b>멘토 검토 완료</b></td></tr>
+        <tr><td class="o">학습 환경 · 재현 절차서<small>W4 · 8월 말</small></td>
+          <td class="dod">전원이 동일 환경을 재구축 가능한 절차 확보. 공개 정책이 우리 환경에서 <b>동일한 학습 곡선으로 재현</b>됨</td></tr>
+        <tr class="key"><td class="o">기준 정책 · 지표 세트<small>W9 · 9월 말</small></td>
+          <td class="dod">기본 험지 정책 학습 완료. 속도추종 오차·통과 성공률·낙상 횟수가 <b>수치로 기록</b>되고, 이후 모든 실험의 비교 기준이 됨</td></tr>
+        <tr><td class="o">커스텀 지형 정책<small>W14 · 11월 초</small></td>
+          <td class="dod">우리가 설계한 지형에서 학습 성공. 기준 정책 대비 <b>변화가 지표로 설명</b>됨</td></tr>
+        <tr class="key"><td class="o">현장검증 리포트<small>W18 · 11월 말</small></td>
+          <td class="dod">현장 조건을 반영한 검증 결과와 <b>한계까지</b> 문서화. 재현에 필요한 설정·커맨드 포함</td></tr>
+        <tr class="key"><td class="o">최종 실증결과 보고서 · 시연<small>W20 · 12월</small></td>
+          <td class="dod">정량 지표 + 비교 시연 영상 확보. <b>발표 리허설 1회 이상</b></td></tr>
+      </table>
+    </div>
+    <div>
+      <h2>수행 방법 <span class="en">Methods</span></h2>
+      <div class="meth">
+        <div class="me"><div class="mt">협업 도구</div>
+          <div class="md">코드·문서는 <code>Git</code>으로 이력 관리, 실험 결과는 <code>TensorBoard</code>로 공유.
+            산출물은 한 곳에 모아 버전을 남긴다.</div></div>
+        <div class="me"><div class="mt">소통 방식</div>
+          <div class="md">주 1회 정기 회의로 진행·블로커 공유. 결정이 필요한 안건은 <b>사전에 문서로</b> 올려 회의 시간을 판단에만 쓴다.</div></div>
+        <div class="me"><div class="mt">실험 방식</div>
+          <div class="md">기준선을 먼저 확보하고, 이후 <b>한 번에 하나의 변수만</b> 바꾼다.
+            모든 실험은 설정·커맨드·결과를 함께 기록해 재현 가능하게 한다.</div></div>
+        <div class="me" style="border-left-color:var(--dim)"><div class="mt">품질 관리</div>
+          <div class="md">"돌아간다"가 아니라 <b>지표로 확인</b>한다. 실패한 실험도 원인과 함께 남겨 같은 실패를 반복하지 않는다.</div></div>
+        <div class="me" style="border-left-color:var(--note);background:var(--note-soft)"><div class="mt">범위 방어</div>
+          <div class="md">각 단계에서 <b>멈춰도 발표 가능한 산출물</b>을 먼저 확보한 뒤 확장한다.
+            확장 축(실공간 재구성)은 기반이 선 뒤에만 착수한다.</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
