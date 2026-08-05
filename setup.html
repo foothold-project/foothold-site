@@ -272,7 +272,8 @@ details.trap .cb{margin:.5rem 0 .2rem}
 <tbody>
 <tr><td>OS</td><td><code>Windows 10/11</code></td><td>Isaac Sim 5.1 공식 지원 대상</td></tr>
 <tr><td><b>Python</b></td><td><code>3.11</code></td><td>★ Isaac Sim 5.1 wheel이 <code>cp311</code> 전용. <b>3.10·3.12·3.13 전부 안 됨</b></td></tr>
-<tr><td>NVIDIA 드라이버</td><td><code>570 이상</code></td><td>RTX 50 시리즈(Blackwell, <code>sm_120</code>) 요구치. 검증 환경 591.86</td></tr>
+<tr><td>NVIDIA 드라이버</td><td><code>570 이상</code></td><td>RTX 50 시리즈(Blackwell, <code>sm_120</code>) 요구치. 검증 환경 591.86<br>
+    RTX 40/30 은 더 낮아도 될 수 있으나 <b>미확인</b> — <a href="#s15">§1.5</a></td></tr>
 <tr><td><b>PyTorch</b></td><td><code>2.7.0 + cu128</code></td><td>★ 기본 wheel은 <b>CPU 전용</b>. cu128을 강제해야 GPU가 잡힘</td></tr>
 <tr><td><b>Isaac Sim</b></td><td><code>5.1.0.0</code> (pip)</td><td>Isaac Lab 2.3.x가 요구하는 짝</td></tr>
 <tr><td><b>Isaac Lab</b></td><td><code>v2.3.2</code> 태그 고정</td><td>★ <b>기본 브랜치는 베타이고 험지를 지원 안 함</b></td></tr>
@@ -294,6 +295,80 @@ details.trap .cb{margin:.5rem 0 .2rem}
 <tr><td><code>pip install torch</code> (그냥)</td><td><b>CPU 전용이 깔립니다</b></td></tr>
 </tbody>
 </table>
+</div>
+</section>
+
+<!-- ══════ 1.5 ══════ -->
+<section id="s15">
+<h2><span class="n">01.5</span>★ 내 PC는 어떤가 <span style="font-weight:400;font-size:.78rem;color:var(--ink-3)">팀원마다 다릅니다</span></h2>
+
+<blockquote class="warn">
+  <b>이 가이드의 검증 환경은 RTX 5080 ×2 입니다. 여러분 PC는 다릅니다.</b><br>
+  특히 <b>§4 체크리스트 3번(<code>sm_120</code>)은 RTX 50 시리즈에만 해당</b>합니다.
+  그대로 읽으면 <b>멀쩡한 PC가 “실패”로 나옵니다.</b>
+</blockquote>
+
+<h3>GPU 세대별 아키텍처 코드</h3>
+<div class="tw">
+<table>
+<thead><tr><th>GPU 세대</th><th>코드명</th><th>arch 코드</th></tr></thead>
+<tbody>
+<tr><td>RTX 50</td><td>Blackwell</td><td><code>sm_120</code> ← <b>검증 환경</b></td></tr>
+<tr><td>RTX 40</td><td>Ada Lovelace</td><td><code>sm_89</code></td></tr>
+<tr><td>RTX 30</td><td>Ampere</td><td><code>sm_86</code></td></tr>
+<tr><td>RTX 20</td><td>Turing</td><td><code>sm_75</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="key">
+  <div class="kh">§4 체크리스트 3번은 이렇게 읽으세요</div>
+  <p style="margin:.2rem 0;color:var(--stop)">✗ “<code>sm_120</code>이 있어야 한다”</p>
+  <p style="margin:.2rem 0;color:var(--ink)"><b>✅ “내 GPU의 코드가 목록에 있어야 한다”</b></p>
+</div>
+
+<div class="cb">
+  <div class="lbl">내 GPU 확인</div>
+  <button class="copy" type="button">복사</button>
+<pre><span class="c"># 이름 · VRAM · 드라이버</span>
+nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+
+<span class="c"># torch 가 내 GPU를 지원하는지</span>
+python -c "import torch; print(torch.cuda.get_device_name(0)); print(torch.cuda.get_arch_list())"</pre>
+</div>
+
+<h3>내 PC로 어디까지 되나</h3>
+<div class="tw">
+<table>
+<thead><tr><th>내 환경</th><th>예상</th><th>근거</th></tr></thead>
+<tbody>
+<tr><td><b>RTX 50 시리즈</b></td><td><b>전부 가능</b></td><td>AI-WS01에서 실증</td></tr>
+<tr><td>RTX 40 / 30 · VRAM 8 GB 이상</td>
+    <td>재생은 가능할 것.<br><b>학습은 환경 수를 줄여야 할 수 있음</b></td>
+    <td style="color:var(--note)">⚠️ <b>우리가 측정 안 함</b></td></tr>
+<tr><td>RTX 20 · VRAM 6 GB 이하</td><td><b>미확인</b></td><td>시도해 보고 결과를 팀에 공유</td></tr>
+<tr><td><b>GPU 없음 · 내장 그래픽 · 맥</b></td>
+    <td style="color:var(--stop)"><b>Isaac Sim 실행 불가</b></td>
+    <td>Isaac Sim 은 NVIDIA RTX GPU를 요구합니다</td></tr>
+</tbody>
+</table>
+</div>
+
+<blockquote class="warn">
+  ⚠️ <b>위 표에서 “가능할 것”은 추정입니다.</b> 우리가 실제로 측정한 건 <b>RTX 5080 ×2 하나뿐</b>입니다.<br>
+  각자 돌려보고 <b>되든 안 되든 §10 형식으로 보고</b>해 주세요. 그게 이 표를 추정에서 실측으로 바꿉니다.
+</blockquote>
+
+<h3>GPU가 없거나 약하면 — 그래도 할 일이 있습니다</h3>
+<div class="key">
+  <ol style="margin:.3rem 0 0 1.2rem">
+    <li><b>워크스테이션(AI-WS01)을 원격으로 씁니다.</b> GPU가 2장이라 <b>동시에 2명</b>까지 각자 학습할 수 있습니다.
+      <span style="color:var(--ink-3)">(⚠️ “2장을 묶어 1개 학습을 2배로”는 아닙니다 — §8 참조)</span></li>
+    <li><b>환경 구축 자체는 각자 PC에서도 해보세요.</b> STEP 1~7까지는 GPU 성능과 무관합니다.
+      설치 과정에서 겪는 <b>함정(§5)을 직접 겪어보는 것</b>이 이 문서의 절반입니다.</li>
+    <li><b>코드를 읽고 고치는 데는 GPU가 필요 없습니다.</b>
+      학습 커리큘럼 <a href="curriculum.html">A13(코드 읽기)·A17(AI에게 코드 시킬 때)</a>은 노트북에서 그대로 진행됩니다.</li>
+  </ol>
 </div>
 </section>
 
@@ -424,7 +499,8 @@ python play_go2_win.py --task <span class="k">Isaac-Velocity-Rough-Unitree-Go2-P
 
   <div class="ck-row"><input type="checkbox" id="c3"><label for="c3">
     <span class="cmd">python -c "import torch; print(torch.cuda.get_arch_list())"</span>
-    <span class="exp">→ 목록에 sm_120 포함</span></label></div>
+    <span class="exp">→ 목록에 <b>내 GPU의 arch 코드</b> 포함
+      · RTX 50 = sm_120 · RTX 40 = sm_89 · RTX 30 = sm_86 (<a href="#s15">§1.5</a>)</span></label></div>
 
   <div class="ck-row"><input type="checkbox" id="c4"><label for="c4">
     <span class="cmd">python -c "import torch; print(torch.cuda.is_available(), torch.cuda.device_count())"</span>
