@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>프로젝트 설계도 — 흐름 · 퀘스트 · 결정 · FOOTHOLD</title>
+<meta name="description" content="FOOTHOLD 프로젝트 설계도 — 7단계 지도, 이야기로 푸는 진행 순서, 퀘스트 보드, KPI 메뉴, 미확정 결정 안건.">
+<style>
+:root{
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--dim:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+  --measure:760px;
+  /* ★ --dim / --note 를 연한 배경(--*-soft) 위 글자로 쓰면 대비가 모자란다.
+     실측 --dim on --dim-soft = 4.43 · --note on --note-soft = 3.93 (둘 다 4.5 미달).
+     그런 자리에는 아래 진한 짝을 쓴다. DESIGN.md §2 참조. */
+  --dim-ink:#0b6459;
+  --note-ink:#8a5600;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+    --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+    --rule:#2b323d;--dim:#3ec7b4;--dim-soft:#11302c;
+    --note:#dc9a30;--note-soft:#332710;
+    --stop:#e56d5e;--stop-soft:#331c19;
+    --grid:rgba(233,231,225,.035);
+    /* 어두운 모드에서는 soft 배경이 어두우므로 원래 토큰이 이미 충분히 밝다 */
+    --dim-ink:#3ec7b4;
+    --note-ink:#dc9a30;
+  }
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.75;font-size:15px;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+
+.top{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .row{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:.55rem 1.5rem;
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.top .home{font-size:.72rem;font-weight:700;color:var(--ink-2);text-decoration:none;
+  border:1px solid var(--rule);background:var(--card);padding:.26rem .6rem;border-radius:4px}
+.top .home:hover{border-color:var(--dim);color:var(--dim)}
+.top .doc{font-size:.72rem;color:var(--ink-3);letter-spacing:.02em}
+.top .sp{flex:1}
+.pdfbtn{background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.26rem .6rem;font-family:inherit;font-size:.66rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer;border-radius:4px;transition:.15s;line-height:1.3}
+.pdfbtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--dim);width:0;transition:width .12s}
+
+.wrap{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:2.2rem 1.5rem 5rem}
+
+.hero{padding-bottom:1.6rem;border-bottom:2px solid var(--ink);margin-bottom:1.8rem}
+.eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:.5rem}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin-bottom:.7rem}
+.lede{font-size:1rem;color:var(--ink-2);max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:.35rem 1.6rem;margin-top:1rem;font-size:.72rem}
+.meta .k{color:var(--ink-3);margin-right:.4rem}
+.meta .v{color:var(--ink-2);font-weight:700}
+
+section{margin-top:2.6rem}
+h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem;
+  border-bottom:1px solid var(--rule);margin-bottom:1rem}
+h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
+h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
+p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+ul,ol{margin:.6rem 0 .6rem 1.2rem}
+li{margin:.24rem 0;word-break:keep-all}
+b{font-weight:800}
+a{color:var(--dim)}
+code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
+  border:1px solid var(--rule);padding:.05rem .28rem;border-radius:3px;word-break:break-all}
+.vlink{font-size:.82em;color:var(--ink-3);background:var(--paper-2);border:1px solid var(--rule);
+  padding:.02rem .32rem;border-radius:3px}
+.vlink i{font-style:normal;opacity:.75}
+blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.7rem .95rem;
+  margin:1rem 0;font-size:.88rem;color:var(--ink-2)}
+blockquote p{margin:.25rem 0}
+blockquote b{color:var(--ink)}
+
+/* 표 — 모바일에서 가로 스크롤 (DESIGN.md §5) */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
+th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
+  word-break:keep-all}
+th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
+  letter-spacing:.04em;border-bottom:none}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--paper-2)}
+
+/* 코드 블록 + 복사 버튼 */
+.cb{margin:1rem 0;border:1px solid var(--rule);background:#0f141b}
+.cb-h{display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;background:#1a212b;
+  border-bottom:1px solid #2b323d;font-size:.62rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:#7d8693}
+.cb-h .copy{margin-left:auto;background:#232b36;border:1px solid #39424f;color:#c8cfd8;
+  font-family:inherit;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:.16rem .5rem;
+  border-radius:3px;cursor:pointer;transition:.14s}
+.cb-h .copy:hover{background:var(--dim);border-color:var(--dim);color:#fff}
+.cb-h .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+.cb pre{margin:0;padding:.75rem .85rem;overflow-x:auto;color:#dfe4ea;
+  font-family:'Consolas','D2Coding',monospace;font-size:.76rem;line-height:1.7}
+.cb pre .c{color:#6f7a88}
+
+/* ── 표지 아래 요약 카드 ── */
+.pin{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.6rem 0 .4rem}
+@media (max-width:640px){.pin{grid-template-columns:1fr}}
+.pin>div{border:1px solid var(--rule);background:var(--card);padding:.85rem .95rem}
+.pin .lab{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:.4rem}
+.pin.hot>div{border-color:var(--note);background:var(--note-soft)}
+.big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
+  color:var(--dim-ink);word-break:break-all}
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다 — 눈에 띄게 */
+section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
+section .addr .big{font-size:1.2rem}
+.addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
+.addr .copy{background:var(--card);border:1px solid var(--dim);color:var(--dim);
+  font-family:inherit;font-size:.64rem;font-weight:800;letter-spacing:.06em;
+  padding:.16rem .5rem;border-radius:3px;cursor:pointer;transition:.14s}
+.addr .copy:hover{background:var(--dim);color:#fff}
+.addr .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+
+/* ── 도구 4종 역할 구분 (팀원이 가장 헷갈리는 것) ── */
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1.2rem 0}
+@media (max-width:820px){.tools{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.tools{grid-template-columns:1fr}}
+.tool{border:1px solid var(--rule);background:var(--card);padding:.85rem .8rem;display:flex;
+  flex-direction:column;gap:.35rem}
+.tool.pick{border:2px solid var(--dim);background:var(--dim-soft)}
+.tool .n{font-size:.6rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3)}
+.tool .t{font-size:.95rem;font-weight:800;line-height:1.3}
+.tool.pick .t{color:var(--dim-ink)}
+.tool .q{font-size:.76rem;color:var(--ink-2);flex:1}
+.tool .f{font-size:.68rem;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:.35rem;
+  margin-top:.2rem;line-height:1.6}
+.tool .f b{color:var(--ink-2)}
+.tool .badge{display:inline-block;font-size:.6rem;font-weight:800;padding:.08rem .35rem;
+  border-radius:2px;background:var(--dim);color:#fff;letter-spacing:.04em}
+.tool .badge.warn{background:var(--note)}
+.tool .badge.off{background:var(--ink-3)}
+
+/* ── 경고 박스 (프로세스 정리) ── */
+.warnbox{border:2px solid var(--note);background:var(--note-soft);padding:1rem 1.1rem;margin:1.2rem 0}
+.warnbox .wh{font-size:.95rem;font-weight:800;color:var(--note-ink);margin-bottom:.5rem}
+.warnbox .line{font-size:.92rem;font-weight:800;color:var(--ink);margin:.4rem 0}
+.warnbox p{font-size:.84rem;color:var(--ink-2)}
+
+/* 공개 페이지에서 가려진 값 안내 */
+.redacted-note{display:block;font-size:.72rem;color:var(--ink-3);margin-top:.35rem;
+  font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
+.redacted-note b{color:var(--note-ink)}
+
+/* 미확인 표시 — 확정처럼 읽히면 안 된다 */
+.unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
+  background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
+  vertical-align:.08em;margin-right:.3rem}
+
+@media print{
+  @page{size:A4 portrait;margin:14mm 12mm}
+  html{font-size:10.5px}
+  body{background:#fff!important;background-image:none!important}
+  .top,.pdfbtn,.copy{display:none!important}
+  .wrap{max-width:none;padding:0}
+  section{break-inside:auto;margin-top:1.4rem}
+  h2,h3{break-after:avoid}
+  .tw,.cb,blockquote,.tool,.warnbox,.pin>div{break-inside:avoid;page-break-inside:avoid}
+  .tools,.pin{display:block}
+  .tool,.pin>div{margin-bottom:.5rem}
+  .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
+  .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
+  .cb pre{color:#161c26!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre .c{color:#666!important}
+  a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ── 코드 문법 강조 ──
+   실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
+.cb pre .c{color:#6f7a88;font-style:italic}   /* 주석 */
+.cb pre .k{color:#5eb0ef;font-weight:700}     /* 키워드 */
+.cb pre .f{color:#f0c674}                     /* 명령 · 함수 */
+.cb pre .b{color:#c39ac9}                     /* 파이썬 내장 */
+.cb pre .s{color:#9ece6a}                     /* 문자열 */
+.cb pre .n{color:#e59f6a}                     /* 숫자 */
+.cb pre .v{color:#7ee0d0}                     /* 변수 */
+.cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
+@media print{
+  /* 종이에서는 색이 안 나올 수 있다 — 굵기·기울기로도 구분되게 */
+  .cb pre .c{color:#777!important;font-style:italic}
+  .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
+  .cb pre .s{color:#2a6b2a!important}
+  .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
+}
+
+/* ── 설계도 페이지 전용 ── */
+.live{border:2px solid var(--note);background:var(--note-soft);padding:.9rem 1.1rem;margin:1.2rem 0}
+.live b{color:var(--note-ink)}
+td:has(> .q-done){background:var(--dim-soft)}
+/* 🔶 미확정 마커가 든 셀·행은 눈에 띄게 */
+.und-mark{color:var(--stop);font-weight:800}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">FOOTHOLD · 프로젝트 설계도</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">Plan · 흐름 — 퀘스트 — 결정</div>
+  <h1>프로젝트 설계도 — 흐름 · 퀘스트 · 결정</h1>
+  <p class="lede">완성본이 아니라 <b>논의 중인 설계도</b>다. <span class="und-mark">🔶</span> 표시는 아직 팀이 정하지 않은 것 — 그 표시들이 곧 다음 회의의 안건이다. 결정이 나면 이 문서가 갱신되고, 갱신 이력이 곧 우리 기획 과정의 기록이 된다.</p>
+  <div class="meta"><div><span class="k">일정</span><span class="v">9월 PoC → 10월 MVP → 11월 QA → 12월 최종</span></div><div><span class="k">지금</span><span class="v">퀘스트 Q3 — 첫 기록 재기</span></div><div><span class="k">미확정</span><span class="v">🔶 6건 (§5)</span></div><div><span class="k">근거</span><span class="v">8/6 멘토 미팅 · AI-WS01 실측</span></div></div>
+</div>
+
+<section id="s1"><h2>1. 전체 지도 — 7단계</h2>
+<p>집을 짓듯이, 그리고 <b>로봇이 걷는 법을 배우는 원리 그대로</b> 간다. 로봇의 보행(관측→판단→행동→<b>그 결과가 다음 관측</b>)과 프로젝트 진행(조사→계획→실행→측정→<b>그 결과로 계획 수정</b>)은 같은 되먹임 구조다.</p>
+<div class="tw"><table><thead><tr><th>#</th><th>단계</th><th>시기</th><th>한 줄</th><th>집짓기로</th><th>로봇 원리로</th></tr></thead><tbody><tr><td>①</td><td><b>땅 보러 가기</b></td><td>8월 상순</td><td>조선대 방문 — Orin NX 등급·라이다·험지 시설 확인</td><td>땅 보기</td><td>관측 — 세상을 잰다</td></tr><tr><td>②</td><td><b>터 다지기</b></td><td>8월</td><td>환경 구축(✅완료) + <b>재현 게이트</b> — 기성 체크포인트로 첫 기록 측정</td><td>터 다지기·수평 재기</td><td>기준 — 지금 실력을 잰다</td></tr><tr><td>③</td><td><b>연습장 만들기</b></td><td>9월</td><td>시뮬에 우리 험지 직접 제작 + 100회 자동 평가</td><td>기둥 세우기</td><td>환경 — 겪을 세계를 만든다</td></tr><tr><td>④</td><td><b>걷는 법 배우기</b></td><td>9월 말 =PoC</td><td>커스텀 험지에서 정책 학습 (<span class="und-mark">🔶</span> RL 범위 미확정)</td><td>벽돌 쌓기</td><td>학습 — 넘어지며 배운다</td></tr><tr><td>⑤</td><td><b>기록 재기</b></td><td>10월 =MVP</td><td>험지 통과율 N% + 시연 영상 발표</td><td>중간 검사</td><td>평가 — 숫자로 판정한다</td></tr><tr><td>⑥</td><td><b>몸에 옮기기</b></td><td>11월 =QA</td><td><span class="und-mark">🔶</span>증류 → ROS2 통신 → Go2 배포 + 라이다·3DGS 갭 측정</td><td>이사</td><td>전이 — 몸으로 옮긴다</td></tr><tr><td>⑦</td><td><b>현실에서 달리기</b></td><td>12월 =최종</td><td>실기 험지 시연 + 시뮬↔실기 격차 리포트</td><td>입주해 살아보기</td><td>적응 — 현실이 되먹임을 준다</td></tr></tbody></table></div>
+<p><b>이 7단계가 정확한 구분인가?</b> — 소통용 지도로는 맞고, 두 군데가 압축돼 있다: ③↔④는 실제로는 <b>반복 루프</b>다(지형을 만들고→배우고→막히면 지형을 고친다). ⑥은 <b>네 개의 관문</b>(증류→내보내기→sim2sim→실기 배포)을 한 칸에 접은 것이다. 그 정밀한 층은 아래 <b>퀘스트 보드</b>가 담당한다 — 지도는 7칸, 퀘스트는 13개.</p>
+</section>
+<section id="s2"><h2>2. 이야기로 풀기 — &quot;어 되네? 그럼 그다음은?&quot;</h2>
+<blockquote><p>지금 우리가 서 있는 자리에서 시작하는 실제 순서다. 각 장면의 &quot;왜&quot;가 핵심이다.</p></blockquote>
+<h3>장면 1 — 체크포인트가 걷는다 ✅ (지금 여기)</h3>
+<p>NVIDIA가 공개한 Go2 험지 정책 <code>Isaac-Velocity-Rough-Unitree-Go2-v0/checkpoint.pt</code>(6.88MB)를 AI-WS01에서 재생해 <b>걷는 것을 눈으로 확인</b>했다 (2026-08-05).</p>
+<div class="tw"><table><thead><tr><th>이것이 증명한 것</th><th>증명하지 <b>않은</b> 것</th></tr></thead><tbody><tr><td>우리 환경(Isaac Sim 5.1.0.0 · Isaac Lab v2.3.2 · rsl_rl 3.1.2)이 정상이다</td><td>이 정책이 <b>얼마나 잘</b> 걷는지 (숫자 없음)</td></tr><tr><td>학습 파이프라인이 돌아간다 (21,385 steps/s · 1,500 iter ≈ 113분)</td><td><b>우리 험지</b>에서도 걷는지</td></tr><tr><td>첫날부터 걷는 로봇을 볼 수 있다</td><td>실기에 올릴 수 있는지</td></tr></tbody></table></div>
+<h3>장면 2 — &quot;잘 걷네? 바로 로봇에 올려?&quot; → <b>안 된다. 세 가지가 없다</b></h3>
+<ol><li><b>숫자가 없다.</b> &quot;잘 걷는다&quot;는 인상이지 기록이 아니다. 통과율을 재기 전에는 이후 어떤 변화도 평가할 수 없다.</li><li><b>우리 험지가 아니다.</b> 이 정책은 NVIDIA의 기본 지형에서 배웠다. 우리가 정한 험지에서는 성적이 다를 것이다 — 그 차이가 바로 <b>우리 프로젝트가 존재하는 이유</b>다.</li><li><b>정합성 확인 전이다.</b> 시뮬과 실기는 관절 순서·제어 주기·게인이 계약처럼 맞아야 한다. 하나라도 어긋나면 로봇은 <b>즉시 넘어진다.</b></li></ol>
+<h3>장면 3 — 그래서 다음은: <b>첫 기록 재기</b> (퀘스트 Q3)</h3>
+<p>같은 정책을 <b>100회 자동으로 돌려 통과율을 잰다.</b> 평가 스크립트가 매 에피소드의 성공/실패·넘어짐·시간을 기록한다. 이 숫자가 우리의 <b>&quot;87년생 평균 기록&quot;</b> — 모든 목표의 출발점이다.</p>
+<h3>장면 4 — 우리 험지를 만든다 (Q4~Q6)</h3>
+<p>Isaac Lab의 <b>지형 생성기(TerrainGenerator)</b>로 계단·경사·요철 조각을 난이도별 격자로 깐다. &quot;계곡형&quot; = 불규칙 경사 + 요철 조각의 조합으로 정의할 수 있다. 그 위에서 기성 정책을 다시 재면 — <b>아마 통과율이 뚝 떨어진다.</b> 그 추락한 숫자가 우리의 <b>문제 정의</b>다: <i>&quot;기성 정책은 우리 험지에서 __%밖에 못 간다. 우리는 이걸 __%로 올린다.&quot;</i></p>
+<h3>장면 5 — 배우게 한다 (Q7~Q8) <span class="und-mark">🔶</span></h3>
+<p>여기가 팀이 정할 갈림길이다:</p>
+<ul><li><b>A안 (멘토 제안)</b>: RL은 시뮬에서만. 기성 체크포인트에서 이어서(fine-tune) 우리 험지를 배우게 한다.</li><li><b>B안</b>: 처음부터(from scratch) 우리 험지로 학습한다 — 더 어렵고 오래 걸리지만 &quot;우리가 만든 정책&quot;이라는 서사.</li><li>판단 재료: 1,500 iter가 113분이므로 <b>실험 1회 비용은 2시간</b>. 하루 4~5회 실험 가능.</li></ul>
+<h3>장면 6 — 실기 가기 전, 관문 둘 (Q9~Q10)</h3>
+<ol><li><b>sim2sim</b> — 같은 정책을 <b>다른 물리엔진(MuJoCo)</b>에서 돌린다. 여기서 못 걸으면 하드웨어 문제가 아니라 정책이 Isaac의 물리 버릇에 과적합된 것이다. 실기 전에 걸러낸다.</li><li><b>정합성 6종</b> — 관절 순서 · 기본 관절각 · action scale · 직전 행동의 의미 · 제어 주파수(50Hz) · PD 게인. 선행 사례가 이걸 안 맞춰서 몇 주를 잃었다 (커리큘럼 A12.5의 &quot;계약서&quot;).</li></ol>
+<h3>장면 7 — &quot;ROS로 올린다&quot;의 실제 의미 (Q11) <span class="und-mark">🔶</span></h3>
+<p>정확히 말하면 <b>정책은 ROS로 올리지 않는다.</b> 순서는:</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>학습된 정책(.pt)
+  → (<span class="und-mark">🔶</span> 증류: 더 작은 신경망으로 압축 — 멘토 제안, 미확정)
+  → 내보내기(ONNX/TorchScript — Orin NX 에서 돌 수 있는 형태로)
+  → Go2 위 컴퓨터(Orin NX)의 제어 프로그램이 50Hz 로 실행
+  → 관절 명령은 Unitree SDK(DDS)로 직접 전송   ← 저수준은 이 길
+ROS2 는 그 &quot;위층&quot; — 목표 지점 주기 · 라이다 구독 · 지도 · 팀의 공통 언어</pre></div>
+<p>멘토의 &quot;ROS 최우선&quot;은 이 위층 + 로봇과 대화하는 공통 기반을 말한다. 8/10~14 특강 20시간이 그 시작.</p>
+<h3>장면 8 — 실기는 계단식으로 (Q12)</h3>
+<p>한 번에 걷게 하지 않는다. <b>안전 사다리</b>: 엎드린 상태에서 관절 1개 → 일어서기 → 제자리 걸음 → (끈/지지대 보조) 보행 → 자유 보행 → 험지. 각 단이 그 자체로 퀘스트 완료 조건이다.</p>
+<h3>장면 9 — 최종 보스: 갭 리포트</h3>
+<p>실기 험지 10m 시연 + <b>&quot;시뮬 통과율 __% vs 실기 __% — 격차 __%p, 원인 분석&quot;</b>. 이 리포트가 우리 주제(&quot;미경험 지형 적응&quot;)의 최종 답안지다.</p>
+</section>
+<section id="s3"><h2>3. 퀘스트 보드 — 게임처럼, 쉬운 것부터 보스전까지</h2>
+<blockquote><p>규칙: <b>완료 조건이 숫자나 산출물로 명확한 것만 퀘스트다.</b> &quot;공부한다&quot;는 퀘스트가 아니다.
+로봇도 커리큘럼 학습(쉬운 지형→어려운 지형)으로 배운다 — 우리도 같은 방식으로 배운다.</p></blockquote>
+<div class="tw"><table><thead><tr><th>#</th><th>퀘스트</th><th>완료 조건</th><th>상태</th><th>지도</th></tr></thead><tbody><tr><td>Q0</td><td>개발환경 구축</td><td>Isaac Sim+Lab 설치, 함정 6종 문서화</td><td>✅ 8/5 완료</td><td>②</td></tr><tr><td>Q1</td><td>거북이 조종하기</td><td>turtlesim + teleop 로 거북이를 움직인 스크린샷</td><td>🔄 특강 주</td><td>②</td></tr><tr><td>Q2</td><td>남의 정책 재생</td><td>기성 체크포인트가 걷는 것 확인</td><td>✅ 8/5 완료</td><td>②</td></tr><tr><td><b>Q3</b></td><td><b>첫 기록 재기</b></td><td><b>기본 지형 100회 자동 평가 → 통과율 숫자 1개</b></td><td><b>🔜 다음 퀘스트</b></td><td>②</td></tr><tr><td>Q4</td><td>지형 조각 1개</td><td>계단 지형을 생성해 로봇을 세운 스크린샷</td><td>⏳</td><td>③</td></tr><tr><td>Q5</td><td>계곡형 지형 조합</td><td>불규칙 경사+요철 조합 지형 완성</td><td>⏳</td><td>③</td></tr><tr><td>Q6</td><td>문제를 숫자로</td><td>우리 지형에서 기성 정책 통과율 측정 (추락 확인)</td><td>⏳</td><td>③</td></tr><tr><td>Q7</td><td>학습 1회 완주</td><td>우리 지형에서 1,500 iter 완주 + 곡선 확보</td><td>⏳</td><td>④</td></tr><tr><td>Q8</td><td>기록 갱신</td><td>Q6 대비 통과율 +__%p (숫자는 Q6 후 설정)</td><td>⏳</td><td>④⑤</td></tr><tr><td>Q9</td><td>다른 세계에서도</td><td>MuJoCo(sim2sim)에서 같은 정책 보행</td><td>⏳</td><td>⑥</td></tr><tr><td>Q10</td><td>계약서 검증</td><td>정합성 6종 체크리스트 전부 통과</td><td>⏳</td><td>⑥</td></tr><tr><td>Q11</td><td>로봇과 첫 대화</td><td>ROS2로 Go2 상태 토픽 구독 화면</td><td>⏳</td><td>⑥</td></tr><tr><td>Q12</td><td>실기 첫 걸음</td><td>안전 사다리: 서기→제자리 걸음 성공</td><td>🔒 장비 후</td><td>⑥⑦</td></tr><tr><td>👑</td><td><b>보스전</b></td><td>실기 험지 10m + 갭 리포트</td><td>🔒</td><td>⑦</td></tr></tbody></table></div>
+<p><b>퀘스트 방식이 왜 옳은가</b> — 세 가지 이유: ① 각 퀘스트가 <b>게이트</b>라 실패해도 어디서 막혔는지 정확히 안다. ② 팀원 누구든 &quot;지금 우리 어디야?&quot;에 <b>번호 하나</b>로 답할 수 있다. ③ 로봇의 커리큘럼 학습과 같은 구조라 — <b>프로젝트 진행 자체가 프로젝트의 은유</b>가 된다 (발표 서사).</p>
+</section>
+<section id="s4"><h2>4. KPI 메뉴 — 무엇을 잴 수 있는가 (팀이 고를 목록)</h2>
+<blockquote><p><b>먼저, 어디서 재는가</b>: 같은 지표를 <b>시뮬에서 먼저</b>(9~10월, 100회 자동) 재고
+<b>실기에서 다시</b>(11~12월, 회수 제한 — 장비 안전상 10회 안팎 + 영상) 잰다.
+그 <b>차이가 sim2real 갭</b> — 우리 주제를 가장 정확히 재는 지표다.</p></blockquote>
+<div class="tw"><table><thead><tr><th>분류</th><th>지표</th><th>측정 형태</th><th>시뮬</th><th>실기</th><th>비고</th></tr></thead><tbody><tr><td>성공</td><td><b>통과율</b></td><td>__험지 __회 중 __%</td><td>✅ 자동</td><td>✅ 수동</td><td>북극성 후보 1</td></tr><tr><td>성공</td><td><b>한계 스펙</b></td><td>단높이 __cm / 경사 __°까지 통과</td><td>✅</td><td>✅</td><td>북극성 후보 2 — &quot;어디까지 되나&quot;</td></tr><tr><td>안정</td><td>넘어짐</td><td>__회 이하 / 100회</td><td>✅</td><td>✅</td><td>가드레일</td></tr><tr><td>안정</td><td>외란 복구</td><td>밀었을 때 __초 내 자세 회복</td><td>✅</td><td>✅</td><td>시연 임팩트 큼</td></tr><tr><td>효율</td><td>통과 시간·평균 속도</td><td>10m를 __초 / __m/s</td><td>✅</td><td>✅</td><td></td></tr><tr><td>효율</td><td>명령 추종 오차</td><td>지시 속도 vs 실제 속도 차 __%</td><td>✅</td><td>△</td><td></td></tr><tr><td>효율</td><td>이동 비용(CoT)</td><td>에너지/거리</td><td>✅</td><td>△ 추정 토크 기반</td><td>Go2는 토크 센서 없음 → 추정치</td></tr><tr><td>품질</td><td>발 미끄러짐</td><td>접촉 중 미끄러진 스텝 비율</td><td>✅</td><td>❌ 측정 곤란</td><td></td></tr><tr><td><b>주제</b></td><td><b>sim2real 갭</b></td><td>시뮬−실기 통과율 = __%p 이내</td><td>—</td><td>—</td><td><b>최종 발표의 비수</b></td></tr><tr><td>신뢰</td><td>재현성</td><td>시드 3개 통과율 편차 __%p 이내</td><td>✅</td><td>—</td><td>&quot;우연 아니냐&quot; 방어</td></tr><tr><td>실기 전용</td><td>원격 개입</td><td>10m당 사람 개입 __회</td><td>—</td><td>✅</td><td>자율성 증명</td></tr><tr><td>실기 전용</td><td>무손상</td><td>낙상 손상 0건</td><td>—</td><td>✅</td><td>안전 가드레일</td></tr></tbody></table></div>
+<h3>통과율의 정확한 정의 (측정 전에 계약할 것)</h3>
+<blockquote><p><b>통과율 = 성공 에피소드 수 ÷ 시도 수.</b> 그런데 &quot;성공&quot;을 먼저 계약해야 한다:
+<b>시작선에서 결승선(직선 10m)까지 ①넘어지지 않고 ②제한시간 __초 안에 ③사람 개입 없이 도달하면 성공.</b>
+&quot;넘어짐&quot; = 몸통 롤/피치가 임계각을 넘거나 몸통이 지면에 닿음 (시뮬에서는 코드가 자동 판정 — Isaac Lab의 종료 조건 그대로).
+⚠️ <b>결과를 보고 기준을 바꾸면 실증이 아니다.</b> 기준 먼저, 측정은 그다음. (백과 「실패 판정 기준」 원칙)</p></blockquote>
+<h3>북극성은 1개인가?</h3>
+<p>발표에 앞세우는 <b>북극성 1개</b> + 뒤에서 받치는 <b>가드레일 2~3개</b>가 표준이다. 멘토의 &quot;KPI 하나 합의해 와라&quot;는 <i>팀 전원이 합의 가능한 단일 판정 기준</i>이라는 뜻이며 보조 지표 금지가 아니다. 숫자는 지금 정하는 게 아니라 <b>Q3·Q6 측정 후</b> 정한다 — 달려보기 전에 목표 기록을 정하지 않는다.</p>
+</section>
+<section id="s5"><h2>5. <span class="und-mark">🔶</span> 아직 팀이 정하지 않은 것 — 결정 안건</h2>
+<div class="tw"><table><thead><tr><th>#</th><th>안건</th><th>선택지</th><th>판단 재료</th></tr></thead><tbody><tr><td>D1</td><td><b>RL 범위</b></td><td>A: 시뮬만(멘토 제안) / B: 실기 RL 도전</td><td>실기 RL은 멘토 평가 &quot;리얼월드 수렴 20만 시간&quot; — 사실상 A로 기울 재료</td></tr><tr><td>D2</td><td><b>증류 채택</b></td><td>채택 / 직접 배포(경량화 없이)</td><td>Orin NX 등급 확인(①) 후 판단 가능 — 큰 모델이 돌면 증류 불필요할 수도</td></tr><tr><td>D3</td><td><b>험지 1종</b></td><td>계단 / 경사+요철(계곡형) / 복합</td><td>계단=정량화 쉬움, 계곡형=주제 서사 강함. 모래는 운영진 배제</td></tr><tr><td>D4</td><td><b>KPI 북극성</b></td><td>통과율 / 한계 스펙</td><td>§4 메뉴에서. 숫자는 Q3·Q6 후</td></tr><tr><td>D5</td><td><b>Go2 대여</b></td><td>옵션1(월20, 조선대 내) / 옵션2(월100, 상시)</td><td>초반 1 → 성과 후 2 전환이 회의 중 잠정안</td></tr><tr><td>D6</td><td>학습 컴퓨팅</td><td>WS 단독 / +RunPod / +A6000(김유진 멘토, 구두)</td><td>실험 1회 2시간 기준 병렬 필요성 보고 판단</td></tr></tbody></table></div>
+</section>
+<section id="s6"><h2>6. 다음 액션</h2>
+<div class="tw"><table><thead><tr><th>순서</th><th>무엇</th><th>산출물</th></tr></thead><tbody><tr><td>1</td><td>팀 회의 — D1~D5 결정</td><td>이 문서 <span class="und-mark">🔶</span> 해소 + 갱신</td></tr><tr><td>2</td><td>Q3 착수 — 평가 파이프라인</td><td>통과율 첫 숫자</td></tr><tr><td>3</td><td>조선대 방문 질문지 (기획 확정 후)</td><td>Orin NX 라벨·험지 시설 확인 목록</td></tr><tr><td>4</td><td>KPI 숫자 채움 (Q3·Q6 후)</td><td>KPI 계약 1장</td></tr></tbody></table></div>
+</section>
+
+</div>
+<script>
+document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('prog').style.width = (p * 100) + '%';
+}, {passive:true});
+/* 복사 버튼 — 코드 블록과 접속 주소 공용 */
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('.copy');
+  if (!b) return;
+  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(function(){
+    var old = b.textContent;
+    b.textContent = '복사됨'; b.classList.add('done');
+    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
+  });
+});
+</script>
+</body>
+</html>
