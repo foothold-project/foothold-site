@@ -318,8 +318,8 @@ section .addr .big{font-size:1.2rem}
   foothold-rl 의 흐름. lab 은 문서 레포라 main 직접 커밋을 허용한다(큰 수정만 PR).</figcaption>
 </figure>
 
-<div class="tw"><table><thead><tr><th>레포</th><th>규칙</th></tr></thead><tbody><tr><td><b>rl</b></td><td><code>feature/이슈번호-이름</code> 에서 작업 → <b>PR 로 <code>dev</code></b> 에 합류 → 검증된 상태만 <b>PR 로 <code>main</code></b>. main 직접 push 금지</td></tr><tr><td><b>lab</b></td><td>문서 레포라 main 직접 커밋 허용. 남의 문서를 크게 고칠 때만 PR</td></tr><tr><td>site · brand</td><td>파이프라인/담당(Codex)이 관리 — 직접 커밋하지 않는다</td></tr></tbody></table></div>
-<ul><li>브랜치 이름에 <b>이슈 번호</b>를 넣는다: <code>feature/12-obs-tuning</code></li><li>커밋 메시지: <code>&lt;무엇을 했나&gt;  Closes #번호</code> — &quot;왜&quot;가 자명하지 않으면 본문에 한 줄</li><li>PR 본문에도 <code>Closes #번호</code> 를 쓰면 merge 시 이슈가 닫힌다</li></ul>
+<div class="tw"><table><thead><tr><th>레포</th><th>규칙</th></tr></thead><tbody><tr><td><b>rl</b></td><td><b>코드를 바꿀 때만</b> 브랜치를 판다: <code>feature/짧은이름</code> → <b>PR 로 <code>dev</code></b> → 검증된 상태만 <b>PR 로 <code>main</code></b>. main 직접 push 금지</td></tr><tr><td><b>lab</b></td><td>문서 레포라 main 직접 커밋 허용. 남의 문서를 크게 고칠 때만 PR</td></tr><tr><td>site · brand</td><td>파이프라인/담당(Codex)이 관리 — 직접 커밋하지 않는다</td></tr></tbody></table></div>
+<ul><li><b>이슈마다 브랜치를 만들 필요는 없다.</b> 브랜치는 이슈가 아니라 <b>&quot;PR 로 합칠 코드 변경&quot; 단위</b>다 — 조사·회의·막힘 이슈는 브랜치가 아예 필요 없고, 작은 이슈 여럿을 브랜치 하나로 처리해도 된다 (<code>Closes #12 #13</code> 처럼 한 커밋으로 여러 개를 닫을 수 있다).</li><li>이슈 번호를 브랜치 이름에 넣는 건 <b>권장이지 의무가 아니다</b> — 이슈 화면의 &quot;Create a branch&quot; 버튼을 쓰면 이름이 자동으로 지어진다. merge 된 브랜치는 지운다(브랜치는 소모품이다).</li><li>추적의 핵심은 브랜치 이름이 아니라 <b>커밋·PR 의 <code>Closes #번호</code></b> 다. 이것만은 반드시.</li></ul>
 </section>
 <section id="s6"><h2>6. 보드와 일정 — 계획과 실적을 둘 다 남긴다</h2>
 <div class="tw"><table><thead><tr><th>필드</th><th>의미</th><th>누가</th></tr></thead><tbody><tr><td>start date / end date</td><td><b>계획.</b> 자동값(오늘/+7일)은 초기값일 뿐 — <b>고치는 것이 정상 행위</b></td><td>사람</td></tr><tr><td>done date</td><td><b>실적.</b> 이슈 닫힐 때 자동 기입 (구축 중)</td><td>자동</td></tr></tbody></table></div>
