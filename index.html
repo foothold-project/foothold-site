@@ -27,7 +27,7 @@ header{border-bottom:2px solid var(--ink);padding-bottom:clamp(24px,3.5vh,38px)}
 .eyebrow{font-size:.6rem;letter-spacing:.22em;font-weight:700;color:var(--dim);
   text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .eyebrow::after{content:'';flex:1;height:1px;background:var(--rule)}
-.mark{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.mark{--wm-size:clamp(2.4rem,6vw,4.2rem);display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px}
 .mark .name{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;letter-spacing:-.05em;line-height:.92}
 .mark .ko{font-size:clamp(.74rem,.95vw,.85rem);color:var(--ink-3);font-weight:600}
 /* 부제는 워드마크와 좌·우 끝을 맞춘다 — 브랜드 정본 히어로(readme-hero)가 부제를
@@ -384,6 +384,8 @@ footer b{color:var(--ink-2);font-family:inherit}
 <script>
 document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
 </script>
+
+
 
 
 
