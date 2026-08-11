@@ -358,11 +358,43 @@ heading_command=True · rel_standing_envs=0.02 · resampling_time_range=(10,10)<
 몸통 20m 위에서 아래로 광선을 쏴 지면까지 거리를 잰다 (ray_alignment=&quot;yaw&quot;)
 관측에 넣을 때 ±0.1m 노이즈 + (-1,1) clip</pre></div>
 </section>
-<section id="s8"><h2>6. 미확인 / 다음 측정</h2>
-<div class="tw"><table><thead><tr><th>항목</th><th>상태</th></tr></thead><tbody><tr><td><s>300 iteration 시드 고정 A/B</s></td><td>✅ <b>완료</b> (§2)</td></tr><tr><td><s>플래그가 물리를 바꾸는가</s></td><td>✅ <b>판정 완료 — 바꾼다. 봉인</b> (§2 3차)</td></tr><tr><td><b>GPU 2장 DDP 효과</b></td><td><b>미측정</b> ← 다음</td></tr><tr><td>1,500 iteration 완주 실측</td><td>미측정 (추정 약 104분)</td></tr><tr><td>GUI 모드 렌더 성능 (Path Tracing)</td><td>미측정</td></tr><tr><td>700회에서 steps/s가 떨어진 이유</td><td>추정만 (커리큘럼 승급 → 충돌 증가)</td></tr><tr><td>평가 파이프라인 (100 에피소드 CSV)</td><td>미착수</td></tr></tbody></table></div>
+<section id="s8"><h2>5-3. ★★ 첫 성능 기록 — 학습량 대비 «실제로 걷는가» (2026-08-11)</h2>
+<h3>이 절의 한 줄</h3>
+<blockquote><p># <b>보상 13.94 는 «잘 걷는다»를 뜻하지 않았다.</b>
+같은 정책의 실제 통과율은 <b>0%</b> 였다. 학습 로그만 봤다면 «잘 되고 있다»고 보고했을 것이다.</p></blockquote>
+<h3>1,500 iteration 완주 실측</h3>
+<div class="tw"><table><thead><tr><th></th><th>값</th></tr></thead><tbody><tr><td>벽시계</td><td><b>134.42분</b> (추정 104분 대비 <b>+29.2%</b>)</td></tr><tr><td>최종 보상(마지막 20회)</td><td><b>22.878</b></td></tr><tr><td>에피소드 길이</td><td><b>974.84</b> / 1000</td></tr><tr><td>실행</td><td><code>logs/rsl_rl/unitree_go2_rough/2026-08-11_20-32-58</code></td></tr></tbody></table></div>
+<p><b>⚠️ 추정이 29% 틀린 이유 — 실험 설계 때문이다.</b> 추정 104분은 «300회 22.07분 × 5»로 <b>단독 실행</b>을 전제했다. 그런데 그 134분 내내 <b>GPU 1 에서 평가 실험을 병행</b>했다. GPU 는 나뉘어도 <b>CPU·메모리 대역폭은 공유</b>한다. → 단독이면 104분에 가까울 것이나 <b>재보지 않았으므로 추정이다.</b> → <b>교훈: 벤치마크 중에는 같은 기계에서 다른 작업을 돌리지 않는다.</b></p>
+<h3>학습 곡선 (100 iteration 간격)</h3>
+<div class="tw"><table><thead><tr><th>iter</th><th>보상</th><th>에피길이</th></tr></thead><tbody><tr><td>1</td><td>−0.47</td><td>11.9</td></tr><tr><td>101</td><td>6.12</td><td>936.0</td></tr><tr><td><b>301</b></td><td><b>14.37</b></td><td>946.0</td></tr><tr><td>501</td><td>19.13</td><td>945.5</td></tr><tr><td>901</td><td>20.22</td><td>954.1</td></tr><tr><td>1301</td><td><b>23.36</b></td><td>973.9</td></tr><tr><td>1500</td><td>22.28</td><td>979.2</td></tr></tbody></table></div>
+<p><b>500회 이후 상승이 완만하다.</b> 19 → 23 으로 1,000 iteration 에 4 밖에 안 올랐다. <b>수확 체감이 뚜렷하다.</b></p>
+<h3>★ 평가 결과 — 같은 프로토콜로 30 에피소드씩</h3>
+<p><b>프로토콜</b>: 전진 1.0 m/s 고정 · 지형 난이도 level 0 · 20초 · 관측 노이즈 끔 · 30 에피소드 <b>성공 정의</b>: 전진 10m 이상 · 넘어짐 없음 · 제한시간 내</p>
+<div class="tw"><table><thead><tr><th>정책</th><th>명령</th><th><b>통과율</b></th><th>평균 이동</th><th>넘어짐</th><th>시간초과</th></tr></thead><tbody><tr><td>300회</td><td><b>고정 1.0</b></td><td><b>0.0%</b> (0/30)</td><td>0.62 m</td><td>3</td><td>27</td></tr><tr><td>300회</td><td>랜덤</td><td>20.0% (6/30)</td><td>6.11 m</td><td>3</td><td>27</td></tr><tr><td><b>1,500회</b></td><td><b>고정 1.0</b></td><td><b>★ 86.7%</b> (26/30)</td><td><b>13.73 m</b></td><td><b>0</b></td><td>30</td></tr><tr><td>1,500회</td><td>랜덤</td><td>26.7% (8/30)</td><td>8.52 m</td><td>1</td><td>29</td></tr></tbody></table></div>
+<h3>읽는 법</h3>
+<p><b>① 학습량이 실제 성능을 바꾼다 — 그런데 지표보다 훨씬 극적으로 바꾼다</b></p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>보상    13.94 → 22.88   (1.64배)
+통과율   0.0% → 86.7%   (0 에서 86.7 로)
+넘어짐      3 → 0</pre></div>
+<p><b>보상은 1.6배 올랐는데 통과율은 0 에서 86.7% 가 됐다.</b> 학습 지표의 선형 개선이 실제 성능에서는 <b>문턱을 넘는 형태</b>로 나타난다. <b>지표만 보면 이 문턱을 못 본다.</b></p>
+<p><b>② 300회 정책이 «고정 명령에서 얼어붙은» 것은 평가 도구의 결함이 아니었다</b> 영상으로 확인한 결과 <b>다리를 벌리고 몸을 낮춘 자세로 버티기만 했다.</b> 보상이 높았던 이유는 «넘어지지 않아서»(에피소드 길이 938)이지 «잘 걸어서»가 아니다. 1,500회 정책은 같은 조건에서 <b>넘어짐 0회로 13.73m</b> 를 갔다. <b>도구가 아니라 대상이 문제였다.</b></p>
+<p><b>③ 랜덤 명령의 통과율이 낮은 것은 당연하다 — 성공 정의 때문이다</b> 성공 정의가 «10m 전진»인데 랜덤 명령은 방향이 계속 바뀐다. 로봇이 잘 걸어도 시작점에서 멀어지지 않으면 실패로 기록된다. → <b>평가 프로토콜은 «고정 전진 명령»을 전제한다.</b> 랜덤 명령 수치는 참고값으로만 쓴다.</p>
+<h3>산출물</h3>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>docs/assets/eval/cmp_300_fixed.csv     0.0%  (0/30)
+docs/assets/eval/cmp_300_random.csv   20.0%  (6/30)
+docs/assets/eval/cmp_1500_fixed.csv   86.7% (26/30)   ← 기준선
+docs/assets/eval/cmp_1500_random.csv  26.7%  (8/30)</pre></div>
+<p>CSV 는 에피소드별 <code>success · distance_m · fell · time_s · steps · timeout</code> 을 담고, <b>헤더 주석에 성공 정의와 실행 조건을 함께 기록</b>한다 — 정의가 바뀌면 CSV 도 같이 바뀌게.</p>
+<h3>이것이 여는 것</h3>
+<blockquote><p><b>«우리는 무엇을 개선했는가»에 답할 수 있는 축이 생겼다.</b>
+지금 기준선은 <b>86.7% @ level 0, 1.0 m/s</b> 다.
+다음 질문은 «난이도를 올리면 어디서 무너지는가»이고, 그 지점이 <b>우리 프로젝트의 문제 정의</b>가 된다.</p></blockquote>
 </section>
-<section id="s9"><h2>변경 이력</h2>
-<ul><li>2026-08-09 v1: 플래그 A/B 1차(30 iter) + 학습 진행 곡선(193 iter) 기록. 300 iter 재측정 진행 중.</li></ul>
+<section id="s9"><h2>6. 미확인 / 다음 측정</h2>
+<div class="tw"><table><thead><tr><th>항목</th><th>상태</th></tr></thead><tbody><tr><td><s>300 iteration 시드 고정 A/B</s></td><td>✅ <b>완료</b> (§2)</td></tr><tr><td><s>플래그가 물리를 바꾸는가</s></td><td>✅ <b>판정 완료 — 바꾼다. 봉인</b> (§2 3차)</td></tr><tr><td><s>GPU 2장 DDP 효과</s></td><td>✅ <b>판정 완료 — Windows 는 구조적 불가</b> (§5). 우분투로 이월</td></tr><tr><td><s>1,500 iteration 완주 실측</s></td><td>✅ <b>완료 — 134.42분</b> (§5-3)</td></tr><tr><td><s>평가 파이프라인</s></td><td>✅ <b>v1 완료 — 기준선 86.7%</b> (§5-3)</td></tr><tr><td><s>GUI 모드 렌더 성능 (Path Tracing)</s></td><td>✅ <b>완료</b> → [render-benchmarks.md](render-benchmarks.md)</td></tr><tr><td><b>난이도별 성능 곡선</b></td><td><b>미측정</b> ← 다음. 어디서 무너지는가 = 우리 문제 정의</td></tr><tr><td><b>1,500회 정책 단독 학습 시간</b></td><td>미측정 (134분은 평가 병행 상태)</td></tr><tr><td><b>NVIDIA 공식 체크포인트 통과율</b></td><td>미측정 — 같은 프로토콜로 재면 «남의 기록» 비교가 된다</td></tr><tr><td>우분투에서 DDP 효과</td><td>미측정 (전환 후)</td></tr><tr><td>700회에서 steps/s가 떨어진 이유</td><td>추정만 (커리큘럼 승급 → 충돌 증가)</td></tr></tbody></table></div>
+</section>
+<section id="s10"><h2>변경 이력</h2>
+<ul><li>2026-08-09 v1: 플래그 A/B 1차(30 iter) + 학습 진행 곡선(193 iter) 기록. 300 iter 재측정 진행 중.</li><li>2026-08-11 v2: DDP 판정(§5) · 평가 파이프라인 v1 과 함정 4개(§5-2) · <b>1,500 iteration 완주와 첫 성능 기준선 86.7%(§5-3)</b>. 핵심 발견: <b>보상 13.94 는 «잘 걷는다»를 뜻하지 않았다</b> — 같은 정책의 통과율은 0% 였다.</li></ul>
 </section>
 
 </div>
