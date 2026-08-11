@@ -31,7 +31,7 @@ body{
 /* ───── 좌측 네비 ───── */
 #nav{
   position:fixed;top:0;left:0;width:var(--nav);height:100vh;overflow-y:auto;
-  border-right:1px solid var(--rule);background:rgba(246,245,241,.97);
+  border-right:1px solid var(--rule);background:var(--paper);
   padding:26px 20px 40px;z-index:50;
 }
 #nav a.home{display:inline-block;font-size:.64rem;font-weight:700;color:var(--dim);text-decoration:none;
@@ -258,7 +258,7 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
   @page{ size:A4 portrait; margin:14mm 12mm; }
   #nav,#navToggle,.gaitctl,.gaitpick{display:none}
   main{margin-left:0;max-width:none;padding:0}
-  body{background-image:none;background:#fff}
+  body{background-image:none;background:var(--card)}
   :root{--measure:100%}                    /* 인쇄에선 지면 폭을 그대로 쓴다 */
 
   /* ★ 인터랙티브 도식 — 화면 비율 유지(좁은폭 미디어쿼리가 걸려 터지는 것 방지) */
@@ -711,41 +711,41 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
     <svg viewBox="0 0 620 250" aria-label="지지다각형 비교 · walk 삼각형 vs trot 선분">
       <defs>
         <marker id="ah" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M0,0 L7,3.5 L0,7 Z" fill="#4a5566"/></marker>
+          <path d="M0,0 L7,3.5 L0,7 Z" fill="var(--ink-2)"/></marker>
       </defs>
       <!-- 왼쪽: crawl 3발 지지 -->
-      <text x="100" y="22" font-size="12" font-weight="800" fill="#161c26" text-anchor="middle">Crawl · 3발 지지</text>
-      <text x="100" y="38" font-size="9.5" fill="#7c8798" text-anchor="middle">정적으로 안정</text>
-      <polygon points="45,80 155,80 155,175" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.6"/>
+      <text x="100" y="22" font-size="12" font-weight="800" fill="var(--ink)" text-anchor="middle">Crawl · 3발 지지</text>
+      <text x="100" y="38" font-size="9.5" fill="var(--ink-3)" text-anchor="middle">정적으로 안정</text>
+      <polygon points="45,80 155,80 155,175" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.6"/>
       <!-- 발 -->
-      <circle cx="45" cy="80" r="7.5" fill="#0e7a6e"/><circle cx="155" cy="80" r="7.5" fill="#0e7a6e"/>
-      <circle cx="155" cy="175" r="7.5" fill="#0e7a6e"/>
-      <circle cx="45" cy="175" r="7.5" fill="none" stroke="#d9d6cd" stroke-width="2" stroke-dasharray="3 3"/>
+      <circle cx="45" cy="80" r="7.5" fill="var(--dim)"/><circle cx="155" cy="80" r="7.5" fill="var(--dim)"/>
+      <circle cx="155" cy="175" r="7.5" fill="var(--dim)"/>
+      <circle cx="45" cy="175" r="7.5" fill="none" stroke="var(--rule)" stroke-width="2" stroke-dasharray="3 3"/>
       <!-- CoM -->
-      <circle cx="112" cy="120" r="5" fill="#a86a08"/>
-      <circle cx="112" cy="120" r="11" fill="none" stroke="#a86a08" stroke-width="1.2" stroke-dasharray="2 3"/>
-      <text x="112" y="145" font-size="9" fill="#a86a08" font-weight="700" text-anchor="middle">무게중심</text>
-      <text x="100" y="210" font-size="9.5" fill="#4a5566" text-anchor="middle">면적이 있는 다각형 →</text>
-      <text x="100" y="224" font-size="9.5" fill="#4a5566" text-anchor="middle">"안에 있으면 안 넘어진다"가 성립</text>
+      <circle cx="112" cy="120" r="5" fill="var(--note)"/>
+      <circle cx="112" cy="120" r="11" fill="none" stroke="var(--note)" stroke-width="1.2" stroke-dasharray="2 3"/>
+      <text x="112" y="145" font-size="9" fill="var(--note)" font-weight="700" text-anchor="middle">무게중심</text>
+      <text x="100" y="210" font-size="9.5" fill="var(--ink-2)" text-anchor="middle">면적이 있는 다각형 →</text>
+      <text x="100" y="224" font-size="9.5" fill="var(--ink-2)" text-anchor="middle">"안에 있으면 안 넘어진다"가 성립</text>
 
       <!-- 오른쪽: trot 2발 대각 -->
-      <text x="400" y="22" font-size="12" font-weight="800" fill="#161c26" text-anchor="middle">Trot · 대각 2발 지지</text>
-      <text x="400" y="38" font-size="9.5" fill="#a3342a" text-anchor="middle">지지다각형이 선분으로 퇴화</text>
-      <line x1="345" y1="80" x2="455" y2="175" stroke="#a3342a" stroke-width="2.6"/>
-      <circle cx="345" cy="80" r="7.5" fill="#0e7a6e"/><circle cx="455" cy="175" r="7.5" fill="#0e7a6e"/>
-      <circle cx="455" cy="80" r="7.5" fill="none" stroke="#d9d6cd" stroke-width="2" stroke-dasharray="3 3"/>
-      <circle cx="345" cy="175" r="7.5" fill="none" stroke="#d9d6cd" stroke-width="2" stroke-dasharray="3 3"/>
-      <circle cx="400" cy="127" r="5" fill="#a86a08"/>
+      <text x="400" y="22" font-size="12" font-weight="800" fill="var(--ink)" text-anchor="middle">Trot · 대각 2발 지지</text>
+      <text x="400" y="38" font-size="9.5" fill="var(--stop)" text-anchor="middle">지지다각형이 선분으로 퇴화</text>
+      <line x1="345" y1="80" x2="455" y2="175" stroke="var(--stop)" stroke-width="2.6"/>
+      <circle cx="345" cy="80" r="7.5" fill="var(--dim)"/><circle cx="455" cy="175" r="7.5" fill="var(--dim)"/>
+      <circle cx="455" cy="80" r="7.5" fill="none" stroke="var(--rule)" stroke-width="2" stroke-dasharray="3 3"/>
+      <circle cx="345" cy="175" r="7.5" fill="none" stroke="var(--rule)" stroke-width="2" stroke-dasharray="3 3"/>
+      <circle cx="400" cy="127" r="5" fill="var(--note)"/>
       <!-- 넘어지는 방향 화살표 -->
-      <line x1="400" y1="127" x2="352" y2="152" stroke="#4a5566" stroke-width="1.3" marker-end="url(#ah)" stroke-dasharray="3 2"/>
-      <line x1="400" y1="127" x2="448" y2="102" stroke="#4a5566" stroke-width="1.3" marker-end="url(#ah)" stroke-dasharray="3 2"/>
-      <text x="400" y="210" font-size="9.5" fill="#a3342a" text-anchor="middle" font-weight="700">면적이 0 → "안에 있다"가 불가능</text>
-      <text x="400" y="224" font-size="9.5" fill="#4a5566" text-anchor="middle">계속 움직여야만 안 넘어진다</text>
+      <line x1="400" y1="127" x2="352" y2="152" stroke="var(--ink-2)" stroke-width="1.3" marker-end="url(#ah)" stroke-dasharray="3 2"/>
+      <line x1="400" y1="127" x2="448" y2="102" stroke="var(--ink-2)" stroke-width="1.3" marker-end="url(#ah)" stroke-dasharray="3 2"/>
+      <text x="400" y="210" font-size="9.5" fill="var(--stop)" text-anchor="middle" font-weight="700">면적이 0 → "안에 있다"가 불가능</text>
+      <text x="400" y="224" font-size="9.5" fill="var(--ink-2)" text-anchor="middle">계속 움직여야만 안 넘어진다</text>
 
       <!-- 범례 -->
-      <circle cx="500" cy="242" r="5" fill="#0e7a6e"/><text x="510" y="246" font-size="9" fill="#4a5566">접지</text>
-      <circle cx="552" cy="242" r="5" fill="none" stroke="#d9d6cd" stroke-width="2" stroke-dasharray="3 3"/>
-      <text x="562" y="246" font-size="9" fill="#4a5566">공중</text>
+      <circle cx="500" cy="242" r="5" fill="var(--dim)"/><text x="510" y="246" font-size="9" fill="var(--ink-2)">접지</text>
+      <circle cx="552" cy="242" r="5" fill="none" stroke="var(--rule)" stroke-width="2" stroke-dasharray="3 3"/>
+      <text x="562" y="246" font-size="9" fill="var(--ink-2)">공중</text>
     </svg>
     <figcaption><b>왜 ZMP가 4족 동적보행에 안 맞는지가 이 그림 하나에 있다.</b>
       crawl은 지지다각형에 면적이 있어 "안에 있으면 안 넘어진다"가 성립하지만,
@@ -975,36 +975,36 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
     <svg viewBox="0 0 620 262" aria-label="강화학습 루프 구조">
       <defs>
         <marker id="a3" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-          <path d="M0,0 L9,4.5 L0,9 Z" fill="#0e7a6e"/></marker>
+          <path d="M0,0 L9,4.5 L0,9 Z" fill="var(--dim)"/></marker>
         <marker id="a4" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
-          <path d="M0,0 L9,4.5 L0,9 Z" fill="#a86a08"/></marker>
+          <path d="M0,0 L9,4.5 L0,9 Z" fill="var(--note)"/></marker>
       </defs>
-      <rect x="34" y="66" width="176" height="96" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.8"/>
-      <text x="122" y="90" font-size="12" font-weight="800" fill="#0e7a6e" text-anchor="middle">정책 (Policy)</text>
-      <text x="122" y="107" font-size="9" fill="#4a5566" text-anchor="middle">= 신경망 한 개</text>
-      <text x="122" y="128" font-size="9.3" fill="#161c26" text-anchor="middle">"지금 이 상황이면</text>
-      <text x="122" y="142" font-size="9.3" fill="#161c26" text-anchor="middle">관절을 이렇게 움직여라"</text>
-      <text x="122" y="156" font-size="8.3" fill="#7c8798" text-anchor="middle">우리의 최종 산출물</text>
+      <rect x="34" y="66" width="176" height="96" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.8"/>
+      <text x="122" y="90" font-size="12" font-weight="800" fill="var(--dim)" text-anchor="middle">정책 (Policy)</text>
+      <text x="122" y="107" font-size="9" fill="var(--ink-2)" text-anchor="middle">= 신경망 한 개</text>
+      <text x="122" y="128" font-size="9.3" fill="var(--ink)" text-anchor="middle">"지금 이 상황이면</text>
+      <text x="122" y="142" font-size="9.3" fill="var(--ink)" text-anchor="middle">관절을 이렇게 움직여라"</text>
+      <text x="122" y="156" font-size="8.3" fill="var(--ink-3)" text-anchor="middle">우리의 최종 산출물</text>
 
-      <rect x="410" y="66" width="176" height="96" fill="#eeece6" stroke="#4a5566" stroke-width="1.8"/>
-      <text x="498" y="90" font-size="12" font-weight="800" fill="#161c26" text-anchor="middle">환경 (Environment)</text>
-      <text x="498" y="107" font-size="9" fill="#4a5566" text-anchor="middle">= 물리 시뮬레이터</text>
-      <text x="498" y="128" font-size="9.3" fill="#161c26" text-anchor="middle">중력·마찰·충돌을 계산해</text>
-      <text x="498" y="142" font-size="9.3" fill="#161c26" text-anchor="middle">결과를 돌려준다</text>
-      <text x="498" y="156" font-size="8.3" fill="#7c8798" text-anchor="middle">Isaac Lab이 여기 해당</text>
+      <rect x="410" y="66" width="176" height="96" fill="var(--paper-2)" stroke="var(--ink-2)" stroke-width="1.8"/>
+      <text x="498" y="90" font-size="12" font-weight="800" fill="var(--ink)" text-anchor="middle">환경 (Environment)</text>
+      <text x="498" y="107" font-size="9" fill="var(--ink-2)" text-anchor="middle">= 물리 시뮬레이터</text>
+      <text x="498" y="128" font-size="9.3" fill="var(--ink)" text-anchor="middle">중력·마찰·충돌을 계산해</text>
+      <text x="498" y="142" font-size="9.3" fill="var(--ink)" text-anchor="middle">결과를 돌려준다</text>
+      <text x="498" y="156" font-size="8.3" fill="var(--ink-3)" text-anchor="middle">Isaac Lab이 여기 해당</text>
 
-      <path d="M212,96 C280,96 340,96 406,96" stroke="#0e7a6e" stroke-width="2.2" fill="none" marker-end="url(#a3)"/>
-      <text x="309" y="86" font-size="10" font-weight="700" fill="#0e7a6e" text-anchor="middle">행동 (Action)</text>
-      <text x="309" y="58" font-size="8.6" fill="#4a5566" text-anchor="middle">12개 관절의 목표 각도</text>
-      <text x="309" y="44" font-size="8.6" fill="#7c8798" text-anchor="middle">초당 50회 내보낸다</text>
+      <path d="M212,96 C280,96 340,96 406,96" stroke="var(--dim)" stroke-width="2.2" fill="none" marker-end="url(#a3)"/>
+      <text x="309" y="86" font-size="10" font-weight="700" fill="var(--dim)" text-anchor="middle">행동 (Action)</text>
+      <text x="309" y="58" font-size="8.6" fill="var(--ink-2)" text-anchor="middle">12개 관절의 목표 각도</text>
+      <text x="309" y="44" font-size="8.6" fill="var(--ink-3)" text-anchor="middle">초당 50회 내보낸다</text>
 
-      <path d="M408,140 C340,140 280,140 214,140" stroke="#a86a08" stroke-width="2.2" fill="none" marker-end="url(#a4)"/>
-      <text x="309" y="158" font-size="10" font-weight="700" fill="#a86a08" text-anchor="middle">관측 + 보상</text>
-      <text x="309" y="174" font-size="8.6" fill="#4a5566" text-anchor="middle">관절 각도·IMU·… 그리고 점수</text>
+      <path d="M408,140 C340,140 280,140 214,140" stroke="var(--note)" stroke-width="2.2" fill="none" marker-end="url(#a4)"/>
+      <text x="309" y="158" font-size="10" font-weight="700" fill="var(--note)" text-anchor="middle">관측 + 보상</text>
+      <text x="309" y="174" font-size="8.6" fill="var(--ink-2)" text-anchor="middle">관절 각도·IMU·… 그리고 점수</text>
 
-      <rect x="34" y="198" width="552" height="50" fill="#fff" stroke="#d9d6cd" stroke-width="1.3"/>
-      <text x="48" y="217" font-size="9.6" font-weight="700" fill="#161c26">이 루프가 한 번 도는 데 0.02초. 그리고 수천 마리가 동시에 돈다.</text>
-      <text x="48" y="235" font-size="9" fill="#4a5566">4,096마리를 병렬로 굴리면 실시간의 4,096배로 경험이 쌓인다. 이것이 대규모 병렬 학습이다.</text>
+      <rect x="34" y="198" width="552" height="50" fill="#fff" stroke="var(--rule)" stroke-width="1.3"/>
+      <text x="48" y="217" font-size="9.6" font-weight="700" fill="var(--ink)">이 루프가 한 번 도는 데 0.02초. 그리고 수천 마리가 동시에 돈다.</text>
+      <text x="48" y="235" font-size="9" fill="var(--ink-2)">4,096마리를 병렬로 굴리면 실시간의 4,096배로 경험이 쌓인다. 이것이 대규모 병렬 학습이다.</text>
     </svg>
     <figcaption><b>강화학습의 전부가 이 그림이다.</b> 정책이 행동을 내고, 환경이 결과와 점수를 돌려주고,
       정책은 점수가 높아지는 쪽으로 조금씩 바뀐다. 이걸 수억 번 반복한다.</figcaption>
@@ -1035,31 +1035,31 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
 
   <figure>
     <svg viewBox="0 0 620 300" aria-label="사족보행 보상 항목 구성과 보상 해킹">
-      <text x="16" y="20" font-size="11" font-weight="800" fill="#0e7a6e">＋ 잘하면 주는 점수</text>
-      <rect x="16" y="30" width="286" height="112" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.5"/>
-      <text x="30" y="52" font-size="9.6" font-weight="700" fill="#161c26">속도 추종</text>
-      <text x="30" y="66" font-size="8.8" fill="#4a5566">명령한 속도대로 갈수록 큰 점수. 가장 핵심.</text>
-      <text x="30" y="88" font-size="9.6" font-weight="700" fill="#161c26">생존</text>
-      <text x="30" y="102" font-size="8.8" fill="#4a5566">넘어지지 않고 버틴 시간에 비례.</text>
-      <text x="30" y="124" font-size="9.6" font-weight="700" fill="#161c26">자세 유지</text>
-      <text x="30" y="138" font-size="8.8" fill="#4a5566">몸통이 수평이고 목표 높이에 있으면 점수.</text>
+      <text x="16" y="20" font-size="11" font-weight="800" fill="var(--dim)">＋ 잘하면 주는 점수</text>
+      <rect x="16" y="30" width="286" height="112" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.5"/>
+      <text x="30" y="52" font-size="9.6" font-weight="700" fill="var(--ink)">속도 추종</text>
+      <text x="30" y="66" font-size="8.8" fill="var(--ink-2)">명령한 속도대로 갈수록 큰 점수. 가장 핵심.</text>
+      <text x="30" y="88" font-size="9.6" font-weight="700" fill="var(--ink)">생존</text>
+      <text x="30" y="102" font-size="8.8" fill="var(--ink-2)">넘어지지 않고 버틴 시간에 비례.</text>
+      <text x="30" y="124" font-size="9.6" font-weight="700" fill="var(--ink)">자세 유지</text>
+      <text x="30" y="138" font-size="8.8" fill="var(--ink-2)">몸통이 수평이고 목표 높이에 있으면 점수.</text>
 
-      <text x="318" y="20" font-size="11" font-weight="800" fill="#a3342a">－ 못하면 깎는 점수</text>
-      <rect x="318" y="30" width="286" height="112" fill="#fbe9e7" stroke="#a3342a" stroke-width="1.5"/>
-      <text x="332" y="48" font-size="8.9" fill="#4a5566"><tspan font-weight="700" fill="#161c26">에너지</tspan>· 토크를 크게 쓰면 감점</text>
-      <text x="332" y="64" font-size="8.9" fill="#4a5566"><tspan font-weight="700" fill="#161c26">관절 한계</tspan>· 가동범위 끝까지 밀면 감점</text>
-      <text x="332" y="80" font-size="8.9" fill="#4a5566"><tspan font-weight="700" fill="#161c26">발 미끄러짐</tspan>. 접지 중 발이 밀리면 감점</text>
-      <text x="332" y="96" font-size="8.9" fill="#4a5566"><tspan font-weight="700" fill="#161c26">액션 떨림</tspan>· 출력이 덜덜 떨리면 감점</text>
-      <text x="332" y="112" font-size="8.9" fill="#4a5566"><tspan font-weight="700" fill="#161c26">충돌</tspan>· 무릎·몸통이 땅에 닿으면 감점</text>
-      <text x="332" y="132" font-size="8.3" fill="#7c8798" font-style="italic">감점 항목이 없으면 정책은 반드시 편법을 찾는다</text>
+      <text x="318" y="20" font-size="11" font-weight="800" fill="var(--stop)">－ 못하면 깎는 점수</text>
+      <rect x="318" y="30" width="286" height="112" fill="var(--stop-soft)" stroke="var(--stop)" stroke-width="1.5"/>
+      <text x="332" y="48" font-size="8.9" fill="var(--ink-2)"><tspan font-weight="700" fill="var(--ink)">에너지</tspan>· 토크를 크게 쓰면 감점</text>
+      <text x="332" y="64" font-size="8.9" fill="var(--ink-2)"><tspan font-weight="700" fill="var(--ink)">관절 한계</tspan>· 가동범위 끝까지 밀면 감점</text>
+      <text x="332" y="80" font-size="8.9" fill="var(--ink-2)"><tspan font-weight="700" fill="var(--ink)">발 미끄러짐</tspan>. 접지 중 발이 밀리면 감점</text>
+      <text x="332" y="96" font-size="8.9" fill="var(--ink-2)"><tspan font-weight="700" fill="var(--ink)">액션 떨림</tspan>· 출력이 덜덜 떨리면 감점</text>
+      <text x="332" y="112" font-size="8.9" fill="var(--ink-2)"><tspan font-weight="700" fill="var(--ink)">충돌</tspan>· 무릎·몸통이 땅에 닿으면 감점</text>
+      <text x="332" y="132" font-size="8.3" fill="var(--ink-3)" font-style="italic">감점 항목이 없으면 정책은 반드시 편법을 찾는다</text>
 
-      <rect x="16" y="164" width="588" height="122" fill="#fff" stroke="#a86a08" stroke-width="1.8"/>
-      <text x="32" y="186" font-size="11" font-weight="800" fill="#a86a08">⚠ 보상 해킹, 정책은 우리가 시킨 걸 하지 않는다. 점수가 높아지는 걸 한다.</text>
-      <text x="32" y="208" font-size="9.2" fill="#4a5566">· 속도 보상만 주면 → <tspan font-weight="700" fill="#161c26">몸을 앞으로 던졌다가 넘어지기를 반복</tspan>한다. 순간 속도는 높으니까.</text>
-      <text x="32" y="226" font-size="9.2" fill="#4a5566">· 생존 보상만 크면 → <tspan font-weight="700" fill="#161c26">아예 주저앉아 안 움직인다.</tspan> 넘어질 일이 없으니까.</text>
-      <text x="32" y="244" font-size="9.2" fill="#4a5566">· 에너지 감점이 없으면 → <tspan font-weight="700" fill="#161c26">다리를 질질 끌면서 간다.</tspan> 드는 것보다 끄는 게 싸니까.</text>
-      <text x="32" y="268" font-size="9" fill="#a86a08" font-style="italic">실제로 대규모 병렬 학습을 처음 제시한 논문조차 결과 정책에 "다리 끌기와 비정상적인 몸통 높이"</text>
-      <text x="32" y="281" font-size="9" fill="#a86a08" font-style="italic">결함이 있어 보상 재조정이 필요했다고 적었다.</text>
+      <rect x="16" y="164" width="588" height="122" fill="#fff" stroke="var(--note)" stroke-width="1.8"/>
+      <text x="32" y="186" font-size="11" font-weight="800" fill="var(--note)">⚠ 보상 해킹, 정책은 우리가 시킨 걸 하지 않는다. 점수가 높아지는 걸 한다.</text>
+      <text x="32" y="208" font-size="9.2" fill="var(--ink-2)">· 속도 보상만 주면 → <tspan font-weight="700" fill="var(--ink)">몸을 앞으로 던졌다가 넘어지기를 반복</tspan>한다. 순간 속도는 높으니까.</text>
+      <text x="32" y="226" font-size="9.2" fill="var(--ink-2)">· 생존 보상만 크면 → <tspan font-weight="700" fill="var(--ink)">아예 주저앉아 안 움직인다.</tspan> 넘어질 일이 없으니까.</text>
+      <text x="32" y="244" font-size="9.2" fill="var(--ink-2)">· 에너지 감점이 없으면 → <tspan font-weight="700" fill="var(--ink)">다리를 질질 끌면서 간다.</tspan> 드는 것보다 끄는 게 싸니까.</text>
+      <text x="32" y="268" font-size="9" fill="var(--note)" font-style="italic">실제로 대규모 병렬 학습을 처음 제시한 논문조차 결과 정책에 "다리 끌기와 비정상적인 몸통 높이"</text>
+      <text x="32" y="281" font-size="9" fill="var(--note)" font-style="italic">결함이 있어 보상 재조정이 필요했다고 적었다.</text>
     </svg>
     <figcaption><b>보상 설계가 이 프로젝트의 진짜 난이도다.</b>
       알고리즘은 공개 코드를 쓰면 되지만, 보상 가중치를 맞추는 건 실험을 반복하는 수밖에 없다.
@@ -1098,36 +1098,36 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
 
   <figure>
     <svg viewBox="0 0 620 300" aria-label="지형 커리큘럼과 도메인 랜덤화">
-      <text x="16" y="20" font-size="11" font-weight="800" fill="#0e7a6e">① 지형 커리큘럼, 난이도를 올린다</text>
-      <text x="16" y="36" font-size="8.8" fill="#7c8798">목적: 처음부터 어려우면 아무것도 못 배운다</text>
-      <rect x="20" y="112" width="86" height="16" fill="#e0f0ed" stroke="#0e7a6e"/>
-      <text x="63" y="124" font-size="8.4" fill="#161c26" text-anchor="middle">평지</text>
-      <rect x="112" y="98" width="86" height="30" fill="#e0f0ed" stroke="#0e7a6e"/>
-      <text x="155" y="118" font-size="8.4" fill="#161c26" text-anchor="middle">완경사</text>
-      <rect x="204" y="80" width="86" height="48" fill="#e0f0ed" stroke="#0e7a6e"/>
-      <text x="247" y="108" font-size="8.4" fill="#161c26" text-anchor="middle">거친 지면</text>
-      <rect x="296" y="58" width="86" height="70" fill="#0e7a6e"/>
+      <text x="16" y="20" font-size="11" font-weight="800" fill="var(--dim)">① 지형 커리큘럼, 난이도를 올린다</text>
+      <text x="16" y="36" font-size="8.8" fill="var(--ink-3)">목적: 처음부터 어려우면 아무것도 못 배운다</text>
+      <rect x="20" y="112" width="86" height="16" fill="var(--dim-soft)" stroke="var(--dim)"/>
+      <text x="63" y="124" font-size="8.4" fill="var(--ink)" text-anchor="middle">평지</text>
+      <rect x="112" y="98" width="86" height="30" fill="var(--dim-soft)" stroke="var(--dim)"/>
+      <text x="155" y="118" font-size="8.4" fill="var(--ink)" text-anchor="middle">완경사</text>
+      <rect x="204" y="80" width="86" height="48" fill="var(--dim-soft)" stroke="var(--dim)"/>
+      <text x="247" y="108" font-size="8.4" fill="var(--ink)" text-anchor="middle">거친 지면</text>
+      <rect x="296" y="58" width="86" height="70" fill="var(--dim)"/>
       <text x="339" y="98" font-size="8.4" fill="#fff" text-anchor="middle" font-weight="700">계단·단차</text>
-      <line x1="20" y1="128" x2="382" y2="128" stroke="#4a5566" stroke-width="1.4"/>
-      <text x="200" y="146" font-size="8.8" fill="#4a5566" text-anchor="middle">난이도 →</text>
-      <text x="404" y="76" font-size="9.2" fill="#4a5566">통과율이 높으면 <tspan font-weight="700" fill="#0e7a6e">승급</tspan></text>
-      <text x="404" y="93" font-size="9.2" fill="#4a5566">자꾸 넘어지면 <tspan font-weight="700" fill="#a3342a">강등</tspan></text>
-      <text x="404" y="115" font-size="8.8" fill="#7c8798">항상 "약간 어려운" 지형만</text>
-      <text x="404" y="128" font-size="8.8" fill="#7c8798">겪게 자동 조절한다</text>
-      <text x="404" y="147" font-size="8.4" fill="#a86a08" font-style="italic">목표 통과율 0.5~0.9 유지</text>
+      <line x1="20" y1="128" x2="382" y2="128" stroke="var(--ink-2)" stroke-width="1.4"/>
+      <text x="200" y="146" font-size="8.8" fill="var(--ink-2)" text-anchor="middle">난이도 →</text>
+      <text x="404" y="76" font-size="9.2" fill="var(--ink-2)">통과율이 높으면 <tspan font-weight="700" fill="var(--dim)">승급</tspan></text>
+      <text x="404" y="93" font-size="9.2" fill="var(--ink-2)">자꾸 넘어지면 <tspan font-weight="700" fill="var(--stop)">강등</tspan></text>
+      <text x="404" y="115" font-size="8.8" fill="var(--ink-3)">항상 "약간 어려운" 지형만</text>
+      <text x="404" y="128" font-size="8.8" fill="var(--ink-3)">겪게 자동 조절한다</text>
+      <text x="404" y="147" font-size="8.4" fill="var(--note)" font-style="italic">목표 통과율 0.5~0.9 유지</text>
 
-      <text x="16" y="182" font-size="11" font-weight="800" fill="#a86a08">② 도메인 랜덤화, 조건을 흔든다</text>
-      <text x="16" y="198" font-size="8.8" fill="#7c8798">목적: 시뮬은 너무 완벽해서, 그 완벽함이 오히려 독이 된다</text>
-      <rect x="20" y="210" width="278" height="76" fill="#fbf0dc" stroke="#a86a08" stroke-width="1.4"/>
-      <text x="34" y="228" font-size="9" fill="#4a5566">매 에피소드마다 무작위로 바꾼다:</text>
-      <text x="34" y="246" font-size="8.8" fill="#161c26">· 지면 마찰 &nbsp;&nbsp;· 로봇 질량 · 무게중심</text>
-      <text x="34" y="262" font-size="8.8" fill="#161c26">· 모터 강도 &nbsp;· <tspan font-weight="700">제어 지연</tspan></text>
-      <text x="34" y="278" font-size="8.8" fill="#161c26">· 옆에서 미는 외란</text>
-      <rect x="312" y="210" width="292" height="76" fill="#fbe9e7" stroke="#a3342a" stroke-width="1.4"/>
-      <text x="326" y="228" font-size="9.4" font-weight="700" fill="#a3342a">⚠ 많이 걸수록 좋은 게 아니다</text>
-      <text x="326" y="247" font-size="8.8" fill="#4a5566">불필요한 랜덤화를 넣자 실측 최고속도가</text>
-      <text x="326" y="263" font-size="9.2" fill="#161c26" font-weight="700">1.1 → 0.9 m/s (약 18% 손실)</text>
-      <text x="326" y="279" font-size="8.6" fill="#4a5566">지나친 랜덤화 = 지나치게 보수적인 정책</text>
+      <text x="16" y="182" font-size="11" font-weight="800" fill="var(--note)">② 도메인 랜덤화, 조건을 흔든다</text>
+      <text x="16" y="198" font-size="8.8" fill="var(--ink-3)">목적: 시뮬은 너무 완벽해서, 그 완벽함이 오히려 독이 된다</text>
+      <rect x="20" y="210" width="278" height="76" fill="var(--note-soft)" stroke="var(--note)" stroke-width="1.4"/>
+      <text x="34" y="228" font-size="9" fill="var(--ink-2)">매 에피소드마다 무작위로 바꾼다:</text>
+      <text x="34" y="246" font-size="8.8" fill="var(--ink)">· 지면 마찰 &nbsp;&nbsp;· 로봇 질량 · 무게중심</text>
+      <text x="34" y="262" font-size="8.8" fill="var(--ink)">· 모터 강도 &nbsp;· <tspan font-weight="700">제어 지연</tspan></text>
+      <text x="34" y="278" font-size="8.8" fill="var(--ink)">· 옆에서 미는 외란</text>
+      <rect x="312" y="210" width="292" height="76" fill="var(--stop-soft)" stroke="var(--stop)" stroke-width="1.4"/>
+      <text x="326" y="228" font-size="9.4" font-weight="700" fill="var(--stop)">⚠ 많이 걸수록 좋은 게 아니다</text>
+      <text x="326" y="247" font-size="8.8" fill="var(--ink-2)">불필요한 랜덤화를 넣자 실측 최고속도가</text>
+      <text x="326" y="263" font-size="9.2" fill="var(--ink)" font-weight="700">1.1 → 0.9 m/s (약 18% 손실)</text>
+      <text x="326" y="279" font-size="8.6" fill="var(--ink-2)">지나친 랜덤화 = 지나치게 보수적인 정책</text>
     </svg>
     <figcaption><b>커리큘럼은 "점점 어렵게", 랜덤화는 "매번 다르게".</b>
       전자는 학습이 가능하게 만들고, 후자는 학습 결과가 현실에서도 통하게 만든다.
@@ -1203,44 +1203,44 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
   <figure>
     <svg viewBox="0 0 620 300" aria-label="교사-학생 학습 파이프라인">
       <!-- 교사 -->
-      <rect x="18" y="30" width="270" height="115" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.6"/>
-      <text x="30" y="50" font-size="11.5" font-weight="800" fill="#0e7a6e">① 교사 (Teacher)</text>
-      <text x="30" y="66" font-size="9" fill="#4a5566">시뮬레이션 안에서만 존재. 정답을 다 본다.</text>
-      <text x="30" y="88" font-size="9.5" font-weight="700" fill="#161c26">특권 정보, 실기엔 없는 것들</text>
-      <text x="30" y="103" font-size="9" fill="#4a5566">· 진짜 지형 높이 (발마다 9점 × 4다리 = 36점)</text>
-      <text x="30" y="116" font-size="9" fill="#4a5566">· 발 접촉 상태 · 접촉력</text>
-      <text x="30" y="129" font-size="9" fill="#4a5566">· 마찰계수 · 외부 외란력</text>
+      <rect x="18" y="30" width="270" height="115" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.6"/>
+      <text x="30" y="50" font-size="11.5" font-weight="800" fill="var(--dim)">① 교사 (Teacher)</text>
+      <text x="30" y="66" font-size="9" fill="var(--ink-2)">시뮬레이션 안에서만 존재. 정답을 다 본다.</text>
+      <text x="30" y="88" font-size="9.5" font-weight="700" fill="var(--ink)">특권 정보, 실기엔 없는 것들</text>
+      <text x="30" y="103" font-size="9" fill="var(--ink-2)">· 진짜 지형 높이 (발마다 9점 × 4다리 = 36점)</text>
+      <text x="30" y="116" font-size="9" fill="var(--ink-2)">· 발 접촉 상태 · 접촉력</text>
+      <text x="30" y="129" font-size="9" fill="var(--ink-2)">· 마찰계수 · 외부 외란력</text>
 
       <!-- 압축 -->
-      <rect x="18" y="160" width="270" height="42" fill="#fff" stroke="#d9d6cd" stroke-width="1.3"/>
-      <text x="30" y="178" font-size="10" font-weight="700" fill="#161c26">② 잠재벡터로 압축</text>
-      <text x="30" y="193" font-size="8.8" fill="#4a5566">인코더가 "지형·접촉 관련 특징만" 담도록 학습</text>
+      <rect x="18" y="160" width="270" height="42" fill="#fff" stroke="var(--rule)" stroke-width="1.3"/>
+      <text x="30" y="178" font-size="10" font-weight="700" fill="var(--ink)">② 잠재벡터로 압축</text>
+      <text x="30" y="193" font-size="8.8" fill="var(--ink-2)">인코더가 "지형·접촉 관련 특징만" 담도록 학습</text>
 
       <!-- 화살표 -->
-      <path d="M300,110 L340,110" stroke="#a86a08" stroke-width="2" marker-end="url(#ah2)"/>
+      <path d="M300,110 L340,110" stroke="var(--note)" stroke-width="2" marker-end="url(#ah2)"/>
       <defs><marker id="ah2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-        <path d="M0,0 L8,4 L0,8 Z" fill="#a86a08"/></marker></defs>
-      <text x="320" y="102" font-size="8.5" fill="#a86a08" text-anchor="middle" font-weight="700">모방</text>
-      <text x="320" y="126" font-size="8.5" fill="#a86a08" text-anchor="middle">(증류)</text>
+        <path d="M0,0 L8,4 L0,8 Z" fill="var(--note)"/></marker></defs>
+      <text x="320" y="102" font-size="8.5" fill="var(--note)" text-anchor="middle" font-weight="700">모방</text>
+      <text x="320" y="126" font-size="8.5" fill="var(--note)" text-anchor="middle">(증류)</text>
 
       <!-- 학생 -->
-      <rect x="352" y="30" width="250" height="172" fill="#fbf0dc" stroke="#a86a08" stroke-width="1.6"/>
-      <text x="364" y="50" font-size="11.5" font-weight="800" fill="#a86a08">③ 학생 (Student)</text>
-      <text x="364" y="66" font-size="9" fill="#4a5566">실기에 올라가는 것. 특권을 뺏겼다.</text>
-      <text x="364" y="88" font-size="9.5" font-weight="700" fill="#161c26">볼 수 있는 것. 전부 로봇 내부</text>
-      <text x="364" y="103" font-size="9" fill="#4a5566">· 관절 각도 · 속도 (12개)</text>
-      <text x="364" y="116" font-size="9" fill="#4a5566">· IMU (기울기 · 회전)</text>
-      <text x="364" y="129" font-size="9" fill="#4a5566">· 직전 액션</text>
-      <rect x="364" y="140" width="226" height="50" fill="#fff" stroke="#a86a08" stroke-width="1.1"/>
-      <text x="376" y="157" font-size="9.5" font-weight="700" fill="#a86a08">+ 시간 기억 (TCN)</text>
-      <text x="376" y="172" font-size="8.8" fill="#4a5566">과거 100스텝 ≈ 2초의 고유수용 기억</text>
-      <text x="376" y="184" font-size="8.8" fill="#4a5566">← 지형이 남긴 흔적이 여기 들어 있다</text>
+      <rect x="352" y="30" width="250" height="172" fill="var(--note-soft)" stroke="var(--note)" stroke-width="1.6"/>
+      <text x="364" y="50" font-size="11.5" font-weight="800" fill="var(--note)">③ 학생 (Student)</text>
+      <text x="364" y="66" font-size="9" fill="var(--ink-2)">실기에 올라가는 것. 특권을 뺏겼다.</text>
+      <text x="364" y="88" font-size="9.5" font-weight="700" fill="var(--ink)">볼 수 있는 것. 전부 로봇 내부</text>
+      <text x="364" y="103" font-size="9" fill="var(--ink-2)">· 관절 각도 · 속도 (12개)</text>
+      <text x="364" y="116" font-size="9" fill="var(--ink-2)">· IMU (기울기 · 회전)</text>
+      <text x="364" y="129" font-size="9" fill="var(--ink-2)">· 직전 액션</text>
+      <rect x="364" y="140" width="226" height="50" fill="#fff" stroke="var(--note)" stroke-width="1.1"/>
+      <text x="376" y="157" font-size="9.5" font-weight="700" fill="var(--note)">+ 시간 기억 (TCN)</text>
+      <text x="376" y="172" font-size="8.8" fill="var(--ink-2)">과거 100스텝 ≈ 2초의 고유수용 기억</text>
+      <text x="376" y="184" font-size="8.8" fill="var(--ink-2)">← 지형이 남긴 흔적이 여기 들어 있다</text>
 
       <!-- 결과 -->
-      <rect x="18" y="222" width="584" height="62" fill="#fff" stroke="#161c26" stroke-width="1.6"/>
-      <text x="30" y="242" font-size="10.5" font-weight="800" fill="#161c26">④ 결과, 학습 중 명시한 적 없는 행동이 창발했다</text>
-      <text x="30" y="259" font-size="9.2" fill="#4a5566">발이 장애물에 걸리면 스스로 들어올리는 <tspan font-weight="700" fill="#0e7a6e">발 걸림 반사(foot-trapping reflex)</tspan>가 나타났다.</text>
-      <text x="30" y="273" font-size="9.2" fill="#4a5566">접촉 감지기를 따로 만들지 않았는데, 접촉 반응 행동이 저절로 생겼다.</text>
+      <rect x="18" y="222" width="584" height="62" fill="#fff" stroke="var(--ink)" stroke-width="1.6"/>
+      <text x="30" y="242" font-size="10.5" font-weight="800" fill="var(--ink)">④ 결과, 학습 중 명시한 적 없는 행동이 창발했다</text>
+      <text x="30" y="259" font-size="9.2" fill="var(--ink-2)">발이 장애물에 걸리면 스스로 들어올리는 <tspan font-weight="700" fill="var(--dim)">발 걸림 반사(foot-trapping reflex)</tspan>가 나타났다.</text>
+      <text x="30" y="273" font-size="9.2" fill="var(--ink-2)">접촉 감지기를 따로 만들지 않았는데, 접촉 반응 행동이 저절로 생겼다.</text>
     </svg>
     <figcaption><b>Lee et al. 2020 (Science Robotics)의 구조.</b>
       교사는 시뮬에서만 아는 정답을 보고 최적 정책을 배우고, 학생은 그 행동을
@@ -1323,52 +1323,52 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
   <figure>
     <svg viewBox="0 0 620 330" aria-label="연구 지형도 · 우리 프로젝트의 위치">
       <!-- 축 -->
-      <text x="188" y="24" font-size="10.5" font-weight="800" fill="#161c26" text-anchor="middle">기하로 정의되는 지형</text>
-      <text x="188" y="38" font-size="8.8" fill="#7c8798" text-anchor="middle">계단 · 간극 · 박스</text>
-      <text x="452" y="24" font-size="10.5" font-weight="800" fill="#161c26" text-anchor="middle">물성으로 정의되는 지형</text>
-      <text x="452" y="38" font-size="8.8" fill="#7c8798" text-anchor="middle">모래 · 자갈 · 진흙</text>
-      <text x="16" y="105" font-size="10.5" font-weight="800" fill="#161c26">시각 기반</text>
-      <text x="16" y="119" font-size="8.8" fill="#7c8798">(카메라)</text>
-      <text x="16" y="222" font-size="10.5" font-weight="800" fill="#161c26">접촉 기반</text>
-      <text x="16" y="236" font-size="8.8" fill="#7c8798">(밟아보고)</text>
+      <text x="188" y="24" font-size="10.5" font-weight="800" fill="var(--ink)" text-anchor="middle">기하로 정의되는 지형</text>
+      <text x="188" y="38" font-size="8.8" fill="var(--ink-3)" text-anchor="middle">계단 · 간극 · 박스</text>
+      <text x="452" y="24" font-size="10.5" font-weight="800" fill="var(--ink)" text-anchor="middle">물성으로 정의되는 지형</text>
+      <text x="452" y="38" font-size="8.8" fill="var(--ink-3)" text-anchor="middle">모래 · 자갈 · 진흙</text>
+      <text x="16" y="105" font-size="10.5" font-weight="800" fill="var(--ink)">시각 기반</text>
+      <text x="16" y="119" font-size="8.8" fill="var(--ink-3)">(카메라)</text>
+      <text x="16" y="222" font-size="10.5" font-weight="800" fill="var(--ink)">접촉 기반</text>
+      <text x="16" y="236" font-size="8.8" fill="var(--ink-3)">(밟아보고)</text>
 
       <!-- 좌상: 이미 풀림 -->
-      <rect x="88" y="50" width="200" height="112" fill="#eeece6" stroke="#d9d6cd" stroke-width="1.4"/>
-      <text x="100" y="70" font-size="9.2" fill="#4a5566">Extreme Parkour</text>
-      <text x="100" y="85" font-size="9.2" fill="#4a5566">Robot Parkour Learning</text>
-      <text x="100" y="100" font-size="9.2" fill="#4a5566">ANYmal Parkour</text>
-      <text x="100" y="115" font-size="9.2" fill="#4a5566">StairMaster (Go2, 55° 계단)</text>
-      <text x="100" y="138" font-size="9.2" font-weight="800" fill="#7c8798">→ 성숙했으나 미해결</text>
-      <text x="100" y="151" font-size="8" fill="#7c8798">단일 장애물 ○ / 연속 코스 ✕</text>
+      <rect x="88" y="50" width="200" height="112" fill="var(--paper-2)" stroke="var(--rule)" stroke-width="1.4"/>
+      <text x="100" y="70" font-size="9.2" fill="var(--ink-2)">Extreme Parkour</text>
+      <text x="100" y="85" font-size="9.2" fill="var(--ink-2)">Robot Parkour Learning</text>
+      <text x="100" y="100" font-size="9.2" fill="var(--ink-2)">ANYmal Parkour</text>
+      <text x="100" y="115" font-size="9.2" fill="var(--ink-2)">StairMaster (Go2, 55° 계단)</text>
+      <text x="100" y="138" font-size="9.2" font-weight="800" fill="var(--ink-3)">→ 성숙했으나 미해결</text>
+      <text x="100" y="151" font-size="8" fill="var(--ink-3)">단일 장애물 ○ / 연속 코스 ✕</text>
 
       <!-- 우상: 불가 -->
-      <rect x="308" y="50" width="290" height="112" fill="#fbf0dc" stroke="#a86a08" stroke-width="1.4"/>
-      <text x="322" y="72" font-size="12" font-weight="800" fill="#a86a08">△ 직접 측정은 불가 · 간접 추정은 작동 중</text>
-      <text x="322" y="92" font-size="9" fill="#4a5566">RGB에서 마찰·강성 조밀 예측 실기 성공</text>
-      <text x="322" y="105" font-size="8.6" fill="#7c8798">Chen·Frey·Miki·Hutter 2024 (ANYmal D)</text>
-      <text x="322" y="124" font-size="9" fill="#161c26" font-weight="700">단, 그 라벨을 만드는 건 결국 접촉 경험이다</text>
-      <text x="322" y="140" font-size="8.6" fill="#4a5566">한계, 외관은 같은데 물성이 다르면 붕괴</text>
-      <text x="322" y="153" font-size="8.6" fill="#4a5566">(마른 모래 vs 젖은 모래 · 얇은 표면 크러스트)</text>
+      <rect x="308" y="50" width="290" height="112" fill="var(--note-soft)" stroke="var(--note)" stroke-width="1.4"/>
+      <text x="322" y="72" font-size="12" font-weight="800" fill="var(--note)">△ 직접 측정은 불가 · 간접 추정은 작동 중</text>
+      <text x="322" y="92" font-size="9" fill="var(--ink-2)">RGB에서 마찰·강성 조밀 예측 실기 성공</text>
+      <text x="322" y="105" font-size="8.6" fill="var(--ink-3)">Chen·Frey·Miki·Hutter 2024 (ANYmal D)</text>
+      <text x="322" y="124" font-size="9" fill="var(--ink)" font-weight="700">단, 그 라벨을 만드는 건 결국 접촉 경험이다</text>
+      <text x="322" y="140" font-size="8.6" fill="var(--ink-2)">한계, 외관은 같은데 물성이 다르면 붕괴</text>
+      <text x="322" y="153" font-size="8.6" fill="var(--ink-2)">(마른 모래 vs 젖은 모래 · 얇은 표면 크러스트)</text>
 
       <!-- 좌하 -->
-      <rect x="88" y="176" width="200" height="98" fill="#eeece6" stroke="#d9d6cd" stroke-width="1.4"/>
-      <text x="100" y="198" font-size="9.2" fill="#4a5566">Lee 2020 · RMA</text>
-      <text x="100" y="213" font-size="9.2" fill="#4a5566">DreamWaQ (KAIST)</text>
-      <text x="100" y="228" font-size="9.2" fill="#4a5566">HIMLoco</text>
-      <text x="100" y="252" font-size="9.5" font-weight="800" fill="#7c8798">→ 성숙한 영역</text>
+      <rect x="88" y="176" width="200" height="98" fill="var(--paper-2)" stroke="var(--rule)" stroke-width="1.4"/>
+      <text x="100" y="198" font-size="9.2" fill="var(--ink-2)">Lee 2020 · RMA</text>
+      <text x="100" y="213" font-size="9.2" fill="var(--ink-2)">DreamWaQ (KAIST)</text>
+      <text x="100" y="228" font-size="9.2" fill="var(--ink-2)">HIMLoco</text>
+      <text x="100" y="252" font-size="9.5" font-weight="800" fill="var(--ink-3)">→ 성숙한 영역</text>
 
       <!-- 우하: 우리 자리 -->
-      <rect x="308" y="176" width="290" height="98" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="2.4"/>
-      <text x="322" y="198" font-size="9.2" fill="#161c26" font-weight="700">★ KAIST 2023 · 모래 3.03 m/s</text>
-      <text x="322" y="214" font-size="9.2" fill="#161c26" font-weight="700">★ MoE-Go2, RSS 2026 · Go2, 4 m/s</text>
-      <text x="322" y="238" font-size="11" font-weight="800" fill="#0e7a6e">→ 최전선 · 우리도 여기 선다</text>
-      <text x="322" y="254" font-size="8.6" fill="#a3342a" font-weight="700">단 MoE-Go2가 이미 같은 자리에 있다. </text>
-      <text x="322" y="266" font-size="8.6" fill="#4a5566">우리 차별점은 아래 "우리만의 델타" 참조</text>
+      <rect x="308" y="176" width="290" height="98" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="2.4"/>
+      <text x="322" y="198" font-size="9.2" fill="var(--ink)" font-weight="700">★ KAIST 2023 · 모래 3.03 m/s</text>
+      <text x="322" y="214" font-size="9.2" fill="var(--ink)" font-weight="700">★ MoE-Go2, RSS 2026 · Go2, 4 m/s</text>
+      <text x="322" y="238" font-size="11" font-weight="800" fill="var(--dim)">→ 최전선 · 우리도 여기 선다</text>
+      <text x="322" y="254" font-size="8.6" fill="var(--stop)" font-weight="700">단 MoE-Go2가 이미 같은 자리에 있다. </text>
+      <text x="322" y="266" font-size="8.6" fill="var(--ink-2)">우리 차별점은 아래 "우리만의 델타" 참조</text>
 
       <!-- 하단 3DGS 띠 -->
-      <rect x="88" y="288" width="510" height="34" fill="#fff" stroke="#a86a08" stroke-width="1.4" stroke-dasharray="4 3"/>
-      <text x="100" y="303" font-size="9.2" font-weight="700" fill="#a86a08">3DGS 디지털트윈, VR-Robo(실내·정적) · GaussGym(A1, 17cm 계단) · GS-Playground</text>
-      <text x="100" y="316" font-size="8.8" fill="#4a5566">전부 "시각 갭"만 해결. 접촉 물리는 저자들이 미해결로 자인. <tspan font-weight="700">실외·험지는 명시적 공백</tspan></text>
+      <rect x="88" y="288" width="510" height="34" fill="#fff" stroke="var(--note)" stroke-width="1.4" stroke-dasharray="4 3"/>
+      <text x="100" y="303" font-size="9.2" font-weight="700" fill="var(--note)">3DGS 디지털트윈, VR-Robo(실내·정적) · GaussGym(A1, 17cm 계단) · GS-Playground</text>
+      <text x="100" y="316" font-size="8.8" fill="var(--ink-2)">전부 "시각 갭"만 해결. 접촉 물리는 저자들이 미해결로 자인. <tspan font-weight="700">실외·험지는 명시적 공백</tspan></text>
     </svg>
     <figcaption><b>선행 연구가 만든 지도.</b> 두 축(지형을 기하로 볼 것인가 물성으로 볼 것인가 ×
       감각을 몸에서 얻을 것인가 눈에서 얻을 것인가)은 우리가 만든 게 아니라
@@ -1482,42 +1482,42 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
   <figure>
     <svg viewBox="0 0 620 250" aria-label="Go2 다리 관절 구조 · hip, thigh, calf">
       <!-- 정면(앞에서 본) -->
-      <text x="120" y="22" font-size="10.5" font-weight="800" fill="#161c26" text-anchor="middle">앞에서 본 모습</text>
-      <text x="120" y="36" font-size="8.4" fill="#7c8798" text-anchor="middle">hip = 다리를 옆으로 벌린다</text>
-      <rect x="66" y="52" width="108" height="34" rx="6" fill="#eeece6" stroke="#4a5566" stroke-width="1.5"/>
-      <text x="120" y="73" font-size="8.6" fill="#4a5566" text-anchor="middle">몸통</text>
-      <circle cx="80" cy="86" r="6" fill="#a86a08"/><circle cx="160" cy="86" r="6" fill="#a86a08"/>
-      <line x1="80" y1="86" x2="62" y2="176" stroke="#161c26" stroke-width="3"/>
-      <line x1="160" y1="86" x2="178" y2="176" stroke="#161c26" stroke-width="3"/>
-      <path d="M80,86 A28,28 0 0,0 58,110" fill="none" stroke="#a86a08" stroke-width="1.4" stroke-dasharray="3 2"/>
-      <path d="M160,86 A28,28 0 0,1 182,110" fill="none" stroke="#a86a08" stroke-width="1.4" stroke-dasharray="3 2"/>
-      <text x="120" y="200" font-size="9" font-weight="700" fill="#a86a08" text-anchor="middle">hip  ±60°</text>
-      <text x="120" y="215" font-size="8.4" fill="#4a5566" text-anchor="middle">23.7 N·m</text>
+      <text x="120" y="22" font-size="10.5" font-weight="800" fill="var(--ink)" text-anchor="middle">앞에서 본 모습</text>
+      <text x="120" y="36" font-size="8.4" fill="var(--ink-3)" text-anchor="middle">hip = 다리를 옆으로 벌린다</text>
+      <rect x="66" y="52" width="108" height="34" rx="6" fill="var(--paper-2)" stroke="var(--ink-2)" stroke-width="1.5"/>
+      <text x="120" y="73" font-size="8.6" fill="var(--ink-2)" text-anchor="middle">몸통</text>
+      <circle cx="80" cy="86" r="6" fill="var(--note)"/><circle cx="160" cy="86" r="6" fill="var(--note)"/>
+      <line x1="80" y1="86" x2="62" y2="176" stroke="var(--ink)" stroke-width="3"/>
+      <line x1="160" y1="86" x2="178" y2="176" stroke="var(--ink)" stroke-width="3"/>
+      <path d="M80,86 A28,28 0 0,0 58,110" fill="none" stroke="var(--note)" stroke-width="1.4" stroke-dasharray="3 2"/>
+      <path d="M160,86 A28,28 0 0,1 182,110" fill="none" stroke="var(--note)" stroke-width="1.4" stroke-dasharray="3 2"/>
+      <text x="120" y="200" font-size="9" font-weight="700" fill="var(--note)" text-anchor="middle">hip  ±60°</text>
+      <text x="120" y="215" font-size="8.4" fill="var(--ink-2)" text-anchor="middle">23.7 N·m</text>
 
       <!-- 측면 -->
-      <text x="400" y="22" font-size="10.5" font-weight="800" fill="#161c26" text-anchor="middle">옆에서 본 모습</text>
-      <text x="400" y="36" font-size="8.4" fill="#7c8798" text-anchor="middle">thigh = 앞뒤로 젓고, calf = 무릎을 접는다</text>
-      <rect x="300" y="52" width="200" height="34" rx="6" fill="#eeece6" stroke="#4a5566" stroke-width="1.5"/>
-      <text x="400" y="73" font-size="8.6" fill="#4a5566" text-anchor="middle">몸통</text>
+      <text x="400" y="22" font-size="10.5" font-weight="800" fill="var(--ink)" text-anchor="middle">옆에서 본 모습</text>
+      <text x="400" y="36" font-size="8.4" fill="var(--ink-3)" text-anchor="middle">thigh = 앞뒤로 젓고, calf = 무릎을 접는다</text>
+      <rect x="300" y="52" width="200" height="34" rx="6" fill="var(--paper-2)" stroke="var(--ink-2)" stroke-width="1.5"/>
+      <text x="400" y="73" font-size="8.6" fill="var(--ink-2)" text-anchor="middle">몸통</text>
       <!-- thigh -->
-      <circle cx="470" cy="86" r="7" fill="#0e7a6e"/>
-      <line x1="470" y1="86" x2="428" y2="146" stroke="#161c26" stroke-width="4"/>
-      <text x="484" y="112" font-size="8.6" font-weight="700" fill="#0e7a6e">thigh</text>
-      <text x="484" y="124" font-size="7.8" fill="#4a5566">0.213 m</text>
-      <text x="484" y="135" font-size="7.8" fill="#4a5566">23.7 N·m</text>
+      <circle cx="470" cy="86" r="7" fill="var(--dim)"/>
+      <line x1="470" y1="86" x2="428" y2="146" stroke="var(--ink)" stroke-width="4"/>
+      <text x="484" y="112" font-size="8.6" font-weight="700" fill="var(--dim)">thigh</text>
+      <text x="484" y="124" font-size="7.8" fill="var(--ink-2)">0.213 m</text>
+      <text x="484" y="135" font-size="7.8" fill="var(--ink-2)">23.7 N·m</text>
       <!-- calf -->
-      <circle cx="428" cy="146" r="7" fill="#a3342a"/>
-      <line x1="428" y1="146" x2="466" y2="204" stroke="#161c26" stroke-width="3.4"/>
-      <text x="336" y="150" font-size="8.6" font-weight="700" fill="#a3342a" text-anchor="end">calf (무릎)</text>
-      <text x="336" y="162" font-size="7.8" fill="#4a5566" text-anchor="end">0.213 m</text>
-      <text x="336" y="173" font-size="8.2" fill="#a3342a" text-anchor="end" font-weight="700">45.43 N·m ← 약 2배</text>
-      <line x1="340" y1="146" x2="418" y2="146" stroke="#a3342a" stroke-width="1" stroke-dasharray="2 2"/>
+      <circle cx="428" cy="146" r="7" fill="var(--stop)"/>
+      <line x1="428" y1="146" x2="466" y2="204" stroke="var(--ink)" stroke-width="3.4"/>
+      <text x="336" y="150" font-size="8.6" font-weight="700" fill="var(--stop)" text-anchor="end">calf (무릎)</text>
+      <text x="336" y="162" font-size="7.8" fill="var(--ink-2)" text-anchor="end">0.213 m</text>
+      <text x="336" y="173" font-size="8.2" fill="var(--stop)" text-anchor="end" font-weight="700">45.43 N·m ← 약 2배</text>
+      <line x1="340" y1="146" x2="418" y2="146" stroke="var(--stop)" stroke-width="1" stroke-dasharray="2 2"/>
       <!-- foot -->
-      <circle cx="466" cy="204" r="5.5" fill="#161c26"/>
-      <text x="480" y="208" font-size="8.4" fill="#4a5566">발 (r=2cm)</text>
-      <line x1="300" y1="216" x2="540" y2="216" stroke="#7c8798" stroke-width="1.4"/>
+      <circle cx="466" cy="204" r="5.5" fill="var(--ink)"/>
+      <text x="480" y="208" font-size="8.4" fill="var(--ink-2)">발 (r=2cm)</text>
+      <line x1="300" y1="216" x2="540" y2="216" stroke="var(--ink-3)" stroke-width="1.4"/>
 
-      <text x="400" y="240" font-size="8.8" fill="#4a5566" text-anchor="middle">다리 하나에 관절 3개 × 4다리 = <tspan font-weight="800" fill="#161c26">12 자유도</tspan></text>
+      <text x="400" y="240" font-size="8.8" fill="var(--ink-2)" text-anchor="middle">다리 하나에 관절 3개 × 4다리 = <tspan font-weight="800" fill="var(--ink)">12 자유도</tspan></text>
     </svg>
     <figcaption><b>왜 무릎만 토크가 두 배인가.</b>
       무릎은 토크가 <b>1.917배 크고 속도는 정확히 1.917배 느리다.</b>
@@ -1595,33 +1595,33 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
 
   <figure>
     <svg viewBox="0 0 620 290" aria-label="Go2 관측 설계 · 사용 가능 여부">
-      <text x="16" y="20" font-size="11" font-weight="800" fill="#0e7a6e">✓ 안전하게 쓸 수 있는 관측</text>
-      <rect x="16" y="30" width="286" height="132" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.5"/>
-      <text x="30" y="52" font-size="9.4" fill="#161c26">· 각속도 (IMU 자이로) <tspan fill="#7c8798">3차원</tspan></text>
-      <text x="30" y="70" font-size="9.4" fill="#161c26">· 중력 방향 (자세에서 유도) <tspan fill="#7c8798">3차원</tspan></text>
-      <text x="30" y="88" font-size="9.4" fill="#161c26">· 관절 각도 <tspan fill="#7c8798">12차원</tspan></text>
-      <text x="30" y="106" font-size="9.4" fill="#161c26">· 관절 속도 <tspan fill="#7c8798">12차원</tspan></text>
-      <text x="30" y="124" font-size="9.4" fill="#161c26">· 직전 액션 <tspan fill="#7c8798">12차원</tspan></text>
-      <text x="30" y="142" font-size="9.4" font-weight="700" fill="#0e7a6e">· 보행 위상 sin/cos <tspan font-weight="400" fill="#7c8798">← CPG를 학습에 이식</tspan></text>
-      <text x="30" y="156" font-size="8.6" fill="#4a5566" font-style="italic">전 등급에서 500 Hz로 안정적</text>
+      <text x="16" y="20" font-size="11" font-weight="800" fill="var(--dim)">✓ 안전하게 쓸 수 있는 관측</text>
+      <rect x="16" y="30" width="286" height="132" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.5"/>
+      <text x="30" y="52" font-size="9.4" fill="var(--ink)">· 각속도 (IMU 자이로) <tspan fill="var(--ink-3)">3차원</tspan></text>
+      <text x="30" y="70" font-size="9.4" fill="var(--ink)">· 중력 방향 (자세에서 유도) <tspan fill="var(--ink-3)">3차원</tspan></text>
+      <text x="30" y="88" font-size="9.4" fill="var(--ink)">· 관절 각도 <tspan fill="var(--ink-3)">12차원</tspan></text>
+      <text x="30" y="106" font-size="9.4" fill="var(--ink)">· 관절 속도 <tspan fill="var(--ink-3)">12차원</tspan></text>
+      <text x="30" y="124" font-size="9.4" fill="var(--ink)">· 직전 액션 <tspan fill="var(--ink-3)">12차원</tspan></text>
+      <text x="30" y="142" font-size="9.4" font-weight="700" fill="var(--dim)">· 보행 위상 sin/cos <tspan font-weight="400" fill="var(--ink-3)">← CPG를 학습에 이식</tspan></text>
+      <text x="30" y="156" font-size="8.6" fill="var(--ink-2)" font-style="italic">전 등급에서 500 Hz로 안정적</text>
 
-      <text x="318" y="20" font-size="11" font-weight="800" fill="#a3342a">✕ 넣으면 실기에서 무너지는 관측</text>
-      <rect x="318" y="30" width="286" height="132" fill="#fbe9e7" stroke="#a3342a" stroke-width="1.5"/>
-      <text x="332" y="52" font-size="9.6" font-weight="700" fill="#161c26">base_lin_vel (몸통 선속도)</text>
-      <text x="332" y="67" font-size="8.8" fill="#4a5566">→ Go2에 측정 센서 자체가 없다.</text>
-      <text x="332" y="80" font-size="8.8" fill="#4a5566">→ 내장 추정치는 MCF를 끄면 사라진다.</text>
-      <text x="332" y="102" font-size="9.6" font-weight="700" fill="#161c26">height_scan (지형 높이맵)</text>
-      <text x="332" y="117" font-size="8.8" fill="#4a5566">→ 순정 하이트맵은 MCF 오도메트리 의존.</text>
-      <text x="332" y="130" font-size="8.8" fill="#4a5566">→ 저수준 RL 하려고 MCF 끄면 함께 끊긴다.</text>
-      <text x="332" y="150" font-size="8.6" fill="#a3342a" font-style="italic">시뮬에선 잘 되는데 실기에서 못 쓴다</text>
+      <text x="318" y="20" font-size="11" font-weight="800" fill="var(--stop)">✕ 넣으면 실기에서 무너지는 관측</text>
+      <rect x="318" y="30" width="286" height="132" fill="var(--stop-soft)" stroke="var(--stop)" stroke-width="1.5"/>
+      <text x="332" y="52" font-size="9.6" font-weight="700" fill="var(--ink)">base_lin_vel (몸통 선속도)</text>
+      <text x="332" y="67" font-size="8.8" fill="var(--ink-2)">→ Go2에 측정 센서 자체가 없다.</text>
+      <text x="332" y="80" font-size="8.8" fill="var(--ink-2)">→ 내장 추정치는 MCF를 끄면 사라진다.</text>
+      <text x="332" y="102" font-size="9.6" font-weight="700" fill="var(--ink)">height_scan (지형 높이맵)</text>
+      <text x="332" y="117" font-size="8.8" fill="var(--ink-2)">→ 순정 하이트맵은 MCF 오도메트리 의존.</text>
+      <text x="332" y="130" font-size="8.8" fill="var(--ink-2)">→ 저수준 RL 하려고 MCF 끄면 함께 끊긴다.</text>
+      <text x="332" y="150" font-size="8.6" fill="var(--stop)" font-style="italic">시뮬에선 잘 되는데 실기에서 못 쓴다</text>
 
       <!-- 하단: MCF 딜레마 -->
-      <rect x="16" y="180" width="588" height="98" fill="#fff" stroke="#a86a08" stroke-width="1.6"/>
-      <text x="30" y="200" font-size="10.5" font-weight="800" fill="#a86a08">🚨 MCF 딜레마, 저수준 제어의 대가</text>
-      <text x="30" y="219" font-size="9.2" fill="#4a5566">우리 정책을 관절에 직접 명령하려면 Unitree 내장 모션 제어(MCF)를 <tspan font-weight="700" fill="#161c26">반드시 꺼야 한다.</tspan></text>
-      <text x="30" y="234" font-size="9.2" fill="#4a5566">두 제어기가 동시에 살아 있으면 명령이 충돌해 <tspan font-style="italic">"혼란과 제어 상실"</tspan>이 일어난다(공식 문서).</text>
-      <text x="30" y="254" font-size="9.2" font-weight="700" fill="#161c26">그런데 MCF를 끄면 이것들이 함께 사라진다:</text>
-      <text x="30" y="269" font-size="9.2" fill="#4a5566">① 몸통 선속도 추정치&nbsp;&nbsp; ② LiDAR 하이트맵&nbsp;&nbsp; ③ 일부 LiDAR 기능</text>
+      <rect x="16" y="180" width="588" height="98" fill="#fff" stroke="var(--note)" stroke-width="1.6"/>
+      <text x="30" y="200" font-size="10.5" font-weight="800" fill="var(--note)">🚨 MCF 딜레마, 저수준 제어의 대가</text>
+      <text x="30" y="219" font-size="9.2" fill="var(--ink-2)">우리 정책을 관절에 직접 명령하려면 Unitree 내장 모션 제어(MCF)를 <tspan font-weight="700" fill="var(--ink)">반드시 꺼야 한다.</tspan></text>
+      <text x="30" y="234" font-size="9.2" fill="var(--ink-2)">두 제어기가 동시에 살아 있으면 명령이 충돌해 <tspan font-style="italic">"혼란과 제어 상실"</tspan>이 일어난다(공식 문서).</text>
+      <text x="30" y="254" font-size="9.2" font-weight="700" fill="var(--ink)">그런데 MCF를 끄면 이것들이 함께 사라진다:</text>
+      <text x="30" y="269" font-size="9.2" fill="var(--ink-2)">① 몸통 선속도 추정치&nbsp;&nbsp; ② LiDAR 하이트맵&nbsp;&nbsp; ③ 일부 LiDAR 기능</text>
     </svg>
     <figcaption><b>이 그림이 우리가 blind로 가는 실무적 이유다.</b>
       "카메라를 안 쓰기로 했다"가 아니라, <b>Go2에서 실제로 작동하는 경로가 이것뿐</b>이다.
@@ -1724,60 +1724,60 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
   <figure>
     <svg viewBox="0 0 620 300" aria-label="실공간 재구성 파이프라인 · 촬영에서 시뮬레이터까지">
       <defs><marker id="a5" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-        <path d="M0,0 L8,4 L0,8 Z" fill="#4a5566"/></marker></defs>
+        <path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-2)"/></marker></defs>
 
       <!-- 1 촬영 -->
-      <rect x="14" y="52" width="104" height="66" fill="#eeece6" stroke="#4a5566" stroke-width="1.4"/>
-      <text x="66" y="72" font-size="9.6" font-weight="800" fill="#161c26" text-anchor="middle">① 촬영</text>
-      <text x="66" y="89" font-size="8.4" fill="#4a5566" text-anchor="middle">현장을 여러 각도로</text>
-      <text x="66" y="102" font-size="8.4" fill="#4a5566" text-anchor="middle">휴대폰도 가능</text>
-      <text x="66" y="113" font-size="7.8" fill="#7c8798" text-anchor="middle">겹침률이 품질을 좌우</text>
+      <rect x="14" y="52" width="104" height="66" fill="var(--paper-2)" stroke="var(--ink-2)" stroke-width="1.4"/>
+      <text x="66" y="72" font-size="9.6" font-weight="800" fill="var(--ink)" text-anchor="middle">① 촬영</text>
+      <text x="66" y="89" font-size="8.4" fill="var(--ink-2)" text-anchor="middle">현장을 여러 각도로</text>
+      <text x="66" y="102" font-size="8.4" fill="var(--ink-2)" text-anchor="middle">휴대폰도 가능</text>
+      <text x="66" y="113" font-size="7.8" fill="var(--ink-3)" text-anchor="middle">겹침률이 품질을 좌우</text>
 
-      <path d="M120,85 L142,85" stroke="#4a5566" stroke-width="1.6" marker-end="url(#a5)"/>
+      <path d="M120,85 L142,85" stroke="var(--ink-2)" stroke-width="1.6" marker-end="url(#a5)"/>
 
       <!-- 2 COLMAP -->
-      <rect x="146" y="52" width="104" height="66" fill="#eeece6" stroke="#4a5566" stroke-width="1.4"/>
-      <text x="198" y="72" font-size="9.6" font-weight="800" fill="#161c26" text-anchor="middle">② COLMAP</text>
-      <text x="198" y="89" font-size="8.4" fill="#4a5566" text-anchor="middle">카메라 위치 역산</text>
-      <text x="198" y="102" font-size="8.4" fill="#4a5566" text-anchor="middle">＋ 초기 포인트</text>
-      <text x="198" y="113" font-size="7.8" fill="#7c8798" text-anchor="middle">＝ 매치무브와 동일</text>
+      <rect x="146" y="52" width="104" height="66" fill="var(--paper-2)" stroke="var(--ink-2)" stroke-width="1.4"/>
+      <text x="198" y="72" font-size="9.6" font-weight="800" fill="var(--ink)" text-anchor="middle">② COLMAP</text>
+      <text x="198" y="89" font-size="8.4" fill="var(--ink-2)" text-anchor="middle">카메라 위치 역산</text>
+      <text x="198" y="102" font-size="8.4" fill="var(--ink-2)" text-anchor="middle">＋ 초기 포인트</text>
+      <text x="198" y="113" font-size="7.8" fill="var(--ink-3)" text-anchor="middle">＝ 매치무브와 동일</text>
 
-      <path d="M252,85 L274,85" stroke="#4a5566" stroke-width="1.6" marker-end="url(#a5)"/>
+      <path d="M252,85 L274,85" stroke="var(--ink-2)" stroke-width="1.6" marker-end="url(#a5)"/>
 
       <!-- 3 3DGS 학습 -->
-      <rect x="278" y="52" width="104" height="66" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.8"/>
-      <text x="330" y="72" font-size="9.6" font-weight="800" fill="#0e7a6e" text-anchor="middle">③ 3DGS 최적화</text>
-      <text x="330" y="89" font-size="8.4" fill="#4a5566" text-anchor="middle">가우시안 수백만 개를</text>
-      <text x="330" y="102" font-size="8.4" fill="#4a5566" text-anchor="middle">사진에 맞춰 조정</text>
-      <text x="330" y="113" font-size="7.8" fill="#7c8798" text-anchor="middle">여기서 갈라진다 ↓</text>
+      <rect x="278" y="52" width="104" height="66" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.8"/>
+      <text x="330" y="72" font-size="9.6" font-weight="800" fill="var(--dim)" text-anchor="middle">③ 3DGS 최적화</text>
+      <text x="330" y="89" font-size="8.4" fill="var(--ink-2)" text-anchor="middle">가우시안 수백만 개를</text>
+      <text x="330" y="102" font-size="8.4" fill="var(--ink-2)" text-anchor="middle">사진에 맞춰 조정</text>
+      <text x="330" y="113" font-size="7.8" fill="var(--ink-3)" text-anchor="middle">여기서 갈라진다 ↓</text>
 
       <!-- 분기 -->
-      <path d="M330,122 L330,140 L214,140 L214,158" stroke="#0e7a6e" stroke-width="1.6" fill="none" marker-end="url(#a5)"/>
-      <path d="M330,122 L330,140 L446,140 L446,158" stroke="#a86a08" stroke-width="1.6" fill="none" marker-end="url(#a5)"/>
+      <path d="M330,122 L330,140 L214,140 L214,158" stroke="var(--dim)" stroke-width="1.6" fill="none" marker-end="url(#a5)"/>
+      <path d="M330,122 L330,140 L446,140 L446,158" stroke="var(--note)" stroke-width="1.6" fill="none" marker-end="url(#a5)"/>
 
       <!-- 4a 렌더 경로 -->
-      <rect x="146" y="162" width="136" height="70" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.6"/>
-      <text x="214" y="182" font-size="9.6" font-weight="800" fill="#0e7a6e" text-anchor="middle">④-A 가우시안 그대로</text>
-      <text x="214" y="199" font-size="8.4" fill="#161c26" text-anchor="middle">＝ 로봇이 <tspan font-weight="700">보는</tspan> 화면</text>
-      <text x="214" y="213" font-size="8.4" fill="#4a5566" text-anchor="middle">사진 같은 카메라 영상</text>
-      <text x="214" y="226" font-size="7.8" fill="#7c8798" text-anchor="middle">시각 sim-to-real 갭 해소</text>
+      <rect x="146" y="162" width="136" height="70" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.6"/>
+      <text x="214" y="182" font-size="9.6" font-weight="800" fill="var(--dim)" text-anchor="middle">④-A 가우시안 그대로</text>
+      <text x="214" y="199" font-size="8.4" fill="var(--ink)" text-anchor="middle">＝ 로봇이 <tspan font-weight="700">보는</tspan> 화면</text>
+      <text x="214" y="213" font-size="8.4" fill="var(--ink-2)" text-anchor="middle">사진 같은 카메라 영상</text>
+      <text x="214" y="226" font-size="7.8" fill="var(--ink-3)" text-anchor="middle">시각 sim-to-real 갭 해소</text>
 
       <!-- 4b 메시 경로 -->
-      <rect x="378" y="162" width="136" height="70" fill="#fbf0dc" stroke="#a86a08" stroke-width="1.6"/>
-      <text x="446" y="182" font-size="9.6" font-weight="800" fill="#a86a08" text-anchor="middle">④-B 메시 추출</text>
-      <text x="446" y="199" font-size="8.4" fill="#161c26" text-anchor="middle">＝ 로봇이 <tspan font-weight="700">부딪히는</tspan> 것</text>
-      <text x="446" y="213" font-size="8.4" fill="#4a5566" text-anchor="middle">깊이 융합 → 삼각형 면</text>
-      <text x="446" y="226" font-size="7.8" fill="#a3342a" text-anchor="middle">★ 여기가 미해결·수작업 구간</text>
+      <rect x="378" y="162" width="136" height="70" fill="var(--note-soft)" stroke="var(--note)" stroke-width="1.6"/>
+      <text x="446" y="182" font-size="9.6" font-weight="800" fill="var(--note)" text-anchor="middle">④-B 메시 추출</text>
+      <text x="446" y="199" font-size="8.4" fill="var(--ink)" text-anchor="middle">＝ 로봇이 <tspan font-weight="700">부딪히는</tspan> 것</text>
+      <text x="446" y="213" font-size="8.4" fill="var(--ink-2)" text-anchor="middle">깊이 융합 → 삼각형 면</text>
+      <text x="446" y="226" font-size="7.8" fill="var(--stop)" text-anchor="middle">★ 여기가 미해결·수작업 구간</text>
 
-      <path d="M214,236 L214,252 L330,252" stroke="#4a5566" stroke-width="1.6" fill="none"/>
-      <path d="M446,236 L446,252 L334,252" stroke="#4a5566" stroke-width="1.6" fill="none" marker-end="url(#a5)"/>
+      <path d="M214,236 L214,252 L330,252" stroke="var(--ink-2)" stroke-width="1.6" fill="none"/>
+      <path d="M446,236 L446,252 L334,252" stroke="var(--ink-2)" stroke-width="1.6" fill="none" marker-end="url(#a5)"/>
 
       <!-- 5 -->
-      <rect x="216" y="258" width="228" height="34" fill="#161c26"/>
-      <text x="330" y="279" font-size="10" font-weight="800" fill="#f6f5f1" text-anchor="middle">⑤ Isaac Sim · 같은 좌표계에 겹쳐 넣는다</text>
+      <rect x="216" y="258" width="228" height="34" fill="var(--ink)"/>
+      <text x="330" y="279" font-size="10" font-weight="800" fill="var(--paper)" text-anchor="middle">⑤ Isaac Sim · 같은 좌표계에 겹쳐 넣는다</text>
 
-      <text x="14" y="26" font-size="10.5" font-weight="800" fill="#161c26">실공간 → 시뮬레이터 파이프라인</text>
-      <text x="14" y="40" font-size="8.6" fill="#7c8798">③에서 두 갈래로 갈라져 ⑤에서 다시 만난다. 이 이중 구조가 핵심이다</text>
+      <text x="14" y="26" font-size="10.5" font-weight="800" fill="var(--ink)">실공간 → 시뮬레이터 파이프라인</text>
+      <text x="14" y="40" font-size="8.6" fill="var(--ink-3)">③에서 두 갈래로 갈라져 ⑤에서 다시 만난다. 이 이중 구조가 핵심이다</text>
     </svg>
     <figcaption><b>보는 것과 부딪히는 것을 분리한다.</b>
       가우시안은 사진처럼 그럴듯한 화면을 만들고, 거기서 뽑아낸 메시가 발이 닿는 바닥이 된다.
@@ -1893,32 +1893,32 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
   <p>실증에서 <b>"무엇과 비교할 것인가"</b>가 결과의 의미를 결정한다. 우리는 세 층의 기준선을 둔다.</p>
   <figure>
     <svg viewBox="0 0 620 232" aria-label="3층 비교 기준선 구조">
-      <rect x="24" y="26" width="180" height="86" fill="#eeece6" stroke="#4a5566" stroke-width="1.5"/>
-      <text x="114" y="48" font-size="10.5" font-weight="800" fill="#161c26" text-anchor="middle">기준선 ①</text>
-      <text x="114" y="65" font-size="9.8" font-weight="700" fill="#4a5566" text-anchor="middle">공개 사전학습 정책</text>
-      <text x="114" y="84" font-size="8.6" fill="#4a5566" text-anchor="middle">Isaac Lab 기본 Go2 정책</text>
-      <text x="114" y="98" font-size="8.6" fill="#7c8798" text-anchor="middle">"우리가 만든 게 더 나은가"</text>
+      <rect x="24" y="26" width="180" height="86" fill="var(--paper-2)" stroke="var(--ink-2)" stroke-width="1.5"/>
+      <text x="114" y="48" font-size="10.5" font-weight="800" fill="var(--ink)" text-anchor="middle">기준선 ①</text>
+      <text x="114" y="65" font-size="9.8" font-weight="700" fill="var(--ink-2)" text-anchor="middle">공개 사전학습 정책</text>
+      <text x="114" y="84" font-size="8.6" fill="var(--ink-2)" text-anchor="middle">Isaac Lab 기본 Go2 정책</text>
+      <text x="114" y="98" font-size="8.6" fill="var(--ink-3)" text-anchor="middle">"우리가 만든 게 더 나은가"</text>
 
-      <rect x="220" y="26" width="180" height="86" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.8"/>
-      <text x="310" y="48" font-size="10.5" font-weight="800" fill="#0e7a6e" text-anchor="middle">기준선 ②</text>
-      <text x="310" y="65" font-size="9.8" font-weight="700" fill="#161c26" text-anchor="middle">우리 기준 정책</text>
-      <text x="310" y="84" font-size="8.6" fill="#4a5566" text-anchor="middle">W9에 확정, 이후 변경 금지</text>
-      <text x="310" y="98" font-size="8.6" fill="#7c8798" text-anchor="middle">"이 변경이 효과가 있었나"</text>
+      <rect x="220" y="26" width="180" height="86" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.8"/>
+      <text x="310" y="48" font-size="10.5" font-weight="800" fill="var(--dim)" text-anchor="middle">기준선 ②</text>
+      <text x="310" y="65" font-size="9.8" font-weight="700" fill="var(--ink)" text-anchor="middle">우리 기준 정책</text>
+      <text x="310" y="84" font-size="8.6" fill="var(--ink-2)" text-anchor="middle">W9에 확정, 이후 변경 금지</text>
+      <text x="310" y="98" font-size="8.6" fill="var(--ink-3)" text-anchor="middle">"이 변경이 효과가 있었나"</text>
 
-      <rect x="416" y="26" width="180" height="86" fill="#fbf0dc" stroke="#a86a08" stroke-width="1.5"/>
-      <text x="506" y="48" font-size="10.5" font-weight="800" fill="#a86a08" text-anchor="middle">기준선 ③</text>
-      <text x="506" y="65" font-size="9.8" font-weight="700" fill="#161c26" text-anchor="middle">현장의 현재 방식</text>
-      <text x="506" y="84" font-size="8.6" fill="#4a5566" text-anchor="middle">사람 점검 · 고정 센서</text>
-      <text x="506" y="98" font-size="8.6" fill="#7c8798" text-anchor="middle">"쓸 이유가 있는가"</text>
+      <rect x="416" y="26" width="180" height="86" fill="var(--note-soft)" stroke="var(--note)" stroke-width="1.5"/>
+      <text x="506" y="48" font-size="10.5" font-weight="800" fill="var(--note)" text-anchor="middle">기준선 ③</text>
+      <text x="506" y="65" font-size="9.8" font-weight="700" fill="var(--ink)" text-anchor="middle">현장의 현재 방식</text>
+      <text x="506" y="84" font-size="8.6" fill="var(--ink-2)" text-anchor="middle">사람 점검 · 고정 센서</text>
+      <text x="506" y="98" font-size="8.6" fill="var(--ink-3)" text-anchor="middle">"쓸 이유가 있는가"</text>
 
-      <text x="114" y="136" font-size="8.6" fill="#7c8798" text-anchor="middle">기술적 타당성</text>
-      <text x="310" y="136" font-size="8.6" fill="#0e7a6e" text-anchor="middle" font-weight="700">실험의 통제</text>
-      <text x="506" y="136" font-size="8.6" fill="#a86a08" text-anchor="middle" font-weight="700">실증의 의미</text>
+      <text x="114" y="136" font-size="8.6" fill="var(--ink-3)" text-anchor="middle">기술적 타당성</text>
+      <text x="310" y="136" font-size="8.6" fill="var(--dim)" text-anchor="middle" font-weight="700">실험의 통제</text>
+      <text x="506" y="136" font-size="8.6" fill="var(--note)" text-anchor="middle" font-weight="700">실증의 의미</text>
 
-      <rect x="24" y="154" width="572" height="62" fill="#fff" stroke="#a3342a" stroke-width="1.5"/>
-      <text x="40" y="174" font-size="10" font-weight="800" fill="#a3342a">가장 흔한 실수, 기준선 ②를 계속 바꾸는 것</text>
-      <text x="40" y="192" font-size="9" fill="#4a5566">실험 도중 "더 좋은 설정"을 찾으면 기준을 갈아치우고 싶어진다. 그러면 <tspan font-weight="700" fill="#161c26">이전 실험 결과가 전부 무효</tspan>가 된다.</text>
-      <text x="40" y="208" font-size="9" fill="#4a5566">기준 정책은 <tspan font-weight="700" fill="#161c26">W9에 한 번 고정하고 프로젝트 끝까지 건드리지 않는다.</tspan> 개선안은 항상 "기준 대비 +α"로 보고한다.</text>
+      <rect x="24" y="154" width="572" height="62" fill="#fff" stroke="var(--stop)" stroke-width="1.5"/>
+      <text x="40" y="174" font-size="10" font-weight="800" fill="var(--stop)">가장 흔한 실수, 기준선 ②를 계속 바꾸는 것</text>
+      <text x="40" y="192" font-size="9" fill="var(--ink-2)">실험 도중 "더 좋은 설정"을 찾으면 기준을 갈아치우고 싶어진다. 그러면 <tspan font-weight="700" fill="var(--ink)">이전 실험 결과가 전부 무효</tspan>가 된다.</text>
+      <text x="40" y="208" font-size="9" fill="var(--ink-2)">기준 정책은 <tspan font-weight="700" fill="var(--ink)">W9에 한 번 고정하고 프로젝트 끝까지 건드리지 않는다.</tspan> 개선안은 항상 "기준 대비 +α"로 보고한다.</text>
     </svg>
     <figcaption><b>기준선 ③이 실증을 실증답게 만든다.</b>
       기술 지표만 개선되고 "현장이 왜 이걸 써야 하는가"에 답이 없으면 그건 연구지 실증이 아니다.
@@ -2048,117 +2048,117 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
     <svg viewBox="0 0 620 468" aria-label="프로젝트 전체 흐름 · 입력에서 산출물까지, 단계별 통과 조건 포함">
       <defs>
         <marker id="fa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-          <path d="M0,0 L8,4 L0,8 Z" fill="#0e7a6e"/></marker>
+          <path d="M0,0 L8,4 L0,8 Z" fill="var(--dim)"/></marker>
         <marker id="fb" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M0,0 L7,3.5 L0,7 Z" fill="#7c8798"/></marker>
+          <path d="M0,0 L7,3.5 L0,7 Z" fill="var(--ink-3)"/></marker>
       </defs>
 
       <!-- 열 제목 -->
-      <text x="70" y="20" font-size="9.4" font-weight="800" fill="#7c8798" text-anchor="middle">들어가는 것</text>
-      <text x="310" y="20" font-size="9.4" font-weight="800" fill="#161c26" text-anchor="middle">우리가 하는 일 · 20주</text>
-      <text x="546" y="20" font-size="9.4" font-weight="800" fill="#a86a08" text-anchor="middle">나오는 것</text>
-      <line x1="14" y1="27" x2="606" y2="27" stroke="#d9d6cd" stroke-width="1"/>
+      <text x="70" y="20" font-size="9.4" font-weight="800" fill="var(--ink-3)" text-anchor="middle">들어가는 것</text>
+      <text x="310" y="20" font-size="9.4" font-weight="800" fill="var(--ink)" text-anchor="middle">우리가 하는 일 · 20주</text>
+      <text x="546" y="20" font-size="9.4" font-weight="800" fill="var(--note)" text-anchor="middle">나오는 것</text>
+      <line x1="14" y1="27" x2="606" y2="27" stroke="var(--rule)" stroke-width="1"/>
 
       <!-- ═══ 1단계 ═══ -->
-      <rect x="146" y="38" width="328" height="50" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.6"/>
-      <text x="158" y="55" font-size="9.6" font-weight="800" fill="#0e7a6e">W1–4 · 기반 구축</text>
-      <text x="158" y="70" font-size="8.6" fill="#161c26">전원이 각자 환경을 세우고 공개 정책을 1회씩 완주</text>
-      <text x="158" y="82" font-size="8" fill="#4a5566">＋ 문제정의 · 수요 조사 · 도메인 스터디</text>
-      <text x="464" y="55" font-size="7.6" fill="#0e7a6e" text-anchor="end" font-weight="700">전원</text>
+      <rect x="146" y="38" width="328" height="50" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.6"/>
+      <text x="158" y="55" font-size="9.6" font-weight="800" fill="var(--dim)">W1–4 · 기반 구축</text>
+      <text x="158" y="70" font-size="8.6" fill="var(--ink)">전원이 각자 환경을 세우고 공개 정책을 1회씩 완주</text>
+      <text x="158" y="82" font-size="8" fill="var(--ink-2)">＋ 문제정의 · 수요 조사 · 도메인 스터디</text>
+      <text x="464" y="55" font-size="7.6" fill="var(--dim)" text-anchor="end" font-weight="700">전원</text>
 
-      <rect x="14" y="38" width="118" height="50" fill="#eeece6" stroke="#7c8798" stroke-width="1.2"/>
-      <text x="24" y="53" font-size="8.4" font-weight="700" fill="#161c26">주제</text>
-      <text x="24" y="65" font-size="7.6" fill="#4a5566">험지 적응 정책</text>
-      <text x="24" y="80" font-size="7.6" fill="#4a5566">Isaac Lab · 공개 정책</text>
-      <path d="M134,63 L142,63" stroke="#7c8798" stroke-width="1.3" marker-end="url(#fb)"/>
+      <rect x="14" y="38" width="118" height="50" fill="var(--paper-2)" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <text x="24" y="53" font-size="8.4" font-weight="700" fill="var(--ink)">주제</text>
+      <text x="24" y="65" font-size="7.6" fill="var(--ink-2)">험지 적응 정책</text>
+      <text x="24" y="80" font-size="7.6" fill="var(--ink-2)">Isaac Lab · 공개 정책</text>
+      <path d="M134,63 L142,63" stroke="var(--ink-3)" stroke-width="1.3" marker-end="url(#fb)"/>
 
-      <rect x="488" y="38" width="118" height="50" fill="#fbf0dc" stroke="#a86a08" stroke-width="1.2"/>
-      <text x="498" y="53" font-size="8.4" font-weight="800" fill="#a86a08">실증 수행계획서</text>
-      <text x="498" y="65" font-size="7.4" fill="#4a5566">＝ 공식 산출물 ①</text>
-      <text x="498" y="80" font-size="7.6" fill="#4a5566">학습 환경 절차서</text>
-      <path d="M476,63 L484,63" stroke="#a86a08" stroke-width="1.3" marker-end="url(#fb)"/>
+      <rect x="488" y="38" width="118" height="50" fill="var(--note-soft)" stroke="var(--note)" stroke-width="1.2"/>
+      <text x="498" y="53" font-size="8.4" font-weight="800" fill="var(--note)">실증 수행계획서</text>
+      <text x="498" y="65" font-size="7.4" fill="var(--ink-2)">＝ 공식 산출물 ①</text>
+      <text x="498" y="80" font-size="7.6" fill="var(--ink-2)">학습 환경 절차서</text>
+      <path d="M476,63 L484,63" stroke="var(--note)" stroke-width="1.3" marker-end="url(#fb)"/>
 
       <!-- 게이트 1 -->
-      <path d="M310,90 L310,104" stroke="#0e7a6e" stroke-width="1.8" marker-end="url(#fa)"/>
-      <rect x="186" y="94" width="248" height="16" fill="#fff" stroke="#a3342a" stroke-width="1.1"/>
-      <text x="310" y="106" font-size="8" font-weight="700" fill="#a3342a" text-anchor="middle">통과 조건, 공개 정책이 우리 환경에서 같은 곡선을 내는가</text>
+      <path d="M310,90 L310,104" stroke="var(--dim)" stroke-width="1.8" marker-end="url(#fa)"/>
+      <rect x="186" y="94" width="248" height="16" fill="#fff" stroke="var(--stop)" stroke-width="1.1"/>
+      <text x="310" y="106" font-size="8" font-weight="700" fill="var(--stop)" text-anchor="middle">통과 조건, 공개 정책이 우리 환경에서 같은 곡선을 내는가</text>
 
       <!-- ═══ 2단계 ═══ -->
-      <rect x="146" y="118" width="328" height="50" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.6"/>
-      <text x="158" y="135" font-size="9.6" font-weight="800" fill="#0e7a6e">W5–9 · 기준 정책 확립</text>
-      <text x="158" y="150" font-size="8.6" fill="#161c26">보상 구조를 이해하고 지표 판독 체계를 세운다</text>
-      <text x="158" y="162" font-size="8" fill="#4a5566">＋ 지형 제작 파이프라인 · 단일변수 실험(변수별 분담)</text>
-      <text x="464" y="135" font-size="7.6" fill="#0e7a6e" text-anchor="end" font-weight="700">전원 분담</text>
+      <rect x="146" y="118" width="328" height="50" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.6"/>
+      <text x="158" y="135" font-size="9.6" font-weight="800" fill="var(--dim)">W5–9 · 기준 정책 확립</text>
+      <text x="158" y="150" font-size="8.6" fill="var(--ink)">보상 구조를 이해하고 지표 판독 체계를 세운다</text>
+      <text x="158" y="162" font-size="8" fill="var(--ink-2)">＋ 지형 제작 파이프라인 · 단일변수 실험(변수별 분담)</text>
+      <text x="464" y="135" font-size="7.6" fill="var(--dim)" text-anchor="end" font-weight="700">전원 분담</text>
 
-      <rect x="488" y="118" width="118" height="50" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.6"/>
-      <text x="498" y="133" font-size="8.4" font-weight="800" fill="#0e7a6e">기준 정책</text>
-      <text x="498" y="146" font-size="7.4" fill="#4a5566">＋ 지표 세트</text>
-      <text x="498" y="161" font-size="7.4" fill="#a3342a" font-weight="700">이후 변경 금지</text>
-      <path d="M476,143 L484,143" stroke="#0e7a6e" stroke-width="1.3" marker-end="url(#fb)"/>
+      <rect x="488" y="118" width="118" height="50" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.6"/>
+      <text x="498" y="133" font-size="8.4" font-weight="800" fill="var(--dim)">기준 정책</text>
+      <text x="498" y="146" font-size="7.4" fill="var(--ink-2)">＋ 지표 세트</text>
+      <text x="498" y="161" font-size="7.4" fill="var(--stop)" font-weight="700">이후 변경 금지</text>
+      <path d="M476,143 L484,143" stroke="var(--dim)" stroke-width="1.3" marker-end="url(#fb)"/>
 
-      <path d="M310,170 L310,184" stroke="#0e7a6e" stroke-width="1.8" marker-end="url(#fa)"/>
-      <rect x="186" y="174" width="248" height="16" fill="#fff" stroke="#a3342a" stroke-width="1.1"/>
-      <text x="310" y="186" font-size="8" font-weight="700" fill="#a3342a" text-anchor="middle">통과 조건, 시드를 바꿔도 지표가 안정적으로 재현되는가</text>
+      <path d="M310,170 L310,184" stroke="var(--dim)" stroke-width="1.8" marker-end="url(#fa)"/>
+      <rect x="186" y="174" width="248" height="16" fill="#fff" stroke="var(--stop)" stroke-width="1.1"/>
+      <text x="310" y="186" font-size="8" font-weight="700" fill="var(--stop)" text-anchor="middle">통과 조건, 시드를 바꿔도 지표가 안정적으로 재현되는가</text>
 
       <!-- ═══ 3단계 ═══ -->
-      <rect x="146" y="198" width="328" height="50" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.6"/>
-      <text x="158" y="215" font-size="9.6" font-weight="800" fill="#0e7a6e">W10–16 · 확장</text>
-      <text x="158" y="230" font-size="8.6" fill="#161c26">커스텀 험지 커리큘럼 · 도메인 랜덤화로 강건성 확보</text>
-      <text x="158" y="242" font-size="8" fill="#4a5566">＋ 실공간 3DGS 재구성 <tspan fill="#7c8798">(조건부 착수)</tspan></text>
+      <rect x="146" y="198" width="328" height="50" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.6"/>
+      <text x="158" y="215" font-size="9.6" font-weight="800" fill="var(--dim)">W10–16 · 확장</text>
+      <text x="158" y="230" font-size="8.6" fill="var(--ink)">커스텀 험지 커리큘럼 · 도메인 랜덤화로 강건성 확보</text>
+      <text x="158" y="242" font-size="8" fill="var(--ink-2)">＋ 실공간 3DGS 재구성 <tspan fill="var(--ink-3)">(조건부 착수)</tspan></text>
 
-      <rect x="14" y="198" width="118" height="50" fill="#eeece6" stroke="#7c8798" stroke-width="1.2" stroke-dasharray="3 2"/>
-      <text x="24" y="213" font-size="8.4" font-weight="700" fill="#161c26">현장 촬영</text>
-      <text x="24" y="225" font-size="7.6" fill="#4a5566">사진 → COLMAP</text>
-      <text x="24" y="240" font-size="7.6" fill="#4a5566">→ 3DGS + 메시</text>
-      <path d="M134,223 L142,223" stroke="#7c8798" stroke-width="1.3" marker-end="url(#fb)" stroke-dasharray="2 2"/>
+      <rect x="14" y="198" width="118" height="50" fill="var(--paper-2)" stroke="var(--ink-3)" stroke-width="1.2" stroke-dasharray="3 2"/>
+      <text x="24" y="213" font-size="8.4" font-weight="700" fill="var(--ink)">현장 촬영</text>
+      <text x="24" y="225" font-size="7.6" fill="var(--ink-2)">사진 → COLMAP</text>
+      <text x="24" y="240" font-size="7.6" fill="var(--ink-2)">→ 3DGS + 메시</text>
+      <path d="M134,223 L142,223" stroke="var(--ink-3)" stroke-width="1.3" marker-end="url(#fb)" stroke-dasharray="2 2"/>
 
-      <rect x="488" y="198" width="118" height="50" fill="#e0f0ed" stroke="#0e7a6e" stroke-width="1.6"/>
-      <text x="498" y="213" font-size="8.4" font-weight="800" fill="#0e7a6e">커스텀 지형 정책</text>
-      <text x="498" y="226" font-size="7.4" fill="#4a5566">＋ 비교 실험 기록</text>
-      <text x="498" y="241" font-size="7.4" fill="#4a5566">＋ 검증용 실공간 씬</text>
-      <path d="M476,223 L484,223" stroke="#0e7a6e" stroke-width="1.3" marker-end="url(#fb)"/>
+      <rect x="488" y="198" width="118" height="50" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.6"/>
+      <text x="498" y="213" font-size="8.4" font-weight="800" fill="var(--dim)">커스텀 지형 정책</text>
+      <text x="498" y="226" font-size="7.4" fill="var(--ink-2)">＋ 비교 실험 기록</text>
+      <text x="498" y="241" font-size="7.4" fill="var(--ink-2)">＋ 검증용 실공간 씬</text>
+      <path d="M476,223 L484,223" stroke="var(--dim)" stroke-width="1.3" marker-end="url(#fb)"/>
 
-      <path d="M310,250 L310,264" stroke="#0e7a6e" stroke-width="1.8" marker-end="url(#fa)"/>
-      <rect x="186" y="254" width="248" height="16" fill="#fff" stroke="#a3342a" stroke-width="1.1"/>
-      <text x="310" y="266" font-size="8" font-weight="700" fill="#a3342a" text-anchor="middle">통과 조건, 기준 대비 변화를 지표로 설명할 수 있는가</text>
+      <path d="M310,250 L310,264" stroke="var(--dim)" stroke-width="1.8" marker-end="url(#fa)"/>
+      <rect x="186" y="254" width="248" height="16" fill="#fff" stroke="var(--stop)" stroke-width="1.1"/>
+      <text x="310" y="266" font-size="8" font-weight="700" fill="var(--stop)" text-anchor="middle">통과 조건, 기준 대비 변화를 지표로 설명할 수 있는가</text>
 
       <!-- ═══ 4단계 ═══ -->
-      <rect x="146" y="278" width="328" height="50" fill="#fbf0dc" stroke="#a86a08" stroke-width="1.8"/>
-      <text x="158" y="295" font-size="9.6" font-weight="800" fill="#a86a08">W15–18 · 실증 검증</text>
-      <text x="158" y="310" font-size="8.6" fill="#161c26">MuJoCo 교차검증 → 현장 조건 반영 → 정량 지표 산출</text>
-      <text x="158" y="322" font-size="8" fill="#4a5566">＋ Go2 EDU 확보 시 <tspan font-weight="700" fill="#a86a08">실기에서 sim-to-real 갭 측정</tspan></text>
+      <rect x="146" y="278" width="328" height="50" fill="var(--note-soft)" stroke="var(--note)" stroke-width="1.8"/>
+      <text x="158" y="295" font-size="9.6" font-weight="800" fill="var(--note)">W15–18 · 실증 검증</text>
+      <text x="158" y="310" font-size="8.6" fill="var(--ink)">MuJoCo 교차검증 → 현장 조건 반영 → 정량 지표 산출</text>
+      <text x="158" y="322" font-size="8" fill="var(--ink-2)">＋ Go2 EDU 확보 시 <tspan font-weight="700" fill="var(--note)">실기에서 sim-to-real 갭 측정</tspan></text>
 
-      <rect x="14" y="278" width="118" height="50" fill="#fff" stroke="#a86a08" stroke-width="1.4" stroke-dasharray="3 2"/>
-      <text x="24" y="293" font-size="8.4" font-weight="700" fill="#a86a08">Go2 EDU</text>
-      <text x="24" y="305" font-size="7.4" fill="#4a5566">AIR/PRO는 불가</text>
-      <text x="24" y="320" font-size="7.4" fill="#a3342a" font-weight="700">멘토 확인 1순위</text>
-      <path d="M134,303 L142,303" stroke="#a86a08" stroke-width="1.3" marker-end="url(#fb)" stroke-dasharray="2 2"/>
+      <rect x="14" y="278" width="118" height="50" fill="#fff" stroke="var(--note)" stroke-width="1.4" stroke-dasharray="3 2"/>
+      <text x="24" y="293" font-size="8.4" font-weight="700" fill="var(--note)">Go2 EDU</text>
+      <text x="24" y="305" font-size="7.4" fill="var(--ink-2)">AIR/PRO는 불가</text>
+      <text x="24" y="320" font-size="7.4" fill="var(--stop)" font-weight="700">멘토 확인 1순위</text>
+      <path d="M134,303 L142,303" stroke="var(--note)" stroke-width="1.3" marker-end="url(#fb)" stroke-dasharray="2 2"/>
 
-      <rect x="488" y="278" width="118" height="50" fill="#fbf0dc" stroke="#a86a08" stroke-width="1.2"/>
-      <text x="498" y="293" font-size="8.4" font-weight="800" fill="#a86a08">현장검증 리포트</text>
-      <text x="498" y="305" font-size="7.4" fill="#4a5566">＝ 공식 산출물 ②</text>
-      <text x="498" y="320" font-size="7.4" fill="#4a5566">한계까지 문서화</text>
-      <path d="M476,303 L484,303" stroke="#a86a08" stroke-width="1.3" marker-end="url(#fb)"/>
+      <rect x="488" y="278" width="118" height="50" fill="var(--note-soft)" stroke="var(--note)" stroke-width="1.2"/>
+      <text x="498" y="293" font-size="8.4" font-weight="800" fill="var(--note)">현장검증 리포트</text>
+      <text x="498" y="305" font-size="7.4" fill="var(--ink-2)">＝ 공식 산출물 ②</text>
+      <text x="498" y="320" font-size="7.4" fill="var(--ink-2)">한계까지 문서화</text>
+      <path d="M476,303 L484,303" stroke="var(--note)" stroke-width="1.3" marker-end="url(#fb)"/>
 
-      <path d="M310,330 L310,344" stroke="#0e7a6e" stroke-width="1.8" marker-end="url(#fa)"/>
-      <rect x="186" y="334" width="248" height="16" fill="#fff" stroke="#a3342a" stroke-width="1.1"/>
-      <text x="310" y="346" font-size="8" font-weight="700" fill="#a3342a" text-anchor="middle">통과 조건, 현장 기준으로 쓸 만한가 · 아니면 왜 아닌가</text>
+      <path d="M310,330 L310,344" stroke="var(--dim)" stroke-width="1.8" marker-end="url(#fa)"/>
+      <rect x="186" y="334" width="248" height="16" fill="#fff" stroke="var(--stop)" stroke-width="1.1"/>
+      <text x="310" y="346" font-size="8" font-weight="700" fill="var(--stop)" text-anchor="middle">통과 조건, 현장 기준으로 쓸 만한가 · 아니면 왜 아닌가</text>
 
       <!-- ═══ 5단계 ═══ -->
-      <rect x="146" y="358" width="328" height="44" fill="#161c26"/>
-      <text x="158" y="375" font-size="9.6" font-weight="800" fill="#f6f5f1">W19–20 · 전달</text>
+      <rect x="146" y="358" width="328" height="44" fill="var(--ink)"/>
+      <text x="158" y="375" font-size="9.6" font-weight="800" fill="var(--paper)">W19–20 · 전달</text>
       <text x="158" y="390" font-size="8.6" fill="#c7ccd4">시연 영상 · 최종 발표 · 결과 종합</text>
 
-      <rect x="488" y="358" width="118" height="44" fill="#fbf0dc" stroke="#a86a08" stroke-width="1.2"/>
-      <text x="498" y="373" font-size="8.4" font-weight="800" fill="#a86a08">최종 실증결과</text>
-      <text x="498" y="385" font-size="7.4" fill="#4a5566">＝ 공식 산출물 ③</text>
-      <text x="498" y="396" font-size="7.4" fill="#4a5566">＋ 비교 시연 영상</text>
-      <path d="M476,380 L484,380" stroke="#a86a08" stroke-width="1.3" marker-end="url(#fb)"/>
+      <rect x="488" y="358" width="118" height="44" fill="var(--note-soft)" stroke="var(--note)" stroke-width="1.2"/>
+      <text x="498" y="373" font-size="8.4" font-weight="800" fill="var(--note)">최종 실증결과</text>
+      <text x="498" y="385" font-size="7.4" fill="var(--ink-2)">＝ 공식 산출물 ③</text>
+      <text x="498" y="396" font-size="7.4" fill="var(--ink-2)">＋ 비교 시연 영상</text>
+      <path d="M476,380 L484,380" stroke="var(--note)" stroke-width="1.3" marker-end="url(#fb)"/>
 
       <!-- 하단 원칙 -->
-      <rect x="14" y="416" width="592" height="44" fill="#fff" stroke="#0e7a6e" stroke-width="1.5"/>
-      <text x="28" y="434" font-size="9.4" font-weight="800" fill="#0e7a6e">이 그림의 핵심, 단계가 그냥 흐르지 않는다. 통과 조건을 넘어야 다음으로 간다.</text>
-      <text x="28" y="450" font-size="8.6" fill="#4a5566">그리고 각 단계는 <tspan font-weight="700" fill="#161c26">거기서 멈춰도 발표 가능한 산출물</tspan>을 남긴다. 뒤가 막혀도 앞까지는 결과가 된다.</text>
+      <rect x="14" y="416" width="592" height="44" fill="#fff" stroke="var(--dim)" stroke-width="1.5"/>
+      <text x="28" y="434" font-size="9.4" font-weight="800" fill="var(--dim)">이 그림의 핵심, 단계가 그냥 흐르지 않는다. 통과 조건을 넘어야 다음으로 간다.</text>
+      <text x="28" y="450" font-size="8.6" fill="var(--ink-2)">그리고 각 단계는 <tspan font-weight="700" fill="var(--ink)">거기서 멈춰도 발표 가능한 산출물</tspan>을 남긴다. 뒤가 막혀도 앞까지는 결과가 된다.</text>
     </svg>
     <figcaption><b>우리가 5개월간 실제로 만드는 것.</b>
       왼쪽이 들어가는 것, 가운데가 하는 일, 오른쪽이 나오는 것이다.
@@ -2684,49 +2684,49 @@ function draw(){
   for(let i=0;i<=4;i++){
     const x=L+span*i/4;
     s+=`<line x1="${x}" y1="${top-8}" x2="${x}" y2="${top+4*rowH-4}" stroke="#e6e3da" stroke-width="1"/>`;
-    s+=`<text x="${x}" y="${top+4*rowH+14}" font-size="8.5" fill="#7c8798" text-anchor="middle">${i*25}%</text>`;
+    s+=`<text x="${x}" y="${top+4*rowH+14}" font-size="8.5" fill="var(--ink-3)" text-anchor="middle">${i*25}%</text>`;
   }
-  s+=`<text x="${(L+R)/2}" y="${top+4*rowH+30}" font-size="9" fill="#7c8798" text-anchor="middle">한 걸음 주기 (stride)</text>`;
-  s+=`<text x="${L}" y="${top-16}" font-size="9.5" font-weight="700" fill="#161c26">접지 구간 — 색이 있는 동안 그 발이 땅에 있다</text>`;
+  s+=`<text x="${(L+R)/2}" y="${top+4*rowH+30}" font-size="9" fill="var(--ink-3)" text-anchor="middle">한 걸음 주기 (stride)</text>`;
+  s+=`<text x="${L}" y="${top-16}" font-size="9.5" font-weight="700" fill="var(--ink)">접지 구간 — 색이 있는 동안 그 발이 땅에 있다</text>`;
 
   g.phase.forEach((ph,i)=>{
     const y=top+i*rowH;
-    s+=`<text x="${L-8}" y="${y+barH-4}" font-size="9" fill="#4a5566" text-anchor="end">${LEGABBR[i]}</text>`;
+    s+=`<text x="${L-8}" y="${y+barH-4}" font-size="9" fill="var(--ink-2)" text-anchor="end">${LEGABBR[i]}</text>`;
     s+=`<rect x="${L}" y="${y}" width="${span}" height="${barH}" fill="#f2f0ea"/>`;
     // 접지 막대 (wrap 처리 위해 두 조각 가능)
     const st=ph, en=ph+g.duty;
     const segs = en<=1 ? [[st,en]] : [[st,1],[0,en-1]];
     segs.forEach(([a,b])=>{
-      s+=`<rect x="${L+span*a}" y="${y}" width="${span*(b-a)}" height="${barH}" fill="#0e7a6e" opacity=".85"/>`;
+      s+=`<rect x="${L+span*a}" y="${y}" width="${span*(b-a)}" height="${barH}" fill="var(--dim)" opacity=".85"/>`;
     });
     // 현재 시각에 접지면 밝게
     if(inStance(ph,g.duty,t)){
-      s+=`<rect x="${L}" y="${y}" width="${span}" height="${barH}" fill="none" stroke="#a86a08" stroke-width="1.6"/>`;
+      s+=`<rect x="${L}" y="${y}" width="${span}" height="${barH}" fill="none" stroke="var(--note)" stroke-width="1.6"/>`;
     }
   });
   // 현재 시각 커서
   const cx=L+span*t;
-  s+=`<line x1="${cx}" y1="${top-10}" x2="${cx}" y2="${top+4*rowH-4}" stroke="#a86a08" stroke-width="2"/>`;
-  s+=`<circle cx="${cx}" cy="${top-12}" r="3.5" fill="#a86a08"/>`;
+  s+=`<line x1="${cx}" y1="${top-10}" x2="${cx}" y2="${top+4*rowH-4}" stroke="var(--note)" stroke-width="2"/>`;
+  s+=`<circle cx="${cx}" cy="${top-12}" r="3.5" fill="var(--note)"/>`;
   document.getElementById('gaitChart').innerHTML=s;
 
   // ── 위에서 본 그림
   const g2=GAITS[cur];
   const cxs=[62,62,138,138], cys=[140,72,140,72]; // LH,LF,RH,RF
-  let v=`<text x="100" y="20" font-size="9.5" font-weight="700" fill="#161c26" text-anchor="middle">위에서 본 접지 상태</text>`;
-  v+=`<text x="100" y="34" font-size="8" fill="#7c8798" text-anchor="middle">▲ 진행 방향</text>`;
+  let v=`<text x="100" y="20" font-size="9.5" font-weight="700" fill="var(--ink)" text-anchor="middle">위에서 본 접지 상태</text>`;
+  v+=`<text x="100" y="34" font-size="8" fill="var(--ink-3)" text-anchor="middle">▲ 진행 방향</text>`;
   // 몸통
-  v+=`<rect x="76" y="66" width="48" height="82" rx="12" fill="#eeece6" stroke="#d9d6cd" stroke-width="1.4"/>`;
-  v+=`<path d="M100,52 L108,64 L92,64 Z" fill="#7c8798"/>`;
+  v+=`<rect x="76" y="66" width="48" height="82" rx="12" fill="var(--paper-2)" stroke="var(--rule)" stroke-width="1.4"/>`;
+  v+=`<path d="M100,52 L108,64 L92,64 Z" fill="var(--ink-3)"/>`;
   g2.phase.forEach((ph,i)=>{
     const on=inStance(ph,g2.duty,t);
-    v+=`<line x1="100" y1="${cys[i]<100?86:128}" x2="${cxs[i]}" y2="${cys[i]}" stroke="${on?'#0e7a6e':'#d9d6cd'}" stroke-width="${on?2.4:1.6}"/>`;
-    v+=`<circle cx="${cxs[i]}" cy="${cys[i]}" r="${on?11:8}" fill="${on?'#0e7a6e':'#fff'}" stroke="${on?'#0e7a6e':'#d9d6cd'}" stroke-width="2"/>`;
-    v+=`<text x="${cxs[i]}" y="${cys[i]+3.5}" font-size="8" font-weight="700" fill="${on?'#fff':'#7c8798'}" text-anchor="middle">${LEGABBR[i]}</text>`;
+    v+=`<line x1="100" y1="${cys[i]<100?86:128}" x2="${cxs[i]}" y2="${cys[i]}" stroke="${on?'var(--dim)':'var(--rule)'}" stroke-width="${on?2.4:1.6}"/>`;
+    v+=`<circle cx="${cxs[i]}" cy="${cys[i]}" r="${on?11:8}" fill="${on?'var(--dim)':'#fff'}" stroke="${on?'var(--dim)':'var(--rule)'}" stroke-width="2"/>`;
+    v+=`<text x="${cxs[i]}" y="${cys[i]+3.5}" font-size="8" font-weight="700" fill="${on?'#fff':'var(--ink-3)'}" text-anchor="middle">${LEGABBR[i]}</text>`;
   });
   const cnt=g2.phase.filter((ph)=>inStance(ph,g2.duty,t)).length;
-  v+=`<text x="100" y="176" font-size="10" font-weight="800" fill="#161c26" text-anchor="middle">땅에 닿은 발: ${cnt}개</text>`;
-  v+=`<text x="100" y="192" font-size="8.5" fill="#7c8798" text-anchor="middle">${cnt>=3?'정적으로 안정':cnt===2?'동적 균형 필요':cnt<=1?'공중기 · 낙하 중':''}</text>`;
+  v+=`<text x="100" y="176" font-size="10" font-weight="800" fill="var(--ink)" text-anchor="middle">땅에 닿은 발: ${cnt}개</text>`;
+  v+=`<text x="100" y="192" font-size="8.5" fill="var(--ink-3)" text-anchor="middle">${cnt>=3?'정적으로 안정':cnt===2?'동적 균형 필요':cnt<=1?'공중기 · 낙하 중':''}</text>`;
   document.getElementById('gaitTop').innerHTML=v;
 }
 
@@ -2803,5 +2803,27 @@ document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
   }
 })();
 </script>
+<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:var(--brand);--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+<style>
+#themeBtn{position:fixed;top:14px;right:14px;z-index:9999;width:38px;height:38px;
+  border-radius:50%;border:1px solid var(--rule,#d9d6cd);background:var(--card,#fff);
+  color:var(--ink,#161c26);font-size:17px;line-height:1;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);opacity:.82}
+#themeBtn:hover{opacity:1}
+@media print{#themeBtn{display:none}}
+</style>
+<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">🌙</button>
+<script>(function(){
+  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
+      mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function apply(t){d.setAttribute('data-theme',t);b.textContent=(t==='dark')?'\u2600\ufe0f':'\ud83c\udf19';}
+  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
+  apply(cur());
+  b.addEventListener('click',function(){
+    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
+  mq.addEventListener&&mq.addEventListener('change',function(){
+    if(!localStorage.getItem(K))apply(cur());});
+})();</script>
+
 </body>
 </html>

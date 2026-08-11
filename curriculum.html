@@ -255,7 +255,7 @@ td .no{color:var(--stop);font-weight:700}
   .topbar,.navbar,.side,.backdrop{display:none}
   .shell{display:block}
   .slide{display:flex!important;break-after:page}
-  body{background:#fff;padding:0}
+  body{background:var(--card);padding:0}
 }
 
 /* ═══ 도식 · 용어 (후처리 주입) ═══ */
@@ -418,7 +418,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 @page{ size:A4; margin:14mm 12mm; }
 @media print{
   html{font-size:11.5px}
-  html,body{height:auto!important;overflow:visible!important;background:#fff!important}
+  html,body{height:auto!important;overflow:visible!important;background:var(--card)!important}
   .shell{display:block!important}
   .side,.topbar,.navbar,.backdrop,#termpop{display:none!important}
   main{max-width:none!important;padding:0!important;margin:0!important}
@@ -436,7 +436,7 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   .slide:last-child{break-after:auto}
   /* 잘리면 안 되는 덩어리 */
   figure.fdia,figure.fdia svg,pre.dia,table,tr,.mini{break-inside:avoid;page-break-inside:avoid}
-  figure.fdia{background:#fff!important;page-break-inside:avoid}
+  figure.fdia{background:var(--card)!important;page-break-inside:avoid}
   /* ★ A4 세로 폭이 595px 라 모바일 규칙(max-width:700px)이 인쇄에도 걸린다.
      overflow-x:auto 가 SVG를 잘라내고 sticky 캡션이 흘러내린다 — 전부 해제한다. */
   figure.fdia{overflow:visible!important;padding:1rem 1.1rem .85rem!important}
@@ -2916,5 +2916,27 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') hide(); });
 })();
 </script>
+<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:var(--brand);--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+<style>
+#themeBtn{position:fixed;top:14px;right:14px;z-index:9999;width:38px;height:38px;
+  border-radius:50%;border:1px solid var(--rule,#d9d6cd);background:var(--card,#fff);
+  color:var(--ink,#161c26);font-size:17px;line-height:1;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);opacity:.82}
+#themeBtn:hover{opacity:1}
+@media print{#themeBtn{display:none}}
+</style>
+<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">🌙</button>
+<script>(function(){
+  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
+      mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function apply(t){d.setAttribute('data-theme',t);b.textContent=(t==='dark')?'\u2600\ufe0f':'\ud83c\udf19';}
+  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
+  apply(cur());
+  b.addEventListener('click',function(){
+    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
+  mq.addEventListener&&mq.addEventListener('change',function(){
+    if(!localStorage.getItem(K))apply(cur());});
+})();</script>
+
 </body>
 </html>
