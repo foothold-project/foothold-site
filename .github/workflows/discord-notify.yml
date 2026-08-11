@@ -1,0 +1,37 @@
+# 사이트가 갱신되면 #foothold-git 에 알린다.
+#   push = Vercel 배포 트리거이므로, 이 알림 = "곧 사이트가 바뀐다"는 신호다.
+#   시크릿은 org 공용 DISCORD_WEBHOOK (public 레포라 사용 가능 — rl 과 동일 구조).
+#   전송 결과를 HTTP 코드로 검증한다 — 침묵은 성공과 구별되지 않는다.
+name: 디스코드 알림
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 사이트 갱신 알림
+        env:
+          HOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MSG: ${{ github.event.head_commit.message }}
+          AUTHOR: ${{ github.event.head_commit.author.name }}
+        run: |
+          python3 - <<'PY'
+          import json, os, sys, urllib.request
+          hook = os.environ.get("HOOK", "")
+          if not hook:
+              sys.exit("시크릿 DISCORD_WEBHOOK 없음")
+          title = (os.environ.get("MSG", "").splitlines() or [""])[0][:140]
+          body = {"content": "🌐 **사이트 갱신** — %s (%s)\n<https://foothold-project.vercel.app> 반영까지 1~2분"
+                             % (title, os.environ.get("AUTHOR", ""))}
+          req = urllib.request.Request(hook, data=json.dumps(body).encode(),
+                                       headers={"Content-Type": "application/json"})
+          code = urllib.request.urlopen(req).status
+          print("HTTP", code)
+          sys.exit(0 if 200 <= code < 300 else "★ 전송 실패")
+          PY
