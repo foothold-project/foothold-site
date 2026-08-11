@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>시각 증거 — 우리가 실제로 본 것 · FOOTHOLD</title>
+<meta name="description" content="작성 2026-08-09 · 워크스테이션 세션">
+<style>
+:root{
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--dim:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+  --measure:760px;
+  /* ★ --dim / --note 를 연한 배경(--*-soft) 위 글자로 쓰면 대비가 모자란다.
+     실측 --dim on --dim-soft = 4.43 · --note on --note-soft = 3.93 (둘 다 4.5 미달).
+     그런 자리에는 아래 진한 짝을 쓴다. DESIGN.md §2 참조. */
+  --dim-ink:#0b6459;
+  --note-ink:#8a5600;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+    --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+    --rule:#2b323d;--dim:#3ec7b4;--dim-soft:#11302c;
+    --note:#dc9a30;--note-soft:#332710;
+    --stop:#e56d5e;--stop-soft:#331c19;
+    --grid:rgba(233,231,225,.035);
+    /* 어두운 모드에서는 soft 배경이 어두우므로 원래 토큰이 이미 충분히 밝다 */
+    --dim-ink:#3ec7b4;
+    --note-ink:#dc9a30;
+  }
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.75;font-size:15px;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+
+.top{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .row{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:.55rem 1.5rem;
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.top .home{font-size:.72rem;font-weight:700;color:var(--ink-2);text-decoration:none;
+  border:1px solid var(--rule);background:var(--card);padding:.26rem .6rem;border-radius:4px}
+.top .home:hover{border-color:var(--dim);color:var(--dim)}
+.top .doc{font-size:.72rem;color:var(--ink-3);letter-spacing:.02em}
+.top .sp{flex:1}
+.pdfbtn{background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.26rem .6rem;font-family:inherit;font-size:.66rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer;border-radius:4px;transition:.15s;line-height:1.3}
+.pdfbtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--dim);width:0;transition:width .12s}
+
+.wrap{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:2.2rem 1.5rem 5rem}
+
+.hero{padding-bottom:1.6rem;border-bottom:2px solid var(--ink);margin-bottom:1.8rem}
+.eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:.5rem}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin-bottom:.7rem}
+.lede{font-size:1rem;color:var(--ink-2);max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:.35rem 1.6rem;margin-top:1rem;font-size:.72rem}
+.meta .k{color:var(--ink-3);margin-right:.4rem}
+.meta .v{color:var(--ink-2);font-weight:700}
+
+section{margin-top:2.6rem}
+h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem;
+  border-bottom:1px solid var(--rule);margin-bottom:1rem}
+h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
+h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
+p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+ul,ol{margin:.6rem 0 .6rem 1.2rem}
+li{margin:.24rem 0;word-break:keep-all}
+b{font-weight:800}
+a{color:var(--dim)}
+code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
+  border:1px solid var(--rule);padding:.05rem .28rem;border-radius:3px;word-break:break-all}
+.vlink{font-size:.82em;color:var(--ink-3);background:var(--paper-2);border:1px solid var(--rule);
+  padding:.02rem .32rem;border-radius:3px}
+.vlink i{font-style:normal;opacity:.75}
+blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.7rem .95rem;
+  margin:1rem 0;font-size:.88rem;color:var(--ink-2)}
+blockquote p{margin:.25rem 0}
+blockquote b{color:var(--ink)}
+
+/* 표 — 모바일에서 가로 스크롤 (DESIGN.md §5) */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
+th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
+  word-break:keep-all}
+th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
+  letter-spacing:.04em;border-bottom:none}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--paper-2)}
+
+/* 코드 블록 + 복사 버튼 */
+.cb{margin:1rem 0;border:1px solid var(--rule);background:#0f141b}
+.cb-h{display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;background:#1a212b;
+  border-bottom:1px solid #2b323d;font-size:.62rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:#7d8693}
+.cb-h .copy{margin-left:auto;background:#232b36;border:1px solid #39424f;color:#c8cfd8;
+  font-family:inherit;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:.16rem .5rem;
+  border-radius:3px;cursor:pointer;transition:.14s}
+.cb-h .copy:hover{background:var(--dim);border-color:var(--dim);color:#fff}
+.cb-h .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+.cb pre{margin:0;padding:.75rem .85rem;overflow-x:auto;color:#dfe4ea;
+  font-family:'Consolas','D2Coding',monospace;font-size:.76rem;line-height:1.7}
+.cb pre .c{color:#6f7a88}
+
+/* ── 표지 아래 요약 카드 ── */
+.pin{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.6rem 0 .4rem}
+@media (max-width:640px){.pin{grid-template-columns:1fr}}
+.pin>div{border:1px solid var(--rule);background:var(--card);padding:.85rem .95rem}
+.pin .lab{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:.4rem}
+.pin.hot>div{border-color:var(--note);background:var(--note-soft)}
+.big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
+  color:var(--dim-ink);word-break:break-all}
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다 — 눈에 띄게 */
+section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
+section .addr .big{font-size:1.2rem}
+.addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
+.addr .copy{background:var(--card);border:1px solid var(--dim);color:var(--dim);
+  font-family:inherit;font-size:.64rem;font-weight:800;letter-spacing:.06em;
+  padding:.16rem .5rem;border-radius:3px;cursor:pointer;transition:.14s}
+.addr .copy:hover{background:var(--dim);color:#fff}
+.addr .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+
+/* ── 도구 4종 역할 구분 (팀원이 가장 헷갈리는 것) ── */
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1.2rem 0}
+@media (max-width:820px){.tools{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.tools{grid-template-columns:1fr}}
+.tool{border:1px solid var(--rule);background:var(--card);padding:.85rem .8rem;display:flex;
+  flex-direction:column;gap:.35rem}
+.tool.pick{border:2px solid var(--dim);background:var(--dim-soft)}
+.tool .n{font-size:.6rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3)}
+.tool .t{font-size:.95rem;font-weight:800;line-height:1.3}
+.tool.pick .t{color:var(--dim-ink)}
+.tool .q{font-size:.76rem;color:var(--ink-2);flex:1}
+.tool .f{font-size:.68rem;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:.35rem;
+  margin-top:.2rem;line-height:1.6}
+.tool .f b{color:var(--ink-2)}
+.tool .badge{display:inline-block;font-size:.6rem;font-weight:800;padding:.08rem .35rem;
+  border-radius:2px;background:var(--dim);color:#fff;letter-spacing:.04em}
+.tool .badge.warn{background:var(--note)}
+.tool .badge.off{background:var(--ink-3)}
+
+/* ── 경고 박스 (프로세스 정리) ── */
+.warnbox{border:2px solid var(--note);background:var(--note-soft);padding:1rem 1.1rem;margin:1.2rem 0}
+.warnbox .wh{font-size:.95rem;font-weight:800;color:var(--note-ink);margin-bottom:.5rem}
+.warnbox .line{font-size:.92rem;font-weight:800;color:var(--ink);margin:.4rem 0}
+.warnbox p{font-size:.84rem;color:var(--ink-2)}
+
+/* 공개 페이지에서 가려진 값 안내 */
+.redacted-note{display:block;font-size:.72rem;color:var(--ink-3);margin-top:.35rem;
+  font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
+.redacted-note b{color:var(--note-ink)}
+
+/* 미확인 표시 — 확정처럼 읽히면 안 된다 */
+.unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
+  background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
+  vertical-align:.08em;margin-right:.3rem}
+
+@media print{
+  @page{size:A4 portrait;margin:14mm 12mm}
+  html{font-size:10.5px}
+  body{background:var(--card)!important;background-image:none!important}
+  .top,.pdfbtn,.copy{display:none!important}
+  .wrap{max-width:none;padding:0}
+  section{break-inside:auto;margin-top:1.4rem}
+  h2,h3{break-after:avoid}
+  .tw,.cb,blockquote,.tool,.warnbox,.pin>div{break-inside:avoid;page-break-inside:avoid}
+  .tools,.pin{display:block}
+  .tool,.pin>div{margin-bottom:.5rem}
+  .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
+  .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
+  .cb pre{color:var(--ink)!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre .c{color:#666!important}
+  a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ── 코드 문법 강조 ──
+   실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
+.cb pre .c{color:#6f7a88;font-style:italic}   /* 주석 */
+.cb pre .k{color:#5eb0ef;font-weight:700}     /* 키워드 */
+.cb pre .f{color:#f0c674}                     /* 명령 · 함수 */
+.cb pre .b{color:#c39ac9}                     /* 파이썬 내장 */
+.cb pre .s{color:#9ece6a}                     /* 문자열 */
+.cb pre .n{color:#e59f6a}                     /* 숫자 */
+.cb pre .v{color:#7ee0d0}                     /* 변수 */
+.cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
+@media print{
+  /* 종이에서는 색이 안 나올 수 있다 — 굵기·기울기로도 구분되게 */
+  .cb pre .c{color:#777!important;font-style:italic}
+  .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
+  .cb pre .s{color:#2a6b2a!important}
+  .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
+}
+
+.ev{display:inline-block;padding:.05rem .4rem;border-radius:3px;font-size:.68rem;
+  font-weight:800;letter-spacing:.04em;vertical-align:.06em;white-space:nowrap;
+  border:1px solid transparent}
+.ev-ok{background:var(--dim-soft);color:var(--dim);border-color:var(--dim)}
+.ev-guess{background:var(--note-soft);color:var(--note);border-color:var(--note)}
+.ev-todo{background:var(--paper-2);color:var(--ink-3);border-color:var(--rule)}
+.evlegend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;font-size:.72rem;color:var(--ink-3)}
+.rcards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:18px 0}
+.rcard{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;padding:14px 16px}
+.rcard:hover{border-color:var(--dim)}
+.rcard .rt{font-weight:800;font-size:1rem;margin:.2rem 0 .35rem}
+.rcard .rd{font-size:.8rem;color:var(--ink-2);line-height:1.55}
+.rcard .rm{font-size:.7rem;color:var(--ink-3);margin-top:.5rem;letter-spacing:.04em}
+</style>
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
+</head>
+<body>
+
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">FOOTHOLD · 연구 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">Research · 근거 기록</div>
+  <h1>시각 증거 — 우리가 실제로 본 것</h1>
+  <p class="lede">작성 2026-08-09 · 워크스테이션 세션</p>
+  <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / visual-evidence.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 0</span></div></div>
+  <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
+</div>
+
+<blockquote><p>작성 2026-08-09 · 워크스테이션 세션
+<b>이 문서의 목적</b>: 학습 결과를 숫자로만 보지 않고 <b>눈으로 확인한 기록</b>을 남긴다.
+로봇공학을 모르는 사람이 봐도 &quot;무슨 일이 있었는지&quot; 알 수 있게 쓴다.</p></blockquote>
+<p>모든 이미지는 영상에서 <b>1초 간격으로 프레임을 뽑아 격자로 붙인 것</b>이다. 왼쪽 위 노란 숫자가 영상 안에서의 시각(초)이다.</p>
+</section>
+<section id="s1"><h2>왜 프레임을 뽑았나</h2>
+<p>학습 결과는 보통 <b>숫자 두 개</b>(보상, 에피소드 길이)로만 확인한다. 그런데 숫자만으로는 <i>&quot;로봇이 실제로 어떻게 움직이는지&quot;</i>를 모른다.</p>
+<p>영상에서 프레임을 뽑아 나란히 놓으면 <b>로봇이 화면 어디에 있는지</b>가 보인다. <b>위치가 변하면 걷는 것이고, 안 변하면 제자리에 있는 것이다.</b> 이게 가장 확실한 검증이다.</p>
+<blockquote><p>커널 원칙 3 — <i>사용자가 겪는 층위에서 확인한다.</i>
+학습 로그의 숫자는 대리 신호(proxy)다. 영상은 결과 그 자체다.</p></blockquote>
+<p><b>추출 방법</b> (도구 설치 불필요, 이미 있는 것으로 됨): <code>imageio_ffmpeg</code> 패키지에 동봉된 ffmpeg + OpenCV. 스크립트 40줄.</p>
+<blockquote><p>⚠️ <b>영상 파일(mp4)은 이 저장소에 없다.</b> <code>.gitignore:19</code>가 <code>*.mp4</code>를 막는다(팀 정책, 대용량 산출물).
+아래 표의 <code>assets/video/…</code> 경로는 <b>워크스테이션 로컬에만 존재</b>한다.
+이 PNG 컨택트시트들이 영상을 대신하는 공유용 증거다.
+(영상 자체를 공유하려면 정책 예외를 두거나 외부 호스팅이 필요 — <b>미결정</b>)</p></blockquote>
+</section>
+<section id="s2"><h2>00. 목표 지점 — Unitree 공식 영상</h2>
+<p>![reference](../assets/visual/00_reference_unitree_official.png)</p>
+<div class="tw"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>출처</td><td>Unitree 공식 Go2 홍보 영상 (<code>00_reference/unitree-go2-official.mp4</code>)</td></tr><tr><td>사양</td><td>1920×1080 · 50fps · 5.4초</td></tr></tbody></table></div>
+<p><b>★ 중요한 사실: 이것은 CG가 아니라 실물 로봇 실사 촬영이다.</b></p>
+<p>보이는 것: 강가 자갈밭, <b>역광</b>, 물보라 입자가 빛을 받아 반짝임, <b>얕은 심도</b>로 배경 나무가 흐려짐, 낮은 카메라 앵글, 젖은 돌의 스페큘러, 크기가 제각각인 실제 자갈, 원경의 산.</p>
+<p>우리 목표가 <i>&quot;이 수준으로 렌더한다&quot;</i>라면, 정확히는 <b>&quot;실사 촬영물과 구분되지 않는 CG를 만든다&quot;</b> — VFX에서 가장 어려운 과제다.</p>
+</section>
+<section id="s3"><h2>01. A 정책 — 플래그 없음, 300 iteration</h2>
+<p>![trainA](../assets/visual/01_trainA_noflag_300iter.png)</p>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>실행</td><td><code>logs/rsl_rl/unitree_go2_rough/2026-08-09_14-00-20</code></td></tr><tr><td>조건</td><td>기본 설정 (추가 플래그 없음), seed 42</td></tr><tr><td>학습 시간</td><td><b>22.07분</b> (300 iteration)</td></tr><tr><td>처리량</td><td>22,867 steps/s</td></tr><tr><td><b>마지막 20회 평균 보상</b></td><td><b>13.94</b></td></tr><tr><td><b>마지막 20회 평균 에피소드 길이</b></td><td><b>938.7 step</b> (최대 1000)</td></tr><tr><td>영상</td><td>1280×720 50fps 10초 · <code>assets/video/trainA_noflag_300iter.mp4</code></td></tr></tbody></table></div>
+<p><b>읽는 법 — 로봇의 화면상 위치를 보라:</b></p>
+<div class="tw"><table><thead><tr><th>시각</th><th>위치</th></tr></thead><tbody><tr><td>1.2초</td><td>중앙 타일에 2마리</td></tr><tr><td>7.5초</td><td><b>화면 왼쪽 끝까지 이동</b></td></tr><tr><td>10.0초</td><td>왼쪽 가장자리</td></tr></tbody></table></div>
+<p><b>→ 로봇이 화면을 가로질러 이동한다. 걷고 있다.</b></p>
+<p><b>화살표 읽는 법</b>: Isaac Lab은 로봇 위에 화살표 2개를 그린다.</p>
+<ul><li><b>초록 = 명령받은 속도</b> (가라고 시킨 방향·크기)</li><li><b>파랑 = 실제 속도</b> (진짜 가고 있는 방향·크기)</li></ul>
+<p>A에서는 <b>둘 다 뚜렷하다</b> = 시킨 대로 가고 있다.</p>
+</section>
+<section id="s4"><h2>02. B 정책 — 플래그 있음, 300 iteration</h2>
+<p>![trainB](../assets/visual/02_trainB_flag_300iter.png)</p>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>실행</td><td><code>logs/rsl_rl/unitree_go2_rough/2026-08-09_14-22-51</code></td></tr><tr><td>조건</td><td><code>--kit_args=&quot;--/physics/collisionApproximateCylinders=true&quot;</code>, seed 42</td></tr><tr><td>학습 시간</td><td><b>9.48분</b> (300 iteration) — A의 <b>2.3배 빠름</b></td></tr><tr><td>처리량</td><td>54,898 steps/s</td></tr><tr><td><b>마지막 20회 평균 보상</b></td><td><b>3.54</b> — A의 <b>25%</b></td></tr><tr><td><b>마지막 20회 평균 에피소드 길이</b></td><td><b>551.1 step</b></td></tr><tr><td>영상</td><td><code>assets/video/trainB_flag_300iter.mp4</code></td></tr></tbody></table></div>
+<p><b>읽는 법:</b></p>
+<div class="tw"><table><thead><tr><th>시각</th><th>위치</th></tr></thead><tbody><tr><td>1.2초</td><td>중앙 타일</td></tr><tr><td>10.0초</td><td><b>거의 같은 자리</b></td></tr></tbody></table></div>
+<p><b>→ 10초 동안 화면상 위치가 거의 변하지 않는다. 제자리에서 주저앉아 있다.</b></p>
+<p>화살표: <b>초록(명령)만 크고 파랑(실제)이 거의 없다</b> = 시켰는데 못 간다.</p>
+<h3>그 플래그가 무엇이었나</h3>
+<p><code>collisionApproximateCylinders=true</code> — Go2의 정강이는 <b>원통(cylinder) 충돌체</b>다. 원통은 충돌 계산이 비싸다. 이 스위치는 그 원통을 <b>더 단순한 모양으로 근사</b>하게 만든다.</p>
+<p><b>계산은 2.4배 빨라졌지만, 발이 땅에 닿는 방식이 부정확해져서 로봇이 제대로 못 배웠다.</b></p>
+<blockquote><p>비유: 달리기 연습을 하는데 <b>신발 밑창의 요철을 뭉갠 것</b>. 계산은 편해지지만
+실제로 어떻게 미끄러지는지를 못 배운다.</p></blockquote>
+<h3>공정성 검증 — 같은 시간을 줘도 못 따라잡는다</h3>
+<p><i>&quot;B가 2.3배 빠르니 그만큼 더 돌리면 되지 않나?&quot;</i> 를 실측했다.</p>
+<div class="tw"><table><thead><tr><th></th><th>A (300회)</th><th>B (700회)</th></tr></thead><tbody><tr><td>벽시계 시간</td><td>22.07분</td><td><b>24.02분</b> (9% 더 씀)</td></tr><tr><td>보상</td><td><b>13.94</b></td><td>4.80</td></tr><tr><td>에피소드 길이</td><td><b>938.7</b></td><td>605.4</td></tr></tbody></table></div>
+<p><b>→ B는 2.33배 더 돌리고 9% 더 써도 A의 34%에 머문다. 정체됐다. 플래그 봉인 확정.</b></p>
+<h3>학습 곡선 (A)</h3>
+<div class="tw"><table><thead><tr><th>iteration</th><th>보상</th><th>에피소드 길이</th></tr></thead><tbody><tr><td>1</td><td>−0.47</td><td>11.87</td></tr><tr><td>30</td><td>−2.32</td><td>425.53</td></tr><tr><td>193</td><td>+10.78</td><td>983.82</td></tr><tr><td>277</td><td>+13.32</td><td>898.35</td></tr><tr><td>300</td><td><b>+13.94</b></td><td>938.7</td></tr></tbody></table></div>
+<p><b>에피소드 길이가 193→277에서 줄어든 것은 나빠진 게 아니다.</b> 지형 커리큘럼이 <b>로봇을 더 어려운 지형으로 승급</b>시켰기 때문이다 (잘하면 위 행으로, 못하면 아래 행으로. 함수: <code>terrain_levels_vel</code>). 보상은 그 구간에도 계속 올랐다.</p>
+</section>
+<section id="s5"><h2>03. ★ 학습 씬 ≠ 렌더 씬 — 분리 실증 (성공)</h2>
+<p>![warehouse](../assets/visual/03_usdscene_warehouse.png)</p>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>정책</td><td><b>A 정책</b> (회색 절차생성 험지에서 학습한 것)</td></tr><tr><td>씬</td><td><code>Environments/Simple_Warehouse/warehouse.usd</code> — <b>학습에 쓴 적 없는 씬</b></td></tr><tr><td>스크립트</td><td><code>C:\isaac\IsaacLab\play_go2_in_usd.py</code> (NVIDIA 공식 튜토리얼의 Go2판)</td></tr><tr><td>소요</td><td>1.78분 (400 스텝 = 8초)</td></tr><tr><td>영상</td><td><code>assets/video/usdscene_warehouse.mp4</code></td></tr></tbody></table></div>
+<p><b>이것이 증명한 것:</b></p>
+<blockquote><p><b>회색 무텍스처 지형에서 학습한 정책을, 정책 파일만 들고 나와서,
+텍스처와 조명이 있는 완전히 다른 씬에서 걷게 할 수 있다.</b></p></blockquote>
+<p>바닥에 타일 텍스처와 반사가 있고, 배경에 선반과 팔레트가 보인다. 01·02의 회색 지형과 비교하면 시각적 차이가 명백하다.</p>
+<h3>왜 이것이 프로젝트의 주춧돌인가</h3>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>[학습 단계]  회색 무텍스처 · 로봇 4096마리 · 렌더 끔(headless)
+             → 목적: 속도. 예쁠 필요가 0.
+             → 산출물: model.pt (6.9MB)
+
+                        ↓  ★정책만 들고 넘어간다 (여기가 03이 증명한 지점)
+
+[렌더 단계]  로봇 1마리 · 실사 지형 · Path Tracing · 시네마틱 카메라
+             → 목적: 품질. 느려도 됨.</pre></div>
+<p><b>이는 VFX 파이프라인과 같은 구조다</b> — 시뮬레이션 캐시를 굽고, 라이팅·렌더를 따로 한다. 시뮬 단계에서 예쁠 필요가 없다.</p>
+<h3>핵심 코드 (한 줄)</h3>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre>env_cfg.scene.terrain = <span class="f">TerrainImporterCfg</span>(
+    prim_path=<span class="s">&quot;/World/ground&quot;</span>,
+    terrain_type=<span class="s">&quot;usd&quot;</span>,              <span class="c"># ← 절차생성 지형 대신</span>
+    usd_path=<span class="s">&quot;...warehouse.usd&quot;</span>,     <span class="c"># ← USD 파일을 통째로 지형으로</span>
+)</pre></div>
+</section>
+<section id="s6"><h2>04. 같은 방법의 실패 사례 — 사무실 씬</h2>
+<p>![office](../assets/visual/04_usdscene_office_FAILED.png)</p>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>씬</td><td><code>Environments/Office/office.usd</code></td></tr><tr><td>결과</td><td>스크립트는 <b>exit=0으로 정상 종료</b>, mp4도 생성됨. <b>그러나 화면에 로봇이 없다</b></td></tr><tr><td>소요</td><td>5.39분 (warehouse의 3배 — 씬이 무겁다)</td></tr></tbody></table></div>
+<p>화면 대부분이 흰 벽이다. <b>카메라가 벽 안쪽에 박혔거나, 로봇이 벽 안에 스폰됐다.</b></p>
+<h3>여기서 배운 것 — 두 가지</h3>
+<p><b>① USD 씬을 바꾸는 것은 &quot;한 줄&quot;이지만, 씬마다 스폰 위치와 카메라를 맞춰야 한다.</b> warehouse는 원점에 넓은 바닥이 있어 우연히 됐고, office는 원점에 벽이 있다. 실사 지형(3DGS 스캔)을 넣을 때도 같은 작업이 필요하다.</p>
+<p><b>② 이것이 &quot;조용한 실패&quot;의 교과서적 사례다.</b></p>
+<blockquote><p>스크립트는 <b>성공(exit=0)을 보고했고, mp4 파일도 만들었다.</b>
+프레임을 눈으로 보지 않았다면 <b>&quot;사무실 씬도 성공&quot;이라고 보고했을 것이다.</b></p></blockquote>
+<p>커널 원칙 2 — <i>조용한 실패를 소리 나게 만든다.</i> 그리고 원칙 3 — <i>사용자가 겪는 층위에서 확인한다.</i> <b>프레임을 뽑아 본 것이 이 실패를 잡았다.</b></p>
+</section>
+<section id="s7"><h2>부록: 재현 방법</h2>
+<div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">conda</span> activate isaac311
+<span class="f">cd</span> C:\isaac\IsaacLab
+<span class="v">$env:OMNI_KIT_ACCEPT_EULA</span>=<span class="s">&quot;YES&quot;</span>
+
+<span class="c"># 학습한 정책을 원래 지형에서 재생 (영상 저장)</span>
+<span class="c">#   ⚠️ --checkpoint 는 파일명이 아니라 전체 경로를 받는다 (play.py:109)</span>
+<span class="f">python</span> play_go2_win.py <span class="o">--task</span> Isaac-Velocity-Rough-Unitree-Go2-Play-v0 `
+  <span class="o">--num_envs</span> <span class="n">16</span> <span class="o">--headless</span> <span class="o">--video</span> <span class="o">--video_length</span> <span class="n">500</span> `
+  <span class="o">--checkpoint</span> <span class="s">&quot;C:\isaac\IsaacLab\logs\rsl_rl\unitree_go2_rough\2026-08-09_14-00-20\model_299.pt&quot;</span>
+
+<span class="c"># 학습한 정책을 다른 USD 씬에서 재생</span>
+<span class="c">#   ⚠️ 이쪽은 JIT(TorchScript)로 익스포트된 exported/policy.pt 를 받는다</span>
+<span class="f">python</span> play_go2_in_usd.py `
+  <span class="o">--checkpoint</span> <span class="s">&quot;C:\isaac\IsaacLab\logs\rsl_rl\unitree_go2_rough\2026-08-09_14-00-20\exported\policy.pt&quot;</span> `
+  <span class="o">--env_usd</span> <span class="s">&quot;Environments/Simple_Warehouse/warehouse.usd&quot;</span> `
+  <span class="o">--steps</span> <span class="n">400</span> <span class="o">--headless</span> <span class="o">--video</span> <span class="o">--tag</span> warehouse</pre></div>
+<p><b>프레임 추출</b>: <code>scratchpad/frames.py</code> 참조 (OpenCV + <code>imageio_ffmpeg</code> 동봉 ffmpeg).</p>
+</section>
+<section id="s8"><h2>연결</h2>
+<ul><li>수치 정본 → [training-benchmarks.md](training-benchmarks.md)</li><li>아키텍처 결정 → [architecture-decision.md](architecture-decision.md)</li><li>곡선으로 보기 → TensorBoard <code>logs/rsl_rl/unitree_go2_rough</code> (LAN: <code>:6006</code>)</li></ul>
+</section>
+
+</div>
+<script>
+document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('prog').style.width = (p * 100) + '%';
+}, {passive:true});
+/* 복사 버튼 — 코드 블록과 접속 주소 공용 */
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('.copy');
+  if (!b) return;
+  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(function(){
+    var old = b.textContent;
+    b.textContent = '복사됨'; b.classList.add('done');
+    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
+  });
+});
+</script>
+<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+<style>
+#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
+  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
+  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
+  line-height:1.3;white-space:nowrap}
+#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#themeBtn:active{transform:translateY(1px)}
+@media print{#themeBtn{display:none!important}}
+</style>
+<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
+<script>(function(){
+  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
+      mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function apply(t){d.setAttribute('data-theme',t);
+    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
+  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
+  apply(cur());
+  b.addEventListener('click',function(){
+    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
+  mq.addEventListener&&mq.addEventListener('change',function(){
+    if(!localStorage.getItem(K))apply(cur());});
+})();</script>
+
+</body>
+</html>

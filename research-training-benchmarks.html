@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>학습 성능 실측 — Go2 험지 (AI-WS01) · FOOTHOLD</title>
+<meta name="description" content="작성 2026-08-09 · 측정 환경 AI-WS01 (RTX 5080 ×2 · Threadripper 7970X · 256GB RAM · Windows 11)">
+<style>
+:root{
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--dim:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+  --measure:760px;
+  /* ★ --dim / --note 를 연한 배경(--*-soft) 위 글자로 쓰면 대비가 모자란다.
+     실측 --dim on --dim-soft = 4.43 · --note on --note-soft = 3.93 (둘 다 4.5 미달).
+     그런 자리에는 아래 진한 짝을 쓴다. DESIGN.md §2 참조. */
+  --dim-ink:#0b6459;
+  --note-ink:#8a5600;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+    --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+    --rule:#2b323d;--dim:#3ec7b4;--dim-soft:#11302c;
+    --note:#dc9a30;--note-soft:#332710;
+    --stop:#e56d5e;--stop-soft:#331c19;
+    --grid:rgba(233,231,225,.035);
+    /* 어두운 모드에서는 soft 배경이 어두우므로 원래 토큰이 이미 충분히 밝다 */
+    --dim-ink:#3ec7b4;
+    --note-ink:#dc9a30;
+  }
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.75;font-size:15px;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+
+.top{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .row{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:.55rem 1.5rem;
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.top .home{font-size:.72rem;font-weight:700;color:var(--ink-2);text-decoration:none;
+  border:1px solid var(--rule);background:var(--card);padding:.26rem .6rem;border-radius:4px}
+.top .home:hover{border-color:var(--dim);color:var(--dim)}
+.top .doc{font-size:.72rem;color:var(--ink-3);letter-spacing:.02em}
+.top .sp{flex:1}
+.pdfbtn{background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.26rem .6rem;font-family:inherit;font-size:.66rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer;border-radius:4px;transition:.15s;line-height:1.3}
+.pdfbtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--dim);width:0;transition:width .12s}
+
+.wrap{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:2.2rem 1.5rem 5rem}
+
+.hero{padding-bottom:1.6rem;border-bottom:2px solid var(--ink);margin-bottom:1.8rem}
+.eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:.5rem}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin-bottom:.7rem}
+.lede{font-size:1rem;color:var(--ink-2);max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:.35rem 1.6rem;margin-top:1rem;font-size:.72rem}
+.meta .k{color:var(--ink-3);margin-right:.4rem}
+.meta .v{color:var(--ink-2);font-weight:700}
+
+section{margin-top:2.6rem}
+h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem;
+  border-bottom:1px solid var(--rule);margin-bottom:1rem}
+h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
+h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
+p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+ul,ol{margin:.6rem 0 .6rem 1.2rem}
+li{margin:.24rem 0;word-break:keep-all}
+b{font-weight:800}
+a{color:var(--dim)}
+code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
+  border:1px solid var(--rule);padding:.05rem .28rem;border-radius:3px;word-break:break-all}
+.vlink{font-size:.82em;color:var(--ink-3);background:var(--paper-2);border:1px solid var(--rule);
+  padding:.02rem .32rem;border-radius:3px}
+.vlink i{font-style:normal;opacity:.75}
+blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.7rem .95rem;
+  margin:1rem 0;font-size:.88rem;color:var(--ink-2)}
+blockquote p{margin:.25rem 0}
+blockquote b{color:var(--ink)}
+
+/* 표 — 모바일에서 가로 스크롤 (DESIGN.md §5) */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
+th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
+  word-break:keep-all}
+th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
+  letter-spacing:.04em;border-bottom:none}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--paper-2)}
+
+/* 코드 블록 + 복사 버튼 */
+.cb{margin:1rem 0;border:1px solid var(--rule);background:#0f141b}
+.cb-h{display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;background:#1a212b;
+  border-bottom:1px solid #2b323d;font-size:.62rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:#7d8693}
+.cb-h .copy{margin-left:auto;background:#232b36;border:1px solid #39424f;color:#c8cfd8;
+  font-family:inherit;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:.16rem .5rem;
+  border-radius:3px;cursor:pointer;transition:.14s}
+.cb-h .copy:hover{background:var(--dim);border-color:var(--dim);color:#fff}
+.cb-h .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+.cb pre{margin:0;padding:.75rem .85rem;overflow-x:auto;color:#dfe4ea;
+  font-family:'Consolas','D2Coding',monospace;font-size:.76rem;line-height:1.7}
+.cb pre .c{color:#6f7a88}
+
+/* ── 표지 아래 요약 카드 ── */
+.pin{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.6rem 0 .4rem}
+@media (max-width:640px){.pin{grid-template-columns:1fr}}
+.pin>div{border:1px solid var(--rule);background:var(--card);padding:.85rem .95rem}
+.pin .lab{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:.4rem}
+.pin.hot>div{border-color:var(--note);background:var(--note-soft)}
+.big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
+  color:var(--dim-ink);word-break:break-all}
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다 — 눈에 띄게 */
+section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
+section .addr .big{font-size:1.2rem}
+.addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
+.addr .copy{background:var(--card);border:1px solid var(--dim);color:var(--dim);
+  font-family:inherit;font-size:.64rem;font-weight:800;letter-spacing:.06em;
+  padding:.16rem .5rem;border-radius:3px;cursor:pointer;transition:.14s}
+.addr .copy:hover{background:var(--dim);color:#fff}
+.addr .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+
+/* ── 도구 4종 역할 구분 (팀원이 가장 헷갈리는 것) ── */
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1.2rem 0}
+@media (max-width:820px){.tools{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.tools{grid-template-columns:1fr}}
+.tool{border:1px solid var(--rule);background:var(--card);padding:.85rem .8rem;display:flex;
+  flex-direction:column;gap:.35rem}
+.tool.pick{border:2px solid var(--dim);background:var(--dim-soft)}
+.tool .n{font-size:.6rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3)}
+.tool .t{font-size:.95rem;font-weight:800;line-height:1.3}
+.tool.pick .t{color:var(--dim-ink)}
+.tool .q{font-size:.76rem;color:var(--ink-2);flex:1}
+.tool .f{font-size:.68rem;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:.35rem;
+  margin-top:.2rem;line-height:1.6}
+.tool .f b{color:var(--ink-2)}
+.tool .badge{display:inline-block;font-size:.6rem;font-weight:800;padding:.08rem .35rem;
+  border-radius:2px;background:var(--dim);color:#fff;letter-spacing:.04em}
+.tool .badge.warn{background:var(--note)}
+.tool .badge.off{background:var(--ink-3)}
+
+/* ── 경고 박스 (프로세스 정리) ── */
+.warnbox{border:2px solid var(--note);background:var(--note-soft);padding:1rem 1.1rem;margin:1.2rem 0}
+.warnbox .wh{font-size:.95rem;font-weight:800;color:var(--note-ink);margin-bottom:.5rem}
+.warnbox .line{font-size:.92rem;font-weight:800;color:var(--ink);margin:.4rem 0}
+.warnbox p{font-size:.84rem;color:var(--ink-2)}
+
+/* 공개 페이지에서 가려진 값 안내 */
+.redacted-note{display:block;font-size:.72rem;color:var(--ink-3);margin-top:.35rem;
+  font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
+.redacted-note b{color:var(--note-ink)}
+
+/* 미확인 표시 — 확정처럼 읽히면 안 된다 */
+.unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
+  background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
+  vertical-align:.08em;margin-right:.3rem}
+
+@media print{
+  @page{size:A4 portrait;margin:14mm 12mm}
+  html{font-size:10.5px}
+  body{background:var(--card)!important;background-image:none!important}
+  .top,.pdfbtn,.copy{display:none!important}
+  .wrap{max-width:none;padding:0}
+  section{break-inside:auto;margin-top:1.4rem}
+  h2,h3{break-after:avoid}
+  .tw,.cb,blockquote,.tool,.warnbox,.pin>div{break-inside:avoid;page-break-inside:avoid}
+  .tools,.pin{display:block}
+  .tool,.pin>div{margin-bottom:.5rem}
+  .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
+  .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
+  .cb pre{color:var(--ink)!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre .c{color:#666!important}
+  a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ── 코드 문법 강조 ──
+   실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
+.cb pre .c{color:#6f7a88;font-style:italic}   /* 주석 */
+.cb pre .k{color:#5eb0ef;font-weight:700}     /* 키워드 */
+.cb pre .f{color:#f0c674}                     /* 명령 · 함수 */
+.cb pre .b{color:#c39ac9}                     /* 파이썬 내장 */
+.cb pre .s{color:#9ece6a}                     /* 문자열 */
+.cb pre .n{color:#e59f6a}                     /* 숫자 */
+.cb pre .v{color:#7ee0d0}                     /* 변수 */
+.cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
+@media print{
+  /* 종이에서는 색이 안 나올 수 있다 — 굵기·기울기로도 구분되게 */
+  .cb pre .c{color:#777!important;font-style:italic}
+  .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
+  .cb pre .s{color:#2a6b2a!important}
+  .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
+}
+
+.ev{display:inline-block;padding:.05rem .4rem;border-radius:3px;font-size:.68rem;
+  font-weight:800;letter-spacing:.04em;vertical-align:.06em;white-space:nowrap;
+  border:1px solid transparent}
+.ev-ok{background:var(--dim-soft);color:var(--dim);border-color:var(--dim)}
+.ev-guess{background:var(--note-soft);color:var(--note);border-color:var(--note)}
+.ev-todo{background:var(--paper-2);color:var(--ink-3);border-color:var(--rule)}
+.evlegend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;font-size:.72rem;color:var(--ink-3)}
+.rcards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:18px 0}
+.rcard{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;padding:14px 16px}
+.rcard:hover{border-color:var(--dim)}
+.rcard .rt{font-weight:800;font-size:1rem;margin:.2rem 0 .35rem}
+.rcard .rd{font-size:.8rem;color:var(--ink-2);line-height:1.55}
+.rcard .rm{font-size:.7rem;color:var(--ink-3);margin-top:.5rem;letter-spacing:.04em}
+</style>
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
+</head>
+<body>
+
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">FOOTHOLD · 연구 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">Research · 근거 기록</div>
+  <h1>학습 성능 실측 — Go2 험지 (AI-WS01)</h1>
+  <p class="lede">작성 2026-08-09 · 측정 환경 AI-WS01 (RTX 5080 ×2 · Threadripper 7970X · 256GB RAM · Windows 11)</p>
+  <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / training-benchmarks.md</span></div><div><span class="k">증거</span><span class="v">확인 2 · 추측 0 · 미측정 0</span></div></div>
+  <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
+</div>
+
+<blockquote><p>작성 2026-08-09 · 측정 환경 <b>AI-WS01</b> (RTX 5080 ×2 · Threadripper 7970X · 256GB RAM · Windows 11)
+성격: <b>웹 조사가 아니라 이 기계에서 실제로 돌린 숫자.</b> 전부 로그에서 추출.
+관련: [<code>SETUP_GUIDE</code>](../../../02_team/SETUP_GUIDE.md) · <code>cloud-gpu-options.md</code> · <code>ros2-isaacsim-integration.md</code></p></blockquote>
+</section>
+<section id="s1"><h2>0. 세 줄</h2>
+<ol><li><b>험지 학습 처리 속도 = 약 23,000 steps/s</b> (4096 envs, RTX 5080 1장). 1 iteration 4.17초. <b>1,500 iteration 완주 = 약 104분.</b></li><li><b>🔴 <code>collisionApproximateCylinders=true</code> 플래그는 봉인한다.</b> 속도는 2.4배 오르지만 <b>같은 시간을 줘도(B 700회 24분 vs A 300회 22분) A의 34%(보상 4.80 vs 13.94)에 그치고 정체된다.</b> 느린 게 아니라 <b>물리가 달라져 도달 상한이 낮아진 것</b>이다. 시드 고정 후 3회 측정으로 확정.</li><li><b>학습은 실제로 된다</b> — 300 iteration에 보상 −0.47 → <b>+13.94</b>, 에피소드 길이 11.87 → <b>938.7 step</b>(최대 1000의 93.9% = 18.8초 생존).</li></ol>
+</section>
+<section id="s2"><h2>1. 측정 조건 (재현용)</h2>
+<div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">conda</span> activate isaac311
+<span class="f">cd</span> C:\isaac\IsaacLab
+<span class="v">$env:OMNI_KIT_ACCEPT_EULA</span>=<span class="s">&quot;YES&quot;</span>
+
+<span class="f">python</span> train_go2_win.py <span class="o">--task</span> Isaac-Velocity-Rough-Unitree-Go2-v0 `
+    <span class="o">--num_envs</span> <span class="n">4096</span> <span class="o">--max_iterations</span> <span class="n">300</span> <span class="o">--seed</span> <span class="n">42</span> <span class="o">--headless</span></pre></div>
+<p>※ <code>train_go2_win.py</code> = Windows 우회 래퍼(네이티브 확장 선점 import). <code>SETUP_GUIDE</code> §5 참조.</p>
+<p><b>환경 설정 (실제 파일에서 확인)</b></p>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th><th>파일</th></tr></thead><tbody><tr><td><code>num_steps_per_env</code></td><td><b>24</b></td><td><code>.../go2/agents/rsl_rl_ppo_cfg.py:13</code></td></tr><tr><td><code>max_iterations</code> (기본)</td><td><b>1500</b></td><td>같은 파일 <code>:14</code> — NVIDIA 기본값, 변경 가능</td></tr><tr><td><code>sim.dt</code></td><td><b>0.005초</b> (200Hz)</td><td><code>velocity_env_cfg.py:311</code></td></tr><tr><td><code>decimation</code></td><td><b>4</b> → 정책 <b>50Hz</b></td><td><code>:308</code></td></tr><tr><td><code>episode_length_s</code></td><td><b>20.0초</b> → 최대 <b>1000 step</b></td><td><code>:309</code></td></tr><tr><td>지형</td><td>8m×8m 타일 <b>10행 × 20열 = 200개</b></td><td><code>terrains/config/rough.py</code></td></tr></tbody></table></div>
+<p><b>단위 환산</b></p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>1 step        = 물리 4틱 = 0.02초 (정책 1회 명령)
+1 iteration   = 4096 envs × 24 step = 98,304 env-steps
+              = 로봇 1대 기준 32.8분치 경험
+에피소드 최대 = 20초 = 1000 step</pre></div>
+</section>
+<section id="s3"><h2>2. ★ 플래그 A/B — <code>collisionApproximateCylinders</code></h2>
+<p><b>배경</b>: 사전조사에서 <i>&quot;Go2 험지가 평지 대비 6배 느리다. 원인은 다리 실린더 콜리전. 우회 플래그 있음&quot;</i>으로 나왔으나 <b>미검증 상태</b>였다.</p>
+<div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># B 조건에만 추가</span>
+<span class="o">--kit_args</span>=<span class="s">&quot;--/physics/collisionApproximateCylinders=true&quot;</span></pre></div>
+<h3>1차 측정 (30 iteration, ⚠️ <b>시드 미고정</b>)</h3>
+<div class="tw"><table><thead><tr><th></th><th>A (플래그 없음)</th><th>B (플래그 있음)</th><th>차이</th></tr></thead><tbody><tr><td><b>처리 속도</b></td><td>23,591 steps/s</td><td><b>53,141 steps/s</b></td><td><b>+125%</b></td></tr><tr><td>iteration 1회</td><td>4.17초</td><td><b>1.85초</b></td><td>−56%</td></tr><tr><td>벽시계 (30 iter)</td><td>2.64분</td><td>1.43분</td><td></td></tr><tr><td>샘플 수</td><td>28 (워밍업 2회 제외)</td><td>28</td><td></td></tr><tr><td>범위</td><td>21,602 ~ 24,740</td><td>44,656 ~ 60,342</td><td><b>겹치지 않음</b></td></tr><tr><td>학습 총량</td><td>2,949,120</td><td>2,949,120</td><td>동일</td></tr><tr><td>마지막 평균 보상</td><td>−2.32</td><td>−2.49</td><td></td></tr><tr><td><b>마지막 평균 에피소드 길이</b></td><td><b>425.53 step</b></td><td><b>212.82 step</b></td><td>⚠️ <b>절반</b></td></tr></tbody></table></div>
+<h3>★★ 2차 측정 (300 iteration, <b>시드 42 고정</b>) — 결론</h3>
+<div class="tw"><table><thead><tr><th></th><th><b>A (플래그 없음)</b></th><th><b>B (플래그 있음)</b></th></tr></thead><tbody><tr><td>벽시계</td><td>22.07분</td><td><b>9.48분</b> (2.33배)</td></tr><tr><td>처리 속도</td><td>22,867 steps/s</td><td><b>54,898 steps/s</b> (2.40배)</td></tr><tr><td><b>마지막 20회 평균 보상</b></td><td><b>13.94</b></td><td><b>3.54</b></td></tr><tr><td><b>마지막 20회 평균 에피소드 길이</b></td><td><b>938.7 step</b> (93.9% · 18.8초)</td><td><b>551.1 step</b> (55.1% · 11.0초)</td></tr><tr><td>첫 보상 / 첫 에피길이</td><td>−0.47 / 11.87</td><td>−0.45 / 11.87 (동일 출발)</td></tr></tbody></table></div>
+<blockquote><p>### 🔴 결론: <b>플래그는 공짜가 아니다</b>
+<b>시드를 똑같이 고정했는데도 차이가 크다.</b> 1차의 &quot;에피소드 절반&quot;은 우연이 아니었다.
+<b>같은 300번을 갱신했는데 B는 보상이 A의 1/4, 버티는 시간이 절반</b>이다.
+→ <b>속도 2.4배를 얻는 대신 학습 품질을 크게 잃는다.</b></p></blockquote>
+<p><b>원인 가설(미검증)</b>: 플래그가 Go2 정강이의 <b>원통 콜리전을 근사</b>하므로 접촉 형상이 달라진다. 발이 지형에 걸리거나 미끄러지는 양상이 바뀌어 로봇이 더 자주 넘어진다.</p>
+<h3>★★★ 3차 — 같은 벽시계 시간을 B에게 줬다 (공정 비교) <span class="ev ev-ok">확인됨</span></h3>
+<p>&quot;B는 2.3배 빠르니 같은 시간에 더 많이 돌면 따라잡지 않을까?&quot; 를 검증했다.</p>
+<div class="tw"><table><thead><tr><th></th><th><b>A (플래그 없음)</b></th><th><b>B (플래그 있음)</b></th></tr></thead><tbody><tr><td>iteration</td><td><b>300회</b></td><td><b>700회</b> (2.33배 더 많이)</td></tr><tr><td>벽시계</td><td>22.07분</td><td><b>24.02분</b> (9% 더 오래 씀)</td></tr><tr><td>steps/s</td><td>22,867</td><td>49,114</td></tr><tr><td><b>최종 보상</b></td><td><b>13.94</b></td><td><b>4.80</b> ← A의 <b>34%</b></td></tr><tr><td><b>최종 에피소드 길이</b></td><td><b>938.7 step</b> (18.8초)</td><td><b>605.4 step</b> (12.1초)</td></tr></tbody></table></div>
+<p><b>B의 진행 곡선 — 정체가 명확하다</b></p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>B  300 iteration : 보상 3.52 / 에피길이 533.92
+B  700 iteration : 보상 4.76 / 에피길이 604.28
+   → 400번을 더 돌렸는데 보상 +1.24, 에피길이 +70 에 그침</pre></div>
+<p>A는 300번 만에 13.94에 도달했다. <b>B는 더 돌린다고 따라잡을 곡선이 아니다.</b></p>
+<blockquote><p>## 🔴 최종 판정: <b>플래그를 봉인한다</b>
+이건 <i>&quot;느리게 배우는 것&quot;</i>이 아니라 <b>다른(망가진) 물리에서 배우는 것</b>이다.
+원통 콜리전을 근사하면서 접촉이 부정확해졌고, <b>로봇이 도달할 수 있는 상한 자체가 낮아졌다.</b>
+<b>속도 2.4배는 실재하지만, 그 속도로 도달하는 곳이 다르다.</b></p></blockquote>
+<p><i>(부수 관찰: 700회 실행에서 49,114 steps/s 로 300회 때(54,898)보다 떨어졌다. 커리큘럼이 어려운 지형으로 승급하며 충돌 계산이 늘어난 것으로 <b>추정</b>된다 — 미검증.)</i></p>
+<h3>실무 권고 — 확정</h3>
+<div class="tw"><table><thead><tr><th>상황</th><th>권고</th></tr></thead><tbody><tr><td><b>모든 학습</b></td><td>🔴 <b>플래그를 쓰지 않는다.</b> 속도 이득보다 품질 손실이 훨씬 크다</td></tr><tr><td>사전학습 체크포인트와 비교</td><td><b>특히 금지</b> — 그 체크포인트는 기본 물리로 학습됐다. 켜고 비교하면 사과와 오렌지</td></tr><tr><td>&quot;험지가 느리다&quot;는 문제</td><td><b>다른 해법을 찾아야 한다.</b> 이 플래그는 답이 아니었다</td></tr></tbody></table></div>
+<p><b>→ <code>SETUP_GUIDE</code> §9의 &quot;미검증 플래그&quot; 항목은 이것으로 해소됐다. 결론: 쓰지 않는다.</b></p>
+<h3>실무 함의 (속도만 놓고 보면)</h3>
+<div class="tw"><table><thead><tr><th></th><th>1,500 iteration 학습 시간</th><th>하루(8시간) 가능 횟수</th></tr></thead><tbody><tr><td>A</td><td><b>104분</b></td><td>약 4~5회</td></tr><tr><td>B</td><td><b>46분</b></td><td>약 10회</td></tr></tbody></table></div>
+<blockquote><p>⚠️ <b>단 GPU 처리량이 병목이 아니다.</b> 1 사이클 = 학습(46~104분) + 결과 판독(15분) + 판단(30분) + 수정(15분).
+<b>사람의 판단이 병목</b>이므로 실질 사이클은 하루 4~5회다.</p></blockquote>
+</section>
+<section id="s4"><h2>3. 학습이 실제로 되는가 — 진행 곡선</h2>
+<p><b>같은 실행(A 조건, 시드 42) 안에서의 변화:</b></p>
+<div class="tw"><table><thead><tr><th>iteration</th><th>Mean reward</th><th>Mean episode length</th><th>최대 대비</th><th>실제 생존</th></tr></thead><tbody><tr><td>1</td><td>−0.47</td><td>11.87 step</td><td>1.2%</td><td>0.24초</td></tr><tr><td>30</td><td><b>−2.32</b></td><td>425.53 step</td><td>42.6%</td><td>8.5초</td></tr><tr><td>193</td><td>+10.78</td><td>983.82 step</td><td>98.4%</td><td>19.7초</td></tr><tr><td>277</td><td>+13.32</td><td>898.35 step</td><td>89.8%</td><td>18.0초</td></tr><tr><td><b>300</b></td><td><b>+13.94</b></td><td><b>938.7 step</b></td><td><b>93.9%</b></td><td><b>18.8초</b></td></tr></tbody></table></div>
+<blockquote><p>⚠️ <b>193 → 277에서 에피소드 길이가 내려간 것은 나쁜 신호가 아니다.</b>
+Isaac Lab은 <b>지형 커리큘럼</b>을 쓴다 — 로봇이 잘하면 <b>더 어려운 지형으로 승급</b>시킨다.
+그래서 <b>보상은 오르는데 에피소드 길이는 출렁이는 것이 정상</b>이다. 어려운 데 가서 다시 넘어지기 때문이다.</p></blockquote>
+<p><b>읽는 법</b></p>
+<ul><li><b>보상이 음수 → 양수로 넘어갔다.</b> 음수는 <i>&quot;벌이 상보다 크다&quot;</i> = 아직 못 걷는다. 양수는 걷는다는 뜻</li><li><b>에피소드 길이 983.82 / 1000</b> = 20초 중 19.7초를 버틴다. 거의 안 넘어진다</li><li>30 iteration일 때 −2.32였던 건 <b>정상</b>이다. <code>train.py</code>는 사전학습 체크포인트를 쓰지 않고 <b>랜덤 초기화에서 시작</b>한다</li></ul>
+<blockquote><p>⚠️ <b>혼동 주의</b>: <code>play.py --use_pretrained_checkpoint</code>로 보는 영상은 <b>NVIDIA가 1,500 iteration 완주시킨 정책</b>이다.
+<code>train.py</code>는 <b>처음부터</b> 배운다. 둘은 다른 실험이다.</p></blockquote>
+</section>
+<section id="s5"><h2>4. 보상 설계 — 우리가 실제로 건드릴 곳</h2>
+<p><b>위치</b>: <code>source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_cfg.py</code> 의 <code>class RewardsCfg</code></p>
+<div class="tw"><table><thead><tr><th>항목</th><th>가중치</th><th>뜻</th></tr></thead><tbody><tr><td><code>track_lin_vel_xy_exp</code></td><td><b>+1.0</b></td><td>명령한 속도대로 감 — <b>가장 큰 상</b></td></tr><tr><td><code>track_ang_vel_z_exp</code></td><td><b>+0.5</b></td><td>명령한 회전대로 함</td></tr><tr><td><code>feet_air_time</code></td><td><b>+0.125</b></td><td>발을 적절히 공중에 띄움 (질질 끌기 방지)</td></tr><tr><td><code>lin_vel_z_l2</code></td><td><b>−2.0</b></td><td>위아래로 튐 — <b>가장 큰 벌</b></td></tr><tr><td><code>undesired_contacts</code></td><td><b>−1.0</b></td><td>발 아닌 부위가 땅에 닿음 (무릎·몸통)</td></tr><tr><td><code>ang_vel_xy_l2</code></td><td>−0.05</td><td>좌우로 기우뚱</td></tr><tr><td><code>action_rate_l2</code></td><td>−0.01</td><td>명령이 급변 (덜덜 떨기 방지)</td></tr><tr><td><code>dof_torques_l2</code></td><td>−1.0e-5</td><td>관절 힘 소모</td></tr><tr><td><code>dof_acc_l2</code></td><td>−2.5e-7</td><td>관절 가속</td></tr><tr><td><code>flat_orientation_l2</code> / <code>dof_pos_limits</code></td><td>0.0</td><td>험지에선 꺼둠</td></tr></tbody></table></div>
+<p><b>출처</b>: NVIDIA Isaac Lab 기본값. 계보는 Rudin et al. 2021 legged_gym.</p>
+<blockquote><p>⚠️ <b>한 번에 하나씩만 바꿀 것.</b> NVIDIA 본인들도 평지→험지 전환에 <b>7곳을 연동 변경</b>했고
+그중 <code>feet_air_time</code>은 <b>0.01 → 0.25로 25배</b> 바뀌었다. 여러 개를 동시에 바꾸면 무엇 때문인지 알 수 없다.</p></blockquote>
+<p><b>&quot;Mean reward&quot;의 정의</b> (rsl_rl 소스 확인): 에피소드 하나가 끝날 때 그동안 받은 보상을 <b>전부 더한 값(총점)</b>을 기록하고, <b>최근 100개 에피소드 총점의 평균</b>을 표시한다. 스텝당 평균이 아니다.</p>
+</section>
+<section id="s6"><h2>5. 멀티 GPU — ❌ <b>판정 완료: Windows 에서는 구조적으로 불가</b> <span class="ev ev-ok">확인됨</span></h2>
+<ul><li><b>RTX 50 시리즈에는 NVLink가 없다.</b> 실측 확인: Isaac Sim 기동 로그에 <code>CUDA peer access: Not supported</code></li><li>→ <b>VRAM 16+16=32GB로 합쳐지지 않는다.</b> 각 GPU는 여전히 16GB</li><li><code>train.py</code> 에 <code>--distributed</code> 플래그는 실재한다(<code>:31</code>)</li></ul>
+<h3>실측 (2026-08-11)</h3>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>python -m torch.distributed.run --nnodes=1 --nproc_per_node=2 train_go2_win.py --distributed ...</pre></div>
+<div class="tw"><table><thead><tr><th>시도</th><th>결과</th></tr></thead><tbody><tr><td>1차</td><td><code>torch.distributed.DistStoreError: use_libuv was requested but PyTorch was built without libuv support</code></td></tr><tr><td>2차 (<code>USE_LIBUV=0</code>)</td><td>같은 오류 — 표면 증상이었다</td></tr><tr><td><b>근본 원인 확인</b></td><td><code>torch.distributed.is_nccl_available()</code> → <b><code>False</code></b></td></tr></tbody></table></div>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>torch      : 2.7.0+cu128
+GPU 개수   : 2
+NCCL 사용가능 : False      ← ★ 이것이 판정
+gloo 사용가능 : True</pre></div>
+<blockquote><p>### <b>PyTorch Windows 빌드에는 NCCL 이 들어가지 않는다.</b>
+NCCL 은 GPU 끼리 직접 데이터를 주고받는 라이브러리이고, DDP GPU 학습은 이것이 있어야 한다.
+<code>gloo</code> 는 대체재지만 CPU 를 거쳐서 GPU 학습용으로는 쓰지 못한다.</p></blockquote>
+<h3>앞선 추론에 대한 정정</h3>
+<p>이전 판(v1)에 <i>&quot;구조적으로 유리할 것으로 보인다 — 교환할 것은 gradient뿐인데 학습이 0.14초, 시뮬이 4초다&quot;</i> 라고 적었다. <b>그 추론 자체는 여전히 타당하지만, Windows 에서는 시험할 수조차 없다.</b> <b>추론을 실측이 대체한 것이 아니라, 실측이 &quot;시험 불가&quot;를 확정했다.</b></p>
+<h3>이것이 뜻하는 것</h3>
+<div class="tw"><table><thead><tr><th></th><th>Windows</th><th>Ubuntu</th></tr></thead><tbody><tr><td>GPU 1장 학습</td><td>✅ 실측 22.07분/300 iter</td><td>✅</td></tr><tr><td><b>GPU 2장 DDP</b></td><td>❌ <b>불가</b></td><td>✅ (미측정)</td></tr><tr><td>GPU 2장에 <b>서로 다른 학습 2개</b></td><td>✅ 가능 (<code>--device cuda:0</code> / <code>cuda:1</code>)</td><td>✅</td></tr></tbody></table></div>
+<blockquote><p><b>두 번째 5080 은 지금 &quot;1개 학습을 2배 빠르게&quot;에는 못 쓴다. &quot;다른 실험을 동시에&quot;에는 쓸 수 있다.</b>
+우분투 전환이 «하면 좋은 것»에서 «안 하면 장비 절반이 노는 것»으로 바뀌었다.
+DDP 실측은 우분투 전환 후로 이월한다.</p></blockquote>
+</section>
+<section id="s7"><h2>5-2. ★ 평가 파이프라인 v1 — 첫 착수와 그 과정에서 잡은 함정 3개</h2>
+<p><code>C:\isaac\IsaacLab\eval_go2.py</code> (2026-08-11 신설)</p>
+<p><b>목적</b>: 지금까지 «보상 13.94» 같은 학습 지표만 있었다. 그건 <i>학습이 잘 됐다</i>는 뜻이지 <b>로봇이 실제로 목적을 달성하는가</b>를 말해주지 않는다.</p>
+<p><b>성공 정의 (임시안 v1)</b>: ① 전진 10m 이상 ② 넘어짐 없음 ③ 제한시간(20초) 내 → CSV 헤더 주석에 명시한다. 정의가 바뀌면 CSV 도 같이 바뀌게.</p>
+<h3>함정 ① Isaac Sim Kit 은 stdout 을 가로챈다</h3>
+<p><code>print()</code> 가 로그 파일에 <b>하나도 남지 않는다.</b> 스크립트는 정상 종료(exit=0)하고 CSV 도 쓰는데 화면에는 아무것도 없다. <b>&quot;화면에 안 보이는 것&quot;과 &quot;실행되지 않은 것&quot;이 구분되지 않는다.</b> → <b>진단은 반드시 파일로 쓴다.</b></p>
+<h3>함정 ② 평가 조건을 학습 조건과 다르게 만들면 정책이 얼어붙는다</h3>
+<p>명령을 «전진 1.0 m/s 고정»으로 두려고 <code>heading_command=False</code>, <code>resampling_time_range=(1e6,1e6)</code> 로 바꿨더니 <b>로봇이 20초 내내 미동도 하지 않았다</b>(실제 vx = −0.00, 이동 0.59m). 기본 랜덤 명령으로 두면 4.80m 를 갔다.</p>
+<p><b>학습 원본 설정</b>(<code>velocity_env_cfg.py:94</code>):</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>lin_vel_x (-1,1) · lin_vel_y (-1,1) · ang_vel_z (-1,1) · heading (-π,π)
+heading_command=True · rel_standing_envs=0.02 · resampling_time_range=(10,10)</pre></div>
+<p>→ <b>평가는 학습 분포에서 최소한만 벗어나야 한다.</b> 지금은 <code>lin_vel_x</code> 범위와 <code>rel_standing_envs</code> 만 바꾼다.</p>
+<h3>함정 ③ ★ PLAY 설정은 로봇을 랜덤 난이도 지형에 떨어뜨린다</h3>
+<p><code>UnitreeGo2RoughEnvCfg_PLAY</code> 는 <code>max_init_terrain_level=None</code> + <code>curriculum=False</code> 다. 진단에서 실제로 이런 스폰이 나왔다:</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>루트 위치 z = -0.187          ← 지면 아래
+중력[6:9] = [0.294, 0.255, -0.921]   → 기울기 22.9도
+명령[9:12] = [1.0, 0.0, 0.321]       ← 명령은 정상 전달됨</pre></div>
+<p><b>로봇이 지형에 파묻힌 채 기울어져 시작한다.</b> 그 에피소드는 <b>정책 실력과 무관하게 0m 로 기록된다.</b> → 평가에서는 <code>max_init_terrain_level</code> 을 <b>고정한다</b>(<code>--level</code>). 평가의 생명은 일관성이다.</p>
+<h3>진단 코드 자신의 버그도 하나 잡았다</h3>
+<p>관측 인덱스를 <code>6:9</code> 가 명령이라고 가정했는데 <b>거기는 <code>projected_gravity</code></b> 였다. 정확한 배치:</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>0:3    base_lin_vel        3:6    base_ang_vel
+6:9    projected_gravity   9:12   velocity_commands   ← 명령은 여기
+12:24  joint_pos          24:36   joint_vel
+36:48  actions            48:235  height_scan (187)</pre></div>
+<p><b><code>height_scan</code> 187 의 정체</b> (<code>velocity_env_cfg.py:66</code>):</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>격자 1.6m × 1.0m · 해상도 0.1m → x축 17점 × y축 11점 = 187점
+몸통 20m 위에서 아래로 광선을 쏴 지면까지 거리를 잰다 (ray_alignment=&quot;yaw&quot;)
+관측에 넣을 때 ±0.1m 노이즈 + (-1,1) clip</pre></div>
+</section>
+<section id="s8"><h2>6. 미확인 / 다음 측정</h2>
+<div class="tw"><table><thead><tr><th>항목</th><th>상태</th></tr></thead><tbody><tr><td><s>300 iteration 시드 고정 A/B</s></td><td>✅ <b>완료</b> (§2)</td></tr><tr><td><s>플래그가 물리를 바꾸는가</s></td><td>✅ <b>판정 완료 — 바꾼다. 봉인</b> (§2 3차)</td></tr><tr><td><b>GPU 2장 DDP 효과</b></td><td><b>미측정</b> ← 다음</td></tr><tr><td>1,500 iteration 완주 실측</td><td>미측정 (추정 약 104분)</td></tr><tr><td>GUI 모드 렌더 성능 (Path Tracing)</td><td>미측정</td></tr><tr><td>700회에서 steps/s가 떨어진 이유</td><td>추정만 (커리큘럼 승급 → 충돌 증가)</td></tr><tr><td>평가 파이프라인 (100 에피소드 CSV)</td><td>미착수</td></tr></tbody></table></div>
+</section>
+<section id="s9"><h2>변경 이력</h2>
+<ul><li>2026-08-09 v1: 플래그 A/B 1차(30 iter) + 학습 진행 곡선(193 iter) 기록. 300 iter 재측정 진행 중.</li></ul>
+</section>
+
+</div>
+<script>
+document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('prog').style.width = (p * 100) + '%';
+}, {passive:true});
+/* 복사 버튼 — 코드 블록과 접속 주소 공용 */
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('.copy');
+  if (!b) return;
+  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(function(){
+    var old = b.textContent;
+    b.textContent = '복사됨'; b.classList.add('done');
+    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
+  });
+});
+</script>
+<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+<style>
+#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
+  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
+  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
+  line-height:1.3;white-space:nowrap}
+#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#themeBtn:active{transform:translateY(1px)}
+@media print{#themeBtn{display:none!important}}
+</style>
+<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
+<script>(function(){
+  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
+      mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function apply(t){d.setAttribute('data-theme',t);
+    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
+  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
+  apply(cur());
+  b.addEventListener('click',function(){
+    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
+  mq.addEventListener&&mq.addEventListener('change',function(){
+    if(!localStorage.getItem(K))apply(cur());});
+})();</script>
+
+</body>
+</html>

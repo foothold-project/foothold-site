@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>클라우드 GPU에서 Isaac Sim 돌리기 — 가능성 조사 · FOOTHOLD</title>
+<meta name="description" content="작성 2026-08-08 · 방법: NVIDIA 공식 문서·포럼·NGC 카탈로그·GitHub 이슈 직접 확인 · 상태: 코덱스 교차검증 대기">
+<style>
+:root{
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--dim:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+  --measure:760px;
+  /* ★ --dim / --note 를 연한 배경(--*-soft) 위 글자로 쓰면 대비가 모자란다.
+     실측 --dim on --dim-soft = 4.43 · --note on --note-soft = 3.93 (둘 다 4.5 미달).
+     그런 자리에는 아래 진한 짝을 쓴다. DESIGN.md §2 참조. */
+  --dim-ink:#0b6459;
+  --note-ink:#8a5600;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+    --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+    --rule:#2b323d;--dim:#3ec7b4;--dim-soft:#11302c;
+    --note:#dc9a30;--note-soft:#332710;
+    --stop:#e56d5e;--stop-soft:#331c19;
+    --grid:rgba(233,231,225,.035);
+    /* 어두운 모드에서는 soft 배경이 어두우므로 원래 토큰이 이미 충분히 밝다 */
+    --dim-ink:#3ec7b4;
+    --note-ink:#dc9a30;
+  }
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.75;font-size:15px;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+
+.top{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .row{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:.55rem 1.5rem;
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.top .home{font-size:.72rem;font-weight:700;color:var(--ink-2);text-decoration:none;
+  border:1px solid var(--rule);background:var(--card);padding:.26rem .6rem;border-radius:4px}
+.top .home:hover{border-color:var(--dim);color:var(--dim)}
+.top .doc{font-size:.72rem;color:var(--ink-3);letter-spacing:.02em}
+.top .sp{flex:1}
+.pdfbtn{background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.26rem .6rem;font-family:inherit;font-size:.66rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer;border-radius:4px;transition:.15s;line-height:1.3}
+.pdfbtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--dim);width:0;transition:width .12s}
+
+.wrap{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:2.2rem 1.5rem 5rem}
+
+.hero{padding-bottom:1.6rem;border-bottom:2px solid var(--ink);margin-bottom:1.8rem}
+.eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:.5rem}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin-bottom:.7rem}
+.lede{font-size:1rem;color:var(--ink-2);max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:.35rem 1.6rem;margin-top:1rem;font-size:.72rem}
+.meta .k{color:var(--ink-3);margin-right:.4rem}
+.meta .v{color:var(--ink-2);font-weight:700}
+
+section{margin-top:2.6rem}
+h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem;
+  border-bottom:1px solid var(--rule);margin-bottom:1rem}
+h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
+h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
+p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+ul,ol{margin:.6rem 0 .6rem 1.2rem}
+li{margin:.24rem 0;word-break:keep-all}
+b{font-weight:800}
+a{color:var(--dim)}
+code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
+  border:1px solid var(--rule);padding:.05rem .28rem;border-radius:3px;word-break:break-all}
+.vlink{font-size:.82em;color:var(--ink-3);background:var(--paper-2);border:1px solid var(--rule);
+  padding:.02rem .32rem;border-radius:3px}
+.vlink i{font-style:normal;opacity:.75}
+blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.7rem .95rem;
+  margin:1rem 0;font-size:.88rem;color:var(--ink-2)}
+blockquote p{margin:.25rem 0}
+blockquote b{color:var(--ink)}
+
+/* 표 — 모바일에서 가로 스크롤 (DESIGN.md §5) */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
+th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
+  word-break:keep-all}
+th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
+  letter-spacing:.04em;border-bottom:none}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--paper-2)}
+
+/* 코드 블록 + 복사 버튼 */
+.cb{margin:1rem 0;border:1px solid var(--rule);background:#0f141b}
+.cb-h{display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;background:#1a212b;
+  border-bottom:1px solid #2b323d;font-size:.62rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:#7d8693}
+.cb-h .copy{margin-left:auto;background:#232b36;border:1px solid #39424f;color:#c8cfd8;
+  font-family:inherit;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:.16rem .5rem;
+  border-radius:3px;cursor:pointer;transition:.14s}
+.cb-h .copy:hover{background:var(--dim);border-color:var(--dim);color:#fff}
+.cb-h .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+.cb pre{margin:0;padding:.75rem .85rem;overflow-x:auto;color:#dfe4ea;
+  font-family:'Consolas','D2Coding',monospace;font-size:.76rem;line-height:1.7}
+.cb pre .c{color:#6f7a88}
+
+/* ── 표지 아래 요약 카드 ── */
+.pin{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.6rem 0 .4rem}
+@media (max-width:640px){.pin{grid-template-columns:1fr}}
+.pin>div{border:1px solid var(--rule);background:var(--card);padding:.85rem .95rem}
+.pin .lab{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:.4rem}
+.pin.hot>div{border-color:var(--note);background:var(--note-soft)}
+.big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
+  color:var(--dim-ink);word-break:break-all}
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다 — 눈에 띄게 */
+section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
+section .addr .big{font-size:1.2rem}
+.addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
+.addr .copy{background:var(--card);border:1px solid var(--dim);color:var(--dim);
+  font-family:inherit;font-size:.64rem;font-weight:800;letter-spacing:.06em;
+  padding:.16rem .5rem;border-radius:3px;cursor:pointer;transition:.14s}
+.addr .copy:hover{background:var(--dim);color:#fff}
+.addr .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+
+/* ── 도구 4종 역할 구분 (팀원이 가장 헷갈리는 것) ── */
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1.2rem 0}
+@media (max-width:820px){.tools{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.tools{grid-template-columns:1fr}}
+.tool{border:1px solid var(--rule);background:var(--card);padding:.85rem .8rem;display:flex;
+  flex-direction:column;gap:.35rem}
+.tool.pick{border:2px solid var(--dim);background:var(--dim-soft)}
+.tool .n{font-size:.6rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3)}
+.tool .t{font-size:.95rem;font-weight:800;line-height:1.3}
+.tool.pick .t{color:var(--dim-ink)}
+.tool .q{font-size:.76rem;color:var(--ink-2);flex:1}
+.tool .f{font-size:.68rem;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:.35rem;
+  margin-top:.2rem;line-height:1.6}
+.tool .f b{color:var(--ink-2)}
+.tool .badge{display:inline-block;font-size:.6rem;font-weight:800;padding:.08rem .35rem;
+  border-radius:2px;background:var(--dim);color:#fff;letter-spacing:.04em}
+.tool .badge.warn{background:var(--note)}
+.tool .badge.off{background:var(--ink-3)}
+
+/* ── 경고 박스 (프로세스 정리) ── */
+.warnbox{border:2px solid var(--note);background:var(--note-soft);padding:1rem 1.1rem;margin:1.2rem 0}
+.warnbox .wh{font-size:.95rem;font-weight:800;color:var(--note-ink);margin-bottom:.5rem}
+.warnbox .line{font-size:.92rem;font-weight:800;color:var(--ink);margin:.4rem 0}
+.warnbox p{font-size:.84rem;color:var(--ink-2)}
+
+/* 공개 페이지에서 가려진 값 안내 */
+.redacted-note{display:block;font-size:.72rem;color:var(--ink-3);margin-top:.35rem;
+  font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
+.redacted-note b{color:var(--note-ink)}
+
+/* 미확인 표시 — 확정처럼 읽히면 안 된다 */
+.unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
+  background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
+  vertical-align:.08em;margin-right:.3rem}
+
+@media print{
+  @page{size:A4 portrait;margin:14mm 12mm}
+  html{font-size:10.5px}
+  body{background:var(--card)!important;background-image:none!important}
+  .top,.pdfbtn,.copy{display:none!important}
+  .wrap{max-width:none;padding:0}
+  section{break-inside:auto;margin-top:1.4rem}
+  h2,h3{break-after:avoid}
+  .tw,.cb,blockquote,.tool,.warnbox,.pin>div{break-inside:avoid;page-break-inside:avoid}
+  .tools,.pin{display:block}
+  .tool,.pin>div{margin-bottom:.5rem}
+  .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
+  .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
+  .cb pre{color:var(--ink)!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre .c{color:#666!important}
+  a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ── 코드 문법 강조 ──
+   실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
+.cb pre .c{color:#6f7a88;font-style:italic}   /* 주석 */
+.cb pre .k{color:#5eb0ef;font-weight:700}     /* 키워드 */
+.cb pre .f{color:#f0c674}                     /* 명령 · 함수 */
+.cb pre .b{color:#c39ac9}                     /* 파이썬 내장 */
+.cb pre .s{color:#9ece6a}                     /* 문자열 */
+.cb pre .n{color:#e59f6a}                     /* 숫자 */
+.cb pre .v{color:#7ee0d0}                     /* 변수 */
+.cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
+@media print{
+  /* 종이에서는 색이 안 나올 수 있다 — 굵기·기울기로도 구분되게 */
+  .cb pre .c{color:#777!important;font-style:italic}
+  .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
+  .cb pre .s{color:#2a6b2a!important}
+  .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
+}
+
+.ev{display:inline-block;padding:.05rem .4rem;border-radius:3px;font-size:.68rem;
+  font-weight:800;letter-spacing:.04em;vertical-align:.06em;white-space:nowrap;
+  border:1px solid transparent}
+.ev-ok{background:var(--dim-soft);color:var(--dim);border-color:var(--dim)}
+.ev-guess{background:var(--note-soft);color:var(--note);border-color:var(--note)}
+.ev-todo{background:var(--paper-2);color:var(--ink-3);border-color:var(--rule)}
+.evlegend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;font-size:.72rem;color:var(--ink-3)}
+.rcards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:18px 0}
+.rcard{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;padding:14px 16px}
+.rcard:hover{border-color:var(--dim)}
+.rcard .rt{font-weight:800;font-size:1rem;margin:.2rem 0 .35rem}
+.rcard .rd{font-size:.8rem;color:var(--ink-2);line-height:1.55}
+.rcard .rm{font-size:.7rem;color:var(--ink-3);margin-top:.5rem;letter-spacing:.04em}
+</style>
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
+</head>
+<body>
+
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">FOOTHOLD · 연구 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">Research · 근거 기록</div>
+  <h1>클라우드 GPU에서 Isaac Sim 돌리기 — 가능성 조사</h1>
+  <p class="lede">작성 2026-08-08 · 방법: NVIDIA 공식 문서·포럼·NGC 카탈로그·GitHub 이슈 직접 확인 · 상태: 코덱스 교차검증 대기</p>
+  <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / cloud-gpu-options.md</span></div><div><span class="k">증거</span><span class="v">확인 6 · 추측 0 · 미측정 5</span></div></div>
+  <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
+</div>
+
+<blockquote><p>작성 2026-08-08 · 방법: NVIDIA 공식 문서·포럼·NGC 카탈로그·GitHub 이슈 직접 확인 · 상태: <b>코덱스 교차검증 대기</b>
+배경: 팀원 4명 노트북에 RTX 없음(GTX 1650 Ti / RTX 30 구형) → 로컬 실행 불가. <b>RunPod 시도했으나 실패</b> 보고를 받아 원인 조사.
+연결: <a href="setup.html">개발환경 구축 가이드</a> · <a href="team-access.html">팀원 사용 가이드</a> · <span class="vlink">mvp-install-log</span></p></blockquote>
+</section>
+<section id="s1"><h2>🔴 결론 3줄</h2>
+<ol><li><s>RunPod 실패의 최유력 원인 = A100/H100 선택</s> → 🔴 <b>정정(08-09): 팀원은 RTX 5090 을 선택했다(팀장 확인). A100 가설 폐기.</b> 5090 은 RT 코어가 있고 우리 5080 과 같은 세대(sm_120)라 GPU 자체는 문제가 아니다. → <b>남는 유력 원인 = ② RunPod UDP 차단(IsaacLab #2271, 문서화된 미해결 이슈) 또는 ③ 파드 내 Docker 재실행 불가.</b> ⚠️ 이 정정의 교훈: &quot;흔히 A100 을 고른다&quot;는 추측을 확인 없이 최유력으로 올렸다. <b>팀원에게 먼저 물었어야 했다.</b></li><li><b>★ 우리 버전과 정확히 일치하는 공식 컨테이너가 NGC에 이미 있다</b> — <code>nvcr.io/nvidia/isaac-lab:2.3.2</code>, <code>nvcr.io/nvidia/isaac-sim:5.1.0</code>. <b>직접 빌드 불필요.</b> <span class="ev ev-ok">확인됨</span></li><li><b>가장 검증된 경로 = AWS <code>g6e</code>(L40S) + 공식 AMI 또는 위 컨테이너.</b> NVIDIA가 직접 문서화한 배포 가이드가 있다. <span class="ev ev-ok">확인됨</span></li></ol>
+</section>
+<section id="s2"><h2>1. GPU 요구사항 — RT 코어가 관문이다</h2>
+<p><b>NVIDIA 공식 원문</b> (https://docs.isaacsim.omniverse.nvidia.com/5.1.0/installation/requirements.html):</p>
+<blockquote><p><b>&quot;GPUs without RT Cores (A100, H100) are not supported.&quot;</b></p></blockquote>
+<ul><li>최소 <b>GeForce RTX 4080 (16GB)</b> / 권장 RTX 5080 / 이상적 RTX PRO 6000 Blackwell(48GB)</li><li>NVIDIA 직원 확인: <i>&quot;An H100 is for compute ONLY. <b>It is not suitable for anything Isaac Sim</b>&quot;</i> — 대안으로 A5000·A6000·L40/L40s 권장 https://forums.developer.nvidia.com/t/isaac-sim-newton-physics-on-h100-gpu/370921</li><li>A100에 대해서도: <i>&quot;The A100 is not supported. Isaac Sim requires a GPU with RT cores for rendering. <b>NVENC is also required for live-streaming</b>&quot;</i> https://forums.developer.nvidia.com/t/isaac-sim-a100-apptainer-singularity-support/285273</li></ul>
+<div class="tw"><table><thead><tr><th>GPU</th><th>RT 코어</th><th>Isaac Sim</th><th>근거</th></tr></thead><tbody><tr><td><b>A100 / H100 / H200 / B200</b></td><td><b>없음</b></td><td>🔴 <b>공식 미지원</b></td><td>요구사양 문서 명시</td></tr><tr><td><b>L40S</b></td><td>있음 (3세대 142개)</td><td>✅ NVIDIA 직원 권장 · AWS 공식 경로</td><td>nvidia.com/data-center/l40s</td></tr><tr><td>L4</td><td>있음</td><td>✅ (Isaac Automator g6 지원)</td><td>—</td></tr><tr><td>A10G</td><td>있음 (GPU당 80개)</td><td>✅ (Automator g5 지원)</td><td>AWS g5 페이지 원문에 <i>&quot;80 ray tracing cores&quot;</i></td></tr><tr><td>RTX 4090 / A6000 / 6000 Ada</td><td>있음</td><td>✅</td><td>요구사양 + 포럼 권장</td></tr><tr><td>T4</td><td>있음(Turing)</td><td>△ 구버전 최소선, <b>5.1 권장사양 미달</b></td><td>포럼 232237</td></tr><tr><td>V100</td><td>없음</td><td>🔴 미지원</td><td>헤드리스 시도 실패 사례</td></tr></tbody></table></div>
+<h3>⚠️ &quot;헤드리스면 RT 코어 없어도 되지 않나&quot; — <b>공식적으로 부정됨</b> <code>부분확인</code></h3>
+<ul><li>NVIDIA 직원들이 헤드리스 우회 가능성을 <b>일관되게 부정</b>(스레드 232237, 370921)</li><li>단 커뮤니티 사례: A100 + Docker에서 Isaac Sim <b>4.0.0</b>이 <i>&quot;오류가 좀 있지만 시뮬레이터는 작동&quot;</i> 보고 있음</li><li><b>5.1에서의 A100 성공 사례는 미확인.</b> → <b>팀 프로젝트 기반으로 삼지 말 것</b></li></ul>
+</section>
+<section id="s3"><h2>2. RunPod에서 왜 실패했나</h2>
+<p><b>RunPod GPU 목록 및 시작가</b> (https://www.runpod.io/gpu-models, 2026-08-08 조회)</p>
+<div class="tw"><table><thead><tr><th>RT 코어 <b>있음</b> (Isaac Sim 가능)</th><th>시작가/hr</th></tr></thead><tbody><tr><td><b>RTX A5000</b></td><td><b>$0.16</b></td></tr><tr><td><b>RTX A6000</b></td><td><b>$0.33</b></td></tr><tr><td><b>RTX 4090</b></td><td><b>$0.34</b></td></tr><tr><td>A40</td><td>$0.35</td></tr><tr><td>L4</td><td>$0.44</td></tr><tr><td>L40</td><td>$0.69</td></tr><tr><td>RTX 5090</td><td>$0.69</td></tr><tr><td>RTX 6000 Ada</td><td>$0.74</td></tr><tr><td><b>L40S</b></td><td><b>$0.79</b></td></tr><tr><td>RTX Pro 6000</td><td>$1.69</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>RT 코어 <b>없음</b> (🔴 불가)</th><th></th></tr></thead><tbody><tr><td>A100</td><td>$1.19~1.39</td></tr><tr><td>H100</td><td>$1.99~2.69</td></tr><tr><td>H200 · B200</td><td>—</td></tr></tbody></table></div>
+<h3>실패 원인 후보 (근거 순)</h3>
+<p><b><s>① A100/H100 선택</s></b> — 🔴 <b>폐기(08-09). 실제 선택 = RTX 5090</b> (팀장이 팀원에게 확인).</p>
+<p><b>① RunPod 데이터센터의 UDP 차단</b> <span class="ev ev-ok">확인됨</span> — <b>정정 후 최유력</b> — RT 코어 GPU를 골랐어도 실패하는 <b>문서화된 RunPod 고유 이슈</b>가 있다. 공식 Isaac Lab 컨테이너가 <b>UDP가 비활성화된 RunPod 데이터센터에서 <code>/workspace/isaaclab/</code>이 빈 채로 실패</b>한다. RunPod 지원팀이 수일 조사 끝에 UDP를 원인으로 지목했고 <b>이슈는 미해결로 열려 있다.</b> https://github.com/isaac-sim/IsaacLab/issues/2271</p>
+<p><b>② 파드 안에서 Docker 재실행 불가</b> (추정, <span class="ev ev-todo">미확인</span>) — <b>정정 후 2순위</b> — RunPod 파드 자체가 컨테이너라 Isaac Lab의 표준 <code>docker/container.py</code> 워크플로가 안 통한다. <b>이미지를 파드 템플릿으로 직접 지정</b>해야 한다.</p>
+<blockquote><p>RunPod에서의 명시적 <b>성공 사례</b>(GPU·이미지·설정 명기)는 찾지 못했다 — <span class="ev ev-todo">미확인</span></p></blockquote>
+</section>
+<section id="s4"><h2>3. AWS — 가장 문서화된 경로 <span class="ev ev-ok">확인됨</span></h2>
+<div class="tw"><table><thead><tr><th>인스턴스</th><th>GPU</th><th>RT 코어</th><th>Isaac Sim</th></tr></thead><tbody><tr><td><b>g6e</b></td><td><b>L40S 48GB</b></td><td>✅</td><td><b>NVIDIA 공식 권장</b> (<code>g6e.2xlarge</code>)</td></tr><tr><td>g7e</td><td>RTX Pro 6000</td><td>✅</td><td>공식 가이드에 <code>g7e.8xlarge</code> 명시</td></tr><tr><td>g6</td><td>L4 24GB</td><td>✅</td><td>가능 (Automator 지원)</td></tr><tr><td>g5</td><td>A10G 24GB</td><td>✅</td><td>가능 (Automator 지원)</td></tr><tr><td>g4dn</td><td>T4 16GB</td><td>✅</td><td>구버전 최소선, 5.1 권장 미달</td></tr><tr><td><b>p4 (A100) / p5 (H100)</b></td><td>—</td><td>❌</td><td>🔴 <b>불가</b></td></tr></tbody></table></div>
+<ul><li><b>NVIDIA 공식 AWS 배포 가이드</b> (인스턴스·AMI·드라이버·컨테이너 절차 전부): https://docs.isaacsim.omniverse.nvidia.com/latest/installation/install_advanced_cloud_setup_aws.html</li><li><b>AWS Marketplace 공식 AMI</b>: <i>&quot;NVIDIA Isaac Sim™ Development Workstation&quot;</i> — Isaac Sim·VS Code·Docker·인증 드라이버 사전 설치. <b>AMI 자체는 무료</b>(인프라 비용만)</li><li><b>Isaac Automator</b> (AWS/GCP/Azure 자동 배포, 기본 <code>g6e.2xlarge</code>): https://github.com/isaac-sim/IsaacAutomator</li><li><b>요금</b> (2026-08-08, instances.vantage.sh): <code>g6e.xlarge</code>(L40S 48GB, 4vCPU/32GB) <b>온디맨드 $1.861/hr · 스팟 $1.798/hr</b> ⚠️ 다른 사이즈·리전은 <span class="ev ev-todo">미확인</span> — 직접 조회할 것</li></ul>
+</section>
+<section id="s5"><h2>4. ★★ Docker — 공식 이미지가 우리 버전과 정확히 일치한다 <span class="ev ev-ok">확인됨</span></h2>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>nvcr.io/nvidia/isaac-sim:5.1.0      ← 우리가 쓰는 버전
+nvcr.io/nvidia/isaac-lab:2.3.2      ← 우리가 고정한 태그와 동일</pre></div>
+<ul><li>Isaac Sim 컨테이너: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/isaac-sim</li><li><b>Isaac Lab 컨테이너도 별도로 존재하며 <code>2.3.2</code> 태그가 있다</b>: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/isaac-lab</li></ul>
+<blockquote><p>### 이게 이 조사에서 가장 중요한 발견이다
+<b>직접 빌드가 필요 없다.</b> 우분투에서 Docker로 전환할 때도, 클라우드로 확장할 때도
+<b>NVIDIA가 만들어둔 이미지를 그대로</b> 쓰면 된다.
+지금 Windows에서 겪은 <b>함정 6개(Python 버전·torch CPU판·conda·flatdict·tensordict·h5py)를 전부 우회</b>한다.</p></blockquote>
+<p><b>요구사항</b>: Docker + <b>NVIDIA Container Toolkit ≥ 1.17.0</b> + Ubuntu 22.04/24.04</p>
+<p><b>Docker가 필수는 아니다</b>: AWS 공식 AMI는 네이티브 설치형이고, VM에 직접 설치도 가능하다.</p>
+<ul><li>네이티브 장점: 디버깅 단순 / 단점: 환경 재현·팀 공유가 번거로움</li><li><b>클라우드에서는 버전 고정·재현성 때문에 컨테이너 경로가 일반적</b></li></ul>
+</section>
+<section id="s6"><h2>5. 대안 — NVIDIA Brev / Isaac Launchable <span class="ev ev-ok">확인됨</span></h2>
+<p><b>브라우저만으로 VS Code + Isaac Sim/Lab 스트리밍</b>이 되는 사전 구성 환경. NVIDIA의 현재 공식 클라우드 경로.</p>
+<ul><li>https://docs.isaacsim.omniverse.nvidia.com/latest/installation/install_advanced_cloud_setup_launchable.html</li><li>저장소: https://github.com/isaac-sim/isaac-launchable</li><li>L40S 1장 예시로 문서화됨</li><li><b>비용 <span class="ev ev-todo">미확인</span></b> (배후 클라우드 인스턴스 요금 과금)</li></ul>
+<blockquote><p>★ <b>팀원 노트북(GTX 1650 Ti)에서 브라우저만으로 접근 가능하다면, 이게 가장 현실적인 팀 확장 경로일 수 있다.</b></p></blockquote>
+<p><b>Omniverse Cloud</b>: Launcher가 2025-10-01 폐기되고 배포가 GitHub/NGC로 이동 — 단일 &quot;클라우드 제품&quot; 형태는 사실상 소멸 <code>부분확인</code> <b>Vast.ai / Lambda / Paperspace</b>: 문서화된 Isaac Sim 성공 사례 못 찾음 <span class="ev ev-todo">미확인</span></p>
+</section>
+<section id="s7"><h2>6. ★ 권고</h2>
+<ol><li><s>팀원에게 GPU 확인</s> → <b>확인됨: RTX 5090.</b> 따라서 <b>#2271 UDP 차단을 1순위로 의심</b> — 팀원의 에러 로그를 회수해 <code>/workspace/isaaclab/</code> 빈 폴더 증상인지 대조하라.</li><li><b>가장 검증된 경로 = AWS <code>g6e</code>(L40S) + 공식 AMI 또는 <code>nvcr.io/nvidia/isaac-lab:2.3.2</code>.</b> 우리 버전과 일치하는 공식 이미지가 있어 직접 빌드 불필요. g6e.xlarge 약 <b>$1.86/hr</b>.</li><li><b>RunPod을 다시 쓴다면 RTX 4090($0.34) 또는 L40S($0.79)를 선택</b>하고 isaac-lab 이미지를 파드 템플릿으로 지정. 단 <b>UDP 가능한 데이터센터인지 먼저 확인</b>해야 하고, 문서화된 성공 보증이 없다.</li><li><b>설정 부담을 없애려면 NVIDIA Brev의 Isaac Launchable</b>이 공식 대안이다. 팀원 노트북 사양을 고려하면 검토 가치가 높다.</li><li><b>A100/H100에서 &quot;헤드리스면 되지 않을까&quot;는 공식적으로 부정됐다.</b> 커뮤니티 부분 성공 사례만 있다. <b>기반으로 삼지 말 것.</b></li></ol>
+</section>
+<section id="s8"><h2>7. 미확인 (판단 근거로 쓰지 말 것)</h2>
+<ul><li>RunPod에서 Isaac Sim 성공한 구체 사례(GPU·이미지·설정)</li><li>5.1에서 A100 헤드리스 동작 여부</li><li>Brev / Isaac Launchable 실제 비용</li><li>AWS g6e 외 사이즈·리전 요금</li><li>Vast.ai · Lambda · Paperspace 사례</li><li>Isaac Sim 5.1의 Vulkan 세부 요구사항</li></ul>
+</section>
+<section id="s9"><h2>변경 이력</h2>
+<ul><li>2026-08-09 v2: <b>A100 가설 폐기</b> — 실제 선택 GPU = RTX 5090(팀장 확인). 최유력을 UDP 차단(#2271)으로 교체. 추측을 확인 없이 결론에 올린 것을 정정.</li><li>2026-08-08 v1: RunPod 실패 원인 조사. <b>RT 코어 요구가 관문임을 공식 문서로 확정.</b> <b>★ <code>nvcr.io/nvidia/isaac-lab:2.3.2</code> 공식 이미지 발견 — 우리 버전과 정확히 일치.</b></li></ul>
+</section>
+
+</div>
+<script>
+document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('prog').style.width = (p * 100) + '%';
+}, {passive:true});
+/* 복사 버튼 — 코드 블록과 접속 주소 공용 */
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('.copy');
+  if (!b) return;
+  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(function(){
+    var old = b.textContent;
+    b.textContent = '복사됨'; b.classList.add('done');
+    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
+  });
+});
+</script>
+<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+<style>
+#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
+  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
+  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
+  line-height:1.3;white-space:nowrap}
+#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#themeBtn:active{transform:translateY(1px)}
+@media print{#themeBtn{display:none!important}}
+</style>
+<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
+<script>(function(){
+  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
+      mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function apply(t){d.setAttribute('data-theme',t);
+    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
+  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
+  apply(cur());
+  b.addEventListener('click',function(){
+    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
+  mq.addEventListener&&mq.addEventListener('change',function(){
+    if(!localStorage.getItem(K))apply(cur());});
+})();</script>
+
+</body>
+</html>
