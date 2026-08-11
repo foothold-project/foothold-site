@@ -294,14 +294,8 @@ section .addr .big{font-size:1.2rem}
 텍스처와 조명이 있는 완전히 다른 씬에서 걷게 할 수 있다.</b></p></blockquote>
 <p>바닥에 타일 텍스처와 반사가 있고, 배경에 선반과 팔레트가 보인다. 01·02의 회색 지형과 비교하면 시각적 차이가 명백하다.</p>
 <h3>왜 이것이 프로젝트의 주춧돌인가</h3>
-<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>[학습 단계]  회색 무텍스처 · 로봇 4096마리 · 렌더 끔(headless)
-             → 목적: 속도. 예쁠 필요가 0.
-             → 산출물: model.pt (6.9MB)
-
-                        ↓  ★정책만 들고 넘어간다 (여기가 03이 증명한 지점)
-
-[렌더 단계]  로봇 1마리 · 실사 지형 · Path Tracing · 시네마틱 카메라
-             → 목적: 품질. 느려도 됨.</pre></div>
+<div class="tw"><table><thead><tr><th>단계</th><th>구성</th><th>목적</th><th>산출물</th></tr></thead><tbody><tr><td><b>학습</b></td><td>회색 무텍스처 · 로봇 4,096마리 · 렌더 끔(headless)</td><td>속도. 예쁠 필요가 0</td><td><code>model.pt</code> (6.9MB)</td></tr><tr><td><b>렌더</b></td><td>로봇 1마리 · 실사 지형 · Path Tracing · 시네마틱 카메라</td><td>품질. 느려도 됨</td><td>영상 프레임</td></tr></tbody></table></div>
+<p>두 단계 사이를 넘어가는 것은 <b>정책 파일 하나뿐이다.</b> 그것이 이 문서가 증명하는 지점이다.</p>
 <p><b>이는 VFX 파이프라인과 같은 구조다</b> — 시뮬레이션 캐시를 굽고, 라이팅·렌더를 따로 한다. 시뮬 단계에서 예쁠 필요가 없다.</p>
 <h3>핵심 코드 (한 줄)</h3>
 <div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre>env_cfg.scene.terrain = <span class="f">TerrainImporterCfg</span>(
