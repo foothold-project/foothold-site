@@ -880,13 +880,13 @@ source/isaaclab_tasks/.../config/anymal_d/agents/rsl_rl_distillation_cfg.py</div
 <tr><td><b>학습 처리 속도</b></td><td><b>21,248 ~ 21,385 steps/s</b></td></tr>
 <tr><td><b>iteration 1회</b></td><td><b>4.4 ~ 4.6초</b> (수집 4.5s + 학습 0.12s)</td></tr>
 <tr><td>30 iteration</td><td>2.53분 (기동 포함)</td></tr>
-<tr><td><b>표준 1,500 iteration 예상</b></td><td><b>약 113분 (1시간 53분)</b></td></tr>
+<tr><td><b>표준 1,500 iteration</b></td><td><b>실측 133분 (2시간 13분)</b> — 2026-08-12 완주. 30 iteration 외삽 예상은 113분이었고 <b>실측이 +18% 더 걸렸다</b></td></tr>
 <tr><td>GUI 모드 자원</td><td>시스템 RAM 13.5 GB · VRAM 약 9 GB (GPU0 4,143 + GPU1 4,807 MiB)</td></tr>
 </tbody>
 </table>
 </div>
 <blockquote>
-  <b>한 번 학습에 2시간이 안 걸립니다.</b> 하루에 여러 번 실험을 돌릴 수 있다는 뜻입니다.<br>
+  <b>한 번 학습에 약 2시간 15분이 걸립니다</b>(1,500 iteration 실측 133분). 하루 8시간이면 <b>3~4회</b> 실험할 수 있습니다.<br>
   수집(4.5s)이 학습(0.12s)의 <b>37배</b>입니다 — 병목은 신경망이 아니라 <b>시뮬레이션</b>입니다.<br>
   이 수치는 <b>험지(Rough)</b> 기준이고, 평지(Flat)는 훨씬 빠릅니다.
 </blockquote>
@@ -904,7 +904,7 @@ C:\Users\&lt;사용자&gt;\AppData\Local\pip\Cache\      (삭제 가능)</div>
   <b>① <code>CUDA peer access: Not supported</code></b><br>
   워크스테이션의 두 GPU가 <b>서로 직접 통신하지 못합니다.</b><br><br>
   ✅ <b>“GPU 2장 = 동시에 두 명이 각자 학습”</b> — 유효합니다<br>
-  ❓ <b>“GPU 2장을 묶어 하나의 학습을 가속”</b> — <b>재검증이 필요합니다.</b> 아직 측정 안 했습니다<br><br>
+  ❓ <b>“GPU 2장을 묶어 하나의 학습을 가속”</b> — <b>측정 완료. Windows 에서는 구조적으로 불가합니다.</b> <code>torch.distributed.is_nccl_available()</code> 가 <b>False</b> 입니다. NCCL 은 GPU 끼리 직접 데이터를 주고받는 라이브러리로 DDP 학습에 필수인데 PyTorch Windows 빌드에는 들어가지 않습니다(gloo 는 CPU 경유라 대체 불가). <b>우분투 전환 후 재측정</b>합니다 — 2026-08-11 판정<br><br>
   → 대외 자료에 <i>“GPU 2장으로 학습을 2배 빠르게”</i>라고 쓰지 마세요.
   <b>“동시 2인 실험”</b>이 정확한 표현입니다.
 </blockquote>

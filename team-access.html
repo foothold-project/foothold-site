@@ -230,7 +230,7 @@ OS  : Windows 11 Pro 10.0.26200
 C:   : 549.3 GB 여유 / 923.7 GB</pre></div>
 <p>→ <b>GPU·VRAM·RAM 세 가지가 동시에 미달</b>입니다. 이 문서는 그 전제 위에 서 있습니다.</p>
 <p><b>노트북으로 할 수 있는 것</b> — <a href="setup.html">개발환경 구축 가이드</a> §1.5가 <b>학습 커리큘럼 관점</b>(A6·A7 MuJoCo 등)을 다루고, 이 문서는 <b>운영 관점</b>을 다룹니다.</p>
-<div class="tw"><table><thead><tr><th>가능</th><th>도구</th><th>이 문서</th></tr></thead><tbody><tr><td>✅ 학습 경과 보기</td><td>브라우저(TensorBoard)</td><td>§3</td></tr><tr><td>✅ 학습 실행·중지</td><td>SSH 터미널</td><td>§4</td></tr><tr><td>✅ 코드 편집</td><td>VSCode(원격 확장)</td><td>—</td></tr><tr><td>⚠️ 3D 화면 보기</td><td>Isaac Sim 스트리밍 클라이언트 — <b><span class="unk">미확인</span></b></td><td>§5</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>가능</th><th>도구</th><th>이 문서</th></tr></thead><tbody><tr><td>✅ 학습 경과 보기</td><td>브라우저(TensorBoard)</td><td>§3</td></tr><tr><td>✅ 학습 실행·중지</td><td>SSH 터미널</td><td>§4</td></tr><tr><td>✅ 코드 편집</td><td>VSCode(원격 확장)</td><td>—</td></tr><tr><td>⚠️ 3D 화면 보기</td><td>Isaac Sim 스트리밍 — <b>5.1 은 동시 접속 1명 한계</b>(포트 고정. 커스텀 포트는 6.0부터)</td><td>§5</td></tr></tbody></table></div>
 </section>
 <section id="s2"><h2>2. 도구가 4개다 — 헷갈리지 말 것</h2><div class="tools"><div class="tool pick"><div class="n">01</div><div class="t">TensorBoard</div><div class="q">학습이 잘 되고 있나<br>곡선 · 보상 · 성공률</div><div class="f">동시 <b>제한 없음</b><br>RAM 78 MB</div><div><span class="badge ">가장 많이 씀</span></div></div><div class="tool"><div class="n">02</div><div class="t">SSH → <code>--headless</code></div><div class="q">학습 실행 · 중지</div><div class="f">여러 명<br>무거운 건 GPU 2장 = 2명</div><div><span class="badge warn">설정 예정</span></div></div><div class="tool"><div class="n">03</div><div class="t">Isaac Sim GUI</div><div class="q">로봇이 <b>어떻게 걷는지</b> (3D)</div><div class="f">워크스테이션 앞 <b>1명</b><br>RAM 13.5GB · VRAM 9GB</div><div><span class="badge off">무거움</span></div></div><div class="tool"><div class="n">04</div><div class="t">Isaac Sim 스트리밍</div><div class="q">3D 화면을 <b>원격으로</b></div><div class="f">화면 <b>1개 공유</b><br>RAM 13.5GB · VRAM 9GB</div><div><span class="badge warn"><span class="unk">미확인</span></span></div></div></div>
 <p><b>&quot;Isaac Sim을 본다&quot;가 하나가 아닙니다.</b> 목적에 따라 쓰는 게 다릅니다.</p>
@@ -290,7 +290,7 @@ C:   : 549.3 GB 여유 / 923.7 GB</pre></div>
 <span class="f">python</span> train_go2_win.py <span class="o">--task</span> Isaac-Velocity-Rough-Unitree-Go2-v0 `
     <span class="o">--num_envs</span> <span class="n">4096</span> <span class="o">--max_iterations</span> <span class="n">1500</span> <span class="o">--headless</span></pre></div>
 <p><b>실측 성능 (2026-08-05, RTX 5080 ×2 중 1장 사용)</b></p>
-<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>처리 속도</td><td><b>21,248 ~ 21,385 steps/s</b></td></tr><tr><td>iteration 1회</td><td><b>4.4 ~ 4.6초</b> (수집 4.5s + 학습 0.12s)</td></tr><tr><td>30 iteration</td><td>2.53분 (기동 포함)</td></tr><tr><td><b>표준 학습 1,500 iteration 예상</b></td><td><b>약 113분 (1시간 53분)</b></td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>처리 속도</td><td><b>21,248 ~ 21,385 steps/s</b></td></tr><tr><td>iteration 1회</td><td><b>4.4 ~ 4.6초</b> (수집 4.5s + 학습 0.12s)</td></tr><tr><td>30 iteration</td><td>2.53분 (기동 포함)</td></tr><tr><td><b>표준 학습 1,500 iteration</b></td><td><b>실측 133분 (2시간 13분)</b> — 2026-08-12 완주</td></tr></tbody></table></div>
 <blockquote><p>이 수치는 <b>험지(Rough)</b> 기준입니다. 평지(Flat)는 훨씬 빠릅니다.
 조사 문서의 <i>&quot;Go2 험지는 평지보다 6배 느리다&quot;</i>가 실측으로 뒷받침됩니다.</p></blockquote>
 </section>
