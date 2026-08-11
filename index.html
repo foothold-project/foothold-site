@@ -30,8 +30,21 @@ header{border-bottom:2px solid var(--ink);padding-bottom:clamp(24px,3.5vh,38px)}
 .mark{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px}
 .mark .name{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;letter-spacing:-.05em;line-height:.92}
 .mark .ko{font-size:clamp(.74rem,.95vw,.85rem);color:var(--ink-3);font-weight:600}
+.sub{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:2px 0 16px}
+.sub .en{font-size:clamp(.72rem,.92vw,.82rem);font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--dim)}
+.sub .ko{font-size:clamp(.7rem,.9vw,.78rem);color:var(--ink-3);font-weight:600}
 .slogan{font-size:clamp(1rem,1.5vw,1.24rem);font-weight:600;line-height:1.5;
-  padding-left:16px;border-left:3px solid var(--dim);margin-bottom:22px;max-width:38ch}
+  padding-left:16px;border-left:3px solid var(--dim);margin-bottom:14px;max-width:46ch;
+  word-break:keep-all}
+/* 북극성 문구는 아직 달성이 아니라 지향이다 — 브랜드 규정상 상태 라벨 없이 쓸 수 없다.
+   (VOICE_AND_MESSAGE §2: "Every use must carry the state label TARGET VISION") */
+.vision{display:flex;gap:9px;align-items:flex-start;
+  font-size:clamp(.82rem,1vw,.92rem);color:var(--ink-2);line-height:1.55;
+  margin-bottom:22px;max-width:52ch;word-break:keep-all}
+.vision .state{flex:0 0 auto;margin-top:.18em;display:inline-block;padding:.06rem .38rem;border-radius:3px;
+  font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--note);background:var(--note-soft);border:1px solid var(--note);vertical-align:.1em}
 .pname{font-size:clamp(.9rem,1.15vw,1.02rem);font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
 .pdesc{font-size:clamp(.78rem,.95vw,.87rem);color:var(--ink-2);line-height:1.7;max-width:64ch}
 .pdesc b{color:var(--ink)}
@@ -155,10 +168,12 @@ footer b{color:var(--ink-2);font-family:inherit}
   <div class="eyebrow">인공지능사관학교 7기 · AI 도약과정 · 실증 프로젝트</div>
   <div class="mark">
     <svg class="wm" viewBox="0 0 713.709 110" role="img" aria-label="FOOTHOLD" xmlns="http://www.w3.org/2000/svg"><defs></defs><g fill="var(--ink)" opacity="1" transform="translate(0 100)"><g transform="skewX(-3)"><g transform="scale(0.07120466 -0.06064690)"><g transform="translate(-160.000000 0)"><path d="M160.0 0V1454H434.0V0ZM260.0 577V841H1005.0V577ZM260.0 1190V1454H1115.0V1190ZM1834.0 -15Q1673.972602739726 -15.0 1554.4716242661448 51.5Q1434.9706457925636 118.0 1368.9853228962818 239.0Q1303.0 360 1303.0 521V933Q1303.0 1095 1368.9853228962818 1215.5Q1434.9706457925636 1336.0 1554.4716242661448 1402.5Q1673.972602739726 1469.0 1834.0 1469Q1994.027397260274 1469.0 2113.5283757338552 1402.5Q2233.0293542074364 1336.0 2299.014677103718 1215.5Q2365.0 1095 2365.0 933V521Q2365.0 360 2299.014677103718 239.0Q2233.0293542074364 118.0 2113.5283757338552 51.5Q1994.027397260274 -15.0 1834.0 -15ZM1833.5897435897436 259.0Q1946.0 259 2013.5 328.969512195122Q2081.0 398.9390243902439 2081.0 514V940Q2081.0 1055.8384146341464 2013.5248344370862 1125.4192073170732Q1946.0496688741723 1195.0 1834.0 1195Q1722.0 1195 1654.5 1125.4192073170732Q1587.0 1055.8384146341464 1587.0 940V514Q1587.0 398.9390243902439 1654.5 328.969512195122Q1722.0 259 1833.5897435897436 259.0ZM3184.0 -15Q3023.972602739726 -15.0 2904.4716242661448 51.5Q2784.9706457925636 118.0 2718.985322896282 239.0Q2653.0 360 2653.0 521V933Q2653.0 1095 2718.985322896282 1215.5Q2784.9706457925636 1336.0 2904.4716242661448 1402.5Q3023.972602739726 1469.0 3184.0 1469Q3344.027397260274 1469.0 3463.5283757338552 1402.5Q3583.0293542074364 1336.0 3649.014677103718 1215.5Q3715.0 1095 3715.0 933V521Q3715.0 360 3649.014677103718 239.0Q3583.0293542074364 118.0 3463.5283757338552 51.5Q3344.027397260274 -15.0 3184.0 -15ZM3183.5897435897436 259.0Q3296.0 259 3363.5 328.969512195122Q3431.0 398.9390243902439 3431.0 514V940Q3431.0 1055.8384146341464 3363.524834437086 1125.4192073170732Q3296.0496688741723 1195.0 3184.0 1195Q3072.0 1195 3004.5 1125.4192073170732Q2937.0 1055.8384146341464 2937.0 940V514Q2937.0 398.9390243902439 3004.5 328.969512195122Q3072.0 259 3183.5897435897436 259.0ZM4229.0 0V1335H4503.0V0ZM3833.0 1190V1454H4899.0V1190ZM5843.0 0V1454H6117.0V0ZM5047.0 0V1454H5321.0V0ZM5174.0 589V853H6021.0V589ZM6966.0 -15Q6805.972602739726 -15.0 6686.471624266145 51.5Q6566.970645792564 118.0 6500.985322896282 239.0Q6435.0 360 6435.0 521V933Q6435.0 1095 6500.985322896282 1215.5Q6566.970645792564 1336.0 6686.471624266145 1402.5Q6805.972602739726 1469.0 6966.0 1469Q7126.027397260274 1469.0 7245.528375733855 1402.5Q7365.029354207436 1336.0 7431.014677103718 1215.5Q7497.0 1095 7497.0 933V521Q7497.0 360 7431.014677103718 239.0Q7365.029354207436 118.0 7245.528375733855 51.5Q7126.027397260274 -15.0 6966.0 -15ZM6965.589743589744 259.0Q7078.0 259 7145.5 328.969512195122Q7213.0 398.9390243902439 7213.0 514V940Q7213.0 1055.8384146341464 7145.524834437087 1125.4192073170732Q7078.049668874172 1195.0 6966.0 1195Q6854.0 1195 6786.5 1125.4192073170732Q6719.0 1055.8384146341464 6719.0 940V514Q6719.0 398.9390243902439 6786.5 328.969512195122Q6854.0 259 6965.589743589744 259.0ZM7815.0 0V1454H8089.0V0ZM7937.0 0V264H8789.0V0ZM9155.0 0V264H9504.0Q9639.0 264 9713.0 329.5Q9787.0 395 9787.0 513V941Q9787.0 1060 9713.0 1125.0Q9639.0 1190 9504.0 1190H9155.0V1454H9498.0Q9772.0 1454 9921.5 1317.5Q10071.0 1181 10071.0 933V521Q10071.0 366 10007.0 248.5Q9943.0 131 9815.5 65.5Q9688.0 0 9497.0 0ZM9017.0 0V1454H9291.0V0Z"/></g></g></g></g></svg>
-    <span class="ko">발디딤</span>
   </div>
-  <div class="slogan">시뮬레이터에서 천 번 넘어지고,<br>현장에서는 넘어지지 않는다</div>
-  <div class="pname">4족 보행 로봇용 강화학습 기반 험지 적응 정책</div>
+  <div class="sub"><span class="en">Terrain-Adaptive Locomotion Policy</span><span class="ko">발디딤</span></div>
+  <div class="slogan">불확실한 지형에서도, 다음 걸음을 이어갑니다.</div>
+  <div class="vision"><span class="state">Target Vision</span>
+    시뮬레이터에서 천 번 넘어지고, 현장에서는 넘어지지 않는다.</div>
+  <div class="pname">4족 보행 로봇을 위한 강화학습 기반 험지 적응 보행 정책</div>
   <p class="pdesc">사족보행 로봇이 모래·자갈·계단처럼 <b>겪어보지 않은 지형</b>에서도 넘어지지 않고 이동하도록,
     시뮬레이션에서 보행 정책을 학습시키고 그 결과가 <b>실제 환경 조건에서도 통하는지</b>를 검증한다.</p>
 </header>
@@ -363,6 +378,10 @@ footer b{color:var(--ink-2);font-family:inherit}
 <script>
 document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
 </script>
+
+
+
+
 
 
 

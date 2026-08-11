@@ -77,6 +77,12 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
   font-size:clamp(.94rem,1.35vw,1.16rem);font-weight:600;line-height:1.5;
   color:var(--ink);padding-left:16px;border-left:3px solid var(--dim);margin-bottom:22px;
 }
+.vision{display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:var(--ink-2);
+  line-height:1.5;margin:-6px 0 14px;max-width:50ch;word-break:keep-all}
+.vision .state{flex:0 0 auto;margin-top:.2em;display:inline-block;padding:.05rem .34rem;border-radius:3px;
+  font-size:.55rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--note);background:var(--note-soft);border:1px solid var(--note);vertical-align:.1em}
+
 .kw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
 .kw span{
   font-size:clamp(.66rem,.82vw,.75rem);font-weight:700;padding:6px 13px;
@@ -330,6 +336,11 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
 [data-deck="ko"] .mark .ko{font-size:.72rem;color:var(--ink-3);font-weight:600}
 [data-deck="ko"] .slogan{font-size:clamp(.86rem,1.15vw,1rem);font-weight:600;line-height:1.5;
   padding-left:14px;border-left:3px solid var(--dim);margin-bottom:18px}
+[data-deck="ko"] .vision{display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:var(--ink-2);
+  line-height:1.5;margin:-6px 0 14px;max-width:50ch;word-break:keep-all}
+[data-deck="ko"] .vision .state{flex:0 0 auto;margin-top:.2em;display:inline-block;padding:.05rem .34rem;border-radius:3px;
+  font-size:.55rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--note);background:var(--note-soft);border:1px solid var(--note);vertical-align:.1em}
 [data-deck="ko"] .mini{display:grid;gap:8px}
 [data-deck="ko"] .mini .m{display:grid;grid-template-columns:5.4em 1fr;gap:10px;font-size:clamp(.66rem,.8vw,.74rem);line-height:1.5}
 [data-deck="ko"] .mini .m b{color:var(--dim);font-weight:800}
@@ -519,7 +530,8 @@ h2 .en{font-size:.62rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;
         <span class="name">FOOTHOLD</span>
         <span class="ko">발디딤</span>
       </div>
-      <div class="slogan">시뮬레이터에서 천 번 넘어지고,<br>현장에서는 넘어지지 않는다</div>
+      <div class="slogan">불확실한 지형에서도,<br>다음 걸음을 이어갑니다.</div>
+      <div class="vision"><span class="state">Target Vision</span>시뮬레이터에서 천 번 넘어지고, 현장에서는 넘어지지 않는다.</div>
       <div class="kw"><span>본질 우선</span><span>측정 가능한 결과</span><span>현장 검증</span></div>
       <div class="kwd">
         <div class="row"><div class="k">본질 우선</div>
