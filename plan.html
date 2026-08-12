@@ -246,12 +246,20 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
 })();
 </script>
-<!--search:v6--><style>
+<!--search:v7--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
     text-overflow:ellipsis;white-space:nowrap}
   .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
+  .topbar .stage-chip{display:none}
+  .topbar .row{gap:.3rem}
+  .topbar .tbtn{padding:.32rem .5rem}
+  .topbar .counter{font-size:.62rem}
+  .fh-sbtn{display:inline-flex!important}
+  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
+    -webkit-overflow-scrolling:touch}
+  header.top{padding-top:28px}
 }
 .fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
   border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
@@ -295,9 +303,13 @@ document.addEventListener('DOMContentLoaded',function(){
   if(pb)pb.parentNode.insertBefore(sb,pb);else document.body.appendChild(sb);
   function offset(){ /* PDF 버튼이 화면 고정형이면 그 왼쪽에 나란히 고정 */
     if(!pb)return;var cs=getComputedStyle(pb);
-    if(cs.position==='fixed'){var r=pb.getBoundingClientRect();
+    var r=pb.getBoundingClientRect();
+    if(cs.display==='none'||r.width===0){ /* PDF 가 숨겨진 화면(백과 모바일): 검색이 그 자리에 */
+      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='70';
+    }else if(cs.position==='fixed'){
       sb.style.position='fixed';sb.style.top=r.top+'px';
-      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;}}
+      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
+    }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
   offset();window.addEventListener('resize',offset);
   /* 오버레이 */
   var ov=document.createElement('div');ov.className='fh-so';
