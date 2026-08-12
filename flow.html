@@ -240,7 +240,13 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
 })();
 </script>
-<!--search:v5--><style>
+<!--search:v6--><style>
+@media (max-width:640px){
+  .top .row{flex-wrap:nowrap}
+  .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}
+  .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
+}
 .fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
   border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
   font-size:.55rem;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:4px;
