@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>렌더 실측: Path Tracing 은 얼마나 걸리는가 · FOOTHOLD</title>
-<meta name="description" content="1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.">
+<title>RoboGauge 공개 정책 해부: 45차원 관측의 정확한 순서와 스케일 · FOOTHOLD</title>
+<meta name="description" content="공개 최상위 정책 4종의 입력 45차원을 코드와 실행 양쪽으로 확정했다. CTS 미스터리와 DreamWaQ 행방도 풀렸다. 이제 우리 평가에 붙일 수 있다.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -401,109 +401,49 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <div class="hero">
   <div class="eyebrow">Research · 근거 기록</div>
-  <h1>렌더 실측: Path Tracing 은 얼마나 걸리는가</h1>
-  <p class="lede">1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-10</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / render-benchmarks.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 1</span></div></div>
+  <h1>RoboGauge 공개 정책 해부: 45차원 관측의 정확한 순서와 스케일</h1>
+  <p class="lede">공개 최상위 정책 4종의 입력 45차원을 코드와 실행 양쪽으로 확정했다. CTS 미스터리와 DreamWaQ 행방도 풀렸다. 이제 우리 평가에 붙일 수 있다.</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-13</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / robogauge-observation-mapping.md</span></div><div><span class="k">증거</span><span class="v">확인 10 · 추측 15 · 미측정 2</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>요지: 1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.
-작성 2026-08-10 · 워크스테이션 세션 · 장비 <b>RTX 5080 ×2</b> (VRAM 16GB/장)
-<b>목적</b>: &quot;극사실주의 렌더가 현실적인가&quot;를 추정이 아니라 실측으로 답한다.
-결론만 보려면 §3.</p></blockquote>
+<blockquote><p>요지: 공개 최상위 정책 4종의 입력 45차원을 코드와 실행 양쪽으로 확정했다. CTS 미스터리와 DreamWaQ 행방도 풀렸다. 이제 우리 평가에 붙일 수 있다.
+작성 2026-08-13 · 워크스테이션 세션 · 방법: RoboGauge·go2_rl_gym 저장소 코드 판독 + 로컬 체크포인트 4종 known-answer 실행 검증
+표기: <span class="ev ev-ok">확인됨</span> = 코드 실행으로 실측 · <span class="ev ev-guess">코드확인</span> = 저장소 코드에서 읽음(실행 안 함) · <span class="ev ev-guess">추측</span> · <span class="ev ev-todo">미확인</span>
+검증 스크립트·로그: foothold-lab <code>tools/robogauge/</code> (verify_policies.py · verify_extra.py · verify_log.txt)</p></blockquote>
 </section>
-<section id="s1"><h2>0. 왜 이 측정이 필요했나</h2>
-<p>이 프로젝트의 최종 산출물 중 하나는 <b>실사와 구분되지 않는 데모 영상</b>이다. 그런데 <i>&quot;Path Tracing 을 쓰면 예뻐진다&quot;</i>는 말만으로는 일정을 짤 수 없다. <b>프레임당 몇 초인지</b>를 알아야 발표 영상의 길이와 재작업 횟수를 정할 수 있다.</p>
-<blockquote><p>커널 §2-1: <b>실측 없이 ETA를 보고하지 않는다.</b>
-2026-07-25 에 회선 스펙으로 &quot;9~10시간&quot;이라 보고했다가 실측 22시간이었던 실패의 반복을 막는다.</p></blockquote>
+<section id="s1"><h2>결론 네 줄</h2>
+<ol><li><b>45차원의 순서·스케일을 확정했다.</b> 배포측(RoboGauge)과 학습측(go2_rl_gym) 코드가 동일하다. <span class="ev ev-guess">코드확인</span></li><li><b>네 모델(symmetry·HIM·CTS·DreamWaQ) 전부 로드·실행에 성공했다.</b> known-answer 테스트 통과. <span class="ev ev-ok">확인됨</span></li><li><b>CTS는 복합 입력이 아니었다.</b> [1,45] 단일 관측을 받고 히스토리는 내부 버퍼가 유지한다. 예전 실행 실패의 원인은 입력 차원·튜플 출력·배치 크기였다. <span class="ev ev-ok">확인됨</span></li><li><b>DreamWaQ 파일을 찾았다.</b> HF 저장소 루트의 단일 파일이라 폴더만 뒤져서 못 찾았던 것. 내려받아 실행까지 검증. <span class="ev ev-ok">확인됨</span></li></ol>
 </section>
-<section id="s2"><h2>1. ★ 이 측정에서 밟은 함정 3개: 팀원은 여기서 시간 쓰지 말 것</h2>
-<p>측정보다 <b>함정을 찾는 데 시간이 더 걸렸다.</b> 세 번 다 &quot;성공했다고 보고하지만 실제로는 안 된&quot; 경우였다.</p>
-<h3>함정 ① <code>--kit_args</code> 로 넘긴 렌더 설정은 <b>무시된다</b></h3>
-<div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># ❌ 이렇게 하면 아무 일도 일어나지 않는다 (에러도 안 남)</span>
-<span class="f">python</span> play.py <span class="o">--kit_args</span>=<span class="s">&quot;--/rtx/rendermode=PathTracing&quot;</span></pre></div>
-<p>세 가지 렌더 조건을 돌렸더니 <b>전부 35~42초로 같았고</b>, 이미지도 <b>픽셀상 동일</b>했다. <code>exit=0</code> 이고 mp4 도 만들어졌다. <b>조용한 실패다.</b></p>
-<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># ✅ Kit 기동 뒤 carb 로 직접 설정</span>
-<span class="k">import</span> carb
-s = carb.settings.<span class="f">get_settings</span>()
-s.<span class="f">set</span>(<span class="s">&quot;/rtx/rendermode&quot;</span>, <span class="s">&quot;PathTracing&quot;</span>)</pre></div>
-<h3>함정 ② 설정했다는 사실은 증거가 아니다. <b>되읽어 확인할 것</b></h3>
-<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre>s.<span class="f">set</span>(<span class="s">&quot;/rtx/rendermode&quot;</span>, <span class="s">&quot;PathTracing&quot;</span>)
-<span class="f">print</span>(s.<span class="f">get</span>(<span class="s">&quot;/rtx/rendermode&quot;</span>))    <span class="c"># ★ 이 한 줄이 함정 ①을 잡았다</span></pre></div>
-<h3>함정 ③ 애니메이션에서 <code>totalSpp</code> 는 <b>아무 일도 안 한다</b></h3>
-<div class="tw"><table><thead><tr><th>설정</th><th>뜻</th><th>애니메이션 캡처에서</th></tr></thead><tbody><tr><td><code>/rtx/pathtracing/spp</code></td><td><b>한 번 그릴 때 쓰는 샘플 수</b></td><td>✅ 이것이 품질을 결정</td></tr><tr><td><code>/rtx/pathtracing/totalSpp</code></td><td>가만히 두면 누적할 목표 샘플 수</td><td>❌ 프레임마다 새로 그리므로 무의미</td></tr></tbody></table></div>
-<p><code>totalSpp</code> 만 128 → 512 로 올렸을 때 시간이 <b>5%만</b> 늘었다(0.1255 → 0.1315초). 4배 샘플에 5% 시간이면 <b>그 손잡이는 가짜다.</b></p>
-<p><b>검증 (알려진 답 테스트, 1280×720):</b></p>
-<div class="tw"><table><thead><tr><th><code>spp</code></th><th>프레임당</th><th>4spp 대비</th></tr></thead><tbody><tr><td>4</td><td>0.131초</td><td>1.0배</td></tr><tr><td>32</td><td>0.589초</td><td><b>4.5배</b></td></tr><tr><td>128</td><td>1.121초</td><td><b>8.5배</b></td></tr></tbody></table></div>
-<p>시간이 실제로 늘었다 → <b><code>spp</code> 가 진짜 손잡이다.</b> (선형이 아닌 이유: 프레임당 고정 비용(물리 스텝·인코딩) + GPU 병렬 흡수)</p>
+<section id="s2"><h2>1. 45차원 매핑 표</h2>
+<div class="tw"><table><thead><tr><th>인덱스</th><th>항목</th><th>스케일</th><th>근거 (파일:줄)</th><th>상태</th></tr></thead><tbody><tr><td>0:3</td><td>base_ang_vel</td><td>× 0.25</td><td>RoboGauge go2.py:34,46 · go2_env.py:26</td><td><span class="ev ev-guess">코드확인</span></td></tr><tr><td>3:6</td><td>projected_gravity (수평 정지 = (0,0,-1))</td><td>× 1.0</td><td>go2.py:35,47 · math_utils.py:3-18</td><td><span class="ev ev-guess">코드확인</span> + 자리 실측</td></tr><tr><td>6:9</td><td>cmd (vx, vy, ωyaw)</td><td><b>모델군별 상이</b> (아래 표)</td><td>go2.py:44,48 · go2_lab_config.py:18-20</td><td><span class="ev ev-guess">코드확인</span></td></tr><tr><td>9:21</td><td>q - default_dof_pos (12)</td><td>× 1.0</td><td>go2.py:36,49 · go2_env.py:29</td><td><span class="ev ev-guess">코드확인</span></td></tr><tr><td>21:33</td><td>dq (12)</td><td>× 0.05</td><td>go2.py:37,50 · go2_env.py:30</td><td><span class="ev ev-guess">코드확인</span></td></tr><tr><td>33:45</td><td>last_action (정책 원출력 12)</td><td>× 1.0</td><td>go2.py:51,63 · go2_env.py:31</td><td><span class="ev ev-guess">코드확인</span></td></tr></tbody></table></div>
+<ul><li>lin_vel 은 특권 관측에만 있고 <b>45차원 정책 입력에는 없다</b>. 자리를 남겨두면 전 항목이 3칸씩 밀린다. <span class="ev ev-guess">코드확인</span></li><li>default_dof_pos = [hip ±0.1, thigh 0.8(앞)/1.0(뒤), calf -1.5]. <span class="ev ev-guess">코드확인</span></li><li>관절 순서는 <b>다리별 묶음 FL→FR→RL→RR × (hip, thigh, calf)</b>. 근거: go2.xml 관절 트리 + hip_dof_indices=[0,3,6,9]. <span class="ev ev-guess">코드확인</span></li><li>액션 적용: target = action × 0.25 + default. 제어 50 Hz. <span class="ev ev-guess">코드확인</span></li></ul>
+<h3>cmd 스케일은 모델군마다 다르다 (함정)</h3>
+<div class="tw"><table><thead><tr><th>체크포인트</th><th>cmd 스케일</th><th>Kp/Kd</th></tr></thead><tbody><tr><td>HIM · DreamWaQ · CTS · MoE-CTS (gym계)</td><td>× [2.0, 2.0, 0.25]</td><td>20 / 0.5</td></tr><tr><td>symmetry v5.1 (robotlab계)</td><td>× [1.0, 1.0, 1.0]</td><td>25 / 0.5</td></tr></tbody></table></div>
+<p>HIM 에 [1,1,1] 을 쓰면 yaw 명령이 4배 어긋난다. <span class="ev ev-guess">코드확인</span> (run_models.sh 의 task 매핑으로 판별)</p>
 </section>
-<section id="s3"><h2>2. 측정 방법: 2점법으로 기동 시간을 소거한다</h2>
-<p>Isaac Sim 은 뜨는 데만 <b>약 30초</b>가 걸린다. 총 시간을 프레임 수로 나누면 이 30초가 섞여 틀린다.</p>
-<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>같은 조건으로 N₁ 프레임과 N₂ 프레임을 재고
-
-    프레임당 = (T_N₂ − T_N₁) ÷ (N₂ − N₁)      ← 기동 시간이 소거된다</pre></div>
-<ul><li>씬: <code>Environments/Simple_Warehouse/warehouse.usd</code></li><li>정책: 우리 A 정책(플래그 없음, 300 iteration)의 JIT <code>exported/policy.pt</code></li><li>스크립트: <code>C:\isaac\IsaacLab\play_go2_in_usd.py</code></li></ul>
+<section id="s3"><h2>2. 실측 검증 (known-answer tests) <span class="ev ev-ok">확인됨</span></h2>
+<p>시스템 python(torch 2.7.0+cu128)으로 실행. <code>KMP_DUPLICATE_LIB_OK=TRUE</code> 필요(OMP 중복 오류 실측 후 우회).</p>
+<div class="tw"><table><thead><tr><th>테스트</th><th>symmetry v5.1</th><th>HIM</th><th>CTS vanilla2</th><th>DreamWaQ</th></tr></thead><tbody><tr><td>[1,45] 0벡터 실행</td><td>OK</td><td>OK</td><td>OK (출력 <b>튜플</b>)</td><td>OK</td></tr><tr><td>표준자세 obs 10스텝 → 수렴</td><td>수렴, 편차 ≤0.152 rad</td><td>수렴, ≤0.269</td><td>수렴, ≤0.298</td><td>수렴, ≤0.391</td></tr><tr><td>gravity 부호 반전 반응</td><td>0.644</td><td>1.244</td><td>1.128</td><td>미시험</td></tr><tr><td>[2,45] 배치</td><td>실패</td><td>실패</td><td>실패</td><td>미시험</td></tr></tbody></table></div>
+<ul><li>0벡터·표준자세에서 목표 관절각이 기본 자세 ±0.4 rad 이내로 수렴: <b>매핑이 맞다는 간접 증거</b>.</li><li><b>배치 1 고정</b>: 내부 히스토리 버퍼가 [1,·,·]로 고정. 병렬 평가하려면 모델을 환경 수만큼 복제 로드해야 한다. <span class="ev ev-ok">확인됨</span></li><li>네 모델 모두 <b>stateful</b>(내부 히스토리: symmetry 10프레임 · HIM/DreamWaQ 6 · CTS 5). 에피소드 리셋 시 <code>model.reset()</code> 필수. <span class="ev ev-ok">확인됨</span></li><li>입력 정규화 통계는 <b>불필요</b>: 네 모델 모두 normalizer가 Identity. <span class="ev ev-ok">확인됨</span></li></ul>
 </section>
-<section id="s4"><h2>3. ★ 결과: 1920×1080 (발표 해상도)</h2>
-<div class="tw"><table><thead><tr><th>렌더러</th><th>프레임당</th><th>5초(250f)</th><th><b>30초(1500f)</b></th><th>2분(6000f)</th></tr></thead><tbody><tr><td><b>RTX Real-Time</b></td><td><b>0.056초</b></td><td>0.2분</td><td><b>1.4분</b></td><td>5.6분</td></tr><tr><td><b>Path Tracing 128spp</b></td><td><b>1.751초</b></td><td>7.3분</td><td><b>43.8분</b></td><td><b>2.9시간</b></td></tr><tr><td>Path Tracing 512spp</td><td>1.786초</td><td>7.4분</td><td>44.7분</td><td>3.0시간</td></tr></tbody></table></div>
-<p><b>Path Tracing 은 Real-Time 의 약 31배 느리다.</b></p>
-<h3>⚠️ 512spp 는 128spp 대비 아무것도 주지 않는다</h3>
-<p>시간이 <b>2% 차이</b>(1.751 → 1.786초)다. 배경 픽셀 차이도 0.9로 미미하다. → <b>이 캡처 경로에서 실효 상한은 128spp 다.</b> 그 이상은 설정해도 낭비다.</p>
-<h3>참고: 1280×720</h3>
-<div class="tw"><table><thead><tr><th>렌더러</th><th>프레임당</th></tr></thead><tbody><tr><td>RTX Real-Time</td><td>0.050초</td></tr><tr><td>Path Tracing 128spp</td><td>1.121초</td></tr></tbody></table></div>
-<p>1080p 는 720p 대비 픽셀이 2.25배인데 PT 시간은 1.56배다(1.121 → 1.751). <b>해상도를 올려도 선형으로 비싸지지 않는다.</b></p>
+<section id="s4"><h2>3. CTS 미스터리의 답 <span class="ev ev-ok">확인됨</span></h2>
+<p>지난 조사에서 &quot;45~320 단일 텐서로는 실행 안 됨, 복합 입력 추정&quot;이라 적었다. 틀렸다.</p>
+<blockquote><p><b>CTS 는 [1,45] 단일 관측 하나를 받는다.</b> 히스토리 5프레임은 모듈 안의 버퍼가 알아서 유지한다.
+예전에 실행이 안 된 이유는 셋 중 하나다: ① 1-D (45,) 입력(실패 실측) ② 출력이 튜플 <code>(action, (None, latent))</code>인데 텐서로 처리 ③ 배치≠1(실패 실측).</p></blockquote>
+<ul><li>근거: exporter.py:130-135 (forward_cts) · actor_critic_cts.py:43,48,162-167 · 로컬 policy.pt 의 히스토리 버퍼 (1,5,45) 실측 일치.</li><li>같은 폴더의 policy.onnx 는 입력 형식이 다르다: [1,225] 항목별 스택. 혼동 주의. <span class="ev ev-guess">코드확인</span></li></ul>
 </section>
-<section id="s5"><h2>4. 화질 차이: 눈으로 본 것</h2>
-<p><figure class="mdimg"><img src="assets/visual/05_render_fhd_compare.png" alt="fhd" loading="lazy"><figcaption>fhd</figcaption></figure></p>
-<p>1920×1080 프레임의 일부를 확대한 것. 왼쪽부터 Real-Time / PT 128spp / PT 512spp.</p>
-<ul><li><b>Real-Time</b>: 바닥이 매끈하고 평평하다. 로봇 아래 접지 그림자가 약하다</li><li><b>Path Tracing</b>: 바닥 표면 디테일과 대비가 살아난다. <b>로봇 아래 접지 그림자가 뚜렷하다</b></li><li><b>512spp</b>: 128spp 와 육안 차이가 사실상 없다</li></ul>
-<blockquote><p><b>다만 정직하게: 이 창고 씬에서는 차이가 크지 않다.</b>
-바닥이 거의 디퓨즈이고 조명이 단순해서 Path Tracing 이 자랑할 게 없다.
-역광·다중 반사·복잡한 재질이 있는 씬이라야 격차가 벌어진다.</p></blockquote>
-<h3>참고: 720p 에서의 같은 비교</h3>
-<p><figure class="mdimg"><img src="assets/visual/06_render_rt_vs_pt_720p.png" alt="720p Real-Time vs Path Tracing" loading="lazy"><figcaption>720p Real-Time vs Path Tracing</figcaption></figure></p>
-<p>왼쪽 Real-Time · 가운데 Path Tracing 128spp · 오른쪽은 차이를 12배 증폭한 것. 바닥 반사가 실제로 다르다. 다만 이 창고 씬은 조명이 단순해 격차가 작다.</p>
+<section id="s5"><h2>4. DreamWaQ 행방 <span class="ev ev-ok">확인됨</span></h2>
+<p>HF <code>wty-yy/go2_rl_gym_data</code> <b>루트의 단일 파일</b> <code>go2_dwaq_119.5k_0.5054.pt</code>. 폴더/policy.pt 형태만 뒤져서 못 찾았던 것. 내려받아 [1,45]→[1,12] 실행까지 검증했다. 워크스테이션 <code>C:\isaac\checkpoints\robogauge\</code> 에 보관.</p>
 </section>
-<section id="s6"><h2>4-2. ★ 참고: «실사처럼 보이는 것»의 정체 (Racer RTX 분석)</h2>
-<p>NVIDIA 가 Omniverse 로 만든 <a href="https://www.youtube.com/watch?v=AsykNkUMoNU" target="_blank" rel="noopener">Racer RTX</a> 를 직접 받아 프레임 단위로 확인했다. 조사 요약을 옮겨 적는 대신 <b>눈으로 봤다.</b></p>
-<p><figure class="mdimg"><img src="assets/visual/11_racer_rtx_desert.png" alt="Racer RTX 사막 구간" loading="lazy"><figcaption>Racer RTX 사막 구간</figcaption></figure></p>
-<p><figure class="mdimg"><img src="assets/visual/12_racer_rtx_overview.png" alt="Racer RTX 전체 흐름" loading="lazy"><figcaption>Racer RTX 전체 흐름</figcaption></figure></p>
-<div class="tw"><table><thead><tr><th>요소</th><th>실제로 시뮬레이션됐나</th></tr></thead><tbody><tr><td>차체 물리 · 서스펜션 · 점프 · 착지</td><td>✅ <b>확실히 시뮬레이션</b>(강체 물리). 74초 공중 → 75초 착지</td></tr><tr><td>흩날리는 모래 · 모래폭풍</td><td>❌ <b>거의 없다.</b> 사막 지형은 정적 메시 + 텍스처</td></tr><tr><td>차 뒤 먼지</td><td>🟡 약하게 있음(72초·80초). 규모가 작다</td></tr><tr><td><b>흐릿함의 정체</b></td><td>⚠️ <b>대부분 모션블러다</b></td></tr></tbody></table></div>
-<blockquote><p>### ★ 우리에게 좋은 소식
-<b>«실사처럼 보이는 것»의 상당 부분은 물리 시뮬이 아니라 렌더링 기법</b>
-모션블러 · 얕은 심도 · 룩뎁: <b>이다.</b>
-즉 모래를 물리로 시뮬레이션하지 않아도 «모래밭을 질주하는 느낌»을 낼 수 있다.
-<b>Isaac Lab 이 모래를 지원하지 않는 제약이 최종 영상 품질의 제약은 아니다.</b></p></blockquote>
-<p>⚠️ 다만 발표에서는 <b>연출과 시뮬레이션을 구분해서</b> 말해야 한다. VFX 로 얹은 물보라는 로봇의 학습에 아무 영향을 주지 않았다.</p>
+<section id="s6"><h2>5. 우리 평가에 붙일 때: 변환 규칙과 남은 확인</h2>
+<p>우리 235차원 관측 → 45차원 변환: lin_vel(0:3)과 height_scan(48:235)을 <b>버리고</b>, ang_vel ×0.25 · dq ×0.05 · cmd ×(모델군별 표) 스케일을 적용하고, q 는 (q - default) 오프셋을 쓴다.</p>
+<p><b>가장 위험한 함정이 하나 남았다: 관절 순서.</b> <span class="ev ev-todo">미확인</span></p>
+<ul><li>RoboGauge 모델: 다리별 묶음 [FL_h, FL_t, FL_c, FR_h, ...]</li><li>우리 Isaac Lab(USD): 관행상 관절종류별 묶음 [FL_h, FR_h, RL_h, RR_h, FL_t, ...] 로 알려져 있으나 <b>우리 env 에서 <code>robot.joint_names</code> 를 실측하기 전까지 미확인</b></li><li>순서가 다르면 q·dq·last_action 세 블록의 재배열 + 정책 출력 12차원의 역재배열이 필요하다. 실측 전에는 변환기를 완성하지 않는다.</li></ul>
+<p>남은 확인 목록: ① 우리 env 관절 순서 실측 ② 우리 env 의 obs 스케일·default 자세가 위와 같은지 cfg 확인 ③ symmetry 학습 저장소(robotlab)는 비공개 추정이라 설정 주석과 실측만으로 파악한 상태.</p>
 </section>
-<section id="s7"><h2>5. 이 숫자가 프로젝트에 의미하는 것</h2>
-<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>30초 편집본 @1080p PT128 = 약 44분   → 하룻밤에 여러 번 다시 뽑을 수 있다
-2분 완성본  @1080p PT128 = 약 3시간   → 하루 한 번</pre></div>
-<blockquote><p>### <b>렌더 시간은 이 프로젝트의 병목이 아니다.</b>
-병목은 <b>씬을 만드는 시간</b>이다. 자갈 배치, 재질, 조명, 카메라 워크.</p></blockquote>
-<h3>남은 위험</h3>
-<div class="tw"><table><thead><tr><th></th><th>내용</th></tr></thead><tbody><tr><td>⚠️ <b>멀티 GPU</b></td><td>Movie Capture 가 <b>GPU 1장만 쓴다</b>는 보고가 있다(L40S 4장 환경). 5080 두 장 중 한 장이 놀 수 있다. 최종 파이프라인에서 확인 필요. <span class="ev ev-todo">미확인</span></td></tr><tr><td>⚠️ <b>캡처 경로</b></td><td>여기 쓴 <code>gym.wrappers.RecordVideo</code> 는 프레임마다 즉시 넘어간다. <b>누적형 고품질 정지 프레임에는 <code>Movie Capture</code> 확장이 맞는 도구다</b></td></tr><tr><td>⚠️ <b>씬 복잡도</b></td><td>이 측정은 기본 창고 씬 기준이다. Megascans 자갈 + HDRI + 다중 광원이면 <b>더 느려진다.</b> 씬이 정해지면 재측정할 것</td></tr></tbody></table></div>
-</section>
-<section id="s8"><h2>6. 재현 명령</h2>
-<div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">conda</span> activate isaac311
-<span class="f">cd</span> C:\isaac\IsaacLab
-<span class="v">$env:OMNI_KIT_ACCEPT_EULA</span>=<span class="s">&quot;YES&quot;</span>
-
-<span class="v">$ck</span> = <span class="s">&quot;C:\isaac\IsaacLab\logs\rsl_rl\unitree_go2_rough\2026-08-09_14-00-20\exported\policy.pt&quot;</span>
-
-<span class="c"># Path Tracing 128spp, 1920x1080</span>
-<span class="f">python</span> play_go2_in_usd.py <span class="o">--checkpoint</span> <span class="v">$ck</span> <span class="o">--steps</span> <span class="n">75</span> <span class="o">--headless</span> <span class="o">--video</span> `
-  <span class="o">--res</span> 1920x1080 <span class="o">--renderer</span> PathTracing <span class="o">--spp</span> <span class="n">128</span> <span class="o">--tag</span> pt128
-
-<span class="c"># 2점법으로 프레임당 시간 구하기: steps 를 15 와 75 로 두 번 돌리고</span>
-<span class="c">#   프레임당 = (T75 - T15) / 60</span></pre></div>
-<p>로그에 아래가 찍히는지 <b>반드시 확인</b>할 것 (함정 ②):</p>
-<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>[RENDER] 요청=PathTracing  실제 /rtx/rendermode=PathTracing
-[RENDER] spp=128  totalSpp=128
-[RENDER] 해상도 1920x1080</pre></div>
-</section>
-<section id="s9"><h2>연결</h2>
-<ul><li>시각 증거 → <a href="research-visual-evidence.html">visual-evidence.md</a></li><li>학습 수치 → <a href="research-training-benchmarks.html">training-benchmarks.md</a></li><li>아키텍처 결정 → <a href="research-architecture-decision.html">architecture-decision.md</a></li></ul>
+<section id="s7"><h2>연결</h2>
+<ul><li>공개 정책 전수 조사(점수표·라이선스) → <a href="research-go2-pretrained-policies.html">go2-pretrained-policies.md</a></li><li>우리 평가 파이프라인(성공 정의·기준선 86.7%) → <a href="research-training-benchmarks.html">training-benchmarks.md</a></li><li>프로젝트 흐름에서의 위치(Student 비교 상대) → FLOW §3</li></ul>
 </section>
 
 </div>
