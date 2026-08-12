@@ -1,0 +1,37 @@
+# 사이트가 갱신되면 #foothold-git 에 알린다.
+#   push = Vercel 배포 트리거이므로, 이 알림 = "곧 사이트가 바뀐다"는 신호다.
+#   시크릿은 org 공용 DISCORD_WEBHOOK (public 레포라 사용 가능 — rl 과 동일 구조).
+#
+#   ★ 전송은 반드시 curl 로 한다. 파이썬 urllib 의 기본 User-Agent 는
+#     Discord(Cloudflare)가 403 으로 막는다 — 2026-08-11 에 이걸로 두 번 실패했다.
+#   ★ HTTP 코드를 확인한다. curl 은 4xx 를 받아도 종료코드 0 이라, 확인하지 않으면
+#     "성공한 것처럼 보이는 실패"가 된다.
+name: 디스코드 알림
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 사이트 갱신 알림
+        env:
+          HOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MSG: ${{ github.event.head_commit.message }}
+          AUTHOR: ${{ github.event.head_commit.author.name }}
+        run: |
+          set -euo pipefail
+          if [ -z "${HOOK:-}" ]; then echo "시크릿 DISCORD_WEBHOOK 없음"; exit 1; fi
+          TITLE=$(printf '%s' "$MSG" | head -n 1 | cut -c1-140)
+          TEXT="🌐 **사이트 갱신** — ${TITLE} (${AUTHOR})
+          <https://foothold-project.vercel.app> 반영까지 1~2분"
+          CODE=$(jq -n --arg c "$TEXT" '{content:$c}' \
+            | curl -sS -o /dev/null -w '%{http_code}' \
+                   -X POST -H "Content-Type: application/json" -d @- "$HOOK")
+          echo "HTTP $CODE"
+          case "$CODE" in 2*) echo "전송 확인" ;; *) echo "★ 전송 실패"; exit 1 ;; esac
