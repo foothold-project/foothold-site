@@ -225,6 +225,7 @@ section .addr .big{font-size:1.2rem}
 .rcard .rt{font-weight:800;font-size:1rem;margin:.2rem 0 .35rem}
 .rcard .rd{font-size:.8rem;color:var(--ink-2);line-height:1.55}
 .rcard .rm{font-size:.7rem;color:var(--ink-3);margin-top:.5rem;letter-spacing:.04em}
+.rcard .rno{display:inline-block;min-width:1.7em;text-align:center;background:var(--paper-2);border:1px solid var(--rule);border-radius:3px;font-size:.72rem;color:var(--ink-3);margin-right:.15rem;vertical-align:.06em}
 /* 대표 그림. 카드가 «무엇에 관한 글인지»를 제목보다 빨리 말해준다 */
 .rcard.has-thumb{padding:0;overflow:hidden;display:flex;flex-direction:column}
 .rcard .rthumb{background:var(--paper-2);border-bottom:1px solid var(--rule);
@@ -234,18 +235,22 @@ section .addr .big{font-size:1.2rem}
 .rcard:hover .rthumb img{transform:scale(1.03)}
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
-<!--newbadge:v1--><style>
-a[data-added]{position:relative}
-a.is-new::before{content:'NEW';position:absolute;top:10px;right:10px;z-index:3;
-  background:var(--note,#a86a08);color:#fff;font-size:.56rem;font-weight:800;
-  letter-spacing:.1em;padding:.16rem .42rem;border-radius:3px;pointer-events:none}
+<!--newbadge:v2--><style>
+a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
+  margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
+  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
 </style>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  var W=14*86400000;
+  var W=7*86400000,KEY='fh_seen',seen={};
+  try{seen=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  var here=location.pathname.split('/').pop()||'index.html';
+  seen[here]=Date.now();
+  try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
   document.querySelectorAll('a[data-added]').forEach(function(a){
     var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
-    if(!isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W)a.classList.add('is-new');
+    var tgt=(a.getAttribute('href')||'').split('/').pop();
+    if(!isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt])a.classList.add('is-new');
   });
 });
 </script>
@@ -264,7 +269,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<div class="rcards"><a class="rcard" data-added="2026-08-11" href="research-architecture-decision.html"><div class="rbody"><div class="rt">시스템 아키텍처 결정: Isaac Sim + ROS2 + 실기 Go2</div><div class="rd">작성 2026-08-09 · 워크스테이션 세션</div><div class="rm">확인 5 · 추측 0 · 미측정 0</div></div></a><a class="rcard" data-added="2026-08-11" href="research-cloud-gpu-options.html"><div class="rbody"><div class="rt">클라우드 GPU에서 Isaac Sim 돌리기: 가능성 조사</div><div class="rd">작성 2026-08-08 · 방법: NVIDIA 공식 문서·포럼·NGC 카탈로그·GitHub 이슈 직접 확인 · 상태: 코덱스 교차검증 대기</div><div class="rm">확인 6 · 추측 0 · 미측정 5</div></div></a><a class="rcard" data-added="2026-08-12" href="research-go2-pretrained-policies.html"><div class="rbody"><div class="rt">Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</div><div class="rd">작성 2026-08-12 · 워크스테이션 세션 · 방법: S3 버킷 직접 리스팅 + 체크포인트 바이너리 파싱 + HuggingFace 실제 다운로드·로드 검증</div><div class="rm">확인 10 · 추측 0 · 미측정 6</div></div></a><a class="rcard" data-added="2026-08-12" href="research-omniverse-stack.html"><div class="rbody"><div class="rt">NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</div><div class="rd">작성 2026-08-12 · 워크스테이션 세션 · 방법: 공식 문서 + 쇼케이스 1차 출처 + 우리 실측(렌더 벤치마크·Racer 프레임 분석) 연결</div><div class="rm">확인 1 · 추측 0 · 미측정 1</div></div></a><a class="rcard has-thumb" data-added="2026-08-11" href="research-render-benchmarks.html"><div class="rthumb"><img src="assets/visual/05_render_fhd_compare.png" alt="" loading="lazy"></div><div class="rbody"><div class="rt">렌더 실측: Path Tracing 은 얼마나 걸리는가</div><div class="rd">작성 2026-08-10 · 워크스테이션 세션 · 장비 RTX 5080 ×2 (VRAM 16GB/장)</div><div class="rm">확인 0 · 추측 0 · 미측정 1</div></div></a><a class="rcard" data-added="2026-08-11" href="research-ros2-isaacsim-integration.html"><div class="rbody"><div class="rt">ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법</div><div class="rd">작성 2026-08-09 · 출처: 공식 문서 검증 + WS 세션 원본 회수 완료(§회수 완료)</div><div class="rm">확인 3 · 추측 0 · 미측정 0</div></div></a><a class="rcard has-thumb" data-added="2026-08-11" href="research-training-benchmarks.html"><div class="rthumb"><img src="assets/visual/09_difficulty_curve.png" alt="" loading="lazy"></div><div class="rbody"><div class="rt">학습 성능 실측: Go2 험지 (AI-WS01)</div><div class="rd">작성 2026-08-09 · 측정 환경 AI-WS01 (RTX 5080 ×2 · Threadripper 7970X · 256GB RAM · Windows 11)</div><div class="rm">확인 2 · 추측 0 · 미측정 0</div></div></a><a class="rcard has-thumb" data-added="2026-08-11" href="research-visual-evidence.html"><div class="rthumb"><img src="assets/visual/00_reference_unitree_official.png" alt="" loading="lazy"></div><div class="rbody"><div class="rt">시각 증거: 우리가 실제로 본 것</div><div class="rd">작성 2026-08-09 · 워크스테이션 세션</div><div class="rm">확인 0 · 추측 0 · 미측정 0</div></div></a></div>
+<div class="rcards"><a class="rcard" data-added="2026-08-11" href="research-cloud-gpu-options.html"><div class="rbody"><div class="rt"><span class="rno">01</span> 클라우드 GPU에서 Isaac Sim 돌리기: 가능성 조사</div><div class="rd">작성 2026-08-08 · 방법: NVIDIA 공식 문서·포럼·NGC 카탈로그·GitHub 이슈 직접 확인 · 상태: 코덱스 교차검증 대기</div><div class="rm">2026-08-08 · 확인 6 · 추측 0 · 미측정 5</div></div></a><a class="rcard" data-added="2026-08-11" href="research-architecture-decision.html"><div class="rbody"><div class="rt"><span class="rno">02</span> 시스템 아키텍처 결정: Isaac Sim + ROS2 + 실기 Go2</div><div class="rd">작성 2026-08-09 · 워크스테이션 세션</div><div class="rm">2026-08-09 · 확인 5 · 추측 0 · 미측정 0</div></div></a><a class="rcard" data-added="2026-08-11" href="research-ros2-isaacsim-integration.html"><div class="rbody"><div class="rt"><span class="rno">03</span> ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법</div><div class="rd">작성 2026-08-09 · 출처: 공식 문서 검증 + WS 세션 원본 회수 완료(§회수 완료)</div><div class="rm">2026-08-09 · 확인 3 · 추측 0 · 미측정 0</div></div></a><a class="rcard has-thumb" data-added="2026-08-11" href="research-training-benchmarks.html"><div class="rthumb"><img src="assets/visual/09_difficulty_curve.png" alt="" loading="lazy"></div><div class="rbody"><div class="rt"><span class="rno">04</span> 학습 성능 실측: Go2 험지 (AI-WS01)</div><div class="rd">작성 2026-08-09 · 측정 환경 AI-WS01 (RTX 5080 ×2 · Threadripper 7970X · 256GB RAM · Windows 11)</div><div class="rm">2026-08-09 · 확인 2 · 추측 0 · 미측정 0</div></div></a><a class="rcard has-thumb" data-added="2026-08-11" href="research-visual-evidence.html"><div class="rthumb"><img src="assets/visual/00_reference_unitree_official.png" alt="" loading="lazy"></div><div class="rbody"><div class="rt"><span class="rno">05</span> 시각 증거: 우리가 실제로 본 것</div><div class="rd">작성 2026-08-09 · 워크스테이션 세션</div><div class="rm">2026-08-09 · 확인 0 · 추측 0 · 미측정 0</div></div></a><a class="rcard has-thumb" data-added="2026-08-11" href="research-render-benchmarks.html"><div class="rthumb"><img src="assets/visual/05_render_fhd_compare.png" alt="" loading="lazy"></div><div class="rbody"><div class="rt"><span class="rno">06</span> 렌더 실측: Path Tracing 은 얼마나 걸리는가</div><div class="rd">작성 2026-08-10 · 워크스테이션 세션 · 장비 RTX 5080 ×2 (VRAM 16GB/장)</div><div class="rm">2026-08-10 · 확인 0 · 추측 0 · 미측정 1</div></div></a><a class="rcard" data-added="2026-08-12" href="research-go2-pretrained-policies.html"><div class="rbody"><div class="rt"><span class="rno">07</span> Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</div><div class="rd">작성 2026-08-12 · 워크스테이션 세션 · 방법: S3 버킷 직접 리스팅 + 체크포인트 바이너리 파싱 + HuggingFace 실제 다운로드·로드 검증</div><div class="rm">2026-08-12 · 확인 10 · 추측 0 · 미측정 6</div></div></a><a class="rcard" data-added="2026-08-12" href="research-omniverse-stack.html"><div class="rbody"><div class="rt"><span class="rno">08</span> NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</div><div class="rd">작성 2026-08-12 · 워크스테이션 세션 · 방법: 공식 문서 + 쇼케이스 1차 출처 + 우리 실측(렌더 벤치마크·Racer 프레임 분석) 연결</div><div class="rm">2026-08-12 · 확인 1 · 추측 0 · 미측정 1</div></div></a></div>
 
 </div>
 <script>
