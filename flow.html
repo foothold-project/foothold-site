@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>프로젝트 전체 흐름 · FOOTHOLD</title>
-<meta name="description" content="FOOTHOLD 프로젝트 전체 흐름 — 시뮬 학습부터 증류, 새 지형 시험, sim2sim, 실물 배포, 극사실 렌더까지. 로봇공학을 몰라도 읽히게.">
+<meta name="description" content="FOOTHOLD 프로젝트 전체 흐름: 시뮬 학습부터 증류, 새 지형 시험, sim2sim, 실물 배포, 극사실 렌더까지. 로봇공학을 몰라도 읽히게.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -87,7 +87,7 @@ blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.
 blockquote p{margin:.25rem 0}
 blockquote b{color:var(--ink)}
 
-/* 표 — 모바일에서 가로 스크롤 (DESIGN.md §5) */
+/* 표: 모바일에서 가로 스크롤 (DESIGN.md §5) */
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
 table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
 th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
@@ -120,7 +120,7 @@ tbody tr:nth-child(even){background:var(--paper-2)}
 .pin.hot>div{border-color:var(--note);background:var(--note-soft)}
 .big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
   color:var(--dim-ink);word-break:break-all}
-/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다 — 눈에 띄게 */
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다. 눈에 띄게 */
 section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
 section .addr .big{font-size:1.2rem}
 .addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
@@ -160,7 +160,7 @@ section .addr .big{font-size:1.2rem}
   font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
 .redacted-note b{color:var(--note-ink)}
 
-/* 미확인 표시 — 확정처럼 읽히면 안 된다 */
+/* 미확인 표시: 확정처럼 읽히면 안 된다 */
 .unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
   background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
   vertical-align:.08em;margin-right:.3rem}
@@ -185,10 +185,12 @@ section .addr .big{font-size:1.2rem}
   .mdimg{break-inside:avoid;page-break-inside:avoid}
 }
 
-/* 마크다운 이미지 — mdpage 가 만드는 <figure class="mdimg"> */
+/* 마크다운 그림·영상: mdpage 가 만드는 <figure class="mdimg"> */
 .mdimg{margin:1.5rem 0;padding:0}
 .mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
   border-radius:4px;background:var(--card)}
+.mdvid video{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:#0f141b}
 .mdimg figcaption{font-size:.74rem;color:var(--ink-3);margin-top:.45rem;line-height:1.5}
 
 /* ── 코드 문법 강조 ──
@@ -202,7 +204,7 @@ section .addr .big{font-size:1.2rem}
 .cb pre .v{color:#7ee0d0}                     /* 변수 */
 .cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
 @media print{
-  /* 종이에서는 색이 안 나올 수 있다 — 굵기·기울기로도 구분되게 */
+  /* 종이에서는 색이 안 나올 수 있다. 굵기·기울기로도 구분되게 */
   .cb pre .c{color:#777!important;font-style:italic}
   .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
   .cb pre .s{color:#2a6b2a!important}
@@ -221,7 +223,7 @@ section .addr .big{font-size:1.2rem}
 <div class="hero">
   <div class="eyebrow">Flow · 무엇을 어떤 순서로 하는가</div>
   <h1>프로젝트 전체 흐름</h1>
-  <p class="lede">학습은 시뮬에서, 확인은 실물에서. <b>시뮬은 학습장이고 실기는 시험장이다</b> — 실기에서는 학습하지 않는다. 용어는 나올 때마다 그 자리에서 푼다. 마지막 절 «자주 헷갈리는 것»부터 읽어도 된다.</p>
+  <p class="lede">학습은 시뮬에서, 확인은 실물에서. <b>시뮬은 학습장이고 실기는 시험장이다</b>: 실기에서는 학습하지 않는다. 용어는 나올 때마다 그 자리에서 푼다. 마지막 절 «자주 헷갈리는 것»부터 읽어도 된다.</p>
   <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / FLOW.md</span></div><div><span class="k">단계</span><span class="v">학습 → 증류 → 시험 → sim2sim → 실기</span></div><div><span class="k">별도 갈래</span><span class="v">극사실 렌더 (학습 기여도 0)</span></div><div><span class="k">실측</span><span class="v">씬 분리 성공 · PT 1.75초/프레임</span></div></div>
 </div>
 
@@ -273,7 +275,7 @@ section .addr .big{font-size:1.2rem}
   <!-- 갈래 B sim2sim -->
   <rect x="596" y="86" width="170" height="44" fill="none" stroke="var(--ink-2)" stroke-width="1.8"/>
   <text x="681" y="105" text-anchor="middle" font-size="11.5" font-weight="800" fill="var(--ink)">sim2sim</text>
-  <text x="681" y="120" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">MuJoCo — 엔진을 속였나</text>
+  <text x="681" y="120" text-anchor="middle" font-size="9.5" fill="var(--ink-3)">MuJoCo: 엔진을 속였나</text>
 
   <!-- 갈래 C 렌더 -->
   <rect x="596" y="164" width="170" height="44" fill="var(--dim-soft)" stroke="var(--dim)" stroke-width="1.8"/>
@@ -283,9 +285,9 @@ section .addr .big{font-size:1.2rem}
   <!-- sim2real -->
   <rect x="228" y="258" width="310" height="86" fill="none" stroke="var(--stop)" stroke-width="2.5"/>
   <text x="383" y="250" text-anchor="middle" font-size="11" font-weight="800" fill="var(--ink-3)">5단계</text>
-  <text x="383" y="284" text-anchor="middle" font-size="13" font-weight="800" fill="var(--stop)">sim2real — 실물 Go2</text>
+  <text x="383" y="284" text-anchor="middle" font-size="13" font-weight="800" fill="var(--stop)">sim2real: 실물 Go2</text>
   <text x="383" y="304" text-anchor="middle" font-size="10" fill="var(--ink-2)">ONNX → Orin NX · ROS2 Humble</text>
-  <text x="383" y="322" text-anchor="middle" font-size="10.5" font-weight="800" fill="var(--ink)">여기서는 학습하지 않는다 — 추론만</text>
+  <text x="383" y="322" text-anchor="middle" font-size="10.5" font-weight="800" fill="var(--ink)">여기서는 학습하지 않는다. 추론만</text>
   <path d="M 681 130 L 681 236 L 383 236 L 383 254" stroke="var(--ink-2)" stroke-width="1.8" fill="none" marker-end="url(#pah)"/>
 
   <!-- 피드백 루프 -->
@@ -309,7 +311,7 @@ section .addr .big{font-size:1.2rem}
 <p><b>세 갈래로 갈라진다는 것</b>이 이 그림의 핵심이다. 학습이 끝나면 <b>정책 파일 하나(6.9MB)</b>만 들고 나오고, 그 뒤로는 서로 다른 세 가지 일이 병행된다.</p>
 <div class="tw"><table><thead><tr><th>갈래</th><th>무엇</th><th>왜</th></tr></thead><tbody><tr><td><b>새 지형 시험</b></td><td>학습에 쓴 적 없는 지형에서 걸어보게 한다</td><td>진짜 배웠는지 확인</td></tr><tr><td><b>sim2sim</b></td><td>다른 물리 엔진(MuJoCo)에서 돌려본다</td><td>특정 엔진을 속인 게 아닌지 확인</td></tr><tr><td><b>극사실 렌더</b></td><td>예쁜 씬에 넣고 영화처럼 렌더한다</td><td>보여주기. <b>학습 기여도 0</b></td></tr></tbody></table></div>
 </section>
-<section id="s2"><h2>2. 1단계 — 시뮬레이션에서 학습</h2>
+<section id="s2"><h2>2. 1단계: 시뮬레이션에서 학습</h2>
 <h3>무엇이 일어나는가</h3>
 <p>로봇 <b>4,096마리</b>가 동시에 험지를 걷는다. 화면은 끄고(headless) 물리 계산만 돌린다. 넘어지면 다시 세우고, 잘 걸으면 점수를 준다. 이걸 수천만 번 반복한다.</p>
 <h3>지형은 이렇게 생겼다</h3>
@@ -318,7 +320,7 @@ section .addr .big{font-size:1.2rem}
 <h3>단위</h3>
 <div class="tw"><table><thead><tr><th>말</th><th>뜻</th></tr></thead><tbody><tr><td>1 step</td><td><b>0.02초</b> (정책이 50Hz 로 판단한다)</td></tr><tr><td>1 iteration</td><td>4,096마리 × 24 step = <b>98,304 env-step</b></td></tr><tr><td>기본 학습량</td><td>1,500 iteration = <b>실측 133분</b> (2026-08-12 완주)</td></tr></tbody></table></div>
 <h3>정책이란 무엇인가</h3>
-<p><b>로봇의 뇌.</b> 딱 하나의 일을 한다 — <b>지금 상태를 보고, 관절 12개를 어디로 움직일지 정한다.</b></p>
+<p><b>로봇의 뇌.</b> 딱 하나의 일을 한다. <b>지금 상태를 보고, 관절 12개를 어디로 움직일지 정한다.</b></p>
 <div class="tw"><table><thead><tr><th>입력 235개</th><th>개수</th><th>실물에서</th></tr></thead><tbody><tr><td>몸통이 얼마나 빨리 도는가</td><td>3</td><td>읽힌다</td></tr><tr><td>중력이 어느 쪽인가 (기울기)</td><td>3</td><td>읽힌다</td></tr><tr><td>어디로 가라는 명령</td><td>3</td><td>우리가 준다</td></tr><tr><td>관절 12개의 현재 각도</td><td>12</td><td>읽힌다</td></tr><tr><td>관절 12개의 현재 속도</td><td>12</td><td>읽힌다</td></tr><tr><td>직전에 내가 한 행동</td><td>12</td><td>우리가 안다</td></tr><tr><td>몸통 속도</td><td>3</td><td>⚠️ 센서가 없다</td></tr><tr><td>발밑 지형 높이 187점</td><td>187</td><td>⚠️ 만들 수 없다</td></tr></tbody></table></div>
 <p><b>출력은 12개</b>, 관절 12개의 목표 각도다.</p>
 <p>신경망은 <b>3층(512-256-128)</b>, 파라미터 약 17만 개, 파일 6.9MB. <b>요즘 기준으로 아주 작다.</b></p>
@@ -327,7 +329,7 @@ section .addr .big{font-size:1.2rem}
 <div class="tw"><table><thead><tr><th></th><th>보상 설계</th><th>정책</th></tr></thead><tbody><tr><td>정체</td><td>채점표</td><td>상황 → 행동을 내는 신경망</td></tr><tr><td>누가 만드나</td><td><b>사람</b></td><td><b>기계</b></td></tr><tr><td>바꾸는 법</td><td>코드를 고친다</td><td>직접 못 고친다. 보상을 바꿔 간접적으로</td></tr></tbody></table></div>
 <p><b>그래서 이 일의 실력은 &quot;채점표를 얼마나 잘 설계하느냐&quot;에 달려 있다.</b></p>
 </section>
-<section id="s3"><h2>3. 2단계 — 증류: 실물에 올릴 수 있게 만들기</h2>
+<section id="s3"><h2>3. 2단계: 증류: 실물에 올릴 수 있게 만들기</h2>
 
 <figure class="fdia" style="margin:1.4rem 0;background:var(--card);border:1px solid var(--rule);padding:1rem 1.1rem">
 <svg viewBox="0 0 780 300" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto">
@@ -337,14 +339,14 @@ section .addr .big{font-size:1.2rem}
   <!-- Teacher -->
   <rect x="14" y="40" width="300" height="150" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
   <text x="164" y="30" text-anchor="middle" font-size="12.5" font-weight="800" fill="var(--ink)">Teacher</text>
-  <text x="164" y="64" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink-2)">보는 것 — 235개</text>
+  <text x="164" y="64" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink-2)">보는 것. 235개</text>
   <g font-size="10" fill="var(--ink-2)">
     <text x="30" y="86">· 기울기 · 자이로 · 명령</text>
     <text x="30" y="104">· 관절 각도 12 · 속도 12</text>
     <text x="30" y="122">· 직전 행동 12</text>
   </g>
   <rect x="26" y="132" width="276" height="46" fill="var(--stop-soft, var(--dim-soft))" stroke="var(--stop)" stroke-width="1.6"/>
-  <text x="164" y="150" text-anchor="middle" font-size="10.5" font-weight="800" fill="var(--stop)">특권 정보 — 시뮬만 아는 답</text>
+  <text x="164" y="150" text-anchor="middle" font-size="10.5" font-weight="800" fill="var(--stop)">특권 정보: 시뮬만 아는 답</text>
   <text x="164" y="168" text-anchor="middle" font-size="9.5" fill="var(--ink-2)">몸통 속도 3 · 발밑 지형 높이 187점</text>
 
   <!-- 증류 화살표 -->
@@ -356,7 +358,7 @@ section .addr .big{font-size:1.2rem}
   <!-- Student -->
   <rect x="456" y="40" width="310" height="150" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
   <text x="611" y="30" text-anchor="middle" font-size="12.5" font-weight="800" fill="var(--ink)">Student</text>
-  <text x="611" y="64" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink-2)">보는 것 — 실물에 있는 것만</text>
+  <text x="611" y="64" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink-2)">보는 것. 실물에 있는 것만</text>
   <g font-size="10" fill="var(--ink-2)">
     <text x="472" y="86">· IMU 기울기 · 자이로</text>
     <text x="472" y="104">· 관절 엔코더 (각도 · 속도 · 토크)</text>
@@ -382,27 +384,27 @@ section .addr .big{font-size:1.2rem}
 
 <h3>문제</h3>
 <p>위 입력 235개 중 두 가지는 <b>시뮬레이터만 아는 답</b>이다. 이것을 <b>특권 정보</b>라 부른다.</p>
-<ul><li><b>몸통 속도</b> — 실물 Go2 에 이걸 직접 재는 센서가 없다</li><li><b>발밑 지형 높이 187점</b> — 시뮬은 지형 데이터를 조회하면 되지만, 실물은 알 방법이 없다</li></ul>
+<ul><li><b>몸통 속도</b>: 실물 Go2 에 이걸 직접 재는 센서가 없다</li><li><b>발밑 지형 높이 187점</b>: 시뮬은 지형 데이터를 조회하면 되지만, 실물은 알 방법이 없다</li></ul>
 <p><figure class="mdimg"><img src="assets/visual/10_heightscan_explained.png" alt="height_scan 187점을 위에서 본 것과 옆에서 본 것" loading="lazy"><figcaption>height_scan 187점을 위에서 본 것과 옆에서 본 것</figcaption></figure></p>
-<p><b>187 이 어디서 나온 숫자인가</b>: 로봇 몸통을 중심으로 <b>앞뒤 1.6 m × 좌우 1.0 m</b> 격자를 <b>10 cm 간격</b>으로 나누면 <b>17 × 11 = 187점</b>이다. 각 점에서 위(20 m)에서 아래로 광선을 쏴 지면까지의 거리를 잰다. 앞에 턱이 있으면 그 위치의 값만 커진다 — 그래서 «앞에 뭔가 있다»를 안다.</p>
+<p><b>187 이 어디서 나온 숫자인가</b>: 로봇 몸통을 중심으로 <b>앞뒤 1.6 m × 좌우 1.0 m</b> 격자를 <b>10 cm 간격</b>으로 나누면 <b>17 × 11 = 187점</b>이다. 각 점에서 위(20 m)에서 아래로 광선을 쏴 지면까지의 거리를 잰다. 앞에 턱이 있으면 그 위치의 값만 커진다. 그래서 «앞에 뭔가 있다»를 안다.</p>
 <blockquote><p>⚠️ <b>시뮬에서는 라이다가 아니라 «가상 광선»이다.</b> 지형 데이터를 조회하는 것이다.
 실물 Go2 에서는 라이다가 같은 역할을 하지만, <b>격자 크기와 해상도가 달라 매핑이 필요하고</b>,
 저수준 제어로 바꾸면 끊길 가능성이 있다(8/13 현장 확인 항목).</p></blockquote>
 <blockquote><p><b>즉 1단계에서 학습한 정책은 그대로는 실물에서 못 돈다.</b> 입력을 채울 수가 없다.</p></blockquote>
-<h3>해법 — teacher-student 증류</h3>
+<h3>해법: teacher-student 증류</h3>
 <div class="tw"><table><thead><tr><th></th><th>Teacher</th><th>Student</th></tr></thead><tbody><tr><td>보는 것</td><td>특권 정보까지 전부 (235개)</td><td>실물에서 읽히는 것만</td></tr><tr><td>걷는 실력</td><td>아주 잘 걷는다</td><td>Teacher 를 흉내 낸다</td></tr><tr><td>실물 적용</td><td>못 붙인다 (입력을 채울 수 없다)</td><td>붙는다</td></tr></tbody></table></div>
 <p>증류는 <b>시뮬 안에서, 지도학습으로</b> 이루어진다. Teacher 가 낸 행동을 정답 삼아 Student 가 같은 행동을 내도록 학습시키는 것이다.</p>
 <p><b>Student 는 지형 높이를 직접 못 본다.</b> 대신 <b>과거 몇 초간의 관절 움직임</b>에서 <i>&quot;발이 예상보다 일찍 닿았다 + 토크가 튀었다 → 지금 발밑이 올라와 있다&quot;</i>를 역추론한다.</p>
 <blockquote><p>### ★ 이것이 우리 주제의 <b>&quot;Online Adaptation&quot;</b> 이다.
 지형을 <b>보지 않고 몸의 느낌으로 알아채는 것.</b></p></blockquote>
-<h3>과거 이력을 얼마나 보는가 — 우리가 정해야 할 것</h3>
+<h3>과거 이력을 얼마나 보는가: 우리가 정해야 할 것</h3>
 <div class="tw"><table><thead><tr><th>방법</th><th>이력</th><th>실시간</th><th>성격</th></tr></thead><tbody><tr><td><b>Lee et al.</b> (Science Robotics 2020)</td><td>100 step</td><td>2초</td><td>지형 형상 추론에 강함, 반응이 느림</td></tr><tr><td>RMA (RSS 2021)</td><td>50 step</td><td>1초</td><td>동역학(마찰·무게) 적응 중심</td></tr><tr><td>DreamWaQ / HIMLoco</td><td>5 step</td><td>0.1초</td><td>반응이 빠름, 이력 정보가 적음</td></tr></tbody></table></div>
 <p><b>길수록 지형을 잘 알아채지만 느리게 반응한다.</b> 짧을수록 반대다.</p>
 <h3>⚠️ 두 종류의 &quot;증류&quot;를 구분할 것</h3>
 <div class="tw"><table><thead><tr><th></th><th><b>경량화 증류</b></th><th><b>관측 증류 (우리 것)</b></th></tr></thead><tbody><tr><td>목적</td><td>큰 모델 → 작은 모델</td><td>특권 정보를 보는 정책 → 실제 센서만 보는 정책</td></tr><tr><td>왜</td><td>Orin 에서 실시간으로 돌리려고</td><td><b>실물이 그 입력을 만들 수 없어서</b></td></tr><tr><td>불필요해질 조건</td><td>Orin 이 충분히 빠르면</td><td><b>없다. 무조건 필요</b></td></tr></tbody></table></div>
 <p><b>우리 정책은 파라미터 17만 개다. Orin NX 에서 여유롭게 돈다 → 경량화 증류는 아마 불필요하다.</b></p>
 </section>
-<section id="s4"><h2>4. 3~4단계 — 새 지형 시험 · sim2sim</h2>
+<section id="s4"><h2>4. 3~4단계: 새 지형 시험 · sim2sim</h2>
 <h3>새 지형 시험</h3>
 <p>학습에 쓴 적 없는 지형에서 걸어보게 한다. <b>여기서 무너지는 지점을 찾는 것이 목적이다.</b></p>
 <p><b>실증 완료</b>: 회색 절차생성 험지에서 학습한 정책을 창고 USD 씬에 넣어 걷게 하는 데 성공했다. 핵심은 코드 한 줄이다.</p>
@@ -410,14 +412,14 @@ section .addr .big{font-size:1.2rem}
     terrain_type=<span class="s">&quot;usd&quot;</span>,              <span class="c"># 절차생성 지형 대신</span>
     usd_path=<span class="s">&quot;...warehouse.usd&quot;</span>,     <span class="c"># USD 파일을 통째로 지형으로</span>
 )</pre></div>
-<h3>sim2sim — 왜 다른 엔진에서 또 돌리나</h3>
+<h3>sim2sim: 왜 다른 엔진에서 또 돌리나</h3>
 <p>같은 정책을 <b>MuJoCo</b>(구글 딥마인드의 물리 엔진, 로봇 학계 표준)에서 돌려본다.</p>
 <p>이유: 정책이 <b>PhysX 의 버그나 특성에만 통하는 꼼수</b>를 배웠을 수 있다.</p>
 <div class="tw"><table><thead><tr><th>결과</th><th>해석</th></tr></thead><tbody><tr><td>Isaac Sim 에서만 잘 걷는다</td><td>PhysX 를 속이는 법을 배웠을 수 있다</td></tr><tr><td>두 엔진 모두에서 잘 걷는다</td><td>진짜 걷는 법을 배웠을 확률이 높다</td></tr></tbody></table></div>
 <blockquote><p><b>sim2sim 은 sim2real 의 예행연습이다.</b> 실기에서 깨지는 것보다 MuJoCo 에서 깨지는 게 훨씬 싸다.</p></blockquote>
 <p>⚠️ <b>팀 규칙</b>: <b>학습은 Isaac Sim 에서만 한다. MuJoCo 는 검증용으로만.</b> 물리 계산이 달라서 두 엔진의 학습 결과는 비교할 수 없다.</p>
 </section>
-<section id="s5"><h2>5. 5단계 — sim2real: 실물 Go2</h2>
+<section id="s5"><h2>5. 5단계: sim2real: 실물 Go2</h2>
 
 <figure class="fdia" style="margin:1.4rem 0;background:var(--card);border:1px solid var(--rule);padding:1rem 1.1rem">
 <svg viewBox="0 0 780 250" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto">
@@ -446,12 +448,12 @@ section .addr .big{font-size:1.2rem}
 
   <!-- 비유 -->
   <rect x="30" y="156" width="720" height="66" fill="none" stroke="var(--rule)" stroke-width="1.4"/>
-  <text x="46" y="180" font-size="11" font-weight="800" fill="var(--ink)">비유 — 자동차의 크루즈 컨트롤과 수동 운전</text>
+  <text x="46" y="180" font-size="11" font-weight="800" fill="var(--ink)">비유: 자동차의 크루즈 컨트롤과 수동 운전</text>
   <text x="46" y="200" font-size="10" fill="var(--ink-2)">크루즈를 켜면 내 발이 액셀에서 떨어지고, 내가 액셀을 밟으면 크루즈가 풀린다.</text>
   <text x="46" y="216" font-size="10" font-weight="700" fill="var(--ink)">둘이 싸우지 않는다. 순정을 지우는 게 아니라 잠시 비켜두는 것이고, 언제든 되돌린다.</text>
 </svg>
 <figcaption style="font-size:.72rem;color:var(--ink-3);margin-top:.5rem">
-  우리 정책이 이상하면 스위치를 되돌려 로봇을 안전하게 세운다 — <b>순정은 버릴 게 아니라 백업이다.</b></figcaption>
+  우리 정책이 이상하면 스위치를 되돌려 로봇을 안전하게 세운다. <b>순정은 버릴 게 아니라 백업이다.</b></figcaption>
 </figure>
 
 <h3>Go2 에는 제어 층이 두 개이고, 동시에 켜지지 않는다</h3>
@@ -520,7 +522,7 @@ section .addr .big{font-size:1.2rem}
 <p>정준 인용 (Smith et al., CoRL 2021):
 *&quot;RMA 는 단지 기억을 가진 정책일 뿐이고, <b>새 환경에서 모은 데이터로 모델의
 파라미터를 갱신하지 않는다.</b> 따라서 데이터가 늘어도 나아지지 않는다.&quot;*</p></blockquote>
-<h3>그럼 개선은 어떻게 도나 — 사람이 돈다</h3>
+<h3>그럼 개선은 어떻게 도나. 사람이 돈다</h3>
 
 <figure class="fdia" style="margin:1.4rem 0;background:var(--card);border:1px solid var(--rule);padding:1rem 1.1rem">
 <svg viewBox="0 0 780 240" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto">
@@ -563,12 +565,12 @@ section .addr .big{font-size:1.2rem}
 </figure>
 
 <p><b>로봇이 스스로 도는 게 아니다.</b> 한 바퀴에 학습 <b>약 2시간 15분</b>(실측 133분) + 배포·시험이 붙는다. <b>몇 바퀴 돌 수 있느냐가 일정의 핵심이다.</b></p>
-<p><i>(ONNX = 모델 파일 형식. Orin NX 와 이름만 비슷하고 전혀 다르다.  PyTorch 로 만든 모델을 다른 프로그램에서 읽을 수 있게 변환한 것 — PSD 를 EXR 로 내보내는 것에 가깝다.)</i></p>
+<p><i>(ONNX = 모델 파일 형식. Orin NX 와 이름만 비슷하고 전혀 다르다.  PyTorch 로 만든 모델을 다른 프로그램에서 읽을 수 있게 변환한 것. PSD 를 EXR 로 내보내는 것에 가깝다.)</i></p>
 </section>
-<section id="s6"><h2>6. 별도 갈래 — 극사실 렌더</h2>
+<section id="s6"><h2>6. 별도 갈래: 극사실 렌더</h2>
 <p><b>학습과 렌더는 완전히 분리된다.</b></p>
 <div class="tw"><table><thead><tr><th></th><th>구성</th><th>목적</th></tr></thead><tbody><tr><td><b>학습</b></td><td>회색 무텍스처 · 4,096마리 · 렌더 끔</td><td>속도. 예쁠 필요 0</td></tr><tr><td><b>렌더</b></td><td>1마리 · 실사 지형 · Path Tracing</td><td>품질. 느려도 됨</td></tr></tbody></table></div>
-<p>VFX 파이프라인과 같은 구조다 — 시뮬레이션 캐시를 굽고, 라이팅·렌더를 따로 한다.</p>
+<p>VFX 파이프라인과 같은 구조다. 시뮬레이션 캐시를 굽고, 라이팅·렌더를 따로 한다.</p>
 <h3>실측 (RTX 5080 ×2, 1920×1080)</h3>
 <div class="tw"><table><thead><tr><th>렌더러</th><th>프레임당</th><th>30초 영상</th><th>2분 영상</th></tr></thead><tbody><tr><td>RTX Real-Time</td><td>0.056초</td><td>1.4분</td><td>5.6분</td></tr><tr><td><b>Path Tracing 128spp</b></td><td><b>1.751초</b></td><td><b>44분</b></td><td><b>2.9시간</b></td></tr><tr><td>Path Tracing 512spp</td><td>1.786초</td><td>45분</td><td>3.0시간 (128 대비 이득 없음)</td></tr></tbody></table></div>
 <blockquote><p><b>렌더 시간은 병목이 아니다. 병목은 씬을 만드는 시간이다.</b></p></blockquote>
@@ -578,10 +580,10 @@ section .addr .big{font-size:1.2rem}
 <p><b>사실상 불가능하다.</b> 강화학습은 넘어지면서 배운다. 300 iteration 만 해도 로봇 1대로는 <b>164시간(6.8일)</b>이고 수십만 번 넘어진다. <b>실물은 부서진다.</b> 멘토 평가로는 <i>&quot;리얼월드 수렴 20만 시간&quot;</i>.</p>
 <div class="tw"><table><thead><tr><th></th><th>성격</th><th>조건</th></tr></thead><tbody><tr><td><b>시뮬</b></td><td>학습장</td><td>넘어져도 됨 · 4,096마리 · 로봇 1대보다 470배 빠름</td></tr><tr><td><b>실기</b></td><td>시험장</td><td>넘어지면 안 됨 · 1마리 · 실시간</td></tr></tbody></table></div>
 <h3>Q. 이미 학습된 공개 모델을 그냥 실물에 올리면 되지 않나?</h3>
-<p><b>관측 규격만 맞으면 올라간다.</b> 그런데 그러면 <b>우리가 한 일이 &quot;남의 모델을 실행한 것&quot;</b>이 된다. <b>다만 출발점으로 쓰는 것은 맞다</b> — 백지에서 시작할 필요가 없다.</p>
+<p><b>관측 규격만 맞으면 올라간다.</b> 그런데 그러면 <b>우리가 한 일이 &quot;남의 모델을 실행한 것&quot;</b>이 된다. <b>다만 출발점으로 쓰는 것은 맞다</b>. 백지에서 시작할 필요가 없다.</p>
 <h3>Q. 세상 모든 환경에서 시뮬을 다 돌려야 하나?</h3>
 <p><b>아니다. 돌려서도 안 된다.</b> 특정 환경을 다 외우면 오히려 새 환경에서 무너진다(과적합).</p>
-<p>대신 <b>도메인 랜덤화</b> — 매 에피소드마다 세상을 흔든다.</p>
+<p>대신 <b>도메인 랜덤화</b>: 매 에피소드마다 세상을 흔든다.</p>
 <div class="tw"><table><thead><tr><th>무엇을 흔드나</th><th>범위</th><th>로봇이 겪는 것</th></tr></thead><tbody><tr><td>마찰계수</td><td>0.4 ~ 1.2 랜덤</td><td>미끄러움이 매번 다름</td></tr><tr><td>로봇 질량</td><td>±15% 랜덤</td><td>무게가 매번 다름</td></tr><tr><td>모터 강도</td><td>±10% 랜덤</td><td>힘이 매번 다름</td></tr><tr><td>외력 푸시</td><td>랜덤 타이밍·방향</td><td>툭 밀기</td></tr></tbody></table></div>
 <blockquote><p><b>로봇은 &quot;특정 바닥&quot;을 배우는 게 아니라 &quot;바닥이 어떻든 대응하는 법&quot;을 배운다.</b></p></blockquote>
 <p><b>아이가 걷는 것과 같다.</b> 아이는 세상 모든 바닥을 밟아보고 걷게 되는 게 아니다. 몇 가지 다른 바닥을 겪으며 <b>&quot;바닥이 다를 수 있다&quot;는 사실 자체</b>를 배운다.</p>
@@ -595,7 +597,7 @@ section .addr .big{font-size:1.2rem}
 그래서 스캔에 뾰족한 노이즈가 있어도 학습을 망치지 않는다.</p></blockquote>
 <h3>Q. 모래는 왜 안 되나?</h3>
 <p><b>Isaac Lab 메인테이너 공식 답변</b>: <i>&quot;지원하지 않고 로드맵에도 없다.&quot;</i> 입상 매질(모래·자갈이 흐르는 물리)은 강체 시뮬레이터가 다루지 않는다. <b>물의 저항도 같은 이유로 불가능하다.</b></p>
-<p><b>대신 외란은 이렇게 만든다</b> — 전부 실제로 시뮬레이션된다.</p>
+<p><b>대신 외란은 이렇게 만든다</b>. 전부 실제로 시뮬레이션된다.</p>
 <ul><li><b>밀림</b>: 무작위 외력 푸시 (Isaac Lab 내장 <code>push_robot</code>)</li><li><b>미끄러움</b>: 마찰계수 랜덤화</li><li><b>불안정한 발판</b>: 흔들리는 판, 무너지는 잔해</li></ul>
 </section>
 <section id="s8"><h2>8. 지금 어디까지 왔나</h2>
@@ -611,7 +613,7 @@ addEventListener('scroll', function(){
   var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
   document.getElementById('prog').style.width = (p * 100) + '%';
 }, {passive:true});
-/* 복사 버튼 — 코드 블록과 접속 주소 공용 */
+/* 복사 버튼: 코드 블록과 접속 주소 공용 */
 document.addEventListener('click', function(e){
   var b = e.target.closest && e.target.closest('.copy');
   if (!b) return;

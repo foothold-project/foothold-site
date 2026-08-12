@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ROS2 ↔ Isaac Sim — 파이썬 버전 충돌과 통합 방법 · FOOTHOLD</title>
+<title>ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법 · FOOTHOLD</title>
 <meta name="description" content="작성 2026-08-09 · 출처: 공식 문서 검증 + WS 세션 원본 회수 완료(§회수 완료)">
 <style>
 :root{
@@ -87,7 +87,7 @@ blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.
 blockquote p{margin:.25rem 0}
 blockquote b{color:var(--ink)}
 
-/* 표 — 모바일에서 가로 스크롤 (DESIGN.md §5) */
+/* 표: 모바일에서 가로 스크롤 (DESIGN.md §5) */
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
 table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
 th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
@@ -120,7 +120,7 @@ tbody tr:nth-child(even){background:var(--paper-2)}
 .pin.hot>div{border-color:var(--note);background:var(--note-soft)}
 .big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
   color:var(--dim-ink);word-break:break-all}
-/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다 — 눈에 띄게 */
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다. 눈에 띄게 */
 section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
 section .addr .big{font-size:1.2rem}
 .addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
@@ -160,7 +160,7 @@ section .addr .big{font-size:1.2rem}
   font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
 .redacted-note b{color:var(--note-ink)}
 
-/* 미확인 표시 — 확정처럼 읽히면 안 된다 */
+/* 미확인 표시: 확정처럼 읽히면 안 된다 */
 .unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
   background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
   vertical-align:.08em;margin-right:.3rem}
@@ -182,7 +182,16 @@ section .addr .big{font-size:1.2rem}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mdimg{break-inside:avoid;page-break-inside:avoid}
 }
+
+/* 마크다운 그림·영상: mdpage 가 만드는 <figure class="mdimg"> */
+.mdimg{margin:1.5rem 0;padding:0}
+.mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:var(--card)}
+.mdvid video{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:#0f141b}
+.mdimg figcaption{font-size:.74rem;color:var(--ink-3);margin-top:.45rem;line-height:1.5}
 
 /* ── 코드 문법 강조 ──
    실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
@@ -195,7 +204,7 @@ section .addr .big{font-size:1.2rem}
 .cb pre .v{color:#7ee0d0}                     /* 변수 */
 .cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
 @media print{
-  /* 종이에서는 색이 안 나올 수 있다 — 굵기·기울기로도 구분되게 */
+  /* 종이에서는 색이 안 나올 수 있다. 굵기·기울기로도 구분되게 */
   .cb pre .c{color:#777!important;font-style:italic}
   .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
   .cb pre .s{color:#2a6b2a!important}
@@ -216,6 +225,13 @@ section .addr .big{font-size:1.2rem}
 .rcard .rt{font-weight:800;font-size:1rem;margin:.2rem 0 .35rem}
 .rcard .rd{font-size:.8rem;color:var(--ink-2);line-height:1.55}
 .rcard .rm{font-size:.7rem;color:var(--ink-3);margin-top:.5rem;letter-spacing:.04em}
+/* 대표 그림. 카드가 «무엇에 관한 글인지»를 제목보다 빨리 말해준다 */
+.rcard.has-thumb{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.rcard .rthumb{background:var(--paper-2);border-bottom:1px solid var(--rule);
+  aspect-ratio:16/7;overflow:hidden}
+.rcard .rthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+.rcard.has-thumb .rbody{padding:14px 16px}
+.rcard:hover .rthumb img{transform:scale(1.03)}
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
 </head>
@@ -227,47 +243,47 @@ section .addr .big{font-size:1.2rem}
 
 <div class="hero">
   <div class="eyebrow">Research · 근거 기록</div>
-  <h1>ROS2 ↔ Isaac Sim — 파이썬 버전 충돌과 통합 방법</h1>
+  <h1>ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법</h1>
   <p class="lede">작성 2026-08-09 · 출처: 공식 문서 검증 + WS 세션 원본 회수 완료(§회수 완료)</p>
   <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / ros2-isaacsim-integration.md</span></div><div><span class="k">증거</span><span class="v">확인 3 · 추측 0 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
 <blockquote><p>작성 2026-08-09 · 출처: 공식 문서 검증 + <b>WS 세션 원본 회수 완료(§회수 완료)</b>
-상태: <span class="ev ev-ok">확인됨</span> — 참조 블로그·구현 저장소 URL 대조 완료</p></blockquote>
+상태: <span class="ev ev-ok">확인됨</span>. 참조 블로그·구현 저장소 URL 대조 완료</p></blockquote>
 </section>
-<section id="s1"><h2>문제 — 두 도구의 파이썬이 다르다 <span class="ev ev-ok">확인됨</span></h2>
+<section id="s1"><h2>문제: 두 도구의 파이썬이 다르다 <span class="ev ev-ok">확인됨</span></h2>
 <div class="tw"><table><thead><tr><th></th><th>파이썬</th><th>기반</th></tr></thead><tbody><tr><td><b>ROS2 Humble</b></td><td><b>3.10</b></td><td>Ubuntu 22.04 시스템 파이썬에 묶임</td></tr><tr><td><b>Isaac Sim 5.x</b></td><td><b>3.11</b></td><td>자체 배포 (cp311 wheel)</td></tr></tbody></table></div>
 <p>같은 환경에 둘을 섞으면 의존성이 충돌한다. 팀장이 참조한 블로그 사례: <b>컨테이너를 2개로 분리</b>(ROS 따로 / Isaac Sim 따로)하고 <b>통신만 주고받게</b> 구성.</p>
 </section>
-<section id="s2"><h2>검증 — 그 방법이 정석인가?</h2>
+<section id="s2"><h2>검증: 그 방법이 정석인가?</h2>
 <p><b>네, 정석 중 하나가 맞다.</b> 그리고 공식 경로가 하나 더 있다:</p>
-<ol><li><b>프로세스/컨테이너 분리 + DDS 통신</b> — ROS2 는 원래 네트워크 미들웨어라 <b>노드가 서로 다른 환경·기계에 있는 것이 기본 설계</b>다. 분리가 이상한 게 아니라 자연스럽다. 클라우드 조사에서 발견한 공식 이미지(<code>nvcr.io/nvidia/isaac-sim:5.1.0</code> + ROS 이미지)로 그대로 구성 가능.</li><li><b>Isaac Sim 내장 ROS2 Bridge</b> <span class="ev ev-ok">확인됨</span> — Isaac Sim 이 <b>자체 빌드된 ROS2 라이브러리를 동봉</b>해서, 확장을 켜면 파이썬 충돌 없이 시뮬 안에서 바로 토픽을 퍼블리시/구독한다. 공식 문서: https://docs.isaacsim.omniverse.nvidia.com/latest/ros2_tutorials/index.html → <b>시뮬↔ROS2 연습(⑥단계 준비)은 이 브리지가 가장 짧은 길.</b></li><li><b>실기 배포 시점엔 이 충돌이 없다</b> — Go2 위(Orin NX)에는 Isaac Sim 이 안 올라간다. ROS2 + 정책 런타임(ONNX)만 올라가므로 파이썬 충돌 자체가 성립하지 않는다.</li></ol>
+<ol><li><b>프로세스/컨테이너 분리 + DDS 통신</b>: ROS2 는 원래 네트워크 미들웨어라 <b>노드가 서로 다른 환경·기계에 있는 것이 기본 설계</b>다. 분리가 이상한 게 아니라 자연스럽다. 클라우드 조사에서 발견한 공식 이미지(<code>nvcr.io/nvidia/isaac-sim:5.1.0</code> + ROS 이미지)로 그대로 구성 가능.</li><li><b>Isaac Sim 내장 ROS2 Bridge</b> <span class="ev ev-ok">확인됨</span>. Isaac Sim 이 <b>자체 빌드된 ROS2 라이브러리를 동봉</b>해서, 확장을 켜면 파이썬 충돌 없이 시뮬 안에서 바로 토픽을 퍼블리시/구독한다. 공식 문서: https://docs.isaacsim.omniverse.nvidia.com/latest/ros2_tutorials/index.html → <b>시뮬↔ROS2 연습(⑥단계 준비)은 이 브리지가 가장 짧은 길.</b></li><li><b>실기 배포 시점엔 이 충돌이 없다</b>. Go2 위(Orin NX)에는 Isaac Sim 이 안 올라간다. ROS2 + 정책 런타임(ONNX)만 올라가므로 파이썬 충돌 자체가 성립하지 않는다.</li></ol>
 </section>
 <section id="s3"><h2>우리 계획에 미치는 영향</h2>
-<ul><li>특강(8/10~14, 1일차에 Docker 실습 포함)과 정확히 이어진다 — 특강의 Docker 가 곧 이 구성의 기초.</li><li>⑥단계 준비: <b>가상 Go2 + ROS2 Bridge</b> 로 실물 없이 통신 연습 (참고: Zhefan-Xu/isaac-go2-ros2)</li></ul>
+<ul><li>특강(8/10~14, 1일차에 Docker 실습 포함)과 정확히 이어진다. 특강의 Docker 가 곧 이 구성의 기초.</li><li>⑥단계 준비: <b>가상 Go2 + ROS2 Bridge</b> 로 실물 없이 통신 연습 (참고: Zhefan-Xu/isaac-go2-ros2)</li></ul>
 </section>
-<section id="s4"><h2>✅ 회수 완료 — 원 출처 (2026-08-09, WS 세션)</h2>
+<section id="s4"><h2>✅ 회수 완료: 원 출처 (2026-08-09, WS 세션)</h2>
 <h3>참조한 글</h3>
 <p><b>블로그</b>: &lt;https://slow-motionn.tistory.com/205&gt;</p>
 <p>원문 요지 그대로:</p>
 <blockquote><p><i>&quot;Isaac Sim 5.1.0: Python 3.11 based (built-in) vs. ROS 2 Humble: Python 3.10 based (Ubuntu 22.04 default)&quot;</i>
-— 둘을 한 환경에 강제로 넣으면 <b>패키지가 깨지고 런타임 오류</b>가 난다.</p></blockquote>
+둘을 한 환경에 강제로 넣으면 <b>패키지가 깨지고 런타임 오류</b>가 난다.</p></blockquote>
 <p>글쓴이는 개별 오류를 하나씩 잡는 대신 <b>컨테이너 격리로 통째로 우회</b>했다. 헤드리스 렌더링 · Fast DDS 설정 · rosdep 의존성 · GPU/Vulkan 접근을 미리 구운 이미지로 자동화했다고 밝힌다.</p>
 <p>⚠️ <b>그 글에는 GPU 모델·구체적 에러 메시지·CUDA/torch 버전이 없다.</b> <i>예방적 아키텍처</i>에 대한 글이지 사후 디버깅 기록이 아니다. 즉 <b>&quot;이렇게 하면 안 겪는다&quot;는 알지만 &quot;안 하면 정확히 뭐가 터지는지&quot;는 그 글로 알 수 없다.</b></p>
 <h3>구현 저장소</h3>
 <p><b>&lt;https://github.com/hms-gymnopedie/IsaacSim_Setting&gt;</b></p>
 <div class="tw"><table><thead><tr><th>컨테이너</th><th>베이스 이미지</th><th>담는 것</th></tr></thead><tbody><tr><td><b>IsaacSim_Pegasus</b></td><td><code>nvidia/cuda:12.4.1-devel-ubuntu22.04</code></td><td>Isaac Sim 5.1.0 스탠드얼론 · <b>Vulkan/X11</b>(헤드리스용 EGL 기반 Vulkan ICD) · PX4-Autopilot v1.14.3 · Pegasus Simulator</td></tr><tr><td><b>ROS 2 Humble</b></td><td><code>osrf/ros:humble-desktop</code></td><td>colcon · rosdep · Isaac Sim ROS 워크스페이스 · <code>humble_ws</code> 빌드 · <b>Fast DDS 설정</b>(<code>fastdds.xml</code>, <code>ROS_DOMAIN_ID=0</code>)</td></tr></tbody></table></div>
 <p><b>통신</b>: 두 컨테이너 모두 <b><code>--net=host</code></b> 로 호스트 네트워크 공유 → <i>&quot;ROS 2 DDS 통신이 즉시 작동하며 추가 설정이 필요 없다&quot;</i></p>
-<h3>★ 우리와 다른 점 — 우리가 더 유리하다</h3>
+<h3>★ 우리와 다른 점: 우리가 더 유리하다</h3>
 <p>그 사람은 <code>nvidia/cuda</code> 베이스에 <b>Isaac Sim을 직접 설치</b>했다. 우리는 그럴 필요가 없다:</p>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>nvcr.io/nvidia/isaac-sim:5.1.0     ← 우리 버전과 일치
 nvcr.io/nvidia/isaac-lab:2.3.2     ← 우리가 고정한 태그와 일치</pre></div>
 <p>공식 이미지가 있으므로 <b>Isaac Sim 쪽 컨테이너는 직접 빌드하지 않는다.</b> ROS2 쪽만 <code>osrf/ros:humble-desktop</code> 방식을 참고하면 된다. (근거: <code>cloud-gpu-options.md</code> §4)</p>
 <h3>호스트 우분투 버전에 주는 함의</h3>
 <p>컨테이너로 분리하면 <b>호스트 우분투 버전의 제약이 크게 줄어든다.</b> 컨테이너는 자기 파일시스템과 파이썬을 갖기 때문이다. ⚠️ 단 <b>커널은 호스트와 공유</b>하므로 GPU 드라이버·커널 버전은 여전히 호스트 것을 쓴다.</p>
-<p><b>그럼에도 22.04를 택했다 — 기술이 아니라 수업 때문이다.</b> 8/10~14 ROS 보충수업이 <b>Ubuntu 22.04 + Humble 기준</b>(1일차 Docker 실습 포함)이고, PinkLAB 강의도 22.04다. <b>강의와 환경이 다르면 5일 내내 다른 문제로 시간을 쓴다.</b></p>
-<p><b>ISO 준비 완료</b> — <code>C:\Driver\ubuntu-22.04.5-desktop-amd64.iso</code> (4.44GB) SHA256 <b>공식 대조 일치 확인</b>: <code>bfd1cee02bc4f35db939e69b934ba49a39a378797ce9aee20f6e3e3e728fefbf</code></p>
+<p><b>그럼에도 22.04를 택했다. 기술이 아니라 수업 때문이다.</b> 8/10~14 ROS 보충수업이 <b>Ubuntu 22.04 + Humble 기준</b>(1일차 Docker 실습 포함)이고, PinkLAB 강의도 22.04다. <b>강의와 환경이 다르면 5일 내내 다른 문제로 시간을 쓴다.</b></p>
+<p><b>ISO 준비 완료</b>: <code>C:\Driver\ubuntu-22.04.5-desktop-amd64.iso</code> (4.44GB) SHA256 <b>공식 대조 일치 확인</b>: <code>bfd1cee02bc4f35db939e69b934ba49a39a378797ce9aee20f6e3e3e728fefbf</code></p>
 </section>
 
 </div>
@@ -278,7 +294,7 @@ addEventListener('scroll', function(){
   var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
   document.getElementById('prog').style.width = (p * 100) + '%';
 }, {passive:true});
-/* 복사 버튼 — 코드 블록과 접속 주소 공용 */
+/* 복사 버튼: 코드 블록과 접속 주소 공용 */
 document.addEventListener('click', function(e){
   var b = e.target.closest && e.target.closest('.copy');
   if (!b) return;

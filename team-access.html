@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>팀원 사용 가이드 — 워크스테이션 접속과 운영 · FOOTHOLD</title>
+<title>팀원 사용 가이드: 워크스테이션 접속과 운영 · FOOTHOLD</title>
 <meta name="description" content="워크스테이션 1대=서버, 노트북 5대=클라이언트. TensorBoard 접속·학습 실행·프로세스 정리 규칙. 2026-08-05 AI-WS01 실측 기준.">
 <style>
 :root{
@@ -87,7 +87,7 @@ blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.
 blockquote p{margin:.25rem 0}
 blockquote b{color:var(--ink)}
 
-/* 표 — 모바일에서 가로 스크롤 (DESIGN.md §5) */
+/* 표: 모바일에서 가로 스크롤 (DESIGN.md §5) */
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
 table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
 th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
@@ -120,7 +120,7 @@ tbody tr:nth-child(even){background:var(--paper-2)}
 .pin.hot>div{border-color:var(--note);background:var(--note-soft)}
 .big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
   color:var(--dim-ink);word-break:break-all}
-/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다 — 눈에 띄게 */
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다. 눈에 띄게 */
 section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
 section .addr .big{font-size:1.2rem}
 .addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
@@ -160,7 +160,7 @@ section .addr .big{font-size:1.2rem}
   font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
 .redacted-note b{color:var(--note-ink)}
 
-/* 미확인 표시 — 확정처럼 읽히면 안 된다 */
+/* 미확인 표시: 확정처럼 읽히면 안 된다 */
 .unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
   background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
   vertical-align:.08em;margin-right:.3rem}
@@ -182,7 +182,16 @@ section .addr .big{font-size:1.2rem}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mdimg{break-inside:avoid;page-break-inside:avoid}
 }
+
+/* 마크다운 그림·영상: mdpage 가 만드는 <figure class="mdimg"> */
+.mdimg{margin:1.5rem 0;padding:0}
+.mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:var(--card)}
+.mdvid video{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:#0f141b}
+.mdimg figcaption{font-size:.74rem;color:var(--ink-3);margin-top:.45rem;line-height:1.5}
 
 /* ── 코드 문법 강조 ──
    실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
@@ -195,7 +204,7 @@ section .addr .big{font-size:1.2rem}
 .cb pre .v{color:#7ee0d0}                     /* 변수 */
 .cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
 @media print{
-  /* 종이에서는 색이 안 나올 수 있다 — 굵기·기울기로도 구분되게 */
+  /* 종이에서는 색이 안 나올 수 있다. 굵기·기울기로도 구분되게 */
   .cb pre .c{color:#777!important;font-style:italic}
   .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
   .cb pre .s{color:#2a6b2a!important}
@@ -212,12 +221,12 @@ section .addr .big{font-size:1.2rem}
 
 <div class="hero">
   <div class="eyebrow">Team Access · 접속과 운영</div>
-  <h1>팀원 사용 가이드 — 워크스테이션 접속과 운영</h1>
+  <h1>팀원 사용 가이드: 워크스테이션 접속과 운영</h1>
   <p class="lede">팀원은 <b>자기 노트북에 Isaac Sim을 설치하지 않습니다.</b> 워크스테이션 한 대를 함께 씁니다. 무엇을 어떻게 쓰는지, 그리고 <b>끝나고 무엇을 반드시 해야 하는지</b>를 적었습니다.</p>
   <div class="meta"><div><span class="k">대상</span><span class="v">팀원 4명</span></div><div><span class="k">검증</span><span class="v">2026-08-05 · AI-WS01</span></div><div><span class="k">구조</span><span class="v">서버 1 · 클라이언트 5</span></div><div><span class="k">짝 문서</span><span class="v">개발환경 구축 가이드(관리자용)</span></div></div>
 </div>
 
-<div class="pin">  <div><div class="lab">가장 자주 쓸 것 — TensorBoard</div>    <div class="addr"><span class="big">http://&lt;워크스테이션&gt;:6006</span>      </div>    <div style="font-size:.72rem;color:var(--ink-3);margin-top:.35rem">      학원 내부망에서만 · 여러 명 동시 접속 OK</div></div>  <div><div class="lab">구조</div>    <div style="font-size:.9rem;font-weight:800;line-height:1.6">      워크스테이션 1대 = <span style="color:var(--dim)">서버</span><br>      노트북 5대 = <span style="color:var(--dim)">클라이언트</span></div>    <div style="font-size:.72rem;color:var(--ink-3);margin-top:.35rem">      각자 노트북에 Isaac Sim을 설치하지 않습니다</div></div></div><div class="pin hot"><div style="grid-column:1/-1">  <div class="lab" style="color:var(--note-ink)">작업 끝나면 반드시</div>  <div style="font-size:.98rem;font-weight:800">창을 닫아도 프로세스는 죽지 않습니다.</div>  <div style="font-size:.8rem;color:var(--ink-2);margin-top:.3rem">    <code>nvidia-smi</code> 로 확인하고 <code>Stop-Process</code> 로 정리하세요.     5명이 각자 좀비를 남기면 <b>아무도 학습을 못 돌립니다.</b> → §6</div></div></div>
+<div class="pin">  <div><div class="lab">가장 자주 쓸 것. TensorBoard</div>    <div class="addr"><span class="big">http://&lt;워크스테이션&gt;:6006</span>      </div>    <div style="font-size:.72rem;color:var(--ink-3);margin-top:.35rem">      학원 내부망에서만 · 여러 명 동시 접속 OK</div></div>  <div><div class="lab">구조</div>    <div style="font-size:.9rem;font-weight:800;line-height:1.6">      워크스테이션 1대 = <span style="color:var(--dim)">서버</span><br>      노트북 5대 = <span style="color:var(--dim)">클라이언트</span></div>    <div style="font-size:.72rem;color:var(--ink-3);margin-top:.35rem">      각자 노트북에 Isaac Sim을 설치하지 않습니다</div></div></div><div class="pin hot"><div style="grid-column:1/-1">  <div class="lab" style="color:var(--note-ink)">작업 끝나면 반드시</div>  <div style="font-size:.98rem;font-weight:800">창을 닫아도 프로세스는 죽지 않습니다.</div>  <div style="font-size:.8rem;color:var(--ink-2);margin-top:.3rem">    <code>nvidia-smi</code> 로 확인하고 <code>Stop-Process</code> 로 정리하세요.     5명이 각자 좀비를 남기면 <b>아무도 학습을 못 돌립니다.</b> → §6</div></div></div>
 
 <section id="s1"><h2>1. 왜 각자 설치하지 않는가</h2>
 <blockquote><p><b>사양 판정은 <a href="setup.html">개발환경 구축 가이드</a> §1.5에 있습니다.</b> 여기서 반복하지 않습니다.
@@ -229,16 +238,16 @@ RAM : 15.8 GB          ← Isaac Sim 최소 32GB 에도 미달
 OS  : Windows 11 Pro 10.0.26200
 C:   : 549.3 GB 여유 / 923.7 GB</pre></div>
 <p>→ <b>GPU·VRAM·RAM 세 가지가 동시에 미달</b>입니다. 이 문서는 그 전제 위에 서 있습니다.</p>
-<p><b>노트북으로 할 수 있는 것</b> — <a href="setup.html">개발환경 구축 가이드</a> §1.5가 <b>학습 커리큘럼 관점</b>(A6·A7 MuJoCo 등)을 다루고, 이 문서는 <b>운영 관점</b>을 다룹니다.</p>
-<div class="tw"><table><thead><tr><th>가능</th><th>도구</th><th>이 문서</th></tr></thead><tbody><tr><td>✅ 학습 경과 보기</td><td>브라우저(TensorBoard)</td><td>§3</td></tr><tr><td>✅ 학습 실행·중지</td><td>SSH 터미널</td><td>§4</td></tr><tr><td>✅ 코드 편집</td><td>VSCode(원격 확장)</td><td>—</td></tr><tr><td>⚠️ 3D 화면 보기</td><td>Isaac Sim 스트리밍 — <b>5.1 은 동시 접속 1명 한계</b> (포트 고정. 커스텀 포트는 6.0부터)</td><td>§5</td></tr></tbody></table></div>
+<p><b>노트북으로 할 수 있는 것</b>. <a href="setup.html">개발환경 구축 가이드</a> §1.5가 <b>학습 커리큘럼 관점</b>(A6·A7 MuJoCo 등)을 다루고, 이 문서는 <b>운영 관점</b>을 다룹니다.</p>
+<div class="tw"><table><thead><tr><th>가능</th><th>도구</th><th>이 문서</th></tr></thead><tbody><tr><td>✅ 학습 경과 보기</td><td>브라우저(TensorBoard)</td><td>§3</td></tr><tr><td>✅ 학습 실행·중지</td><td>SSH 터미널</td><td>§4</td></tr><tr><td>✅ 코드 편집</td><td>VSCode(원격 확장)</td><td>-</td></tr><tr><td>⚠️ 3D 화면 보기</td><td>Isaac Sim 스트리밍: <b>5.1 은 동시 접속 1명 한계</b> (포트 고정. 커스텀 포트는 6.0부터)</td><td>§5</td></tr></tbody></table></div>
 </section>
-<section id="s2"><h2>2. 도구가 4개다 — 헷갈리지 말 것</h2><div class="tools"><div class="tool pick"><div class="n">01</div><div class="t">TensorBoard</div><div class="q">학습이 잘 되고 있나<br>곡선 · 보상 · 성공률</div><div class="f">동시 <b>제한 없음</b><br>RAM 78 MB</div><div><span class="badge ">가장 많이 씀</span></div></div><div class="tool"><div class="n">02</div><div class="t">SSH → <code>--headless</code></div><div class="q">학습 실행 · 중지</div><div class="f">여러 명<br>무거운 건 GPU 2장 = 2명</div><div><span class="badge warn">설정 예정</span></div></div><div class="tool"><div class="n">03</div><div class="t">Isaac Sim GUI</div><div class="q">로봇이 <b>어떻게 걷는지</b> (3D)</div><div class="f">워크스테이션 앞 <b>1명</b><br>RAM 13.5GB · VRAM 9GB</div><div><span class="badge off">무거움</span></div></div><div class="tool"><div class="n">04</div><div class="t">Isaac Sim 스트리밍</div><div class="q">3D 화면을 <b>원격으로</b></div><div class="f">화면 <b>1개 공유</b><br>RAM 13.5GB · VRAM 9GB</div><div><span class="badge warn"><span class="unk">미확인</span></span></div></div></div>
+<section id="s2"><h2>2. 도구가 4개다. 헷갈리지 말 것</h2><div class="tools"><div class="tool pick"><div class="n">01</div><div class="t">TensorBoard</div><div class="q">학습이 잘 되고 있나<br>곡선 · 보상 · 성공률</div><div class="f">동시 <b>제한 없음</b><br>RAM 78 MB</div><div><span class="badge ">가장 많이 씀</span></div></div><div class="tool"><div class="n">02</div><div class="t">SSH → <code>--headless</code></div><div class="q">학습 실행 · 중지</div><div class="f">여러 명<br>무거운 건 GPU 2장 = 2명</div><div><span class="badge warn">설정 예정</span></div></div><div class="tool"><div class="n">03</div><div class="t">Isaac Sim GUI</div><div class="q">로봇이 <b>어떻게 걷는지</b> (3D)</div><div class="f">워크스테이션 앞 <b>1명</b><br>RAM 13.5GB · VRAM 9GB</div><div><span class="badge off">무거움</span></div></div><div class="tool"><div class="n">04</div><div class="t">Isaac Sim 스트리밍</div><div class="q">3D 화면을 <b>원격으로</b></div><div class="f">화면 <b>1개 공유</b><br>RAM 13.5GB · VRAM 9GB</div><div><span class="badge warn"><span class="unk">미확인</span></span></div></div></div>
 <p><b>&quot;Isaac Sim을 본다&quot;가 하나가 아닙니다.</b> 목적에 따라 쓰는 게 다릅니다.</p>
-<div class="tw"><table><thead><tr><th>목적</th><th>도구</th><th>동시 인원</th><th>무게</th></tr></thead><tbody><tr><td><b>학습이 잘 되고 있나</b> (곡선·보상·성공률)</td><td><b>TensorBoard</b> (웹)</td><td><b>제한 없음</b></td><td>RAM 78 MB</td></tr><tr><td><b>학습 실행·중지</b></td><td><b>SSH → <code>--headless</code></b></td><td>여러 명(무거운 건 GPU 2장 = 2명)</td><td>—</td></tr><tr><td>로봇이 <b>어떻게 걷는지</b> (3D)</td><td>Isaac Sim GUI</td><td>워크스테이션 앞 1명</td><td>RAM 13.5GB · VRAM 9GB</td></tr><tr><td>3D 화면을 <b>원격으로</b></td><td>Isaac Sim 스트리밍</td><td>화면 1개 공유</td><td>위와 동일</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>목적</th><th>도구</th><th>동시 인원</th><th>무게</th></tr></thead><tbody><tr><td><b>학습이 잘 되고 있나</b> (곡선·보상·성공률)</td><td><b>TensorBoard</b> (웹)</td><td><b>제한 없음</b></td><td>RAM 78 MB</td></tr><tr><td><b>학습 실행·중지</b></td><td><b>SSH → <code>--headless</code></b></td><td>여러 명(무거운 건 GPU 2장 = 2명)</td><td>-</td></tr><tr><td>로봇이 <b>어떻게 걷는지</b> (3D)</td><td>Isaac Sim GUI</td><td>워크스테이션 앞 1명</td><td>RAM 13.5GB · VRAM 9GB</td></tr><tr><td>3D 화면을 <b>원격으로</b></td><td>Isaac Sim 스트리밍</td><td>화면 1개 공유</td><td>위와 동일</td></tr></tbody></table></div>
 <blockquote><p>★ <b>대부분의 경우 필요한 건 TensorBoard입니다.</b> 가볍고, 브라우저만 있으면 되고, 여러 명이 동시에 봐도 됩니다.
-<b>학습할 때는 GUI를 끕니다</b> — 렌더링이 GPU를 뺏어 학습이 느려집니다.</p></blockquote>
+<b>학습할 때는 GUI를 끕니다</b>. 렌더링이 GPU를 뺏어 학습이 느려집니다.</p></blockquote>
 </section>
-<section id="s3"><h2>3. TensorBoard — 학습 경과 보기 (가장 자주 쓸 것)</h2>
+<section id="s3"><h2>3. TensorBoard: 학습 경과 보기 (가장 자주 쓸 것)</h2>
 <p><b>브라우저에 이 주소를 칩니다.</b></p>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>http://&lt;워크스테이션&gt;:6006</pre></div>
 <ul><li>같은 네트워크(학원 내부망)에서만 접속됩니다</li><li>방화벽 규칙 <code>TensorBoard 6006 (LocalSubnet)</code> 이 열려 있습니다</li><li>여러 명이 동시에 봐도 문제없습니다</li><li>⚠️ <b>워크스테이션의 TensorBoard 프로세스가 떠 있어야</b> 합니다. 안 열리면 관리자에게 요청하세요</li></ul>
@@ -248,27 +257,27 @@ C:   : 549.3 GB 여유 / 923.7 GB</pre></div>
 <span class="f">python</span> <span class="o">-m</span> tensorboard.main <span class="o">--logdir</span> logs <span class="o">--bind_all</span> <span class="o">--port</span> <span class="n">6006</span></pre></div>
 <p><b>볼 수 있는 것</b>: 보상(reward) 곡선 · 에피소드 길이 · 손실 · 학습 속도 · 실험끼리 비교</p>
 </section>
-<section id="s4"><h2>4. 학습 실행 — SSH (설정 예정)</h2>
+<section id="s4"><h2>4. 학습 실행: SSH (설정 예정)</h2>
 <h3>4.1 SSH가 정확히 무엇인가</h3>
 <p><b>&quot;남의 컴퓨터에 있는 터미널 창을, 내 화면에 띄우는 것&quot;입니다.</b></p>
 <p>내 노트북에서 명령을 치면 <b>워크스테이션이 그 명령을 실행하고</b>, 결과 글자만 내 화면에 돌아옵니다. 계산도 GPU도 전부 워크스테이션 것입니다. 내 노트북은 <b>키보드와 모니터 역할만</b> 합니다.</p>
 <ul><li>원격 데스크톱(화면 전체를 그림으로 전송)과 다릅니다. <b>글자만 오갑니다.</b></li><li>그래서 <b>가볍습니다.</b> GTX 1650 Ti 노트북으로도 아무 문제 없습니다.</li><li>학습은 워크스테이션에서 도니, 내 노트북을 닫아도 학습은 계속됩니다(<code>tmux</code>/<code>screen</code>을 쓰면).</li></ul>
-<h3>4.2 어떤 원리로 연결되나 — 네 단계</h3>
-<div class="tw"><table><thead><tr><th>단계</th><th>무슨 일</th><th>왜 필요한가</th></tr></thead><tbody><tr><td>① <b>연결</b></td><td>노트북이 워크스테이션의 <b>22번 포트</b>로 TCP 접속</td><td>약속된 문 번호</td></tr><tr><td>② <b>키 교환</b></td><td>양쪽이 각자 난수를 만들어 섞어 <b>같은 비밀 열쇠</b>를 만듦 (Diffie–Hellman)</td><td>⚠️ 이 과정에서 <b>열쇠 자체는 선을 타고 흐르지 않습니다.</b> 중간에서 엿들어도 열쇠를 못 만듭니다</td></tr><tr><td>③ <b>서버 신원 확인</b></td><td>서버가 자기 지문(host key)을 보여줌. 처음이면 &quot;이 지문 맞냐&quot; 물음</td><td>엉뚱한 컴퓨터에 비밀번호를 넘기지 않기 위해</td></tr><tr><td>④ <b>내 신원 증명</b></td><td>비밀번호 <b>또는 공개키</b></td><td>★ <b>공개키를 씁니다</b> — 아래 참조</td></tr></tbody></table></div>
+<h3>4.2 어떤 원리로 연결되나. 네 단계</h3>
+<div class="tw"><table><thead><tr><th>단계</th><th>무슨 일</th><th>왜 필요한가</th></tr></thead><tbody><tr><td>① <b>연결</b></td><td>노트북이 워크스테이션의 <b>22번 포트</b>로 TCP 접속</td><td>약속된 문 번호</td></tr><tr><td>② <b>키 교환</b></td><td>양쪽이 각자 난수를 만들어 섞어 <b>같은 비밀 열쇠</b>를 만듦 (Diffie–Hellman)</td><td>⚠️ 이 과정에서 <b>열쇠 자체는 선을 타고 흐르지 않습니다.</b> 중간에서 엿들어도 열쇠를 못 만듭니다</td></tr><tr><td>③ <b>서버 신원 확인</b></td><td>서버가 자기 지문(host key)을 보여줌. 처음이면 &quot;이 지문 맞냐&quot; 물음</td><td>엉뚱한 컴퓨터에 비밀번호를 넘기지 않기 위해</td></tr><tr><td>④ <b>내 신원 증명</b></td><td>비밀번호 <b>또는 공개키</b></td><td>★ <b>공개키를 씁니다</b>. 아래 참조</td></tr></tbody></table></div>
 <p><b>공개키 인증이 왜 더 나은가</b></p>
 <p>열쇠를 <b>두 개 한 쌍</b>으로 만듭니다. <code>id_ed25519</code>(개인키, 내 노트북에만) / <code>id_ed25519.pub</code>(공개키, 서버에 올림).</p>
 <ul><li>서버가 &quot;이 난수를 네 개인키로 서명해 봐&quot; 하고, 노트북이 서명해 보냅니다.</li><li>서버는 <b>공개키로 검증만</b> 합니다. <b>개인키는 절대 노트북 밖으로 안 나갑니다.</b></li><li>그래서 서버가 털려도 내 비밀번호는 새지 않습니다. 비밀번호가 아예 없으니까요.</li></ul>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># 노트북에서 한 번만 — 키 쌍 만들기</span>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># 노트북에서 한 번만: 키 쌍 만들기</span>
 <span class="f">ssh-keygen</span> <span class="o">-t</span> ed25519 <span class="o">-C</span> <span class="s">&quot;jay-laptop&quot;</span>
 <span class="c"># 만들어진 공개키를 워크스테이션에 등록하면 끝</span></pre></div>
-<h3>4.3 그런데 문제 — 학원 밖에서는 안 됩니다</h3>
+<h3>4.3 그런데 문제: 학원 밖에서는 안 됩니다</h3>
 <p>SSH는 <b>상대 컴퓨터에 닿을 수 있어야</b> 씁니다. 워크스테이션 주소는 사설 주소라 <b>같은 학원 망 안에서만</b> 닿습니다. 집에서 붙으려면 공유기에 포트를 열고(포트 포워딩) 공인 IP를 알아야 하는데, 그건 <b>인터넷 전체에 22번 문을 열어두는 것</b>이라 위험합니다.</p>
-<h3>4.4 그래서 Tailscale — 우리가 잡은 방향</h3>
+<h3>4.4 그래서 Tailscale: 우리가 잡은 방향</h3>
 <p><b>Tailscale은 내 기기들만 들어올 수 있는 사설 네트워크를 만들어 줍니다.</b> 설치하고 로그인하면 각 기기가 <code>100.x.x.x</code> 주소를 하나 받고, <b>어디에 있든 그 주소로 서로 직접 닿습니다.</b> 공유기 설정도, 공인 IP도, 포트 개방도 필요 없습니다.</p>
 <div class="tw"><table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>기반</td><td><b>WireGuard</b> (현대 VPN 표준. 빠르고 코드가 작음)</td></tr><tr><td>연결 방식</td><td>가능하면 <b>기기끼리 직접(P2P)</b>. 안 되면 중계 서버 경유</td></tr><tr><td>우리 요금</td><td><b>무료.</b> Personal 플랜 = 사용자 6명 · <b>기기 무제한</b> · 태그 리소스 50개</td></tr><tr><td>우리 규모</td><td>워크스테이션 1 + 노트북 5 = <b>6기기 · 5명</b> → 무료 범위 안</td></tr></tbody></table></div>
-<p><b>중요 — Tailscale이 SSH를 대체하는 게 아닙니다.</b> Tailscale은 <b>길</b>을 놓고, 그 길 위로 <b>평소 쓰던 SSH가 그대로</b> 다닙니다. (Tailscale SSH라는 별도 기능도 있지만 — 전 플랜 사용 가능, Personal은 호스트 5개까지 — <code>sshd_config</code>나 <code>authorized_keys</code>를 건드리지 않으므로 <b>나중에 켜도 되고 안 켜도 됩니다.</b>)</p>
+<p><b>중요. Tailscale이 SSH를 대체하는 게 아닙니다.</b> Tailscale은 <b>길</b>을 놓고, 그 길 위로 <b>평소 쓰던 SSH가 그대로</b> 다닙니다. (Tailscale SSH라는 별도 기능도 있지만: 전 플랜 사용 가능, Personal은 호스트 5개까지 <code>sshd_config</code>나 <code>authorized_keys</code>를 건드리지 않으므로 <b>나중에 켜도 되고 안 켜도 됩니다.</b>)</p>
 <p><b>구축 순서 (예정)</b></p>
-<div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># ① 워크스테이션 — OpenSSH 서버 켜기 (Windows 기본 기능)</span>
+<div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># ① 워크스테이션: OpenSSH 서버 켜기 (Windows 기본 기능)</span>
 <span class="f">Add-WindowsCapability</span> <span class="o">-Online</span> <span class="o">-Name</span> OpenSSH.Server~~~~<span class="n">0.0.1.0</span>
 <span class="f">Start-Service</span> sshd
 <span class="f">Set-Service</span> <span class="o">-Name</span> sshd <span class="o">-StartupType</span> Automatic
@@ -276,11 +285,11 @@ C:   : 549.3 GB 여유 / 923.7 GB</pre></div>
 <span class="c"># ② 워크스테이션 · 노트북 양쪽에 Tailscale 설치</span>
 <span class="f">winget</span> install <span class="f">tailscale</span>.<span class="f">tailscale</span>
 
-<span class="c"># ③ 노트북에서 접속 — 학원 안이든 밖이든 같은 명령</span>
+<span class="c"># ③ 노트북에서 접속: 학원 안이든 밖이든 같은 명령</span>
 <span class="f">ssh</span> &lt;계정&gt;@&lt;워크스테이션-<span class="f">tailscale</span>-주소&gt;</pre></div>
 <blockquote><p>⚠️ <b>아직 설치돼 있지 않습니다.</b> 위는 확정된 방향이고, 실제 구축은 아직입니다.
 그전까지는 워크스테이션 앞에서 직접, 또는 화면 공유로만 가능합니다.</p>
-<p><b>정할 것</b> — 팀원 계정을 각자 만들지 공용 하나를 쓸지 · 비밀번호 인증을 끌지 ·
+<p><b>정할 것</b>. 팀원 계정을 각자 만들지 공용 하나를 쓸지 · 비밀번호 인증을 끌지 ·
 학원 네트워크 정책상 Tailscale 사용이 가능한지 확인.</p></blockquote>
 <p><b>학습 명령 (참고)</b></p>
 <div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">conda</span> activate isaac311
@@ -290,11 +299,11 @@ C:   : 549.3 GB 여유 / 923.7 GB</pre></div>
 <span class="f">python</span> train_go2_win.py <span class="o">--task</span> Isaac-Velocity-Rough-Unitree-Go2-v0 `
     <span class="o">--num_envs</span> <span class="n">4096</span> <span class="o">--max_iterations</span> <span class="n">1500</span> <span class="o">--headless</span></pre></div>
 <p><b>실측 성능 (2026-08-05, RTX 5080 ×2 중 1장 사용)</b></p>
-<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>처리 속도</td><td><b>21,248 ~ 21,385 steps/s</b></td></tr><tr><td>iteration 1회</td><td><b>4.4 ~ 4.6초</b> (수집 4.5s + 학습 0.12s)</td></tr><tr><td>30 iteration</td><td>2.53분 (기동 포함)</td></tr><tr><td><b>표준 학습 1,500 iteration</b></td><td><b>실측 133분 (2시간 13분)</b> — 2026-08-12 완주</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>처리 속도</td><td><b>21,248 ~ 21,385 steps/s</b></td></tr><tr><td>iteration 1회</td><td><b>4.4 ~ 4.6초</b> (수집 4.5s + 학습 0.12s)</td></tr><tr><td>30 iteration</td><td>2.53분 (기동 포함)</td></tr><tr><td><b>표준 학습 1,500 iteration</b></td><td><b>실측 133분 (2시간 13분)</b>: 2026-08-12 완주</td></tr></tbody></table></div>
 <blockquote><p>이 수치는 <b>험지(Rough)</b> 기준입니다. 평지(Flat)는 훨씬 빠릅니다.
 조사 문서의 <i>&quot;Go2 험지는 평지보다 6배 느리다&quot;</i>가 실측으로 뒷받침됩니다.</p></blockquote>
 </section>
-<section id="s5"><h2>5. Isaac Sim 3D 화면 원격으로 보기 — ⚠️ 아직 안 됩니다</h2>
+<section id="s5"><h2>5. Isaac Sim 3D 화면 원격으로 보기: ⚠️ 아직 안 됩니다</h2>
 <p><b>서버 쪽은 뜹니다</b> (2026-08-05 실측)</p>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>isaacsim isaacsim.exp.full.streaming
   → omni.kit.livestream.webrtc-7.0.0 로드됨
@@ -304,10 +313,10 @@ C:   : 549.3 GB 여유 / 923.7 GB</pre></div>
 <p><b>하지만 브라우저로는 못 붙습니다.</b></p>
 <ul><li><code>http://&lt;워크스테이션&gt;:8011</code>의 <code>/</code>·<code>/streaming/webrtc-client</code>·<code>/streaming/client</code> <b>전부 404</b></li><li>webrtc 확장 폴더에 <b>HTML·JS 클라이언트가 하나도 없음</b>(전부 <code>.dll</code>과 파이썬)</li><li>→ <b>NVIDIA가 별도 배포하는 「Isaac Sim WebRTC Streaming Client」 앱을 각자 설치해야 합니다</b></li></ul>
 <p><b><span class="unk">미확인</span> (판단 근거로 쓰지 말 것)</b></p>
-<ul><li>클라이언트 앱으로 실제 접속되는지 — <b>아직 안 해봤습니다</b></li><li><b>동시 접속 인원.</b> 구조상 <i>프로세스 1개 = GUI 1개 = 화면 1개</i>이므로, 여러 명이 붙어도 <b>같은 화면을 공유</b>할 가능성이 높습니다. 각자 다른 걸 보거나 각자 학습을 돌리는 용도가 <b>아닙니다</b></li><li>GTX 1650 Ti 노트북에서 클라이언트가 도는지 (디코딩만 하므로 될 가능성은 높음)</li><li>8011·49100 방화벽 규칙 미설정 (열려면 관리자 권한 필요)</li></ul>
+<ul><li>클라이언트 앱으로 실제 접속되는지. <b>아직 안 해봤습니다</b></li><li><b>동시 접속 인원.</b> 구조상 <i>프로세스 1개 = GUI 1개 = 화면 1개</i>이므로, 여러 명이 붙어도 <b>같은 화면을 공유</b>할 가능성이 높습니다. 각자 다른 걸 보거나 각자 학습을 돌리는 용도가 <b>아닙니다</b></li><li>GTX 1650 Ti 노트북에서 클라이언트가 도는지 (디코딩만 하므로 될 가능성은 높음)</li><li>8011·49100 방화벽 규칙 미설정 (열려면 관리자 권한 필요)</li></ul>
 <blockquote><p><b>&quot;5명이 각자 학습을 돌린다&quot;의 답은 스트리밍이 아니라 SSH입니다.</b></p></blockquote>
 </section>
-<section id="s6"><h2>6. 🔴 반드시 지킬 것 — 프로세스 정리</h2>
+<section id="s6"><h2>6. 🔴 반드시 지킬 것. 프로세스 정리</h2>
 <div class="warnbox"><div class="wh">🔴 창을 닫아도 프로세스는 죽지 않습니다</div><p>아래는 실측 기록입니다. 규칙이 아니라 <b>실제로 일어난 일</b>입니다.</p></div>
 <p><b>실측 기록 (2026-08-05)</b>: GUI 창을 닫은 뒤에도</p>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>PID 66132  살아있음 | CPU 86초 → 7,452초 | RAM 8.52GB | GPU 9GB 점유</pre></div>
@@ -329,10 +338,10 @@ C:   : 549.3 GB 여유 / 923.7 GB</pre></div>
 <p><b><code>.bat</code>으로 실행했다면 검은 창에서 <code>Ctrl+C</code>로 끄세요.</b> X로 닫으면 좀비가 됩니다.</p>
 </section>
 <section id="s7"><h2>7. <span class="unk">미확인</span> · 앞으로 정할 것</h2>
-<div class="tw"><table><thead><tr><th>항목</th><th>상태</th></tr></thead><tbody><tr><td><b>SSH 서버</b></td><td><b><span class="unk">미설치</span>.</b> 방향은 확정(§4.4 Tailscale + OpenSSH), 구축은 아직</td></tr><tr><td>팀원 계정 모델</td><td><span class="unk">미정</span> — 각자 계정 vs 공용 하나</td></tr><tr><td>GPU 배분 규칙</td><td><span class="unk">미정</span> (협업 규칙 #8)</td></tr><tr><td>원격 접근(학원 밖)</td><td><b>Tailscale로 확정</b>(§4.4). 학원 네트워크 정책 확인 필요</td></tr><tr><td>데이터·체크포인트 위치</td><td><span class="unk">미정</span></td></tr><tr><td>스트리밍 클라이언트 실제 동작</td><td><span class="unk">미확인</span></td></tr><tr><td>30 시리즈 노트북 1대의 실제 동작</td><td>모델명 <span class="unk">미확인</span></td></tr><tr><td>클라우드(RunPod/AWS) 비용·이미지</td><td><span class="unk">미조사</span></td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>항목</th><th>상태</th></tr></thead><tbody><tr><td><b>SSH 서버</b></td><td><b><span class="unk">미설치</span>.</b> 방향은 확정(§4.4 Tailscale + OpenSSH), 구축은 아직</td></tr><tr><td>팀원 계정 모델</td><td><span class="unk">미정</span>: 각자 계정 vs 공용 하나</td></tr><tr><td>GPU 배분 규칙</td><td><span class="unk">미정</span> (협업 규칙 #8)</td></tr><tr><td>원격 접근(학원 밖)</td><td><b>Tailscale로 확정</b>(§4.4). 학원 네트워크 정책 확인 필요</td></tr><tr><td>데이터·체크포인트 위치</td><td><span class="unk">미정</span></td></tr><tr><td>스트리밍 클라이언트 실제 동작</td><td><span class="unk">미확인</span></td></tr><tr><td>30 시리즈 노트북 1대의 실제 동작</td><td>모델명 <span class="unk">미확인</span></td></tr><tr><td>클라우드(RunPod/AWS) 비용·이미지</td><td><span class="unk">미조사</span></td></tr></tbody></table></div>
 </section>
 <section id="s8"><h2>변경 이력</h2>
-<ul><li>2026-08-05 v1: 팀원 노트북 사양 판정 후 최초 작성. 도구 4종 역할 구분, TensorBoard 접속, 학습 실측치, 프로세스 정리 규칙.</li><li>2026-08-05 v2: §4 확장 — SSH가 무엇이고 어떤 원리로 붙는지, 그리고 Tailscale 방향 확정.</li></ul>
+<ul><li>2026-08-05 v1: 팀원 노트북 사양 판정 후 최초 작성. 도구 4종 역할 구분, TensorBoard 접속, 학습 실측치, 프로세스 정리 규칙.</li><li>2026-08-05 v2: §4 확장: SSH가 무엇이고 어떤 원리로 붙는지, 그리고 Tailscale 방향 확정.</li></ul>
 </section>
 
 </div>
@@ -343,7 +352,7 @@ addEventListener('scroll', function(){
   var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
   document.getElementById('prog').style.width = (p * 100) + '%';
 }, {passive:true});
-/* 복사 버튼 — 코드 블록과 접속 주소 공용 */
+/* 복사 버튼: 코드 블록과 접속 주소 공용 */
 document.addEventListener('click', function(e){
   var b = e.target.closest && e.target.closest('.copy');
   if (!b) return;

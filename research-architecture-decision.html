@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>시스템 아키텍처 결정 — Isaac Sim + ROS2 + 실기 Go2 · FOOTHOLD</title>
+<title>시스템 아키텍처 결정: Isaac Sim + ROS2 + 실기 Go2 · FOOTHOLD</title>
 <meta name="description" content="작성 2026-08-09 · 워크스테이션 세션">
 <style>
 :root{
@@ -87,7 +87,7 @@ blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.
 blockquote p{margin:.25rem 0}
 blockquote b{color:var(--ink)}
 
-/* 표 — 모바일에서 가로 스크롤 (DESIGN.md §5) */
+/* 표: 모바일에서 가로 스크롤 (DESIGN.md §5) */
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
 table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
 th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
@@ -120,7 +120,7 @@ tbody tr:nth-child(even){background:var(--paper-2)}
 .pin.hot>div{border-color:var(--note);background:var(--note-soft)}
 .big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
   color:var(--dim-ink);word-break:break-all}
-/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다 — 눈에 띄게 */
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다. 눈에 띄게 */
 section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
 section .addr .big{font-size:1.2rem}
 .addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
@@ -160,7 +160,7 @@ section .addr .big{font-size:1.2rem}
   font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
 .redacted-note b{color:var(--note-ink)}
 
-/* 미확인 표시 — 확정처럼 읽히면 안 된다 */
+/* 미확인 표시: 확정처럼 읽히면 안 된다 */
 .unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
   background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
   vertical-align:.08em;margin-right:.3rem}
@@ -182,7 +182,16 @@ section .addr .big{font-size:1.2rem}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mdimg{break-inside:avoid;page-break-inside:avoid}
 }
+
+/* 마크다운 그림·영상: mdpage 가 만드는 <figure class="mdimg"> */
+.mdimg{margin:1.5rem 0;padding:0}
+.mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:var(--card)}
+.mdvid video{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:#0f141b}
+.mdimg figcaption{font-size:.74rem;color:var(--ink-3);margin-top:.45rem;line-height:1.5}
 
 /* ── 코드 문법 강조 ──
    실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
@@ -195,7 +204,7 @@ section .addr .big{font-size:1.2rem}
 .cb pre .v{color:#7ee0d0}                     /* 변수 */
 .cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
 @media print{
-  /* 종이에서는 색이 안 나올 수 있다 — 굵기·기울기로도 구분되게 */
+  /* 종이에서는 색이 안 나올 수 있다. 굵기·기울기로도 구분되게 */
   .cb pre .c{color:#777!important;font-style:italic}
   .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
   .cb pre .s{color:#2a6b2a!important}
@@ -216,6 +225,13 @@ section .addr .big{font-size:1.2rem}
 .rcard .rt{font-weight:800;font-size:1rem;margin:.2rem 0 .35rem}
 .rcard .rd{font-size:.8rem;color:var(--ink-2);line-height:1.55}
 .rcard .rm{font-size:.7rem;color:var(--ink-3);margin-top:.5rem;letter-spacing:.04em}
+/* 대표 그림. 카드가 «무엇에 관한 글인지»를 제목보다 빨리 말해준다 */
+.rcard.has-thumb{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.rcard .rthumb{background:var(--paper-2);border-bottom:1px solid var(--rule);
+  aspect-ratio:16/7;overflow:hidden}
+.rcard .rthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+.rcard.has-thumb .rbody{padding:14px 16px}
+.rcard:hover .rthumb img{transform:scale(1.03)}
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
 </head>
@@ -227,7 +243,7 @@ section .addr .big{font-size:1.2rem}
 
 <div class="hero">
   <div class="eyebrow">Research · 근거 기록</div>
-  <h1>시스템 아키텍처 결정 — Isaac Sim + ROS2 + 실기 Go2</h1>
+  <h1>시스템 아키텍처 결정: Isaac Sim + ROS2 + 실기 Go2</h1>
   <p class="lede">작성 2026-08-09 · 워크스테이션 세션</p>
   <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / architecture-decision.md</span></div><div><span class="k">증거</span><span class="v">확인 5 · 추측 0 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
@@ -241,26 +257,26 @@ section .addr .big{font-size:1.2rem}
 <p>우리는 이 질문에 <b>두 번</b> 답했다. 첫 답은 틀렸고, 이 문서가 수정본이다.</p>
 </section>
 <section id="s2"><h2>1. 1차 결론과 그 오류</h2>
-<h3>1차 결론 (2026-08-09 오후) — <b>폐기</b></h3>
+<h3>1차 결론 (2026-08-09 오후): <b>폐기</b></h3>
 <blockquote><p>Ubuntu 22.04 한 대에 ROS2 Humble 네이티브 + Isaac Sim 네이티브를 함께 설치.
-규칙은 하나 — Isaac Sim을 실행하는 셸에서 Humble을 <code>source</code>하지 않는다.</p></blockquote>
+규칙은 하나. Isaac Sim을 실행하는 셸에서 Humble을 <code>source</code>하지 않는다.</p></blockquote>
 <p>근거로 든 것 3개:</p>
-<div class="tw"><table><thead><tr><th>#</th><th>근거</th><th>재검증 결과</th></tr></thead><tbody><tr><td>①</td><td>NVIDIA 공식 문서가 이 구성을 기본 워크플로로 기술</td><td><b>부분확인</b> — 5.x 한정. 4.x는 정반대(&quot;source하고 실행하라&quot;), 6.x는 또 다름</td></tr><tr><td>②</td><td>Isaac Lab 공식 <code>Dockerfile.ros2</code>가 한 컨테이너에 둘을 함께 설치</td><td>❌ <b>자기부정</b> — 아래 참조</td></tr><tr><td>③</td><td>DDS가 파이썬 버전과 무관하게 통신 처리</td><td><b>부분확인</b> — 참이지만 논점 회피</td></tr></tbody></table></div>
-<h3>② 가 왜 자기부정인가 — 이것이 결정적이다</h3>
+<div class="tw"><table><thead><tr><th>#</th><th>근거</th><th>재검증 결과</th></tr></thead><tbody><tr><td>①</td><td>NVIDIA 공식 문서가 이 구성을 기본 워크플로로 기술</td><td><b>부분확인</b>: 5.x 한정. 4.x는 정반대(&quot;source하고 실행하라&quot;), 6.x는 또 다름</td></tr><tr><td>②</td><td>Isaac Lab 공식 <code>Dockerfile.ros2</code>가 한 컨테이너에 둘을 함께 설치</td><td>❌ <b>자기부정</b>: 아래 참조</td></tr><tr><td>③</td><td>DDS가 파이썬 버전과 무관하게 통신 처리</td><td><b>부분확인</b>: 참이지만 논점 회피</td></tr></tbody></table></div>
+<h3>② 가 왜 자기부정인가: 이것이 결정적이다</h3>
 <p><code>Dockerfile.ros2</code>를 실제로 열어보면, Isaac Sim + Humble을 함께 깔면서 <b><code>.bashrc</code>에 <code>source /opt/ros/humble/setup.bash</code>를 넣는다.</b></p>
 <blockquote><p>즉 <b>NVIDIA 자신은 &quot;source 안 한다&quot; 규칙을 지키지 않는다.</b>
 그들은 격리를 <b>셸 규율이 아니라 컨테이너 경계</b>로 달성한다.</p></blockquote>
 <p>이 파일은 &quot;네이티브 이중 설치해도 된다&quot;의 증거가 아니라 <b>&quot;컨테이너로 하라&quot;의 증거</b>였다. 근거를 거꾸로 읽었다.</p>
 <h3>③ 이 왜 논점 회피인가</h3>
-<p>DDS가 파이썬 버전과 무관한 것은 **프로세스 <i>사이</i>의 통신<b>에 대해서만 참이다. 실제 사고는 </b>프로세스 <i>내부</i>의 라이브러리 로딩**에서 난다 — py3.10용 <code>rclpy</code>를 py3.11 Isaac Sim이 import하면 즉사한다.</p>
+<p>DDS가 파이썬 버전과 무관한 것은 **프로세스 <i>사이</i>의 통신<b>에 대해서만 참이다. 실제 사고는 </b>프로세스 <i>내부</i>의 라이브러리 로딩**에서 난다 py3.10용 <code>rclpy</code>를 py3.11 Isaac Sim이 import하면 즉사한다.</p>
 <p>실사례: <code>No module named &#x27;rclpy._rclpy_pybind11&#x27;</code> (https://github.com/isaac-sim/IsaacSim/issues/17)</p>
 </section>
 <section id="s3"><h2>2. &quot;규칙 하나&quot;는 거짓 단순화였다</h2>
 <p>실제로 지켜야 하는 규칙은 최소 <b>4개</b>다:</p>
-<ol><li><code>.bashrc</code> 전역 <code>source</code> 금지 — <b>그런데 이건 ROS2 공식 튜토리얼이 가르치는 표준 관행이다.</b> (https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html) 팀원 5명 중 1명이라도 습관대로 하면 그 계정의 <b>모든 셸</b>(VSCode 터미널 포함)에서 붕괴.</li><li>공식 <code>ros2 launch isaacsim run_isaacsim.launch.py</code> 경로 포기 — 이 워크플로는 source된 셸을 전제한다.</li><li>커스텀 메시지(<code>unitree_go</code> 등) 워크스페이스를 <b>py3.10(로봇용) / py3.11(심 내부용) 두 벌</b> 유지.</li><li><code>RMW_IMPLEMENTATION</code> · <code>ROS_DOMAIN_ID</code> · FastRTPS 프로파일을 팀 전체가 통일.</li></ol>
+<ol><li><code>.bashrc</code> 전역 <code>source</code> 금지. <b>그런데 이건 ROS2 공식 튜토리얼이 가르치는 표준 관행이다.</b> (https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html) 팀원 5명 중 1명이라도 습관대로 하면 그 계정의 <b>모든 셸</b>(VSCode 터미널 포함)에서 붕괴.</li><li>공식 <code>ros2 launch isaacsim run_isaacsim.launch.py</code> 경로 포기: 이 워크플로는 source된 셸을 전제한다.</li><li>커스텀 메시지(<code>unitree_go</code> 등) 워크스페이스를 <b>py3.10(로봇용) / py3.11(심 내부용) 두 벌</b> 유지.</li><li><code>RMW_IMPLEMENTATION</code> · <code>ROS_DOMAIN_ID</code> · FastRTPS 프로파일을 팀 전체가 통일.</li></ol>
 <blockquote><p><b>사람이 4개월간 4개 규칙을 5명 전원이 지켜야 성립하는 아키텍처는 취약하다.</b></p></blockquote>
 <h3>규칙이 깨졌을 때의 실제 사고 기록</h3>
-<ul><li>심볼 충돌 크래시 <code>undefined symbol</code> — NVIDIA 모더레이터가 &quot;source가 원인&quot;으로 진단 (https://forums.developer.nvidia.com/t/undefined-symbol-error-occured-while-importing-tf2-ros-packages-in-isaac-sim-2022-2-0/242832)</li><li><b>역방향 누출</b>: Isaac Sim 내부 lib 경로를 <code>.bashrc</code>에 넣으면 rviz2 등 ROS2 도구가 깨진다 (https://www.stereolabs.com/docs/isaac-sim/ros2_integration)</li></ul>
+<ul><li>심볼 충돌 크래시 <code>undefined symbol</code>: NVIDIA 모더레이터가 &quot;source가 원인&quot;으로 진단 (https://forums.developer.nvidia.com/t/undefined-symbol-error-occured-while-importing-tf2-ros-packages-in-isaac-sim-2022-2-0/242832)</li><li><b>역방향 누출</b>: Isaac Sim 내부 lib 경로를 <code>.bashrc</code>에 넣으면 rviz2 등 ROS2 도구가 깨진다 (https://www.stereolabs.com/docs/isaac-sim/ros2_integration)</li></ul>
 </section>
 <section id="s4"><h2>3. 새로 발견된 제약 (1차 결론이 놓쳤던 것)</h2>
 <h3>3-1. ⚠️ Blackwell(RTX 5080)은 <b>open kernel module 전용</b>  <span class="ev ev-ok">확인됨</span></h3>
@@ -276,17 +292,17 @@ Blackwell 세대(sm_120)라는 점은 같아 아래 드라이버 제약은 그�
 <p>포트가 고정이라 커스텀 포트는 <b>6.0부터</b>. (https://github.com/isaac-sim/IsaacSim/discussions/449)</p>
 <blockquote><p><b>&quot;팀원 5명이 동시에 시뮬 GUI를 만진다&quot;는 그림은 5.1에서 불가능하다.</b>
 팀 운영 설계를 여기에 맞춰야 한다.</p></blockquote>
-<h3>3-4. ⚠️ RMW(DDS 벤더) 분열 — <b>조용한 실패 위험</b>  <span class="ev ev-ok">확인됨</span></h3>
+<h3>3-4. ⚠️ RMW(DDS 벤더) 분열: <b>조용한 실패 위험</b>  <span class="ev ev-ok">확인됨</span></h3>
 <div class="tw"><table><thead><tr><th></th><th>기본 DDS</th></tr></thead><tbody><tr><td>Isaac Sim ROS2 브리지</td><td><b>FastDDS</b></td></tr><tr><td><code>unitree_ros2</code> (실기 Go2)</td><td><b>CycloneDDS 0.10.2 + NIC 바인딩 강제</b></td></tr></tbody></table></div>
-<p><b>서로 다른 DDS 벤더는 상호 통신이 안 되고, 에러도 안 낸다.</b> 토픽이 그냥 0개가 된다. (커널 원칙 2 — 조용한 실패를 소리 나게 만들 것)</p>
-<h3>3-5. ✅ Ubuntu 22.04 + Humble 선택은 <b>유지가 맞다</b> — 단 이유가 다르다  <span class="ev ev-ok">확인됨</span></h3>
+<p><b>서로 다른 DDS 벤더는 상호 통신이 안 되고, 에러도 안 낸다.</b> 토픽이 그냥 0개가 된다. (커널 원칙 2: 조용한 실패를 소리 나게 만들 것)</p>
+<h3>3-5. ✅ Ubuntu 22.04 + Humble 선택은 <b>유지가 맞다</b>. 단 이유가 다르다  <span class="ev ev-ok">확인됨</span></h3>
 <p><code>unitree_ros2</code> README: <i>&quot;Ubuntu 22.04 - humble (recommend)&quot;</i>. <b>Jazzy 미지원.</b> (https://github.com/unitreerobotics/unitree_ros2)</p>
 <blockquote><p>즉 22.04를 고르는 이유는 Isaac Sim이 아니라 <b>실기 Go2가 강제하기 때문</b>이다.
 24.04+Jazzy는 &quot;미래지향&quot;이 아니라 <b>로봇 공식 지원 밖으로 나가는 것</b>이다.</p></blockquote>
 <h3>3-6. ✅ 수업(WSL Humble)은 우분투 멀티부트를 <b>서두를 이유가 아니다</b></h3>
 <ul><li>Isaac Sim의 <b>WSL2 구동은 공식 미지원</b> (5.1 지원 OS 목록에 WSL 없음).</li><li>반대로 NVIDIA의 공식 Windows 경로가 <b>&quot;Isaac Sim은 Windows 네이티브 + ROS2만 WSL2&quot;</b> 다.</li><li><b>우리는 이미 Windows 네이티브 Isaac Sim을 갖고 있다.</b> 수업 주간(8/10~14)은 그대로 진행 가능.</li></ul>
 </section>
-<section id="s5"><h2>4. 왜 컨테이너인가 — 5인 공유 관점 (1차 결론에서 통째로 빠졌던 것)</h2>
+<section id="s5"><h2>4. 왜 컨테이너인가: 5인 공유 관점 (1차 결론에서 통째로 빠졌던 것)</h2>
 <ul><li>네이티브 apt는 <b>단일 장애점</b>이다. 한 명이 <code>apt upgrade</code>로 드라이버를 깨면 5명 전원 정지.</li><li>컨테이너의 학습 성능 페널티는 NVIDIA 공식 표현으로 <b>&quot;negligible&quot;</b>.</li><li>Isaac Sim 라이선스는 <b>무료</b> (사내 R&amp;D, 인원 무제한).</li></ul>
 </section>
 <section id="s6"><h2>5. ★ 확정 아키텍처</h2>
@@ -308,7 +324,7 @@ Blackwell 세대(sm_120)라는 점은 같아 아래 드라이버 제약은 그�
 <ul><li>WSL2에서 Isaac Sim 5.x GPU 렌더링의 &quot;공식 불가&quot; 명문 조항은 <b>없다.</b> 지원 OS 목록 부재 + 컨테이너 미지원 발언 + Vulkan 실패 보고의 <b>조합에 의한 판단</b>이다.</li><li><code>Dockerfile.ros2</code> 컨테이너 내부에서 bashrc source 상태로 브리지가 실제 어떤 라이브러리를 로드하는지(내부 py3.11 lib 우선인지)는 1차 출처로 확정하지 못했다.</li></ul>
 </section>
 <section id="s9"><h2>8. 열려 있는 질문 (Human 결정 필요)</h2>
-<ol><li><b>듀얼 5080 워크스테이션의 apt/드라이버를 만질 사람을 1명으로 고정할 수 있는가?</b></li><li><b>실기 Go2는 언제부터 팀 수중에 있는가?</b> — 9월 E2E 스모크가 물리적으로 가능한 일정인가?</li></ol>
+<ol><li><b>듀얼 5080 워크스테이션의 apt/드라이버를 만질 사람을 1명으로 고정할 수 있는가?</b></li><li><b>실기 Go2는 언제부터 팀 수중에 있는가?</b>: 9월 E2E 스모크가 물리적으로 가능한 일정인가?</li></ol>
 </section>
 <section id="s10"><h2>부록: 이 문서가 반증한 출처</h2>
 <p>블로그 https://slow-motionn.tistory.com/205 (구현 https://github.com/hms-gymnopedie/IsaacSim_Setting) 의 <i>&quot;같은 환경에 공존 불가 → 컨테이너 2개 분리 필수&quot;</i> 라는 <b>전제는 과장</b>이다. 공존은 가능하다. 다만 <b>공존을 사람의 규율로 유지하는 것이 나쁜 선택</b>일 뿐이며, 결론(컨테이너를 쓴다)은 우연히 옳은 방향이었다.</p>
@@ -323,7 +339,7 @@ addEventListener('scroll', function(){
   var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
   document.getElementById('prog').style.width = (p * 100) + '%';
 }, {passive:true});
-/* 복사 버튼 — 코드 블록과 접속 주소 공용 */
+/* 복사 버튼: 코드 블록과 접속 주소 공용 */
 document.addEventListener('click', function(e){
   var b = e.target.closest && e.target.closest('.copy');
   if (!b) return;
