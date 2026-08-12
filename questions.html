@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>질문으로 찾기 · FOOTHOLD</title>
-<meta name="description" content="작성 2026-08-12 · «이 정보가 어디 있지?»에 답하는 지도다. 궁금한 문장을 찾아 링크를 누르면 된다.">
+<meta name="description" content="문서가 늘면 이 지도도 같이 자란다 (팀장이 관리).">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -244,6 +244,86 @@ section .addr .big{font-size:1.2rem}
 .dgbar a:hover{border-color:var(--dim)}
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
+<!--search:v1--><style>
+.srch{position:relative;min-width:150px;flex:0 1 240px}
+.srch input{width:100%;padding:.3rem .6rem .3rem 1.7rem;border:1px solid var(--rule);
+  border-radius:4px;background:var(--card);color:var(--ink);font-family:inherit;font-size:.74rem}
+.srch::before{content:'🔍';position:absolute;left:.45rem;top:50%;transform:translateY(-52%);
+  font-size:.7rem;pointer-events:none;opacity:.7}
+.srch input:focus{outline:none;border-color:var(--dim)}
+.srch .sres{position:absolute;top:calc(100% + 6px);right:0;width:min(430px,88vw);max-height:60vh;
+  overflow-y:auto;background:var(--card);border:1px solid var(--rule);border-radius:6px;
+  box-shadow:0 8px 28px rgba(0,0,0,.18);z-index:99;display:none}
+.srch .sres a{display:block;padding:.55rem .8rem;text-decoration:none;color:inherit;
+  border-bottom:1px solid var(--rule)}
+.srch .sres a:last-child{border-bottom:none}
+.srch .sres a:hover,.srch .sres a.sel{background:var(--dim-soft)}
+.srch .sres .sp1{font-size:.66rem;color:var(--dim);font-weight:800;letter-spacing:.03em}
+.srch .sres .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
+.srch .sres .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
+.srch .sres .none{padding:.7rem .8rem;font-size:.76rem;color:var(--ink-3)}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  /* 스마트 뒤로가기: 같은 사이트에서 들어왔으면 히스토리로 (진입 경로 보존) */
+  var home=document.querySelector('a.home');
+  if(home&&document.referrer){
+    try{var r=new URL(document.referrer);
+      if(r.origin===location.origin&&r.pathname!==location.pathname&&history.length>1){
+        home.addEventListener('click',function(e){e.preventDefault();history.back();});
+      }}catch(err){}
+  }
+  /* 검색창 주입 */
+  var row=document.querySelector('.top .row');if(!row)return;
+  var sp=row.querySelector('.sp');
+  var box=document.createElement('div');box.className='srch';
+  box.innerHTML='<input type="search" placeholder="검색 (제목·본문)" aria-label="사이트 검색">'
+               +'<div class="sres"></div>';
+  if(sp&&sp.nextSibling)row.insertBefore(box,sp.nextSibling);else row.appendChild(box);
+  var inp=box.querySelector('input'),res=box.querySelector('.sres'),IDX=null,sel=-1;
+  function load(cb){if(IDX)return cb();
+    fetch('assets/search-index.json').then(function(r){return r.json()})
+      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function go(){
+    var q=inp.value.trim().toLowerCase();sel=-1;
+    if(q.length<2){res.style.display='none';return;}
+    load(function(){
+      var hits=[];
+      for(var i=0;i<IDX.length&&hits.length<40;i++){
+        var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
+            pi=e.t.toLowerCase().indexOf(q);
+        if(hi<0&&ti<0&&pi<0)continue;
+        var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
+        var snip='';
+        if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
+        hits.push({e:e,s:score,snip:snip});
+      }
+      hits.sort(function(a,b){return b.s-a.s});
+      hits=hits.slice(0,12);
+      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      else{res.innerHTML=hits.map(function(h){
+        return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
+          +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
+          +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
+      res.style.display='block';
+    });
+  }
+  inp.addEventListener('input',go);
+  inp.addEventListener('focus',function(){if(inp.value.trim().length>=2)go()});
+  inp.addEventListener('keydown',function(e){
+    var as=res.querySelectorAll('a');if(!as.length)return;
+    if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,as.length-1);}
+    else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);}
+    else if(e.key==='Enter'&&sel>=0){e.preventDefault();as[sel].click();return;}
+    else if(e.key==='Escape'){res.style.display='none';return;}
+    else return;
+    as.forEach(function(a,i){a.classList.toggle('sel',i===sel)});
+    if(as[sel])as[sel].scrollIntoView({block:'nearest'});
+  });
+  document.addEventListener('click',function(e){if(!box.contains(e.target))res.style.display='none';});
+});
+</script>
 </head>
 <body>
 
@@ -254,7 +334,7 @@ section .addr .big{font-size:1.2rem}
 <div class="hero">
   <div class="eyebrow">Guide · 질문으로 찾기</div>
   <h1>질문으로 찾기</h1>
-  <p class="lede">작성 2026-08-12 · «이 정보가 어디 있지?»에 답하는 지도다. 궁금한 문장을 찾아 링크를 누르면 된다.</p>
+  <p class="lede">문서가 늘면 이 지도도 같이 자란다 (팀장이 관리).</p>
   <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / QUESTIONS.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
@@ -275,7 +355,7 @@ section .addr .big{font-size:1.2rem}
 <div class="tw"><table><thead><tr><th>궁금한 것</th><th>여기</th></tr></thead><tbody><tr><td>Omniverse·Isaac Sim·SimReady 가 각각 뭔가</td><td><a href="research-omniverse-stack.html">NVIDIA 도구 지도</a></td></tr><tr><td>극사실 렌더가 정말 되나, 얼마나 걸리나</td><td><a href="research-render-benchmarks.html">렌더 실측</a></td></tr><tr><td>«실사 같은» 데모의 상한 사례를 보고 싶다</td><td><a href="research-omniverse-stack.html">도구 지도 §2 쇼케이스</a></td></tr><tr><td>좋은 에셋(재질·HDRI)은 어디서 구하나</td><td><a href="research-omniverse-stack.html">도구 지도 §3</a></td></tr></tbody></table></div>
 </section>
 <section id="s5"><h2>실기·인프라·규칙이 궁금할 때</h2>
-<div class="tw"><table><thead><tr><th>궁금한 것</th><th>여기</th></tr></thead><tbody><tr><td>실물 Go2 는 어떻게 제어를 넘겨받나 (순정과의 관계)</td><td><a href="flow.html">흐름 §5 제어 층 스위치</a></td></tr><tr><td>우분투·ROS2·컨테이너 구조는 어떻게 확정됐나</td><td><a href="research-architecture-decision.html">아키텍처 결정</a></td></tr><tr><td>워크스테이션에 접속해서 학습을 돌리고 싶다</td><td><a href="team-access.html">팀원 접속 가이드</a></td></tr><tr><td>내 노트북에 환경을 깔고 싶다</td><td><a href="setup.html">개발환경 가이드</a></td></tr><tr><td>우리 팀은 어떻게 일하나 (이슈·브랜치·제출함)</td><td><a href="collab.html">협업 규칙</a></td></tr><tr><td>이번 주에 뭘 알게 됐는지 5분에 알고 싶다</td><td>연구 기록 페이지 상단의 <b>주간 다이제스트</b></td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>궁금한 것</th><th>여기</th></tr></thead><tbody><tr><td>실물 Go2 는 어떻게 제어를 넘겨받나 (순정과의 관계)</td><td><a href="flow.html">흐름 §5 제어 층 스위치</a></td></tr><tr><td>8/13 조선대 방문에서 뭘 확인해야 하나</td><td><a href="field-check-0813.html">현장 확인 목록</a></td></tr><tr><td>우분투·ROS2·컨테이너 구조는 어떻게 확정됐나</td><td><a href="research-architecture-decision.html">아키텍처 결정</a></td></tr><tr><td>워크스테이션에 접속해서 학습을 돌리고 싶다</td><td><a href="team-access.html">팀원 접속 가이드</a></td></tr><tr><td>내 노트북에 환경을 깔고 싶다</td><td><a href="setup.html">개발환경 가이드</a></td></tr><tr><td>우리 팀은 어떻게 일하나 (이슈·브랜치·제출함)</td><td><a href="collab.html">협업 규칙</a></td></tr><tr><td>이번 주에 뭘 알게 됐는지 5분에 알고 싶다</td><td>연구 기록 페이지 상단의 <b>주간 다이제스트</b></td></tr></tbody></table></div>
 </section>
 
 </div>

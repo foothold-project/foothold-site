@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <!--research:auto-->
 <h2 class="sec">연구 기록 <span class="en">Research</span></h2>
-<div class="docs work"><a class="doc" data-added="2026-08-12" href="research-omniverse-stack.html"><div class="tag">Research · 근거 기록</div><div class="t">NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</div><div class="d">작성 2026-08-12 · 워크스테이션 세션 · 방법: 공식 문서 + 쇼케이스 1차 출처 + 우리 실측(렌더 벤치마크·Racer 프레임 분석) 연결</div></a><a class="doc" data-added="2026-08-12" href="research-go2-pretrained-policies.html"><div class="tag">Research · 근거 기록</div><div class="t">Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</div><div class="d">작성 2026-08-12 · 워크스테이션 세션 · 방법: S3 버킷 직접 리스팅 + 체크포인트 바이너리 파싱 + HuggingFace 실제 다운로드·로드 검증</div></a><a class="doc" data-added="2026-08-11" href="research-render-benchmarks.html"><div class="tag">Research · 근거 기록</div><div class="t">렌더 실측: Path Tracing 은 얼마나 걸리는가</div><div class="d">작성 2026-08-10 · 워크스테이션 세션 · 장비 RTX 5080 ×2 (VRAM 16GB/장)</div></a></div>
+<div class="docs work"><a class="doc" data-added="2026-08-12" href="research-omniverse-stack.html"><div class="tag">Research · 근거 기록</div><div class="t">NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</div><div class="d">Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.</div></a><a class="doc" data-added="2026-08-12" href="research-go2-pretrained-policies.html"><div class="tag">Research · 근거 기록</div><div class="t">Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</div><div class="d">NVIDIA 공식만 우리 스택에 그대로 로드된다. 점수표 상위 정책은 관측 45차원(실물형)이라 우리 Student 의 비교 상대다.</div></a><a class="doc" data-added="2026-08-11" href="research-render-benchmarks.html"><div class="tag">Research · 근거 기록</div><div class="t">렌더 실측: Path Tracing 은 얼마나 걸리는가</div><div class="d">1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.</div></a></div>
 <p style="margin:2px 0 26px;font-size:.8rem"><a href="research.html" style="color:var(--dim);font-weight:700">전체 8편 보기 →</a></p>
 <!--/research:auto-->
 
@@ -400,6 +400,12 @@ document.addEventListener('DOMContentLoaded',function(){
 <script>
 document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
 </script>
+
+
+
+
+
+
 
 
 
