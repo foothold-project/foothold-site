@@ -182,7 +182,14 @@ section .addr .big{font-size:1.2rem}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mdimg{break-inside:avoid;page-break-inside:avoid}
 }
+
+/* 마크다운 이미지 — mdpage 가 만드는 <figure class="mdimg"> */
+.mdimg{margin:1.5rem 0;padding:0}
+.mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:var(--card)}
+.mdimg figcaption{font-size:.74rem;color:var(--ink-3);margin-top:.45rem;line-height:1.5}
 
 /* ── 코드 문법 강조 ──
    실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
@@ -391,7 +398,7 @@ docs/assets/eval/cmp_1500_random.csv  26.7%  (8/30)</pre></div>
 다음 질문은 «난이도를 올리면 어디서 무너지는가»이고, 그 지점이 <b>우리 프로젝트의 문제 정의</b>가 된다.</p></blockquote>
 </section>
 <section id="s9"><h2>5-4. ★★★ 난이도 곡선 — <b>어디서 무너지는가 = 우리 문제 정의</b> (2026-08-12)</h2>
-<p>![난이도 곡선](../assets/visual/09_difficulty_curve.png)</p>
+<p><figure class="mdimg"><img src="assets/visual/09_difficulty_curve.png" alt="난이도 곡선" loading="lazy"><figcaption>난이도 곡선</figcaption></figure></p>
 <h3>먼저 <code>level</code> 이 무엇인가</h3>
 <p>지형은 <b>6종이 섞여</b> 있고, 난이도(행 번호)에 따라 각 지형의 파라미터가 커진다.</p>
 <div class="tw"><table><thead><tr><th>지형</th><th>비율</th><th>난이도로 변하는 것</th></tr></thead><tbody><tr><td>계단 오름</td><td>20%</td><td>단 높이 <b>0.05 → 0.23 m</b></td></tr><tr><td>계단 내림</td><td>20%</td><td>단 높이 <b>0.05 → 0.23 m</b></td></tr><tr><td>랜덤 박스</td><td>20%</td><td>박스 높이 <b>0.05 → 0.20 m</b></td></tr><tr><td>무작위 요철</td><td>20%</td><td>요철 <b>0.02 → 0.10 m</b></td></tr><tr><td>경사 오름</td><td>10%</td><td>기울기 <b>0 → 0.4</b> (약 22도)</td></tr><tr><td>경사 내림</td><td>10%</td><td>기울기 <b>0 → 0.4</b></td></tr></tbody></table></div>

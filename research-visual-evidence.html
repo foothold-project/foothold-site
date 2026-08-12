@@ -182,7 +182,14 @@ section .addr .big{font-size:1.2rem}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mdimg{break-inside:avoid;page-break-inside:avoid}
 }
+
+/* 마크다운 이미지 — mdpage 가 만드는 <figure class="mdimg"> */
+.mdimg{margin:1.5rem 0;padding:0}
+.mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:var(--card)}
+.mdimg figcaption{font-size:.74rem;color:var(--ink-3);margin-top:.45rem;line-height:1.5}
 
 /* ── 코드 문법 강조 ──
    실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
@@ -250,14 +257,14 @@ section .addr .big{font-size:1.2rem}
 (영상 자체를 공유하려면 정책 예외를 두거나 외부 호스팅이 필요 — <b>미결정</b>)</p></blockquote>
 </section>
 <section id="s2"><h2>00. 목표 지점 — Unitree 공식 영상</h2>
-<p>![reference](../assets/visual/00_reference_unitree_official.png)</p>
+<p><figure class="mdimg"><img src="assets/visual/00_reference_unitree_official.png" alt="reference" loading="lazy"><figcaption>reference</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>출처</td><td>Unitree 공식 Go2 홍보 영상 (<code>00_reference/unitree-go2-official.mp4</code>)</td></tr><tr><td>사양</td><td>1920×1080 · 50fps · 5.4초</td></tr></tbody></table></div>
 <p><b>★ 중요한 사실: 이것은 CG가 아니라 실물 로봇 실사 촬영이다.</b></p>
 <p>보이는 것: 강가 자갈밭, <b>역광</b>, 물보라 입자가 빛을 받아 반짝임, <b>얕은 심도</b>로 배경 나무가 흐려짐, 낮은 카메라 앵글, 젖은 돌의 스페큘러, 크기가 제각각인 실제 자갈, 원경의 산.</p>
 <p>우리 목표가 <i>&quot;이 수준으로 렌더한다&quot;</i>라면, 정확히는 <b>&quot;실사 촬영물과 구분되지 않는 CG를 만든다&quot;</b> — VFX에서 가장 어려운 과제다.</p>
 </section>
 <section id="s3"><h2>01. A 정책 — 플래그 없음, 300 iteration</h2>
-<p>![trainA](../assets/visual/01_trainA_noflag_300iter.png)</p>
+<p><figure class="mdimg"><img src="assets/visual/01_trainA_noflag_300iter.png" alt="trainA" loading="lazy"><figcaption>trainA</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>실행</td><td><code>logs/rsl_rl/unitree_go2_rough/2026-08-09_14-00-20</code></td></tr><tr><td>조건</td><td>기본 설정 (추가 플래그 없음), seed 42</td></tr><tr><td>학습 시간</td><td><b>22.07분</b> (300 iteration)</td></tr><tr><td>처리량</td><td>22,867 steps/s</td></tr><tr><td><b>마지막 20회 평균 보상</b></td><td><b>13.94</b></td></tr><tr><td><b>마지막 20회 평균 에피소드 길이</b></td><td><b>938.7 step</b> (최대 1000)</td></tr><tr><td>영상</td><td>1280×720 50fps 10초 · <code>assets/video/trainA_noflag_300iter.mp4</code></td></tr></tbody></table></div>
 <p><b>읽는 법 — 로봇의 화면상 위치를 보라:</b></p>
 <div class="tw"><table><thead><tr><th>시각</th><th>위치</th></tr></thead><tbody><tr><td>1.2초</td><td>중앙 타일에 2마리</td></tr><tr><td>7.5초</td><td><b>화면 왼쪽 끝까지 이동</b></td></tr><tr><td>10.0초</td><td>왼쪽 가장자리</td></tr></tbody></table></div>
@@ -267,7 +274,7 @@ section .addr .big{font-size:1.2rem}
 <p>A에서는 <b>둘 다 뚜렷하다</b> = 시킨 대로 가고 있다.</p>
 </section>
 <section id="s4"><h2>02. B 정책 — 플래그 있음, 300 iteration</h2>
-<p>![trainB](../assets/visual/02_trainB_flag_300iter.png)</p>
+<p><figure class="mdimg"><img src="assets/visual/02_trainB_flag_300iter.png" alt="trainB" loading="lazy"><figcaption>trainB</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>실행</td><td><code>logs/rsl_rl/unitree_go2_rough/2026-08-09_14-22-51</code></td></tr><tr><td>조건</td><td><code>--kit_args=&quot;--/physics/collisionApproximateCylinders=true&quot;</code>, seed 42</td></tr><tr><td>학습 시간</td><td><b>9.48분</b> (300 iteration) — A의 <b>2.3배 빠름</b></td></tr><tr><td>처리량</td><td>54,898 steps/s</td></tr><tr><td><b>마지막 20회 평균 보상</b></td><td><b>3.54</b> — A의 <b>25%</b></td></tr><tr><td><b>마지막 20회 평균 에피소드 길이</b></td><td><b>551.1 step</b></td></tr><tr><td>영상</td><td><code>assets/video/trainB_flag_300iter.mp4</code></td></tr></tbody></table></div>
 <p><b>읽는 법:</b></p>
 <div class="tw"><table><thead><tr><th>시각</th><th>위치</th></tr></thead><tbody><tr><td>1.2초</td><td>중앙 타일</td></tr><tr><td>10.0초</td><td><b>거의 같은 자리</b></td></tr></tbody></table></div>
@@ -287,7 +294,7 @@ section .addr .big{font-size:1.2rem}
 <p><b>에피소드 길이가 193→277에서 줄어든 것은 나빠진 게 아니다.</b> 지형 커리큘럼이 <b>로봇을 더 어려운 지형으로 승급</b>시켰기 때문이다 (잘하면 위 행으로, 못하면 아래 행으로. 함수: <code>terrain_levels_vel</code>). 보상은 그 구간에도 계속 올랐다.</p>
 </section>
 <section id="s5"><h2>03. ★ 학습 씬 ≠ 렌더 씬 — 분리 실증 (성공)</h2>
-<p>![warehouse](../assets/visual/03_usdscene_warehouse.png)</p>
+<p><figure class="mdimg"><img src="assets/visual/03_usdscene_warehouse.png" alt="warehouse" loading="lazy"><figcaption>warehouse</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>정책</td><td><b>A 정책</b> (회색 절차생성 험지에서 학습한 것)</td></tr><tr><td>씬</td><td><code>Environments/Simple_Warehouse/warehouse.usd</code> — <b>학습에 쓴 적 없는 씬</b></td></tr><tr><td>스크립트</td><td><code>C:\isaac\IsaacLab\play_go2_in_usd.py</code> (NVIDIA 공식 튜토리얼의 Go2판)</td></tr><tr><td>소요</td><td>1.78분 (400 스텝 = 8초)</td></tr><tr><td>영상</td><td><code>assets/video/usdscene_warehouse.mp4</code></td></tr></tbody></table></div>
 <p><b>이것이 증명한 것:</b></p>
 <blockquote><p><b>회색 무텍스처 지형에서 학습한 정책을, 정책 파일만 들고 나와서,
@@ -305,7 +312,7 @@ section .addr .big{font-size:1.2rem}
 )</pre></div>
 </section>
 <section id="s6"><h2>04. 같은 방법의 실패 사례 — 사무실 씬</h2>
-<p>![office](../assets/visual/04_usdscene_office_FAILED.png)</p>
+<p><figure class="mdimg"><img src="assets/visual/04_usdscene_office_FAILED.png" alt="office" loading="lazy"><figcaption>office</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>씬</td><td><code>Environments/Office/office.usd</code></td></tr><tr><td>결과</td><td>스크립트는 <b>exit=0으로 정상 종료</b>, mp4도 생성됨. <b>그러나 화면에 로봇이 없다</b></td></tr><tr><td>소요</td><td>5.39분 (warehouse의 3배 — 씬이 무겁다)</td></tr></tbody></table></div>
 <p>화면 대부분이 흰 벽이다. <b>카메라가 벽 안쪽에 박혔거나, 로봇이 벽 안에 스폰됐다.</b></p>
 <h3>여기서 배운 것 — 두 가지</h3>
@@ -315,8 +322,19 @@ section .addr .big{font-size:1.2rem}
 프레임을 눈으로 보지 않았다면 <b>&quot;사무실 씬도 성공&quot;이라고 보고했을 것이다.</b></p></blockquote>
 <p>커널 원칙 2 — <i>조용한 실패를 소리 나게 만든다.</i> 그리고 원칙 3 — <i>사용자가 겪는 층위에서 확인한다.</i> <b>프레임을 뽑아 본 것이 이 실패를 잡았다.</b></p>
 </section>
-<section id="s7"><h2>05. ★ 학습 곡선 읽는 법 — TensorBoard 를 대신하는 그림</h2>
-<p>![curves](../assets/visual/13_learning_curves_annotated.png)</p>
+<section id="s7"><h2>04-2. 평가에서 «걷지 못하는 정책»은 어떻게 보이는가</h2>
+<p><figure class="mdimg"><img src="assets/visual/07_eval_300iter_frozen.png" alt="300 iteration 정책 — 전진 명령 고정" loading="lazy"><figcaption>300 iteration 정책 — 전진 명령 고정</figcaption></figure></p>
+<p>300 iteration 정책에 <b>전진 1.0 m/s 를 고정</b>으로 주고 20초를 재생한 것이다. <b>다리를 벌리고 몸을 낮춘 자세로 버티기만 한다.</b> 20초에 <b>0.56 m</b> 밖에 못 갔다.</p>
+<p><figure class="mdimg"><img src="assets/visual/08_eval_300iter_random.png" alt="300 iteration 정책 — 기본 랜덤 명령" loading="lazy"><figcaption>300 iteration 정책 — 기본 랜덤 명령</figcaption></figure></p>
+<p>같은 정책에 <b>기본 랜덤 명령</b>을 준 것. 같은 웅크린 자세지만 명령이 계속 바뀌니 조금씩 밀려 나가 <b>4.81 m</b> 를 간다.</p>
+<blockquote><p>### ★ 이 두 장이 말하는 것
+이 정책의 <b>보상은 13.94</b> 였다. 학습 로그만 봤다면 «잘 되고 있다»고 보고했을 것이다.
+<b>영상을 보고서야 걷지 못한다는 것을 알았다.</b> 실제 통과율은 <b>0%</b> 였다.
+같은 조건에서 1,500 iteration 정책은 <b>86.7%</b> 를 낸다 →
+<a href="training-benchmarks.html">training-benchmarks.md</a></p></blockquote>
+</section>
+<section id="s8"><h2>05. ★ 학습 곡선 읽는 법 — TensorBoard 를 대신하는 그림</h2>
+<p><figure class="mdimg"><img src="assets/visual/13_learning_curves_annotated.png" alt="curves" loading="lazy"><figcaption>curves</figcaption></figure></p>
 <p><b>왜 스크린샷이 아닌가</b>: 스크린샷은 확대하면 깨지고 화살표·설명을 얹을 수 없다. <b>TensorBoard 와 같은 이벤트 파일을 직접 읽어</b> 그린 뒤 «무엇을 봐야 하는가»를 그림 안에 적었다.</p>
 <h3>이 그림에서 봐야 할 것 네 가지</h3>
 <p><b>① 초반 급상승 후 완만해진다 (수확 체감)</b> 0~500 iteration 에서 보상이 −0.5 → 19 로 오르고, 그 뒤 1,000 iteration 동안 19 → 23 밖에 안 오른다. <b>«더 오래 돌리면 계속 좋아진다»가 아니다.</b></p>
@@ -330,13 +348,13 @@ section .addr .big{font-size:1.2rem}
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>http://&lt;워크스테이션&gt;:6006     (실제 주소는 팀 채널에)</pre></div>
 <p>왼쪽 목록에서 실행을 골라 겹쳐 볼 수 있다. 볼 것은 <code>Train/mean_reward</code>, <code>Train/mean_episode_length</code>, 그리고 <b><code>Curriculum/terrain_levels</code></b>(승급이 눈에 보인다).</p>
 </section>
-<section id="s8"><h2>06. 난이도별 주행 — 눈으로 보는 차이</h2>
-<p>![levels](../assets/visual/14_eval_levels_frames.png)</p>
+<section id="s9"><h2>06. 난이도별 주행 — 눈으로 보는 차이</h2>
+<p><figure class="mdimg"><img src="assets/visual/14_eval_levels_frames.png" alt="levels" loading="lazy"><figcaption>levels</figcaption></figure></p>
 <p>1,500 iteration 정책을 난이도 <b>0 / 3 / 6 / 9</b> 에서 각각 재생한 것이다. 영상: <code>assets/video/eval_1500iter_level{0,3,6,9}.mp4</code></p>
 <div class="tw"><table><thead><tr><th>level</th><th>통과율</th><th>지형</th></tr></thead><tbody><tr><td>0</td><td>80.0%</td><td>계단 6 cm · 거의 평지</td></tr><tr><td>3</td><td>66.7%</td><td>계단 11 cm</td></tr><tr><td>6</td><td>53.3%</td><td>계단 17 cm</td></tr><tr><td>9</td><td>56.7%</td><td>계단 22 cm — Go2 몸통 높이의 2/3</td></tr></tbody></table></div>
 <p><b>로봇은 난이도가 올라가도 거의 넘어지지 않는다. 다만 느려진다.</b> 자세한 숫자와 해석 → [training-benchmarks.md §5-4](training-benchmarks.md)</p>
 </section>
-<section id="s9"><h2>부록: 재현 방법</h2>
+<section id="s10"><h2>부록: 재현 방법</h2>
 <div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">conda</span> activate isaac311
 <span class="f">cd</span> C:\isaac\IsaacLab
 <span class="v">$env:OMNI_KIT_ACCEPT_EULA</span>=<span class="s">&quot;YES&quot;</span>
@@ -355,7 +373,7 @@ section .addr .big{font-size:1.2rem}
   <span class="o">--steps</span> <span class="n">400</span> <span class="o">--headless</span> <span class="o">--video</span> <span class="o">--tag</span> warehouse</pre></div>
 <p><b>프레임 추출</b>: <code>scratchpad/frames.py</code> 참조 (OpenCV + <code>imageio_ffmpeg</code> 동봉 ffmpeg).</p>
 </section>
-<section id="s10"><h2>연결</h2>
+<section id="s11"><h2>연결</h2>
 <ul><li>수치 정본 → [training-benchmarks.md](training-benchmarks.md)</li><li>아키텍처 결정 → [architecture-decision.md](architecture-decision.md)</li><li>곡선으로 보기 → TensorBoard <code>logs/rsl_rl/unitree_go2_rough</code> (LAN: <code>:6006</code>)</li></ul>
 </section>
 
