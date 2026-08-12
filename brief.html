@@ -153,9 +153,11 @@ td.num{font-weight:800;color:var(--dim);white-space:nowrap}
 }
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="var(--dim)">
-<!--search:v3--><style>
+<!--search:v4--><style>
 .srch{position:relative;min-width:150px;flex:0 1 240px}
-#fh-search-slot .srch{flex:none}
+#fh-search-slot{display:flex;justify-content:flex-end}
+#fh-search-slot .srch{flex:0 1 260px;min-width:0}
+@media (max-width:640px){#fh-search-slot .srch{flex:1 1 100%}}
 .srch input{width:100%;padding:.3rem .6rem .3rem 1.75rem;border:1px solid var(--rule);
   border-radius:4px;background:var(--card);color:var(--ink);font-family:inherit;font-size:.74rem}
 .srch::before{content:'';position:absolute;left:.55rem;top:calc(50% - .38rem);width:.5rem;
@@ -560,6 +562,10 @@ document.addEventListener('DOMContentLoaded',function(){
 <script>
 document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
 </script>
+
+
+
+
 
 
 

@@ -347,9 +347,11 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
 
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
-<!--search:v3--><style>
+<!--search:v4--><style>
 .srch{position:relative;min-width:150px;flex:0 1 240px}
-#fh-search-slot .srch{flex:none}
+#fh-search-slot{display:flex;justify-content:flex-end}
+#fh-search-slot .srch{flex:0 1 260px;min-width:0}
+@media (max-width:640px){#fh-search-slot .srch{flex:1 1 100%}}
 .srch input{width:100%;padding:.3rem .6rem .3rem 1.75rem;border:1px solid var(--rule);
   border-radius:4px;background:var(--card);color:var(--ink);font-family:inherit;font-size:.74rem}
 .srch::before{content:'';position:absolute;left:.55rem;top:calc(50% - .38rem);width:.5rem;
@@ -465,7 +467,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <button id="navToggle" aria-label="목차">☰</button>
 
 <nav id="nav">
-  <a href="index.html" class="home">← 표지로</a><!--searchslot:v1--><div id="fh-search-slot" style="margin:12px 0 2px"></div>
+  <a href="index.html" class="home">← 표지로</a>
   <div class="brand">FOOTHOLD<small>Domain Encyclopedia</small></div>
   <div class="tag">사족보행 로봇이 험지를 걷는다는 것의 <b>물리 · 기술 · 검증</b>을 층위로 정리한 문서.
     각 층은 아래층의 <b>"그래서"</b>로만 이어진다.</div>
@@ -525,7 +527,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <main>
 
-<header class="top">
+<header class="top"><!--searchslot:v1--><div id="fh-search-slot" style="margin:0 0 10px"></div>
   <h1>사족보행 로봇이 험지를 걷는다는 것</h1>
   <p class="lede">이 문서는 도구 설명서가 아니다. <b>왜 다리로 걷는가</b>에서 시작해
     <b>왜 그것이 어려운가</b>를 거쳐 <b>그래서 어떤 기술을 왜 선택했는가</b>까지, 인과로만 이어지는 지도다.

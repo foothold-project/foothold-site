@@ -605,9 +605,11 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
-<!--search:v3--><style>
+<!--search:v4--><style>
 .srch{position:relative;min-width:150px;flex:0 1 240px}
-#fh-search-slot .srch{flex:none}
+#fh-search-slot{display:flex;justify-content:flex-end}
+#fh-search-slot .srch{flex:0 1 260px;min-width:0}
+@media (max-width:640px){#fh-search-slot .srch{flex:1 1 100%}}
 .srch input{width:100%;padding:.3rem .6rem .3rem 1.75rem;border:1px solid var(--rule);
   border-radius:4px;background:var(--card);color:var(--ink);font-family:inherit;font-size:.74rem}
 .srch::before{content:'';position:absolute;left:.55rem;top:calc(50% - .38rem);width:.5rem;
@@ -732,7 +734,7 @@ document.addEventListener('DOMContentLoaded',function(){
     <button class="tbtn" id="tocBtn" type="button">☰ 목차</button>
     <span class="stage-chip" id="stageChip">시작</span>
     <span class="counter" id="counter">1 / 38</span>
-    <span class="spacer"></span><!--searchslot:v1--><div id="fh-search-slot" style="flex:0 1 220px;min-width:140px"></div>
+    <span class="spacer"></span><!--searchslot:v1--><div id="fh-search-slot" style="flex:0 1 220px;justify-content:flex-start"></div>
     <a class="tbtn home" href="index.html">← 표지로</a>
     <button class="tbtn pdf" id="pdfBtn" type="button" title="브라우저 인쇄 창이 열립니다. 대상에서 &quot;PDF로 저장&quot;을 선택하세요.">PDF</button>
   </div>

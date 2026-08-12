@@ -191,9 +191,11 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
 })();
 </script>
-<!--search:v3--><style>
+<!--search:v4--><style>
 .srch{position:relative;min-width:150px;flex:0 1 240px}
-#fh-search-slot .srch{flex:none}
+#fh-search-slot{display:flex;justify-content:flex-end}
+#fh-search-slot .srch{flex:0 1 260px;min-width:0}
+@media (max-width:640px){#fh-search-slot .srch{flex:1 1 100%}}
 .srch input{width:100%;padding:.3rem .6rem .3rem 1.75rem;border:1px solid var(--rule);
   border-radius:4px;background:var(--card);color:var(--ink);font-family:inherit;font-size:.74rem}
 .srch::before{content:'';position:absolute;left:.55rem;top:calc(50% - .38rem);width:.5rem;
@@ -305,8 +307,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
     <path d="M8 1v9M4.5 6.5L8 10l3.5-3.5M2 12v2.5h12V12"/>
   </svg>PDF 저장</button>
-<div class="wrap">
-
+<div class="wrap"><!--searchslot:v1--><div id="fh-search-slot" style="margin:2px 0 14px"></div>
 <header>
   <div class="eyebrow">인공지능사관학교 7기 · AI 도약과정 · 실증 프로젝트</div>
   <div class="mark">
@@ -427,7 +428,6 @@ document.addEventListener('DOMContentLoaded',function(){
   </a>
 </div>
 
-<!--searchslot:v1--><div id="fh-search-slot" style="margin:26px 0 6px;max-width:420px"></div>
 <!--research:auto-->
 <h2 class="sec">연구 기록 <span class="en">Research</span></h2>
 <div class="docs work"><a class="doc" data-added="2026-08-12" href="research-omniverse-stack.html"><div class="tag">Research · 근거 기록</div><div class="t">NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</div><div class="d">Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.</div></a><a class="doc" data-added="2026-08-12" href="research-go2-pretrained-policies.html"><div class="tag">Research · 근거 기록</div><div class="t">Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</div><div class="d">NVIDIA 공식만 우리 스택에 그대로 로드된다. 점수표 상위 정책은 관측 45차원(실물형)이라 우리 Student 의 비교 상대다.</div></a><a class="doc" data-added="2026-08-11" href="research-render-benchmarks.html"><div class="tag">Research · 근거 기록</div><div class="t">렌더 실측: Path Tracing 은 얼마나 걸리는가</div><div class="d">1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.</div></a></div>
@@ -517,6 +517,10 @@ document.addEventListener('DOMContentLoaded',function(){
 <script>
 document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
 </script>
+
+
+
+
 
 
 
