@@ -64,6 +64,10 @@ header{border-bottom:2px solid var(--ink);padding-bottom:clamp(24px,3.5vh,38px)}
 h2.sec{font-size:.82rem;font-weight:800;padding-bottom:7px;
   border-bottom:1.5px solid var(--ink);margin:clamp(28px,4vh,42px) 0 16px;
   display:flex;align-items:baseline;gap:9px}
+.seclede{font-size:.78rem;color:var(--ink-3);margin:-8px 0 14px;max-width:min(52em,100%);word-break:keep-all}
+.secmore{margin:6px 0 26px;font-size:.78rem}
+.secmore a{color:var(--dim);font-weight:700;text-decoration:none}
+.secmore a:hover{text-decoration:underline}
 h2.sec .en{font-size:.6rem;font-weight:600;color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase}
 
 .docs{display:grid;gap:12px;margin-bottom:6px}
@@ -193,10 +197,10 @@ footer b{color:var(--ink-2);font-family:inherit}
     그리고 <b>옮기는 순간 벌어지는 간극을 메우는 것</b>이 우리가 5개월간 할 일이다.</div>
 </div>
 
-<h2 class="sec">문서 · 작업용 <span class="en">Working Documents</span></h2>
+<h2 class="sec">처음 왔다면 <span class="en">Start Here</span></h2>
+<p class="seclede">이 셋만 읽으면 우리가 무엇을, 어떤 순서로, 어떤 규칙으로 하는지 알 수 있다.</p>
 <div class="docs work">
-
-  <a class="doc learn" href="flow.html">
+<a class="doc learn" href="flow.html">
   <span class="badge">New</span>
   <div class="tag">Flow · 프로젝트 전체 흐름</div>
   <div class="t">무엇을 어떤 순서로 하는가</div>
@@ -211,23 +215,7 @@ footer b{color:var(--ink-2);font-family:inherit}
   </ul>
   <div class="go">읽기 →</div>
   </a>
-
-  <a class="doc learn" href="collab.html">
-  <div class="tag">Collab · 일하는 방식</div>
-  <div class="t">협업 규칙</div>
-  <div class="d">손으로 하는 건 <b>두 가지뿐</b> — 이슈 만들기와 Closes #번호. 나머지는 자동이다.
-  원칙·브랜치·회의·실험 규율과 <b>온보딩 30분 경로</b>.</div>
-  <ul>
-  <li>원칙 3 · 팀 역할(리드+백업)</li>
-  <li>일의 흐름 · 브랜치 전략 (도식)</li>
-  <li>회의 녹음 · 결정 기록 규칙</li>
-  <li>온보딩 — 0분에서 30분</li>
-  <li>용어 8 · 하지 말 것 6</li>
-  </ul>
-  <div class="go">읽기 →</div>
-  </a>
-
-  <a class="doc setup" href="plan.html">
+<a class="doc setup" href="plan.html">
   <span class="badge">New</span>
   <div class="tag">Plan · 살아있는 설계도</div>
   <div class="t">프로젝트 설계도</div>
@@ -242,40 +230,26 @@ footer b{color:var(--ink-2);font-family:inherit}
   </ul>
   <div class="go">읽기 →</div>
   </a>
-
-  <a class="doc learn" href="curriculum.html">
-  <span class="badge">New</span>
-  <div class="tag">Learn · 5인 공통</div>
-  <div class="t">학습 커리큘럼</div>
-  <div class="d">로봇도 강화학습도 처음인 사람을 위한 <b>순서</b>.
-  무엇을 <b>안 배워도 되는지</b>부터 정하고, 구간 A를 다 함께 지난 뒤 다섯 갈래로 나뉜다.</div>
+<a class="doc learn" href="collab.html">
+  <div class="tag">Collab · 일하는 방식</div>
+  <div class="t">협업 규칙</div>
+  <div class="d">손으로 하는 건 <b>두 가지뿐</b> — 이슈 만들기와 Closes #번호. 나머지는 자동이다.
+  원칙·브랜치·회의·실험 규율과 <b>온보딩 30분 경로</b>.</div>
   <ul>
-  <li>구간 A · 공통 기반 17단계</li>
-  <li>구간 B · 역할별 다섯 갈래</li>
-  <li>구간 C · 실전 8단계</li>
-  <li>도식 · 용어 풀이 · 논문 근거</li>
-  <li>선행 사례의 실패 기록</li>
+  <li>원칙 3 · 팀 역할(리드+백업)</li>
+  <li>일의 흐름 · 브랜치 전략 (도식)</li>
+  <li>회의 녹음 · 결정 기록 규칙</li>
+  <li>온보딩 — 0분에서 30분</li>
+  <li>용어 8 · 하지 말 것 6</li>
   </ul>
   <div class="go">읽기 →</div>
   </a>
+</div>
 
-  <a class="doc main" href="encyclopedia.html">
-  <div class="tag">Reference · 상시 갱신</div>
-  <div class="t">도메인 백과</div>
-  <div class="d">동물은 왜 그렇게 걷는지에서 시작해 우리 기술 결정까지, <b>인과로만 이어지는</b> 여섯 층위.
-  모든 주장에 출처와 신뢰도를 표기했다.</div>
-  <ul>
-  <li>보행 원리 · 학습이란 무엇인가</li>
-  <li>Go2 하드웨어 해부 · 관측 설계</li>
-  <li>실증 지표 · 실패 판정 기준</li>
-  <li>결정 요약표 · 우리가 모르는 것</li>
-  <li>인터랙티브 도식 · 용어 사전</li>
-  </ul>
-  <div class="go">읽기 →</div>
-  </a>
-
-  <a class="doc setup" href="setup.html">
-  <span class="badge">New</span>
+<h2 class="sec">손을 움직이려면 <span class="en">Get Working</span></h2>
+<p class="seclede">내 컴퓨터에서 돌리고, 팀 자원에 접근하고, 필요한 개념을 익히는 데 필요한 것.</p>
+<div class="docs work">
+<a class="doc setup" href="setup.html">
   <div class="tag">Setup · 따라 하기</div>
   <div class="t">개발환경 구축</div>
   <div class="d">Isaac Sim 5.1 + Isaac Lab v2.3.2를 <b>워크스테이션에</b> 올려
@@ -290,9 +264,7 @@ footer b{color:var(--ink-2);font-family:inherit}
   </ul>
   <div class="go">따라 하기 →</div>
   </a>
-
-  <a class="doc access" href="team-access.html">
-  <span class="badge">New</span>
+<a class="doc access" href="team-access.html">
   <div class="tag">Access · 팀원 4인</div>
   <div class="t">팀원 사용 가이드</div>
   <div class="d">노트북에는 <b>설치하지 않는다.</b> 워크스테이션 한 대를 함께 쓴다.
@@ -306,19 +278,47 @@ footer b{color:var(--ink-2);font-family:inherit}
   </ul>
   <div class="go">읽기 →</div>
   </a>
-
+<a class="doc learn" href="curriculum.html">
+  <div class="tag">Learn · 5인 공통</div>
+  <div class="t">학습 커리큘럼</div>
+  <div class="d">로봇도 강화학습도 처음인 사람을 위한 <b>순서</b>.
+  무엇을 <b>안 배워도 되는지</b>부터 정하고, 구간 A를 다 함께 지난 뒤 다섯 갈래로 나뉜다.</div>
+  <ul>
+  <li>구간 A · 공통 기반 17단계</li>
+  <li>구간 B · 역할별 다섯 갈래</li>
+  <li>구간 C · 실전 8단계</li>
+  <li>도식 · 용어 풀이 · 논문 근거</li>
+  <li>선행 사례의 실패 기록</li>
+  </ul>
+  <div class="go">읽기 →</div>
+  </a>
 </div>
 
 <!--research:auto-->
-<h2 class="sec">연구 기록 <span class="en">Research</span></h2>
+<h2 class="sec">근거를 확인하려면 <span class="en">Research</span></h2>
+<p class="seclede">조사와 실측의 원본 기록이다. 결론만이 아니라 틀렸던 판단과 그 정정도 남긴다.</p>
 <div class="docs work"><a class="doc" href="research-architecture-decision.html"><div class="tag">Research · 근거 기록</div><div class="t">시스템 아키텍처 결정 — Isaac Sim + ROS2 + 실기 Go2</div><div class="d">작성 2026-08-09 · 워크스테이션 세션</div></a><a class="doc" href="research-cloud-gpu-options.html"><div class="tag">Research · 근거 기록</div><div class="t">클라우드 GPU에서 Isaac Sim 돌리기 — 가능성 조사</div><div class="d">작성 2026-08-08 · 방법: NVIDIA 공식 문서·포럼·NGC 카탈로그·GitHub 이슈 직접 확인 · 상태: 코덱스 교차검증 대기</div></a><a class="doc" href="research-render-benchmarks.html"><div class="tag">Research · 근거 기록</div><div class="t">렌더 실측 — Path Tracing 은 얼마나 걸리는가</div><div class="d">작성 2026-08-10 · 워크스테이션 세션 · 장비 RTX 5080 ×2 (VRAM 16GB/장)</div></a></div>
-<p style="margin:2px 0 26px;font-size:.8rem"><a href="research.html" style="color:var(--dim);font-weight:700">전체 6편 보기 →</a></p>
+<p class="secmore"><a href="research.html">연구 기록 전체 6편 보기 →</a></p>
 <!--/research:auto-->
 
-<h2 class="sec">문서 · 프로젝트 <span class="en">Project Documents</span></h2>
-<div class="docs proj">
-
-  <a class="doc brief" href="brief.html">
+<h2 class="sec">찾아보려면 <span class="en">Reference</span></h2>
+<p class="seclede">읽는 문서가 아니라 필요할 때 펴 보는 것. 용어가 막히면 백과부터.</p>
+<div class="docs work">
+<a class="doc main" href="encyclopedia.html">
+  <div class="tag">Reference · 상시 갱신</div>
+  <div class="t">도메인 백과</div>
+  <div class="d">동물은 왜 그렇게 걷는지에서 시작해 우리 기술 결정까지, <b>인과로만 이어지는</b> 여섯 층위.
+  모든 주장에 출처와 신뢰도를 표기했다.</div>
+  <ul>
+  <li>보행 원리 · 학습이란 무엇인가</li>
+  <li>Go2 하드웨어 해부 · 관측 설계</li>
+  <li>실증 지표 · 실패 판정 기준</li>
+  <li>결정 요약표 · 우리가 모르는 것</li>
+  <li>인터랙티브 도식 · 용어 사전</li>
+  </ul>
+  <div class="go">읽기 →</div>
+  </a>
+<a class="doc brief" href="brief.html">
   <div class="tag">Briefing · 수시 갱신</div>
   <div class="t">프로젝트 브리핑</div>
   <div class="d">지금 <b>확정된 것과 아직 아닌 것</b>. 조사로 확인한 근거와 연락처,
@@ -331,8 +331,7 @@ footer b{color:var(--ink-2);font-family:inherit}
   </ul>
   <div class="go">읽기 →</div>
   </a>
-
-  <a class="doc" href="team-intro.html">
+<a class="doc" href="team-intro.html">
   <div class="tag">Slides · 6장</div>
   <div class="t">팀 소개 · 프로젝트 킥오프</div>
   <div class="d">우리가 누구인지(3장)에서 무엇을 어떻게 하는지(3장)까지.
@@ -346,7 +345,6 @@ footer b{color:var(--ink-2);font-family:inherit}
   </ul>
   <div class="go">보기 →</div>
   </a>
-
 </div>
 
 <h2 class="sec">팀 <span class="en">Team</span></h2>
@@ -384,6 +382,10 @@ footer b{color:var(--ink-2);font-family:inherit}
 <script>
 document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
 </script>
+
+
+
+
 
 
 

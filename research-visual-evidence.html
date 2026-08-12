@@ -315,7 +315,28 @@ section .addr .big{font-size:1.2rem}
 프레임을 눈으로 보지 않았다면 <b>&quot;사무실 씬도 성공&quot;이라고 보고했을 것이다.</b></p></blockquote>
 <p>커널 원칙 2 — <i>조용한 실패를 소리 나게 만든다.</i> 그리고 원칙 3 — <i>사용자가 겪는 층위에서 확인한다.</i> <b>프레임을 뽑아 본 것이 이 실패를 잡았다.</b></p>
 </section>
-<section id="s7"><h2>부록: 재현 방법</h2>
+<section id="s7"><h2>05. ★ 학습 곡선 읽는 법 — TensorBoard 를 대신하는 그림</h2>
+<p>![curves](../assets/visual/13_learning_curves_annotated.png)</p>
+<p><b>왜 스크린샷이 아닌가</b>: 스크린샷은 확대하면 깨지고 화살표·설명을 얹을 수 없다. <b>TensorBoard 와 같은 이벤트 파일을 직접 읽어</b> 그린 뒤 «무엇을 봐야 하는가»를 그림 안에 적었다.</p>
+<h3>이 그림에서 봐야 할 것 네 가지</h3>
+<p><b>① 초반 급상승 후 완만해진다 (수확 체감)</b> 0~500 iteration 에서 보상이 −0.5 → 19 로 오르고, 그 뒤 1,000 iteration 동안 19 → 23 밖에 안 오른다. <b>«더 오래 돌리면 계속 좋아진다»가 아니다.</b></p>
+<p><b>② ★ 플래그 B(빨강·주황)는 낮은 데서 눕는다</b> 2.3배 빨리 도는데도 A 를 못 따라잡고 보상 5 근처에서 평평해진다. <b>곡선의 «모양»이 다르다</b> — 이것이 숫자 두 개(13.94 vs 3.54)로는 안 보이던 것이다.</p>
+<p><b>③ 에피소드 길이의 출렁임은 나빠진 게 아니다</b> 지형 커리큘럼이 <b>로봇을 더 어려운 지형으로 승급</b>시키면 일시적으로 짧아진다. 보상은 그 구간에도 계속 오른다. <b>두 곡선을 같이 봐야 오해하지 않는다.</b></p>
+<p><b>④ ★★ 보상 높이가 «걷는다»를 뜻하지 않는다</b></p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>보상 13.94 (300회)  → 실제 통과율   0.0%
+보상 22.88 (1500회) → 실제 통과율  86.7%</pre></div>
+<p>보상은 1.64배인데 통과율은 0 에서 86.7 이다. <b>지표만 보면 이 문턱을 못 본다.</b> → 그래서 [평가 파이프라인](training-benchmarks.md#5-3)이 필요하다.</p>
+<h3>TensorBoard 를 직접 보려면</h3>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>http://&lt;워크스테이션&gt;:6006     (실제 주소는 팀 채널에)</pre></div>
+<p>왼쪽 목록에서 실행을 골라 겹쳐 볼 수 있다. 볼 것은 <code>Train/mean_reward</code>, <code>Train/mean_episode_length</code>, 그리고 <b><code>Curriculum/terrain_levels</code></b>(승급이 눈에 보인다).</p>
+</section>
+<section id="s8"><h2>06. 난이도별 주행 — 눈으로 보는 차이</h2>
+<p>![levels](../assets/visual/14_eval_levels_frames.png)</p>
+<p>1,500 iteration 정책을 난이도 <b>0 / 3 / 6 / 9</b> 에서 각각 재생한 것이다. 영상: <code>assets/video/eval_1500iter_level{0,3,6,9}.mp4</code></p>
+<div class="tw"><table><thead><tr><th>level</th><th>통과율</th><th>지형</th></tr></thead><tbody><tr><td>0</td><td>80.0%</td><td>계단 6 cm · 거의 평지</td></tr><tr><td>3</td><td>66.7%</td><td>계단 11 cm</td></tr><tr><td>6</td><td>53.3%</td><td>계단 17 cm</td></tr><tr><td>9</td><td>56.7%</td><td>계단 22 cm — Go2 몸통 높이의 2/3</td></tr></tbody></table></div>
+<p><b>로봇은 난이도가 올라가도 거의 넘어지지 않는다. 다만 느려진다.</b> 자세한 숫자와 해석 → [training-benchmarks.md §5-4](training-benchmarks.md)</p>
+</section>
+<section id="s9"><h2>부록: 재현 방법</h2>
 <div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">conda</span> activate isaac311
 <span class="f">cd</span> C:\isaac\IsaacLab
 <span class="v">$env:OMNI_KIT_ACCEPT_EULA</span>=<span class="s">&quot;YES&quot;</span>
@@ -334,7 +355,7 @@ section .addr .big{font-size:1.2rem}
   <span class="o">--steps</span> <span class="n">400</span> <span class="o">--headless</span> <span class="o">--video</span> <span class="o">--tag</span> warehouse</pre></div>
 <p><b>프레임 추출</b>: <code>scratchpad/frames.py</code> 참조 (OpenCV + <code>imageio_ffmpeg</code> 동봉 ffmpeg).</p>
 </section>
-<section id="s8"><h2>연결</h2>
+<section id="s10"><h2>연결</h2>
 <ul><li>수치 정본 → [training-benchmarks.md](training-benchmarks.md)</li><li>아키텍처 결정 → [architecture-decision.md](architecture-decision.md)</li><li>곡선으로 보기 → TensorBoard <code>logs/rsl_rl/unitree_go2_rough</code> (LAN: <code>:6006</code>)</li></ul>
 </section>
 
