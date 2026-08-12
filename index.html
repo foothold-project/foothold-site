@@ -164,21 +164,23 @@ footer b{color:var(--ink-2);font-family:inherit}
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="var(--dim)">
 <style>.mark .wm{display:block;width:clamp(15rem,38vw,26rem);height:auto}@media print{.mark .wm{width:15rem}}</style>
-<!--newbadge:v2--><style>
+<!--newbadge:v3--><style>
 a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
   font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
 </style>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  var W=7*86400000,KEY='fh_seen',seen={};
-  try{seen=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-  var here=location.pathname.split('/').pop()||'index.html';
-  seen[here]=Date.now();
+  var W=7*86400000,KEY='fh_seen',seen={},raw={};
+  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
+    .replace(/\.html$/,'');return s||'index'}
+  try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  for(var k in raw)seen[norm(k)]=raw[k];
+  seen[norm(location.pathname)]=Date.now();
   try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
   document.querySelectorAll('a[data-added]').forEach(function(a){
     var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
-    var tgt=(a.getAttribute('href')||'').split('/').pop();
+    var tgt=norm(a.getAttribute('href'));
     if(!isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt])a.classList.add('is-new');
   });
 });
@@ -315,7 +317,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <!--research:auto-->
 <h2 class="sec">연구 기록 <span class="en">Research</span></h2>
-<div class="docs work"><a class="doc" data-added="2026-08-12" href="research-omniverse-stack.html"><div class="tag">Research · 근거 기록</div><div class="t">NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</div><div class="d">Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.</div></a><a class="doc" data-added="2026-08-12" href="research-go2-pretrained-policies.html"><div class="tag">Research · 근거 기록</div><div class="t">Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</div><div class="d">NVIDIA 공식만 우리 스택에 그대로 로드된다. 점수표 상위 정책은 관측 45차원(실물형)이라 우리 Student 의 비교 상대다.</div></a><a class="doc" data-added="2026-08-11" href="research-render-benchmarks.html"><div class="tag">Research · 근거 기록</div><div class="t">렌더 실측: Path Tracing 은 얼마나 걸리는가</div><div class="d">1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.</div></a></div>
+<div class="docs work"><a class="doc" data-added="2026-08-12" href="research-omniverse-stack.html"><div class="tag">Research · 근거 기록</div><div class="t">NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</div><div class="d">Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.</div></a><a class="doc" data-added="2026-08-12" href="research-go2-pretrained-policies.html"><div class="tag">Research · 근거 기록</div><div class="t">Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</div><div class="d">NVIDIA 공식만 우리 스택에 그대로 로드된다. 점수표 상위 정책은 관측 45차원(실물형)이라 우리 Student 의 비교 상대다.</div></a><a class="doc" data-added="2026-08-11" href="research-render-benchmarks.html"><div class="tag">Research · 근거 기록</div><div class="t">렌더 실측: Path Tracing 은 얼마나 걸리는가</div><div class="d">1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.</div></a><a class="doc" data-added="2026-08-12" href="questions.html"><div class="tag">Guide · 길잡이</div><div class="t">질문으로 찾기</div><div class="d">«이 정보 어디 있지?»에 답하는 지도. 궁금한 문장을 찾아 누르면 해당 문서로 바로 간다.</div></a><a class="doc" data-added="2026-08-12" href="field-check-0813.html"><div class="tag">Field · 현장</div><div class="t">8/13(목) 조선대 방문: 현장 확인 목록</div><div class="d">방문 당일 폰으로 여는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</div></a></div>
 <p style="margin:2px 0 26px;font-size:.8rem"><a href="research.html" style="color:var(--dim);font-weight:700">전체 8편 보기 →</a></p>
 <!--/research:auto-->
 
@@ -400,6 +402,8 @@ document.addEventListener('DOMContentLoaded',function(){
 <script>
 document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
 </script>
+
+
 
 
 

@@ -213,16 +213,24 @@ section .addr .big{font-size:1.2rem}
 
 .fdia svg text{font-family:inherit}</style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
-<!--search:v1--><style>
+<!--search:v2--><style>
 .srch{position:relative;min-width:150px;flex:0 1 240px}
-.srch input{width:100%;padding:.3rem .6rem .3rem 1.7rem;border:1px solid var(--rule);
+.srch input{width:100%;padding:.3rem .6rem .3rem 1.75rem;border:1px solid var(--rule);
   border-radius:4px;background:var(--card);color:var(--ink);font-family:inherit;font-size:.74rem}
-.srch::before{content:'🔍';position:absolute;left:.45rem;top:50%;transform:translateY(-52%);
-  font-size:.7rem;pointer-events:none;opacity:.7}
+.srch::before{content:'';position:absolute;left:.55rem;top:calc(50% - .38rem);width:.5rem;
+  height:.5rem;border:1.5px solid var(--ink-3);border-radius:50%;pointer-events:none}
+.srch::after{content:'';position:absolute;left:calc(.55rem + .46rem);top:calc(50% + .13rem);
+  width:.3rem;height:1.5px;background:var(--ink-3);transform:rotate(45deg);
+  transform-origin:left center;pointer-events:none}
 .srch input:focus{outline:none;border-color:var(--dim)}
 .srch .sres{position:absolute;top:calc(100% + 6px);right:0;width:min(430px,88vw);max-height:60vh;
   overflow-y:auto;background:var(--card);border:1px solid var(--rule);border-radius:6px;
   box-shadow:0 8px 28px rgba(0,0,0,.18);z-index:99;display:none}
+/* 모바일: 검색창 위치와 무관하게 화면 가로에 꽉 차게. absolute(창 기준)로는
+   창이 화면 왼쪽에 있을 때 드롭다운이 화면 밖으로 잘린다 (팀장 실측 2026-08-12). */
+@media (max-width:640px){
+  .srch .sres{position:fixed;left:10px;right:10px;width:auto;max-height:55vh}
+}
 .srch .sres a{display:block;padding:.55rem .8rem;text-decoration:none;color:inherit;
   border-bottom:1px solid var(--rule)}
 .srch .sres a:last-child{border-bottom:none}
@@ -275,6 +283,10 @@ document.addEventListener('DOMContentLoaded',function(){
         return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
           +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
           +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
+      /* 모바일 고정 배치: 입력창 바로 아래에서 시작 (상단 바가 sticky 라 매번 재계산) */
+      if(window.matchMedia('(max-width:640px)').matches){
+        res.style.top=(box.getBoundingClientRect().bottom+6)+'px';
+      }else{res.style.top='';}
       res.style.display='block';
     });
   }
@@ -320,7 +332,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="tw"><table><thead><tr><th>리드</th><th>영역 (rl 폴더)</th></tr></thead><tbody><tr><td>임석헌 · 이민우</td><td>policies: 정책·학습</td></tr><tr><td>맹라현</td><td>envs: 지형·환경</td></tr><tr><td>오현민</td><td>perception: 인지·데이터</td></tr><tr><td>오흥재</td><td>전체 조망(PM) + deploy·eval + 디지털 트윈 축</td></tr></tbody></table></div>
 </section>
 <section id="s3"><h2>3. 공간 지도: 어디에 무엇이 있나</h2>
-<div class="tw"><table><thead><tr><th>공간</th><th>성격</th><th>무엇이 사나</th></tr></thead><tbody><tr><td><b>foothold-lab</b></td><td>비공개 · 팀</td><td>리서치 정제본 · 회의록 · 결정 로그 · 기획</td></tr><tr><td><b>foothold-rl</b></td><td>공개 · 개발</td><td>Isaac Lab 설정 · 학습/평가 코드 · 실험 로그</td></tr><tr><td><b>foothold-site</b></td><td>공개 · 산출물</td><td>빌드된 웹: <b>직접 수정 금지(미러)</b></td></tr><tr><td><b>foothold-brand</b></td><td>공개 · 디자인</td><td>토큰 원본 · 로고 정본 · 브랜드 규칙</td></tr><tr><td>보드 <b>FOOTHOLD</b></td><td>org Projects</td><td>모든 레포 이슈가 모이는 상황판</td></tr><tr><td>디스코드 #foothold-git</td><td>팀</td><td><b>자동 알림 전용</b> (새 작업·완료·문서·주간 리포트)</td></tr><tr><td>디스코드 #foothold-general</td><td>팀</td><td>일반 대화</td></tr><tr><td>디스코드 #foothold-notice</td><td>팀</td><td>공지. 주요 업데이트·전달사항</td></tr><tr><td>디스코드 #foothold-resource</td><td>비공개</td><td>팀 공용 계정 · NAS 경로. <b>토큰류 금지</b></td></tr><tr><td>NAS <code>foothold/meetings/</code></td><td>팀 스토리지</td><td>회의 녹음 원본</td></tr><tr><td>팀장 볼트</td><td>개인</td><td>타인 저작물 원문 등: 팀 자산은 위로 이관</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>공간</th><th>성격</th><th>무엇이 사나</th></tr></thead><tbody><tr><td><b>foothold-lab</b> <code>docs/</code></td><td>비공개 · 팀</td><td><b>정본만.</b> 리서치 정제본 · 회의록 · 결정 로그 · 기획</td></tr><tr><td><b>foothold-lab</b> <code>inbox/</code></td><td>비공개 · 팀</td><td><b>팀원 제출함.</b> 다듬지 않은 것을 자기 폴더에 그냥 올린다</td></tr><tr><td><b>foothold-rl</b></td><td>공개 · 개발</td><td>Isaac Lab 설정 · 학습/평가 코드 · 실험 로그</td></tr><tr><td><b>foothold-site</b></td><td>공개 · 산출물</td><td>빌드된 웹: <b>직접 수정 금지(미러)</b></td></tr><tr><td><b>foothold-brand</b></td><td>공개 · 디자인</td><td>토큰 원본 · 로고 정본 · 브랜드 규칙</td></tr><tr><td>보드 <b>FOOTHOLD</b></td><td>org Projects</td><td>모든 레포 이슈가 모이는 상황판</td></tr><tr><td>디스코드 #foothold-git</td><td>팀</td><td><b>자동 알림 전용</b> (새 작업·완료·문서·주간 리포트)</td></tr><tr><td>디스코드 #foothold-general</td><td>팀</td><td>일반 대화</td></tr><tr><td>디스코드 #foothold-notice</td><td>팀</td><td>공지. 주요 업데이트·전달사항</td></tr><tr><td>디스코드 #foothold-resource</td><td>비공개</td><td>팀 공용 계정 · NAS 경로. <b>토큰류 금지</b></td></tr><tr><td>NAS <code>foothold/meetings/</code></td><td>팀 스토리지</td><td>회의 녹음 원본</td></tr><tr><td>팀장 볼트</td><td>개인</td><td>타인 저작물 원문 등: 팀 자산은 위로 이관</td></tr></tbody></table></div>
 <h3>3-1. 팀원 제출함: <code>lab/inbox/&lt;이름&gt;/</code> (확정 2026-08-12)</h3>
 <p>일주일에 한 번 각자의 연구·리서치 결과를 공유하는 자리다. <b>자기 폴더에만 쓴다.</b> 남의 폴더를 건드리지 않으면 git 충돌이 원천적으로 없다.</p>
 <div class="tw"><table><thead><tr><th>경로</th><th>성격</th><th>웹 게시</th></tr></thead><tbody><tr><td><code>lab/docs/</code></td><td><b>정본.</b> 팀장이 큐레이션한 것만</td><td>★ 게시되는 유일한 경로</td></tr><tr><td><code>lab/inbox/meang·oh·lim·lee/</code></td><td><b>제출함.</b> 각자 자기 폴더에만</td><td>게시되지 않음</td></tr></tbody></table></div>

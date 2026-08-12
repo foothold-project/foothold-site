@@ -233,27 +233,36 @@ section .addr .big{font-size:1.2rem}
 .rcard .rthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
 .rcard.has-thumb .rbody{padding:14px 16px}
 .rcard:hover .rthumb img{transform:scale(1.03)}
-/* 목록 상단 배너: 최신 다이제스트 + 질문 지도 */
-.dgbar{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 4px}
-.dgbar a{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:inherit;
-  border:1px solid var(--rule);background:var(--card);border-radius:6px;padding:.6rem .9rem;
-  font-size:.85rem}
-.dgbar a.dg{border-left:4px solid var(--note);flex:2;min-width:260px}
-.dgbar a.dg span{color:var(--ink-3);font-size:.72rem}
-.dgbar a.qmap{border-left:4px solid var(--dim);flex:1;min-width:160px;font-weight:700}
+/* 목록 상단 배너: 최신 다이제스트만. (질문 지도는 표지로 승격: 팀장 컨펌 2026-08-12)
+   이모지 없이 브랜드 토큰만 쓴다. */
+.dgbar{margin:16px 0 4px}
+.dgbar a{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;text-decoration:none;
+  color:inherit;border:1px solid var(--rule);background:var(--card);border-radius:6px;
+  padding:.6rem .9rem;font-size:.85rem;border-left:4px solid var(--note)}
+.dgbar a .k{font-size:.62rem;font-weight:800;letter-spacing:.16em;color:var(--note);
+  text-transform:uppercase}
+.dgbar a span{color:var(--ink-3);font-size:.72rem}
 .dgbar a:hover{border-color:var(--dim)}
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
-<!--search:v1--><style>
+<!--search:v2--><style>
 .srch{position:relative;min-width:150px;flex:0 1 240px}
-.srch input{width:100%;padding:.3rem .6rem .3rem 1.7rem;border:1px solid var(--rule);
+.srch input{width:100%;padding:.3rem .6rem .3rem 1.75rem;border:1px solid var(--rule);
   border-radius:4px;background:var(--card);color:var(--ink);font-family:inherit;font-size:.74rem}
-.srch::before{content:'🔍';position:absolute;left:.45rem;top:50%;transform:translateY(-52%);
-  font-size:.7rem;pointer-events:none;opacity:.7}
+.srch::before{content:'';position:absolute;left:.55rem;top:calc(50% - .38rem);width:.5rem;
+  height:.5rem;border:1.5px solid var(--ink-3);border-radius:50%;pointer-events:none}
+.srch::after{content:'';position:absolute;left:calc(.55rem + .46rem);top:calc(50% + .13rem);
+  width:.3rem;height:1.5px;background:var(--ink-3);transform:rotate(45deg);
+  transform-origin:left center;pointer-events:none}
 .srch input:focus{outline:none;border-color:var(--dim)}
 .srch .sres{position:absolute;top:calc(100% + 6px);right:0;width:min(430px,88vw);max-height:60vh;
   overflow-y:auto;background:var(--card);border:1px solid var(--rule);border-radius:6px;
   box-shadow:0 8px 28px rgba(0,0,0,.18);z-index:99;display:none}
+/* 모바일: 검색창 위치와 무관하게 화면 가로에 꽉 차게. absolute(창 기준)로는
+   창이 화면 왼쪽에 있을 때 드롭다운이 화면 밖으로 잘린다 (팀장 실측 2026-08-12). */
+@media (max-width:640px){
+  .srch .sres{position:fixed;left:10px;right:10px;width:auto;max-height:55vh}
+}
 .srch .sres a{display:block;padding:.55rem .8rem;text-decoration:none;color:inherit;
   border-bottom:1px solid var(--rule)}
 .srch .sres a:last-child{border-bottom:none}
@@ -306,6 +315,10 @@ document.addEventListener('DOMContentLoaded',function(){
         return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
           +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
           +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
+      /* 모바일 고정 배치: 입력창 바로 아래에서 시작 (상단 바가 sticky 라 매번 재계산) */
+      if(window.matchMedia('(max-width:640px)').matches){
+        res.style.top=(box.getBoundingClientRect().bottom+6)+'px';
+      }else{res.style.top='';}
       res.style.display='block';
     });
   }
@@ -335,7 +348,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>시각 증거: 우리가 실제로 본 것</h1>
   <p class="lede">숫자로만 보던 학습 결과를 눈으로 확인한 기록. 보상 13.94 정책이 실제로는 걷지 못하는 것을 영상이 잡았다.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-09</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / visual-evidence.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 0</span></div></div>
+  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-09</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / visual-evidence.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 1</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -359,7 +372,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <section id="s2"><h2>00. 목표 지점: Unitree 공식 영상</h2>
 <p><figure class="mdimg"><img src="assets/visual/00_reference_unitree_official.png" alt="reference" loading="lazy"><figcaption>reference</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>출처</td><td>Unitree 공식 Go2 홍보 영상 (<code>00_reference/unitree-go2-official.mp4</code>)</td></tr><tr><td>사양</td><td>1920×1080 · 50fps · 5.4초</td></tr></tbody></table></div>
-<p>같은 영상이 Unitree <b>공식 YouTube 채널</b>(@unitreerobotics)에 있다. 확인 2026-08-12. 아래 재생은 우리 서버가 아니라 공식 채널 스트리밍 임베드다.</p>
+<p>아래는 Unitree <b>공식 YouTube 채널</b>(@unitreerobotics)의 Go2 소개 영상이다(공식 채널 확인 2026-08-12). 우리 레퍼런스 클립(계곡 보행)과 같은 제품·같은 촬영 톤이지만 <b>같은 영상은 아니다</b>: 계곡 클립의 공식 채널 게재 여부는 <span class="ev ev-todo">미확인</span>. 재생은 우리 서버가 아니라 공식 채널 스트리밍 임베드다.</p>
 <p><figure class="mdimg mdvid"><iframe src="https://www.youtube-nocookie.com/embed/6zPvT0ig1VM" title="Introducing Unitree Go2 · Unitree Robotics 공식 채널" style="width:100%;aspect-ratio:16/9;border:0;display:block" loading="lazy" allow="fullscreen" allowfullscreen></iframe><figcaption>Introducing Unitree Go2 · Unitree Robotics 공식 채널</figcaption></figure></p>
 <blockquote><p>⚠️ <b>영상 파일을 우리 서버에 재호스팅하지 않는다.</b> 원본이 Unitree 의 저작물(홍보 영상)이라
 공개 페이지에 파일로 올리면 저작권 문제가 된다. 프레임 인용(비교·연구 목적)과
