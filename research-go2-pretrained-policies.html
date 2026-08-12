@@ -233,6 +233,15 @@ section .addr .big{font-size:1.2rem}
 .rcard .rthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
 .rcard.has-thumb .rbody{padding:14px 16px}
 .rcard:hover .rthumb img{transform:scale(1.03)}
+/* 목록 상단 배너: 최신 다이제스트 + 질문 지도 */
+.dgbar{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 4px}
+.dgbar a{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:inherit;
+  border:1px solid var(--rule);background:var(--card);border-radius:6px;padding:.6rem .9rem;
+  font-size:.85rem}
+.dgbar a.dg{border-left:4px solid var(--note);flex:2;min-width:260px}
+.dgbar a.dg span{color:var(--ink-3);font-size:.72rem}
+.dgbar a.qmap{border-left:4px solid var(--dim);flex:1;min-width:160px;font-weight:700}
+.dgbar a:hover{border-color:var(--dim)}
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
 </head>
