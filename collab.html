@@ -486,7 +486,7 @@ document.addEventListener('DOMContentLoaded',function(){
   foothold-rl 의 흐름. lab 은 문서 레포라 main 직접 커밋을 허용한다(큰 수정만 PR).</figcaption>
 </figure>
 
-<div class="tw"><table><thead><tr><th>레포</th><th>규칙</th></tr></thead><tbody><tr><td><b>rl</b></td><td><b>코드를 바꿀 때만</b> 브랜치를 판다: <code>feature/짧은이름</code> → <b>PR 로 <code>dev</code></b> → 검증된 상태만 <b>PR 로 <code>main</code></b>. main 직접 push 금지</td></tr><tr><td><b>lab</b></td><td>문서 레포라 main 직접 커밋 허용. 남의 문서를 크게 고칠 때만 PR</td></tr><tr><td>site · brand</td><td>파이프라인/담당(Codex)이 관리: 직접 커밋하지 않는다</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>레포</th><th>규칙</th></tr></thead><tbody><tr><td><b>rl</b></td><td><b>코드를 바꿀 때만</b> 브랜치를 판다: <code>feature/짧은이름</code> → <b>PR 로 <code>dev</code></b> → 검증된 상태만 <b>PR 로 <code>main</code></b>. main 직접 push 금지</td></tr><tr><td><b>lab</b></td><td>main 직접 커밋은 <b>팀장만</b>(2026-08-13). 팀원은 브랜치 → PR. inbox 제출도 같다: PR 은 팀장이 검토 없이 바로 머지한다(형식 관문이지 검열이 아니다)</td></tr><tr><td>site · brand</td><td>파이프라인/담당(Codex)이 관리: 직접 커밋하지 않는다</td></tr></tbody></table></div>
 <ul><li><b>이슈마다 브랜치를 만들 필요는 없다.</b> 브랜치는 이슈가 아니라 <b>&quot;PR 로 합칠 코드 변경&quot; 단위</b>다 조사·회의·막힘 이슈는 브랜치가 아예 필요 없고, 작은 이슈 여럿을 브랜치 하나로 처리해도 된다 (<code>Closes #12 #13</code> 처럼 한 커밋으로 여러 개를 닫을 수 있다).</li><li>이슈 번호를 브랜치 이름에 넣는 건 <b>권장이지 의무가 아니다</b>. 이슈 화면의 &quot;Create a branch&quot; 버튼을 쓰면 이름이 자동으로 지어진다. merge 된 브랜치는 지운다(브랜치는 소모품이다).</li><li>추적의 핵심은 브랜치 이름이 아니라 <b>커밋·PR 의 <code>Closes #번호</code></b> 다. 이것만은 반드시.</li></ul>
 </section>
 <section id="s7"><h2>6. 보드와 일정: 계획과 실적을 둘 다 남긴다</h2>
