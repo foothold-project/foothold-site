@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>연구 기록 · FOOTHOLD</title>
-<meta name="description" content="조사와 실측의 원본 기록이다. 결론만이 아니라 <b>틀렸던 판단과 그 정정</b>도 남긴다. 번복의 이력이 곧 검증의 증거다.">
+<title>컴퓨팅 자원 계획: 무엇을 어디서 돌리나 · FOOTHOLD</title>
+<meta name="description" content="이 문서가 답하는 것: 5개월짜리 학습·평가를 어떤 장비에서 어떤 순서로 돌릴 것인가.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -395,19 +395,41 @@ document.addEventListener('DOMContentLoaded',function(){
 </head>
 <body>
 
-<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">FOOTHOLD · 연구 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+<div class="top"><div class="row"><a class="home" href="research.html">← 연구 기록으로</a><span class="doc">FOOTHOLD · 연구 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">Research · 우리가 직접 확인한 것</div>
-  <h1>연구 기록</h1>
-  <p class="lede">조사와 실측의 원본 기록이다. 결론만이 아니라 <b>틀렸던 판단과 그 정정</b>도 남긴다. 번복의 이력이 곧 검증의 증거다.</p>
-  <div class="meta"><div><span class="k">문서</span><span class="v">11편</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research/</span></div><div><span class="k">갱신</span><span class="v">문서가 올라오면 다음 빌드에 자동 반영</span></div></div>
+  <div class="eyebrow">Research · 근거 기록</div>
+  <h1>컴퓨팅 자원 계획: 무엇을 어디서 돌리나</h1>
+  <p class="lede">이 문서가 답하는 것: 5개월짜리 학습·평가를 어떤 장비에서 어떤 순서로 돌릴 것인가.</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-13</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / compute-resources.md</span></div><div><span class="k">증거</span><span class="v">확인 3 · 추측 0 · 미측정 1</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<div class="dgbar"><a href="digest-2026-W33.html"><span class="k">Digest</span><b>이번 주 알게 된 것: 8월 2주 (W33)</b><span>5분 요약 · 팀 공유용</span></a></div><div class="rcards"><a class="rcard" data-added="2026-08-11" href="research-cloud-gpu-options.html"><div class="rbody"><div class="rt"><span class="rno">01</span> 클라우드 GPU에서 Isaac Sim 돌리기: 가능성 조사</div><div class="rd">클라우드에서 Isaac Sim 은 가능하나 GPU 를 가려 받아야 하며, 성공 사례가 명시된 조합만 신뢰한다.</div><div class="rm">2026-08-08 · 확인 6 · 추측 0 · 미측정 5</div></div></a><a class="rcard" data-added="2026-08-11" href="research-architecture-decision.html"><div class="rbody"><div class="rt"><span class="rno">02</span> 시스템 아키텍처 결정: Isaac Sim + ROS2 + 실기 Go2</div><div class="rd">격리는 사람의 규율이 아니라 컨테이너 경계로 한다. 22.04+Humble 은 실기 Go2 가 강제하는 선택이다.</div><div class="rm">2026-08-09 · 확인 5 · 추측 0 · 미측정 0</div></div></a><a class="rcard" data-added="2026-08-11" href="research-ros2-isaacsim-integration.html"><div class="rbody"><div class="rt"><span class="rno">03</span> ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법</div><div class="rd">파이썬 충돌은 «같이 설치»가 아니라 «같은 셸에서 source» 할 때 난다. 통신은 DDS 층이라 버전과 무관하다.</div><div class="rm">2026-08-09 · 확인 3 · 추측 0 · 미측정 0</div></div></a><a class="rcard has-thumb" data-added="2026-08-11" href="research-training-benchmarks.html"><div class="rthumb"><img src="assets/visual/09_difficulty_curve.png" alt="" loading="lazy"></div><div class="rbody"><div class="rt"><span class="rno">04</span> 학습 성능 실측: Go2 험지 (AI-WS01)</div><div class="rd">첫 기준선 통과율 86.7%. 실패 원인은 넘어짐이 아니라 느림이며, 보상 수치는 걷기를 보증하지 않는다.</div><div class="rm">2026-08-09 · 확인 2 · 추측 0 · 미측정 0</div></div></a><a class="rcard has-thumb" data-added="2026-08-11" href="research-visual-evidence.html"><div class="rthumb"><img src="assets/visual/00_reference_unitree_official.png" alt="" loading="lazy"></div><div class="rbody"><div class="rt"><span class="rno">05</span> 시각 증거: 우리가 실제로 본 것</div><div class="rd">숫자로만 보던 학습 결과를 눈으로 확인한 기록. 보상 13.94 정책이 실제로는 걷지 못하는 것을 영상이 잡았다.</div><div class="rm">2026-08-09 · 확인 0 · 추측 0 · 미측정 1</div></div></a><a class="rcard has-thumb" data-added="2026-08-11" href="research-render-benchmarks.html"><div class="rthumb"><img src="assets/visual/05_render_fhd_compare.png" alt="" loading="lazy"></div><div class="rbody"><div class="rt"><span class="rno">06</span> 렌더 실측: Path Tracing 은 얼마나 걸리는가</div><div class="rd">1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.</div><div class="rm">2026-08-10 · 확인 0 · 추측 0 · 미측정 1</div></div></a><a class="rcard" data-added="2026-08-12" href="research-go2-pretrained-policies.html"><div class="rbody"><div class="rt"><span class="rno">07</span> Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</div><div class="rd">NVIDIA 공식만 우리 스택에 그대로 로드된다. 점수표 상위 정책은 관측 45차원(실물형)이라 우리 Student 의 비교 상대다.</div><div class="rm">2026-08-12 · 확인 14 · 추측 0 · 미측정 1</div></div></a><a class="rcard" data-added="2026-08-12" href="research-omniverse-stack.html"><div class="rbody"><div class="rt"><span class="rno">08</span> NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</div><div class="rd">Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.</div><div class="rm">2026-08-12 · 확인 1 · 추측 0 · 미측정 1</div></div></a><a class="rcard" data-added="2026-08-14" href="research-compute-resources.html"><div class="rbody"><div class="rt"><span class="rno">09</span> 컴퓨팅 자원 계획: 무엇을 어디서 돌리나</div><div class="rd">이 문서가 답하는 것: 5개월짜리 학습·평가를 어떤 장비에서 어떤 순서로 돌릴 것인가.</div><div class="rm">2026-08-13 · 확인 3 · 추측 0 · 미측정 1</div></div></a><a class="rcard" data-added="2026-08-13" href="research-robogauge-observation-mapping.html"><div class="rbody"><div class="rt"><span class="rno">10</span> RoboGauge 공개 정책 해부: 45차원 관측의 정확한 순서와 스케일</div><div class="rd">공개 최상위 정책 4종의 입력 45차원을 코드와 실행 양쪽으로 확정했고, 우리 env 관절 순서까지 실측해 변환 규칙이 완성됐다. 남은 것은 구현뿐이다.</div><div class="rm">2026-08-13 · 확인 14 · 추측 15 · 미측정 2</div></div></a><a class="rcard" data-added="2026-08-13" href="research-terrain-guide-isaaclab.html"><div class="rbody"><div class="rt"><span class="rno">11</span> Isaac Lab v2.3.2 지형 가이드: Go2 커스텀 험지 설계</div><div class="rd">검증 수위: terrain 클래스 목록(21종)·API 체계·기본 rough 구성은 공식 v2.3.2 소스와 대조 확인됨.</div><div class="rm">작성일 미기재 · 확인 2 · 추측 0 · 미측정 0</div></div></a></div>
+<blockquote><p>작성 2026-08-13 · 외부 GPU 자원 신청과 함께 정리 · 상태: 신청 완료, 배정 대기
+이 문서가 답하는 것: 5개월짜리 학습·평가를 <b>어떤 장비에서 어떤 순서로</b> 돌릴 것인가.</p></blockquote>
+</section>
+<section id="s1"><h2>1. 문제: 학습 한 번이 두 시간이다</h2>
+<p>실측 기준선이 이렇다. 로봇 4,096마리를 동시에 굴려 초당 약 23,000 스텝, 1,500 iteration 완주에 <b>133분</b> <span class="ev ev-ok">확인됨</span>. 여기에 결과 판독과 수정을 붙이면 <b>하루에 돌릴 수 있는 실험은 4~5회</b>다. GPU 처리량이 병목이 아니라 사람의 판단이 병목이라는 뜻이기도 하지만, 평가까지 같은 장비에서 돌리면 그 4~5회마저 줄어든다.</p>
+<p>그래서 <b>학습과 평가를 다른 장비로 분리</b>하는 것이 이번 자원 계획의 핵심이다.</p>
+</section>
+<section id="s2"><h2>2. GPU 종류가 작업을 가른다 <span class="ev ev-ok">확인됨</span></h2>
+<p>Isaac Sim 은 <b>RT 코어가 있는 GPU 를 요구한다.</b> NVIDIA 공식 요구사항 원문이 <i>&quot;GPUs without RT Cores are not supported&quot;</i> 이고, 헤드리스로 우회할 수 있다는 통념은 NVIDIA 직원들이 일관되게 부정했다. 근거와 출처는 <a href="research-cloud-gpu-options.html">클라우드 GPU 조사</a> §1 에 있다.</p>
+<div class="tw"><table><thead><tr><th>GPU 세대</th><th>RT 코어</th><th>Isaac Sim 학습·렌더</th><th>순수 CUDA 연산</th></tr></thead><tbody><tr><td>RTX 40·50 시리즈</td><td>있음</td><td>가능</td><td>가능</td></tr><tr><td>V100 (Volta) · A100 · H100</td><td>없음</td><td><b>불가</b></td><td>강함</td></tr></tbody></table></div>
+<p>이것은 «좋은 GPU / 나쁜 GPU» 의 문제가 아니라 <b>용도가 다르다</b>는 문제다. V100 은 레이트레이싱 하드웨어가 없을 뿐, FP32 15.7 TFLOPS 와 HBM2 를 갖춘 연산용 GPU다.</p>
+</section>
+<section id="s3"><h2>3. 그래서 이렇게 나눈다</h2>
+<div class="tw"><table><thead><tr><th>작업</th><th>필요한 것</th><th>어디서</th></tr></thead><tbody><tr><td>강화학습 (Isaac Sim / Isaac Lab)</td><td>RT 코어</td><td>RTX 계열</td></tr><tr><td>극사실 렌더 (Path Tracing)</td><td>RT 코어</td><td>RTX 계열</td></tr><tr><td><b>평가 대량 롤아웃</b> (MuJoCo/MJX)</td><td>병렬 연산</td><td><b>V100</b></td></tr><tr><td><b>정책 증류</b> (Teacher → Student)</td><td>병렬 연산</td><td><b>V100</b></td></tr><tr><td><b>sim-to-sim 교차 검증</b></td><td>병렬 연산</td><td><b>V100</b></td></tr><tr><td><b>3DGS 지형 재구성</b></td><td>병렬 연산</td><td><b>V100</b></td></tr></tbody></table></div>
+</section>
+<section id="s4"><h2>4. 왜 평가에 그렇게 많은 연산이 필요한가</h2>
+<p>첫 공식 기록은 30회 시행 기준 <b>통과율 86.7%</b> 였다 <span class="ev ev-ok">확인됨</span>. 그런데 30회로는 «개선했다» 를 증명하지 못한다. 난이도 10단계와 지형 6종을 교차하고 조합당 100회를 돌리면 <b>한 정책당 6,000회 이상</b>이고, 정책 후보가 늘 때마다 그만큼 곱해진다.</p>
+<p>평가를 아끼면 결론이 흔들리고, 평가를 늘리면 학습이 밀린다. 장비를 나누면 둘 다 할 수 있다. 그것이 외부 자원을 신청한 이유다.</p>
+</section>
+<section id="s5"><h2>5. 신청 규모</h2>
+<div class="tw"><table><thead><tr><th>항목</th><th>신청값</th></tr></thead><tbody><tr><td>GPU</td><td>상시 8장, 병렬 실험 기간 최대 16장</td></tr><tr><td>Storage</td><td>2Ti (팀 공유 볼륨 + 개인 작업 볼륨)</td></tr><tr><td>기간</td><td>2026년 8월 중순 ~ 12월 중순</td></tr></tbody></table></div>
+<p>배정 결과와 실제 사용량은 확정되는 대로 이 문서에 이어 적는다. <span class="ev ev-todo">미측정</span></p>
+</section>
 
 </div>
 <script>
