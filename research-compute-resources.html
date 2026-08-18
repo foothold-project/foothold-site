@@ -403,11 +403,11 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>컴퓨팅 자원 계획: 무엇을 어디서 돌리나</h1>
   <p class="lede">이 문서가 답하는 것: 5개월짜리 학습·평가를 어떤 장비에서 어떤 순서로 돌릴 것인가.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-13</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / compute-resources.md</span></div><div><span class="k">증거</span><span class="v">확인 3 · 추측 0 · 미측정 1</span></div></div>
+  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-13</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / compute-resources.md</span></div><div><span class="k">증거</span><span class="v">확인 4 · 추측 0 · 미측정 2</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>작성 2026-08-13 · 외부 GPU 자원 신청과 함께 정리 · 상태: 신청 완료, 배정 대기
+<blockquote><p>작성 2026-08-13 · 갱신 2026-08-14 · 상태: <b>배정 완료. 사용 시작</b>
 이 문서가 답하는 것: 5개월짜리 학습·평가를 <b>어떤 장비에서 어떤 순서로</b> 돌릴 것인가.</p></blockquote>
 </section>
 <section id="s1"><h2>1. 문제: 학습 한 번이 두 시간이다</h2>
@@ -428,7 +428,20 @@ document.addEventListener('DOMContentLoaded',function(){
 </section>
 <section id="s5"><h2>5. 신청 규모</h2>
 <div class="tw"><table><thead><tr><th>항목</th><th>신청값</th></tr></thead><tbody><tr><td>GPU</td><td>상시 8장, 병렬 실험 기간 최대 16장</td></tr><tr><td>Storage</td><td>2Ti (팀 공유 볼륨 + 개인 작업 볼륨)</td></tr><tr><td>기간</td><td>2026년 8월 중순 ~ 12월 중순</td></tr></tbody></table></div>
-<p>배정 결과와 실제 사용량은 확정되는 대로 이 문서에 이어 적는다. <span class="ev ev-todo">미측정</span></p>
+</section>
+<section id="s6"><h2>6. 배정 결과 <span class="ev ev-ok">확인됨</span></h2>
+<p><b>2026-08-14 배정 완료.</b> V100 24장 풀(컨테이너 1개당 최대 8장), CPU·메모리 제한 없음, 스토리지 최대 4TiB. 컨테이너는 Docker Hub 이미지를 그대로 쓰고, 컨테이너 내부 SSH 를 포트 포워딩으로 열어 접속한다.</p>
+<h3>우리가 정한 운영 규율</h3>
+<p>계정이 <b>하나</b>다. 5인이 같은 공간에 들어간다. 기술보다 이 합의가 먼저였다.</p>
+<div class="tw"><table><thead><tr><th>규칙</th><th>왜</th></tr></thead><tbody><tr><td>컨테이너·볼륨 이름 앞에 <b>자기 이름</b></td><td>누구 것인지 이름만 봐도 안다</td></tr><tr><td><b>남의 것은 건드리지 않는다</b></td><td>실행 중인 학습이 날아간다</td></tr><tr><td>다 쓰면 컨테이너를 지운다 (볼륨은 남긴다)</td><td>자원은 다른 팀과도 나눠 쓴다</td></tr><tr><td>팀 공유 데이터셋은 공유 볼륨 하나에</td><td>같은 데이터를 5벌 복사하지 않는다</td></tr></tbody></table></div>
+<p>문서 저장소의 <code>inbox/</code> 를 사람별 폴더로 나눈 것과 같은 원칙이다. <b>충돌은 규율로 막는 것이 아니라 구조로 막는다.</b></p>
+<h3>붙자마자 확인하는 것</h3>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">nvidia-smi</span>
+<span class="f">python</span> <span class="o">-c</span> <span class="s">&quot;import torch; print(torch.cuda.get_device_capability(0))&quot;</span></pre></div>
+<p><code>(7, 0)</code> 이면 정상이다(Volta). 우리 워크스테이션이 쓰는 torch 조합이 이 세대에서도 도는지는 아직 확인하지 않았다 <span class="ev ev-todo">미확인</span>. 안 되면 컨테이너의 torch 만 낮춘다. <b>학습 환경과 버전을 같게 맞출 이유가 없다.</b> 여기서 도는 것은 평가·증류·3DGS 이고, 넘어오는 것은 정책 파일 하나뿐이기 때문이다.</p>
+<h3>첫 작업</h3>
+<p><b>평가 파이프라인을 이 환경에서 재현해 기존 결과와 대조한다.</b> 같은 정책·같은 시드로 통과율 86.7% 가 그대로 나와야 이 환경을 믿을 수 있다. 숫자가 다르면 원인을 먼저 찾는다. <b>믿을 수 없는 환경에서 6,000회를 돌려봐야 그 숫자는 아무것도 증명하지 못한다.</b></p>
+<p>실제 사용량과 병목은 쓰면서 이 문서에 이어 적는다. <span class="ev ev-todo">미측정</span></p>
 </section>
 
 </div>
