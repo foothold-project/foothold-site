@@ -733,7 +733,20 @@ document.addEventListener('DOMContentLoaded',function(){
 <p>재생(<code>play.py</code>)만 해도 뒤의 둘이 <b>자동으로 함께 생성</b>된다: sim2real 의 첫 단추는 이미 준비돼 있다.</p>
 <h3>순정 컨트롤러는 어떻게 껐다 켜나</h3>
 <p>ROS2 노드를 새로 짜는 것이 아니라 <b>모드 전환 요청</b>이다.</p>
-<ol><li><code>MotionSwitcher</code> 서비스에 «순정 컨트롤러 놔줘» 요청 (unitree_sdk2 의 <code>CheckMode</code>/<code>SelectMode</code>/<code>ReleaseMode</code> 계열. 정확한 호출명은 <code>부분확인</code>: 8/13 현장 확인 항목)</li><li>순정이 관절을 놓는다</li><li>우리가 <code>/lowcmd</code> 토픽에 관절 12개의 목표각·강성·감쇠를 발행한다</li><li>되돌리려면 다시 1에서 순정 모드를 선택한다</li></ol>
+<ol><li><code>MotionSwitcherClient</code> 에 «순정 컨트롤러 놔줘» 요청 <code>확인됨</code></li><li>순정이 관절을 놓는다</li><li>우리가 <code>/lowcmd</code> 토픽에 관절 12개의 목표각·강성·감쇠를 발행한다</li><li>되돌리려면 <code>SelectMode(nameOrAlias)</code> 로 순정 모드를 다시 고른다</li></ol>
+<p>공식 API <code>확인됨</code> (unitree_sdk2_python <code>comm/motion_switcher/motion_switcher_client.py</code>): <code>Init()</code> · <code>CheckMode()</code> · <code>SelectMode(nameOrAlias)</code> · <code>ReleaseMode()</code></p>
+<p>공식 Go2 저수준 예제(<code>example/go2/low_level/go2_stand_example.py</code>)가 쓰는 해제 절차 그대로:</p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">self</span>.msc = <span class="f">MotionSwitcherClient</span>()
+<span class="k">self</span>.msc.<span class="f">SetTimeout</span>(<span class="n">5.0</span>)
+<span class="k">self</span>.msc.<span class="f">Init</span>()
+
+status, result = <span class="k">self</span>.msc.<span class="f">CheckMode</span>()
+<span class="k">while</span> result[<span class="s">&#x27;name&#x27;</span>]:          # 순정이 아직 뭔가 잡고 있으면
+    <span class="k">self</span>.sc.<span class="f">StandDown</span>()        <span class="c"># 먼저 엎드리게 하고</span>
+    <span class="k">self</span>.msc.<span class="f">ReleaseMode</span>()     <span class="c"># 놔달라고 요청</span>
+    status, result = <span class="k">self</span>.msc.<span class="f">CheckMode</span>()
+    time.<span class="f">sleep</span>(<span class="n">1</span>)              <span class="c"># 놓을 때까지 반복</span></pre></div>
+<p><code>CheckMode()</code> 가 돌려주는 <code>result[&#x27;name&#x27;]</code> 이 <b>비면 순정이 완전히 손을 뗀 것</b>이다. 그 뒤에야 우리가 <code>rt/lowcmd</code> 를 발행한다. 상태는 <code>rt/lowstate</code> 로 받는다. ★ 순정을 놔주기 전에 <b>먼저 엎드리게</b> 한다. 서 있는 상태에서 놓으면 그대로 주저앉는다.</p>
 <p><b>지우는 것이 아니라 비켜 두는 것이다.</b> 우리 정책이 이상하면 스위치를 되돌려 로봇을 세운다. 그리고 순정의 걸음은 우리 정책의 <b>비교 기준선</b>으로도 쓴다.</p>
 </section>
 <section id="s6"><h2>6. 별도 갈래: 극사실 렌더</h2>
