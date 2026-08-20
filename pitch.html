@@ -7,71 +7,109 @@
 <title>FOOTHOLD · 프로젝트 소개 덱</title>
 <link rel="icon" href="assets/brand/foothold-favicon.svg">
 <style>
-/* 발표용 페이지: 프로젝터·줌 공유 가독성을 위해 다크 단일 룩으로 고정한다 (DESIGN-GUIDE 예외, 팀장 지시 08-20 킥오프) */
+/* 발표용 페이지. 다크 단일 룩 고정: 줌 공유·프로젝터 가독성 (팀장 확인 08-20).
+   브랜드 규칙: 32px 그리드는 장식이 아니라 정렬 장치 · 색은 시맨틱(teal=검증/정체성,
+   amber=미확정, red=한계)으로만 · 워드마크는 SVG 정본만 사용 (BRAND_BIBLE §4·§7) */
 :root{
   --paper:#0e1218; --paper-2:#141a23; --card:#181d26;
   --ink:#e9e7e1; --ink-2:#adb5c1; --ink-3:#7d8693;
   --rule:#2b323d; --brand:#3ec7b4; --dim:var(--brand); --dim-soft:#11302c;
   --note:#dc9a30; --note-soft:#332710;
   --stop:#e56d5e; --stop-soft:#331c19;
+  --grid:rgba(233,231,225,.035);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{background:var(--paper);color:var(--ink);
   font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',system-ui,sans-serif;
   overflow:hidden;-webkit-font-smoothing:antialiased}
+#themeBtn{display:none!important}
+.fh-sbtn-fix{display:none!important}
+/* 32px 그리드: 브랜드의 정렬 장치. 모든 장에 동일하게 깔린다 */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+/* 고정 헤더: 모든 장에 같은 틀 */
+.hd{position:fixed;top:0;left:0;right:0;z-index:8;display:flex;align-items:center;
+  justify-content:space-between;padding:14px 3vw;border-bottom:1px solid var(--rule);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(4px)}
+.hd img{height:22px;display:block}
+.hd .sec{color:var(--ink-3);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.hd .sec b{color:var(--brand)}
 .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
-  padding:7vh 8vw;background:
-  radial-gradient(1200px 600px at 85% -10%, rgba(62,199,180,.07), transparent 60%),var(--paper)}
+  padding:96px 8vw 9vh;z-index:1}
 .slide.on{display:flex}
 .eyebrow{color:var(--brand);font-weight:800;letter-spacing:.14em;font-size:clamp(11px,1.4vh,15px);
-  text-transform:uppercase;margin-bottom:2.2vh}
-h1{font-size:clamp(30px,7vh,64px);line-height:1.16;font-weight:900;letter-spacing:-.02em}
-h2{font-size:clamp(24px,5.2vh,46px);line-height:1.2;font-weight:900;letter-spacing:-.02em;margin-bottom:3.6vh}
-.sub{color:var(--ink-2);font-size:clamp(15px,2.4vh,22px);line-height:1.55;margin-top:2.6vh;max-width:60ch}
+  text-transform:uppercase;margin-bottom:2vh}
+h1{font-size:clamp(30px,6.6vh,62px);line-height:1.16;font-weight:900;letter-spacing:-.02em}
+h2{font-size:clamp(23px,4.8vh,42px);line-height:1.2;font-weight:900;letter-spacing:-.02em;margin-bottom:3.2vh}
+.sub{color:var(--ink-2);font-size:clamp(15px,2.3vh,21px);line-height:1.55;margin-top:2.4vh;max-width:62ch}
 b,strong{color:var(--ink)}
 .mark{color:var(--brand)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.4vh 2.4vw}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2vh 1.8vw}
-.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:3vh 2vw}
-.card .k{color:var(--brand);font-weight:800;font-size:clamp(11px,1.5vh,14px);letter-spacing:.1em;margin-bottom:1.2vh}
-.card .t{font-weight:800;font-size:clamp(16px,2.6vh,24px);line-height:1.3}
-.card .d{color:var(--ink-2);font-size:clamp(13px,1.9vh,17px);line-height:1.55;margin-top:1.2vh}
-.num{font-size:clamp(28px,5.4vh,52px);font-weight:900;color:var(--brand);letter-spacing:-.02em}
-.numl{color:var(--ink-2);font-size:clamp(12px,1.8vh,16px);margin-top:.6vh;line-height:1.45}
-.chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:1vh 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.2vh 2.2vw}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:2vh 1.6vw}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:2.6vh 1.8vw;position:relative}
+.card .k{color:var(--brand);font-weight:800;font-size:clamp(10px,1.5vh,13px);letter-spacing:.1em;margin-bottom:1vh;text-transform:uppercase}
+.card .t{font-weight:800;font-size:clamp(15px,2.5vh,23px);line-height:1.3}
+.card .d{color:var(--ink-2);font-size:clamp(12px,1.85vh,16px);line-height:1.55;margin-top:1vh}
+.num{font-size:clamp(26px,5vh,50px);font-weight:900;color:var(--brand);letter-spacing:-.02em}
+.numl{color:var(--ink-2);font-size:clamp(12px,1.75vh,15px);margin-top:.6vh;line-height:1.45}
+.chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:.6vh 0}
 .chain .n{background:var(--card);border:1px solid var(--rule);border-radius:12px;
-  padding:1.6vh 1.4vw;font-weight:700;font-size:clamp(12px,2vh,18px);line-height:1.35;
+  padding:1.4vh 1.2vw;font-weight:700;font-size:clamp(12px,1.9vh,17px);line-height:1.35;
   display:flex;align-items:center;text-align:center}
-.chain .a{display:flex;align-items:center;color:var(--brand);font-weight:900;padding:0 .7vw;
-  font-size:clamp(14px,2.4vh,22px)}
+.chain .a{display:flex;align-items:center;color:var(--brand);font-weight:900;padding:0 .6vw;
+  font-size:clamp(14px,2.2vh,20px)}
+/* 트랙 배지: A=채움(시뮬 검증) · B=윤곽+발자국(실물 완주). 색이 아니라 구조로 구분한다 */
+.tk{display:inline-flex;align-items:center;gap:.5em;border-radius:999px;
+  padding:.55vh 1.3vw;font-weight:900;font-size:clamp(11px,1.8vh,15px);letter-spacing:.06em}
+.tkA{background:var(--brand);color:var(--paper)}
+.tkB{border:2px solid var(--brand);color:var(--brand);background:transparent}
+.tk svg{height:.85em;width:auto;display:block}
 .tag{display:inline-block;background:var(--dim-soft);color:var(--brand);border-radius:999px;
-  padding:.5vh 1.2vw;font-weight:800;font-size:clamp(11px,1.7vh,15px);margin-right:.6vw}
+  padding:.5vh 1.1vw;font-weight:800;font-size:clamp(11px,1.6vh,14px);margin-right:.5vw}
 .tag.note{background:var(--note-soft);color:var(--note)}
-ul.big{list-style:none;margin-top:1vh}
-ul.big li{font-size:clamp(15px,2.5vh,23px);line-height:1.5;padding:1.1vh 0 1.1vh 2.2ch;position:relative;color:var(--ink-2)}
-ul.big li::before{content:"";position:absolute;left:.2ch;top:calc(1.1vh + .62em);width:.7ch;height:.7ch;
+ul.big{list-style:none;margin-top:.6vh}
+ul.big li{font-size:clamp(14px,2.2vh,20px);line-height:1.5;padding:.9vh 0 .9vh 2.1ch;position:relative;color:var(--ink-2)}
+ul.big li::before{content:"";position:absolute;left:.2ch;top:calc(.9vh + .6em);width:.65ch;height:.65ch;
   border-radius:50%;background:var(--brand);transform:translateY(-50%)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);border-radius:16px;overflow:hidden}
+.split>div{padding:3.4vh 2.2vw;background:var(--card)}
+.split>div+div{border-left:1px solid var(--rule)}
+.split .big-l{font-size:clamp(20px,3.6vh,34px);font-weight:900;margin:1.4vh 0 1vh}
+.media{border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--paper-2)}
+.media img,.media video{display:block;width:100%;height:auto}
+.media .cap{padding:.9vh 1.2vw;color:var(--ink-3);font-size:clamp(10px,1.5vh,13px);border-top:1px solid var(--rule)}
+.duo{display:grid;grid-template-columns:1.15fr .85fr;gap:2vh 2vw;align-items:start}
+.lane{display:grid;grid-template-columns:10ch 1fr;gap:0;border-top:1px solid var(--rule)}
+.lane>div{padding:1.5vh 1vw;font-size:clamp(12px,2vh,18px)}
+.lane .w{color:var(--brand);font-weight:800;white-space:nowrap}
+.lane .tkm{display:inline-block;min-width:2.6ch;text-align:center;border-radius:6px;font-weight:900;
+  font-size:.72em;padding:.14em .4em;margin-right:.55ch;vertical-align:.08em}
+.lane .mA{background:var(--brand);color:var(--paper)}
+.lane .mB{border:1.5px solid var(--brand);color:var(--brand)}
+.lane .mX{border:1.5px solid var(--rule);color:var(--ink-3)}
 .foot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;
-  padding:1.4vh 2vw;color:var(--ink-3);font-size:12px;z-index:5;pointer-events:none}
-.foot .r{display:flex;gap:14px;align-items:center;pointer-events:auto;margin-right:92px}
+  padding:1.3vh 2vw;color:var(--ink-3);font-size:12px;z-index:8;pointer-events:none}
+.foot .r{display:flex;gap:12px;align-items:center;pointer-events:auto}
 .foot button,.foot a{background:none;border:1px solid var(--rule);color:var(--ink-3);border-radius:8px;
   padding:4px 10px;font-size:12px;cursor:pointer;text-decoration:none}
-.bar{position:fixed;top:0;left:0;height:3px;background:var(--brand);width:0;z-index:6;transition:width .25s}
-.wm{height:clamp(26px,4.6vh,44px);margin-bottom:4vh;align-self:flex-start}
-.kicker{color:var(--ink-3);font-size:clamp(13px,2vh,18px);margin-top:4vh}
-table.sched{width:100%;border-collapse:collapse;margin-top:1vh}
-table.sched td{border-top:1px solid var(--rule);padding:1.6vh 1vw;font-size:clamp(13px,2.2vh,20px);vertical-align:top}
-table.sched td:first-child{color:var(--brand);font-weight:800;white-space:nowrap;width:11ch}
-.hint{position:fixed;right:2vw;bottom:6vh;color:var(--ink-3);font-size:12px;opacity:.85;z-index:5}
+.bar{position:fixed;top:0;left:0;height:3px;background:var(--brand);width:0;z-index:9;transition:width .25s}
+.wm{height:clamp(30px,5.2vh,52px);margin-bottom:3.6vh;align-self:flex-start}
+.kicker{color:var(--ink-3);font-size:clamp(13px,2vh,17px);margin-top:3.4vh}
+.trail{margin-top:4vh;max-width:520px;opacity:.9}
+.hint{position:fixed;right:2vw;bottom:5.6vh;color:var(--ink-3);font-size:12px;opacity:.85;z-index:8}
 @media (max-width:760px){
-  .grid2,.grid3{grid-template-columns:1fr}
-  .slide{padding:6vh 7vw;overflow-y:auto;justify-content:flex-start}
+  .grid2,.grid3,.duo,.split{grid-template-columns:1fr}
+  .split>div+div{border-left:none;border-top:1px solid var(--rule)}
+  .slide{padding:84px 6vw 10vh;overflow-y:auto;justify-content:flex-start}
   .chain{flex-direction:column}
-  .chain .a{transform:rotate(90deg);padding:.4vh 0;justify-content:center}
+  .chain .a{transform:rotate(90deg);padding:.3vh 0;justify-content:center}
+  .hd .sec{display:none}
 }
 </style>
-<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="var(--dim)">
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
 <!--newbadge:v5--><style>
 a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
@@ -222,84 +260,159 @@ document.addEventListener('DOMContentLoaded',function(){
 </head>
 <body>
 <div class="bar" id="bar"></div>
+<div class="hd">
+  <img src="assets/brand/foothold-lockup-compact-dark.svg" alt="FOOTHOLD">
+  <span class="sec" id="sec"><b>KICK-OFF</b> · 2026-08-20</span>
+</div>
 
 <!-- 1 표지 -->
-<section class="slide on">
-  <img class="wm" src="assets/brand/foothold-wordmark-reverse.svg" alt="FOOTHOLD">
+<section class="slide on" data-sec="표지">
   <div class="eyebrow">Final Project · Kick-off 2026-08-20</div>
   <h1>Unitree Go2,<br>미경험 험지를 <span class="mark">적응</span>해서 건넌다</h1>
-  <p class="sub">시뮬레이션 강화학습과 디지털 트윈으로 검증하고(9/30), 실물 Go2 자율주행으로 완성한다(12/11).</p>
+  <p class="sub">가상에서는 강화학습으로 한계에 도전하고(중간 9/30), 실물에서는 검증된 보행 위에 자율주행을 쌓아 완주한다(최종 12/11).</p>
   <p class="kicker">FOOTHOLD · 오흥재(팀장) · 임석헌 · 오현민 · 맹라현 · 이민우 · 그리고 여섯 번째 멤버를 환영합니다</p>
+  <svg class="trail" viewBox="0 0 900 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M30 132c142-96 268 18 404-70 119-77 252 12 406-48" fill="none" stroke="var(--rule)" stroke-width="3" stroke-dasharray="10 10"/>
+    <g fill="var(--brand)" opacity=".28" transform="translate(22 100) scale(1.67)"><path d="m9 4 12 9L33 4l9 8-21 15L0 12z"/></g>
+    <g fill="var(--brand)" opacity=".48" transform="translate(238 56) scale(1.86)"><path d="m9 4 12 9L33 4l9 8-21 15L0 12z"/></g>
+    <g fill="var(--brand)" opacity=".72" transform="translate(486 78) scale(2.05)"><path d="m9 4 12 9L33 4l9 8-21 15L0 12z"/></g>
+    <g fill="var(--brand)" transform="translate(758 10) scale(2.33)"><path d="m9 4 12 9L33 4l9 8-21 15L0 12z"/></g>
+  </svg>
 </section>
 
-<!-- 2 왜 -->
-<section class="slide">
-  <div class="eyebrow">01 · Why</div>
+<!-- 2 팀 -->
+<section class="slide" data-sec="01 · Team">
+  <div class="eyebrow">01 · Team</div>
+  <h2>다섯 명, 그리고 비어 있는 여섯 번째 자리</h2>
+  <div class="grid3">
+    <div class="card"><div class="k">PM · Digital Twin</div><div class="t">오흥재</div>
+      <div class="d">리딩 · 실공간 3D 재구성 축. 영상·VFX 12년, 카메라·공간·3D 파이프라인, 포인트클라우드 재구성 실무.</div></div>
+    <div class="card"><div class="k">Policy · RL</div><div class="t">임석헌</div>
+      <div class="d">보행 정책 학습 · 보상 설계 · 실험 반복. 비전 모델 학습·데이터 구축, 파인튜닝 R&amp;D.</div></div>
+    <div class="card"><div class="k">Scene · Visualization</div><div class="t">맹라현</div>
+      <div class="d">시뮬 지형 제작 · 결과 시각화·대시보드. Blender · 3ds Max · Unity, 웹·DB까지.</div></div>
+    <div class="card"><div class="k">Environment · Infra</div><div class="t">이민우</div>
+      <div class="d">학습 서버·환경 구축 · 실행 파이프라인 · 실험 자동화. 웹 풀스택, 서버 구성·운영.</div></div>
+    <div class="card"><div class="k">Perception · Data</div><div class="t">오현민</div>
+      <div class="d">센서·인지 데이터 처리 · 실험 결과 정량 검증 · 결과 화면 구현. 컴퓨터비전 분류.</div></div>
+    <div class="card" style="border-color:var(--brand)"><div class="k">6th Member · 전담 멘토</div><div class="t">오늘부터, 당신의 자리</div>
+      <div class="d">매일 오전 9~12시를 함께합니다. 현장의 기준으로 우리 실험과 코드를 검증해 주세요.</div></div>
+  </div>
+</section>
+
+<!-- 3 왜 -->
+<section class="slide" data-sec="02 · Why">
+  <div class="eyebrow">02 · Why</div>
   <h2>사람이 못 들어가는 곳에 먼저 들어가는 발</h2>
   <div class="grid2">
     <div class="card"><div class="k">문제</div>
       <div class="t">재난·위험 현장의 첫 진입</div>
-      <div class="d">화재·붕괴 현장에서 대원 안전 확보와 현장 파악을 위한 사족보행 로봇은 이미 정부 과제로 추진되는 실수요다 (현장 지휘 지원·대원 안전 확보 과제, RND).</div></div>
+      <div class="d">화재·붕괴 현장에서 대원 안전 확보와 현장 파악을 위한 사족보행 로봇은 정부 과제로 추진되는 실수요다 (현장 지휘 지원·대원 안전 확보 과제, RND).</div></div>
     <div class="card"><div class="k">공백</div>
       <div class="t">순정 보행의 «위»가 비어 있다</div>
       <div class="d">순정 Go2는 계단·경사·발빠짐 정도는 이미 잘 걷는다 (조선대 BITE팀 대회 실증). 연약지반·잔해·불규칙 지형처럼 <b>순정이 커버하지 못하는 험지</b>가 우리가 서는 자리다.</div></div>
   </div>
 </section>
 
-<!-- 3 전략 -->
-<section class="slide">
-  <div class="eyebrow">02 · Strategy</div>
+<!-- 4 왜 나눴나 (다리) -->
+<section class="slide" data-sec="03 · Approach">
+  <div class="eyebrow">03 · Approach</div>
+  <h2>왜 가상은 <span class="mark">학습</span>이고, 실물은 <span class="mark">순정 + 항법</span>인가</h2>
+  <div class="split">
+    <div>
+      <span class="tk tkA">가상 · 시뮬레이션</span>
+      <div class="big-l">실패가 공짜다</div>
+      <div class="d" style="color:var(--ink-2);font-size:clamp(13px,2vh,18px);line-height:1.6">
+        수천 번 넘어져도 잃는 것이 없다. 그래서 <b>순정의 한계 너머 험지에 강화학습으로 도전</b>한다.
+        결과는 감이 아니라 정량 평가(성공률·낙상·회복)로 증명한다.</div>
+    </div>
+    <div>
+      <span class="tk tkB"><svg viewBox="0 0 42 27" xmlns="http://www.w3.org/2000/svg"><path d="m9 4 12 9L33 4l9 8-21 15L0 12z" fill="currentColor"/></svg>실물 · Go2</span>
+      <div class="big-l">실패가 비싸다</div>
+      <div class="d" style="color:var(--ink-2);font-size:clamp(13px,2vh,18px);line-height:1.6">
+        낙상 한 번이 장비 파손·안전 사고다. 와이어 리깅 같은 안전장치가 없는 조건에서는
+        <b>검증된 순정 보행 위에 SLAM·Nav2 항법을 쌓는 것</b>이 완주로 가는 검증된 길이다.</div>
+    </div>
+  </div>
+  <p class="sub"><b>그래서 두 트랙이다.</b> 도전은 가상에, 완주는 실물에. 8/19 조선대 교수 가이드와 팀 전원 합의로 확정했다.</p>
+</section>
+
+<!-- 5 전략 -->
+<section class="slide" data-sec="04 · Strategy">
+  <div class="eyebrow">04 · Strategy</div>
   <h2>두 트랙: 시뮬로 <span class="mark">증명</span>하고, 실물로 <span class="mark">완성</span>한다</h2>
-  <div class="grid2">
-    <div class="card"><div class="k">Track A · 중간발표 (9/30)</div>
-      <div class="t">시뮬 강화학습 + 디지털 트윈 완결</div>
-      <div class="d">Isaac Lab에서 우리가 정의한 험지로 보행 정책을 학습하고, <b>미학습 지형 일반화</b>를 정량 검증. 디지털 트윈과 실사급 렌더로 눈에 보이는 증거를 만든다.</div></div>
-    <div class="card"><div class="k">Track B · 최종발표 (12/11)</div>
-      <div class="t">실물 Go2 자율주행 시연</div>
-      <div class="d">검증된 순정 보행 위에 ROS2·SLAM·Nav2 항법을 얹어 <b>지정 험지 코스를 자율주행으로 완주</b>. 조선대 인프라(장비·XT16·교수 멘토링)와 연계.</div></div>
+  <div class="split">
+    <div>
+      <span class="tk tkA">TRACK A · 시뮬 검증</span>
+      <div class="big-l">험지 적응 RL + 디지털 트윈</div>
+      <div class="d" style="color:var(--ink-2);font-size:clamp(13px,2vh,18px);line-height:1.6">
+        Isaac Lab에서 우리가 정의한 험지로 보행 정책을 학습하고 <b>미학습 지형 일반화</b>를 정량 검증.
+        디지털 트윈과 실사급 렌더로 눈에 보이는 증거를 만든다.<br><b>중간발표 9/30의 주인공.</b></div>
+    </div>
+    <div>
+      <span class="tk tkB"><svg viewBox="0 0 42 27" xmlns="http://www.w3.org/2000/svg"><path d="m9 4 12 9L33 4l9 8-21 15L0 12z" fill="currentColor"/></svg>TRACK B · 실물 완주</span>
+      <div class="big-l">SLAM · Nav2 자율주행</div>
+      <div class="d" style="color:var(--ink-2);font-size:clamp(13px,2vh,18px);line-height:1.6">
+        검증된 순정 보행 위에 ROS2·SLAM·Nav2 항법을 얹어 <b>지정 험지 코스를 자율주행으로 완주</b>.
+        조선대 인프라(장비·XT16 라이다·교수 멘토링)와 연계.<br><b>최종발표 12/11의 주인공.</b></div>
+    </div>
   </div>
   <p class="sub">한 문장으로: <b>같은 험지에 두 개의 답</b>을 만든다. 트윈 안에서는 학습으로, 현장에서는 항법으로.</p>
 </section>
 
-<!-- 4 트랙 A -->
-<section class="slide">
-  <div class="eyebrow">03 · Track A</div>
+<!-- 6 트랙 A -->
+<section class="slide" data-sec="05 · Track A">
+  <div class="eyebrow">05 · Track A <span class="tk tkA" style="margin-left:.8vw">TRACK A · 시뮬 검증</span></div>
   <h2>학습·평가 파이프라인은 이미 돌아간다</h2>
-  <div class="chain">
-    <div class="n">험지 정의<br>(지형 생성)</div><div class="a">→</div>
-    <div class="n">커리큘럼<br>강화학습</div><div class="a">→</div>
-    <div class="n">미학습 지형<br>정량 평가</div><div class="a">→</div>
-    <div class="n">디지털 트윈<br>구축</div><div class="a">→</div>
-    <div class="n">실사급 렌더<br>·시연 영상</div>
-  </div>
-  <div class="grid3" style="margin-top:3vh">
-    <div class="card"><div class="num">86.7%</div><div class="numl">기준선 정책 성공률 실측<br>(1,500 iter, 자체 평가 파이프라인)</div></div>
-    <div class="card"><div class="num">6,000회+</div><div class="numl">정책 하나당 평가 에피소드<br>(지형·난이도 격자 전수)</div></div>
-    <div class="card"><div class="num">45차원</div><div class="numl">RoboGauge 공개 정책 관측 매핑 확정<br>(외부 비교군 확보)</div></div>
+  <div class="duo">
+    <div>
+      <div class="chain">
+        <div class="n">험지 정의<br>(지형 생성)</div><div class="a">→</div>
+        <div class="n">커리큘럼<br>강화학습</div><div class="a">→</div>
+        <div class="n">미학습 지형<br>정량 평가</div><div class="a">→</div>
+        <div class="n">디지털 트윈<br>·실사급 렌더</div>
+      </div>
+      <div class="grid3" style="margin-top:2vh">
+        <div class="card"><div class="num">86.7%</div><div class="numl">기준선 성공률 실측 (1,500 iter)</div></div>
+        <div class="card"><div class="num">6,000회+</div><div class="numl">정책당 평가 에피소드 (지형·난이도 전수)</div></div>
+        <div class="card"><div class="num">45차원</div><div class="numl">RoboGauge 관측 매핑 확정 (외부 비교군)</div></div>
+      </div>
+    </div>
+    <div class="media">
+      <video src="assets/video/eval_1500iter_level6.mp4" controls preload="none" muted playsinline poster="assets/visual/14_eval_levels_frames.png"></video>
+      <div class="cap">기준선 정책 평가 실기록 (난이도 레벨 6) · 클릭 재생 · 포스터: 난이도 격자 프레임</div>
+    </div>
   </div>
 </section>
 
-<!-- 5 트랙 B -->
-<section class="slide">
-  <div class="eyebrow">04 · Track B</div>
-  <h2>실기: 검증된 길로, 그러나 우리 코스에서</h2>
-  <div class="chain">
-    <div class="n">ROS2 기초<br>(조선대 커리큘럼)</div><div class="a">→</div>
-    <div class="n">Go2 연결<br>·원격 제어</div><div class="a">→</div>
-    <div class="n">SLAM<br>지도 작성</div><div class="a">→</div>
-    <div class="n">Nav2<br>경로 계획</div><div class="a">→</div>
-    <div class="n">험지 코스<br>자율주행 시연</div>
+<!-- 7 트랙 B -->
+<section class="slide" data-sec="06 · Track B">
+  <div class="eyebrow">06 · Track B <span class="tk tkB" style="margin-left:.8vw"><svg viewBox="0 0 42 27" xmlns="http://www.w3.org/2000/svg"><path d="m9 4 12 9L33 4l9 8-21 15L0 12z" fill="currentColor"/></svg>TRACK B · 실물 완주</span></div>
+  <h2>검증된 길로, 그러나 우리 코스에서</h2>
+  <div class="duo">
+    <div>
+      <div class="chain">
+        <div class="n">ROS2 기초<br>(조선대 커리큘럼)</div><div class="a">→</div>
+        <div class="n">Go2 연결<br>·원격 제어</div><div class="a">→</div>
+        <div class="n">SLAM<br>지도 작성</div><div class="a">→</div>
+        <div class="n">Nav2<br>경로 계획</div><div class="a">→</div>
+        <div class="n">험지 코스<br>자율주행</div>
+      </div>
+      <ul class="big" style="margin-top:1.6vh">
+        <li>8/19 조선대 방문에서 교수와 방향 가이드 확정 · 매주 금 수업·멘토링</li>
+        <li>실기 코스는 <b>트윈에서 먼저 리허설</b>하고 현장에서 재현한다</li>
+      </ul>
+    </div>
+    <div class="media">
+      <img src="assets/visual/go2-back-lidar-20260814.jpg" alt="Unitree Go2 후면과 XT16 라이다" loading="lazy">
+      <div class="cap">조선대 보유 Go2 실물 확인 (8/14) · 상단 XT16 라이다 · RJ45 유선 확인</div>
+    </div>
   </div>
-  <ul class="big" style="margin-top:2.4vh">
-    <li>8/19 조선대 방문에서 교수와 방향 가이드 확정. 매주 금 수업·멘토링으로 진행</li>
-    <li>저수준 제어 이식은 안전장치(와이어 리깅 등) 부재로 <b>목표에서 제외</b>: 검증된 순정 보행 위에 항법을 쌓는다</li>
-    <li>트윈에서 코스를 먼저 리허설하고 현장에서 재현: 트랙 A가 트랙 B의 예행연습장</li>
-  </ul>
 </section>
 
-<!-- 6 연결 -->
-<section class="slide">
-  <div class="eyebrow">05 · Bridge</div>
+<!-- 8 연결 -->
+<section class="slide" data-sec="07 · Bridge">
+  <div class="eyebrow">07 · Bridge</div>
   <h2>두 트랙은 서로의 증거가 된다</h2>
   <div class="grid3">
     <div class="card"><div class="k">같은 험지, 두 답</div>
@@ -314,50 +427,44 @@ document.addEventListener('DOMContentLoaded',function(){
   </div>
 </section>
 
-<!-- 7 자산 -->
-<section class="slide">
-  <div class="eyebrow">06 · Assets</div>
+<!-- 9 자산 -->
+<section class="slide" data-sec="08 · Assets">
+  <div class="eyebrow">08 · Assets</div>
   <h2>4주간 쌓은 것: 말이 아니라 실측</h2>
-  <div class="grid3">
-    <div class="card"><div class="num">11편</div><div class="numl">공개 연구 문서 (실측·근거·정정 이력 포함, 웹 게시)</div></div>
-    <div class="card"><div class="num">1.75s</div><div class="numl">프레임당 실사급 Path Tracing 렌더 벤치 (Marbles, RTX 5080)</div></div>
-    <div class="card"><div class="num">100%</div><div class="numl">회의 기록률: 전 회의 화자분리 전사(MOSS) + 타임코드 보고서</div></div>
+  <div class="duo">
+    <div>
+      <div class="grid3">
+        <div class="card"><div class="num">11편</div><div class="numl">공개 연구 문서 (실측·근거·정정 이력)</div></div>
+        <div class="card"><div class="num">1.75s</div><div class="numl">프레임당 실사급 PT 렌더 벤치 (RTX 5080)</div></div>
+        <div class="card"><div class="num">100%</div><div class="numl">회의 기록률 (화자분리 전사 + 타임코드)</div></div>
+      </div>
+      <p class="sub" style="margin-top:2.2vh">전부 웹에 있다: 연구 기록 · 기획서 · 회의 기록 · 팀 자료실.<br>
+      <b>foothold-project.vercel.app</b> 하나로 열람. 틀렸던 판단과 정정 이력도 남긴다: <b>번복의 기록이 곧 검증의 증거다.</b></p>
+    </div>
+    <div class="media">
+      <img src="assets/visual/11_racer_rtx_desert.png" alt="실사급 렌더 실측 장면" loading="lazy">
+      <div class="cap">실사급 렌더 실측 (RTX Path Tracing) · 디지털 트윈 서사의 마감 품질 기준</div>
+    </div>
   </div>
-  <p class="sub">전부 웹에 있다: 연구 기록·보고서·회의 기록·팀 자료실. <b>foothold-project.vercel.app</b> 하나로 프로젝트 전체가 열람된다. 틀렸던 판단과 정정 이력도 남긴다: 번복의 기록이 곧 검증의 증거다.</p>
 </section>
 
-<!-- 8 팀·운영 -->
-<section class="slide">
-  <div class="eyebrow">07 · Team &amp; Ops</div>
-  <h2>다섯 명 + 여섯 번째 멤버</h2>
-  <div class="grid2">
-    <div class="card"><div class="k">팀</div>
-      <div class="t">오흥재(팀장) · 임석헌(부팀장) · 오현민 · 맹라현 · 이민우</div>
-      <div class="d">역할 매트릭스는 두 트랙 기준으로 이번 주 확정 (RL·지형 / 트윈·렌더 / SLAM·Nav2 / 통합·기록). 팀장 축: 강화학습·디지털 트윈·VFX 12년.</div></div>
-    <div class="card"><div class="k">운영 체계</div>
-      <div class="t">기록이 남는 협업</div>
-      <div class="d">웹 자동 게시 파이프라인 · inbox 제출 흐름 · 회의 전사 상설 · 조선대(금) + 외부 전문가 멘토링 병행 · GIST GPU·이스트 물리서버·WS RTX 5080×2.</div></div>
+<!-- 10 일정 -->
+<section class="slide" data-sec="09 · Timeline">
+  <div class="eyebrow">09 · Timeline</div>
+  <h2>역산으로 움직인다 <span class="tag" style="margin-left:.6vw">A = 시뮬</span><span class="tag" style="background:transparent;border:1.5px solid var(--brand)">B = 실물</span></h2>
+  <div>
+    <div class="lane"><div class="w">지금 · 8월</div><div><span class="tkm mA">A</span>험지 세트 확정 · 트윈 씬 준비 <span class="tkm mB" style="margin-left:1.2ch">B</span>ROS2 환경 구축(전원) · 킥오프</div></div>
+    <div class="lane"><div class="w">9월</div><div><span class="tkm mA">A</span>커리큘럼 학습 반복 · 미학습 평가 · 트윈·렌더 완성 · 발표 리허설</div></div>
+    <div class="lane"><div class="w">9/30</div><div><span class="tkm mA">A</span><b>중간발표 (Track A 완결)</b> <span class="tag note" style="margin-left:.8ch">일자 확인 중 · "10월 초" 언급</span></div></div>
+    <div class="lane"><div class="w">10~11월</div><div><span class="tkm mB">B</span>SLAM 지도 · Nav2 튜닝 · 험지 코스 반복 실험 (조선대) <span class="tkm mA" style="margin-left:1.2ch">A</span>비교 리포트</div></div>
+    <div class="lane" style="border-bottom:1px solid var(--rule)"><div class="w">12/11</div><div><span class="tkm mB">B</span><b>최종발표: 험지 코스 자율주행 완주 시연</b> <span class="tkm mX" style="margin-left:1.2ch">A+B</span>두 트랙 비교 리포트</div></div>
   </div>
-  <p class="sub"><span class="tag">환영</span> 전담 멘토님은 <b>매일 오전 9~12시</b> 우리와 함께합니다. 이 덱의 마지막 장이 저희의 첫 제안입니다.</p>
 </section>
 
-<!-- 9 일정 -->
-<section class="slide">
-  <div class="eyebrow">08 · Timeline</div>
-  <h2>역산으로 움직인다</h2>
-  <table class="sched">
-    <tr><td>지금 · 8월</td><td>킥오프 · 험지 세트 확정 · ROS2 환경 구축(전원) · 트윈 씬 준비</td></tr>
-    <tr><td>9월</td><td>커리큘럼 학습 반복 · 미학습 지형 평가 · 디지털 트윈·렌더 완성 · 발표 리허설</td></tr>
-    <tr><td><b>9/30</b></td><td><b>중간발표 (Track A 완결)</b> · 공지상 "10월 초" 언급이 있어 일자 확인 중</td></tr>
-    <tr><td>10~11월</td><td>실물 Go2: SLAM 지도 · Nav2 튜닝 · 험지 코스 반복 실험 (조선대)</td></tr>
-    <tr><td><b>12/11</b></td><td><b>최종발표: 험지 코스 자율주행 시연 + 두 트랙 비교 리포트</b></td></tr>
-  </table>
-</section>
-
-<!-- 10 멘토께 -->
-<section class="slide">
-  <div class="eyebrow">09 · To Our Mentor</div>
-  <h2>오전 3시간, 이렇게 쓰고 싶습니다 <span class="tag note">제안</span></h2>
+<!-- 11 멘토께 -->
+<section class="slide" data-sec="10 · To Our Mentor">
+  <div class="eyebrow">10 · To Our Mentor</div>
+  <h2>오전 3시간, 저희 생각은 이렇습니다 <span class="tag note">멘토님 방식을 듣고 함께 확정</span></h2>
   <div class="grid3">
     <div class="card"><div class="k">매주 시작</div><div class="t">방향 점검 30분</div>
       <div class="d">주간 목표와 리스크를 함께 확인. 남은 결정 안건을 하나씩 닫는다.</div></div>
@@ -366,12 +473,12 @@ document.addEventListener('DOMContentLoaded',function(){
     <div class="card"><div class="k">주 1회</div><div class="t">깊은 리뷰</div>
       <div class="d">코드·아키텍처·실험 설계를 실물 기준으로 검증받는다.</div></div>
   </div>
-  <p class="sub" style="margin-top:3vh"><b>이번 주 함께 정하고 싶은 것</b>: ① 트랙 A 험지 세트 ② 트랙 B 실기 코스 ③ 역할 매트릭스 ④ 외부 멘토링 주기 ⑤ 중간발표 일자 확인.<br>
+  <p class="sub" style="margin-top:2.6vh"><b>이번 주 함께 정하고 싶은 것</b>: ① 트랙 A 험지 세트 ② 트랙 B 실기 코스 ③ 역할 매트릭스 ④ 외부 멘토링 주기 ⑤ 중간발표 일자 확인.<br>
   전체 자료: <b>foothold-project.vercel.app</b> · 기획서는 홈의 «프로젝트 보고서»</p>
 </section>
 
 <div class="foot">
-  <span id="cnt">1 / 10</span>
+  <span id="cnt">1 / 11</span>
   <span class="r">
     <a href="index.html">웹으로 나가기</a>
     <button id="fs">전체화면 (F)</button>
@@ -390,6 +497,8 @@ document.addEventListener('DOMContentLoaded',function(){
     slides.forEach(function(s, k){ s.classList.toggle('on', k === cur); });
     document.getElementById('cnt').textContent = (cur + 1) + ' / ' + slides.length;
     document.getElementById('bar').style.width = ((cur + 1) / slides.length * 100) + '%';
+    var lab = slides[cur].getAttribute('data-sec') || '';
+    document.getElementById('sec').innerHTML = '<b>KICK-OFF</b> · ' + lab;
     history.replaceState(null, '', '#' + (cur + 1));
   }
   document.addEventListener('keydown', function(e){
@@ -400,7 +509,7 @@ document.addEventListener('DOMContentLoaded',function(){
     else if (e.key === 'f' || e.key === 'F') toggleFS();
   });
   document.addEventListener('click', function(e){
-    if (e.target.closest('a') || e.target.closest('button')) return;
+    if (e.target.closest('a') || e.target.closest('button') || e.target.closest('video')) return;
     var x = e.clientX / window.innerWidth;
     show(x < 0.3 ? cur - 1 : cur + 1);
   });
@@ -423,10 +532,6 @@ document.addEventListener('DOMContentLoaded',function(){
   show(cur);
 })();
 </script>
-
-
-
-
 <style>html[data-theme="light"]{--paper:#0e1218;--paper-2:#141a23;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:var(--brand);--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <style>
 #themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
