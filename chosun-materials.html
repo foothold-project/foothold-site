@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>팀 자료실 (조선대) · FOOTHOLD</title>
+<style>
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--paper,#f4f2ec);
+  color:var(--ink,#16202a);margin:0}
+.top{position:sticky;top:0;z-index:60;background:var(--paper,#f4f2ec);
+  border-bottom:1px solid var(--rule,#d8d4c8)}
+.top .row{max-width:960px;margin:0 auto;padding:.6rem 1.2rem;display:flex;
+  align-items:center;gap:.9rem}
+.top a{color:inherit;text-decoration:none;font-weight:700;font-size:.85rem}
+.wrap{max-width:960px;margin:0 auto;padding:28px 20px 80px}
+h1{font-size:1.5rem;margin:.4rem 0}
+.note{font-size:.85rem;color:var(--ink-2,#3d4a58);line-height:1.6}
+.gate{border:1px solid var(--rule,#d8d4c8);border-top:3px solid var(--dim,#0e7a6e);
+  background:var(--card,#fbfaf6);padding:22px;margin:22px 0;border-radius:8px;max-width:460px}
+.gate input{width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid var(--rule,#d8d4c8);
+  border-radius:5px;margin:.4rem 0;background:var(--paper,#fff);color:inherit}
+.gate button{padding:.55rem 1.2rem;font-weight:800;border:none;border-radius:5px;
+  background:var(--dim,#0e7a6e);color:#fff;cursor:pointer;font-size:.9rem}
+.gate .err{color:#b3452c;font-size:.8rem;min-height:1.2em}
+.item{border:1px solid var(--rule,#d8d4c8);border-radius:8px;background:var(--card,#fbfaf6);
+  padding:16px 18px;margin:14px 0}
+.item b{font-size:.98rem}
+.item .m{font-size:.75rem;color:var(--ink-3,#6b7683);margin:.2rem 0 .6rem}
+.item button{margin-right:.5rem;padding:.4rem .9rem;font-weight:700;border:1px solid var(--dim,#0e7a6e);
+  border-radius:5px;background:transparent;color:var(--dim,#0e7a6e);cursor:pointer}
+embed.viewer{width:100%;height:80vh;border:1px solid var(--rule,#d8d4c8);border-radius:6px;margin-top:10px}
+#list{display:none}
+</style>
+<!--search:v7--><style>
+@media (max-width:640px){
+  .top .row{flex-wrap:nowrap}
+  .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}
+  .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
+  .topbar .stage-chip{display:none}
+  .topbar .row{gap:.3rem}
+  .topbar .tbtn{padding:.32rem .5rem}
+  .topbar .counter{font-size:.62rem}
+  .fh-sbtn{display:inline-flex!important}
+  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
+    -webkit-overflow-scrolling:touch}
+  header.top{padding-top:28px}
+}
+.fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
+  border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
+  font-size:.55rem;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:4px;
+  display:inline-flex;align-items:center;gap:5px}
+.fh-so{position:fixed;inset:0;background:rgba(10,14,16,.45);z-index:300;display:none}
+.fh-so.on{display:flex;align-items:flex-start;justify-content:center;padding:9vh 14px 0}
+.fh-sp{width:min(560px,100%);background:var(--paper);border:1px solid var(--rule);
+  border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.32);overflow:hidden}
+.fh-sp input{width:100%;padding:.75rem .95rem;font-size:16px;border:0;
+  border-bottom:1px solid var(--rule);background:var(--paper);color:var(--ink);
+  font-family:inherit;outline:none}
+.fh-sr{max-height:56vh;overflow-y:auto}
+.fh-sr a{display:block;padding:.55rem .95rem;text-decoration:none;color:inherit;
+  border-bottom:1px solid var(--rule)}
+.fh-sr a:last-child{border-bottom:none}
+.fh-sr a:hover,.fh-sr a.sel{background:var(--dim-soft)}
+.fh-sr .sp1{font-size:.66rem;color:var(--dim);font-weight:800;letter-spacing:.03em}
+.fh-sr .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
+.fh-sr .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
+.fh-sr .none{padding:.7rem .95rem;font-size:.76rem;color:var(--ink-3)}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  /* 스마트 뒤로가기: 같은 사이트에서 들어왔으면 히스토리로 (진입 경로 보존) */
+  var home=document.querySelector('a.home');
+  if(home&&document.referrer){
+    try{var r=new URL(document.referrer);
+      if(r.origin===location.origin&&r.pathname!==location.pathname&&history.length>1){
+        home.addEventListener('click',function(e){e.preventDefault();history.back();});
+      }}catch(err){}
+  }
+  /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
+  var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
+  var sb=document.createElement('button');sb.type='button';
+  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
+  sb.setAttribute('aria-label','사이트 검색');
+  sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
+    +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
+    +'<circle cx="7" cy="7" r="4.2"/><path d="M10.4 10.4L14 14"/></svg>검색';
+  if(pb)pb.parentNode.insertBefore(sb,pb);else document.body.appendChild(sb);
+  function offset(){ /* PDF 버튼이 화면 고정형이면 그 왼쪽에 나란히 고정 */
+    if(!pb)return;var cs=getComputedStyle(pb);
+    var r=pb.getBoundingClientRect();
+    if(cs.display==='none'||r.width===0){ /* PDF 가 숨겨진 화면(백과 모바일): 검색이 그 자리에 */
+      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='70';
+    }else if(cs.position==='fixed'){
+      sb.style.position='fixed';sb.style.top=r.top+'px';
+      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
+    }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
+  offset();window.addEventListener('resize',offset);
+  /* 오버레이 */
+  var ov=document.createElement('div');ov.className='fh-so';
+  ov.innerHTML='<div class="fh-sp"><input type="search" placeholder="검색 (제목 · 절 · 본문)" '
+    +'aria-label="사이트 검색"><div class="fh-sr"></div></div>';
+  document.body.appendChild(ov);
+  var inp=ov.querySelector('input'),res=ov.querySelector('.fh-sr'),IDX=null,sel=-1;
+  function open(){ov.classList.add('on');inp.focus();inp.select();}
+  function close(){ov.classList.remove('on');}
+  sb.addEventListener('click',open);
+  ov.addEventListener('mousedown',function(e){if(e.target===ov)close();});
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
+    else if(e.key==='Escape'&&ov.classList.contains('on'))close();
+  });
+  function load(cb){if(IDX)return cb();
+    fetch('assets/search-index.json').then(function(r){return r.json()})
+      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function go(){
+    var q=inp.value.trim().toLowerCase();sel=-1;
+    if(q.length<2){res.innerHTML='';return;}
+    load(function(){
+      var hits=[];
+      for(var i=0;i<IDX.length&&hits.length<40;i++){
+        var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
+            pi=e.t.toLowerCase().indexOf(q);
+        if(hi<0&&ti<0&&pi<0)continue;
+        var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
+        var snip='';
+        if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
+        hits.push({e:e,s:score,snip:snip});
+      }
+      hits.sort(function(a,b){return b.s-a.s});
+      hits=hits.slice(0,12);
+      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      else{res.innerHTML=hits.map(function(h){
+        return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
+          +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
+          +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
+    });
+  }
+  inp.addEventListener('input',go);
+  inp.addEventListener('keydown',function(e){
+    e.stopPropagation(); /* 커리큘럼 등 자체 키보드 내비게이션 페이지로 새지 않게 */
+    if(e.key==='Escape'){close();return;}
+    var as=res.querySelectorAll('a');if(!as.length)return;
+    if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,as.length-1);}
+    else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);}
+    else if(e.key==='Enter'&&sel>=0){e.preventDefault();as[sel].click();return;}
+    else return;
+    as.forEach(function(a,i){a.classList.toggle('sel',i===sel)});
+    if(as[sel])as[sel].scrollIntoView({block:'nearest'});
+  });
+});
+</script>
+</head>
+<body>
+<div class="top"><div class="row"><a href="index.html">← 표지로</a>
+<span style="font-size:.8rem;color:#6b7683">FOOTHOLD · 팀 자료실 (조선대 제공)</span></div></div>
+<div class="wrap">
+<h1>팀 자료실 · 조선대 제공 수업 자료</h1>
+<p class="note">이 자료는 조선대학교 측 저작물입니다. <b>팀 내부 열람용</b>으로만 제공하며
+비밀번호로 보호됩니다 (비밀번호는 디스코드 리소스 채널). 외부 공유 금지.</p>
+
+<div class="gate" id="gate">
+  <b>비밀번호</b>
+  <input type="password" id="pw" placeholder="팀 비밀번호" autocomplete="off">
+  <div class="err" id="err"></div>
+  <button id="go">열기</button>
+</div>
+
+<div id="list"></div>
+</div>
+<script>
+let MAN=null, KEY=null;
+async function loadMan(){
+  if(!MAN) MAN = await (await fetch('assets/secure/manifest.json')).json();
+  return MAN;
+}
+async function deriveKey(pw, saltHex, iters){
+  const salt = Uint8Array.from(saltHex.match(/../g).map(h=>parseInt(h,16)));
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw),
+    'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:iters, hash:'SHA-256'},
+    base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+}
+async function decryptFile(url){
+  const buf = new Uint8Array(await (await fetch(url)).arrayBuffer());
+  const nonce = buf.slice(0,12), ct = buf.slice(12);
+  return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM', iv:nonce}, KEY, ct));
+}
+document.getElementById('go').addEventListener('click', async ()=>{
+  const err = document.getElementById('err'); err.textContent='';
+  try{
+    const man = await loadMan();
+    KEY = await deriveKey(document.getElementById('pw').value, man.salt, man.iters);
+    await decryptFile(man.items[0].file);   // 검증: 첫 파일 복호화 시도
+  }catch(e){ err.textContent='비밀번호가 맞지 않습니다.'; KEY=null; return; }
+  document.getElementById('gate').style.display='none';
+  const list = document.getElementById('list'); list.style.display='block';
+  for(const it of MAN.items){
+    const d = document.createElement('div'); d.className='item';
+    d.innerHTML = '<b>'+it.title+'</b><div class="m">'+it.name+' · '
+      +(it.size/1048576).toFixed(1)+' MB</div>';
+    const dl = document.createElement('button'); dl.textContent='다운로드';
+    dl.onclick = async ()=>{
+      const data = await decryptFile(it.file);
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([data]));
+      a.download = it.name; a.click();
+    };
+    d.appendChild(dl);
+    if(it.inline){
+      const v = document.createElement('button'); v.textContent='여기서 보기';
+      v.onclick = async ()=>{
+        const data = await decryptFile(it.file);
+        let em = d.querySelector('embed');
+        if(!em){ em = document.createElement('embed'); em.className='viewer';
+          em.type='application/pdf'; d.appendChild(em); }
+        em.src = URL.createObjectURL(new Blob([data],{type:'application/pdf'}));
+      };
+      d.appendChild(v);
+    }
+    list.appendChild(d);
+  }
+});
+document.getElementById('pw').addEventListener('keydown', e=>{
+  if(e.key==='Enter') document.getElementById('go').click();
+});
+</script>
+</body>
+</html>
