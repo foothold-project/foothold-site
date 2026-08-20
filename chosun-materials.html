@@ -17,7 +17,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 h1{font-size:1.5rem;margin:.4rem 0}
 .note{font-size:.85rem;color:var(--ink-2,#3d4a58);line-height:1.6}
 .gate{border:1px solid var(--rule,#d8d4c8);border-top:3px solid var(--dim,var(--dim));
-  background:var(--card,#fbfaf6);padding:22px;margin:22px 0;border-radius:8px;max-width:460px}
+  background:var(--card,#fbfaf6);padding:22px;margin:26px auto;border-radius:8px;max-width:460px}
 .gate input{width:100%;box-sizing:border-box;padding:.6rem .8rem;font-size:16px;border:1px solid var(--rule,#d8d4c8);
   border-radius:5px;margin:.4rem 0;background:var(--paper,var(--card));color:inherit}
 .gate button{padding:.55rem 1.2rem;font-weight:800;border:none;border-radius:5px;
@@ -30,7 +30,7 @@ h1{font-size:1.5rem;margin:.4rem 0}
 .item .m{font-size:.75rem;color:var(--ink-3,#6b7683);margin:.2rem 0 .6rem}
 .item button{margin-right:.5rem;padding:.4rem .9rem;font-weight:700;border:1px solid var(--dim,var(--dim));
   border-radius:5px;background:transparent;color:var(--dim,var(--dim));cursor:pointer}
-embed.viewer{width:100%;height:80vh;border:1px solid var(--rule,#d8d4c8);border-radius:6px;margin-top:10px}
+.pdfbox{margin-top:10px;max-height:82vh;overflow-y:auto;border-radius:6px}
 #list{display:none}
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <script>
 let MAN=null, KEY=null;
 async function loadMan(){
-  if(!MAN) MAN = await (await fetch('assets/secure/manifest.json')).json();
+  if(!MAN) MAN = await (await fetch('assets/secure/manifest.json?t='+Date.now(), {cache:'no-store'})).json();
   return MAN;
 }
 async function deriveKey(pw, saltHex, iters){
@@ -213,7 +213,7 @@ async function deriveKey(pw, saltHex, iters){
     base, {name:'AES-GCM', length:256}, false, ['decrypt']);
 }
 async function decryptFile(url){
-  const buf = new Uint8Array(await (await fetch(url)).arrayBuffer());
+  const buf = new Uint8Array(await (await fetch(url+'?v='+MAN.salt.slice(0,8), {cache:'no-store'})).arrayBuffer());
   const nonce = buf.slice(0,12), ct = buf.slice(12);
   return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM', iv:nonce}, KEY, ct));
 }
@@ -241,16 +241,34 @@ document.getElementById('go').addEventListener('click', async ()=>{
     if(it.view){
       const v = document.createElement('button'); v.textContent='여기서 보기';
       v.onclick = async ()=>{
-        let em = d.querySelector('embed');
-        if(em){ em.remove(); d.querySelector('.close').remove(); return; }
-        const data = await decryptFile(it.view);
-        em = document.createElement('embed'); em.className='viewer';
-        em.type='application/pdf';
-        em.src = URL.createObjectURL(new Blob([data],{type:'application/pdf'}));
-        const cl = document.createElement('button'); cl.className='close';
-        cl.textContent='닫기'; cl.style.display='block'; cl.style.marginTop='8px';
-        cl.onclick = ()=>{ em.remove(); cl.remove(); };
-        d.appendChild(em); d.appendChild(cl);
+        let box = d.querySelector('.pdfbox');
+        if(box){ box.remove(); d.querySelector('.close').remove(); return; }
+        v.disabled = true; v.textContent = '여는 중...';
+        try{
+          const data = await decryptFile(it.view);
+          const pdfjs = await import('assets/vendor/pdfjs/pdf.min.mjs');
+          pdfjs.GlobalWorkerOptions.workerSrc = 'assets/vendor/pdfjs/pdf.worker.min.mjs';
+          const doc = await pdfjs.getDocument({data}).promise;
+          box = document.createElement('div'); box.className='pdfbox';
+          const cl = document.createElement('button'); cl.className='close';
+          cl.textContent='닫기'; cl.style.display='block'; cl.style.margin='8px 0';
+          cl.onclick = ()=>{ box.remove(); cl.remove(); };
+          d.appendChild(box); d.appendChild(cl);
+          const wpx = Math.min(d.clientWidth - 4, 920);
+          for(let n=1; n<=doc.numPages; n++){
+            const pg = await doc.getPage(n);
+            const base = pg.getViewport({scale:1});
+            const scale = wpx / base.width * (window.devicePixelRatio||1);
+            const vp = pg.getViewport({scale});
+            const cv = document.createElement('canvas');
+            cv.width = vp.width; cv.height = vp.height;
+            cv.style.width = '100%'; cv.style.display='block';
+            cv.style.border = '1px solid var(--rule,#d8d4c8)'; cv.style.marginBottom='6px';
+            box.appendChild(cv);
+            await pg.render({canvasContext:cv.getContext('2d'), viewport:vp}).promise;
+          }
+        }catch(e){ alert('열기 실패: '+e.message); }
+        v.disabled = false; v.textContent = '여기서 보기';
       };
       d.appendChild(v);
       const nt = document.createElement('button'); nt.textContent='새 탭에서 보기';
