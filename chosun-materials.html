@@ -247,8 +247,8 @@ document.getElementById('go').addEventListener('click', async ()=>{
         v.disabled = true; v.textContent = '여는 중...';
         try{
           const data = await decryptFile(it.view);
-          const pdfjs = await import('assets/vendor/pdfjs/pdf.min.mjs');
-          pdfjs.GlobalWorkerOptions.workerSrc = 'assets/vendor/pdfjs/pdf.worker.min.mjs';
+          const pdfjs = await import('/assets/vendor/pdfjs/pdf.min.mjs');
+          pdfjs.GlobalWorkerOptions.workerSrc = '/assets/vendor/pdfjs/pdf.worker.min.mjs';
           const doc = await pdfjs.getDocument({data}).promise;
           box = document.createElement('div'); box.className='pdfbox';
           const cl = document.createElement('button'); cl.className='close';
