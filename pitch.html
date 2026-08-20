@@ -53,7 +53,7 @@ b,strong{color:var(--ink)}
 .card .k{color:var(--brand);font-weight:800;font-size:clamp(10px,1.5vh,13px);letter-spacing:.1em;margin-bottom:1vh;text-transform:uppercase}
 .card .t{font-weight:800;font-size:clamp(15px,2.5vh,23px);line-height:1.3}
 .card .d{color:var(--ink-2);font-size:clamp(12px,1.85vh,16px);line-height:1.55;margin-top:1vh}
-.num{font-size:clamp(26px,5vh,50px);font-weight:900;color:var(--brand);letter-spacing:-.02em}
+.num{font-size:clamp(26px,5vh,50px);font-weight:900;color:var(--brand);letter-spacing:-.02em;white-space:nowrap}
 .numl{color:var(--ink-2);font-size:clamp(12px,1.75vh,15px);margin-top:.6vh;line-height:1.45}
 .chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:.6vh 0}
 .chain .n{background:var(--card);border:1px solid var(--rule);border-radius:12px;
@@ -100,6 +100,11 @@ ul.big li::before{content:"";position:absolute;left:.2ch;top:calc(.9vh + .6em);w
 .kicker{color:var(--ink-3);font-size:clamp(13px,2vh,17px);margin-top:3.4vh}
 .trail{margin-top:4vh;max-width:520px;opacity:.9}
 .hint{position:fixed;right:2vw;bottom:5.6vh;color:var(--ink-3);font-size:12px;opacity:.85;z-index:8}
+.end{align-items:center;text-align:center;justify-content:center}
+.end img{height:clamp(90px,18vh,170px);margin-bottom:4.5vh}
+.end .pj{font-size:clamp(17px,2.8vh,26px);font-weight:800;color:var(--ink-2);letter-spacing:.02em}
+.end .pd{color:var(--brand);font-weight:800;letter-spacing:.16em;font-size:clamp(12px,1.9vh,16px);margin-top:1.6vh}
+.end .nm{color:var(--ink-3);font-size:clamp(13px,2vh,17px);margin-top:3.4vh;line-height:1.7}
 @media (max-width:760px){
   .grid2,.grid3,.duo,.split{grid-template-columns:1fr}
   .split>div+div{border-left:none;border-top:1px solid var(--rule)}
@@ -295,8 +300,8 @@ document.addEventListener('DOMContentLoaded',function(){
       <div class="d">학습 서버·환경 구축 · 실행 파이프라인 · 실험 자동화. 웹 풀스택, 서버 구성·운영.</div></div>
     <div class="card"><div class="k">Perception · Data</div><div class="t">오현민</div>
       <div class="d">센서·인지 데이터 처리 · 실험 결과 정량 검증 · 결과 화면 구현. 컴퓨터비전 분류.</div></div>
-    <div class="card" style="border-color:var(--brand)"><div class="k">6th Member · 전담 멘토</div><div class="t">오늘부터, 당신의 자리</div>
-      <div class="d">매일 오전 9~12시를 함께합니다. 현장의 기준으로 우리 실험과 코드를 검증해 주세요.</div></div>
+    <div class="card" style="border-color:var(--brand)"><div class="k">6th Member · 전담 멘토</div><div class="t">현직 전문가 (8/20 합류)</div>
+      <div class="d">매일 오전 9~12시 협업. 현장의 기준으로 우리 실험과 코드를 검증받는다.</div></div>
   </div>
 </section>
 
@@ -309,8 +314,8 @@ document.addEventListener('DOMContentLoaded',function(){
       <div class="t">재난·위험 현장의 첫 진입</div>
       <div class="d">화재·붕괴 현장에서 대원 안전 확보와 현장 파악을 위한 사족보행 로봇은 정부 과제로 추진되는 실수요다 (현장 지휘 지원·대원 안전 확보 과제, RND).</div></div>
     <div class="card"><div class="k">공백</div>
-      <div class="t">순정 보행의 «위»가 비어 있다</div>
-      <div class="d">순정 Go2는 계단·경사·발빠짐 정도는 이미 잘 걷는다 (조선대 BITE팀 대회 실증). 연약지반·잔해·불규칙 지형처럼 <b>순정이 커버하지 못하는 험지</b>가 우리가 서는 자리다.</div></div>
+      <div class="t">순정이 못 가는 험지가 남아 있다</div>
+      <div class="d">순정 Go2는 계단·경사·발빠짐 정도는 이미 잘 걷는다 (조선대 BITE팀 대회 실증). 하지만 연약지반·잔해·불규칙 지형은 여전히 어렵다. <b>그 험지가 우리의 무대다.</b></div></div>
   </div>
 </section>
 
@@ -405,8 +410,8 @@ document.addEventListener('DOMContentLoaded',function(){
       </ul>
     </div>
     <div class="media">
-      <img src="assets/visual/go2-back-lidar-20260814.jpg" alt="Unitree Go2 후면과 XT16 라이다" loading="lazy">
-      <div class="cap">조선대 보유 Go2 실물 확인 (8/14) · 상단 XT16 라이다 · RJ45 유선 확인</div>
+      <img src="assets/visual/00_reference_unitree_official.png" alt="Unitree 공식 레퍼런스: Go2 계곡 도하 프레임" loading="lazy">
+      <div class="cap">Unitree 공식 레퍼런스 · Go2 계곡 도하 (순정 보행의 검증된 기반, 프레임 그리드)</div>
     </div>
   </div>
 </section>
@@ -454,8 +459,8 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">09 · Timeline</div>
   <h2>역산으로 움직인다 <span class="tag" style="margin-left:.6vw">A = 시뮬</span><span class="tag" style="background:transparent;border:1.5px solid var(--brand)">B = 실물</span></h2>
   <div>
-    <div class="lane"><div class="w">지금 · 8월</div><div><span class="tkm mA">A</span>험지 세트 확정 · 트윈 씬 준비 <span class="tkm mB" style="margin-left:1.2ch">B</span>ROS2 환경 구축(전원) · 킥오프</div></div>
-    <div class="lane"><div class="w">9월</div><div><span class="tkm mA">A</span>커리큘럼 학습 반복 · 미학습 평가 · 트윈·렌더 완성 · 발표 리허설</div></div>
+    <div class="lane"><div class="w">지금 · 8월</div><div><span class="tkm mA">A</span>험지 세트 확정 · 트윈 씬 준비 <span class="tkm mB" style="margin-left:1.2ch">B</span>병행 시작: ROS2 환경 구축(전원) · 조선대 금요 수업</div></div>
+    <div class="lane"><div class="w">9월</div><div><span class="tkm mA">A</span>커리큘럼 학습 반복 · 미학습 평가 · 트윈·렌더 완성 <span class="tkm mB" style="margin-left:1.2ch">B</span>ROS2·SLAM 학습 지속 (조선대 금) · Go2 연결 실습</div></div>
     <div class="lane"><div class="w">9/30</div><div><span class="tkm mA">A</span><b>중간발표 (Track A 완결)</b> <span class="tag note" style="margin-left:.8ch">일자 확인 중 · "10월 초" 언급</span></div></div>
     <div class="lane"><div class="w">10~11월</div><div><span class="tkm mB">B</span>SLAM 지도 · Nav2 튜닝 · 험지 코스 반복 실험 (조선대) <span class="tkm mA" style="margin-left:1.2ch">A</span>비교 리포트</div></div>
     <div class="lane" style="border-bottom:1px solid var(--rule)"><div class="w">12/11</div><div><span class="tkm mB">B</span><b>최종발표: 험지 코스 자율주행 완주 시연</b> <span class="tkm mX" style="margin-left:1.2ch">A+B</span>두 트랙 비교 리포트</div></div>
@@ -478,8 +483,17 @@ document.addEventListener('DOMContentLoaded',function(){
   전체 자료: <b>foothold-project.vercel.app</b> · 기획서는 홈의 «프로젝트 보고서»</p>
 </section>
 
+<!-- 12 엔딩 -->
+<section class="slide end" data-sec="마침">
+  <img src="assets/brand/foothold-lockup-stacked-dark.svg" alt="FOOTHOLD">
+  <div class="pj">Unitree Go2 미경험 험지 적응 프로젝트</div>
+  <div class="pd">2026.07 ~ 2026.12.11</div>
+  <div class="nm">오흥재 · 임석헌 · 오현민 · 맹라현 · 이민우 · 전담 멘토<br>
+  foothold-project.vercel.app</div>
+</section>
+
 <div class="foot">
-  <span id="cnt">1 / 11</span>
+  <span id="cnt">1 / 12</span>
   <span class="r">
     <a href="index.html">웹으로 나가기</a>
     <button id="fs">전체화면 (F)</button>
