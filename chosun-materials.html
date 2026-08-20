@@ -222,7 +222,8 @@ document.getElementById('go').addEventListener('click', async ()=>{
   try{
     const man = await loadMan();
     KEY = await deriveKey(document.getElementById('pw').value, man.salt, man.iters);
-    await decryptFile(man.items[0].file);   // 검증: 첫 파일 복호화 시도
+    const cb = Uint8Array.from(man.check.match(/../g).map(h=>parseInt(h,16)));
+    await crypto.subtle.decrypt({name:'AES-GCM', iv:cb.slice(0,12)}, KEY, cb.slice(12));
   }catch(e){ err.textContent='비밀번호가 맞지 않습니다.'; KEY=null; return; }
   document.getElementById('gate').style.display='none';
   const list = document.getElementById('list'); list.style.display='block';
