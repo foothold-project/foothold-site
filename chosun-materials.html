@@ -16,22 +16,50 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 .wrap{max-width:960px;margin:0 auto;padding:28px 20px 80px}
 h1{font-size:1.5rem;margin:.4rem 0}
 .note{font-size:.85rem;color:var(--ink-2,#3d4a58);line-height:1.6}
-.gate{border:1px solid var(--rule,#d8d4c8);border-top:3px solid var(--dim,#0e7a6e);
+.gate{border:1px solid var(--rule,#d8d4c8);border-top:3px solid var(--dim,var(--dim));
   background:var(--card,#fbfaf6);padding:22px;margin:22px 0;border-radius:8px;max-width:460px}
 .gate input{width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid var(--rule,#d8d4c8);
-  border-radius:5px;margin:.4rem 0;background:var(--paper,#fff);color:inherit}
+  border-radius:5px;margin:.4rem 0;background:var(--paper,var(--card));color:inherit}
 .gate button{padding:.55rem 1.2rem;font-weight:800;border:none;border-radius:5px;
-  background:var(--dim,#0e7a6e);color:#fff;cursor:pointer;font-size:.9rem}
+  background:var(--dim,var(--dim));color:#fff;cursor:pointer;font-size:.9rem}
 .gate .err{color:#b3452c;font-size:.8rem;min-height:1.2em}
 .item{border:1px solid var(--rule,#d8d4c8);border-radius:8px;background:var(--card,#fbfaf6);
   padding:16px 18px;margin:14px 0}
 .item b{font-size:.98rem}
 .item .m{font-size:.75rem;color:var(--ink-3,#6b7683);margin:.2rem 0 .6rem}
-.item button{margin-right:.5rem;padding:.4rem .9rem;font-weight:700;border:1px solid var(--dim,#0e7a6e);
-  border-radius:5px;background:transparent;color:var(--dim,#0e7a6e);cursor:pointer}
+.item button{margin-right:.5rem;padding:.4rem .9rem;font-weight:700;border:1px solid var(--dim,var(--dim));
+  border-radius:5px;background:transparent;color:var(--dim,var(--dim));cursor:pointer}
 embed.viewer{width:100%;height:80vh;border:1px solid var(--rule,#d8d4c8);border-radius:6px;margin-top:10px}
 #list{display:none}
 </style>
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
+<!--newbadge:v5--><style>
+a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
+  margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
+  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
+</style>
+<script>
+(function(){
+  var W=7*86400000,KEY='fh_seen';
+  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
+    .replace(/\.html$/,'');return s||'index'}
+  function apply(){
+    var seen={},raw={};
+    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+    for(var k in raw)seen[norm(k)]=raw[k];
+    seen[norm(location.pathname)]=Date.now();
+    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
+    document.querySelectorAll('a[data-added]').forEach(function(a){
+      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
+      var tgt=norm(a.getAttribute('href'));
+      a.classList.toggle('is-new',
+        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
+    });
+  }
+  document.addEventListener('DOMContentLoaded',apply);
+  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
+})();
+</script>
 <!--search:v7--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
@@ -219,6 +247,13 @@ document.getElementById('go').addEventListener('click', async ()=>{
         em.src = URL.createObjectURL(new Blob([data],{type:'application/pdf'}));
       };
       d.appendChild(v);
+      // 모바일 브라우저는 embed 인라인 PDF 가 불안정하다: 새 탭 경로를 항상 제공
+      const nt = document.createElement('button'); nt.textContent='새 탭에서 보기';
+      nt.onclick = async ()=>{
+        const data = await decryptFile(it.file);
+        window.open(URL.createObjectURL(new Blob([data],{type:'application/pdf'})), '_blank');
+      };
+      d.appendChild(nt);
     }
     list.appendChild(d);
   }
@@ -227,5 +262,30 @@ document.getElementById('pw').addEventListener('keydown', e=>{
   if(e.key==='Enter') document.getElementById('go').click();
 });
 </script>
+<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+<style>
+#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
+  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
+  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
+  line-height:1.3;white-space:nowrap}
+#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#themeBtn:active{transform:translateY(1px)}
+@media print{#themeBtn{display:none!important}}
+</style>
+<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
+<script>(function(){
+  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
+      mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function apply(t){d.setAttribute('data-theme',t);
+    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
+  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
+  apply(cur());
+  b.addEventListener('click',function(){
+    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
+  mq.addEventListener&&mq.addEventListener('change',function(){
+    if(!localStorage.getItem(K))apply(cur());});
+})();</script>
+
 </body>
 </html>
