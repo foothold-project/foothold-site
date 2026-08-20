@@ -267,7 +267,7 @@ document.getElementById('go').addEventListener('click', async ()=>{
             box.appendChild(cv);
             await pg.render({canvasContext:cv.getContext('2d'), viewport:vp}).promise;
           }
-        }catch(e){ alert('열기 실패: '+e.message); }
+        }catch(e){ const er=document.createElement('div'); er.style.cssText='color:#b3452c;font-size:.8rem;margin-top:6px'; er.textContent='열기 실패: '+e.message; d.appendChild(er); console.error('viewer', e); }
         v.disabled = false; v.textContent = '여기서 보기';
       };
       d.appendChild(v);
