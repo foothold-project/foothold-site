@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>FOOTHOLD · 프로젝트 소개 덱</title>
+<link rel="icon" href="assets/brand/foothold-favicon.svg">
+<style>
+/* 발표용 페이지: 프로젝터·줌 공유 가독성을 위해 다크 단일 룩으로 고정한다 (DESIGN-GUIDE 예외, 팀장 지시 08-20 킥오프) */
+:root{
+  --paper:#0e1218; --paper-2:#141a23; --card:#181d26;
+  --ink:#e9e7e1; --ink-2:#adb5c1; --ink-3:#7d8693;
+  --rule:#2b323d; --brand:#3ec7b4; --dim:var(--brand); --dim-soft:#11302c;
+  --note:#dc9a30; --note-soft:#332710;
+  --stop:#e56d5e; --stop-soft:#331c19;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);
+  font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',system-ui,sans-serif;
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:7vh 8vw;background:
+  radial-gradient(1200px 600px at 85% -10%, rgba(62,199,180,.07), transparent 60%),var(--paper)}
+.slide.on{display:flex}
+.eyebrow{color:var(--brand);font-weight:800;letter-spacing:.14em;font-size:clamp(11px,1.4vh,15px);
+  text-transform:uppercase;margin-bottom:2.2vh}
+h1{font-size:clamp(30px,7vh,64px);line-height:1.16;font-weight:900;letter-spacing:-.02em}
+h2{font-size:clamp(24px,5.2vh,46px);line-height:1.2;font-weight:900;letter-spacing:-.02em;margin-bottom:3.6vh}
+.sub{color:var(--ink-2);font-size:clamp(15px,2.4vh,22px);line-height:1.55;margin-top:2.6vh;max-width:60ch}
+b,strong{color:var(--ink)}
+.mark{color:var(--brand)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.4vh 2.4vw}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2vh 1.8vw}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:3vh 2vw}
+.card .k{color:var(--brand);font-weight:800;font-size:clamp(11px,1.5vh,14px);letter-spacing:.1em;margin-bottom:1.2vh}
+.card .t{font-weight:800;font-size:clamp(16px,2.6vh,24px);line-height:1.3}
+.card .d{color:var(--ink-2);font-size:clamp(13px,1.9vh,17px);line-height:1.55;margin-top:1.2vh}
+.num{font-size:clamp(28px,5.4vh,52px);font-weight:900;color:var(--brand);letter-spacing:-.02em}
+.numl{color:var(--ink-2);font-size:clamp(12px,1.8vh,16px);margin-top:.6vh;line-height:1.45}
+.chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:1vh 0}
+.chain .n{background:var(--card);border:1px solid var(--rule);border-radius:12px;
+  padding:1.6vh 1.4vw;font-weight:700;font-size:clamp(12px,2vh,18px);line-height:1.35;
+  display:flex;align-items:center;text-align:center}
+.chain .a{display:flex;align-items:center;color:var(--brand);font-weight:900;padding:0 .7vw;
+  font-size:clamp(14px,2.4vh,22px)}
+.tag{display:inline-block;background:var(--dim-soft);color:var(--brand);border-radius:999px;
+  padding:.5vh 1.2vw;font-weight:800;font-size:clamp(11px,1.7vh,15px);margin-right:.6vw}
+.tag.note{background:var(--note-soft);color:var(--note)}
+ul.big{list-style:none;margin-top:1vh}
+ul.big li{font-size:clamp(15px,2.5vh,23px);line-height:1.5;padding:1.1vh 0 1.1vh 2.2ch;position:relative;color:var(--ink-2)}
+ul.big li::before{content:"";position:absolute;left:.2ch;top:calc(1.1vh + .62em);width:.7ch;height:.7ch;
+  border-radius:50%;background:var(--brand);transform:translateY(-50%)}
+.foot{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;
+  padding:1.4vh 2vw;color:var(--ink-3);font-size:12px;z-index:5;pointer-events:none}
+.foot .r{display:flex;gap:14px;align-items:center;pointer-events:auto}
+.foot button,.foot a{background:none;border:1px solid var(--rule);color:var(--ink-3);border-radius:8px;
+  padding:4px 10px;font-size:12px;cursor:pointer;text-decoration:none}
+.bar{position:fixed;top:0;left:0;height:3px;background:var(--brand);width:0;z-index:6;transition:width .25s}
+.wm{height:clamp(26px,4.6vh,44px);margin-bottom:4vh}
+.kicker{color:var(--ink-3);font-size:clamp(13px,2vh,18px);margin-top:4vh}
+table.sched{width:100%;border-collapse:collapse;margin-top:1vh}
+table.sched td{border-top:1px solid var(--rule);padding:1.6vh 1vw;font-size:clamp(13px,2.2vh,20px);vertical-align:top}
+table.sched td:first-child{color:var(--brand);font-weight:800;white-space:nowrap;width:11ch}
+.hint{position:fixed;right:2vw;bottom:6vh;color:var(--ink-3);font-size:12px;opacity:.85;z-index:5}
+@media (max-width:760px){
+  .grid2,.grid3{grid-template-columns:1fr}
+  .slide{padding:6vh 7vw;overflow-y:auto;justify-content:flex-start}
+  .chain{flex-direction:column}
+  .chain .a{transform:rotate(90deg);padding:.4vh 0;justify-content:center}
+}
+</style>
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="var(--dim)">
+<!--newbadge:v5--><style>
+a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
+  margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
+  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
+</style>
+<script>
+(function(){
+  var W=7*86400000,KEY='fh_seen';
+  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
+    .replace(/\.html$/,'');return s||'index'}
+  function apply(){
+    var seen={},raw={};
+    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+    for(var k in raw)seen[norm(k)]=raw[k];
+    seen[norm(location.pathname)]=Date.now();
+    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
+    document.querySelectorAll('a[data-added]').forEach(function(a){
+      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
+      var tgt=norm(a.getAttribute('href'));
+      a.classList.toggle('is-new',
+        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
+    });
+  }
+  document.addEventListener('DOMContentLoaded',apply);
+  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
+})();
+</script>
+<!--search:v7--><style>
+@media (max-width:640px){
+  .top .row{flex-wrap:nowrap}
+  .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}
+  .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
+  .topbar .stage-chip{display:none}
+  .topbar .row{gap:.3rem}
+  .topbar .tbtn{padding:.32rem .5rem}
+  .topbar .counter{font-size:.62rem}
+  .fh-sbtn{display:inline-flex!important}
+  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
+    -webkit-overflow-scrolling:touch}
+  header.top{padding-top:28px}
+}
+.fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
+  border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
+  font-size:.55rem;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:4px;
+  display:inline-flex;align-items:center;gap:5px}
+.fh-so{position:fixed;inset:0;background:rgba(10,14,16,.45);z-index:300;display:none}
+.fh-so.on{display:flex;align-items:flex-start;justify-content:center;padding:9vh 14px 0}
+.fh-sp{width:min(560px,100%);background:var(--paper);border:1px solid var(--rule);
+  border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.32);overflow:hidden}
+.fh-sp input{width:100%;padding:.75rem .95rem;font-size:16px;border:0;
+  border-bottom:1px solid var(--rule);background:var(--paper);color:var(--ink);
+  font-family:inherit;outline:none}
+.fh-sr{max-height:56vh;overflow-y:auto}
+.fh-sr a{display:block;padding:.55rem .95rem;text-decoration:none;color:inherit;
+  border-bottom:1px solid var(--rule)}
+.fh-sr a:last-child{border-bottom:none}
+.fh-sr a:hover,.fh-sr a.sel{background:var(--dim-soft)}
+.fh-sr .sp1{font-size:.66rem;color:var(--dim);font-weight:800;letter-spacing:.03em}
+.fh-sr .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
+.fh-sr .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
+.fh-sr .none{padding:.7rem .95rem;font-size:.76rem;color:var(--ink-3)}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  /* 스마트 뒤로가기: 같은 사이트에서 들어왔으면 히스토리로 (진입 경로 보존) */
+  var home=document.querySelector('a.home');
+  if(home&&document.referrer){
+    try{var r=new URL(document.referrer);
+      if(r.origin===location.origin&&r.pathname!==location.pathname&&history.length>1){
+        home.addEventListener('click',function(e){e.preventDefault();history.back();});
+      }}catch(err){}
+  }
+  /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
+  var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
+  var sb=document.createElement('button');sb.type='button';
+  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
+  sb.setAttribute('aria-label','사이트 검색');
+  sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
+    +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
+    +'<circle cx="7" cy="7" r="4.2"/><path d="M10.4 10.4L14 14"/></svg>검색';
+  if(pb)pb.parentNode.insertBefore(sb,pb);else document.body.appendChild(sb);
+  function offset(){ /* PDF 버튼이 화면 고정형이면 그 왼쪽에 나란히 고정 */
+    if(!pb)return;var cs=getComputedStyle(pb);
+    var r=pb.getBoundingClientRect();
+    if(cs.display==='none'||r.width===0){ /* PDF 가 숨겨진 화면(백과 모바일): 검색이 그 자리에 */
+      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='70';
+    }else if(cs.position==='fixed'){
+      sb.style.position='fixed';sb.style.top=r.top+'px';
+      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
+    }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
+  offset();window.addEventListener('resize',offset);
+  /* 오버레이 */
+  var ov=document.createElement('div');ov.className='fh-so';
+  ov.innerHTML='<div class="fh-sp"><input type="search" placeholder="검색 (제목 · 절 · 본문)" '
+    +'aria-label="사이트 검색"><div class="fh-sr"></div></div>';
+  document.body.appendChild(ov);
+  var inp=ov.querySelector('input'),res=ov.querySelector('.fh-sr'),IDX=null,sel=-1;
+  function open(){ov.classList.add('on');inp.focus();inp.select();}
+  function close(){ov.classList.remove('on');}
+  sb.addEventListener('click',open);
+  ov.addEventListener('mousedown',function(e){if(e.target===ov)close();});
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
+    else if(e.key==='Escape'&&ov.classList.contains('on'))close();
+  });
+  function load(cb){if(IDX)return cb();
+    fetch('assets/search-index.json').then(function(r){return r.json()})
+      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function go(){
+    var q=inp.value.trim().toLowerCase();sel=-1;
+    if(q.length<2){res.innerHTML='';return;}
+    load(function(){
+      var hits=[];
+      for(var i=0;i<IDX.length&&hits.length<40;i++){
+        var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
+            pi=e.t.toLowerCase().indexOf(q);
+        if(hi<0&&ti<0&&pi<0)continue;
+        var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
+        var snip='';
+        if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
+        hits.push({e:e,s:score,snip:snip});
+      }
+      hits.sort(function(a,b){return b.s-a.s});
+      hits=hits.slice(0,12);
+      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      else{res.innerHTML=hits.map(function(h){
+        return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
+          +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
+          +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
+    });
+  }
+  inp.addEventListener('input',go);
+  inp.addEventListener('keydown',function(e){
+    e.stopPropagation(); /* 커리큘럼 등 자체 키보드 내비게이션 페이지로 새지 않게 */
+    if(e.key==='Escape'){close();return;}
+    var as=res.querySelectorAll('a');if(!as.length)return;
+    if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,as.length-1);}
+    else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);}
+    else if(e.key==='Enter'&&sel>=0){e.preventDefault();as[sel].click();return;}
+    else return;
+    as.forEach(function(a,i){a.classList.toggle('sel',i===sel)});
+    if(as[sel])as[sel].scrollIntoView({block:'nearest'});
+  });
+});
+</script>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+
+<!-- 1 표지 -->
+<section class="slide on">
+  <img class="wm" src="assets/brand/foothold-wordmark-reverse.svg" alt="FOOTHOLD">
+  <div class="eyebrow">Final Project · Kick-off 2026-08-20</div>
+  <h1>Unitree Go2,<br>미경험 험지를 <span class="mark">적응</span>해서 건넌다</h1>
+  <p class="sub">시뮬레이션 강화학습과 디지털 트윈으로 검증하고(9/30), 실물 Go2 자율주행으로 완성한다(12/11).</p>
+  <p class="kicker">FOOTHOLD · 오흥재(팀장) · 임석헌 · 오현민 · 맹라현 · 이민우 · 그리고 여섯 번째 멤버를 환영합니다</p>
+</section>
+
+<!-- 2 왜 -->
+<section class="slide">
+  <div class="eyebrow">01 · Why</div>
+  <h2>사람이 못 들어가는 곳에 먼저 들어가는 발</h2>
+  <div class="grid2">
+    <div class="card"><div class="k">문제</div>
+      <div class="t">재난·위험 현장의 첫 진입</div>
+      <div class="d">화재·붕괴 현장에서 대원 안전 확보와 현장 파악을 위한 사족보행 로봇은 이미 정부 과제로 추진되는 실수요다 (현장 지휘 지원·대원 안전 확보 과제, RND).</div></div>
+    <div class="card"><div class="k">공백</div>
+      <div class="t">순정 보행의 «위»가 비어 있다</div>
+      <div class="d">순정 Go2는 계단·경사·발빠짐 정도는 이미 잘 걷는다 (조선대 BITE팀 대회 실증). 연약지반·잔해·불규칙 지형처럼 <b>순정이 커버하지 못하는 험지</b>가 우리가 서는 자리다.</div></div>
+  </div>
+</section>
+
+<!-- 3 전략 -->
+<section class="slide">
+  <div class="eyebrow">02 · Strategy</div>
+  <h2>두 트랙: 시뮬로 <span class="mark">증명</span>하고, 실물로 <span class="mark">완성</span>한다</h2>
+  <div class="grid2">
+    <div class="card"><div class="k">Track A · 중간발표 (9/30)</div>
+      <div class="t">시뮬 강화학습 + 디지털 트윈 완결</div>
+      <div class="d">Isaac Lab에서 우리가 정의한 험지로 보행 정책을 학습하고, <b>미학습 지형 일반화</b>를 정량 검증. 디지털 트윈과 실사급 렌더로 눈에 보이는 증거를 만든다.</div></div>
+    <div class="card"><div class="k">Track B · 최종발표 (12/11)</div>
+      <div class="t">실물 Go2 자율주행 시연</div>
+      <div class="d">검증된 순정 보행 위에 ROS2·SLAM·Nav2 항법을 얹어 <b>지정 험지 코스를 자율주행으로 완주</b>. 조선대 인프라(장비·XT16·교수 멘토링)와 연계.</div></div>
+  </div>
+  <p class="sub">한 문장으로: <b>같은 험지에 두 개의 답</b>을 만든다. 트윈 안에서는 학습으로, 현장에서는 항법으로.</p>
+</section>
+
+<!-- 4 트랙 A -->
+<section class="slide">
+  <div class="eyebrow">03 · Track A</div>
+  <h2>학습·평가 파이프라인은 이미 돌아간다</h2>
+  <div class="chain">
+    <div class="n">험지 정의<br>(지형 생성)</div><div class="a">→</div>
+    <div class="n">커리큘럼<br>강화학습</div><div class="a">→</div>
+    <div class="n">미학습 지형<br>정량 평가</div><div class="a">→</div>
+    <div class="n">디지털 트윈<br>구축</div><div class="a">→</div>
+    <div class="n">실사급 렌더<br>·시연 영상</div>
+  </div>
+  <div class="grid3" style="margin-top:3vh">
+    <div class="card"><div class="num">86.7%</div><div class="numl">기준선 정책 성공률 실측<br>(1,500 iter, 자체 평가 파이프라인)</div></div>
+    <div class="card"><div class="num">6,000회+</div><div class="numl">정책 하나당 평가 에피소드<br>(지형·난이도 격자 전수)</div></div>
+    <div class="card"><div class="num">45차원</div><div class="numl">RoboGauge 공개 정책 관측 매핑 확정<br>(외부 비교군 확보)</div></div>
+  </div>
+</section>
+
+<!-- 5 트랙 B -->
+<section class="slide">
+  <div class="eyebrow">04 · Track B</div>
+  <h2>실기: 검증된 길로, 그러나 우리 코스에서</h2>
+  <div class="chain">
+    <div class="n">ROS2 기초<br>(조선대 커리큘럼)</div><div class="a">→</div>
+    <div class="n">Go2 연결<br>·원격 제어</div><div class="a">→</div>
+    <div class="n">SLAM<br>지도 작성</div><div class="a">→</div>
+    <div class="n">Nav2<br>경로 계획</div><div class="a">→</div>
+    <div class="n">험지 코스<br>자율주행 시연</div>
+  </div>
+  <ul class="big" style="margin-top:2.4vh">
+    <li>8/19 조선대 방문에서 교수와 방향 가이드 확정. 매주 금 수업·멘토링으로 진행</li>
+    <li>저수준 제어 이식은 안전장치(와이어 리깅 등) 부재로 <b>목표에서 제외</b>: 검증된 순정 보행 위에 항법을 쌓는다</li>
+    <li>트윈에서 코스를 먼저 리허설하고 현장에서 재현: 트랙 A가 트랙 B의 예행연습장</li>
+  </ul>
+</section>
+
+<!-- 6 연결 -->
+<section class="slide">
+  <div class="eyebrow">05 · Bridge</div>
+  <h2>두 트랙은 서로의 증거가 된다</h2>
+  <div class="grid3">
+    <div class="card"><div class="k">같은 험지, 두 답</div>
+      <div class="t">학습 vs 항법 비교</div>
+      <div class="d">동일 험지를 트윈에서는 학습 정책으로, 실물에서는 항법으로 건너 성능과 한계를 비교 리포트로 남긴다.</div></div>
+    <div class="card"><div class="k">트윈 리허설</div>
+      <div class="t">현장 실험의 예행연습</div>
+      <div class="d">실기 코스를 디지털 트윈으로 먼저 세워 SLAM·Nav2 설정을 시뮬에서 튜닝하고 현장 시간을 아낀다.</div></div>
+    <div class="card"><div class="k">관측 연속성</div>
+      <div class="t">시뮬과 실물의 같은 언어</div>
+      <div class="d">시뮬 관측 체계(IMU·관절·명령)와 실물 센서 스택을 같은 좌표로 정리해 분석이 이어지게 한다.</div></div>
+  </div>
+</section>
+
+<!-- 7 자산 -->
+<section class="slide">
+  <div class="eyebrow">06 · Assets</div>
+  <h2>4주간 쌓은 것: 말이 아니라 실측</h2>
+  <div class="grid3">
+    <div class="card"><div class="num">11편</div><div class="numl">공개 연구 문서 (실측·근거·정정 이력 포함, 웹 게시)</div></div>
+    <div class="card"><div class="num">1.75s</div><div class="numl">프레임당 실사급 Path Tracing 렌더 벤치 (Marbles, RTX 5080)</div></div>
+    <div class="card"><div class="num">100%</div><div class="numl">회의 기록률: 전 회의 화자분리 전사(MOSS) + 타임코드 보고서</div></div>
+  </div>
+  <p class="sub">전부 웹에 있다: 연구 기록·보고서·회의 기록·팀 자료실. <b>foothold-project.vercel.app</b> 하나로 프로젝트 전체가 열람된다. 틀렸던 판단과 정정 이력도 남긴다: 번복의 기록이 곧 검증의 증거다.</p>
+</section>
+
+<!-- 8 팀·운영 -->
+<section class="slide">
+  <div class="eyebrow">07 · Team &amp; Ops</div>
+  <h2>다섯 명 + 여섯 번째 멤버</h2>
+  <div class="grid2">
+    <div class="card"><div class="k">팀</div>
+      <div class="t">오흥재(팀장) · 임석헌(부팀장) · 오현민 · 맹라현 · 이민우</div>
+      <div class="d">역할 매트릭스는 두 트랙 기준으로 이번 주 확정 (RL·지형 / 트윈·렌더 / SLAM·Nav2 / 통합·기록). 팀장 축: 강화학습·디지털 트윈·VFX 12년.</div></div>
+    <div class="card"><div class="k">운영 체계</div>
+      <div class="t">기록이 남는 협업</div>
+      <div class="d">웹 자동 게시 파이프라인 · inbox 제출 흐름 · 회의 전사 상설 · 조선대(금) + 외부 전문가 멘토링 병행 · GIST GPU·이스트 물리서버·WS RTX 5080×2.</div></div>
+  </div>
+  <p class="sub"><span class="tag">환영</span> 전담 멘토님은 <b>매일 오전 9~12시</b> 우리와 함께합니다. 이 덱의 마지막 장이 저희의 첫 제안입니다.</p>
+</section>
+
+<!-- 9 일정 -->
+<section class="slide">
+  <div class="eyebrow">08 · Timeline</div>
+  <h2>역산으로 움직인다</h2>
+  <table class="sched">
+    <tr><td>지금 · 8월</td><td>킥오프 · 험지 세트 확정 · ROS2 환경 구축(전원) · 트윈 씬 준비</td></tr>
+    <tr><td>9월</td><td>커리큘럼 학습 반복 · 미학습 지형 평가 · 디지털 트윈·렌더 완성 · 발표 리허설</td></tr>
+    <tr><td><b>9/30</b></td><td><b>중간발표 (Track A 완결)</b> · 공지상 "10월 초" 언급이 있어 일자 확인 중</td></tr>
+    <tr><td>10~11월</td><td>실물 Go2: SLAM 지도 · Nav2 튜닝 · 험지 코스 반복 실험 (조선대)</td></tr>
+    <tr><td><b>12/11</b></td><td><b>최종발표: 험지 코스 자율주행 시연 + 두 트랙 비교 리포트</b></td></tr>
+  </table>
+</section>
+
+<!-- 10 멘토께 -->
+<section class="slide">
+  <div class="eyebrow">09 · To Our Mentor</div>
+  <h2>오전 3시간, 이렇게 쓰고 싶습니다 <span class="tag note">제안</span></h2>
+  <div class="grid3">
+    <div class="card"><div class="k">매주 시작</div><div class="t">방향 점검 30분</div>
+      <div class="d">주간 목표와 리스크를 함께 확인. 남은 결정 안건을 하나씩 닫는다.</div></div>
+    <div class="card"><div class="k">매일</div><div class="t">오피스아워</div>
+      <div class="d">막힌 곳을 그날 해소. 질문은 웹 질문 지도에 쌓아 중복을 없앤다.</div></div>
+    <div class="card"><div class="k">주 1회</div><div class="t">깊은 리뷰</div>
+      <div class="d">코드·아키텍처·실험 설계를 실물 기준으로 검증받는다.</div></div>
+  </div>
+  <p class="sub" style="margin-top:3vh"><b>이번 주 함께 정하고 싶은 것</b>: ① 트랙 A 험지 세트 ② 트랙 B 실기 코스 ③ 역할 매트릭스 ④ 외부 멘토링 주기 ⑤ 중간발표 일자 확인.<br>
+  전체 자료: <b>foothold-project.vercel.app</b> · 기획서는 홈의 «프로젝트 보고서»</p>
+</section>
+
+<div class="foot">
+  <span id="cnt">1 / 10</span>
+  <span class="r">
+    <a href="index.html">웹으로 나가기</a>
+    <button id="fs">전체화면 (F)</button>
+  </span>
+</div>
+<div class="hint">← → 방향키 · 클릭으로 진행</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var cur = 0;
+  var h = parseInt((location.hash || '').replace('#', ''), 10);
+  if (h >= 1 && h <= slides.length) cur = h - 1;
+  function show(i){
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach(function(s, k){ s.classList.toggle('on', k === cur); });
+    document.getElementById('cnt').textContent = (cur + 1) + ' / ' + slides.length;
+    document.getElementById('bar').style.width = ((cur + 1) / slides.length * 100) + '%';
+    history.replaceState(null, '', '#' + (cur + 1));
+  }
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { show(cur + 1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { show(cur - 1); e.preventDefault(); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+    else if (e.key === 'f' || e.key === 'F') toggleFS();
+  });
+  document.addEventListener('click', function(e){
+    if (e.target.closest('a') || e.target.closest('button')) return;
+    var x = e.clientX / window.innerWidth;
+    show(x < 0.3 ? cur - 1 : cur + 1);
+  });
+  var tx = null;
+  document.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (tx === null) return;
+    var dx = e.changedTouches[0].clientX - tx; tx = null;
+    if (dx < -40) show(cur + 1); else if (dx > 40) show(cur - 1);
+  }, {passive:true});
+  function toggleFS(){
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+  }
+  document.getElementById('fs').addEventListener('click', toggleFS);
+  show(cur);
+})();
+</script>
+
+
+<style>html[data-theme="light"]{--paper:#0e1218;--paper-2:#141a23;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:var(--brand);--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+<style>
+#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
+  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
+  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
+  line-height:1.3;white-space:nowrap}
+#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#themeBtn:active{transform:translateY(1px)}
+@media print{#themeBtn{display:none!important}}
+</style>
+<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
+<script>(function(){
+  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
+      mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function apply(t){d.setAttribute('data-theme',t);
+    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
+  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
+  apply(cur());
+  b.addEventListener('click',function(){
+    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
+  mq.addEventListener&&mq.addEventListener('change',function(){
+    if(!localStorage.getItem(K))apply(cur());});
+})();</script>
+
+</body>
+</html>
