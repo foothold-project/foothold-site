@@ -18,13 +18,14 @@ h1{font-size:1.5rem;margin:.4rem 0}
 .note{font-size:.85rem;color:var(--ink-2,#3d4a58);line-height:1.6}
 .gate{border:1px solid var(--rule,#d8d4c8);border-top:3px solid var(--dim,var(--dim));
   background:var(--card,#fbfaf6);padding:22px;margin:22px 0;border-radius:8px;max-width:460px}
-.gate input{width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid var(--rule,#d8d4c8);
+.gate input{width:100%;box-sizing:border-box;padding:.6rem .8rem;font-size:16px;border:1px solid var(--rule,#d8d4c8);
   border-radius:5px;margin:.4rem 0;background:var(--paper,var(--card));color:inherit}
 .gate button{padding:.55rem 1.2rem;font-weight:800;border:none;border-radius:5px;
   background:var(--dim,var(--dim));color:#fff;cursor:pointer;font-size:.9rem}
 .gate .err{color:#b3452c;font-size:.8rem;min-height:1.2em}
 .item{border:1px solid var(--rule,#d8d4c8);border-radius:8px;background:var(--card,#fbfaf6);
   padding:16px 18px;margin:14px 0}
+.item .no{display:inline-block;background:var(--ink,#16202a);color:var(--paper,#fff);font-size:.68rem;font-weight:800;padding:.15rem .45rem;border-radius:3px;margin-right:.55rem;letter-spacing:.06em;vertical-align:.08em}
 .item b{font-size:.98rem}
 .item .m{font-size:.75rem;color:var(--ink-3,#6b7683);margin:.2rem 0 .6rem}
 .item button{margin-right:.5rem;padding:.4rem .9rem;font-weight:700;border:1px solid var(--dim,var(--dim));
@@ -227,9 +228,9 @@ document.getElementById('go').addEventListener('click', async ()=>{
   const list = document.getElementById('list'); list.style.display='block';
   for(const it of MAN.items){
     const d = document.createElement('div'); d.className='item';
-    d.innerHTML = '<b>'+it.title+'</b><div class="m">'+it.name+' · '
-      +(it.size/1048576).toFixed(1)+' MB</div>';
-    const dl = document.createElement('button'); dl.textContent='다운로드';
+    d.innerHTML = '<span class="no">'+it.no+'</span><b>'+it.title+'</b>'
+      +'<div class="m">'+it.name+' · '+(it.size/1048576).toFixed(1)+' MB · 등록 '+it.added+'</div>';
+    const dl = document.createElement('button'); dl.textContent='다운로드 (원본)';
     dl.onclick = async ()=>{
       const data = await decryptFile(it.file);
       const a = document.createElement('a');
@@ -237,20 +238,24 @@ document.getElementById('go').addEventListener('click', async ()=>{
       a.download = it.name; a.click();
     };
     d.appendChild(dl);
-    if(it.inline){
+    if(it.view){
       const v = document.createElement('button'); v.textContent='여기서 보기';
       v.onclick = async ()=>{
-        const data = await decryptFile(it.file);
         let em = d.querySelector('embed');
-        if(!em){ em = document.createElement('embed'); em.className='viewer';
-          em.type='application/pdf'; d.appendChild(em); }
+        if(em){ em.remove(); d.querySelector('.close').remove(); return; }
+        const data = await decryptFile(it.view);
+        em = document.createElement('embed'); em.className='viewer';
+        em.type='application/pdf';
         em.src = URL.createObjectURL(new Blob([data],{type:'application/pdf'}));
+        const cl = document.createElement('button'); cl.className='close';
+        cl.textContent='닫기'; cl.style.display='block'; cl.style.marginTop='8px';
+        cl.onclick = ()=>{ em.remove(); cl.remove(); };
+        d.appendChild(em); d.appendChild(cl);
       };
       d.appendChild(v);
-      // 모바일 브라우저는 embed 인라인 PDF 가 불안정하다: 새 탭 경로를 항상 제공
       const nt = document.createElement('button'); nt.textContent='새 탭에서 보기';
       nt.onclick = async ()=>{
-        const data = await decryptFile(it.file);
+        const data = await decryptFile(it.view);
         window.open(URL.createObjectURL(new Blob([data],{type:'application/pdf'})), '_blank');
       };
       d.appendChild(nt);
