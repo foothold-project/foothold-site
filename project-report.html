@@ -473,10 +473,10 @@ document.addEventListener('DOMContentLoaded',function(){
 <ol><li><b>트윈에서 먼저, 실물로 나중에</b>: 트랙 B의 자율주행 코스를 트랙 A의 디지털 트윈으로 먼저 복제해 시뮬레이션에서 리허설할 수 있다. &quot;가보지 않고 배운다&quot;는 주제가 두 트랙을 관통한다.</li><li><b>같은 험지, 두 개의 답</b>: 같은 험지를 시뮬에서는 우리 RL 정책이 배우고(트랙 A), 실물에서는 순정+항법이 건넌다(트랙 B). 두 접근의 비교 자체가 발표의 이야기가 된다.</li><li><b>관측의 연속성</b>: 트랙 A에서 다루는 시뮬 관측(높이맵·IMU·관절)과 트랙 B에서 다루는 실측 센서(LiDAR·IMU·오도메트리)는 같은 문제의 가상·실물 버전이다.</li></ol>
 </section>
 <section id="s7"><div class="rpt-eyebrow">07 · OPERATIONS</div><h2>운영 체계</h2>
-<div class="tw"><table><thead><tr><th>축</th><th>내용</th></tr></thead><tbody><tr><td>창구</td><td><b>김현우 PM</b> (이스트소프트, 1층 2사무실) · 적극 활용</td></tr><tr><td>조선대 협력</td><td>유성현 교수 · 이수혁 팀장(BITE) · 매주 금 수업/멘토링</td></tr><tr><td>외부 전문가</td><td>로보틱스·휴머노이드 CTO · 방향 전환 자문 + 트랙 A(RL MVP) 멘토링 · 주기 협의 중</td></tr><tr><td>컴퓨팅</td><td>WS RTX 5080×2 (학습·렌더) · GIST GPU 샌드박스 · 이스트 물리서버(RTX 2000×2)</td></tr><tr><td>기록</td><td>프로젝트 웹(연구 기록·보고서·자료실) + lab 저장소</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>축</th><th>내용</th></tr></thead><tbody><tr><td>창구</td><td><b>김현우 PM</b> (이스트소프트, 1층 2사무실) · 적극 활용</td></tr><tr><td>조선대 협력</td><td>유성현 교수 · 이수혁 팀장(BITE) · 매주 금 수업/멘토링</td></tr><tr><td><b>전담 멘토</b></td><td><b>현직자 전담 멘토 상주</b> (이스트소프트 직접 섭외) · <b>매일 오전 9~12시 고정</b> · 사실상 팀원처럼 협업 · 8/21(금) 오전 상견례 (8/20 확정)</td></tr><tr><td>외부 전문가</td><td>로보틱스·휴머노이드 CTO · 방향 전환 자문 + 트랙 A(RL MVP) 멘토링 · 전담 멘토와 별개로 <b>정기 병행</b> (8/20 약속)</td></tr><tr><td>컴퓨팅</td><td>WS RTX 5080×2 (학습·렌더) · GIST GPU 샌드박스 · 이스트 물리서버(RTX 2000×2)</td></tr><tr><td>기록</td><td>프로젝트 웹(연구 기록·보고서·자료실) + lab 저장소</td></tr></tbody></table></div>
 </section>
 <section id="s8"><div class="rpt-eyebrow">08 · DECISIONS REQUIRED</div><h2>남은 결정 안건</h2>
-<ol><li><b>트랙 A 험지 세트 확정</b>: &quot;우리가 정한 험지&quot;의 구체 스펙 (순정 상한 위의 비정형 지형 후보 중)</li><li><b>트랙 B 실기 코스·무대 선정</b>: 자율주행 시연 장소 (조선대 교내 후보 + 발표 반출 협의)</li><li><b>역할 매트릭스</b>: 5인의 메인+겹침 배치 (RL/Terrain·트윈/렌더·SLAM/Nav2·통합)</li><li><b>CTO 멘토링 요일</b>: 금 4시간 안에 대한 김현우 PM 피드백 대기 (조선대 금 수업과 충돌 조정)</li></ol>
+<ol><li><b>트랙 A 험지 세트 확정</b>: &quot;우리가 정한 험지&quot;의 구체 스펙 (순정 상한 위의 비정형 지형 후보 중)</li><li><b>트랙 B 실기 코스·무대 선정</b>: 자율주행 시연 장소 (조선대 교내 후보 + 발표 반출 협의)</li><li><b>역할 매트릭스</b>: 5인의 메인+겹침 배치 (RL/Terrain·트윈/렌더·SLAM/Nav2·통합)</li><li><b>외부 전문가(CTO) 정기 멘토링 주기</b>: 전담 멘토 체계(8/20)와의 병행 조건 이행 · 김현우 PM과 협의</li><li><b>중간발표 일자 확인</b>: 8/20 이사 언급 &quot;아마 10월 초&quot; · 공식 공지 대기 (현행 가정 9/30, 확정 시 로드맵 역산 갱신)</li></ol>
 </section>
 <section id="s9"><div class="rpt-eyebrow">09 · FINAL DEFINITION</div><h2>최종 정의와 산출물</h2>
 <blockquote><p><b>프로젝트의 최종 결과 정의 (v2)</b>
