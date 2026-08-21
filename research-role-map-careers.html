@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>역할 지도: 이 프로젝트가 각자를 어떤 직무로 데려가는가</h1>
   <p class="lede">용도: 역할 축을 정할 때 "누가 무엇을 하나"가 아니라 "이 축이 어떤 직무로 이어지나"를 함께 본다.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-21</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / role-map-careers.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 0</span></div></div>
+  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-21</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / role-map-careers.md</span></div><div><span class="k">증거</span><span class="v">확인 6 · 추측 1 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -419,6 +419,30 @@ document.addEventListener('DOMContentLoaded',function(){
 </section>
 <section id="s3"><h2>3. 이 지도를 쓰는 법</h2>
 <ol><li>역할 확정 회의에서 각자 &quot;메인 축 1 + 겹침 1&quot;을 이 표에서 고른다. 겹침은 백업 페어가 된다.</li><li>전담 멘토의 개별 취업 멘토링(이력서·포트폴리오·기업 매칭)과 접속: <b>축이 정해지면 포트폴리오 문장이 정해지고, 멘토가 그 문장을 검증해 준다.</b></li><li>각 축의 &quot;증거&quot;는 이미 웹에 쌓이고 있다: 연구 기록·평가 CSV·영상. 12월의 포트폴리오는 새로 만드는 게 아니라 <b>여기서 골라 담는 것</b>이다.</li></ol>
+</section>
+<section id="s4"><h2>4. 실제 채용 시장: 지금 열려 있는 문 (딥리서치 2026-08-21)</h2>
+<blockquote><p>공고는 수시로 열리고 닫힌다. 아래는 &quot;이런 문이 실재한다&quot;는 실측 표본이고, 지원 시점에 원티드·잡코리아에서 직무명으로 재검색한다. <span class="ev ev-ok">실측</span>(공고 원문 확인) 표기.</p></blockquote>
+<h3>A. 사족보행 직결: 우리 프로젝트가 곧 직무 기술서인 곳</h3>
+<p><b><a href="https://raionrobotics.com/hiring" target="_blank" rel="noopener">라이온로보틱스</a></b> (사족보행 로봇 플랫폼 전문, 상시 채용) <span class="ev ev-ok">실측</span></p>
+<div class="tw"><table><thead><tr><th>직무</th><th>주요 업무 (공고 원문)</th><th>우리 트랙</th></tr></thead><tbody><tr><td>강화학습 연구원</td><td>&quot;사족보행 로봇 보행·제어 정책 학습 연구, <b>시뮬레이션-실기 전이(sim-to-real) 파이프라인 구축</b>&quot; · 필수: RL 구현 경험, PyTorch/JAX · 우대: <b>Isaac Gym·MuJoCo 시뮬 경험</b></td><td><b>트랙 A 그대로</b></td></tr><tr><td>자율주행 연구원</td><td>&quot;사족보행 로봇 자율주행 알고리즘 연구, <b>SLAM·인식·경로계획</b> 개발&quot; · 우대: ROS2, 야외 실증, 강화학습</td><td><b>트랙 B 그대로</b></td></tr><tr><td>컴퓨터비전 연구원</td><td>객체 인식·깊이 추정·시각 SLAM · PyTorch</td><td>인지·평가 축</td></tr><tr><td>로봇 SW 개발자</td><td>C/C++·리눅스 · 우대: ROS2·파이썬 (상시, 경력 조건 낮음)</td><td>공통 진입로</td></tr></tbody></table></div>
+<p>같은 계열: <a href="https://www.rainbow-robotics.com/?_l=ko" target="_blank" rel="noopener">레인보우로보틱스</a> (KAIST 휴머노이드 계열 상장사, 사족보행 플랫폼) · 고스트로보틱스테크놀로지.</p>
+<h3>B. 시뮬레이션·디지털 트윈</h3>
+<ul><li><b>로아이 · 로보틱스 SW 엔지니어 (Sim &amp; DT)</b> <span class="ev ev-ok">실측</span> (<a href="https://www.wanted.co.kr/wd/303984" target="_blank" rel="noopener">원티드 공고</a>): &quot;<b>Isaac Sim 기반 물리 시뮬레이션 환경 구축·고도화 (digital twin)</b>&quot;이 주요 업무인 실공고. 우리 지형·씬·트윈 축이 직무명으로 존재한다는 증거.</li></ul>
+<h3>C. SLAM·자율주행 (요구 스택의 지도)</h3>
+<ul><li><b>세코어로보틱스 · SLAM Engineer</b> <span class="ev ev-ok">실측</span> (<a href="https://www.wanted.co.kr/wd/366845" target="_blank" rel="noopener">원티드</a>): LiDAR-Inertial tightly-coupled SLAM 실환경 운용, Modern C++(17+)·Eigen·PCL·OpenCV·ROS2. 시니어 공고지만 <b>이 스택 목록이 곧 학습 지도</b>다.</li></ul>
+<h3>D. 신입·인턴 진입로</h3>
+<ul><li><b>뉴빌리티</b> (배달로봇): 자율주행 시스템 SW <b>인턴, 학력 무관·신입</b> <span class="ev ev-ok">실측</span> (<a href="https://zighang.com/recruitment/71034ee0-32ed-463a-b4e3-d30f2d0d3fc9" target="_blank" rel="noopener">공고</a>) · <b>트위니</b> (물류로봇, 대전): 관제 서버 SW 신입 이력 <span class="ev ev-ok">실측</span> · 클로봇 (로봇 SW 솔루션).</li></ul>
+<h3>E. 대기업 연구조직 (장기 목표)</h3>
+<p><a href="https://recruit.naverlabs.com/" target="_blank" rel="noopener">네이버랩스</a> · 현대차 로보틱스랩 · LG전자 로보틱스사업센터(2026.6 CEO 직속 신설) · 삼성리서치. 대체로 석사 이상 또는 그에 준하는 실적 요구 <span class="ev ev-guess">추측</span>.</p>
+</section>
+<section id="s5"><h2>5. 공고들이 공통으로 원하는 것 = 우리 산출물 매트릭스</h2>
+<div class="tw"><table><thead><tr><th>공고 반복 요구</th><th>등장 위치</th><th>우리의 증거 (12월 기준)</th></tr></thead><tbody><tr><td>ROS2 + C++/Python</td><td>거의 전 직무</td><td>트랙 B 자율주행 스택 (조선대 커리큘럼 + 실기)</td></tr><tr><td>시뮬레이터 경험 (Isaac·MuJoCo)</td><td>RL·Sim 직무 우대 단골</td><td>Isaac Lab 학습·평가 파이프라인, Isaac Sim 씬</td></tr><tr><td>sim-to-real 이해</td><td>사족보행 RL 직무 필수급</td><td>트윈 리허설 → 실기 재현 설계</td></tr><tr><td>SLAM·인식·경로계획</td><td>자율주행 전 직무</td><td>SLAM 지도·Nav2 험지 코스 완주</td></tr><tr><td>PyTorch 학습 구현</td><td>연구 직무 필수</td><td>커리큘럼 RL 학습·보상 설계</td></tr><tr><td>실물 로봇 실증</td><td>우대 (드문 경험)</td><td><b>실물 Go2 험지 자율주행</b> (부트캠프에서 가장 희소한 스펙)</td></tr><tr><td>검증·정량 평가</td><td>명시는 드물지만 실무 핵심</td><td>6,000회+ 평가 파이프라인, 일반화 벤치마크, 공개 연구 기록</td></tr></tbody></table></div>
+</section>
+<section id="s6"><h2>6. 우리 프로젝트의 목적성: 왜 이 프로젝트가 취업의 지름길인가</h2>
+<ol><li><b>공고가 원하는 7개 역량을 두 트랙이 전부 지나간다.</b> 특히 &quot;실물 로봇 실증&quot;은 부트캠프 수료생 중 가진 사람이 거의 없는 희소 스펙이다.</li><li><b>석사 요구의 벽은 &quot;준하는 실적&quot;으로 넘는다</b> (멘토 조언과 정합): 공개 연구 기록 13편, 정량 벤치마크, 정정 이력까지 남는 웹 기록이 그 실적의 형태다. 12월 포트폴리오는 새로 만드는 게 아니라 여기서 골라 담는다.</li><li><b>경로 병행</b>: 신입 진입로(인턴·로봇 SW직)에 지원하면서, 포트폴리오로 연구 직무(RL·자율주행)에 도전한다. 지역은 서울·성남권 집중(멘토 확인)이므로 이동을 전제한다.</li></ol>
+</section>
+<section id="s7"><h2>7. 다음 액션</h2>
+<ol><li>역할 축 확정 후, <b>각자 자기 축의 공고 3개를 스크랩</b>해 요구 역량과 자기 갭을 표로 만든다</li><li>그 표를 전담 멘토 개별 멘토링에 가져간다 (멘토가 제안한 &quot;기업이 원하는 인재로&quot;) </li><li>매월 1회 공고 재검색으로 리스트를 갱신한다 (공고는 만료된다)</li></ol>
 </section>
 
 </div>
