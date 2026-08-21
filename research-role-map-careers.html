@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>8/21 팀 미팅 브리핑: 오늘 정할 것 다섯 가지 · FOOTHOLD</title>
-<meta name="description" content="2026-08-21 오전 팀 미팅 안건 정리 (WS 사전 브리핑). 근거는 8/20 두 회의 전사와 실측 기록.">
+<title>역할 지도: 이 프로젝트가 각자를 어떤 직무로 데려가는가 · FOOTHOLD</title>
+<meta name="description" content="용도: 역할 축을 정할 때 '누가 무엇을 하나'가 아니라 '이 축이 어떤 직무로 이어지나'를 함께 본다.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -395,41 +395,30 @@ document.addEventListener('DOMContentLoaded',function(){
 </head>
 <body>
 
-<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">FOOTHOLD · 회의 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+<div class="top"><div class="row"><a class="home" href="research.html">← 연구 기록으로</a><span class="doc">FOOTHOLD · 연구 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">Meeting · 회의 기록</div>
-  <h1>8/21 팀 미팅 브리핑: 오늘 정할 것 다섯 가지</h1>
-  <p class="lede">2026-08-21 오전 팀 미팅 안건 정리 (WS 사전 브리핑). 근거는 8/20 두 회의 전사와 실측 기록.</p>
-  <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / meetings / 20260821-team-briefing.md</span></div><div><span class="k">상세</span><span class="v">전체 전사·화자 기록은 내부 볼트 00_meetings</span></div></div>
+  <div class="eyebrow">Research · 근거 기록</div>
+  <h1>역할 지도: 이 프로젝트가 각자를 어떤 직무로 데려가는가</h1>
+  <p class="lede">용도: 역할 축을 정할 때 "누가 무엇을 하나"가 아니라 "이 축이 어떤 직무로 이어지나"를 함께 본다.</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-21</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / role-map-careers.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>2026-08-21 오전 팀 미팅 안건 정리 (WS 사전 브리핑). 근거는 8/20 두 회의 전사와 실측 기록.</p></blockquote>
+<blockquote><p>작성 2026-08-21 (WS) · 뿌리: 맹라현이 공유한 역할 분석 대화(«Simulation Engineer가 되려면 어떤 역할을 맡아야 하나», 원본 링크 소실)와 7/27 팀 배경 기록, 8/18 팀 자산 분석을 합쳐 정리.
+용도: 역할 축을 정할 때 &quot;누가 무엇을 하나&quot;가 아니라 <b>&quot;이 축이 어떤 직무로 이어지나&quot;</b>를 함께 본다.</p></blockquote>
 </section>
-<section id="s1"><h2>1. 멘토 세션 시간대: 오후안으로 확정 제안</h2>
-<p>멘토 본인이 오후안을 제시했다 [킥오프 44:05]: 오전~15시는 팀 작업, <b>15~18시 멘토 세션</b>. 오전 코어타임(집중 작업)을 지키는 구조라 팀에도 유리하다. 오늘 확정해 멘토·PM에 회신한다.</p>
+<section id="s1"><h2>1. 다섯 축과 채용 시장의 직무명</h2>
+<div class="tw"><table><thead><tr><th>프로젝트 축</th><th>채용 시장 직무명</th><th>우리 산출물 = 포트폴리오 증거</th></tr></thead><tbody><tr><td>RL 정책·학습</td><td>Reinforcement Learning Engineer · Robotics ML</td><td>커리큘럼 학습 설계, 보상·관측 설계, 일반화 벤치마크</td></tr><tr><td>지형·씬·시뮬 환경</td><td><b>Simulation Engineer</b> · Technical Artist (USD)</td><td>Isaac Sim 지형·씬 파이프라인, Domain Randomization</td></tr><tr><td>디지털 트윈·렌더</td><td>Digital Twin Engineer · 3D Pipeline TD</td><td>실공간 재구성, 실사급 렌더 시연</td></tr><tr><td>인지·데이터·평가</td><td>Perception Engineer · Data/ML Engineer</td><td>센서 데이터 처리, 정량 평가 파이프라인, 결과 검증</td></tr><tr><td>실기 항법 (ROS2·SLAM·Nav2)</td><td>Robotics Software Engineer</td><td>실물 Go2 자율주행 스택, 현장 실험 기록</td></tr><tr><td>(공통) 환경·인프라</td><td>MLOps · Robotics Infra</td><td>다중 사용자 학습 환경, 실험 추적, 클라우드 실행</td></tr></tbody></table></div>
+<p>공유 대화의 프레임(RL 학습 / Terrain·DR / Sim-to-Real / SLAM / Nav2·통합 + 백업 페어)이 우리 두 트랙 구조와 정확히 포개진다. 역할 논의는 이 틀 위에서 &quot;각자 메인 + 겹침 1개&quot;로 정하면 된다.</p>
 </section>
-<section id="s2"><h2>2. 로보틱스 강의: 희망자 구조(opt-in) 제안</h2>
-<p>멘토도 강제를 전제하지 않았다 [01:21:49]. 제안 구조:</p>
-<ul><li><b>15~16시: 이론 강의 (희망자)</b> : 안 듣는 사람은 그 시간 프로젝트 계속</li><li><b>16~18시: 프로젝트 점검·개별 멘토링 (전원)</b></li><li>중간발표 2주 전부터 강의 축소(라이트 모드) 옵션을 미리 합의</li><li>멘토께 요청: 강의 예시를 우리 프로젝트 소재로 (Go2 관절 기구학, 관측 벡터의 물리적 의미)</li></ul>
+<section id="s2"><h2>2. 팀원별: 가진 것 → 이 프로젝트의 대응물 → 포트폴리오 문장</h2>
+<div class="tw"><table><thead><tr><th>팀원</th><th>가진 것</th><th>이 프로젝트에서</th><th>포트폴리오 문장 (전·후)</th></tr></thead><tbody><tr><td>오흥재</td><td>영상·VFX 12년, 카메라·공간·3D 파이프라인</td><td>PM + 실공간 3D 재구성·실사급 렌더 축</td><td>&quot;3D를 다룬다&quot; → <b>&quot;물리 시뮬레이터와 현실을 잇는 디지털 트윈을 설계·검증했다&quot;</b></td></tr><tr><td>임석헌</td><td>비전 학습·파인튜닝 R&amp;D, 데이터 구축</td><td>RL 정책 주담당. 보상·관측·커리큘럼 설계 (occlusion 관심 = 부분관측 문제와 직결)</td><td>&quot;지도학습을 했다&quot; → <b>&quot;강화학습으로 축을 확장하고, 실물 센서 제약에서 역산해 관측을 설계했다&quot;</b></td></tr><tr><td>맹라현</td><td>Blender·3ds Max·Unity·프리미어·웹</td><td>지형·씬·시각화 주담당. 팀에서 3D 툴을 실제로 다루는 유일한 사람: 없으면 팀이 막히는 자리</td><td>&quot;3D 툴을 쓸 줄 안다&quot; → <b>&quot;물리 시뮬레이터용 에셋 파이프라인을 구축하고 실험 결과를 시각화했다&quot;</b></td></tr><tr><td>오현민</td><td>CV 분류, 프론트엔드</td><td>인지·데이터·평가 주담당. 정제된 데이터셋이 없는 세계: 촬영·재구성·검증 전 과정이 우리 책임</td><td>&quot;공개 데이터셋으로 학습했다&quot; → <b>&quot;현실 공간을 재구성해 학습 환경으로 만들고 정책을 평가했다&quot;</b></td></tr><tr><td>이민우</td><td>웹 풀스택, 서버 구성·운영. <b>사족보행 1픽</b></td><td>RL 정책 부담당(관심 반영) + 학습 환경·인프라. 인프라는 잡일이 아니라 크리티컬 패스: 5인이 동시에 못 돌리면 팀 전체가 멈춘다</td><td>&quot;웹을 만든다&quot; → <b>&quot;강화학습 실험이 도는 인프라를 세우고, 정책 학습에 참여했다&quot;</b></td></tr></tbody></table></div>
 </section>
-<section id="s3"><h2>3. 컴퓨팅: Runpod 파일럿 충전</h2>
-<ul><li>배경: 팀원 개인 장비로는 Isaac Sim 구동 불가. GIST 샌드박스는 V100이라 Isaac Sim 계열이 돌지 않는다.</li><li><b>임석헌이 이미 Runpod 헤드리스로 일반화 벤치마크를 완주</b> : 파이프라인이 클라우드에서 도는 것은 실증됨. → <a href="research-generalization-benchmark-10-terrains.html">일반화 벤치마크 보고서</a></li><li>현황: <b>Runpod 팀 계정 가동 실적 있음</b> (팀장 소유). 첫 실측 단가: IsaacLab 템플릿 $0.74/hr, 벤치마크 작업일 하루 청구 약 $5. 유휴 팟은 Terminate로 정리(정지 상태도 디스크 과금).</li><li>제안: 사용량 확인 → 소액 파일럿 추가 충전 → 1주 실측 → 본충전 규모 결정. 수요자 중심(지형·씬 작업 우선).</li></ul>
-</section>
-<section id="s4"><h2>4. 역할 축 (초안)</h2>
-<div class="tw"><table><thead><tr><th>축</th><th>주</th><th>부</th></tr></thead><tbody><tr><td>PM · 디지털 트윈·렌더</td><td>오흥재</td><td>-</td></tr><tr><td>RL 정책·학습</td><td><b>임석헌</b></td><td><b>이민우</b> (정책 관심 반영)</td></tr><tr><td>지형·씬·시각화</td><td>맹라현</td><td>-</td></tr><tr><td>인지·데이터·평가</td><td>오현민</td><td>-</td></tr><tr><td>환경·인프라·실기 지원</td><td>이민우</td><td>팀 공동</td></tr></tbody></table></div>
-<p>겹침 허용·주담당 명확이 원칙. 오늘 각자 확인 후 확정. 각 축이 어떤 직무로 이어지는지는 <a href="research-role-map-careers.html">역할 지도</a>에 정리했다 (맹라현 공유 분석 기반).</p>
-</section>
-<section id="s5"><h2>5. 프로젝트 비용: 사용 계획 합의 → 승인 신청</h2>
-<p>원칙: <b>팀 공동 고정비 먼저 락인, 유동비는 실측 후 집행.</b> 승인 절차가 선행한다 (팀 합의 → 사용 계획서 제출 → 승인 후 집행).</p>
-<div class="tw"><table><thead><tr><th>우선순위</th><th>항목</th><th>목적</th><th>시기·조건</th></tr></thead><tbody><tr><td>1 · 고정</td><td>조선대 실기 대여</td><td>트랙 B 금요 실습과 실기 루프</td><td>9~12월, 협약 조건</td></tr><tr><td>2 · 조건부</td><td>최종 전 집중 대여</td><td>12/11 직전 반복 실기 (상시 보유의 실험 횟수 가치)</td><td>10월 말 결정, 11월 집행. 보관·안전 책임 확인 선행</td></tr><tr><td>3 · 실측 후</td><td>Runpod 크레딧</td><td>팀원 Isaac Sim/Lab 클라우드 작업</td><td>실측 단가 확보됨: $0.74/hr, 작업일 약 $5. 파일럿 → 본충전</td></tr><tr><td>4 · 상시</td><td>AI 구독 (GPT·Claude 등)</td><td>개발·문서 생산성</td><td>프로젝트 전 기간</td></tr><tr><td>마지막</td><td>예비</td><td>실기 소모품·이동·미예측</td><td>잔여</td></tr></tbody></table></div>
-<p>세부 금액과 1인 배분표는 내부 예산 문서(<code>04_plan/BUDGET-20260821</code>)로 관리한다: <b>대여 금액은 협약 조건이라 공개 웹에 싣지 않는다</b> (8/6 확정 규칙). 팀원 열람은 미팅 공유 + 내부 문서로.</p>
-</section>
-<section id="s6"><h2>오늘 추가 확인</h2>
-<ol><li><b>일반화 벤치마크 공유</b> (임석헌): 실험 조건 확인 5건은 보고서 §6 참조</li><li>중간발표 일자: &quot;10월 초&quot; 언급의 공식 공지 확인 요청</li><li>멘토 소통 채널 개설 상태</li></ol>
+<section id="s3"><h2>3. 이 지도를 쓰는 법</h2>
+<ol><li>역할 확정 회의에서 각자 &quot;메인 축 1 + 겹침 1&quot;을 이 표에서 고른다. 겹침은 백업 페어가 된다.</li><li>전담 멘토의 개별 취업 멘토링(이력서·포트폴리오·기업 매칭)과 접속: <b>축이 정해지면 포트폴리오 문장이 정해지고, 멘토가 그 문장을 검증해 준다.</b></li><li>각 축의 &quot;증거&quot;는 이미 웹에 쌓이고 있다: 연구 기록·평가 CSV·영상. 12월의 포트폴리오는 새로 만드는 게 아니라 <b>여기서 골라 담는 것</b>이다.</li></ol>
 </section>
 
 </div>
