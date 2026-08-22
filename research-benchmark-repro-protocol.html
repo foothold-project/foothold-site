@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>일반화 벤치마크: 미학습 지형 10종 실측 (5종 통과 · 5종 실패) · FOOTHOLD</title>
-<meta name="description" content="실험·기록: 임석헌 (2026-08-20, Runpod 헤드리스 실행) · 분석 정리: WS (8/21)">
+<title>벤치마크 재현 프로토콜: 동일 셋업 검증과 결정론 발견 · FOOTHOLD</title>
+<meta name="description" content="이 문서를 만들며 원자료를 재검사한 결과, 벤치마크의 통계적 성격에 대한 중요한 발견이 나왔다 (§3). 벤치마크 보고서도 함께 정정했다.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -401,40 +401,32 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <div class="hero">
   <div class="eyebrow">Research · 근거 기록</div>
-  <h1>일반화 벤치마크: 미학습 지형 10종 실측 (5종 통과 · 5종 실패)</h1>
-  <p class="lede">실험·기록: 임석헌 (2026-08-20, Runpod 헤드리스 실행) · 분석 정리: WS (8/21)</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-20</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / generalization-benchmark-10-terrains.md</span></div><div><span class="k">증거</span><span class="v">확인 5 · 추측 2 · 미측정 2</span></div></div>
+  <h1>벤치마크 재현 프로토콜: 동일 셋업 검증과 결정론 발견</h1>
+  <p class="lede">이 문서를 만들며 원자료를 재검사한 결과, 벤치마크의 통계적 성격에 대한 중요한 발견이 나왔다 (§3). 벤치마크 보고서도 함께 정정했다.</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-22</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / benchmark-repro-protocol.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 1 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p><b>실험·기록: 임석헌</b> (2026-08-20, Runpod 헤드리스 실행) · 분석 정리: WS (8/21)
-원자료: <code>go2_generalization_benchmark.zip</code> (지형별 50에피소드 원시 CSV + 요약 CSV + 주행 영상 10편, 내부 볼트 99_inbox)
-작성 2026-08-20 · 실행: 임석헌 (Runpod)</p></blockquote>
-<p>기준선 보행 정책을 <b>학습 분포 밖의 지형 10종</b>에 처음으로 올려 보았다. 결과는 절반의 성공이다: 5종은 전 에피소드 통과, 5종은 전 에피소드 실패. 그리고 실패는 한 가지가 아니라 <b>두 가지 모드</b>로 갈린다. 이 지도가 &quot;우리가 정할 험지 세트&quot;(결정 안건 1)의 실측 입력이 된다.</p>
+<blockquote><p>작성 2026-08-22 (WS) · 목적: 팀장이 Runpod에서 8/20 일반화 벤치마크를 직접 재현·검증하기 위한 표준 절차.
+이 문서를 만들며 원자료를 재검사한 결과, 벤치마크의 통계적 성격에 대한 <b>중요한 발견</b>이 나왔다 (§3). 벤치마크 보고서도 함께 정정했다.</p></blockquote>
 </section>
-<section id="s1"><h2>1. 실험 구성</h2>
-<ul><li>지형 10종 (Isaac Lab 지형 생성기 계열): discrete_obstacles · wave · stepping_stones · gap · pit · rails · star · floating_ring · repeated_boxes · repeated_cylinders</li><li>지형당 50 에피소드, 에피소드 6초, 목표 전진 3 m 기준 (총 500 에피소드)</li><li>판정 5축: 종합 / 생존(낙상 없음) / 전진 / 속도 추종 / 방향</li><li>실행 환경: Runpod 헤드리스 <span class="ev ev-ok">확인됨</span> (우리 학습·평가 파이프라인이 클라우드에서 그대로 돈다는 실증이기도 하다)</li><li>대상 정책 체크포인트: <b>기준선 1,500 iter에서 시작</b> <span class="ev ev-ok">확인됨</span> (팀장 확인 8/21). 단 <b>평가 조건이 8월 초 평가와 다르다</b> (명령 vx 0.5 m/s 추정·6초·3m vs 1.0 m/s·20초·10m) → 같은 정책의 다른 시험이며 수치 직접 비교는 성립하지 않는다 (정정 8/22, <a href="research-benchmark-repro-protocol.html">재현 프로토콜</a> §1)</li></ul>
+<section id="s1"><h2>1. 동일 셋업 대조 체크리스트</h2>
+<p>&quot;같은 실험&quot;이라 말하려면 아래가 전부 일치해야 한다. WS 기준값은 이 워크스테이션에서 실측했다.</p>
+<div class="tw"><table><thead><tr><th>#</th><th>항목</th><th>WS 기준값 (실측)</th><th>확인 방법</th></tr></thead><tbody><tr><td>1</td><td>체크포인트 해시</td><td><code>model_1499.pt</code> SHA256 <code>512d543a…</code> (주의: 1,500 iter의 실체는 model_1499.pt, model_1500은 존재하지 않음) · TorchScript <code>policy.pt</code> <code>7b47cbe4…</code></td><td>팟에서 <code>sha256sum</code> 후 대조. 어느 파일을 로드했는지도 확인</td></tr><tr><td>2</td><td>평가 스크립트</td><td><b>WS의 eval_go2.py와 벤치마크 스크립트는 다른 코드다</b> (판정 5축 vs 1축, 6초·3m vs 20초·10m, env 10 vs 50) → 벤치마크 스크립트 원본이 재현의 전제</td><td>실행자에게 원본 + 커맨드라인 요청</td></tr><tr><td>3</td><td>Isaac Lab 버전</td><td>2.3.2, 코어 무수정 (run 폴더 <code>git/IsaacLab.diff</code> 보존)</td><td>팟에서 VERSION·<code>git diff</code> 확인</td></tr><tr><td>4</td><td>env cfg</td><td>학습 cfg는 run 폴더 <code>params/env.yaml</code>에 전량 덤프 (seed 42 · 4096 envs · episode 20s)</td><td>벤치마크의 오버라이드 목록을 스크립트에서 추출</td></tr><tr><td>5</td><td>지형 파라미터</td><td>10종은 학습 지형 밖 (참고: 지형 가이드 문서)</td><td>sub-terrain 파라미터·타일·terrain seed 추출</td></tr><tr><td>6</td><td>명령</td><td><b>CSV 역산: vx ≈ 0.5 m/s 고정 추정</b> (3m ÷ 6s, velocity_mae 동일) · WS 8월 초 평가는 vx 1.0 m/s</td><td>스크립트의 cmd ranges 확인</td></tr><tr><td>7</td><td>판정 임계값</td><td>progress·tracking·direction 임계는 CSV로 구간 추정만 가능</td><td>정확한 숫자는 스크립트에서만</td></tr><tr><td>8</td><td>관측</td><td>235차원 · 노이즈 설정</td><td>실행 로그의 관측 차원 확인 (알려진 답 테스트)</td></tr></tbody></table></div>
+<p><b>따라서 이 정정이 중요하다</b>: 8월 초 평가(86.7%, 1.0 m/s·20초·10m)와 이번 벤치마크(0.5 m/s 추정·6초·3m)는 <b>같은 정책의 서로 다른 시험</b>이다. &quot;같은 체크포인트&quot;는 확인됐지만 평가 조건이 달라 <b>수치의 직접 비교는 성립하지 않는다.</b></p>
 </section>
-<section id="s2"><h2>2. 결과</h2>
-<div class="tw"><table><thead><tr><th>지형</th><th>종합 성공률</th><th>생존</th><th>평균 전진</th><th>판정</th></tr></thead><tbody><tr><td>discrete_obstacles</td><td><b>100%</b></td><td>100%</td><td>2.85 m</td><td>통과</td></tr><tr><td>wave</td><td><b>100%</b></td><td>100%</td><td>2.78 m</td><td>통과</td></tr><tr><td>star</td><td><b>100%</b></td><td>100%</td><td>2.67 m</td><td>통과</td></tr><tr><td>repeated_boxes</td><td><b>100%</b></td><td>100%</td><td>2.72 m</td><td>통과</td></tr><tr><td>repeated_cylinders</td><td><b>100%</b></td><td>100%</td><td>2.76 m</td><td>통과</td></tr><tr><td>stepping_stones</td><td><b>0%</b></td><td>100%</td><td>0.75 m</td><td>실패 · 전진불능형</td></tr><tr><td>pit</td><td><b>0%</b></td><td>100%</td><td>1.03 m</td><td>실패 · 전진불능형</td></tr><tr><td>floating_ring</td><td><b>0%</b></td><td>100%</td><td>0.74 m</td><td>실패 · 전진불능형</td></tr><tr><td>gap</td><td><b>0%</b></td><td>0%</td><td>0.77 m</td><td>실패 · <b>낙상형</b> (평균 3.2초에 body 접촉)</td></tr><tr><td>rails</td><td><b>0%</b></td><td>0%</td><td>0.76 m</td><td>실패 · <b>낙상형</b> (평균 2.1초에 body 접촉)</td></tr></tbody></table></div>
+<section id="s2"><h2>2. Runpod 재현 런북 (팀장용)</h2>
+<ul><li><b>0단계 (로컬, 과금 0)</b>: 체크포인트+params zip·해시 기록 → <b>벤치마크 스크립트 원본 확보 전에는 팟을 켜지 않는다</b> (준비는 시계 밖에서, 과금은 시계 안에서).</li><li><b>1단계 팟 생성 (~5분)</b>: RTX 4090 · 같은 템플릿(IsaacLab-2.3.2-Go2) · 같은 데이터센터 · 네트워크 볼륨 20~50GB <code>/workspace</code> · 포트 6006(TensorBoard)+8888 노출.</li><li><b>2단계 배치 (~10분)</b>: 업로드 → <code>sha256sum</code> 대조 (불일치면 즉시 중단) → <code>pip freeze</code>·VERSION·<code>git diff</code> 스냅샷 저장.</li><li><b>3단계 알려진 답 테스트 (~15분)</b>: 통과가 확실한 discrete_obstacles 1종 × 2에피소드만 먼저 → CSV 생성 + overall_success=True + 전진 ≈ 2.85 m 확인. 어긋나면 50회를 돌릴 이유가 없다.</li><li><b>4단계 본 실행 (~1시간)</b>: 원 커맨드라인 그대로 headless 실행, 출력은 tee로 보존 → 완료 후 CSV 501행·10지형·빈 값 없음 검사 (조용한 실패 감지).</li><li><b>5단계 TensorBoard</b>: <code>tensorboard --logdir … --host 0.0.0.0 --port 6006</code> → 콘솔 포트 프록시로 접속.</li><li><b>6단계 대조</b>: 1차 기준 = 지형 10종의 통과/실패 판정 일치. 수치는 ±10% 근사면 합격. <b>추가로 raw 50행이 이번에도 전부 동일한지 확인</b> (§3의 결정론 확증 실험을 겸한다).</li><li><b>7단계 철수</b>: 결과를 볼륨에 보존 → NAS로 하향 동기화 → 팟 Terminate. 예상 비용: 총 2~3시간 × $0.74 ≈ <b>$2 내외</b>.</li></ul>
 </section>
-<section id="s3"><h2>3. 실패의 두 모드: 처방이 다르다</h2>
-<ol><li><b>낙상형 (gap · rails)</b>: 몇 초 못 버티고 몸통이 지면에 닿아 종료. 발 디딜 곳의 인지와 발 배치의 문제다. 지형 인식(height scan)이 보는 만큼만 걷는다는 것을 보여준다.</li><li><b>전진불능형 (stepping_stones · pit · floating_ring)</b>: 6초를 <b>생존은 하는데 전진을 못 한다</b> (0.7~1.0 m, 속도 추종 오차 0.34~0.41 m/s). 넘어지지 않으려고 보수적으로 멈칫거리는 모드다. 낙상 페널티와 전진 보상 사이의 균형, 즉 <b>보상 설계의 문제</b>로 이어진다.</li></ol>
-<p>같은 &quot;실패&quot;라도 커리큘럼 학습에서 손대야 할 곳이 다르다: 낙상형은 관측·지형 커리큘럼, 전진불능형은 보상·명령 커리큘럼.</p>
+<section id="s3"><h2>3. 발견: 이 벤치마크는 결정론적 단일 궤적이다</h2>
+<p>원자료(<code>generalization_raw.csv</code>)를 재검사한 결과, <b>10개 지형 모두에서 50개 에피소드 행이 (번호 제외) 소수 4자리까지 완전히 동일하다</b> (지형당 고유 행 = 1). 즉 &quot;지형당 50 에피소드&quot;는 독립 표본 50개가 아니라 <b>결정론적 궤적 1개의 50회 재생</b>이며, 유효 표본은 지형당 n=1이다.</p>
+<ul><li>고정 명령 + 결정론적 리셋 + 결정론적 정책(TorchScript)이면 시드는 어디에도 꽂히지 않는다: &quot;시드 비고정 재검에서도 5/10&quot;이라는 후속 실행은 <b>같은 계산의 재실행일 가능성이 높다</b> <span class="ev ev-guess">가설</span>. 판별법: 재검 raw CSV의 행이 1차와 다른지 확인 (같으면 확정).</li><li>올바른 기술: &quot;고정 명령·고정 초기 조건의 <b>결정론적 평가에서 지형 10종 중 5종 통과 판정</b>. 성공률의 구간 추정은 성립하지 않으며, 이 결과는 해당 고정 조건에서의 판정이다.&quot;</li><li>이것이 벤치마크의 가치를 깎지 않는다: <b>경계의 존재</b>(어느 지형이 되고 안 되는가)는 명확히 보여줬다. 다만 &quot;성공률 0%/100%&quot;라는 언어가 과장일 뿐이다.</li></ul>
 </section>
-<section id="s4"><h2>4. 주행 영상 (10종 전부)</h2>
-<p>각 지형의 대표 에피소드. 재생 버튼으로 바로 본다.</p>
-<p><figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/discrete_obstacles-step-0.mp4"></video><figcaption>discrete_obstacles · 통과</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/wave-step-0.mp4"></video><figcaption>wave · 통과</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/star-step-0.mp4"></video><figcaption>star · 통과</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/repeated_boxes-step-0.mp4"></video><figcaption>repeated_boxes · 통과</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/repeated_cylinders-step-0.mp4"></video><figcaption>repeated_cylinders · 통과</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/stepping_stones-step-0.mp4"></video><figcaption>stepping_stones · 실패 · 전진불능</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/pit-step-0.mp4"></video><figcaption>pit · 실패 · 전진불능</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/floating_ring-step-0.mp4"></video><figcaption>floating_ring · 실패 · 전진불능</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/gap-step-0.mp4"></video><figcaption>gap · 실패 · 낙상</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/rails-step-0.mp4"></video><figcaption>rails · 실패 · 낙상</figcaption></figure></p>
+<section id="s4"><h2>4. 다음 실험 설계 (50회가 의미를 가지려면)</h2>
+<p>에피소드마다 변동을 실제로 주입한다: ① 초기 자세·yaw 랜덤화 ② 명령을 구간 샘플 (예: vx 0.3~0.7 m/s) ③ terrain seed 변경 ④ 실행 후 raw 행들이 서로 다른지 검사(알려진 답 테스트). 그 뒤에야 지형당 50회에 이항 신뢰구간을 붙일 수 있고, &quot;험지 세트 확정&quot;(결정 안건 1)의 근거 데이터가 통계적 진술이 된다.</p>
 </section>
-<section id="s5"><h2>5. 8월 초 평가와 무엇이 다른가 (상보 관계)</h2>
-<div class="tw"><table><thead><tr><th></th><th>8월 초 평가 (WS)</th><th>이번 벤치마크 (임석헌)</th></tr></thead><tbody><tr><td>질문</td><td>학습 분포 <b>안</b>에서 얼마나 잘 걷나</td><td>학습 분포 <b>밖</b>에서 어디까지 통하나</td></tr><tr><td>지형</td><td>rough 계열 난이도 격자 (lvl 0~9)</td><td>신규 유형 10종</td></tr><tr><td>규모</td><td>정책당 6,000회+ (전수 격자)</td><td>지형당 50회 (총 500회)</td></tr><tr><td>결과</td><td>기준선 86.7% (1,500 iter)</td><td>5/10 통과 · 실패 2모드 발견</td></tr><tr><td>역할</td><td>기준선의 «성능» 확립</td><td>일반화의 «경계» 지도</td></tr></tbody></table></div>
-<p>두 실측을 합치면: 기준선 정책은 rough 계열 안에서는 강하고, 분포 밖에서는 <b>지형 유형에 따라 전부 아니면 전무</b>로 갈린다. 이 경계선이 곧 우리 연구의 출발선이다.</p>
-</section>
-<section id="s6"><h2>6. 확인 현황</h2>
-<ol><li><s>정책 체크포인트</s> <b>해소</b>: 기준선 1,500 iter에서 시작 <span class="ev ev-ok">확인됨</span> (팀장 확인 8/21)</li><li><s>속도 명령·시드</s> <b>원자료로 확증</b> (8/22 실측): 10개 지형 모두 50개 행이 완전 동일 = <b>결정론적 궤적 1개의 50회 재생, 유효 표본 지형당 n=1</b>. 명령은 vx 0.5 m/s 고정으로 역산됨 <span class="ev ev-ok">실측</span>. 성공률의 구간 추정은 성립하지 않으며 «해당 고정 조건에서의 통과 판정»으로 읽어야 한다. 시드 비고정 재검(5/10 동일, 팀장 전언 8/22)은 파이프라인 결정론 가설과 부합 <span class="ev ev-guess">가설</span> · 재검 raw 파일 대기. 다음 실험 설계는 <a href="research-benchmark-repro-protocol.html">재현 프로토콜</a> §4</li><li>에피소드 6초·3 m 기준의 근거 (기존 평가와 기준 통일 여부) <span class="ev ev-todo">미확인</span></li><li>각 지형의 난이도 파라미터 (같은 유형도 파라미터에 따라 난이도가 크게 다름) <span class="ev ev-todo">미확인</span></li><li><s>Runpod 실행 정보</s> <b>해소</b>: 청구 대시보드 실측 (팀장 캡처 8/21) <span class="ev ev-ok">실측</span> · 템플릿 IsaacLab-2.3.2-Go2 (nvcr.io isaac-lab:2.3.2) · <b>$0.74/hr</b> · 8/20 일일 청구 $4.95 (GPU $4.915) → 약 6.6시간 가동 역산 <span class="ev ev-guess">추측</span>(환경 구축 포함 추정, 작업 횟수는 미확인). 이것이 «Isaac Lab 클라우드 작업 1일 = 약 $5»라는 첫 실측 단가다</li></ol>
-</section>
-<section id="s7"><h2>7. 다음 단계</h2>
-<ul><li>실패 5종을 <b>트랙 A 험지 세트 후보</b>로 상정하고 팀 논의 (결정 안건 1)</li><li>실패 모드별 커리큘럼·보상 설계 분기</li><li>명령·시드 다양화 재검으로 &quot;전부-아니면-전무&quot; 패턴 해체</li><li>기존 평가 파이프라인과 판정 기준 통일 (진행 성공률 계열 지표 정렬)</li></ul>
+<section id="s5"><h2>5. 실행자에게 요청 (우선순위)</h2>
+<ol><li><b>벤치마크 평가 스크립트 원본 + 커맨드라인</b> (이것 없이는 재현 정의 불가)</li><li>비고정 시드 재검의 raw CSV (행 단위 비교용)</li><li>로드한 체크포인트 파일 또는 SHA256</li><li>지형 10종 생성 파라미터·terrain seed</li><li>명령 설정 (vx 0.5 고정 추정의 확인) · 판정 임계값 숫자 · 6초·3m 기준의 출처</li></ol>
 </section>
 
 </div>
