@@ -541,7 +541,7 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
 })();
 </script>
-<!--search:v7--><style>
+<!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -579,14 +579,9 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
 </style>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  /* 스마트 뒤로가기: 같은 사이트에서 들어왔으면 히스토리로 (진입 경로 보존) */
-  var home=document.querySelector('a.home');
-  if(home&&document.referrer){
-    try{var r=new URL(document.referrer);
-      if(r.origin===location.origin&&r.pathname!==location.pathname&&history.length>1){
-        home.addEventListener('click',function(e){e.preventDefault();history.back();});
-      }}catch(err){}
-  }
+  /* «← …로» 버튼은 라벨이 가리키는 곳으로만 간다.
+     예전의 «스마트 뒤로가기»(history.back)는 제거했다. 라벨은 «표지로»인데
+     실제로는 직전 페이지로 돌아가 사용자를 속였다. (2026-08-24) */
   /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
   var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
   var sb=document.createElement('button');sb.type='button';
