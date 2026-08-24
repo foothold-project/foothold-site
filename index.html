@@ -164,7 +164,14 @@ footer b{color:var(--ink-2);font-family:inherit}
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="var(--dim)">
 <style>.mark .wm{display:block;width:clamp(15rem,38vw,26rem);height:auto}@media print{.mark .wm{width:15rem}}</style>
-<!--newbadge:v5--><style>
+<!--teamprofiles:v2--><style>
+.team .tm .n a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
+.team .tm .n a:hover{border-bottom-color:var(--dim);color:var(--dim)}
+.team .tm .more{margin-top:.5rem;font-size:.66rem;font-weight:800;letter-spacing:.02em;
+  color:var(--dim)}
+.team .tm .more a{color:inherit;text-decoration:none}
+.team .tm .more a:hover{text-decoration:underline}
+</style><!--/teamprofiles--><!--newbadge:v5--><style>
 a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
   font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
@@ -191,29 +198,7 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
 })();
 </script>
-<!--teamprofiles:v1--><style>
-.team .tm.has-bio{cursor:pointer}
-.team .tm.has-bio > summary{list-style:none;display:block}
-.team .tm.has-bio > summary::-webkit-details-marker{display:none}
-.team .tm.has-bio > summary .n::after{content:"펼치기";display:inline-block;
-  margin-left:.45rem;font-size:.6rem;font-weight:700;letter-spacing:.02em;
-  color:var(--dim);border:1px solid var(--rule);border-radius:999px;
-  padding:.05rem .38rem;vertical-align:.12em}
-.team .tm.has-bio[open] > summary .n::after{content:"접기"}
-.team .tm.has-bio[open]{grid-column:1/-1}
-.team .tm .bio{margin-top:.85rem;padding-top:.85rem;border-top:1px solid var(--rule);
-  text-align:left;font-size:.82rem;line-height:1.72;color:var(--ink-2)}
-.team .tm .bio h2,.team .tm .bio h3{font-size:.82rem;margin:.9rem 0 .3rem;color:var(--ink)}
-.team .tm .bio h2:first-child,.team .tm .bio h3:first-child{margin-top:0}
-.team .tm .bio p{margin:.3rem 0}
-.team .tm .bio ul,.team .tm .bio ol{margin:.3rem 0 .3rem 1.1rem;padding:0}
-.team .tm .bio li{margin:.12rem 0}
-.team .tm .bio table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.76rem}
-.team .tm .bio th,.team .tm .bio td{border:1px solid var(--rule);padding:.3rem .45rem;text-align:left}
-.team .tm .bio a{color:var(--dim)}
-@media print{.team .tm.has-bio > summary .n::after{display:none}
-  .team .tm .bio{display:block !important}}
-</style><!--/teamprofiles--><!--search:v8--><style>
+<!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -512,19 +497,9 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <h2 class="sec">팀 <span class="en">Team</span></h2>
 <div class="team">
-  <details class="tm lead has-bio"><summary><div class="r">PM · Twin</div><div class="n">오흥재</div>
-    <div class="s">영상·VFX 12년<br>공간 재구성 · 기획</div></summary><div class="bio"><section id="s1"><h2>배경</h2>
-<p>영상·VFX 12년. 광고·영화 현장에서 3D 공간 재구성과 매치무브, 컴포지팅을 해왔다. 실사 촬영본을 3D 공간으로 되살리는 일이 본업이었고, 그 경험이 이 프로젝트의 «디지털 트윈으로 험지를 재현한다»는 접근과 곧바로 이어진다.</p>
-</section>
-<section id="s2"><h2>이 프로젝트에서 맡은 것</h2>
-<ul><li><b>PM</b> : 일정·산출물·팀 운영. 결정 사항과 근거를 기록으로 남긴다.</li><li><b>Twin</b> : 실제 지형을 3D로 재구성해 시뮬레이션 환경으로 만든다. 가우시안 스플래팅 촬영부터 메시화, USD 씬 구성까지.</li></ul>
-</section>
-<section id="s3"><h2>강점</h2>
-<div class="tw"><table><thead><tr><th>무엇</th><th>왜 이 프로젝트에 쓸모 있나</th></tr></thead><tbody><tr><td>공간 재구성</td><td>촬영 → 3D 복원 파이프라인을 이미 알고 있다</td></tr><tr><td>현장 기획</td><td>제한된 시간·예산에서 결과를 내는 판단</td></tr><tr><td>문서화</td><td>근거 없는 주장을 남기지 않는 습관</td></tr></tbody></table></div>
-</section>
-<section id="s4"><h2>연락</h2>
-<p>프로젝트 관련 논의는 GitHub 이슈 또는 디스코드에서.</p>
-</section></div></details>
+  <div class="tm lead"><div class="r">Project Lead · Systems</div><div class="n"><a href="team-lead.html">오흥재</a></div>
+    <div class="s">시스템 통합 · 검증<br>ROS2 · Nav2 · SLAM · Isaac Sim</div>
+    <div class="more"><a href="team-lead.html">소개 보기 →</a></div></div>
   <div class="tm"><div class="r">Policy</div><div class="n">임석헌</div>
     <div class="s">모델 학습·데이터 구축<br>파인튜닝 R&amp;D</div></div>
   <div class="tm"><div class="r">Scene · Viz</div><div class="n">맹라현</div>
@@ -556,6 +531,10 @@ document.addEventListener('DOMContentLoaded',function(){
 <script>
 document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
 </script>
+
+
+
+
 
 
 
