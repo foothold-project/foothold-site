@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼 · FOOTHOLD</title>
+<meta name="description" content="공식 Go2 rough 환경이 로봇·지형·명령·보상·시간축을 어떻게 묶는지, 요약 다음에 상세로 읽는다.">
+<style>
+:root{
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--dim:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+  --measure:760px;
+  /* ★ --dim / --note 를 연한 배경(--*-soft) 위 글자로 쓰면 대비가 모자란다.
+     실측 --dim on --dim-soft = 4.43 · --note on --note-soft = 3.93 (둘 다 4.5 미달).
+     그런 자리에는 아래 진한 짝을 쓴다. DESIGN.md §2 참조. */
+  --dim-ink:#0b6459;
+  --note-ink:#8a5600;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+    --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+    --rule:#2b323d;--dim:#3ec7b4;--dim-soft:#11302c;
+    --note:#dc9a30;--note-soft:#332710;
+    --stop:#e56d5e;--stop-soft:#331c19;
+    --grid:rgba(233,231,225,.035);
+    /* 어두운 모드에서는 soft 배경이 어두우므로 원래 토큰이 이미 충분히 밝다 */
+    --dim-ink:#3ec7b4;
+    --note-ink:#dc9a30;
+  }
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.75;font-size:15px;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+
+.top{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .row{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:.55rem 1.5rem;
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.top .home{font-size:.72rem;font-weight:700;color:var(--ink-2);text-decoration:none;
+  border:1px solid var(--rule);background:var(--card);padding:.26rem .6rem;border-radius:4px}
+.top .home:hover{border-color:var(--dim);color:var(--dim)}
+.top .doc{font-size:.72rem;color:var(--ink-3);letter-spacing:.02em}
+.top .sp{flex:1}
+.pdfbtn{background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.26rem .6rem;font-family:inherit;font-size:.66rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer;border-radius:4px;transition:.15s;line-height:1.3}
+.pdfbtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--dim);width:0;transition:width .12s}
+
+.wrap{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:2.2rem 1.5rem 5rem}
+
+.hero{padding-bottom:1.6rem;border-bottom:2px solid var(--ink);margin-bottom:1.8rem}
+.eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:.5rem}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin-bottom:.7rem}
+.lede{font-size:1rem;color:var(--ink-2);max-width:min(42em,100%);word-break:keep-all}
+.meta{display:flex;flex-wrap:wrap;gap:.35rem 1.6rem;margin-top:1rem;font-size:.72rem}
+.meta .k{color:var(--ink-3);margin-right:.4rem}
+.meta .v{color:var(--ink-2);font-weight:700}
+
+section{margin-top:2.6rem}
+h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem;
+  border-bottom:1px solid var(--rule);margin-bottom:1rem}
+h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
+h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
+p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+ul,ol{margin:.6rem 0 .6rem 1.2rem}
+li{margin:.24rem 0;word-break:keep-all}
+b{font-weight:800}
+a{color:var(--dim)}
+code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
+  border:1px solid var(--rule);padding:.05rem .28rem;border-radius:3px;word-break:break-all}
+.vlink{font-size:.82em;color:var(--ink-3);background:var(--paper-2);border:1px solid var(--rule);
+  padding:.02rem .32rem;border-radius:3px}
+.vlink i{font-style:normal;opacity:.75}
+blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.7rem .95rem;
+  margin:1rem 0;font-size:.88rem;color:var(--ink-2)}
+blockquote p{margin:.25rem 0}
+blockquote b{color:var(--ink)}
+
+/* 표: 모바일에서 가로 스크롤 (DESIGN.md §5) */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
+th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
+  word-break:keep-all}
+th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
+  letter-spacing:.04em;border-bottom:none}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--paper-2)}
+
+/* 코드 블록 + 복사 버튼 */
+.cb{margin:1rem 0;border:1px solid var(--rule);background:#0f141b}
+.cb-h{display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;background:#1a212b;
+  border-bottom:1px solid #2b323d;font-size:.62rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:#7d8693}
+.cb-h .copy{margin-left:auto;background:#232b36;border:1px solid #39424f;color:#c8cfd8;
+  font-family:inherit;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:.16rem .5rem;
+  border-radius:3px;cursor:pointer;transition:.14s}
+.cb-h .copy:hover{background:var(--dim);border-color:var(--dim);color:#fff}
+.cb-h .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+.cb pre{margin:0;padding:.75rem .85rem;overflow-x:auto;color:#dfe4ea;
+  font-family:'Consolas','D2Coding',monospace;font-size:.76rem;line-height:1.7}
+.cb pre .c{color:#6f7a88}
+
+/* ── 표지 아래 요약 카드 ── */
+.pin{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.6rem 0 .4rem}
+@media (max-width:640px){.pin{grid-template-columns:1fr}}
+.pin>div{border:1px solid var(--rule);background:var(--card);padding:.85rem .95rem}
+.pin .lab{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:.4rem}
+.pin.hot>div{border-color:var(--note);background:var(--note-soft)}
+.big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
+  color:var(--dim-ink);word-break:break-all}
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다. 눈에 띄게 */
+section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
+section .addr .big{font-size:1.2rem}
+.addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
+.addr .copy{background:var(--card);border:1px solid var(--dim);color:var(--dim);
+  font-family:inherit;font-size:.64rem;font-weight:800;letter-spacing:.06em;
+  padding:.16rem .5rem;border-radius:3px;cursor:pointer;transition:.14s}
+.addr .copy:hover{background:var(--dim);color:#fff}
+.addr .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+
+/* ── 도구 4종 역할 구분 (팀원이 가장 헷갈리는 것) ── */
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1.2rem 0}
+@media (max-width:820px){.tools{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.tools{grid-template-columns:1fr}}
+.tool{border:1px solid var(--rule);background:var(--card);padding:.85rem .8rem;display:flex;
+  flex-direction:column;gap:.35rem}
+.tool.pick{border:2px solid var(--dim);background:var(--dim-soft)}
+.tool .n{font-size:.6rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3)}
+.tool .t{font-size:.95rem;font-weight:800;line-height:1.3}
+.tool.pick .t{color:var(--dim-ink)}
+.tool .q{font-size:.76rem;color:var(--ink-2);flex:1}
+.tool .f{font-size:.68rem;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:.35rem;
+  margin-top:.2rem;line-height:1.6}
+.tool .f b{color:var(--ink-2)}
+.tool .badge{display:inline-block;font-size:.6rem;font-weight:800;padding:.08rem .35rem;
+  border-radius:2px;background:var(--dim);color:#fff;letter-spacing:.04em}
+.tool .badge.warn{background:var(--note)}
+.tool .badge.off{background:var(--ink-3)}
+
+/* ── 경고 박스 (프로세스 정리) ── */
+.warnbox{border:2px solid var(--note);background:var(--note-soft);padding:1rem 1.1rem;margin:1.2rem 0}
+.warnbox .wh{font-size:.95rem;font-weight:800;color:var(--note-ink);margin-bottom:.5rem}
+.warnbox .line{font-size:.92rem;font-weight:800;color:var(--ink);margin:.4rem 0}
+.warnbox p{font-size:.84rem;color:var(--ink-2)}
+
+/* 공개 페이지에서 가려진 값 안내 */
+.redacted-note{display:block;font-size:.72rem;color:var(--ink-3);margin-top:.35rem;
+  font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
+.redacted-note b{color:var(--note-ink)}
+
+/* 미확인 표시: 확정처럼 읽히면 안 된다 */
+.unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
+  background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
+  vertical-align:.08em;margin-right:.3rem}
+
+@media print{
+  @page{size:A4 portrait;margin:14mm 12mm}
+  html{font-size:10.5px}
+  body{background:var(--card)!important;background-image:none!important}
+  .top,.pdfbtn,.copy{display:none!important}
+  .wrap{max-width:none;padding:0}
+  section{break-inside:auto;margin-top:1.4rem}
+  h2,h3{break-after:avoid}
+  .tw,.cb,blockquote,.tool,.warnbox,.pin>div{break-inside:avoid;page-break-inside:avoid}
+  .tools,.pin{display:block}
+  .tool,.pin>div{margin-bottom:.5rem}
+  .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
+  .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
+  .cb pre{color:var(--ink)!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre .c{color:#666!important}
+  a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mdimg{break-inside:avoid;page-break-inside:avoid}
+}
+
+/* 마크다운 그림·영상: mdpage 가 만드는 <figure class="mdimg"> */
+.mdimg{margin:1.5rem 0;padding:0}
+.mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:var(--card)}
+.mdvid video{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:#0f141b}
+.mdimg figcaption{font-size:.74rem;color:var(--ink-3);margin-top:.45rem;line-height:1.5}
+
+/* ── 코드 문법 강조 ──
+   실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
+.cb pre .c{color:#6f7a88;font-style:italic}   /* 주석 */
+.cb pre .k{color:#5eb0ef;font-weight:700}     /* 키워드 */
+.cb pre .f{color:#f0c674}                     /* 명령 · 함수 */
+.cb pre .b{color:#c39ac9}                     /* 파이썬 내장 */
+.cb pre .s{color:#9ece6a}                     /* 문자열 */
+.cb pre .n{color:#e59f6a}                     /* 숫자 */
+.cb pre .v{color:#7ee0d0}                     /* 변수 */
+.cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
+@media print{
+  /* 종이에서는 색이 안 나올 수 있다. 굵기·기울기로도 구분되게 */
+  .cb pre .c{color:#777!important;font-style:italic}
+  .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
+  .cb pre .s{color:#2a6b2a!important}
+  .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
+}
+
+.ev{display:inline-block;padding:.05rem .4rem;border-radius:3px;font-size:.68rem;
+  font-weight:800;letter-spacing:.04em;vertical-align:.06em;white-space:nowrap;
+  border:1px solid transparent}
+.ev-ok{background:var(--dim-soft);color:var(--dim);border-color:var(--dim)}
+.ev-guess{background:var(--note-soft);color:var(--note);border-color:var(--note)}
+.ev-todo{background:var(--paper-2);color:var(--ink-3);border-color:var(--rule)}
+.evlegend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;font-size:.72rem;color:var(--ink-3)}
+.rcards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:18px 0}
+.rcard{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;padding:14px 16px}
+.rcard:hover{border-color:var(--dim)}
+.rcard .rt{font-weight:800;font-size:1rem;margin:.2rem 0 .35rem}
+.rcard .rd{font-size:.8rem;color:var(--ink-2);line-height:1.55}
+.rcard .rm{font-size:.7rem;color:var(--ink-3);margin-top:.5rem;letter-spacing:.04em}
+.rcard .rno{display:inline-block;min-width:1.7em;text-align:center;background:var(--paper-2);border:1px solid var(--rule);border-radius:3px;font-size:.72rem;color:var(--ink-3);margin-right:.15rem;vertical-align:.06em}
+/* 대표 그림. 카드가 «무엇에 관한 글인지»를 제목보다 빨리 말해준다 */
+.rcard.has-thumb{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.rcard .rthumb{background:var(--paper-2);border-bottom:1px solid var(--rule);
+  aspect-ratio:16/7;overflow:hidden}
+.rcard .rthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+.rcard.has-thumb .rbody{padding:14px 16px}
+.rcard:hover .rthumb img{transform:scale(1.03)}
+/* 목록 상단 배너: 최신 다이제스트만. (질문 지도는 표지로 승격: 팀장 컨펌 2026-08-12)
+   이모지 없이 브랜드 토큰만 쓴다. */
+.dgbar{margin:16px 0 4px}
+.dgbar a{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;text-decoration:none;
+  color:inherit;border:1px solid var(--rule);background:var(--card);border-radius:6px;
+  padding:.6rem .9rem;font-size:.85rem;border-left:4px solid var(--note)}
+.dgbar a .k{font-size:.62rem;font-weight:800;letter-spacing:.16em;color:var(--note);
+  text-transform:uppercase}
+.dgbar a span{color:var(--ink-3);font-size:.72rem}
+.dgbar a:hover{border-color:var(--dim)}
+</style>
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
+<!--newbadge:v5--><style>
+a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
+  margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
+  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
+</style>
+<script>
+(function(){
+  var W=7*86400000,KEY='fh_seen';
+  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
+    .replace(/\.html$/,'');return s||'index'}
+  function apply(){
+    var seen={},raw={};
+    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+    for(var k in raw)seen[norm(k)]=raw[k];
+    seen[norm(location.pathname)]=Date.now();
+    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
+    document.querySelectorAll('a[data-added]').forEach(function(a){
+      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
+      var tgt=norm(a.getAttribute('href'));
+      a.classList.toggle('is-new',
+        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
+    });
+  }
+  document.addEventListener('DOMContentLoaded',apply);
+  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
+})();
+</script>
+<!--search:v8--><style>
+@media (max-width:640px){
+  .top .row{flex-wrap:nowrap}
+  .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}
+  .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
+  .topbar .stage-chip{display:none}
+  .topbar .row{gap:.3rem}
+  .topbar .tbtn{padding:.32rem .5rem}
+  .topbar .counter{font-size:.62rem}
+  .fh-sbtn{display:inline-flex!important}
+  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
+    -webkit-overflow-scrolling:touch}
+  header.top{padding-top:28px}
+}
+.fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
+  border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
+  font-size:.55rem;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:4px;
+  display:inline-flex;align-items:center;gap:5px}
+.fh-so{position:fixed;inset:0;background:rgba(10,14,16,.45);z-index:300;display:none}
+.fh-so.on{display:flex;align-items:flex-start;justify-content:center;padding:9vh 14px 0}
+.fh-sp{width:min(560px,100%);background:var(--paper);border:1px solid var(--rule);
+  border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.32);overflow:hidden}
+.fh-sp input{width:100%;padding:.75rem .95rem;font-size:16px;border:0;
+  border-bottom:1px solid var(--rule);background:var(--paper);color:var(--ink);
+  font-family:inherit;outline:none}
+.fh-sr{max-height:56vh;overflow-y:auto}
+.fh-sr a{display:block;padding:.55rem .95rem;text-decoration:none;color:inherit;
+  border-bottom:1px solid var(--rule)}
+.fh-sr a:last-child{border-bottom:none}
+.fh-sr a:hover,.fh-sr a.sel{background:var(--dim-soft)}
+.fh-sr .sp1{font-size:.66rem;color:var(--dim);font-weight:800;letter-spacing:.03em}
+.fh-sr .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
+.fh-sr .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
+.fh-sr .none{padding:.7rem .95rem;font-size:.76rem;color:var(--ink-3)}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  /* «← …로» 버튼은 라벨이 가리키는 곳으로만 간다.
+     예전의 «스마트 뒤로가기»(history.back)는 제거했다. 라벨은 «표지로»인데
+     실제로는 직전 페이지로 돌아가 사용자를 속였다. (2026-08-24) */
+  /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
+  var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
+  var sb=document.createElement('button');sb.type='button';
+  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
+  sb.setAttribute('aria-label','사이트 검색');
+  sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
+    +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
+    +'<circle cx="7" cy="7" r="4.2"/><path d="M10.4 10.4L14 14"/></svg>검색';
+  if(pb)pb.parentNode.insertBefore(sb,pb);else document.body.appendChild(sb);
+  function offset(){ /* PDF 버튼이 화면 고정형이면 그 왼쪽에 나란히 고정 */
+    if(!pb)return;var cs=getComputedStyle(pb);
+    var r=pb.getBoundingClientRect();
+    if(cs.display==='none'||r.width===0){ /* PDF 가 숨겨진 화면(백과 모바일): 검색이 그 자리에 */
+      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='70';
+    }else if(cs.position==='fixed'){
+      sb.style.position='fixed';sb.style.top=r.top+'px';
+      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
+    }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
+  offset();window.addEventListener('resize',offset);
+  /* 오버레이 */
+  var ov=document.createElement('div');ov.className='fh-so';
+  ov.innerHTML='<div class="fh-sp"><input type="search" placeholder="검색 (제목 · 절 · 본문)" '
+    +'aria-label="사이트 검색"><div class="fh-sr"></div></div>';
+  document.body.appendChild(ov);
+  var inp=ov.querySelector('input'),res=ov.querySelector('.fh-sr'),IDX=null,sel=-1;
+  function open(){ov.classList.add('on');inp.focus();inp.select();}
+  function close(){ov.classList.remove('on');}
+  sb.addEventListener('click',open);
+  ov.addEventListener('mousedown',function(e){if(e.target===ov)close();});
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
+    else if(e.key==='Escape'&&ov.classList.contains('on'))close();
+  });
+  function load(cb){if(IDX)return cb();
+    fetch('assets/search-index.json').then(function(r){return r.json()})
+      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function go(){
+    var q=inp.value.trim().toLowerCase();sel=-1;
+    if(q.length<2){res.innerHTML='';return;}
+    load(function(){
+      var hits=[];
+      for(var i=0;i<IDX.length&&hits.length<40;i++){
+        var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
+            pi=e.t.toLowerCase().indexOf(q);
+        if(hi<0&&ti<0&&pi<0)continue;
+        var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
+        var snip='';
+        if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
+        hits.push({e:e,s:score,snip:snip});
+      }
+      hits.sort(function(a,b){return b.s-a.s});
+      hits=hits.slice(0,12);
+      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      else{res.innerHTML=hits.map(function(h){
+        return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
+          +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
+          +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
+    });
+  }
+  inp.addEventListener('input',go);
+  inp.addEventListener('keydown',function(e){
+    e.stopPropagation(); /* 커리큘럼 등 자체 키보드 내비게이션 페이지로 새지 않게 */
+    if(e.key==='Escape'){close();return;}
+    var as=res.querySelectorAll('a');if(!as.length)return;
+    if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,as.length-1);}
+    else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);}
+    else if(e.key==='Enter'&&sel>=0){e.preventDefault();as[sel].click();return;}
+    else return;
+    as.forEach(function(a,i){a.classList.toggle('sel',i===sel)});
+    if(as[sel])as[sel].scrollIntoView({block:'nearest'});
+  });
+});
+</script>
+</head>
+<body>
+
+<div class="top"><div class="row"><a class="home" href="research.html">← 연구 기록으로</a><span class="doc">FOOTHOLD · 연구 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">Research · 근거 기록</div>
+  <h1>Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼</h1>
+  <p class="lede">공식 Go2 rough 환경이 로봇·지형·명령·보상·시간축을 어떻게 묶는지, 요약 다음에 상세로 읽는다.</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-25</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / go2-rough-training.md</span></div><div><span class="k">증거</span><span class="v">확인 20 · 추측 1 · 미측정 0</span></div></div>
+  <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
+</div>
+
+<blockquote><p>요지: 공식 Go2 rough 환경이 로봇·지형·명령·보상·시간축을 어떻게 묶는지, 요약 다음에 상세로 읽는다.
+작성 2026-08-25 · 원본: 팀 스터디 필기 <code>IsaacLab_Go2_험지학습_요약.md</code> · <code>IsaacLab_Go2_험지학습_상세.md</code>. 공식 클래스명으로 재정리.
+이 문서가 답하는 것: <b>학습 cfg를 열기 전에 무엇을 어떤 순서로 읽는가.</b> 커스텀 험지 설계는 <a href="research-terrain-guide-isaaclab.html">지형 가이드</a>, 숫자 실측은 <a href="research-training-benchmarks.html">학습 성능 실측</a>.
+클래스명·기본값·Go2 오버라이드는 Isaac Lab 공식 <code>UNITREE_GO2_CFG</code> · <code>LocomotionVelocityRoughEnvCfg</code> · <code>UnitreeGo2RoughEnvCfg</code> · <code>ROUGH_TERRAINS_CFG</code> 기준 <span class="ev ev-ok">확인됨</span>. 스터디 때 나온 실험 감각은 팀 실측과 맞춰 표시한다.</p></blockquote>
+</section>
+<section id="s1"><h2>이 장을 읽는 순서</h2>
+<ol><li>아래 <b>요약</b>만 먼저 읽는다. 흐름·숫자·손대는 축이 한 장이다.</li><li>보상·시간축·Go2 오버라이드가 막히면 <b>상세</b>로 내려간다.</li><li>지형 종류를 더 고르려면 <a href="research-terrain-guide-isaaclab.html">지형 가이드</a> (공식 21종).</li><li>학습을 돌린 뒤에는 <a href="research-training-benchmarks.html">학습 성능 실측</a>과 <a href="research-generalization-benchmark-10-terrains.html">일반화 벤치마크</a>.</li><li>실패한 지형을 이어서 학습할 계획은 <a href="research-terrain-finetune-plan.html">파인튜닝 계획</a>.</li></ol>
+<p>8/19 이후 정본: 우리 학습 정책의 <b>실기 저수준 이전은 목표에서 빠진다</b> <span class="ev ev-ok">확인됨</span>. 상세의 증류·ONNX·Orin 경로는 Isaac 계열의 일반 실기 배포 그림이지, 지금 트랙 A/B의 필수 단계가 아니다.</p>
+<!--H1:요약-->
+</section>
+<section id="s2"><h2>흐름</h2>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>로봇 Asset → 지형 Generator → Scene / Sensors
+→ Commands · Actions · Observations
+→ Events · Rewards · Terminations
+→ PPO 학습 → Checkpoint</pre></div>
+<p>그 다음이 실기 배포라면 증류 → ONNX → Orin NX가 일반 경로다. <b>지금은 시뮬 안에서 평가·트윈·렌더로 닫는다</b> ([프로젝트 보고서](../REPORT.md)).</p>
+<div class="tw"><table><thead><tr><th>역할</th><th>클래스 / 파일</th></tr></thead><tbody><tr><td>로봇</td><td><code>UNITREE_GO2_CFG</code></td></tr><tr><td>공통 Env</td><td><code>LocomotionVelocityRoughEnvCfg</code> (<code>velocity_env_cfg.py</code>)</td></tr><tr><td>Go2 특화</td><td><code>UnitreeGo2RoughEnvCfg</code> (<code>go2/rough_env_cfg.py</code>)</td></tr><tr><td>지형</td><td><code>ROUGH_TERRAINS_CFG</code> / <code>TerrainGeneratorCfg</code></td></tr></tbody></table></div>
+</section>
+<section id="s3"><h2>로봇 · 스폰</h2>
+<ul><li>발 접촉 센서 ON, <code>disable_gravity=False</code></li><li>damping · depenetration · self-collision · solver는 <b>안정성 우선</b></li><li>초기 높이 약 <b>0.4 m</b>. 학습에 쓰는 관절 한계는 물리 범위의 일부</li><li>리셋 때 기지는 같되 <code>x</code> · <code>y</code> · <code>yaw</code>는 조금씩 달라질 수 있다</li></ul>
+</section>
+<section id="s4"><h2>험지 6종 (공식 rough 예제)</h2>
+<p>Mesh는 계단·박스처럼 각진 형상, Height Field(HF)는 울퉁불퉁·경사. <code>curriculum=True</code>이면 잘하면 어려운 행, 못하면 쉬운 행으로 돌아간다.</p>
+<div class="tw"><table><thead><tr><th>Key</th><th>뜻</th><th>손잡는 파라미터</th></tr></thead><tbody><tr><td><code>pyramid_stairs</code> / <code>_inv</code></td><td>오르막·내리막 계단</td><td><code>step_height_range</code>, <code>holes</code></td></tr><tr><td><code>boxes</code></td><td>격자 높이 랜덤</td><td><code>grid_height_range</code></td></tr><tr><td><code>random_rough</code></td><td>유선형 울퉁불퉁</td><td><code>noise_range</code>, <code>noise_step</code></td></tr><tr><td><code>hf_pyramid_slope</code> / <code>_inv</code></td><td>경사·역경사</td><td><code>slope_range</code></td></tr></tbody></table></div>
+<p><code>proportion=0.2</code>이면 그 지형이 약 20%. 경사 두 종은 예제에서 각 10%. 전체 21종은 <a href="research-terrain-guide-isaaclab.html">지형 가이드</a>.</p>
+</section>
+<section id="s5"><h2>Env 핵심</h2>
+<div class="tw"><table><thead><tr><th>항목</th><th>값 / 의미</th></tr></thead><tbody><tr><td><code>terrain_type</code></td><td><code>&quot;generator&quot;</code> (코드로 생성)</td></tr><tr><td><code>num_envs</code></td><td>4096</td></tr><tr><td>height_scanner</td><td><b>base</b>에 붙이고 지형만 측정. 격자·오프셋을 실기와 맞추는 일이 sim-to-real의 핵심이었으나, 지금은 시뮬 평가 정합에 쓴다</td></tr><tr><td>commands</td><td><code>base_velocity</code>. 주기적 재샘플. 일부 env는 서 있으라는 명령</td></tr><tr><td>actions</td><td><code>목표 = default + action × scale</code></td></tr><tr><td>events</td><td>startup(질량·마찰·CoM) / reset(pose·joint) / interval(<code>push_robot</code>)</td></tr></tbody></table></div>
+<p><b>Go2 오버라이드 요점</b></p>
+<ul><li>소형 로봇이라 boxes · rough <b>높이를 낮춘다</b>. 실무 감각: 단차 약 16 cm 이상은 넘기 어렵다 <span class="ev ev-guess">추측</span></li><li><code>push_robot = None</code>, 관절 리셋 <code>(1.0, 1.0)</code></li><li><code>feet_air_time</code>의 body는 <code>.*_foot</code></li></ul>
+</section>
+<section id="s6"><h2>시간축</h2>
+<div class="tw"><table><thead><tr><th>개념</th><th>값</th></tr></thead><tbody><tr><td>physics <code>dt</code></td><td>0.005 s (200 Hz)</td></tr><tr><td><code>decimation</code></td><td>4</td></tr><tr><td>정책 주기</td><td><b>0.02 s (50 Hz)</b></td></tr><tr><td>episode</td><td>최대 20 s</td></tr><tr><td>병렬</td><td>4096 envs</td></tr></tbody></table></div>
+<p>물리 4틱마다 정책 1회. 1,500 iteration 벽시계는 스터디 메모 약 104분, 팀 완주 실측은 <b>133분</b> (2026-08-12) <span class="ev ev-ok">확인됨</span>.</p>
+</section>
+<section id="s7"><h2>보상 · 종료 · 실험 규칙</h2>
+<div class="tw"><table><thead><tr><th>Term</th><th>역할</th></tr></thead><tbody><tr><td><code>track_lin_vel_xy_exp</code> / <code>track_ang_vel_z_exp</code></td><td>명령 추종</td></tr><tr><td><code>lin_vel_z_l2</code> 등</td><td>튀김·흔들림 벌점</td></tr><tr><td><code>feet_air_time</code></td><td>착지 때 정산. 잔발·발끌기 억제</td></tr><tr><td><code>dof_torques_l2</code> / <code>dof_acc_l2</code></td><td>과토크·급가속 억제</td></tr><tr><td><code>base_contact</code></td><td>몸통 접촉이면 에피소드 종료</td></tr></tbody></table></div>
+<p><b>한 번에 가중치 1개만 바꾼다.</b> mean reward는 에피소드 총점 평균이지 통과율이 아니다.</p>
+<p>충돌 근사 플래그(<code>collisionApproximateCylinders</code>)는 <b>쓰지 않는다</b>. 봉인 <span class="ev ev-ok">확인됨</span> (<a href="research-training-benchmarks.html">학습 실측 §2</a>).</p>
+<p>시각화: 초록 화살 = 명령(command), 파랑 = 실제 속도.</p>
+<p>실패는 낙상과 <b>20초 안에 목표 거리를 못 가서 timeout</b>을 가른다. 난이도 곡선에서 실패의 주원인은 넘어짐이 아니라 느림이었다 <span class="ev ev-ok">확인됨</span>.</p>
+<!--H1:상세-->
+</section>
+<section id="s8"><h2>1. 전체 그림</h2>
+<p>Isaac Sim / Isaac Lab에서 Unitree Go2 보행 정책을 학습하는 조립 순서다.</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>[로봇 Asset 설정] → [지형 Generator] → [Scene / Sensors]
+        ↓
+[Commands · Actions · Observations]
+        ↓
+[Events(Domain Randomization) · Rewards · Terminations]
+        ↓
+[LocomotionVelocityRoughEnvCfg] → PPO → Checkpoint</pre></div>
+<p>Isaac Lab 안에는 Unitree 계열 모델이 여러 대 있다. 이 장의 대상은 <b>Go2</b>다.</p>
+<p>저장소 안 위치 (Isaac Lab):</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>isaaclab_assets/robots/unitree.py
+    → UNITREE_GO2_CFG
+
+isaaclab_tasks/.../locomotion/velocity/velocity_env_cfg.py
+    → LocomotionVelocityRoughEnvCfg
+    → scene, commands, actions, rewards, events, curriculum
+
+isaaclab_tasks/.../locomotion/velocity/config/go2/rough_env_cfg.py
+    → UnitreeGo2RoughEnvCfg
+    → UnitreeGo2RoughEnvCfg_PLAY</pre></div>
+<p>PLAY cfg는 env 수를 줄이고, curriculum·랜덤 푸시를 끄고, 관측 노이즈(<code>enable_corruption</code>)를 끈다. 학습이 아니라 <b>재생·확인</b>용이다 <span class="ev ev-ok">확인됨</span>.</p>
+</section>
+<section id="s9"><h2>2. 로봇 모델 (<code>UNITREE_GO2_CFG</code>)</h2>
+<p>모델 생성 단계에서 물리 엔진이 얼마나 현실적으로, 얼마나 안정적으로 움직일지가 갈린다.</p>
+<div class="tw"><table><thead><tr><th>#</th><th>항목</th><th>의미</th><th>메모</th></tr></thead><tbody><tr><td>1</td><td>USD / mesh path</td><td>3D 모델 경로</td><td>Unitree Go2 USD</td></tr><tr><td>2</td><td>Contact sensors (feet)</td><td>발바닥 접촉</td><td><code>True</code>. 착지·공중 시간 보상, 종료 판정에 필요</td></tr><tr><td>3</td><td><code>disable_gravity</code></td><td>중력 끄기</td><td><code>False</code>: 중력을 받는다</td></tr><tr><td>4</td><td>Damping (<code>linear</code> / <code>angular</code>)</td><td>선·각속도 감쇠</td><td>시뮬이 덜 흔들리게 넣는 경우가 많다</td></tr><tr><td>5</td><td>max linear / angular velocity</td><td>속도 상한</td><td>예: <code>1000.0</code> (사실상 넉넉한 천장)</td></tr><tr><td>6</td><td>Depenetration velocity</td><td>겹침을 밀어내는 속도</td><td>크면 튀고, 작으면 침투가 남는다</td></tr><tr><td>7</td><td>Self-collision</td><td>로봇 자신끼리 충돌</td><td>끄면 빠르고, 켜면 현실적이지만 불안정해질 수 있다</td></tr><tr><td>8</td><td>Solver position iterations</td><td>위치 오차 재계산 횟수</td><td>늘리면 안정, 줄이면 비용 감소</td></tr></tbody></table></div>
+<p>시뮬에서 «물리적으로 가능한 것»과 «학습에 안정적인 것»은 다를 수 있다. 댐핑·충돌·솔버는 <b>안정성 우선</b>으로 둔다.</p>
+<p>관절 한계는 물리 범위의 <b>일부만</b> 학습에 쓰는 경우가 있다. 끝까지 열면 불안정해지기 쉽다. 액추에이터는 최대 출력(effort / torque)과 <code>stiffness</code> / <code>damping</code>으로 실기 모터에 가깝게 맞춘다.</p>
+</section>
+<section id="s10"><h2>3. 스폰 (에피소드 시작 자세)</h2>
+<div class="tw"><table><thead><tr><th>항목</th><th>영문</th><th>설명</th></tr></thead><tbody><tr><td>초기 위치</td><td><code>init_state.pos</code></td><td>기본 높이 예: 약 0.4 m</td></tr><tr><td>관절 각도</td><td><code>joint_pos</code></td><td>기본 스탠스</td></tr><tr><td>관절 속도</td><td><code>joint_vel</code></td><td>보통 0</td></tr><tr><td>Soft / hard limit</td><td>joint limit</td><td>물리는 더 열려도 학습 안정성 때문에 조인다</td></tr><tr><td>Actuator effort</td><td>max effort</td><td>모터 최대 출력에 대응</td></tr></tbody></table></div>
+<p>리셋은 «같은 기지, 다른 좌표»가 기본 감각이다. <code>reset_base</code>의 <code>pose_range</code>에서 <code>x</code>, <code>y</code>, <code>yaw</code>를 랜덤 샘플링한다.</p>
+</section>
+<section id="s11"><h2>4. 험지 설정</h2>
+<h3>Mesh vs Height Field</h3>
+<div class="tw"><table><thead><tr><th>방식</th><th>특징</th><th>대표</th></tr></thead><tbody><tr><td>Mesh</td><td>각진 장애물 (계단, 박스 그리드)</td><td><code>pyramid_stairs</code>, <code>boxes</code></td></tr><tr><td>Height Field</td><td>연속 굴곡·경사</td><td><code>random_rough</code>, <code>hf_pyramid_slope</code></td></tr></tbody></table></div>
+<p>둘을 섞어 하나의 그리드 맵을 만든다. <code>ROUGH_TERRAINS_CFG</code>는 공식 21종 전체가 아니라 <b>예제 혼합</b>이다 <span class="ev ev-ok">확인됨</span>.</p>
+<h3>Terrain Generator 공통</h3>
+<div class="tw"><table><thead><tr><th>항목</th><th>영문</th><th>설명</th></tr></thead><tbody><tr><td>서브 지형 크기</td><td><code>size</code></td><td>각 sub-terrain의 가로·세로 (m)</td></tr><tr><td>테두리</td><td><code>border_width</code></td><td>지형 간·외곽 경계</td></tr><tr><td>경사 임계</td><td><code>slope_threshold</code></td><td>너무 가파르면 수직벽처럼 다루거나 그 방향으로 가지 않게</td></tr><tr><td>Curriculum</td><td><code>curriculum=True</code></td><td>성능이 오르면 더 어려운 난이도 행으로</td></tr></tbody></table></div>
+<p>승급 규칙의 팀 정본: 에피소드 동안 타일의 절반 이상을 이동하면 한 행 위로, 못 가면 아래로 (<code>terrain_levels_vel</code>) <span class="ev ev-ok">확인됨</span> (<a href="flow.html">흐름 §2</a>).</p>
+<h3>6종 sub-terrain (ROUGH 예제)</h3>
+<p>각 타입 <code>proportion</code>의 합이 정규화되어 비율이 된다.</p>
+<div class="tw"><table><thead><tr><th>Key</th><th>클래스 예</th><th>설명</th><th>주요 파라미터</th></tr></thead><tbody><tr><td><code>pyramid_stairs</code></td><td><code>MeshPyramidStairsTerrainCfg</code></td><td>올라가는 피라미드 계단</td><td><code>step_height_range</code>, <code>holes</code></td></tr><tr><td><code>pyramid_stairs_inv</code></td><td><code>MeshInvertedPyramidStairsTerrainCfg</code></td><td>내려가는 계단</td><td>동일</td></tr><tr><td><code>boxes</code></td><td><code>MeshRandomGridTerrainCfg</code></td><td>격자 박스 높이 랜덤</td><td><code>grid_height_range</code></td></tr><tr><td><code>random_rough</code></td><td><code>HfRandomUniformTerrainCfg</code></td><td>유선형 울퉁불퉁</td><td><code>noise_range</code>, <code>noise_step</code></td></tr><tr><td><code>hf_pyramid_slope</code></td><td><code>HfPyramidSlopedTerrainCfg</code></td><td>사다리꼴 경사</td><td><code>slope_range</code></td></tr><tr><td><code>hf_pyramid_slope_inv</code></td><td><code>HfInvertedPyramidSlopedTerrainCfg</code></td><td>역경사</td><td><code>slope_range</code></td></tr></tbody></table></div>
+<ul><li><code>holes=True</code>: 위에서 보면 십자만 남기고 모서리를 뺀다. 좁은 영역으로 올라가게 유도한다.</li><li><code>noise_step</code>: HF rough를 샘플할 때의 해상도.</li><li>난이도 행이 오르면 <code>step_height_range</code> 같은 (min, max) 구간을 보간한다.</li></ul>
+<p>예제 스케치:</p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre>sub_terrains={
+    <span class="s">&quot;pyramid_stairs&quot;</span>: terrain_gen.<span class="f">MeshPyramidStairsTerrainCfg</span>(
+        proportion=<span class="n">0.2</span>,
+        step_height_range=(<span class="n">0.05</span>, <span class="n">0.23</span>),
+        holes=<span class="k">False</span>,
+    ),
+    <span class="s">&quot;pyramid_stairs_inv&quot;</span>: ...,
+    <span class="s">&quot;boxes&quot;</span>: terrain_gen.<span class="f">MeshRandomGridTerrainCfg</span>(
+        proportion=<span class="n">0.2</span>,
+        grid_height_range=(<span class="n">0.05</span>, <span class="n">0.2</span>),
+    ),
+    <span class="s">&quot;random_rough&quot;</span>: terrain_gen.<span class="f">HfRandomUniformTerrainCfg</span>(
+        proportion=<span class="n">0.2</span>,
+        noise_range=(<span class="n">0.02</span>, <span class="n">0.10</span>),
+        noise_step=<span class="n">0.02</span>,
+    ),
+    <span class="s">&quot;hf_pyramid_slope&quot;</span>: terrain_gen.<span class="f">HfPyramidSlopedTerrainCfg</span>(
+        proportion=<span class="n">0.1</span>,
+        slope_range=(<span class="n">0.0</span>, <span class="n">0.4</span>),
+    ),
+    <span class="s">&quot;hf_pyramid_slope_inv&quot;</span>: ...,
+}</pre></div>
+<p>공통 cfg의 난이도 0→9 감각 (<a href="flow.html">흐름 §2</a> <span class="ev ev-ok">확인됨</span>):</p>
+<div class="tw"><table><thead><tr><th>지형</th><th>비율</th><th>난이도 0 → 9</th></tr></thead><tbody><tr><td>계단 오름 · 내림</td><td>각 20%</td><td>단 높이 0.05 → 0.23 m</td></tr><tr><td>랜덤 박스</td><td>20%</td><td>0.05 → 0.20 m</td></tr><tr><td>무작위 요철</td><td>20%</td><td>0.02 → 0.10 m</td></tr><tr><td>경사 오름 · 내림</td><td>각 10%</td><td>기울기 0 → 0.4 (약 22도)</td></tr></tbody></table></div>
+<p>Go2 전용 cfg는 아래 §6처럼 박스·요철 높이를 이보다 <b>낮춘다</b>.</p>
+</section>
+<section id="s12"><h2>5. 공통 환경 (<code>LocomotionVelocityRoughEnvCfg</code>)</h2>
+<h3>Scene · Ground</h3>
+<div class="tw"><table><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody><tr><td><code>terrain_type=&quot;generator&quot;</code></td><td>고정 맵 파일이 아니라 코드로 생성</td></tr><tr><td><code>max_init_terrain_level</code></td><td>초기 난이도 상한. 예: 5</td></tr><tr><td><code>collision_group=-1</code></td><td>병렬 로봇이 ground collision을 같이 쓰는 패턴</td></tr><tr><td>Physics material</td><td>마찰·반발. combine mode 예: <code>&quot;multiply&quot;</code></td></tr></tbody></table></div>
+<p>정지 마찰과 동적 마찰, restitution(반발)을 여기서 준다.</p>
+<h3>Height scanner · 접촉</h3>
+<div class="tw"><table><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody><tr><td>Robot</td><td>공통 cfg에서는 <code>MISSING</code>. 로봇별 cfg가 주입</td></tr><tr><td>Scanner offset</td><td>보통 <b>base(몸통)</b></td></tr><tr><td>Mesh prim filter</td><td>몸·다리는 통과하고 <b>지형만</b> 높이 측정</td></tr><tr><td>Contact forces</td><td>몸통이 바닥에 닿으면 실패 판정</td></tr><tr><td><code>track_air_time</code></td><td>부위가 공중에 떠 있는 시간 추적. <code>True</code></td></tr></tbody></table></div>
+<p>height scan의 단위·오프셋·격자(예: 10 cm)가 점수에 영향을 준다. 187점(앞뒤 1.6 m × 좌우 1.0 m, 10 cm 격자)의 풀이는 <a href="flow.html">흐름 §3</a>.</p>
+<h3>Commands</h3>
+<p>로봇에게 «몸통이 따라가야 할 목표 속도»를 내린다.</p>
+<div class="tw"><table><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody><tr><td><code>base_velocity</code></td><td>선속도·각속도 명령</td></tr><tr><td><code>resampling_time_range</code></td><td>몇 초마다 새 명령을 뽑을지</td></tr><tr><td><code>rel_standing_envs</code></td><td>일부 env는 «서 있어라». 예: 약 2%</td></tr><tr><td><code>heading_command</code></td><td>끄면 지정 속도만 추종. 켜면 방향만 주고 정책이 요를 맞춘다</td></tr><tr><td><code>ranges</code></td><td>명령 범위 = 난이도</td></tr></tbody></table></div>
+<h3>Actions · Observations</h3>
+<p>정책 출력은 절대 각도가 아니라 <b>기본 자세 기준 오프셋</b>이다.</p>
+<p><code>목표 = default + (action × scale)</code></p>
+<p>관측 대표: <code>base_lin_vel</code>, <code>base_ang_vel</code>, <code>projected_gravity</code>(기울기), joint pos/vel, height scan, last action. 학습 전에 <code>ObservationsCfg</code>를 한 번 읽는다. 노이즈는 센서 오차 모사(강건성)용이다.</p>
+<h3>Events (domain randomization)</h3>
+<p>같은 설정인데 어제와 오늘이 달라지는 이유 중 하나이자, 특정 시뮬 세팅에만 특화되지 않게 넣는 외란이다.</p>
+<div class="tw"><table><thead><tr><th>시점</th><th>예</th></tr></thead><tbody><tr><td>startup</td><td>마찰·반발, <code>add_base_mass</code>, CoM(<code>base_com</code>)</td></tr><tr><td>reset</td><td>스폰 pose/vel, joint 위치</td></tr><tr><td>interval</td><td><code>push_robot</code> (학습 중 밀어내기)</td></tr></tbody></table></div>
+<p>질량·CoM을 충분히 흔드는 편이 시뮬 특화를 줄인다. 난이도 손잡이로도 쓴다.</p>
+<h3>한 클래스로 묶는 숫자</h3>
+<div class="tw"><table><thead><tr><th>항목</th><th>전형값</th></tr></thead><tbody><tr><td><code>scene.num_envs</code></td><td>4096</td></tr><tr><td><code>env_spacing</code></td><td>2.5</td></tr><tr><td><code>decimation</code></td><td>4</td></tr><tr><td><code>episode_length_s</code></td><td>20.0</td></tr><tr><td><code>sim.dt</code></td><td>0.005</td></tr></tbody></table></div>
+<p>센서 업데이트 주기는 decimation·dt에 맞춘다. height scanner가 있으면 주기를 넣고, 없으면 건너뛴다. <code>terrain_levels</code>가 있으면 curriculum이 켜진다.</p>
+</section>
+<section id="s13"><h2>6. Go2 전용 오버라이드 (<code>UnitreeGo2RoughEnvCfg</code>)</h2>
+<p>공식 cfg에서 강조되는 점:</p>
+<ol><li>로봇은 <code>UNITREE_GO2_CFG</code></li><li>height scanner는 <code>{ENV_REGEX_NS}/Robot/base</code></li><li>Go2는 작아서 <b>지형 높이를 낮춘다</b></li><li><code>push_robot = None</code></li><li><code>add_base_mass</code> 분포를 작게, 음수도 포함. 예: <code>(-1.0, 3.0)</code></li><li>관절 리셋 <code>position_range = (1.0, 1.0)</code> (default 배율에 가깝게)</li><li><code>feet_air_time</code> body = <code>.*_foot</code></li></ol>
+<p>개념 코드:</p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> isaaclab.utils <span class="k">import</span> configclass
+<span class="k">from</span> isaaclab_tasks.manager_based.locomotion.velocity.velocity_env_cfg <span class="f">import</span> (
+    LocomotionVelocityRoughEnvCfg,
+)
+<span class="k">from</span> isaaclab_assets.robots.unitree <span class="k">import</span> UNITREE_GO2_CFG
+
+
+@configclass
+<span class="k">class</span> <span class="f">UnitreeGo2RoughEnvCfg</span>(LocomotionVelocityRoughEnvCfg):
+    <span class="k">def</span> <span class="f">__post_init__</span>(<span class="k">self</span>):
+        <span class="f">super</span>().<span class="f">__post_init__</span>()
+
+        <span class="k">self</span>.scene.robot = UNITREE_GO2_CFG.<span class="f">replace</span>(
+            prim_path=<span class="s">&quot;{ENV_REGEX_NS}/Robot&quot;</span>
+        )
+        <span class="k">self</span>.scene.height_scanner.prim_path = <span class="s">&quot;{ENV_REGEX_NS}/Robot/base&quot;</span>
+
+        <span class="c"># Go2는 작아서 지형 난이도(높이)를 낮춤</span>
+        <span class="k">self</span>.scene.terrain.terrain_generator.sub_terrains[<span class="s">&quot;boxes&quot;</span>].grid_height_range = (<span class="n">0.025</span>, <span class="n">0.1</span>)
+        <span class="k">self</span>.scene.terrain.terrain_generator.sub_terrains[<span class="s">&quot;random_rough&quot;</span>].noise_range = (<span class="n">0.01</span>, <span class="n">0.06</span>)
+        <span class="k">self</span>.scene.terrain.terrain_generator.sub_terrains[<span class="s">&quot;random_rough&quot;</span>].noise_step = <span class="n">0.01</span>
+
+        <span class="k">self</span>.actions.joint_pos.scale = <span class="n">0.25</span>
+        <span class="k">self</span>.events.push_robot = <span class="k">None</span>
+        <span class="k">self</span>.events.add_base_mass.params[<span class="s">&quot;mass_distribution_params&quot;</span>] = (-<span class="n">1.0</span>, <span class="n">3.0</span>)
+        <span class="k">self</span>.events.reset_robot_joints.params[<span class="s">&quot;position_range&quot;</span>] = (<span class="n">1.0</span>, <span class="n">1.0</span>)
+        <span class="k">self</span>.events.base_com = <span class="k">None</span>
+
+        <span class="k">self</span>.rewards.feet_air_time.params[<span class="s">&quot;sensor_cfg&quot;</span>].body_names = <span class="s">&quot;.*_foot&quot;</span>
+        <span class="k">self</span>.rewards.feet_air_time.weight = <span class="n">0.01</span>
+        <span class="k">self</span>.rewards.track_lin_vel_xy_exp.weight = <span class="n">1.5</span>
+        <span class="k">self</span>.rewards.track_ang_vel_z_exp.weight = <span class="n">0.75</span>
+        <span class="k">self</span>.rewards.dof_torques_l2.weight = -<span class="n">0.0002</span>
+        <span class="k">self</span>.rewards.dof_acc_l2.weight = -<span class="n">2</span>.5e-<span class="n">7</span>
+
+        <span class="k">self</span>.terminations.base_contact.params[<span class="s">&quot;sensor_cfg&quot;</span>].body_names = <span class="s">&quot;base&quot;</span></pre></div>
+<p>공통 <code>RewardsCfg</code>의 기본 가중치(예: <code>track_lin_vel_xy_exp = +1.0</code>)와 <b>Go2 표의 숫자가 다르다</b>. 학습에 실제로 들어가는 쪽은 이 오버라이드다. 공통 9항목의 쉬운 말은 <a href="flow.html">흐름 §2</a>.</p>
+</section>
+<section id="s14"><h2>7. 시간축: physics tick · decimation · policy step</h2>
+<p>물리 시계와 정책 시계는 둘이다. 정책이 로봇의 판단이다.</p>
+<div class="tw"><table><thead><tr><th>개념</th><th>값</th><th>의미</th></tr></thead><tbody><tr><td>Physics <code>dt</code></td><td>0.005 s</td><td>1 physics tick (200 Hz)</td></tr><tr><td><code>decimation</code></td><td>4</td><td>물리 4틱마다 정책 1회</td></tr><tr><td>Policy period</td><td>0.02 s</td><td><b>50 Hz</b></td></tr><tr><td>Episode</td><td>최대 20 s</td><td>시간 초과 시 timeout 가능</td></tr><tr><td>병렬</td><td>4096 envs</td><td>한 iteration에 대량 경험</td></tr></tbody></table></div>
+<p>직관:</p>
+<ol><li>0.005초마다 물리 엔진이 한 번 계산한다 (physics tick).</li><li>tick이 4번 쌓이면 정책이 새 관절 목표를 낸다 (policy step).</li><li>발 하나를 들고 내려놓는 시간은 대략 수십~100 policy step 스케일로 쌓일 수 있다.</li></ol>
+<p>학습 알고리즘은 <b>PPO</b>. hidden dim · actor-critic 크기는 에이전트 cfg에 있다. 네트워크는 rough 기준 512·256·128 <span class="ev ev-ok">확인됨</span> (<a href="research-go2-pretrained-policies.html">공개 정책 조사</a>).</p>
+<p>iteration 감각: 4096 envs × 24 steps가 한 단위로 도는 설정이 팀에 공유되어 있다 <span class="ev ev-ok">확인됨</span> (<code>num_steps_per_env = 24</code>).</p>
+<p>벽시계: 스터디 메모는 ckpt 1500 ≈ 104분, 하루 약 4회. 팀 완주 실측은 1,500 iteration <b>133분</b> (보상 22.88) <span class="ev ev-ok">확인됨</span>. GPU·헤드리스 여부에 따라 출렁인다.</p>
+<p><b>규칙: 정책/보상은 한 번에 하나만 바꾸고, 변경 단위를 팀에 공유한다.</b></p>
+</section>
+<section id="s15"><h2>8. 보상 · 종료</h2>
+<p>보상 채점표는 사람이 쓴다. 정책은 그 점수에 맞춰 최적화된다.</p>
+<div class="tw"><table><thead><tr><th>목적</th><th>대표 term</th><th>설명</th></tr></thead><tbody><tr><td>명령 추종</td><td><code>track_lin_vel_xy_exp</code>, <code>track_ang_vel_z_exp</code></td><td>준 선속도·요를 따라가는가</td></tr><tr><td>안정성</td><td><code>lin_vel_z_l2</code>, <code>ang_vel_xy_l2</code></td><td>위아래로 튀거나 옆으로 흔들리지 않는가</td></tr><tr><td>보행 품질</td><td><code>feet_air_time</code></td><td>공중 시간과 착지 패턴</td></tr><tr><td>에너지</td><td><code>dof_torques_l2</code>, <code>dof_acc_l2</code></td><td>과토크·급가속 억제. 약하게 두는 경우가 많다</td></tr></tbody></table></div>
+<p>선속도 계열이 많아 보이는 이유: 몸통을 기준축으로 움직이기 때문이다. 가중치를 보면 위아래 튀김(<code>lin_vel_z_l2</code>)이 큰 벌점인 경우가 많다.</p>
+<p><code>feet_air_time</code>은 발이 <b>착지하는 순간</b>에 정산하는 형태가 흔하다. «마지막으로 얼마나 떠 있었는가»를 보는 이유: 잔발질·발 끌기·치팅을 막고 한 발씩 들게 하기 위해서다.</p>
+<p>손대기 좋은 축 (한 번에 하나):</p>
+<ol><li><code>track_lin_vel_*</code></li><li><code>track_ang_vel_*</code></li><li><code>feet_air_time</code></li><li><code>lin_vel_z_l2</code></li></ol>
+<p>팀 난이도 곡선에서 실패의 주원인은 넘어짐이 아니라 <b>느림</b>이었다. 그래서 손댈 후보는 안정 벌보다 <b>속도 추종 상과 지형별 속도 커리큘럼</b> 쪽이다 <span class="ev ev-ok">확인됨</span>.</p>
+<p>TensorBoard <b>mean reward</b> ≈ 에피소드 총점 평균. 우상향이면 학습이 살아 있다는 신호일 뿐이다. 보상 13.94 정책의 통과율이 0%였던 사례가 있다 <span class="ev ev-ok">확인됨</span> (<a href="research-visual-evidence.html">시각 증거</a>). <b>통과율은 평가 파이프라인으로 잰다.</b></p>
+<p>종료:</p>
+<div class="tw"><table><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody><tr><td><code>base_contact</code></td><td>몸통 접촉이 임계를 넘으면 끝</td></tr><tr><td>timeout</td><td><code>episode_length_s</code> (20초)</td></tr><tr><td>기타</td><td>bad orientation 등</td></tr></tbody></table></div>
+</section>
+<section id="s16"><h2>9. 팀 실험에서 이미 고정된 것</h2>
+<p>이 절은 스터디 메모와 팀 실측을 맞춘 것이다. 숫자를 인용할 때는 실측 문서를 연다.</p>
+<h3>설치 · 실행</h3>
+<p>학습은 Isaac Sim / Isaac Lab이 도는 GPU에서. 노트북에 Isaac을 올리지 않는다 <span class="ev ev-ok">확인됨</span> ([8/18 험지RL](../meetings/20260818-rough-terrain-study.md)). Python·ROS가 충돌하면 컨테이너를 나누고 통신만 맞추는 구성이 <a href="research-architecture-decision.html">아키텍처 결정</a>의 정본이다.</p>
+<p>셋업 후 <b>실제로 한 걸음 도는지</b>부터 확인한다. PLAY cfg, 소량 env가 먼저다.</p>
+<h3>플래그</h3>
+<p>다리를 원통으로 단순화하는 collision 근사 플래그는 속도를 올려 주지만 물리가 바뀌어 도달 상한이 낮아진다. <b>플래그 없이 기본 상태로 학습</b>이 봉인이다 <span class="ev ev-ok">확인됨</span>.</p>
+<p>랜덤 시드·도메인 랜덤 때문에 같은 설정이라도 하루하루가 달라질 수 있다. 그래도 평균은 좋아야 한다. <b>seed · headless · collision flag · iteration · 벽시계</b>를 실험 로그에 남긴다.</p>
+<h3>난이도 · KPI</h3>
+<ul><li>Terrain level 예: 0~9. 난이도별 성능 그래프를 본다.</li><li>넘어짐 vs <b>목표 거리(예: 10 m) 미달 timeout</b>을 가른다.</li><li>공식 rough에서는 넘어져서 끝나기보다 20초 안에 거리를 못 채우는 경우가 많았다 <span class="ev ev-ok">확인됨</span>.</li><li>지형 하나만 바꿔도 웅크리거나 부들거리는 개체가 나온다. 난이도 0 / 3 / 6 / 9를 눈으로 비교하고, <b>관절·센서 로그와 함께</b> 본다. 블로그 렌더만으로 판단하지 않는다.</li></ul>
+<h3>시각화 화살표</h3>
+<div class="tw"><table><thead><tr><th>색</th><th>의미</th></tr></thead><tbody><tr><td>초록</td><td>명령 (이쪽으로 가라)</td></tr><tr><td>파랑</td><td>실제 속도 (명령을 따랐는가)</td></tr></tbody></table></div>
+<p>학습 씬과 렌더 씬은 정책 파일만 들고 분리할 수 있다 <span class="ev ev-ok">확인됨</span>. 공식 USD는 텍스처가 빈약하면 diffuse만 보인다. 영상용은 머티리얼·텍스처를 입힌다 (<a href="research-omniverse-stack.html">도구 지도</a> · <a href="research-render-benchmarks.html">렌더 실측</a>).</p>
+</section>
+<section id="s17"><h2>10. 배포 경로: 일반 그림 vs 우리 정본</h2>
+<p>Isaac 계열의 일반 실기 경로는 아래와 같다.</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>Sim 학습
+  (시뮬에는 특권 정보가 있다: 완벽한 상태, height scan)
+        ↓
+증류 Teacher → Student
+  (실기 센서만으로 같은 입력을 못 채울 때)
+        ↓
+정책 다듬기 · 새 지형 / sim-to-sim / 렌더 테스트
+        ↓
+ONNX → Orin NX
+(실패 시 Sim으로 회귀)</pre></div>
+<p>실기 제어 계층의 짧은 표:</p>
+<div class="tw"><table><thead><tr><th>계층</th><th>내용</th></tr></thead><tbody><tr><td>고수준</td><td>Sport mode / MCF 등 내장 모드</td></tr><tr><td>저수준</td><td>관절 12개 직접 명령</td></tr><tr><td>스위치</td><td>동시에 켜지지 않음</td></tr><tr><td>주기</td><td>약 0.02 s (50 Hz). 정책 주기와 맞춤</td></tr></tbody></table></div>
+<p><b>우리 정본 (8/19):</b> 학습 정책의 실기 저수준 이전은 하지 않는다 <span class="ev ev-ok">확인됨</span>. 트랙 A는 시뮬에서 학습·미학습 지형 평가·트윈·렌더로 닫고, 트랙 B는 순정 보행 위에 SLAM·Nav2다. 특권 관측 증류는 «실기에 우리 정책을 올릴 때»의 장치라, 지금 파인튜닝 계획에서는 필수가 아니다 <span class="ev ev-ok">확인됨</span> (<a href="research-terrain-finetune-plan.html">파인튜닝 계획</a>).</p>
+<p>sim-to-sim · 새 지형 시험 · 렌더 테스트는 그대로 트랙 A의 일이다.</p>
+</section>
+<section id="s18"><h2>11. 용어</h2>
+<div class="tw"><table><thead><tr><th>필기 / 속어</th><th>정식</th></tr></thead><tbody><tr><td>아이작심 / 아이작랩</td><td>Isaac Sim / Isaac Lab</td></tr><tr><td>고투</td><td>Unitree Go2</td></tr><tr><td>럼피 / 험지</td><td>rough terrain / <code>ROUGH_TERRAINS_CFG</code></td></tr><tr><td>서브 테레인</td><td>sub_terrains</td></tr><tr><td>하잇 스캐너</td><td>height_scanner</td></tr><tr><td>커멘드</td><td>commands (<code>base_velocity</code>)</td></tr><tr><td>데피메이션</td><td>decimation</td></tr><tr><td>피피오</td><td>PPO</td></tr><tr><td>피트 에어타임</td><td>feet_air_time</td></tr><tr><td>민 리워드</td><td>mean reward (에피소드 리턴 평균)</td></tr><tr><td>오닉스 / 오린</td><td>ONNX / Jetson Orin NX</td></tr><tr><td>증류</td><td>distillation (teacher-student)</td></tr><tr><td>심투심 / 심투리얼</td><td>sim-to-sim / sim-to-real</td></tr><tr><td>옴니버스</td><td>Omniverse (USD 실시간 편집)</td></tr></tbody></table></div>
+</section>
+<section id="s19"><h2>부록. 실험 체크리스트</h2>
+<ul><li>[ ] 변경은 보상 가중치 1개 또는 지형 파라미터 1개만</li><li>[ ] seed / headless / collision flag / iteration / 벽시계 기록</li><li>[ ] TensorBoard: mean reward, terrain level. timeout vs fall 분리</li><li>[ ] 시각화: command(녹) vs actual(파)</li><li>[ ] Go2용 stairs/boxes 높이가 과하지 않은지 (약 16 cm 감각)</li><li>[ ] PLAY cfg · 소량 env로 먼저, 그다음 4096</li><li>[ ] 난이도 0 / 3 / 6 / 9를 눈으로 보고 관절·센서 로그와 같이 판단</li><li>[ ] 통과율은 평가 파이프라인으로. mean reward만으로 결론 내지 않음</li></ul>
+<p>다음에 더 읽을 것: PPO clip/advantage, policy hidden dims, <code>terrain_levels_vel</code> 승급 규칙, 커스텀 험지는 <a href="research-terrain-guide-isaaclab.html">지형 가이드</a>, 실패 지형 이어서 학습은 <a href="research-terrain-finetune-plan.html">파인튜닝 계획</a>.</p>
+</section>
+
+</div>
+<script>
+document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('prog').style.width = (p * 100) + '%';
+}, {passive:true});
+/* 복사 버튼: 코드 블록과 접속 주소 공용 */
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('.copy');
+  if (!b) return;
+  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(function(){
+    var old = b.textContent;
+    b.textContent = '복사됨'; b.classList.add('done');
+    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
+  });
+});
+</script>
+<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+<style>
+#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
+  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
+  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
+  line-height:1.3;white-space:nowrap}
+#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#themeBtn:active{transform:translateY(1px)}
+@media print{#themeBtn{display:none!important}}
+</style>
+<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
+<script>(function(){
+  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
+      mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function apply(t){d.setAttribute('data-theme',t);
+    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
+  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
+  apply(cur());
+  b.addEventListener('click',function(){
+    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
+  mq.addEventListener&&mq.addEventListener('change',function(){
+    if(!localStorage.getItem(K))apply(cur());});
+})();</script>
+
+</body>
+</html>

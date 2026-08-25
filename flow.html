@@ -464,6 +464,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>difficulty = (행번호 + 랜덤 0~1) ÷ 전체 행수
 단 높이   = 0.05 + difficulty × (0.23 − 0.05)</pre></div>
 <p><b>level 5 는 계단 약 14 cm.</b> Go2 몸통 높이가 약 35 cm 이니 다리 길이의 절반에 가깝다.</p>
+<p>공식 Go2 rough cfg(로봇·스폰·6종 지형·보상 오버라이드·시간축)를 코드 순서로 읽는 장은 [험지 학습 커리큘럼](research/go2-rough-training.md)이다. 커스텀 지형 21종은 [지형 가이드](research/terrain-guide-isaaclab.md).</p>
 <h3>단위: 시계가 두 개다</h3>
 <div class="tw"><table><thead><tr><th>말</th><th>뜻</th></tr></thead><tbody><tr><td>물리 시계</td><td><code>sim.dt = 0.005 초</code> = <b>200 Hz.</b> 충돌·중력을 이 주기로 계산한다</td></tr><tr><td>정책 시계</td><td>물리 4번마다 1번 판단(<code>decimation = 4</code>) = <b>50 Hz</b></td></tr><tr><td>1 step</td><td>정책의 한 판단 = <b>0.02초</b></td></tr><tr><td>1 iteration</td><td>4,096마리 × 24 step = <b>98,304 env-step</b> ≈ 로봇 1대 기준 32.8분치 경험</td></tr><tr><td>에피소드</td><td>최대 1,000 step = <b>20초.</b> 넘어지면 그 자리에서 끝난다</td></tr><tr><td>기본 학습량</td><td>1,500 iteration = <b>실측 133분</b> (2026-08-12 완주)</td></tr></tbody></table></div>
 <blockquote><p>시뮬이 «빠르다»의 정확한 뜻: 로봇 1대로 32.8분 걸릴 경험을 GPU 가 4.2초에 모은다.
@@ -787,7 +788,7 @@ status, result = <span class="k">self</span>.msc.<span class="f">CheckMode</span
 </section>
 <section id="s8"><h2>8. 지금 어디까지 왔나 (2026-08-12 기준)</h2>
 <div class="tw"><table><thead><tr><th>확인한 것</th><th>결과</th></tr></thead><tbody><tr><td>Isaac Sim + Isaac Lab 구축</td><td>✅ 완료 (Windows 네이티브)</td></tr><tr><td>300 / 1,500 iteration 학습</td><td>✅ 22분 · 보상 13.94 / <b>133분 · 보상 22.88</b></td></tr><tr><td><b>평가 파이프라인 v1 + 첫 기준선</b></td><td>✅ <b>통과율 86.7%</b> (level 0 · 전진 1.0 m/s · 30 에피소드)</td></tr><tr><td><b>난이도 0~9 곡선</b></td><td>✅ 83→53% · <b>실패 원인은 넘어짐이 아니라 «느림»</b></td></tr><tr><td><b>학습 씬 ≠ 렌더 씬 분리</b></td><td>✅ 실증 성공 (창고 씬 주행)</td></tr><tr><td>Path Tracing 실측</td><td>✅ 1080p 128spp = 1.751초/프레임 (30초 영상 44분)</td></tr><tr><td>공개 정책 3종 로컬 검증</td><td>✅ symmetry·HIM 입력 45 확인 (실물형 관측)</td></tr><tr><td>GPU 2장 DDP</td><td>❌ <b>Windows 는 NCCL 미지원 → 구조적 불가.</b> 우분투로 이월</td></tr></tbody></table></div>
-<p><b>상세</b>: [visual-evidence.md](research/visual-evidence.md) · [training-benchmarks.md](research/training-benchmarks.md) · [render-benchmarks.md](research/render-benchmarks.md) · [go2-pretrained-policies.md](research/go2-pretrained-policies.md) · [omniverse-stack.md](research/omniverse-stack.md) · [architecture-decision.md](research/architecture-decision.md)</p>
+<p><b>상세</b>: [visual-evidence.md](research/visual-evidence.md) · [training-benchmarks.md](research/training-benchmarks.md) · [go2-rough-training.md](research/go2-rough-training.md) · [terrain-guide-isaaclab.md](research/terrain-guide-isaaclab.md) · [render-benchmarks.md](research/render-benchmarks.md) · [go2-pretrained-policies.md](research/go2-pretrained-policies.md) · [omniverse-stack.md](research/omniverse-stack.md) · [architecture-decision.md](research/architecture-decision.md)</p>
 </section>
 
 </div>

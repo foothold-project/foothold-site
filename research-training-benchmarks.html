@@ -405,7 +405,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <blockquote><p>요지: 첫 기준선 통과율 86.7%. 실패 원인은 넘어짐이 아니라 느림이며, 보상 수치는 걷기를 보증하지 않는다.
 작성 2026-08-09 · 측정 환경 <b>AI-WS01</b> (RTX 5080 ×2 · Threadripper 7970X · 256GB RAM · Windows 11)
 성격: <b>웹 조사가 아니라 이 기계에서 실제로 돌린 숫자.</b> 전부 로그에서 추출.
-관련: [<code>SETUP_GUIDE</code>](../../../02_team/SETUP_GUIDE.md) · <code>cloud-gpu-options.md</code> · <code>ros2-isaacsim-integration.md</code></p></blockquote>
+관련: [<code>SETUP_GUIDE</code>](../../../02_team/SETUP_GUIDE.md) · <code>cloud-gpu-options.md</code> · <code>ros2-isaacsim-integration.md</code> · cfg 읽는 순서 <a href="research-go2-rough-training.html">험지 학습 커리큘럼</a></p></blockquote>
 </section>
 <section id="s1"><h2>0. 세 줄</h2>
 <ol><li><b>험지 학습 처리 속도 = 약 23,000 steps/s</b> (4096 envs, RTX 5080 1장). 1 iteration 4.17초. <b>1,500 iteration 완주 = 약 104분.</b></li><li><b>🔴 <code>collisionApproximateCylinders=true</code> 플래그는 봉인한다.</b> 속도는 2.4배 오르지만 <b>같은 시간을 줘도(B 700회 24분 vs A 300회 22분) A의 34%(보상 4.80 vs 13.94)에 그치고 정체된다.</b> 느린 게 아니라 <b>물리가 달라져 도달 상한이 낮아진 것</b>이다. 시드 고정 후 3회 측정으로 확정.</li><li><b>학습은 실제로 된다</b>. 300 iteration에 보상 −0.47 → <b>+13.94</b>, 에피소드 길이 11.87 → <b>938.7 step</b>(최대 1000의 93.9% = 18.8초 생존).</li></ol>
