@@ -344,6 +344,23 @@ document.addEventListener('DOMContentLoaded',function(){
     그리고 <b>옮기는 순간 벌어지는 간극을 메우는 것</b>이 우리가 5개월간 할 일이다.</div>
 </div>
 
+
+
+<!--hubs:v1--><style>
+.hubnav{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));
+  gap:.7rem;margin:0 0 34px}
+.hubnav a{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
+  padding:.85rem .95rem}
+.hubnav a:hover{border-color:var(--dim)}
+.hubnav .k{font-size:1rem;font-weight:800;color:var(--ink)}
+.hubnav .e{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim);margin-top:.1rem}
+.hubnav .d{font-size:.74rem;color:var(--ink-3);line-height:1.55;margin-top:.4rem}
+</style>
+<div class="hubnav"><a href="status.html"><div class="k">현황</div><div class="e">Status</div><div class="d">지금 무슨 일이 벌어지고 있는가</div></a><a href="proposal.html"><div class="k">기획</div><div class="e">Proposal</div><div class="d">무엇을 왜 하는가. 밖에 보여주는 것</div></a><a href="plan-hub.html"><div class="k">계획</div><div class="e">Plan</div><div class="d">언제 어떻게. 회의와 일정</div></a><a href="research.html"><div class="k">연구</div><div class="e">Research</div><div class="d">우리가 돌린 실험과 밖에서 조사한 것</div></a><a href="operations.html"><div class="k">운영</div><div class="e">Operations</div><div class="d">자동화 · 자료실 · 팀 · 규칙</div></a></div>
+<!--/hubs:v1-->
+
 <h2 class="sec">처음 왔다면 <span class="en">Start Here</span></h2>
 <p class="seclede">이 셋만 읽으면 우리가 무엇을, 어떤 순서로, 어떤 규칙으로 하는지 알 수 있다.</p>
 <div class="docs work">
@@ -545,6 +562,12 @@ document.addEventListener('DOMContentLoaded',function(){
 <script>
 document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
 </script>
+
+
+
+
+
+
 
 
 

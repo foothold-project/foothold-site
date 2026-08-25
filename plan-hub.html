@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>연구 · FOOTHOLD</title>
-<meta name="description" content="무엇을 알아냈는가. 우리가 돌린 실험과 밖에서 조사한 것.">
+<title>계획 · FOOTHOLD</title>
+<meta name="description" content="언제 어떻게 할 것인가. 회의에서 정한 것과 앞으로의 일정.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -390,15 +390,15 @@ document.addEventListener('DOMContentLoaded',function(){
 </head>
 <body>
 
-<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">Hub · 연구</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">Hub · 계획</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">Hub · Research</div>
-  <h1>연구</h1>
-  <p class="lede">무엇을 알아냈는가. 우리가 돌린 실험과 밖에서 조사한 것.</p>
-  <div class="meta"><div><span class="k">문서</span><span class="v">18편</span></div></div>
+  <div class="eyebrow">Hub · Plan</div>
+  <h1>계획</h1>
+  <p class="lede">언제 어떻게 할 것인가. 회의에서 정한 것과 앞으로의 일정.</p>
+  <div class="meta"><div><span class="k">문서</span><span class="v">9편</span></div></div>
 </div>
 
 <style>
@@ -419,12 +419,10 @@ document.addEventListener('DOMContentLoaded',function(){
 .hm{font-size:.68rem;color:var(--ink-3);margin-top:.5rem}
 </style>
 <div class="hubwrap">
-<div class="hsec"><h2>실험 <span style="font-size:.7em;color:var(--ink-3)">7</span></h2>
-<div class="hcards"><a class="hcard" href="research-benchmark-repro-protocol.html"><div class="hk">실험</div><div class="ht">벤치마크 재현 프로토콜: 동일 셋업 검증과 결정론 발견</div><div class="hl">벤치마크를 남이 그대로 다시 돌릴 수 있게 하는 절차.</div><div class="hm">오흥재 · 실측</div></a><a class="hcard" href="research-benchmark-setup-lim.html"><div class="hk">실험</div><div class="ht">Unitree Go2 Isaac Lab 2.3.2 베이스라인·미경험 험지 벤치마크</div><div class="hl">NVIDIA 공식 checkpoint 모델의 미경험 험지에 대한 간단한 지표 측정</div><div class="hm">임석헌 · 실측</div></a><a class="hcard" href="research-generalization-benchmark-10-terrains.html"><div class="hk">실험</div><div class="ht">일반화 벤치마크: 미학습 지형 10종 실측 (5종 통과 · 5종 실패)</div><div class="hl">미경험 지형 10종 일반화 벤치마크. 실패 5종과 모드 지도.</div><div class="hm">오흥재 · 실측 (원자료 임석헌 · Runpod 헤드리스)</div></a><a class="hcard" href="research-compute-resources.html"><div class="hk">실험</div><div class="ht">컴퓨팅 자원 계획: 무엇을 어디서 돌리나</div><div class="hl">가용 연산 자원 실측과 배정. 무엇으로 무엇을 돌릴 수 있는가.</div><div class="hm">오흥재 · 실측</div></a><a class="hcard" href="research-render-benchmarks.html"><div class="hk">실험</div><div class="ht">렌더 실측: Path Tracing 은 얼마나 걸리는가</div><div class="hl">1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.</div><div class="hm">오흥재 · 실측</div></a><a class="hcard" href="research-training-benchmarks.html"><div class="hk">실험</div><div class="ht">학습 성능 실측: Go2 험지 (AI-WS01)</div><div class="hl">첫 기준선 통과율 86.7%. 실패 원인은 넘어짐이 아니라 느림이며, 보상 수치는 걷기를 보증하지 않는다.</div><div class="hm">오흥재 · 실측</div></a><a class="hcard" href="research-visual-evidence.html"><div class="hk">실험</div><div class="ht">시각 증거: 우리가 실제로 본 것</div><div class="hl">숫자로만 보던 학습 결과를 눈으로 확인한 기록. 보상 13.94 정책이 실제로는 걷지 못하는 것을 영상이 잡았다.</div><div class="hm">오흥재 · 실측</div></a></div></div>
-<div class="hsec"><h2>리서치 <span style="font-size:.7em;color:var(--ink-3)">9</span></h2>
-<div class="hcards"><a class="hcard" href="research-go2-rough-training.html"><div class="hk">리서치</div><div class="ht">Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼</div><div class="hl">공식 Go2 rough 환경이 로봇·지형·명령·보상·시간축을 어떻게 묶는지, 요약 다음에 상세로 읽는다.</div><div class="hm">맹라현 · 공식 문서</div></a><a class="hcard" href="research-runpod-team-ops.html"><div class="hk">리서치</div><div class="ht">Runpod 팀 운용 가이드: 권한 · 결제 · 네트워크 볼륨 · NAS 연계</div><div class="hl">Runpod 팀 워크스페이스 운용. 역할 · 볼륨 · 과금.</div><div class="hm">오흥재 · 공식 문서</div></a><a class="hcard" href="research-role-map-careers.html"><div class="hk">리서치</div><div class="ht">역할 지도: 이 프로젝트가 각자를 어떤 직무로 데려가는가</div><div class="hl">직무·공고와 우리 역할을 맞춘 지도.</div><div class="hm">오흥재 · 공식 문서 (원자료 맹라현)</div></a><a class="hcard" href="research-robogauge-observation-mapping.html"><div class="hk">리서치</div><div class="ht">RoboGauge 공개 정책 해부: 45차원 관측의 정확한 순서와 스케일</div><div class="hl">공개 최상위 정책 4종의 입력 45차원을 코드와 실행 양쪽으로 확정했고, 우리 env 관절 순서까지 실측해 변환 규칙이 완성됐다. 남은 것은 구현뿐이다.</div><div class="hm">오흥재 · 코드 확인</div></a><a class="hcard" href="research-terrain-guide-isaaclab.html"><div class="hk">리서치</div><div class="ht">Isaac Lab v2.3.2 지형 가이드: Go2 커스텀 험지 설계</div><div class="hl">Isaac Lab v2.3.2 의 지형 생성 구조와 설정 방법.</div><div class="hm">임석헌 · 공식 문서</div></a><a class="hcard" href="research-go2-pretrained-policies.html"><div class="hk">리서치</div><div class="ht">Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</div><div class="hl">NVIDIA 공식만 우리 스택에 그대로 로드된다. 점수표 상위 정책은 관측 45차원(실물형)이라 우리 Student 의 비교 상대다.</div><div class="hm">오흥재 · 공식 문서</div></a><a class="hcard" href="research-omniverse-stack.html"><div class="hk">리서치</div><div class="ht">NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</div><div class="hl">Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.</div><div class="hm">오흥재 · 공식 문서</div></a><a class="hcard" href="research-cloud-gpu-options.html"><div class="hk">리서치</div><div class="ht">클라우드 GPU에서 Isaac Sim 돌리기: 가능성 조사</div><div class="hl">클라우드에서 Isaac Sim 은 가능하나 GPU 를 가려 받아야 하며, 성공 사례가 명시된 조합만 신뢰한다.</div><div class="hm">오흥재 · 공식 문서</div></a><a class="hcard" href="research-ros2-isaacsim-integration.html"><div class="hk">리서치</div><div class="ht">ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법</div><div class="hl">파이썬 충돌은 «같이 설치»가 아니라 «같은 셸에서 source» 할 때 난다. 통신은 DDS 층이라 버전과 무관하다.</div><div class="hm">오흥재 · 공식 문서</div></a></div></div>
-<div class="hsec"><h2>현장 <span style="font-size:.7em;color:var(--ink-3)">2</span></h2>
-<div class="hcards"><a class="hcard" href="field-check-go2-intake.html"><div class="hk">현장</div><div class="ht">Go2 신규 개체 점검 목록 (공통)</div><div class="hl">Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.</div><div class="hm">오흥재 · 현장 준비</div></a><a class="hcard" href="field-check-0813.html"><div class="hk">현장</div><div class="ht">8/13(목) 조선대 방문: 현장 확인 목록</div><div class="hl">8/13 조선대 방문 때 들고 가는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</div><div class="hm">오흥재 · 현장 준비</div></a></div></div>
+<div class="hsec"><h2>회의록 <span style="font-size:.7em;color:var(--ink-3)">6</span></h2>
+<div class="hcards"><a class="hcard" href="meeting-20260813-ops-alignment.html"><div class="hk">회의록</div><div class="ht">8/13 운영 미팅: 기획과 제시안이 갈라진 날</div><div class="hl">방문 당일 팀 기획과 운영진 제시안이 갈렸다. 시뮬·강화·험지 대 ROS·SLAM.</div><div class="hm">맹라현 · 본인 회의 노트</div></a><a class="hcard" href="meeting-20260814-east-ops.html"><div class="hk">회의록</div><div class="ht">8/14 운영 미팅: 이스트는 ROS2·인프라, 멘토는 인사이트</div><div class="hl">이스트는 ROS2·인프라, 멘토는 인사이트 계열로 역할을 갈랐다.</div><div class="hm">맹라현 · 본인 회의 노트</div></a><a class="hcard" href="meeting-20260819-team-lock.html"><div class="hk">회의록</div><div class="ht">8/19 팀 합의: 두 트랙으로 간다, C는 지킨다</div><div class="hl">두 트랙으로 가기로 합의했다. C(미경험 지형 통과율)는 필수로 지킨다.</div><div class="hm">맹라현 · 본인 회의 노트 (원자료 임석헌)</div></a><a class="hcard" href="meeting-20260824-park-mentoring.html"><div class="hk">회의록</div><div class="ht">8/24 멘토링: 본 과제와 CAD 학습은 분리한다</div><div class="hl">본 과제와 CAD 학습은 분리한다. 개별 취업 멘토링 첫 회차.</div><div class="hm">맹라현 · 음성 전사 교차</div></a><a class="hcard" href="meeting-20260821-team-meeting.html"><div class="hk">회의록</div><div class="ht">8/21 팀 미팅: 역할 그룹핑 확정, 클라우드 운용 개시</div><div class="hl">역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.</div><div class="hm">오흥재 · 전사 MOSS 1,081세그먼트</div></a><a class="hcard" href="meeting-20260820-kickoff.html"><div class="hk">회의록</div><div class="ht">8/20: 전담 멘토 확정, 박철제 킥오프</div><div class="hl">전담 멘토 확정과 박철제 킥오프. 같은 날 두 자리를 한 장으로.</div><div class="hm">오흥재 · 전사 MOSS 1,030세그먼트</div></a></div></div>
+<div class="hsec"><h2>계획 <span style="font-size:.7em;color:var(--ink-3)">3</span></h2>
+<div class="hcards"><a class="hcard" href="research-terrain-finetune-plan.html"><div class="hk">계획</div><div class="ht">실패 지형 파인튜닝 실행 계획: 레시피 병렬, 혼합 단일 런</div><div class="hl">일반화 벤치마크 실패 5종을 이어 학습으로 메우는 계획.</div><div class="hm">오흥재 · 실측</div></a><a class="hcard" href="project-report.html"><div class="hk">계획</div><div class="ht">Unitree Go2 미경험 험지 적응 시뮬레이션 및 실기 자율주행 프로젝트</div><div class="hl">두 트랙으로 간다. 트랙 A(9/30 MVP) = 시뮬레이션 강화학습과 디지털 트윈의 완결. 트랙 B(12/11 최종) = 순정 Go2 보행 위에 SLAM·Nav2 실기 자율주행.</div><div class="hm">오흥재 · 팀 합의</div></a><a class="hcard" style="opacity:.55" href="research-rough-terrain-study-plan.html"><div class="hk">계획<span class="st">폐기</span></div><div class="ht">험지 RL 학습 계획 : 무엇을 먼저 하고 무엇을 하지 않는가</div><div class="hl">험지 RL 학습 우선순위 표. 무엇을 먼저 하고 무엇을 하지 않는가.</div><div class="hm">맹라현 · 본인 노트</div></a></div></div>
 </div>
 
 </div>
