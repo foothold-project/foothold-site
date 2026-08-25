@@ -344,23 +344,6 @@ document.addEventListener('DOMContentLoaded',function(){
     그리고 <b>옮기는 순간 벌어지는 간극을 메우는 것</b>이 우리가 5개월간 할 일이다.</div>
 </div>
 
-
-
-<!--hubs:v1--><style>
-.hubnav{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));
-  gap:.7rem;margin:0 0 34px}
-.hubnav a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
-  padding:.85rem .95rem}
-.hubnav a:hover{border-color:var(--dim)}
-.hubnav .k{font-size:1rem;font-weight:800;color:var(--ink)}
-.hubnav .e{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--dim);margin-top:.1rem}
-.hubnav .d{font-size:.74rem;color:var(--ink-3);line-height:1.55;margin-top:.4rem}
-</style>
-<div class="hubnav"><a href="status.html"><div class="k">현황</div><div class="e">Status</div><div class="d">지금 무슨 일이 벌어지고 있는가</div></a><a href="proposal.html"><div class="k">기획</div><div class="e">Proposal</div><div class="d">무엇을 왜 하는가. 밖에 보여주는 것</div></a><a href="plan-hub.html"><div class="k">계획</div><div class="e">Plan</div><div class="d">언제 어떻게. 회의와 일정</div></a><a href="research.html"><div class="k">연구</div><div class="e">Research</div><div class="d">우리가 돌린 실험과 밖에서 조사한 것</div></a><a href="operations.html"><div class="k">운영</div><div class="e">Operations</div><div class="d">자동화 · 자료실 · 팀 · 규칙</div></a></div>
-<!--/hubs:v1-->
-
 <h2 class="sec">처음 왔다면 <span class="en">Start Here</span></h2>
 <p class="seclede">이 셋만 읽으면 우리가 무엇을, 어떤 순서로, 어떤 규칙으로 하는지 알 수 있다.</p>
 <div class="docs work">
@@ -410,20 +393,121 @@ document.addEventListener('DOMContentLoaded',function(){
   </a>
 </div>
 
-<!--recent:v1--><style>
-.recent{display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));gap:.7rem}
-.recent a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-radius:6px;padding:.75rem .9rem}
-.recent a:hover{border-color:var(--dim)}
-.recent .k{font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--dim)}
-.recent .t{font-size:.9rem;font-weight:700;color:var(--ink);line-height:1.4;margin-top:.2rem}
-.recent .m{font-size:.68rem;color:var(--ink-3);margin-top:.35rem}
-</style>
-<h2 class="sec">최근 갱신 <span class="en">Recent</span></h2>
-<p class="seclede">최근에 쓰이거나 고쳐진 문서. 전체는 위의 다섯 칸에서 본다.</p>
-<div class="recent"><a href="meeting-20260813-ops-alignment.html"><div class="k">회의록</div><div class="t">8/13 운영 미팅: 기획과 제시안이 갈라진 날</div><div class="m">맹라현 · 2026-08-25</div></a><a href="meeting-20260814-east-ops.html"><div class="k">회의록</div><div class="t">8/14 운영 미팅: 이스트는 ROS2·인프라, 멘토는 인사이트</div><div class="m">맹라현 · 2026-08-25</div></a><a href="meeting-20260819-team-lock.html"><div class="k">회의록</div><div class="t">8/19 팀 합의: 두 트랙으로 간다, C는 지킨다</div><div class="m">맹라현 · 2026-08-25</div></a><a href="meeting-20260824-park-mentoring.html"><div class="k">회의록</div><div class="t">8/24 멘토링: 본 과제와 CAD 학습은 분리한다</div><div class="m">맹라현 · 2026-08-25</div></a><a href="research-go2-rough-training.html"><div class="k">리서치</div><div class="t">Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼</div><div class="m">맹라현 · 2026-08-25</div></a><a href="meeting-20260821-team-meeting.html"><div class="k">회의록</div><div class="t">8/21 팀 미팅: 역할 그룹핑 확정, 클라우드 운용 개시</div><div class="m">오흥재 · 2026-08-22</div></a><a href="research-benchmark-repro-protocol.html"><div class="k">실험</div><div class="t">벤치마크 재현 프로토콜: 동일 셋업 검증과 결정론 발견</div><div class="m">오흥재 · 2026-08-22</div></a><a href="research-benchmark-setup-lim.html"><div class="k">실험</div><div class="t">Unitree Go2 Isaac Lab 2.3.2 베이스라인·미경험 험지 벤치마크</div><div class="m">임석헌 · 2026-08-22</div></a></div>
-<!--/recent:v1-->
+<h2 class="sec">손을 움직이려면 <span class="en">Get Working</span></h2>
+<p class="seclede">내 컴퓨터에서 돌리고, 팀 자원에 접근하고, 필요한 개념을 익히는 데 필요한 것.</p>
+<div class="docs work">
+<a class="doc setup" data-added="2026-08-05" href="setup.html">
+  <div class="tag">Setup · 따라 하기</div>
+  <div class="t">개발환경 구축</div>
+  <div class="d">Isaac Sim 5.1 + Isaac Lab v2.3.2를 <b>워크스테이션에</b> 올려
+  사전학습 Go2 험지 정책을 재생·학습하는 데까지. <b>실제로 성공한 절차</b>다.
+  <b>설치할 사람 1명</b>이 읽는다.</div>
+  <ul>
+  <li>왜 최신 버전을 안 쓰는가</li>
+  <li>설치 9단계 (복사 버튼)</li>
+  <li>검증 체크리스트 8개</li>
+  <li>함정 6개와 해법</li>
+  <li>학습 속도 실측 · 출처</li>
+  </ul>
+  <div class="go">따라 하기 →</div>
+  </a>
+<a class="doc access" data-added="2026-08-05" href="team-access.html">
+  <div class="tag">Access · 팀원 4인</div>
+  <div class="t">팀원 사용 가이드</div>
+  <div class="d">노트북에는 <b>설치하지 않는다.</b> 워크스테이션 한 대를 함께 쓴다.
+  무엇을 어떻게 보고, <b>끝나고 무엇을 반드시 해야 하는지</b>.</div>
+  <ul>
+  <li>도구 4종: 무엇을 언제 쓰나</li>
+  <li>TensorBoard 접속 주소</li>
+  <li>학습 실행 · 실측 성능</li>
+  <li>🔴 프로세스 정리 규칙</li>
+  <li>아직 정해지지 않은 것</li>
+  </ul>
+  <div class="go">읽기 →</div>
+  </a>
+<a class="doc learn" data-added="2026-08-05" href="curriculum.html">
+  <div class="tag">Learn · 5인 공통</div>
+  <div class="t">학습 커리큘럼</div>
+  <div class="d">로봇도 강화학습도 처음인 사람을 위한 <b>순서</b>.
+  무엇을 <b>안 배워도 되는지</b>부터 정하고, 구간 A를 다 함께 지난 뒤 다섯 갈래로 나뉜다.</div>
+  <ul>
+  <li>구간 A · 공통 기반 17단계</li>
+  <li>구간 B · 역할별 다섯 갈래</li>
+  <li>구간 C · 실전 8단계</li>
+  <li>도식 · 용어 풀이 · 논문 근거</li>
+  <li>선행 사례의 실패 기록</li>
+  </ul>
+  <div class="go">읽기 →</div>
+  </a>
+</div>
+
+<!--research:auto-->
+<h2 class="sec">연구 기록 <span class="en">Research</span></h2>
+<div class="docs work"><a class="doc" data-added="2026-08-13" href="research-terrain-guide-isaaclab.html"><div class="tag">Research · 근거 기록</div><div class="t">Isaac Lab v2.3.2 지형 가이드: Go2 커스텀 험지 설계</div><div class="d">Isaac Lab v2.3.2 의 지형 생성 구조와 설정 방법.</div></a><a class="doc" data-added="2026-08-25" href="research-rough-terrain-study-plan.html"><div class="tag">Research · 근거 기록</div><div class="t">험지 RL 학습 계획 : 무엇을 먼저 하고 무엇을 하지 않는가</div><div class="d">험지 RL 학습 우선순위 표. 무엇을 먼저 하고 무엇을 하지 않는가.</div></a><a class="doc" data-added="2026-08-25" href="research-go2-rough-training.html"><div class="tag">Research · 근거 기록</div><div class="t">Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼</div><div class="d">공식 Go2 rough 환경이 로봇·지형·명령·보상·시간축을 어떻게 묶는지, 요약 다음에 상세로 읽는다.</div></a></div>
+<p style="margin:2px 0 26px;font-size:.8rem"><a href="research.html" style="color:var(--dim);font-weight:700">전체 19편 보기 →</a></p>
+<h2 class="sec">길잡이 <span class="en">Guide</span></h2>
+<div class="docs work"><a class="doc" data-added="2026-08-19" href="project-report.html"><div class="tag">Report · 보고서</div><div class="t">프로젝트 보고서</div><div class="d">한 장으로 보는 전체 계획: 목표 · 단계 · 평가 체계 · 결정 안건. 멘토에게 보여줄 때 이 페이지부터.</div></a><a class="doc" data-added="2026-08-20" href="pitch.html"><div class="tag">Deck · 발표</div><div class="t">프로젝트 소개 덱 (10장)</div><div class="d">전체화면 발표용. 킥오프·외부 소개는 이 페이지 하나로. 방향키나 클릭으로 넘긴다.</div></a><a class="doc" data-added="2026-08-12" href="questions.html"><div class="tag">Guide · 길잡이</div><div class="t">질문으로 찾기</div><div class="d">«이 정보 어디 있지?»에 답하는 지도. 궁금한 문장을 찾아 누르면 해당 문서로 바로 간다.</div></a><a class="doc" data-added="2026-08-20" href="chosun-materials.html"><div class="tag">Team · 팀 전용</div><div class="t">팀 자료실 (암호)</div><div class="d">조선대 수업 자료 + 팀 내부 문서(예산). 비밀번호 필요 (디스코드 리소스 채널). 외부 공유 금지.</div></a><a class="doc" data-added="2026-08-12" href="field-check-0813.html"><div class="tag">Field · 현장</div><div class="t">8/13(목) 조선대 방문: 현장 확인 목록</div><div class="d">방문 당일 폰으로 여는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</div></a><a class="doc" data-added="2026-08-14" href="field-check-go2-intake.html"><div class="tag">Field · 현장</div><div class="t">Go2 신규 개체 점검 목록 (공통)</div><div class="d">방문 당일 폰으로 여는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</div></a><a class="doc" data-added="2026-08-13" href="meeting-20260813-ops-alignment.html"><div class="tag">Meeting · 회의</div><div class="t">8/13 운영 미팅: 기획과 제시안이 갈라진 날</div><div class="d">운영·협력 회의에서 확정된 것과 우리가 약속한 것. 다음 일정까지 한 페이지로.</div></a><a class="doc" data-added="2026-08-14" href="meeting-20260814-east-ops.html"><div class="tag">Meeting · 회의</div><div class="t">8/14 운영 미팅: 이스트는 ROS2·인프라, 멘토는 인사이트</div><div class="d">운영·협력 회의에서 확정된 것과 우리가 약속한 것. 다음 일정까지 한 페이지로.</div></a><a class="doc" data-added="2026-08-19" href="meeting-20260819-team-lock.html"><div class="tag">Meeting · 회의</div><div class="t">8/19 팀 합의: 두 트랙으로 간다, C는 지킨다</div><div class="d">운영·협력 회의에서 확정된 것과 우리가 약속한 것. 다음 일정까지 한 페이지로.</div></a><a class="doc" data-added="2026-08-20" href="meeting-20260820-kickoff.html"><div class="tag">Meeting · 회의</div><div class="t">8/20: 전담 멘토 확정, 박철제 킥오프</div><div class="d">운영·협력 회의에서 확정된 것과 우리가 약속한 것. 다음 일정까지 한 페이지로.</div></a><a class="doc" data-added="2026-08-21" href="meeting-20260821-team-meeting.html"><div class="tag">Meeting · 회의</div><div class="t">8/21 팀 미팅: 역할 그룹핑 확정, 클라우드 운용 개시</div><div class="d">운영·협력 회의에서 확정된 것과 우리가 약속한 것. 다음 일정까지 한 페이지로.</div></a><a class="doc" data-added="2026-08-24" href="meeting-20260824-park-mentoring.html"><div class="tag">Meeting · 회의</div><div class="t">8/24 멘토링: 본 과제와 CAD 학습은 분리한다</div><div class="d">운영·협력 회의에서 확정된 것과 우리가 약속한 것. 다음 일정까지 한 페이지로.</div></a></div>
+<!--/research:auto-->
+
+<h2 class="sec">찾아보려면 <span class="en">Reference</span></h2>
+<p class="seclede">읽는 문서가 아니라 필요할 때 펴 보는 것. 용어가 막히면 백과부터.</p>
+<div class="docs work">
+<a class="doc main" data-added="2026-07-30" href="encyclopedia.html">
+  <div class="tag">Reference · 상시 갱신</div>
+  <div class="t">도메인 백과</div>
+  <div class="d">동물은 왜 그렇게 걷는지에서 시작해 우리 기술 결정까지, <b>인과로만 이어지는</b> 여섯 층위.
+  모든 주장에 출처와 신뢰도를 표기했다.</div>
+  <ul>
+  <li>보행 원리 · 학습이란 무엇인가</li>
+  <li>Go2 하드웨어 해부 · 관측 설계</li>
+  <li>실증 지표 · 실패 판정 기준</li>
+  <li>결정 요약표 · 우리가 모르는 것</li>
+  <li>인터랙티브 도식 · 용어 사전</li>
+  </ul>
+  <div class="go">읽기 →</div>
+  </a>
+<a class="doc brief" data-added="2026-08-05" href="brief.html">
+  <div class="tag">Briefing · 수시 갱신</div>
+  <div class="t">프로젝트 브리핑</div>
+  <div class="d">지금 <b>확정된 것과 아직 아닌 것</b>. 조사로 확인한 근거와 연락처,
+  그리고 <b>쓰면 안 되는 주장</b>까지 한자리에.</div>
+  <ul>
+  <li>확정 · 미확인 현황</li>
+  <li>조선대 · 장비 · 연락처</li>
+  <li>왜 이 프로젝트인가 (근거)</li>
+  <li>쓰면 안 되는 주장</li>
+  </ul>
+  <div class="go">읽기 →</div>
+  </a>
+<a class="doc" data-added="2026-08-25" href="automation.html">
+  <div class="tag">Team · 상시 갱신</div>
+  <div class="t">자동화 지도</div>
+  <div class="d">올린 것이 어디로 가고, 무엇이 저절로 일어나고,
+  어디서 사람이 필요한가. 브랜치 규약과 AI 사용 주의점까지.</div>
+  <ul>
+  <li>제출부터 게시까지 한 흐름</li>
+  <li>이슈 세 가지 · 브랜치와 커밋</li>
+  <li>AI 에게 시킬 때 걸리는 것</li>
+  <li>실수로 main 에 push 했다면</li>
+  <li>신경 쓰지 않아도 되는 것</li>
+  </ul>
+  <div class="go">보기 →</div>
+  </a>
+<a class="doc" data-added="2026-07-30" href="team-intro.html">
+  <div class="tag">Slides · 6장</div>
+  <div class="t">팀 소개 · 프로젝트 킥오프</div>
+  <div class="d">우리가 누구인지(3장)에서 무엇을 어떻게 하는지(3장)까지.
+  발표·보고용 한 벌이다.</div>
+  <ul>
+  <li>팀 정체성 · 비전 · 목표</li>
+  <li>팀원 R&amp;R 및 강점 분석</li>
+  <li>협업 구조 · 그라운드 룰</li>
+  <li>프로젝트 개요 · 20주 일정</li>
+  <li>산출물 목표 · 완료 기준</li>
+  </ul>
+  <div class="go">보기 →</div>
+  </a>
+</div>
 
 <h2 class="sec">팀 <span class="en">Team</span></h2>
 <div class="team">
@@ -461,12 +545,6 @@ document.addEventListener('DOMContentLoaded',function(){
 <script>
 document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
 </script>
-
-
-
-
-
-
 
 
 
