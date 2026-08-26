@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>8/21 팀 미팅: 역할 그룹핑 확정, 클라우드 운용 개시 · FOOTHOLD</title>
-<meta name="description" content="역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.">
+<title>기획 · FOOTHOLD</title>
+<meta name="description" content="조사와 실측의 원본 기록이다. 결론만이 아니라 <b>틀렸던 판단과 그 정정</b>도 남긴다. 번복의 이력이 곧 검증의 증거다.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -387,6 +387,7 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
+
 <style id="ia-css">
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
@@ -443,118 +444,12 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="on" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
-
-<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">FOOTHOLD · 회의 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
 
 <div class="wrap">
-
-<div class="hero">
-  <div class="eyebrow">Meeting · 회의 기록</div>
-  <h1>8/21 팀 미팅: 역할 그룹핑 확정, 클라우드 운용 개시</h1>
-  <p class="lede">역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.</p>
-  <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / meetings / 20260821-team-meeting.md</span></div><div><span class="k">상세</span><span class="v">전체 전사·화자 기록은 내부 볼트 00_meetings</span></div></div>
-  <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
+<h1>기획 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Proposal</span></h1>
+<p class="lede">무엇을 왜 하는가. 밖에 보여주는 것</p>
+<div class="hgroup">밖으로 내보내는 것 <span style="font-weight:600">3</span></div><div class="hlist"><a href="brief.html"><div class="t">프로젝트 브리핑</div><div class="d">외부에 짧게 설명할 때</div></a><a href="pitch.html"><div class="t">프로젝트 소개 덱</div><div class="d">전체화면 발표용</div></a><a href="project-report.html"><div class="t">프로젝트 보고서</div><div class="d">한 장으로 보는 전체 계획</div></a></div><div class="hgroup">안에서 쓰는 것 <span style="font-weight:600">2</span></div><div class="hlist"><a href="team-intro.html"><div class="t">팀 소개 · 킥오프</div><div class="d">팀과 역할</div></a><a href="team-lead.html"><div class="t">오흥재</div><div class="d">Project Lead · Robotics Systems Integrator</div></a></div>
 </div>
-
-<blockquote><p>분류: 회의록
-작성: 오흥재 · 맹라현 · 2026-08-22
-근거: 팀원 폰 노트 전사 PDF(11:46) + 팀장 전언 → 이후 MOSS 전사 1,081세그먼트로 재확인
-요지: 역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.
-상태: 확정</p></blockquote>
-<blockquote><p>정리 팀장 · 8/25 맹라현이 8/21 브리핑을 이 장으로 합쳤다. 8/26 팀장 보고서 v1·v2의 누락분을 복원했다.
-2026-08-21 오전 · 전원 · 안건은 8/20 두 자리 전사와 실측에서 가져왔다.
-<b>처음에는 음성 녹음이 없었다.</b> 팀원이 두 차례 특강 파일을 대신 전달했고 프로브 검사로 판명됐다. 그래서 v1은 팀원 폰 노트 전사 PDF(11:46, <code>20260821_팀미팅_노트(폰전사).pdf</code>)와 팀장 전언(8/21 채팅)으로 썼고 <b>타임코드가 없었다.</b> 음성 녹음은 나중에 81분(MOSS 1,081세그먼트)이 확보돼 아래 합의를 재확인했다. v1(폰 노트 기반)과의 관계는 이렇다. <b>합의 10건 전부가 전사로 재확인됨.</b></p></blockquote>
-</section>
-<section id="s1"><h2>그날 무슨 일이었나</h2>
-<p>전원이 거의 모든 영역에 관심이 있는 팀이라, 전부 병렬로 완주하면 기간이 버티지 못한다는 전제에서 시작했다. 그래서 <b>main 하나 + sub 겹침</b>으로 잘랐다. 팀장이 팀을 끌고, 파트 main이 파트를 끈다. 화면에는 <a href="research-role-map-careers.html">역할 지도</a>를 띄워 직무·공고와 맞춰 봤다.</p>
-<p>임석헌이 분담을 빨리 정하자고 한 이유는, 조선대 등 외부에서 프로젝트를 설명할 때 각자 &quot;내 파트&quot;를 말할 수 있어야 해서다. 전원 선호는 &quot;병렬로 가자. 기반은 같이 가져가되, 깊은 부분은 각자 갈라져서&quot;였다. 공부한 것은 자세히 정리해 공유하고, git에 남기고, 막힌 것(시도·실패)도 기록하고, PR로 메인에 합친다. 협업 규율을 풀어 쓰면 이렇다. git 작업을 계속 올리고, 막힌 부분(시도·실패 유지)을 기록하고, PR로 메인에 머지하고, inbox로 공유한다. <b>&quot;공부한 걸 모두가 알 수 있게 자세하게 정리·공유&quot;</b>가 원칙이다.</p>
-<p>멘토링은 킥오프에서 나온 <b>오후안을 채택</b>했다. <i>&quot;오후에 멘토링 어떤가? good&quot;</i>. 이 방침은 <b>운영진에 우리가 직접 전달</b>하기로 했다 <code>[f1 03:50~03:59]</code>. 오전~15시는 팀 작업, <b>15~18시 멘토 세션</b>. 이론 강의는 희망자만 15~16시, 16~18시는 전원 점검·개별 멘토링. 다음 주 월요일 시작은 운영진 통보 대기 <span class="ev ev-todo">미확인</span>. 강의 수강: 오흥재·오현민·맹라현. 미수강: 임석헌·이민우. 각자 «백그라운드·가고 싶은 회사·희망 직무» <b>1~2장 페이퍼</b>를 쓰고, 회사 주요 업무와 자격요건도 확인한다(<a href="research-role-map-careers.html">역할 지도</a> §7과 동일 액션). 다음 주에 멘토에게 넘긴다. 반대로 <b>박철제 멘토에게도 자기소개 페이퍼를 요청</b>했고 기한은 <b>다음 주 월요일</b>이다. 중간발표 2주 전부터 강의 축소(라이트 모드) 옵션을 미리 합의하고, 강의 예시는 우리 프로젝트 소재(Go2 관절 기구학, 관측 벡터)로 요청한다.</p>
-<p>클라우드는 Runpod 팀 워크스페이스 «FOOTHOLD»를 열었다. Runpod 방침 상세는 이렇다. 팀 계정을 유지하고 결제카드를 등록했다. <b>당일 최소단위 충전만</b> 하고 대량 선충전은 하지 않는다. 오토페이는 OFF다(&quot;파산핑&quot;). 팟은 RTX 4090 · Isaac Sim/Lab 템플릿 · 이름 규칙 · <b>네트워크 볼륨</b>이다. 헤드리스 전환, <b>터미네이트 시 데이터 소실 인지</b> 후 볼륨 필요로 정리, 팀 초대 링크 가입이다 <code>[f1 04:08~04:53]</code> <code>[f1 21:30]</code>. GIST V100은 Isaac Sim·디지털트윈 불가다(RT 코어 없음). NAS 팀폴더는 팀장이 공유했고, 조선대 우분투 세팅은 다음 주 금요일이다. 이번 주에서 차주 조선대 전까지는 <b>우분투 세팅 + 각자 탐구 주제 진행</b> <code>[f2 19:10~19:27]</code>. 경비는 승인 먼저, 월요일 전원 상신.</p>
-<p>연구 쪽은 일반화 벤치마크에서 실패한 지형을 <b>이어 학습(파인튜닝)</b>으로 가기로 했다. 텐서보드를 습관으로 둔다. 9월 MVP 뒤에 gap 같은 험지를 서브로 넣고, 디지털트윈으로 실환경을 재현해 시연에 쓰며, 로봇을 풀 대여하면 실환경 주행 영상을 찍자는 아이디어도 나왔다.</p>
-</section>
-<section id="s2"><h2>1. 역할</h2>
-<p>한 줄로 적으면 <b>RL 메인 임석헌</b>(서브 이민우·오현민) · <b>디지털트윈 메인 맹라현</b>(서브 오흥재·이민우) · <b>CV 메인 오현민</b>(서브 맹라현) · <b>항법(Nav) 메인 오흥재</b>(서브 전원)다.</p>
-<div class="tw"><table><thead><tr><th>영역</th><th>Main</th><th>Sub</th></tr></thead><tbody><tr><td>RL 정책·학습 (RL 메인)</td><td><b>임석헌</b></td><td>이민우 · 오현민</td></tr><tr><td>디지털 트윈·씬</td><td><b>맹라현</b></td><td>오흥재 · 이민우</td></tr><tr><td>CV·인지·평가</td><td><b>오현민</b></td><td>맹라현</td></tr><tr><td>항법 (SLAM·Nav2)</td><td><b>오흥재</b></td><td>전원 (트랙 B 본격화 시 재지정)</td></tr></tbody></table></div>
-<ul><li>sub는 1개일 수도 2개일 수도 있다. 관심 후보 영역은 각자 방향성 페이퍼에 기록.</li><li>원칙: <b>공부한 것은 모두가 알 수 있게 자세히 정리·공유</b> · git 지속 커밋 · 막힌 것(시도·실패)도 기록 · PR→메인 머지 · inbox 공유</li></ul>
-<p>안건 초안의 역할 축은 이날 표로 바뀌었다. PM·트윈을 오흥재 단독으로 두지 않고, 트윈 main은 맹라현, 항법 main은 오흥재다.</p>
-</section>
-<section id="s3"><h2>2. 멘토링 운용</h2>
-<ul><li>시간대: <b>오후안 채택</b> · 다음 주 월요일 시작 예상 (운영진 확정 통보 대기) <span class="ev ev-todo">미확인</span></li><li>로보틱스 강의 (opt-in): 수강 오흥재·오현민·맹라현 / 미수강 임석헌·이민우</li><li><b>개인 방향성 페이퍼</b> (자유 양식, 다음 주): 각자 백그라운드 · 희망 직무·회사 · 파트를 1~2장으로 정리해 멘토께 전달 → 맞춤 어드바이스. <a href="research-role-map-careers.html">역할 지도</a>의 공고 스크랩과 합쳐 쓰면 한 장으로 끝난다</li></ul>
-</section>
-<section id="s4"><h2>3. 클라우드·인프라</h2>
-<ul><li><b>Runpod 팀 워크스페이스 «FOOTHOLD» 개설</b> (팀장 계정 기반, 팀원 초대 완료). 최초 소액 충전으로 시작, 대량 선충전 안 함. 오토페이 OFF</li><li>팟 표준: RTX 4090 · Isaac Lab 템플릿 · 이름 규칙 · <b>네트워크 볼륨</b>으로 데이터 영속화 (팟 종료 시 소실 방지)</li><li>GIST V100: <b>Isaac Sim·디지털트윈 불가 확정</b> (RT 코어 부재, 공식 미지원) → 보조 연산 전용</li><li>NAS 팀폴더 공유 (팀장 세팅) · 조선대 우분투 세팅 다음 주 금</li><li>팀원 개인 장비로는 Isaac Sim이 안 돌아간다. 임석헌이 Runpod 헤드리스로 일반화 벤치마크를 완주해 클라우드 파이프라인은 실증됨. 첫 실측 단가: IsaacLab 템플릿 $0.74/hr, 벤치마크 작업일 하루 청구 약 $5. 유휴 팟은 Terminate (정지 상태도 디스크 과금)</li><li>경비: 승인 절차 선행, 월요일 전원 상신 예정 (금액·정산은 내부 문서)</li></ul>
-</section>
-<section id="s5"><h2>4. 연구 방향</h2>
-<ul><li>일반화 벤치마크 실패 지형 → <b>파인튜닝(이어 학습) 방향 채택</b>. 텐서보드 모니터링 습관화. → <a href="research-generalization-benchmark-10-terrains.html">벤치마크 보고서</a></li><li>아이디어: 9월 MVP 후 서브프로젝트로 험지 추가(gap 등) · 디지털트윈 실환경 재현→시연 적용, 로봇 풀 대여 시 실환경 주행 영상</li><li>임석헌 벤치마크 공유: 실험 조건 확인 5건은 보고서 §6. 중간발표 &quot;10월 초&quot; 언급은 공식 공지 대기. 멘토 소통 채널 개설 상태를 확인한다</li></ul>
-</section>
-<section id="s6"><h2>5. 비용 원칙</h2>
-<p><b>팀 공동 고정비 먼저 락인, 유동비는 실측 후 집행.</b> 승인 절차가 선행한다 (팀 합의 → 사용 계획서 제출 → 승인 후 집행).</p>
-<div class="tw"><table><thead><tr><th>우선순위</th><th>항목</th><th>목적</th><th>시기·조건</th></tr></thead><tbody><tr><td>1 · 고정</td><td>조선대 실기 대여</td><td>트랙 B 금요 실습과 실기 루프</td><td>9~12월, 협약 조건</td></tr><tr><td>2 · 조건부</td><td>최종 전 집중 대여</td><td>12/11 직전 반복 실기</td><td>10월 말 결정, 11월 집행. 보관·안전 책임 확인 선행</td></tr><tr><td>3 · 실측 후</td><td>Runpod 크레딧</td><td>팀원 Isaac Sim/Lab 클라우드 작업</td><td>실측 단가 $0.74/hr, 작업일 약 $5. 파일럿 → 본충전</td></tr><tr><td>4 · 상시</td><td>AI 구독 (GPT·Claude 등)</td><td>개발·문서 생산성</td><td>프로젝트 전 기간</td></tr><tr><td>마지막</td><td>예비</td><td>실기 소모품·이동·미예측</td><td>잔여</td></tr></tbody></table></div>
-<p>세부 금액과 1인 배분표는 내부 예산 문서(<code>04_plan/BUDGET-20260821</code>)로 관리한다. <b>대여 금액은 협약 조건이라 공개 웹에 싣지 않는다</b> (8/6 확정 규칙).</p>
-</section>
-<section id="s7"><h2>6. 전사 정본 확인 (8/22 추가)</h2>
-<p>회의 녹음 81분의 MOSS 전사(1,081세그먼트)를 확보해 위 합의 사항 전부를 재확인했다. 전사에서 추가된 것:</p>
-<ul><li><b>분업 방식 선호 (전원)</b>: &quot;병렬로 가자. 기반은 같이 가져가되, 깊은 부분은 각자 갈라져서&quot; · 역할 main/sub 구조 및 <a href="research-terrain-finetune-plan.html">파인튜닝 계획</a>의 «레시피 병렬»과 정합</li><li><b>분담 시점을 빨리 정해야 하는 이유</b> (임석헌 문제의식. 팀장 정정 8/22, 애초 화자 추정 오류였다): 분담 시점을 빨리 정해야 외부 설명(조선대 등)에서 자기 파트를 말할 수 있다. 본인 관심은 <b>디지털 트윈의 실제 물리 구현</b> <code>[f2 19:48~22:07]</code></li><li>역할·직무 논의는 팀장이 <a href="research-role-map-careers.html">역할 지도</a> 웹페이지를 화면 공유하며 진행했다. 직무·회사(라이온로보틱스 등)를 설명했고, <b>게시물이 회의 교보재로 실사용</b>됐다 <code>[f1 38:02~38:17]</code> <code>[f2 00:11~]</code></li><li><b>역할 분배 원칙 재확인</b>: &quot;MVP까지는 거의 동일하게, 마지막으로 가며 각자 역할 심화&quot; <code>[f1 36:15~36:36]</code> <code>[f2 20:54~21:08]</code></li><li><b>크레딧 정정은 취소됐다</b> (팀장 확인 8/22). 역할 지도의 원작자는 맹라현이 맞고, 회의 중 다른 발언은 팀원들 장난이었다. 웹 크레딧 수정은 필요 없다. <b>게시 전 컨펌 절차가 오보를 막은 사례</b>다 <code>[f1 36:48~36:53]</code></li></ul>
-</section>
-<section id="s8"><h2>별건: 브레이크 중 이사 대화</h2>
-<p>특강 브레이크 중에 박재선 이사·한상원 파트장과 팀장이 박철제 멘토 운영을 조율했다. 요지는 이렇다. <b>멘토는 많은 것을 해주려 하고, 이사는 프로젝트 집중에 문제가 없어야 함을 염려</b>한다. 팀장은 조율하면 시너지가 난다고 봤다. 전사는 별도로 진행했고 멘토 대장(<code>02_team/mentors.md</code>)에 반영한다.</p>
-</section>
-<section id="s9"><h2>이 회의의 후속</h2>
-<ol><li>예산 v2 갱신: Runpod 파일럿 반영, 인당 경비 상신안과 승인 신청서 문안. 금액은 내부 예산 문서에만 적는다</li><li>웹 게시(팀장 컨펌 후): 미팅 기록 페이지 + 역할 매트릭스를 브리핑·역할지도에 반영</li><li>이사 대화 전사 완료 시 <code>mentors.md</code> 반영</li></ol>
-</section>
-<section id="s10"><h2>부록: 전사 근거</h2>
-<p><b>v1과 v2의 관계.</b> v1은 폰 노트 기반이라 타임코드가 없었다. v2에서 MOSS 전사 정본을 확보해 <b>합의 10건 전부를 재확인</b>했고, 위 본문의 타임코드는 그 v2에서 왔다.</p>
-<p><b>화자 추정.</b> 두 클립(f1 · f2) 모두 S01 = 오흥재(진행). f1의 S02 = 맹라현, f2의 S04 = 임석헌(팀장 정정). 나머지는 조각별로 유동적이다.</p>
-<p><b>v2 에서 웹에 반영한 것.</b> 8/21 팀미팅 기록에 &quot;전사 정본 확보(1,081세그먼트)&quot; 표기를 넣고, 병렬 선호와 분담 시점 문제의식을 추가했다. 크레딧 정정 건은 <b>취소</b>로 닫았다(웹 크레딧 수정 불요).</p>
-<blockquote><p>세부 금액과 1인 배분표는 내부 예산 문서로 관리한다. <b>대여 금액과 개인 경비 금액은 협약·대외비라 공개 웹에 싣지 않는다</b> (8/6 확정 규칙).</p></blockquote>
-</section>
-
-</div>
-<script>
-document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
-addEventListener('scroll', function(){
-  var h = document.documentElement;
-  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
-  document.getElementById('prog').style.width = (p * 100) + '%';
-}, {passive:true});
-/* 복사 버튼: 코드 블록과 접속 주소 공용 */
-document.addEventListener('click', function(e){
-  var b = e.target.closest && e.target.closest('.copy');
-  if (!b) return;
-  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
-  if (!t) return;
-  navigator.clipboard.writeText(t).then(function(){
-    var old = b.textContent;
-    b.textContent = '복사됨'; b.classList.add('done');
-    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
-  });
-});
-</script>
-<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
-<style>
-#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
-  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
-  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
-  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
-  line-height:1.3;white-space:nowrap}
-#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
-#themeBtn:active{transform:translateY(1px)}
-@media print{#themeBtn{display:none!important}}
-</style>
-<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
-<script>(function(){
-  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
-      mq=window.matchMedia('(prefers-color-scheme: dark)');
-  function apply(t){d.setAttribute('data-theme',t);
-    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
-  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
-  apply(cur());
-  b.addEventListener('click',function(){
-    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
-  mq.addEventListener&&mq.addEventListener('change',function(){
-    if(!localStorage.getItem(K))apply(cur());});
-})();</script>
-
 </body>
 </html>

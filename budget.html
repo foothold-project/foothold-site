@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>예산안 · FOOTHOLD</title>
+<style>
+body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--paper,#f4f2ec);
+  color:var(--ink,#16202a);margin:0}
+.top{position:sticky;top:0;z-index:60;background:var(--paper,#f4f2ec);
+  border-bottom:1px solid var(--rule,#d8d4c8)}
+.top .row{max-width:960px;margin:0 auto;padding:.6rem 1.2rem;display:flex;
+  align-items:center;gap:.9rem}
+.top a{color:inherit;text-decoration:none;font-weight:700;font-size:.85rem}
+.wrap{max-width:960px;margin:0 auto;padding:28px 20px 80px}
+h1{font-size:1.5rem;margin:.4rem 0}
+.note{font-size:.85rem;color:var(--ink-2,#3d4a58);line-height:1.6}
+.gate{border:1px solid var(--rule,#d8d4c8);border-top:3px solid var(--dim,#0e7a6e);
+  background:var(--card,#fbfaf6);padding:22px;margin:26px auto;border-radius:8px;max-width:460px}
+.gate input{width:100%;box-sizing:border-box;padding:.6rem .8rem;font-size:16px;border:1px solid var(--rule,#d8d4c8);
+  border-radius:5px;margin:.4rem 0;background:var(--paper,#fff);color:inherit}
+.gate button{padding:.55rem 1.2rem;font-weight:800;border:none;border-radius:5px;
+  background:var(--dim,#0e7a6e);color:#fff;cursor:pointer;font-size:.9rem}
+.gate .err{color:#b3452c;font-size:.8rem;min-height:1.2em}
+.item{border:1px solid var(--rule,#d8d4c8);border-radius:8px;background:var(--card,#fbfaf6);
+  padding:16px 18px;margin:14px 0}
+.item .no{display:inline-block;background:var(--ink,#16202a);color:var(--paper,#fff);font-size:.68rem;font-weight:800;padding:.15rem .45rem;border-radius:3px;margin-right:.55rem;letter-spacing:.06em;vertical-align:.08em}
+.item b{font-size:.98rem}
+.item .m{font-size:.75rem;color:var(--ink-3,#6b7683);margin:.2rem 0 .6rem}
+.item button{margin-right:.5rem;padding:.4rem .9rem;font-weight:700;border:1px solid var(--dim,#0e7a6e);
+  border-radius:5px;background:transparent;color:var(--dim,#0e7a6e);cursor:pointer}
+.pdfbox{margin-top:10px;max-height:82vh;overflow-y:auto;border-radius:6px}
+#list{display:none}
+</style>
+<style id="ia-css">
+.gnav{position:sticky;top:0;z-index:70;background:var(--paper);
+  border-bottom:1px solid var(--rule);font-size:.82rem}
+.gnav .in{max-width:1040px;margin:0 auto;padding:.5rem 1.2rem;display:flex;
+  align-items:center;gap:.1rem;flex-wrap:wrap}
+.gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
+  font-weight:700;white-space:nowrap}
+.gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
+.gnav a.home{color:var(--ink);font-weight:850;margin-right:.5rem}
+.gnav a.on{color:var(--dim);background:var(--dim-soft,rgba(0,0,0,.05))}
+.gnav .sp{flex:1}
+.gnav .q{color:var(--ink-3);font-weight:600;font-size:.76rem}
+
+.band{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:7px;
+  padding:1rem 1.2rem;margin:0 0 14px}
+.band:hover{border-color:var(--dim)}
+.band .t{font-size:1.06rem;font-weight:850;letter-spacing:.02em}
+.band .d{font-size:.8rem;color:var(--ink-3);margin-top:.22rem}
+.band .w{float:right;font-family:ui-monospace,Consolas,monospace;font-size:.72rem;
+  color:var(--ink-3);font-weight:700}
+
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));
+  gap:.6rem;margin:0 0 16px}
+.quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--note,var(--dim));
+  border-radius:6px;padding:.72rem .85rem}
+.quick a:hover{border-color:var(--dim)}
+.quick .k{font-size:.92rem;font-weight:800}
+.quick .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
+.quick .d{font-size:.72rem;color:var(--ink-3);line-height:1.5;margin-top:.3rem}
+
+.hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
+  gap:.6rem;margin:0 0 28px}
+.hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
+  padding:.8rem .9rem}
+.hubs a:hover{border-color:var(--dim)}
+.hubs .k{font-size:1rem;font-weight:850}
+.hubs .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
+.hubs .d{font-size:.73rem;color:var(--ink-3);line-height:1.5;margin-top:.34rem}
+.hubs .n{font-size:.7rem;color:var(--ink-3);font-weight:700;margin-top:.3rem}
+
+.hgroup{margin:26px 0 8px;font-size:.7rem;font-weight:800;letter-spacing:.12em;
+  color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:.35rem}
+.hlist{display:grid;gap:.5rem}
+.hlist a{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-radius:6px;padding:.65rem .85rem}
+.hlist a:hover{border-color:var(--dim)}
+.hlist .t{font-size:.92rem;font-weight:750}
+.hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
+</style>
+</head>
+<body>
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q on" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
+<div class="top"><div class="row"><a href="index.html">← 표지로</a>
+<span style="font-size:.8rem;color:#6b7683">FOOTHOLD · 예산안</span></div></div>
+<div class="wrap">
+<h1>예산안 · 프로젝트 지원금 사용 계획</h1>
+<p class="note">프로젝트 지원금 사용 계획입니다. <b>금액은 대외비</b>이며 자료실과 같은 비밀번호로 보호됩니다. 절차는 1차·2차·3차 승인을 받고 결제한 뒤 정산입니다.</p>
+
+<div class="gate" id="gate">
+  <b>비밀번호</b>
+  <input type="password" id="pw" placeholder="팀 비밀번호" autocomplete="off">
+  <div class="err" id="err"></div>
+  <button id="go">열기</button>
+</div>
+
+<div id="list"></div>
+
+</div>
+<script>
+let MAN=null, KEY=null;
+async function loadMan(){
+  if(!MAN) MAN = await (await fetch('assets/secure/manifest.json?t='+Date.now(), {cache:'no-store'})).json();
+  return MAN;
+}
+async function deriveKey(pw, saltHex, iters){
+  const salt = Uint8Array.from(saltHex.match(/../g).map(h=>parseInt(h,16)));
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw),
+    'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:iters, hash:'SHA-256'},
+    base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+}
+async function decryptFile(url){
+  const buf = new Uint8Array(await (await fetch(url+'?v='+MAN.salt.slice(0,8), {cache:'no-store'})).arrayBuffer());
+  const nonce = buf.slice(0,12), ct = buf.slice(12);
+  return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM', iv:nonce}, KEY, ct));
+}
+document.getElementById('go').addEventListener('click', async ()=>{
+  const err = document.getElementById('err'); err.textContent='';
+  try{
+    const man = await loadMan();
+    KEY = await deriveKey(document.getElementById('pw').value, man.salt, man.iters);
+    const cb = Uint8Array.from(man.check.match(/../g).map(h=>parseInt(h,16)));
+    await crypto.subtle.decrypt({name:'AES-GCM', iv:cb.slice(0,12)}, KEY, cb.slice(12));
+  }catch(e){ err.textContent='비밀번호가 맞지 않습니다.'; KEY=null; return; }
+  document.getElementById('gate').style.display='none';
+  const list = document.getElementById('list'); list.style.display='block';
+  const KIND='budget';
+  for(const it of MAN.items.filter(x=>(x.kind||'chosun')===KIND)){
+    const d = document.createElement('div'); d.className='item';
+    d.innerHTML = '<span class="no">'+it.no+'</span><b>'+it.title+'</b>'
+      +'<div class="m">'+it.name+' · '+(it.size/1048576).toFixed(1)+' MB · 등록 '+it.added+'</div>';
+    const dl = document.createElement('button'); dl.textContent='다운로드 (원본)';
+    dl.onclick = async ()=>{
+      const data = await decryptFile(it.file);
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([data]));
+      a.download = it.name; a.click();
+    };
+    d.appendChild(dl);
+    if(it.view){
+      const v = document.createElement('button'); v.textContent='여기서 보기';
+      v.onclick = async ()=>{
+        let box = d.querySelector('.pdfbox');
+        if(box){ box.remove(); d.querySelector('.close').remove(); return; }
+        v.disabled = true; v.textContent = '여는 중...';
+        try{
+          const data = await decryptFile(it.view);
+          const pdfjs = await import('/assets/vendor/pdfjs/pdf.min.mjs');
+          pdfjs.GlobalWorkerOptions.workerSrc = '/assets/vendor/pdfjs/pdf.worker.min.mjs';
+          const doc = await pdfjs.getDocument({data}).promise;
+          box = document.createElement('div'); box.className='pdfbox';
+          const cl = document.createElement('button'); cl.className='close';
+          cl.textContent='닫기'; cl.style.display='block'; cl.style.margin='8px 0';
+          cl.onclick = ()=>{ box.remove(); cl.remove(); };
+          d.appendChild(box); d.appendChild(cl);
+          const wpx = Math.min(d.clientWidth - 4, 920);
+          for(let n=1; n<=doc.numPages; n++){
+            const pg = await doc.getPage(n);
+            const base = pg.getViewport({scale:1});
+            const scale = wpx / base.width * (window.devicePixelRatio||1);
+            const vp = pg.getViewport({scale});
+            const cv = document.createElement('canvas');
+            cv.width = vp.width; cv.height = vp.height;
+            cv.style.width = '100%'; cv.style.display='block';
+            cv.style.border = '1px solid var(--rule,#d8d4c8)'; cv.style.marginBottom='6px';
+            box.appendChild(cv);
+            await pg.render({canvasContext:cv.getContext('2d'), viewport:vp}).promise;
+          }
+        }catch(e){ const er=document.createElement('div'); er.style.cssText='color:#b3452c;font-size:.8rem;margin-top:6px'; er.textContent='열기 실패: '+e.message; d.appendChild(er); console.error('viewer', e); }
+        v.disabled = false; v.textContent = '여기서 보기';
+      };
+      d.appendChild(v);
+      const nt = document.createElement('button'); nt.textContent='새 탭에서 보기';
+      nt.onclick = async ()=>{
+        const data = await decryptFile(it.view);
+        window.open(URL.createObjectURL(new Blob([data],{type:'application/pdf'})), '_blank');
+      };
+      d.appendChild(nt);
+    }
+    list.appendChild(d);
+  }
+});
+document.getElementById('pw').addEventListener('keydown', e=>{
+  if(e.key==='Enter') document.getElementById('go').click();
+});
+</script>
+</body>
+</html>

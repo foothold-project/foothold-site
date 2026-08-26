@@ -176,14 +176,68 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
+<style id="ia-css">
+.gnav{position:sticky;top:0;z-index:70;background:var(--paper);
+  border-bottom:1px solid var(--rule);font-size:.82rem}
+.gnav .in{max-width:1040px;margin:0 auto;padding:.5rem 1.2rem;display:flex;
+  align-items:center;gap:.1rem;flex-wrap:wrap}
+.gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
+  font-weight:700;white-space:nowrap}
+.gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
+.gnav a.home{color:var(--ink);font-weight:850;margin-right:.5rem}
+.gnav a.on{color:var(--dim);background:var(--dim-soft,rgba(0,0,0,.05))}
+.gnav .sp{flex:1}
+.gnav .q{color:var(--ink-3);font-weight:600;font-size:.76rem}
+
+.band{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:7px;
+  padding:1rem 1.2rem;margin:0 0 14px}
+.band:hover{border-color:var(--dim)}
+.band .t{font-size:1.06rem;font-weight:850;letter-spacing:.02em}
+.band .d{font-size:.8rem;color:var(--ink-3);margin-top:.22rem}
+.band .w{float:right;font-family:ui-monospace,Consolas,monospace;font-size:.72rem;
+  color:var(--ink-3);font-weight:700}
+
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));
+  gap:.6rem;margin:0 0 16px}
+.quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--note,var(--dim));
+  border-radius:6px;padding:.72rem .85rem}
+.quick a:hover{border-color:var(--dim)}
+.quick .k{font-size:.92rem;font-weight:800}
+.quick .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
+.quick .d{font-size:.72rem;color:var(--ink-3);line-height:1.5;margin-top:.3rem}
+
+.hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
+  gap:.6rem;margin:0 0 28px}
+.hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
+  padding:.8rem .9rem}
+.hubs a:hover{border-color:var(--dim)}
+.hubs .k{font-size:1rem;font-weight:850}
+.hubs .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
+.hubs .d{font-size:.73rem;color:var(--ink-3);line-height:1.5;margin-top:.34rem}
+.hubs .n{font-size:.7rem;color:var(--ink-3);font-weight:700;margin-top:.3rem}
+
+.hgroup{margin:26px 0 8px;font-size:.7rem;font-weight:800;letter-spacing:.12em;
+  color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:.35rem}
+.hlist{display:grid;gap:.5rem}
+.hlist a{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-radius:6px;padding:.65rem .85rem}
+.hlist a:hover{border-color:var(--dim)}
+.hlist .t{font-size:.92rem;font-weight:750}
+.hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
+</style>
 </head>
 <body>
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q on" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
 <div class="top"><div class="row"><a href="index.html">← 표지로</a>
-<span style="font-size:.8rem;color:#6b7683">FOOTHOLD · 팀 자료실 (조선대 제공)</span></div></div>
+<span style="font-size:.8rem;color:#6b7683">FOOTHOLD · 팀 자료실 (조선대)</span></div></div>
 <div class="wrap">
 <h1>팀 자료실 · 조선대 제공 수업 자료</h1>
-<p class="note">이 자료는 조선대학교 측 저작물입니다. <b>팀 내부 열람용</b>으로만 제공하며
-비밀번호로 보호됩니다 (비밀번호는 디스코드 리소스 채널). 외부 공유 금지.</p>
+<p class="note">이 자료는 조선대학교 측 저작물입니다. <b>팀 내부 열람용</b>으로만 제공하며 비밀번호로 보호됩니다 (비밀번호는 디스코드 리소스 채널). 외부 공유 금지.</p>
 
 <div class="gate" id="gate">
   <b>비밀번호</b>
@@ -193,6 +247,22 @@ document.addEventListener('DOMContentLoaded',function(){
 </div>
 
 <div id="list"></div>
+<div class="item" style="border-top:3px solid var(--dim,var(--dim))">
+<b>실습 코드는 저장소에서 바로 받습니다</b>
+<div class="m">PDF 와 달리 코드는 읽는 게 아니라 빌드해서 돌립니다. 여기 사본을 두면
+조선대가 갱신할 때마다 낡습니다. 원본을 그대로 씁니다.</div>
+<pre style="background:var(--paper,#f4f2ec);border:1px solid var(--rule,#d8d4c8);
+border-radius:5px;padding:.7rem .9rem;font-size:.82rem;overflow-x:auto;margin:.4rem 0"
+>git clone https://github.com/slihump/ros2_lecture.git
+cd ros2_lecture/ubuntu_practice</pre>
+<div class="m">설치 스크립트는 <code>00_setup_scripts/</code>, ROS2 실습 패키지는
+<code>ros2_ws/src/</code> 에 있습니다. 갱신은 <code>git pull</code> 한 번입니다.
+접근이 안 되면 조선대 이수혁 팀장에게 계정 권한을 요청하세요.</div>
+<a href="https://github.com/slihump/ros2_lecture" target="_blank" rel="noopener"
+   style="display:inline-block;margin-top:.3rem;padding:.4rem .9rem;font-weight:700;
+   border:1px solid var(--dim,var(--dim));border-radius:5px;color:var(--dim,var(--dim));
+   text-decoration:none">저장소 열기</a>
+</div>
 </div>
 <script>
 let MAN=null, KEY=null;
@@ -222,7 +292,8 @@ document.getElementById('go').addEventListener('click', async ()=>{
   }catch(e){ err.textContent='비밀번호가 맞지 않습니다.'; KEY=null; return; }
   document.getElementById('gate').style.display='none';
   const list = document.getElementById('list'); list.style.display='block';
-  for(const it of MAN.items){
+  const KIND='chosun';
+  for(const it of MAN.items.filter(x=>(x.kind||'chosun')===KIND)){
     const d = document.createElement('div'); d.className='item';
     d.innerHTML = '<span class="no">'+it.no+'</span><b>'+it.title+'</b>'
       +'<div class="m">'+it.name+' · '+(it.size/1048576).toFixed(1)+' MB · 등록 '+it.added+'</div>';
