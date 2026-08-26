@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>회의 · FOOTHOLD</title>
-<meta name="description" content="조사와 실측의 원본 기록이다. 결론만이 아니라 <b>틀렸던 판단과 그 정정</b>도 남긴다. 번복의 이력이 곧 검증의 증거다.">
+<title>8/26 팀: 오늘 멘토링은 취소, 프로젝트 피드백으로 조율 · FOOTHOLD</title>
+<meta name="description" content="오늘 멘토링은 취소. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -387,7 +387,6 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
-
 <style id="ia-css">
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
@@ -444,12 +443,97 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="on" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
+
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">FOOTHOLD · 회의 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
 <div class="wrap">
-<h1>회의 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Meetings</span></h1>
-<p class="lede">언제 무엇을 정했나. 최신이 위</p>
-<div class="hgroup">현장 기록 <span style="font-weight:600">2</span></div><div class="hlist"><a href="field-check-go2-intake.html"><div class="t">Go2 신규 개체 점검 목록 (공통)</div><div class="d">Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.</div></a><a href="field-check-0813.html"><div class="t">8/13(목) 조선대 방문: 현장 확인 목록</div><div class="d">8/13 조선대 방문 때 들고 가는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</div></a></div><div class="hgroup">회의록 <span style="font-weight:600">8</span></div><div class="hlist"><a href="meeting-20260826-mentor-sync.html"><div class="t">8/26 팀: 오늘 멘토링은 취소, 프로젝트 피드백으로 조율</div><div class="d">오늘 멘토링은 취소. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤.</div></a><a href="meeting-20260825-park-mentoring.html"><div class="t">8/25 멘토링: 프로젝트 화면을 보고, 실패 험지는 3점 지지로</div><div class="d">2회차 멘토링. 프로젝트 화면을 보고, 실패 험지는 3점 지지로 읽는다.</div></a><a href="meeting-20260824-park-mentoring.html"><div class="t">8/24 멘토링: 본 과제와 CAD 학습은 분리한다</div><div class="d">본 과제와 CAD 학습은 분리한다. 개별 취업 멘토링 첫 회차.</div></a><a href="meeting-20260821-team-meeting.html"><div class="t">8/21 팀 미팅: 역할 그룹핑 확정, 클라우드 운용 개시</div><div class="d">역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.</div></a><a href="meeting-20260820-kickoff.html"><div class="t">8/20: 전담 멘토 확정, 박철제 킥오프</div><div class="d">전담 멘토 확정과 박철제 킥오프. 같은 날 두 자리를 한 장으로.</div></a><a href="meeting-20260819-team-lock.html"><div class="t">8/19 팀 합의: 두 트랙으로 간다, C는 지킨다</div><div class="d">두 트랙으로 가기로 합의했다. C(미경험 지형 통과율)는 필수로 지킨다.</div></a><a href="meeting-20260814-east-ops.html"><div class="t">8/14 운영 미팅: 원안 확정, 그리고 저수준 「가능」 정정</div><div class="d">원안이 확정됐다. 그리고 미팅 도중 조선대가 「Go2 저수준 제어 가능」으로 정정해 왔다. 전날의 최대 쟁점이 하루 만에 뒤집혔다.</div></a><a href="meeting-20260813-ops-alignment.html"><div class="t">8/13 조선대 미팅: 기획과 제시안이 갈라진 날</div><div class="d">「실시간 불가」 발언은 비전·항법 층 이야기였다. 진짜 쟁점은 Go2 저수준 개방 여부이고 아직 미확인이다.</div></a></div>
+
+<div class="hero">
+  <div class="eyebrow">Meeting · 회의 기록</div>
+  <h1>8/26 팀: 오늘 멘토링은 취소, 프로젝트 피드백으로 조율</h1>
+  <p class="lede">오늘 멘토링은 취소. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤.</p>
+  <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / meetings / 20260826-mentor-sync.md</span></div><div><span class="k">상세</span><span class="v">전체 전사·화자 기록은 내부 볼트 00_meetings</span></div></div>
+  <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
+
+<blockquote><p>분류: 회의록
+작성: 맹라현 · 2026-08-26
+근거: 음성 001 (1).m4a 청취 기록 · 운영진 현장 대화
+요지: 오늘 멘토링은 취소. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤.
+상태: 확정</p></blockquote>
+<blockquote><p>원본은 맹라현이 <code>inbox/meang/</code> 에 제출했고, 2026-08-26 에 메타를 얹어 승격했다.
+내용은 손대지 않았다.</p></blockquote>
+<blockquote><p>2026-08-26 · 현장 · 약 44분.
+참석: 운영진 · 오흥재 · 맹라현 · 오현민. 임석헌 · 이민우는 시험으로 부재 <span class="ev ev-ok">확인됨</span>.
+근거: 음성 001 (1).m4a. 8/24·8/25 박철제 멘토링 이후 내부 점검.</p></blockquote>
+<p>오늘 초점: <b>멘토는 감독이 아니라 기술 어드바이저다.</b> 오늘 회차는 취소한다. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤에 정한다.</p>
+</section>
+<section id="s1"><h2>그날 무슨 일이었나</h2>
+<p>8/24은 소개·니즈 파악으로 읽혔고, 8/25는 프로젝트 화면을 열었는데도 동역학 강의가 이어졌다. 팀이 준비한 것은 프로필 한두 장, 김유진 멘토에게 보여 준 사이트, 미경험 10종(통과 5 · 실패 5)이다. 멘토 쪽 응답으로 팀이 받은 인상은 진로를 로봇 공학 엔지니어로 고정하고, Isaac Sim을 현업에서 안 쓴다고 하며, 동역학 툴·CAD 라이선스 쪽으로 새는 것이었다 <span class="ev ev-ok">확인됨</span>. 팀 쪽 핵심 키워드가 CAD·동역학으로만 뽑히는 것과, 오전에 이미 한 3점 지지를 다시 수업하는 것이 반복됐다.</p>
+<p>팀이 원하는 멘토링은 실패 5종을 스토리로 가져가 우선순위·방법(파라미터만이 아니라 다음 실험)을 같이 고르는 것이다. 트윈 쪽은 시뮬 험지와 실기 순정 보행을 같은 장소로 맞출지, ACC 광장·계단 같은 후보를 같이 고르는 대화다. 디지털 트윈을 정적 스캔으로만 깎지 말고, 관심 직무로 인정한 뒤 그 칸만 밀어 달라는 요청이 나왔다.</p>
+<p>운영진은 멘토를 감독으로 두지 말라고 했다. 스타일이 안 맞으면 개선을 요청하고, 안 되면 다른 방향을 본다. NVIDIA AI 아카데미 부트캠프 커리큘럼(PPO · ROS · Isaac · Omniverse · USD)이 우리 설계와 비슷하다는 확인은 팀 확신을 보강하는 자료로만 썼다. 다른 조는 준비량에 따라 20분 만에 끝나기도, 1시간이 모자라는 조도 있다.</p>
+<p>오늘 멘토링은 시험 2명 부재로 취소. 내일은 조선대라 회차 없음. 금요일은 기업탐방으로 1명이 빠져도 4명이면 재개 후보다. 운영이 멘토와 먼저 이야기하고, 팀은 내부에서 안건을 맞춘 뒤 금요일 오전에 다시 본다 <span class="ev ev-ok">확인됨</span>.</p>
+</section>
+<section id="s2"><h2>조율 요청</h2>
+<div class="tw"><table><thead><tr><th></th><th>내용</th></tr></thead><tbody><tr><td>역할</td><td>멘토 = 기술 어드바이저. 팀 기획을 덮지 않는다</td></tr><tr><td>시간</td><td>강의 독점을 줄인다. 준비한 산출물에 대한 피드백이 먼저</td></tr><tr><td>안건</td><td>실패 5종 우선순위, 다음 실험, 트윈·실기 장소. 취업 동역학은 병행 칸</td></tr><tr><td>재개</td><td>운영 조율 후 금요일 오전 여부. 오늘은 취소, 내일 조선대는 유지</td></tr></tbody></table></div>
+</section>
+<section id="s3"><h2>하지 말 것</h2>
+<p>오늘 회차를 2명 없이 강행하지 않는다. 멘토를 감독으로 두고 커리큘럼을 넘기지 않는다. 8/24가 닫은 칸(9월은 기성 자산, CAD는 본 과제 아님, GO2는 사족보행)을 멘토 강의로 뒤집지 않는다. 조선대 ROS를 멘토 조율 핑계로 빼지 않는다.</p>
+</section>
+<section id="s4"><h2>바로 할 일</h2>
+<div class="tw"><table><thead><tr><th>항목</th><th>담당</th><th>기한</th></tr></thead><tbody><tr><td>프로젝트 피드백 · 강의 축소로 멘토와 조율</td><td>운영진</td><td>금요일 전</td></tr><tr><td>실패 5종 우선순위 · 다음 실험 안건 한 장</td><td>전원 (내부)</td><td>금요일 오전 전</td></tr><tr><td>8/26 회차 취소. 8/27 조선대 ROS</td><td>전원</td><td>당일 · 내일</td></tr><tr><td>금요일 재개 여부</td><td>운영 + 팀</td><td>8/28 오전</td></tr></tbody></table></div>
+</section>
+<section id="s5"><h2>우리끼리 의논할 것</h2>
+<p>운영이 닫기로 한 것(오늘 취소, 조선대 유지, 멘토에게 프로젝트 중심으로 전달)은 다시 뒤집지 않는다. 아래는 <b>팀이 맞춰야 하는 칸</b>이다.</p>
+<div class="tw"><table><thead><tr><th>#</th><th>무엇</th><th>왜 지금</th></tr></thead><tbody><tr><td>1</td><td><b>금요일에 열지 말지.</b> 조율 결과를 보고 연다</td><td>흥미가 식은 채로 관망만 하면 회차가 강의로 돌아간다</td></tr><tr><td>2</td><td><b>실패 5종 중 이번 주 하나.</b> 스토리와 다음 실험</td><td>8/25에서 이어서 보기로 한 칸. 빈손으로 가면 다시 수업이 된다</td></tr><tr><td>3</td><td><b>트윈 직무를 멘토 회차에서 어디까지 다룰지</b></td><td>정적/가동 구분만 반복되지 않게, 관심 칸과 본 과제를 한 장에 적는다</td></tr></tbody></table></div>
+</section>
+
+</div>
+<script>
+document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('prog').style.width = (p * 100) + '%';
+}, {passive:true});
+/* 복사 버튼: 코드 블록과 접속 주소 공용 */
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('.copy');
+  if (!b) return;
+  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(function(){
+    var old = b.textContent;
+    b.textContent = '복사됨'; b.classList.add('done');
+    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
+  });
+});
+</script>
+<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+<style>
+#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
+  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
+  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
+  line-height:1.3;white-space:nowrap}
+#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#themeBtn:active{transform:translateY(1px)}
+@media print{#themeBtn{display:none!important}}
+</style>
+<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
+<script>(function(){
+  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
+      mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function apply(t){d.setAttribute('data-theme',t);
+    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
+  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
+  apply(cur());
+  b.addEventListener('click',function(){
+    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
+  mq.addEventListener&&mq.addEventListener('change',function(){
+    if(!localStorage.getItem(K))apply(cur());});
+})();</script>
+
 </body>
 </html>
