@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법 · FOOTHOLD</title>
-<meta name="description" content="파이썬 충돌은 «같이 설치»가 아니라 «같은 셸에서 source» 할 때 난다. 통신은 DDS 층이라 버전과 무관하다.">
+<title>이번 주 알게 된 것: 8월 3주 (W34) · FOOTHOLD</title>
+<meta name="description" content="방향을 두 트랙으로 고정한 주. 무엇을 버렸고 왜 버렸는지가 이 주의 기록이다.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -448,60 +448,48 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
 
-<div class="top"><div class="row"><a class="home" href="research.html">← 연구 기록으로</a><span class="doc">FOOTHOLD · 연구 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+<div class="top"><div class="row"><a class="home" href="research.html">← 연구 기록으로</a><span class="doc">FOOTHOLD · 주간 다이제스트</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">Research · 근거 기록</div>
-  <h1>ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법</h1>
-  <p class="lede">파이썬 충돌은 «같이 설치»가 아니라 «같은 셸에서 source» 할 때 난다. 통신은 DDS 층이라 버전과 무관하다.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-09</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / ros2-isaacsim-integration.md</span></div><div><span class="k">증거</span><span class="v">확인 3 · 추측 0 · 미측정 0</span></div></div>
+  <div class="eyebrow">Digest · 이번 주 알게 된 것</div>
+  <h1>이번 주 알게 된 것: 8월 3주 (W34)</h1>
+  <p class="lede">방향을 두 트랙으로 고정한 주. 무엇을 버렸고 왜 버렸는지가 이 주의 기록이다.</p>
+  <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / digest / 2026-W34.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>분류: 리서치
-작성: 오흥재 · 2026-08-09
-근거: 공식 문서
-요지: 파이썬 충돌은 «같이 설치»가 아니라 «같은 셸에서 source» 할 때 난다. 통신은 DDS 층이라 버전과 무관하다.
+<blockquote><p>분류: 운영
+작성: 오흥재 · 2026-08-27
+근거: 실측 · 회의록
+요지: 방향을 두 트랙으로 고정한 주. 무엇을 버렸고 왜 버렸는지가 이 주의 기록이다.
 상태: 확정</p></blockquote>
-<blockquote><p>작성 2026-08-09 · 출처: 공식 문서 검증 + <b>WS 세션 원본 회수 완료(§회수 완료)</b>
-상태: <span class="ev ev-ok">확인됨</span>. 참조 블로그·구현 저장소 URL 대조 완료</p></blockquote>
+<blockquote><p>범위 8/17(월)~8/23(일) · 주간 리포트(무엇을 했나)와 다른 문서다. <b>무엇을 알게 됐나</b>만 담는다.
+각 항목은 한 문장 + 증거 링크 하나. 5분이면 이번 주의 발견을 다 안다.</p></blockquote>
 </section>
-<section id="s1"><h2>문제: 두 도구의 파이썬이 다르다 <span class="ev ev-ok">확인됨</span></h2>
-<div class="tw"><table><thead><tr><th></th><th>파이썬</th><th>기반</th></tr></thead><tbody><tr><td><b>ROS2 Humble</b></td><td><b>3.10</b></td><td>Ubuntu 22.04 시스템 파이썬에 묶임</td></tr><tr><td><b>Isaac Sim 5.x</b></td><td><b>3.11</b></td><td>자체 배포 (cp311 wheel)</td></tr></tbody></table></div>
-<p>같은 환경에 둘을 섞으면 의존성이 충돌한다. 팀장이 참조한 블로그 사례: <b>컨테이너를 2개로 분리</b>(ROS 따로 / Isaac Sim 따로)하고 <b>통신만 주고받게</b> 구성.</p>
+<section id="s1"><h2>1. 실기에 정책을 올리지 못하는 이유는 기술이 아니라 안전 설비였다</h2>
+<p>8/19 팀 전원이 <b>학습 정책의 실기 이전을 목표에서 제외</b>했다. 이유는 「못 해서」가 아니라 낙상 대비 안전 설비(와이어 리깅 등)가 우리 실험 환경에 없어서다. 제외의 근거가 기록에 남아 있으면, 나중에 조건이 바뀔 때 다시 꺼낼 수 있다. → <a href="meeting-20260819-team-lock.html">8/19 팀 합의</a></p>
 </section>
-<section id="s2"><h2>검증: 그 방법이 정석인가?</h2>
-<p><b>네, 정석 중 하나가 맞다.</b> 그리고 공식 경로가 하나 더 있다:</p>
-<ol><li><b>프로세스/컨테이너 분리 + DDS 통신</b>: ROS2 는 원래 네트워크 미들웨어라 <b>노드가 서로 다른 환경·기계에 있는 것이 기본 설계</b>다. 분리가 이상한 게 아니라 자연스럽다. 클라우드 조사에서 발견한 공식 이미지(<code>nvcr.io/nvidia/isaac-sim:5.1.0</code> + ROS 이미지)로 그대로 구성 가능.</li><li><b>Isaac Sim 내장 ROS2 Bridge</b> <span class="ev ev-ok">확인됨</span>. Isaac Sim 이 <b>자체 빌드된 ROS2 라이브러리를 동봉</b>해서, 확장을 켜면 파이썬 충돌 없이 시뮬 안에서 바로 토픽을 퍼블리시/구독한다. 공식 문서: https://docs.isaacsim.omniverse.nvidia.com/latest/ros2_tutorials/index.html → <b>시뮬↔ROS2 연습(⑥단계 준비)은 이 브리지가 가장 짧은 길.</b></li><li><b>실기 배포 시점엔 이 충돌이 없다</b>. Go2 위(Orin NX)에는 Isaac Sim 이 안 올라간다. ROS2 + 정책 런타임(ONNX)만 올라가므로 파이썬 충돌 자체가 성립하지 않는다.</li></ol>
+<section id="s2"><h2>2. 하나의 흐름을 포기하니 두 개의 완결이 생겼다</h2>
+<p>「시뮬에서 배워 실기에 옮긴다」는 한 줄기를 버리고 <b>트랙 A(시뮬 RL·트윈, 9/30)와 트랙 B(순정 보행 위 SLAM·Nav2, 12/11)</b> 로 갈랐다. 각 트랙이 독립적으로 완결되므로 한쪽이 늦어도 발표할 것이 남는다. → <a href="project-report.html">프로젝트 보고서 v2</a></p>
 </section>
-<section id="s3"><h2>우리 계획에 미치는 영향</h2>
-<ul><li>특강(8/10~14, 1일차에 Docker 실습 포함)과 정확히 이어진다. 특강의 Docker 가 곧 이 구성의 기초.</li><li>⑥단계 준비: <b>가상 Go2 + ROS2 Bridge</b> 로 실물 없이 통신 연습 (참고: Zhefan-Xu/isaac-go2-ros2)</li></ul>
+<section id="s3"><h2>3. 역할은 「전부 조금씩」이 아니라 「main 하나 + sub 겹침」이어야 한다</h2>
+<p>전원이 대부분 영역에 관심이 있는 팀이라 전 영역 병렬 완주는 기간이 버티지 못한다는 전제에서 8/21 에 역할을 잘랐다. 팀장이 팀을 끌고 <b>파트 main 이 파트를 끈다.</b> 이 구조라야 외부에 각자 「내 파트」를 말할 수 있다. → <a href="meeting-20260821-team-meeting.html">8/21 팀 미팅 §1</a></p>
 </section>
-<section id="s4"><h2>✅ 회수 완료: 원 출처 (2026-08-09, WS 세션)</h2>
-<h3>참조한 글</h3>
-<p><b>블로그</b>: &lt;https://slow-motionn.tistory.com/205&gt;</p>
-<p>원문 요지 그대로:</p>
-<blockquote><p><i>&quot;Isaac Sim 5.1.0: Python 3.11 based (built-in) vs. ROS 2 Humble: Python 3.10 based (Ubuntu 22.04 default)&quot;</i>
-둘을 한 환경에 강제로 넣으면 <b>패키지가 깨지고 런타임 오류</b>가 난다.</p></blockquote>
-<p>글쓴이는 개별 오류를 하나씩 잡는 대신 <b>컨테이너 격리로 통째로 우회</b>했다. 헤드리스 렌더링 · Fast DDS 설정 · rosdep 의존성 · GPU/Vulkan 접근을 미리 구운 이미지로 자동화했다고 밝힌다.</p>
-<p>⚠️ <b>그 글에는 GPU 모델·구체적 에러 메시지·CUDA/torch 버전이 없다.</b> <i>예방적 아키텍처</i>에 대한 글이지 사후 디버깅 기록이 아니다. 즉 <b>&quot;이렇게 하면 안 겪는다&quot;는 알지만 &quot;안 하면 정확히 뭐가 터지는지&quot;는 그 글로 알 수 없다.</b></p>
-<h3>구현 저장소</h3>
-<p><b>&lt;https://github.com/hms-gymnopedie/IsaacSim_Setting&gt;</b></p>
-<div class="tw"><table><thead><tr><th>컨테이너</th><th>베이스 이미지</th><th>담는 것</th></tr></thead><tbody><tr><td><b>IsaacSim_Pegasus</b></td><td><code>nvidia/cuda:12.4.1-devel-ubuntu22.04</code></td><td>Isaac Sim 5.1.0 스탠드얼론 · <b>Vulkan/X11</b>(헤드리스용 EGL 기반 Vulkan ICD) · PX4-Autopilot v1.14.3 · Pegasus Simulator</td></tr><tr><td><b>ROS 2 Humble</b></td><td><code>osrf/ros:humble-desktop</code></td><td>colcon · rosdep · Isaac Sim ROS 워크스페이스 · <code>humble_ws</code> 빌드 · <b>Fast DDS 설정</b>(<code>fastdds.xml</code>, <code>ROS_DOMAIN_ID=0</code>)</td></tr></tbody></table></div>
-<p><b>통신</b>: 두 컨테이너 모두 <b><code>--net=host</code></b> 로 호스트 네트워크 공유 → <i>&quot;ROS 2 DDS 통신이 즉시 작동하며 추가 설정이 필요 없다&quot;</i></p>
-<h3>★ 우리와 다른 점: 우리가 더 유리하다</h3>
-<p>그 사람은 <code>nvidia/cuda</code> 베이스에 <b>Isaac Sim을 직접 설치</b>했다. 우리는 그럴 필요가 없다:</p>
-<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>nvcr.io/nvidia/isaac-sim:5.1.0     ← 우리 버전과 일치
-nvcr.io/nvidia/isaac-lab:2.3.2     ← 우리가 고정한 태그와 일치</pre></div>
-<p>공식 이미지가 있으므로 <b>Isaac Sim 쪽 컨테이너는 직접 빌드하지 않는다.</b> ROS2 쪽만 <code>osrf/ros:humble-desktop</code> 방식을 참고하면 된다. (근거: <code>cloud-gpu-options.md</code> §4)</p>
-<h3>호스트 우분투 버전에 주는 함의</h3>
-<p>컨테이너로 분리하면 <b>호스트 우분투 버전의 제약이 크게 줄어든다.</b> 컨테이너는 자기 파일시스템과 파이썬을 갖기 때문이다. ⚠️ 단 <b>커널은 호스트와 공유</b>하므로 GPU 드라이버·커널 버전은 여전히 호스트 것을 쓴다.</p>
-<p><b>그럼에도 22.04를 택했다. 기술이 아니라 수업 때문이다.</b> 8/10~14 ROS 보충수업이 <b>Ubuntu 22.04 + Humble 기준</b>(1일차 Docker 실습 포함)이고, PinkLAB 강의도 22.04다. <b>강의와 환경이 다르면 5일 내내 다른 문제로 시간을 쓴다.</b></p>
-<p><b>ISO 준비 완료</b>: <code>C:\Driver\ubuntu-22.04.5-desktop-amd64.iso</code> (4.44GB) SHA256 <b>공식 대조 일치 확인</b>: <code>bfd1cee02bc4f35db939e69b934ba49a39a378797ce9aee20f6e3e3e728fefbf</code></p>
+<section id="s4"><h2>4. 팀원 개인 장비로는 Isaac Sim 이 안 돈다. 그런데 클라우드는 돌았다</h2>
+<p>임석헌이 Runpod 헤드리스로 일반화 벤치마크를 완주해 <b>클라우드 파이프라인이 실증</b>됐다. 첫 실측 단가: Isaac Lab 템플릿 <code>$0.74/hr</code>, 벤치마크 작업일 하루 청구 약 <code>$5</code>. 「장비가 없어서 못 한다」가 더 이상 성립하지 않는다. → <a href="meeting-20260821-team-meeting.html">8/21 팀 미팅 §3</a></p>
+</section>
+<section id="s5"><h2>5. GIST V100 은 우리 용도에 못 쓴다 (확정)</h2>
+<p>RT 코어가 없어 Isaac Sim·디지털트윈이 <b>공식 미지원</b>이다. 보조 연산 전용으로 돌린다. 「GPU 가 있으니 되겠지」로 계획을 세우면 안 되는 사례다. 사양표가 아니라 지원 목록을 봐야 한다. → <a href="meeting-20260821-team-meeting.html">8/21 팀 미팅 §3</a></p>
+</section>
+<section id="s6"><h2>6. 유휴 팟도 과금된다</h2>
+<p>Runpod 은 정지 상태에서도 디스크 요금이 붙는다. 안 쓰면 <b>Terminate</b> 해야 하고, 그러면 데이터가 사라지므로 <b>네트워크 볼륨</b>을 함께 써야 한다. 오토페이는 껐다. 대량 선충전도 하지 않는다. → <a href="meeting-20260821-team-meeting.html">8/21 팀 미팅 §3</a></p>
+</section>
+<section id="s7"><h2>이번 주가 남긴 질문</h2>
+<div class="tw"><table><thead><tr><th>질문</th><th>언제 닫히나</th></tr></thead><tbody><tr><td>「우리가 정한 험지」의 구체 스펙은 무엇인가</td><td>미학습 지형 실측 이후</td></tr><tr><td>중간발표는 9/30 인가 10월 초인가</td><td>운영진 공지 대기 <span class="ev ev-todo">미확인</span></td></tr></tbody></table></div>
 </section>
 
 </div>

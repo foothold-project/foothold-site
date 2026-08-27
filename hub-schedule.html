@@ -439,8 +439,13 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-radius:6px;padding:.65rem .85rem}
 .hlist a:hover{border-color:var(--dim)}
+.hlist a{position:relative;padding-left:3.1rem}
+.hlist .hn{position:absolute;left:.85rem;top:.68rem;font-family:ui-monospace,Consolas,monospace;
+  font-size:.72rem;font-weight:800;color:var(--ink-3);letter-spacing:.02em}
 .hlist .t{font-size:.92rem;font-weight:750}
 .hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
+.hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
+  font-variant-numeric:tabular-nums;opacity:.85}
 </style>
 </head>
 <body>
@@ -449,7 +454,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="wrap">
 <h1>일정 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Schedule</span></h1>
 <p class="lede">언제 무엇을. 주간 계획과 마일스톤</p>
-<div class="hgroup">설계도 <span style="font-weight:600">1</span></div><div class="hlist"><a href="plan.html"><div class="t">프로젝트 설계도</div><div class="d">흐름 · 퀘스트 · 결정 안건</div></a></div><div class="hgroup">문서 <span style="font-weight:600">1</span></div><div class="hlist"><a href="deliverables.html"><div class="t">산출물 현황</div><div class="d">무엇을 언제까지 내는가</div></a></div>
+<div class="hgroup">설계도 <span style="font-weight:600">1</span></div><div class="hlist"><a href="plan.html"><span class="hn">01</span><div class="t">프로젝트 설계도</div><div class="d">흐름 · 퀘스트 · 결정 안건</div></a></div><div class="hgroup">문서 <span style="font-weight:600">1</span></div><div class="hlist"><a href="deliverables.html"><span class="hn">01</span><div class="t">산출물 현황</div><div class="d">무엇을 언제까지 내는가</div></a></div>
 </div>
 </body>
 </html>

@@ -438,8 +438,13 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-radius:6px;padding:.65rem .85rem}
 .hlist a:hover{border-color:var(--dim)}
+.hlist a{position:relative;padding-left:3.1rem}
+.hlist .hn{position:absolute;left:.85rem;top:.68rem;font-family:ui-monospace,Consolas,monospace;
+  font-size:.72rem;font-weight:800;color:var(--ink-3);letter-spacing:.02em}
 .hlist .t{font-size:.92rem;font-weight:750}
 .hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
+.hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
+  font-variant-numeric:tabular-nums;opacity:.85}
 </style>
 </head>
 <body>
