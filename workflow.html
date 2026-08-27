@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>이번 주 알게 된 것: 8월 4주 (W35) · FOOTHOLD</title>
-<meta name="description" content="측정이 문제를 골라 준 주. 그리고 초록불이 거짓말을 할 수 있다는 것을 배운 주.">
+<title>작업 흐름: 이슈에서 머지까지 · FOOTHOLD</title>
+<meta name="description" content="무엇을 하겠다고 올리고, 어떻게 작업하고, 어떻게 합치는가. 한 장으로.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -168,7 +168,7 @@ section .addr .big{font-size:1.2rem}
 @media print{
   @page{size:A4 portrait;margin:14mm 12mm}
   html{font-size:10.5px}
-  body{background:var(--card)!important;background-image:none!important}
+  body{background:#fff!important;background-image:none!important}
   .top,.pdfbtn,.copy{display:none!important}
   .wrap{max-width:none;padding:0}
   section{break-inside:auto;margin-top:1.4rem}
@@ -178,7 +178,7 @@ section .addr .big{font-size:1.2rem}
   .tool,.pin>div{margin-bottom:.5rem}
   .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
   .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
-  .cb pre{color:var(--ink)!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre{color:#161c26!important;white-space:pre-wrap!important;word-break:break-all}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -244,149 +244,6 @@ section .addr .big{font-size:1.2rem}
 .dgbar a span{color:var(--ink-3);font-size:.72rem}
 .dgbar a:hover{border-color:var(--dim)}
 </style>
-<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
-<!--newbadge:v5--><style>
-a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
-  margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
-  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
-</style>
-<script>
-(function(){
-  var W=7*86400000,KEY='fh_seen';
-  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
-    .replace(/\.html$/,'');return s||'index'}
-  function apply(){
-    var seen={},raw={};
-    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-    for(var k in raw)seen[norm(k)]=raw[k];
-    seen[norm(location.pathname)]=Date.now();
-    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
-    document.querySelectorAll('a[data-added]').forEach(function(a){
-      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
-      var tgt=norm(a.getAttribute('href'));
-      a.classList.toggle('is-new',
-        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
-    });
-  }
-  document.addEventListener('DOMContentLoaded',apply);
-  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
-})();
-</script>
-<!--search:v8--><style>
-@media (max-width:640px){
-  .top .row{flex-wrap:nowrap}
-  .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
-    text-overflow:ellipsis;white-space:nowrap}
-  .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
-  .topbar .stage-chip{display:none}
-  .topbar .row{gap:.3rem}
-  .topbar .tbtn{padding:.32rem .5rem}
-  .topbar .counter{font-size:.62rem}
-  .fh-sbtn{display:inline-flex!important}
-  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
-    -webkit-overflow-scrolling:touch}
-  header.top{padding-top:28px}
-}
-.fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
-  border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
-  font-size:.55rem;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:4px;
-  display:inline-flex;align-items:center;gap:5px}
-.fh-so{position:fixed;inset:0;background:rgba(10,14,16,.45);z-index:300;display:none}
-.fh-so.on{display:flex;align-items:flex-start;justify-content:center;padding:9vh 14px 0}
-.fh-sp{width:min(560px,100%);background:var(--paper);border:1px solid var(--rule);
-  border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.32);overflow:hidden}
-.fh-sp input{width:100%;padding:.75rem .95rem;font-size:16px;border:0;
-  border-bottom:1px solid var(--rule);background:var(--paper);color:var(--ink);
-  font-family:inherit;outline:none}
-.fh-sr{max-height:56vh;overflow-y:auto}
-.fh-sr a{display:block;padding:.55rem .95rem;text-decoration:none;color:inherit;
-  border-bottom:1px solid var(--rule)}
-.fh-sr a:last-child{border-bottom:none}
-.fh-sr a:hover,.fh-sr a.sel{background:var(--dim-soft)}
-.fh-sr .sp1{font-size:.66rem;color:var(--dim);font-weight:800;letter-spacing:.03em}
-.fh-sr .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
-.fh-sr .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
-.fh-sr .none{padding:.7rem .95rem;font-size:.76rem;color:var(--ink-3)}
-</style>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  /* «← …로» 버튼은 라벨이 가리키는 곳으로만 간다.
-     예전의 «스마트 뒤로가기»(history.back)는 제거했다. 라벨은 «표지로»인데
-     실제로는 직전 페이지로 돌아가 사용자를 속였다. (2026-08-24) */
-  /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
-  var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
-  var sb=document.createElement('button');sb.type='button';
-  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
-  sb.setAttribute('aria-label','사이트 검색');
-  sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
-    +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
-    +'<circle cx="7" cy="7" r="4.2"/><path d="M10.4 10.4L14 14"/></svg>검색';
-  if(pb)pb.parentNode.insertBefore(sb,pb);else document.body.appendChild(sb);
-  function offset(){ /* PDF 버튼이 화면 고정형이면 그 왼쪽에 나란히 고정 */
-    if(!pb)return;var cs=getComputedStyle(pb);
-    var r=pb.getBoundingClientRect();
-    if(cs.display==='none'||r.width===0){ /* PDF 가 숨겨진 화면(백과 모바일): 검색이 그 자리에 */
-      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='70';
-    }else if(cs.position==='fixed'){
-      sb.style.position='fixed';sb.style.top=r.top+'px';
-      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
-    }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
-  offset();window.addEventListener('resize',offset);
-  /* 오버레이 */
-  var ov=document.createElement('div');ov.className='fh-so';
-  ov.innerHTML='<div class="fh-sp"><input type="search" placeholder="검색 (제목 · 절 · 본문)" '
-    +'aria-label="사이트 검색"><div class="fh-sr"></div></div>';
-  document.body.appendChild(ov);
-  var inp=ov.querySelector('input'),res=ov.querySelector('.fh-sr'),IDX=null,sel=-1;
-  function open(){ov.classList.add('on');inp.focus();inp.select();}
-  function close(){ov.classList.remove('on');}
-  sb.addEventListener('click',open);
-  ov.addEventListener('mousedown',function(e){if(e.target===ov)close();});
-  document.addEventListener('keydown',function(e){
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
-    else if(e.key==='Escape'&&ov.classList.contains('on'))close();
-  });
-  function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
-  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-  function go(){
-    var q=inp.value.trim().toLowerCase();sel=-1;
-    if(q.length<2){res.innerHTML='';return;}
-    load(function(){
-      var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
-        var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
-            pi=e.t.toLowerCase().indexOf(q);
-        if(hi<0&&ti<0&&pi<0)continue;
-        var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
-        var snip='';
-        if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
-      }
-      hits.sort(function(a,b){return b.s-a.s});
-      hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
-      else{res.innerHTML=hits.map(function(h){
-        return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
-          +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
-          +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
-    });
-  }
-  inp.addEventListener('input',go);
-  inp.addEventListener('keydown',function(e){
-    e.stopPropagation(); /* 커리큘럼 등 자체 키보드 내비게이션 페이지로 새지 않게 */
-    if(e.key==='Escape'){close();return;}
-    var as=res.querySelectorAll('a');if(!as.length)return;
-    if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,as.length-1);}
-    else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);}
-    else if(e.key==='Enter'&&sel>=0){e.preventDefault();as[sel].click();return;}
-    else return;
-    as.forEach(function(a,i){a.classList.toggle('sel',i===sel)});
-    if(as[sel])as[sel].scrollIntoView({block:'nearest'});
-  });
-});
-</script>
 <style id="ia-css">
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
@@ -448,51 +305,88 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
 
-<div class="top"><div class="row"><a class="home" href="research.html">← 연구 기록으로</a><span class="doc">FOOTHOLD · 주간 다이제스트</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">운영</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">Digest · 이번 주 알게 된 것</div>
-  <h1>이번 주 알게 된 것: 8월 4주 (W35)</h1>
-  <p class="lede">측정이 문제를 골라 준 주. 그리고 초록불이 거짓말을 할 수 있다는 것을 배운 주.</p>
-  <div class="meta"><div><span class="k">원본</span><span class="v">foothold-lab / docs / digest / 2026-W35.md</span></div></div>
+  <div class="eyebrow">Workflow · 이슈부터 머지까지</div>
+  <h1>작업 흐름: 이슈에서 머지까지</h1>
+  <p class="lede">무엇을 하겠다고 올리고, 어떻게 작업하고, 어떻게 합치는가. 한 장으로.</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-27</span></div><div><span class="k">상태</span><span class="v">확정</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/WORKFLOW.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>분류: 운영
+<blockquote><p>분류: 가이드
 작성: 오흥재 · 2026-08-27
-근거: 실측
-요지: 측정이 문제를 골라 준 주. 그리고 초록불이 거짓말을 할 수 있다는 것을 배운 주.
-상태: 초안</p></blockquote>
-<blockquote><p>범위 8/24(월)~8/30(일) · 주간 리포트(무엇을 했나)와 다른 문서다. <b>무엇을 알게 됐나</b>만 담는다.
-각 항목은 한 문장 + 증거 링크 하나. 5분이면 이번 주의 발견을 다 안다.</p></blockquote>
+근거: 실측 (lab 자동 분류·PR 코멘트·WBS 생성은 확인함. go2 자동 분류는 <span class="ev ev-todo">미확인</span>)
+요지: 무엇을 하겠다고 올리고, 어떻게 작업하고, 어떻게 합치는가. 한 장으로.
+상태: 확정</p></blockquote>
+<blockquote><p>규칙이 <code>COLLAB.md</code> · <code>AGENTS.md</code> · <code>DECISIONS.md</code> 세 곳에 흩어져 서로 다르게
+적혀 있었다. 이 문서가 흐름의 정본이다. 세 문서는 각각의 상세를 담는다.</p></blockquote>
 </section>
-<section id="s1"><h2>1. 우리 정책은 학습 밖 지형의 절반을 못 건넌다 (10종 중 5종 실패)</h2>
-<p>학습에 쓰지 않은 지형 10종에 기준 정책을 올려 보니 <b>5종 통과 · 5종 실패</b>다. 문제를 우리가 고른 것이 아니라 <b>측정이 골라 주었다.</b> 이 다섯이 남은 기간의 과제다. → <a href="research-generalization-benchmark-10-terrains.html">일반화 벤치마크</a></p>
+<section id="s1"><h2>한 장으로 보는 흐름</h2>
+<div class="tw"><table><thead><tr><th>순서</th><th>무엇을 한다</th><th>보드 상태</th><th>누가</th></tr></thead><tbody><tr><td>1</td><td>이슈를 만든다. 본인에게 배정하고 기간을 넣는다</td><td>Todo (자동)</td><td>본인</td></tr><tr><td>2</td><td>폼에서 「작업 영역」과 「어느 관문까지」를 고른다</td><td>라벨·마일스톤 (자동)</td><td>본인</td></tr><tr><td>3</td><td>작업 전 브랜치를 판다</td><td></td><td>본인</td></tr><tr><td>4</td><td>이슈를 In Progress 로 옮긴다</td><td>In Progress</td><td>본인 (손으로)</td></tr><tr><td>5</td><td>작업하고 커밋한다</td><td></td><td>본인</td></tr><tr><td>6</td><td>PR 을 연다. 본문에 <code>Closes #29</code></td><td>In Progress (자동)</td><td>본인</td></tr><tr><td>7</td><td>팀장이 검토한다</td><td></td><td>팀장</td></tr><tr><td>8</td><td>승인·머지되면 이슈가 자동으로 닫힌다</td><td>Done (자동)</td><td>자동</td></tr></tbody></table></div>
+<p><b>손으로 하는 것은 4번 하나뿐이다.</b> 나머지는 자동이다.</p>
 </section>
-<section id="s2"><h2>2. 실패는 한 가지가 아니라 두 가지다</h2>
-<p><code>stepping_stones</code> <code>pit</code> <code>floating_ring</code> 은 <b>넘어지지 않는데 나아가지 못한다</b>(전진 불능). <code>gap</code> <code>rails</code> 는 <b>넘어진다</b>(gap 은 평균 3.2초, rails 는 2.1초에 몸통 접촉). 원인이 다르므로 처방도 다르다. 전자는 관측이 위험을 보는가의 문제이고, 후자는 발 배치와 접촉 페널티의 문제다. <b>5인이 하나씩 맡아 병렬로 푸는 근거가 이것이다.</b> → <a href="research-generalization-benchmark-10-terrains.html">일반화 벤치마크 §2</a></p>
+<section id="s2"><h2>자주 틀리는 것</h2>
+<p><code>Closes #29</code> 는 <b>PR 을 열 때 이슈를 닫지 않는다. 머지될 때 닫는다.</b> 그래서 PR 을 먼저 열고 이슈는 나중에 닫힌다. 순서를 바꾸지 않는다.</p>
+<blockquote><p><b><code>main</code> 에 안 들어간 작업은 아직 끝난 것이 아니다.</b> 이슈를 먼저 닫으면
+보드에 Done 으로 뜨는데 코드는 브랜치에만 있다. 보드가 거짓말을 하게 된다.</p></blockquote>
 </section>
-<section id="s3"><h2>3. 결정론적 평가는 50번을 돌려도 1번을 돌린 것과 같다</h2>
-<p>v1 평가는 에피소드마다 조건이 같아 50회가 독립 시행이 아니었다. 지형당 고유 행을 주어 재실행하니 <b>판정은 유지되고 통계적 의미가 생겼다.</b> 「여러 번 돌렸다」가 「여러 번 확인했다」를 뜻하지 않는다. → <a href="research-generalization-benchmark-10-terrains.html">일반화 벤치마크 §2-1</a></p>
+<section id="s3"><h2>1. 이슈 만들기</h2>
+<p>이슈 목록에서 <b>템플릿을 고른다.</b> 빈 이슈로 만들지 않는다.</p>
+<div class="tw"><table><thead><tr><th>템플릿</th><th>언제</th></tr></thead><tbody><tr><td>작업 등록</td><td>이런 작업을 하겠다고 미리 올릴 때</td></tr><tr><td>실험 기록</td><td>가설 하나, 변경 하나. 결과를 숫자로 판정할 때 <b>(go2 에만 있다)</b></td></tr><tr><td>리서치</td><td>답을 모르는 질문이 있을 때 <b>(lab 에만 있다)</b></td></tr><tr><td>막힘·오류</td><td>안 되는 것이 있을 때</td></tr></tbody></table></div>
+<p><b>「작업 영역」을 반드시 고른다.</b> 이걸 고르면 라벨과 마일스톤이 자동으로 붙고 보드에서 묶인다. 안 고르면 팀장 텔레그램에 「분류 안 됨」이 간다.</p>
+<div class="tw"><table><thead><tr><th>작업 영역</th><th>무엇</th><th>주담당</th><th>폴더</th></tr></thead><tbody><tr><td><code>A/정책학습</code></td><td>학습 · 보상 · 관측 · 파인튜닝</td><td>임석헌</td><td><code>sim/policy/</code></td></tr><tr><td><code>A/지형씬제작</code></td><td>지형과 씬 에셋 제작</td><td>맹라현</td><td><code>sim/terrain/</code></td></tr><tr><td><code>A/평가</code></td><td>일반화 벤치마크 · 지표</td><td>오현민</td><td><code>sim/eval/</code></td></tr><tr><td><code>A/트윈렌더</code></td><td>실공간 복원 · 3DGS · 렌더 · 합성데이터</td><td>맹라현</td><td><code>sim/twin/</code></td></tr><tr><td><code>B/항법</code></td><td>ROS2 · TF · SLAM · Nav2</td><td>오흥재</td><td><code>nav/</code></td></tr><tr><td><code>B/인지</code></td><td>LiDAR · 카메라 · 센서 융합</td><td>오현민</td><td><code>nav/perception/</code></td></tr><tr><td><code>C/기록</code></td><td>회의록 · 문서 · 백과 · 커리큘럼 · 발표</td><td>이민우</td><td><code>docs/</code></td></tr><tr><td><code>C/운영</code></td><td>인프라 · 자동화 · 깃 · 웹 · 예산 · 일정</td><td>오흥재</td><td><code>.github/</code></td></tr></tbody></table></div>
+<p><b>작업 영역이 폴더를 가리킨다.</b> 이슈에 <code>A/평가</code> 가 붙으면 코드는 <code>sim/eval/</code> 에 간다. <code>B/항법</code> 은 <code>nav/</code> 전체이고 그 안에 <code>nav/perception/</code>(<code>B/인지</code>)이 들어 있다. <code>C/기록</code> 의 <code>docs/</code> 는 <b>정본이라 직접 고치지 않는다.</b> <code>inbox/</code> 로 올리면 팀장이 승격한다.</p>
 </section>
-<section id="s4"><h2>4. 초록불이 거짓말을 할 수 있다</h2>
-<p>이슈를 분류하던 워크플로가 <b>폐기된 옛 어휘로 매칭하고 있었다.</b> 새 템플릿 출력이 어느 패턴에도 안 걸리는데 <code>exit 0</code> 이라 최근 실행이 전부 <code>success</code> 였다. <b>아무것도 안 하면서 성공을 보고하고 있었다.</b> 은퇴시켰다. 같은 부류를 하나 더 찾았다: 검수기가 죽으면 「메타가 다 갖춰져 있습니다」로 끝나는 경로. → <a href="collab.html">작업 흐름</a></p>
+<section id="s4"><h2>2. 관문 (마일스톤)</h2>
+<div class="tw"><table><thead><tr><th>관문</th><th>기한</th><th>끝났다는 뜻</th></tr></thead><tbody><tr><td><code>A-정책</code></td><td>9/12</td><td>우리 지형으로 학습한 정책과 지표 세트</td></tr><tr><td><code>MVP · 중간발표</code></td><td>9/30</td><td>트랙 A 완결. 일반화 평가표 + 트윈·렌더 시연물</td></tr><tr><td><code>NAV · 실기 항법</code></td><td>11/7</td><td>조선대 Go2 에서 SLAM 지도 + Nav2 경로가 한 번 돈다</td></tr><tr><td><code>FINAL · 최종발표</code></td><td>12/11</td><td>지정 코스 자율주행 시연 + 실증결과 보고서</td></tr></tbody></table></div>
+<p>모르면 비워 둔다. 나중에 고를 수 있다.</p>
 </section>
-<section id="s5"><h2>5. 문서가 서로 다른 말을 하고 있었다</h2>
-<p>브랜치 이름 규칙이 세 문서에서 <b>각각 달랐다</b>(붙인다 · 권장이다 · 붙이지 않는다). 마일스톤도 회의록과 협업 규칙이 어긋나 있었고, 오현민이 그 불일치를 이슈로 지적했다. 규칙이 흩어지면 갈라진다. <b>흐름의 정본을 한 장으로 모았다.</b> → <a href="collab.html">작업 흐름</a></p>
+<section id="s5"><h2>3. 브랜치 이름</h2>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>feature/주제-이름      새로 만드는 것
+fix/무엇이안되나-이름    고치는 것
+docs/문서명-이름        문서만 고치는 것</pre></div>
+<p><b>이슈 번호를 붙이지 않는다.</b> 뒤에 자기 이름을 붙인다. 다섯이 같은 주제를 만져도 브랜치가 겹치지 않는다.</p>
+<div class="tw"><table><thead><tr><th>이름</th><th>임석헌</th><th>맹라현</th><th>오현민</th><th>오흥재</th><th>이민우</th></tr></thead><tbody><tr><td>브랜치 약자</td><td><code>lim</code></td><td><code>meang</code></td><td><code>oh</code></td><td><code>jay</code></td><td><code>lee</code></td></tr><tr><td>GitHub 핸들</td><td><code>IQ152</code></td><td><code>maengu86</code></td><td><code>less82</code></td><td><code>vfxpedia</code></td><td><code>lmw0207</code></td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>작업 영역</th><th>브랜치 예시</th></tr></thead><tbody><tr><td><code>A/정책학습</code></td><td><code>feature/policy-reward-lim</code></td></tr><tr><td><code>A/지형씬제작</code></td><td><code>feature/terrain-gap-meang</code></td></tr><tr><td><code>A/평가</code></td><td><code>feature/eval-metrics-oh</code></td></tr><tr><td><code>A/트윈렌더</code></td><td><code>feature/twin-3dgs-meang</code></td></tr><tr><td><code>B/항법</code></td><td><code>feature/nav-slam-jay</code></td></tr><tr><td><code>B/인지</code></td><td><code>feature/perception-lidar-oh</code></td></tr><tr><td>급한 수정</td><td><code>fix/train-crash-lee</code></td></tr><tr><td>문서만</td><td><code>docs/collab-branch-jay</code></td></tr></tbody></table></div>
+<p>머지된 브랜치는 지운다. 브랜치는 소모품이다.</p>
+<p><b><code>foothold-go2</code> 는 한 단계가 더 있다.</b> 코드 저장소라 검증된 것만 <code>main</code> 에 둔다.</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>feature/…  -&gt;  PR  -&gt;  dev  -&gt;  검증된 것만 PR  -&gt;  main</pre></div>
+<p><code>foothold-lab</code> 은 <code>dev</code> 없이 바로 <code>main</code> 이다.</p>
 </section>
-<section id="s6"><h2>6. 「증발 금지」를 지켜도 뜻은 바뀔 수 있다</h2>
-<p>회의록에 아무것도 지우지 않고 <b>해설 한 문단만 덧붙였는데</b>, 그 해설이 원래 표를 「뒤집힌 결정」처럼 읽히게 만들었다. 실제로 그렇게 읽혔다. 지우지 않는 것만으로는 부족하고, <b>덧붙인 것은 덧붙였다고 날짜와 함께 표시해야 한다.</b> → <a href="meeting-20260821-team-meeting.html">8/21 팀 미팅</a></p>
+<section id="s6"><h2>4. 어디에 올리나</h2>
+<div class="tw"><table><thead><tr><th>무엇</th><th>어디에</th><th>어떻게</th></tr></thead><tbody><tr><td><b>문서</b> (정리 안 된 것 포함)</td><td><code>inbox/&lt;내이름&gt;/</code></td><td>PR. 팀장이 확인하고 머지한다. <b>내용은 손대지 않는다</b></td></tr><tr><td><b>코드</b></td><td><code>sim/</code> <code>nav/</code> <code>common/</code></td><td>브랜치 -&gt; PR. <b>inbox 를 거치지 않는다</b></td></tr><tr><td><b>정본 문서</b> <code>docs/</code></td><td>직접 고치지 않는다</td><td>팀장이 inbox 에서 승격한다</td></tr></tbody></table></div>
+<p>코드가 inbox 를 안 거치는 이유: 문서는 팀장이 옮겨도 뜻이 안 변하지만 <b>코드는 옮기면 도는지 보장할 수 없다.</b></p>
 </section>
-<section id="s7"><h2>7. 우리 프로젝트 구성이 공인 커리큘럼과 겹친다</h2>
-<p>NVIDIA AI Campus 로보틱스 과정 5단계 17모듈 중 <b>기초(STEP 1)를 뺀 전부</b>가 우리 여덟 작업 영역에 대응한다. 구성의 타당성을 밖의 기준으로 확인한 것이다. 다만 이것은 <b>구성</b>의 근거이지 결과의 근거는 아니다. 결과는 여전히 실측이 말한다. → <a href="research-nvidia-curriculum-alignment.html">NVIDIA 커리큘럼 대응</a></p>
+<section id="s7"><h2>5. 문서를 올릴 때</h2>
+<p><code>docs/</code> 로 승격될 문서는 맨 위에 다섯 줄이 필요하다.</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>&gt; 분류: 리서치
+&gt; 작성: 홍길동 · 2026-08-27 09:41
+&gt; 근거: 공식 문서
+&gt; 요지: 한 줄로 이 문서가 말하는 것
+&gt; 상태: 초안</pre></div>
+<p><b><code>inbox/</code> 에는 없어도 된다.</b> 없으면 PR 에 봇이 <b>채워진 블록을 코멘트로 달아 준다.</b> 복사해서 붙이고 화살표 부분만 고치면 된다.</p>
+<p>분류는 여덟 중 하나다: <code>회의록</code> <code>리서치</code> <code>실험</code> <code>계획</code> <code>결정</code> <code>운영</code> <code>현장</code> <code>가이드</code></p>
 </section>
-<section id="s8"><h2>이번 주가 남긴 질문</h2>
-<div class="tw"><table><thead><tr><th>질문</th><th>누가 닫나</th></tr></thead><tbody><tr><td>실패 5종을 누가 하나씩 맡나</td><td>팀 회의 (<code>#59</code>)</td></tr><tr><td>운영진 제출 형식이 hwp 필수인가 pdf 허용인가</td><td>팀장 확인</td></tr><tr><td>11월 운영진 중간점검이 공식 일정인가</td><td>팀장 확인</td></tr></tbody></table></div>
+<section id="s8"><h2>6. 자동으로 도는 것</h2>
+<div class="tw"><table><thead><tr><th>언제</th><th>무엇이 일어나나</th></tr></thead><tbody><tr><td>이슈를 만들면</td><td>보드에 Todo 로 등록 · 작업 영역 라벨 · 마일스톤 · 팀장 텔레그램</td></tr><tr><td>inbox 에 PR 을 올리면</td><td>디스코드 알림 · 팀장 텔레그램 검수 결과 · <b>머리 다섯 줄 코멘트</b></td></tr><tr><td>PR 을 이슈에 연결하면</td><td>보드가 In Progress 로</td></tr><tr><td>PR 이 머지되면</td><td>이슈 자동 닫힘 · 보드 Done · 승격 검토 이슈 생성</td></tr></tbody></table></div>
+</section>
+<section id="s9"><h2>7. 검사는 두 곳에서 한다</h2>
+<p><b>언제 걸리는지가 다르다.</b> PR 을 올릴 때와 웹을 배포할 때가 별개다.</p>
+<div class="tw"><table><thead><tr><th>언제</th><th>무엇이 검사하나</th><th>걸리면</th></tr></thead><tbody><tr><td><b>PR 을 올릴 때</b></td><td><code>review_inbox.py</code></td><td>막지 않는다. <b>알려만 준다.</b> PR 코멘트와 팀장 텔레그램</td></tr><tr><td><b>웹을 배포할 때</b></td><td>빌드 관문 (팀장 쪽 볼트 저장소)</td><td><b>배포가 멈춘다.</b> 팀장이 고쳐야 나간다</td></tr></tbody></table></div>
+<p>팀원이 올린 것은 PR 단계에서 막히지 않는다. 다만 <b>정본으로 승격되어 웹에 나갈 때</b> 아래에 걸리면 배포가 멈춘다. 그래서 미리 맞춰 주시면 팀장이 다시 고칠 일이 없다.</p>
+<div class="tw"><table><thead><tr><th>검사</th><th>무엇을 막나</th></tr></thead><tbody><tr><td>em dash</td><td>가로로 긴 줄표. <code>·</code> 나 쌍점으로 바꾼다</td></tr><tr><td>선 도식</td><td>선으로 그린 글자 그림. 표로 바꾼다</td></tr><tr><td>메타데이터</td><td>머리 다섯 줄이 없거나 형식이 틀린 문서</td></tr><tr><td>링크</td><td>깨진 내부 링크</td></tr><tr><td>민감정보</td><td>비밀번호 · 토큰 · 개인 연락처 · 예산 금액</td></tr></tbody></table></div>
+</section>
+<section id="s10"><h2>8. 절대 하지 않는 것</h2>
+<div class="tw"><table><thead><tr><th>금지</th><th>왜</th></tr></thead><tbody><tr><td>비밀번호 · 토큰 · 개인 연락처를 저장소에 적기</td><td>공개 웹으로 나간다. 지워도 이력에 남는다</td></tr><tr><td>조선대 강의 자료 원본을 저장소에 넣기</td><td>조선대 저작물이다. 자료실(암호)에만</td></tr><tr><td>예산 금액을 공개 문서에 적기</td><td>대외비다</td></tr><tr><td><code>main</code> 에 직접 push · force push</td><td>남의 작업이 사라진다</td></tr><tr><td>100MB 넘는 파일</td><td>GitHub 이 거부한다. NAS 나 클라우드에 두고 링크만 남긴다</td></tr><tr><td><code>docs/</code> 를 직접 고치기</td><td>남의 작업이 사라진다. inbox 로 올린다</td></tr></tbody></table></div>
+</section>
+<section id="s11"><h2>9. 막히면</h2>
+<p>이슈를 「막힘·오류」로 올린다. 에러 메시지를 그대로 붙여넣으면 된다. 정리하지 않아도 된다. <b>빨리 알릴수록 되돌리기 쉽다.</b></p>
 </section>
 
 </div>
@@ -516,30 +410,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
-<style>
-#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
-  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
-  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
-  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
-  line-height:1.3;white-space:nowrap}
-#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
-#themeBtn:active{transform:translateY(1px)}
-@media print{#themeBtn{display:none!important}}
-</style>
-<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
-<script>(function(){
-  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
-      mq=window.matchMedia('(prefers-color-scheme: dark)');
-  function apply(t){d.setAttribute('data-theme',t);
-    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
-  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
-  apply(cur());
-  b.addEventListener('click',function(){
-    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
-  mq.addEventListener&&mq.addEventListener('change',function(){
-    if(!localStorage.getItem(K))apply(cur());});
-})();</script>
-
 </body>
 </html>
