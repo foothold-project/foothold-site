@@ -212,7 +212,7 @@ section .addr .big{font-size:1.2rem}
 }
 
 .fdia svg text{font-family:inherit}</style>
-<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
 <!--newbadge:v5--><style>
 a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
@@ -623,7 +623,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <h3>문제</h3>
 <p>위 입력 235개 중 두 가지는 <b>시뮬레이터만 아는 답</b>이다. 이것을 <b>특권 정보</b>라 부른다.</p>
 <ul><li><b>몸통 속도</b>: 실물 Go2 에 이걸 직접 재는 센서가 없다</li><li><b>발밑 지형 높이 187점</b>: 시뮬은 지형 데이터를 조회하면 되지만, 실물은 알 방법이 없다</li></ul>
-<p><figure class="mdimg"><img src="assets/visual/10_heightscan_explained.png" alt="height_scan 187점을 위에서 본 것과 옆에서 본 것" loading="lazy"><figcaption>height_scan 187점을 위에서 본 것과 옆에서 본 것</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/10_heightscan_explained.png?v=25b0ddca" alt="height_scan 187점을 위에서 본 것과 옆에서 본 것" loading="lazy"><figcaption>height_scan 187점을 위에서 본 것과 옆에서 본 것</figcaption></figure></p>
 <p><b>187 이 어디서 나온 숫자인가</b>: 로봇 몸통을 중심으로 <b>앞뒤 1.6 m × 좌우 1.0 m</b> 격자를 <b>10 cm 간격</b>으로 나누면 <b>17 × 11 = 187점</b>이다. 각 점에서 위(20 m)에서 아래로 광선을 쏴 지면까지의 거리를 잰다. 앞에 턱이 있으면 그 위치의 값만 커진다. 그래서 «앞에 뭔가 있다»를 안다.</p>
 <blockquote><p>⚠️ <b>시뮬에서는 라이다가 아니라 «가상 광선»이다.</b> 지형 데이터를 조회하는 것이다.
 실물 Go2 에서는 라이다가 같은 역할을 하지만, <b>격자 크기와 해상도가 달라 매핑이 필요하고</b>,
@@ -917,5 +917,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 13:31</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

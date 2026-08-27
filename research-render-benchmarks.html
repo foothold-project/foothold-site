@@ -244,7 +244,7 @@ section .addr .big{font-size:1.2rem}
 .dgbar a span{color:var(--ink-3);font-size:.72rem}
 .dgbar a:hover{border-color:var(--dim)}
 </style>
-<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
 <!--newbadge:v5--><style>
 a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
@@ -522,20 +522,20 @@ s.<span class="f">set</span>(<span class="s">&quot;/rtx/rendermode&quot;</span>,
 <p>1080p 는 720p 대비 픽셀이 2.25배인데 PT 시간은 1.56배다(1.121 → 1.751). <b>해상도를 올려도 선형으로 비싸지지 않는다.</b></p>
 </section>
 <section id="s5"><h2>4. 화질 차이: 눈으로 본 것</h2>
-<p><figure class="mdimg"><img src="assets/visual/05_render_fhd_compare.png" alt="fhd" loading="lazy"><figcaption>fhd</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/05_render_fhd_compare.png?v=56ec90de" alt="fhd" loading="lazy"><figcaption>fhd</figcaption></figure></p>
 <p>1920×1080 프레임의 일부를 확대한 것. 왼쪽부터 Real-Time / PT 128spp / PT 512spp.</p>
 <ul><li><b>Real-Time</b>: 바닥이 매끈하고 평평하다. 로봇 아래 접지 그림자가 약하다</li><li><b>Path Tracing</b>: 바닥 표면 디테일과 대비가 살아난다. <b>로봇 아래 접지 그림자가 뚜렷하다</b></li><li><b>512spp</b>: 128spp 와 육안 차이가 사실상 없다</li></ul>
 <blockquote><p><b>다만 정직하게: 이 창고 씬에서는 차이가 크지 않다.</b>
 바닥이 거의 디퓨즈이고 조명이 단순해서 Path Tracing 이 자랑할 게 없다.
 역광·다중 반사·복잡한 재질이 있는 씬이라야 격차가 벌어진다.</p></blockquote>
 <h3>참고: 720p 에서의 같은 비교</h3>
-<p><figure class="mdimg"><img src="assets/visual/06_render_rt_vs_pt_720p.png" alt="720p Real-Time vs Path Tracing" loading="lazy"><figcaption>720p Real-Time vs Path Tracing</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/06_render_rt_vs_pt_720p.png?v=6fe65715" alt="720p Real-Time vs Path Tracing" loading="lazy"><figcaption>720p Real-Time vs Path Tracing</figcaption></figure></p>
 <p>왼쪽 Real-Time · 가운데 Path Tracing 128spp · 오른쪽은 차이를 12배 증폭한 것. 바닥 반사가 실제로 다르다. 다만 이 창고 씬은 조명이 단순해 격차가 작다.</p>
 </section>
 <section id="s6"><h2>4-2. ★ 참고: «실사처럼 보이는 것»의 정체 (Racer RTX 분석)</h2>
 <p>NVIDIA 가 Omniverse 로 만든 <a href="https://www.youtube.com/watch?v=AsykNkUMoNU" target="_blank" rel="noopener">Racer RTX</a> 를 직접 받아 프레임 단위로 확인했다. 조사 요약을 옮겨 적는 대신 <b>눈으로 봤다.</b></p>
-<p><figure class="mdimg"><img src="assets/visual/11_racer_rtx_desert.png" alt="Racer RTX 사막 구간" loading="lazy"><figcaption>Racer RTX 사막 구간</figcaption></figure></p>
-<p><figure class="mdimg"><img src="assets/visual/12_racer_rtx_overview.png" alt="Racer RTX 전체 흐름" loading="lazy"><figcaption>Racer RTX 전체 흐름</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/11_racer_rtx_desert.png?v=d3aa8ce2" alt="Racer RTX 사막 구간" loading="lazy"><figcaption>Racer RTX 사막 구간</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/12_racer_rtx_overview.png?v=ef315f92" alt="Racer RTX 전체 흐름" loading="lazy"><figcaption>Racer RTX 전체 흐름</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th>요소</th><th>실제로 시뮬레이션됐나</th></tr></thead><tbody><tr><td>차체 물리 · 서스펜션 · 점프 · 착지</td><td>✅ <b>확실히 시뮬레이션</b>(강체 물리). 74초 공중 → 75초 착지</td></tr><tr><td>흩날리는 모래 · 모래폭풍</td><td>❌ <b>거의 없다.</b> 사막 지형은 정적 메시 + 텍스처</td></tr><tr><td>차 뒤 먼지</td><td>🟡 약하게 있음(72초·80초). 규모가 작다</td></tr><tr><td><b>흐릿함의 정체</b></td><td>⚠️ <b>대부분 모션블러다</b></td></tr></tbody></table></div>
 <blockquote><p>### ★ 우리에게 좋은 소식
 <b>«실사처럼 보이는 것»의 상당 부분은 물리 시뮬이 아니라 렌더링 기법</b>
@@ -620,5 +620,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 13:31</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

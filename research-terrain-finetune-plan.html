@@ -244,7 +244,7 @@ section .addr .big{font-size:1.2rem}
 .dgbar a span{color:var(--ink-3);font-size:.72rem}
 .dgbar a:hover{border-color:var(--dim)}
 </style>
-<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
 <!--newbadge:v5--><style>
 a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <blockquote><p>입력: <a href="research-generalization-benchmark-10-terrains.html">일반화 벤치마크 v2</a> (실패 5종·모드 지도, 지형당 50에피소드 <span class="ev ev-ok">실측</span>) + <a href="research-benchmark-setup-lim.html">벤치마크 하네스 설정</a> (10종 cfg 원문) + 문헌 조사 (하단 출처)
 답하는 질문 (팀장 8/22): &quot;팀원별로 지형을 나눠 병렬 강화학습하는 게 의미가 있는가? RL은 순차로 쌓아야 하지 않나?&quot;
 공식 Go2 rough cfg를 먼저 읽는 장은 <a href="research-go2-rough-training.html">험지 학습 커리큘럼</a>.</p></blockquote>
-<p><figure class="mdimg"><img src="assets/visual/finetune-plan-flow.svg" alt="레시피 병렬 계획 흐름도" loading="lazy"><figcaption>레시피 병렬 계획 흐름도</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/finetune-plan-flow.svg?v=028f81ee" alt="레시피 병렬 계획 흐름도" loading="lazy"><figcaption>레시피 병렬 계획 흐름도</figcaption></figure></p>
 </section>
 <section id="s1"><h2>0. 원리 두 줄</h2>
 <ol><li><b>체크포인트를 나눠 만들면 합칠 방법이 없다.</b> 각자 파인튜닝한 정책 2개의 가중치 병합은 RL에서 성립하지 않는다. 그리고 단일 지형만으로 파인튜닝하면 기존 rough 성능이 무너진다 (catastrophic forgetting, ICML 2024에서 메커니즘 규명) <code>공식 문서</code>.</li><li><b>그렇다고 순차도 아니다.</b> RL의 표준은 &quot;A 끝내고 B&quot;가 아니라 <b>혼합 동시 학습</b>: 한 런의 수천 개 병렬 환경이 서로 다른 지형 위에서 동시에 하나의 정책을 업데이트한다. Isaac Lab terrain generator가 바로 그 장치이고, <b>실패 5종의 지형 cfg는 다섯 개 모두 Isaac Lab에 내장</b>되어 있다 <span class="ev ev-ok">확인됨</span>. 우리 벤치마크 하네스가 이미 그 다섯을 그대로 쓰고 있다 (<a href="research-benchmark-setup-lim.html">benchmark-setup-lim.md</a> §지형 cfg).</li></ol>
@@ -571,5 +571,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 13:31</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
