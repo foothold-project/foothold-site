@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>산출물 현황 · FOOTHOLD</title>
-<meta name="description" content="조사와 실측의 원본 기록이다. 결론만이 아니라 <b>틀렸던 판단과 그 정정</b>도 남긴다. 번복의 이력이 곧 검증의 증거다.">
+<title>일반화 평가표 · FOOTHOLD</title>
+<meta name="description" content="학습에 쓰지 않은 지형에서의 정량 비교. Baseline · 우리 정책 · 우리 정책+DR.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -168,7 +168,7 @@ section .addr .big{font-size:1.2rem}
 @media print{
   @page{size:A4 portrait;margin:14mm 12mm}
   html{font-size:10.5px}
-  body{background:var(--card)!important;background-image:none!important}
+  body{background:#fff!important;background-image:none!important}
   .top,.pdfbtn,.copy{display:none!important}
   .wrap{max-width:none;padding:0}
   section{break-inside:auto;margin-top:1.4rem}
@@ -178,7 +178,7 @@ section .addr .big{font-size:1.2rem}
   .tool,.pin>div{margin-bottom:.5rem}
   .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
   .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
-  .cb pre{color:var(--ink)!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre{color:#161c26!important;white-space:pre-wrap!important;word-break:break-all}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -244,150 +244,6 @@ section .addr .big{font-size:1.2rem}
 .dgbar a span{color:var(--ink-3);font-size:.72rem}
 .dgbar a:hover{border-color:var(--dim)}
 </style>
-<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
-<!--newbadge:v5--><style>
-a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
-  margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
-  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
-</style>
-<script>
-(function(){
-  var W=7*86400000,KEY='fh_seen';
-  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
-    .replace(/\.html$/,'');return s||'index'}
-  function apply(){
-    var seen={},raw={};
-    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-    for(var k in raw)seen[norm(k)]=raw[k];
-    seen[norm(location.pathname)]=Date.now();
-    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
-    document.querySelectorAll('a[data-added]').forEach(function(a){
-      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
-      var tgt=norm(a.getAttribute('href'));
-      a.classList.toggle('is-new',
-        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
-    });
-  }
-  document.addEventListener('DOMContentLoaded',apply);
-  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
-})();
-</script>
-<!--search:v8--><style>
-@media (max-width:640px){
-  .top .row{flex-wrap:nowrap}
-  .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
-    text-overflow:ellipsis;white-space:nowrap}
-  .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
-  .topbar .stage-chip{display:none}
-  .topbar .row{gap:.3rem}
-  .topbar .tbtn{padding:.32rem .5rem}
-  .topbar .counter{font-size:.62rem}
-  .fh-sbtn{display:inline-flex!important}
-  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
-    -webkit-overflow-scrolling:touch}
-  header.top{padding-top:28px}
-}
-.fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
-  border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
-  font-size:.55rem;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:4px;
-  display:inline-flex;align-items:center;gap:5px}
-.fh-so{position:fixed;inset:0;background:rgba(10,14,16,.45);z-index:300;display:none}
-.fh-so.on{display:flex;align-items:flex-start;justify-content:center;padding:9vh 14px 0}
-.fh-sp{width:min(560px,100%);background:var(--paper);border:1px solid var(--rule);
-  border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.32);overflow:hidden}
-.fh-sp input{width:100%;padding:.75rem .95rem;font-size:16px;border:0;
-  border-bottom:1px solid var(--rule);background:var(--paper);color:var(--ink);
-  font-family:inherit;outline:none}
-.fh-sr{max-height:56vh;overflow-y:auto}
-.fh-sr a{display:block;padding:.55rem .95rem;text-decoration:none;color:inherit;
-  border-bottom:1px solid var(--rule)}
-.fh-sr a:last-child{border-bottom:none}
-.fh-sr a:hover,.fh-sr a.sel{background:var(--dim-soft)}
-.fh-sr .sp1{font-size:.66rem;color:var(--dim);font-weight:800;letter-spacing:.03em}
-.fh-sr .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
-.fh-sr .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
-.fh-sr .none{padding:.7rem .95rem;font-size:.76rem;color:var(--ink-3)}
-</style>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  /* «← …로» 버튼은 라벨이 가리키는 곳으로만 간다.
-     예전의 «스마트 뒤로가기»(history.back)는 제거했다. 라벨은 «표지로»인데
-     실제로는 직전 페이지로 돌아가 사용자를 속였다. (2026-08-24) */
-  /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
-  var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
-  var sb=document.createElement('button');sb.type='button';
-  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
-  sb.setAttribute('aria-label','사이트 검색');
-  sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
-    +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
-    +'<circle cx="7" cy="7" r="4.2"/><path d="M10.4 10.4L14 14"/></svg>검색';
-  if(pb)pb.parentNode.insertBefore(sb,pb);else document.body.appendChild(sb);
-  function offset(){ /* PDF 버튼이 화면 고정형이면 그 왼쪽에 나란히 고정 */
-    if(!pb)return;var cs=getComputedStyle(pb);
-    var r=pb.getBoundingClientRect();
-    if(cs.display==='none'||r.width===0){ /* PDF 가 숨겨진 화면(백과 모바일): 검색이 그 자리에 */
-      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='70';
-    }else if(cs.position==='fixed'){
-      sb.style.position='fixed';sb.style.top=r.top+'px';
-      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
-    }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
-  offset();window.addEventListener('resize',offset);
-  /* 오버레이 */
-  var ov=document.createElement('div');ov.className='fh-so';
-  ov.innerHTML='<div class="fh-sp"><input type="search" placeholder="검색 (제목 · 절 · 본문)" '
-    +'aria-label="사이트 검색"><div class="fh-sr"></div></div>';
-  document.body.appendChild(ov);
-  var inp=ov.querySelector('input'),res=ov.querySelector('.fh-sr'),IDX=null,sel=-1;
-  function open(){ov.classList.add('on');inp.focus();inp.select();}
-  function close(){ov.classList.remove('on');}
-  sb.addEventListener('click',open);
-  ov.addEventListener('mousedown',function(e){if(e.target===ov)close();});
-  document.addEventListener('keydown',function(e){
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
-    else if(e.key==='Escape'&&ov.classList.contains('on'))close();
-  });
-  function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
-  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-  function go(){
-    var q=inp.value.trim().toLowerCase();sel=-1;
-    if(q.length<2){res.innerHTML='';return;}
-    load(function(){
-      var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
-        var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
-            pi=e.t.toLowerCase().indexOf(q);
-        if(hi<0&&ti<0&&pi<0)continue;
-        var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
-        var snip='';
-        if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
-      }
-      hits.sort(function(a,b){return b.s-a.s});
-      hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
-      else{res.innerHTML=hits.map(function(h){
-        return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
-          +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
-          +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
-    });
-  }
-  inp.addEventListener('input',go);
-  inp.addEventListener('keydown',function(e){
-    e.stopPropagation(); /* 커리큘럼 등 자체 키보드 내비게이션 페이지로 새지 않게 */
-    if(e.key==='Escape'){close();return;}
-    var as=res.querySelectorAll('a');if(!as.length)return;
-    if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,as.length-1);}
-    else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);}
-    else if(e.key==='Enter'&&sel>=0){e.preventDefault();as[sel].click();return;}
-    else return;
-    as.forEach(function(a,i){a.classList.toggle('sel',i===sel)});
-    if(as[sel])as[sel].scrollIntoView({block:'nearest'});
-  });
-});
-</script>
-
 <style id="ia-css">
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
@@ -451,65 +307,46 @@ document.addEventListener('DOMContentLoaded',function(){
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="on" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
 
+<div class="top"><div class="row"><a class="home" href="deliverables.html">← 산출물 현황으로</a><span class="doc">산출물</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+
 <div class="wrap">
-<h1>산출물 현황 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Deliverables</span></h1><p class="lede">우리가 무엇을 언제까지 내는가. 상태는 각 문서의 「상태」 줄이 정한다. 문서를 고치면 다음 배포에 그대로 반영된다.</p><style>
-.dday{display:flex;gap:0;border:1px solid var(--rule);border-radius:10px;
-  overflow:hidden;margin:0 0 18px;background:var(--card)}
-.dday .dd-cell{flex:1;display:block;padding:12px 16px;text-decoration:none;
-  color:inherit;border-right:1px solid var(--rule)}
-.dday .dd-cell:last-child{border-right:0}
-.dday .dd-cell:hover{background:var(--paper-2)}
-.dday .dd-name{display:block;font-size:.76rem;letter-spacing:.04em;color:var(--ink-3)}
-.dday .dd-num{display:block;font-size:1.5rem;font-weight:700;line-height:1.15;
-  color:var(--dim-ink);font-variant-numeric:tabular-nums}
-.dday .dd-sub{display:block;font-size:.76rem;color:var(--ink-2);margin-top:2px}
-.dday .dd-list{display:block;font-size:.72rem;color:var(--ink-3);margin-top:5px;
-  line-height:1.45}
-@media (prefers-color-scheme:dark){.dday .dd-num{color:var(--dim)}}
-:root[data-theme="dark"] .dday .dd-num{color:var(--dim)}
-:root[data-theme="light"] .dday .dd-num{color:var(--dim-ink)}
-@media(max-width:560px){.dday{flex-direction:column}
-  .dday .dd-cell{border-right:0;border-bottom:1px solid var(--rule)}}
-.dl-tbl{width:100%;border-collapse:collapse;margin:10px 0 26px}
-.dl-tbl th,.dl-tbl td{border-bottom:1px solid var(--rule);padding:9px 10px;
-  text-align:left;vertical-align:top;font-size:.92rem}
-.dl-tbl th{color:var(--ink-3);font-weight:600;font-size:.8rem}
-.st-wait,.st-go,.st-done{display:inline-block;padding:1px 8px;border-radius:999px;
-  font-size:.76rem;font-weight:600;white-space:nowrap}
-.st-wait{background:var(--paper-2);color:var(--ink-2);border:1px solid var(--rule)}
-.st-go{background:var(--note-soft);color:var(--note-ink)}
-.st-done{background:var(--dim-soft);color:var(--dim-ink)}
-.gate-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:26px}
-.gate-h .g-left{font-variant-numeric:tabular-nums;color:var(--ink-3);font-size:.88rem}
-</style><div class="gate-h"><h2 style="margin:0">기획발표</h2><span class="g-left">2026년 09월 04일 · D-8 · 산출물 0/4</span></div>
-<p class="sub" style="margin:4px 0 0">운영진 제출. 브레인스토밍 · 기획서 · WBS</p>
-<table class="dl-tbl"><thead><tr><th style="width:30%">산출물</th><th style="width:12%">상태</th><th>완료 기준</th></tr></thead><tbody>
-<tr><td><a href="deliverable-brainstorming.html"><b>브레인스토밍</b></a></td><td><span class="st-go">진행중</span></td><td>팀 전원이 사실관계를 확인하고, 이 문서만 읽어도 「왜 두 트랙인가」에 수긍이 되는지를 기준으로 팀장이 판정한다. 통과하면 상태를 확정으로 바꾼다.</td></tr>
-<tr><td><a href="deliverable-proposal-summary.html"><b>프로젝트 기획서 (요약)</b></a></td><td><span class="st-go">진행중</span></td><td>팀 전원이 사실관계를 확인하고, 이 한 장만으로 「무엇을 왜 어떻게 언제까지」가 전달되면 상태를 확정으로 바꾼다.</td></tr>
-<tr><td><a href="deliverable-proposal-deck.html"><b>프로젝트 기획서 (발표용)</b></a></td><td><span class="st-go">진행중</span></td><td>슬라이드가 실제로 만들어지고 리허설을 한 번 돌고, 각 장의 숫자가 실측 문서와 일치하면 확정으로 바꾼다.</td></tr>
-<tr><td><a href="deliverable-wbs.html"><b>WBS</b></a></td><td><span class="st-go">진행중</span></td><td>`wbs.xlsx` 가 생성되고, 공식 양식의 열한 칸이 모두 채워지고, 홈페이지 WBS 그림과 같은 데이터에서 나오면 `확정`.</td></tr>
-</tbody></table>
-<div class="gate-h"><h2 style="margin:0">A-정책</h2><span class="g-left">2026년 09월 12일 · D-16 · 산출물 0/1</span></div>
-<p class="sub" style="margin:4px 0 0">우리 지형으로 학습한 정책과 지표 세트</p>
-<table class="dl-tbl"><thead><tr><th style="width:30%">산출물</th><th style="width:12%">상태</th><th>완료 기준</th></tr></thead><tbody>
-<tr><td><a href="deliverable-policy-metrics.html"><b>기준 정책 · 지표 세트</b></a></td><td><span class="st-wait">대기</span></td><td>우리가 정한 험지로 학습한 정책이 있고, 속도추종 오차 · 통과 성공률 · 낙상 횟수가 수치로 기록되어 이후 모든 실험의 비교 기준이 되면 확정으로 바꾼다.</td></tr>
-</tbody></table>
-<div class="gate-h"><h2 style="margin:0">MVP · 중간발표</h2><span class="g-left">2026년 09월 30일 · D-34 · 산출물 0/2</span></div>
-<p class="sub" style="margin:4px 0 0">트랙 A 완결</p>
-<table class="dl-tbl"><thead><tr><th style="width:30%">산출물</th><th style="width:12%">상태</th><th>완료 기준</th></tr></thead><tbody>
-<tr><td><a href="deliverable-generalization-report.html"><b>일반화 평가표</b></a></td><td><span class="st-wait">대기</span></td><td>학습/평가 지형이 분리되어 있고, 세 비교군의 통과율 표가 완성되면 확정으로 바꾼다.</td></tr>
-<tr><td><a href="deliverable-twin-render.html"><b>디지털 트윈 · 렌더 시연물</b></a></td><td><span class="st-wait">대기</span></td><td>중간발표에서 상영 가능한 영상이 있고, 렌더 조건(해상도 · 프레임당 시간)이 기록되어 있으면 확정으로 바꾼다.</td></tr>
-</tbody></table>
-<div class="gate-h"><h2 style="margin:0">NAV · 실기 항법</h2><span class="g-left">2026년 11월 07일 · D-72 · 산출물 0/1</span></div>
-<p class="sub" style="margin:4px 0 0">조선대 단계 종료</p>
-<table class="dl-tbl"><thead><tr><th style="width:30%">산출물</th><th style="width:12%">상태</th><th>완료 기준</th></tr></thead><tbody>
-<tr><td><a href="deliverable-nav-report.html"><b>실기 항법 검증 리포트</b></a></td><td><span class="st-wait">대기</span></td><td>실물 Go2 가 SLAM 지도를 만들고 Nav2 로 경로를 한 번 완주한 기록 (영상 · 지도 파일 · 설정)이 있으면 확정으로 바꾼다.</td></tr>
-</tbody></table>
-<div class="gate-h"><h2 style="margin:0">FINAL · 최종발표</h2><span class="g-left">2026년 12월 11일 · D-106 · 산출물 0/1</span></div>
-<p class="sub" style="margin:4px 0 0">지정 코스 자율주행 시연</p>
-<table class="dl-tbl"><thead><tr><th style="width:30%">산출물</th><th style="width:12%">상태</th><th>완료 기준</th></tr></thead><tbody>
-<tr><td><a href="deliverable-final-report.html"><b>최종 실증결과 보고서</b></a></td><td><span class="st-wait">대기</span></td><td>정량 지표 · 비교 시연 영상 · 시스템 구성도가 있고 발표 리허설을 1회 이상 마치면 확정으로 바꾼다.</td></tr>
-</tbody></table>
+
+<div class="hero">
+  <div class="eyebrow">산출물 · MVP 중간발표 · 9월 30일</div>
+  <h1>일반화 평가표</h1>
+  <p class="lede">학습에 쓰지 않은 지형에서의 정량 비교. Baseline · 우리 정책 · 우리 정책+DR.</p>
+  <div class="meta"><div><span class="k">관문</span><span class="v">MVP 중간발표 · 9월 30일</span></div><div><span class="k">작성</span><span class="v">(담당자) · YYYY-MM-DD</span></div><div><span class="k">상태</span><span class="v">대기</span></div><div><span class="k">원본</span><span class="v">foothold-lab / deliverables/midterm/generalization-report.md</span></div></div>
+  <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
+
+<blockquote><p>분류: 실험
+작성: (담당자) · YYYY-MM-DD
+근거: 실측
+요지: 학습에 쓰지 않은 지형에서의 정량 비교. Baseline · 우리 정책 · 우리 정책+DR.
+상태: 대기</p></blockquote>
+<blockquote><p><b>완료 기준</b>: 학습/평가 지형이 분리되어 있고, 세 비교군의 통과율 표가 완성되면
+확정으로 바꾼다. 마일스톤: MVP (9/30)</p></blockquote>
+
+</div>
+<script>
+document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('prog').style.width = (p * 100) + '%';
+}, {passive:true});
+/* 복사 버튼: 코드 블록과 접속 주소 공용 */
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('.copy');
+  if (!b) return;
+  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(function(){
+    var old = b.textContent;
+    b.textContent = '복사됨'; b.classList.add('done');
+    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
+  });
+});
+</script>
 </body>
 </html>

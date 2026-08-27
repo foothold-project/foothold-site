@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <h3>3-1. 팀원 제출함: <code>lab/inbox/&lt;이름&gt;/</code> (확정 2026-08-12)</h3>
 <p>일주일에 한 번 각자의 연구·리서치 결과를 공유하는 자리다. <b>자기 폴더에만 쓴다.</b> 남의 폴더를 건드리지 않으면 git 충돌이 원천적으로 없다.</p>
 <div class="tw"><table><thead><tr><th>경로</th><th>성격</th><th>웹 게시</th></tr></thead><tbody><tr><td><code>lab/docs/</code></td><td><b>정본.</b> 팀장이 큐레이션한 것만</td><td>★ 게시되는 유일한 경로</td></tr><tr><td><code>lab/inbox/jay·lee·lim·meang·oh/</code></td><td><b>제출함.</b> 각자 자기 폴더에만</td><td>게시되지 않음</td></tr></tbody></table></div>
-<ul><li><b>규칙은 하나</b>: 파일 맨 위에 <code>작성 YYYY-MM-DD</code> 와 <code>요지: 한 문장</code>. 이 두 줄이 있어야 큐레이션과 주간 다이제스트 자동 초안에 물린다.</li><li>흐름: <code>inbox/&lt;나&gt;/</code> 제출 → 팀장 검토·보완 → <code>docs/</code> 반영 → 웹 게시 → <b>주간 다이제스트에 요약</b></li><li>10MB 넘는 파일은 git 에 넣지 않는다 (팀 채널로, 추후 NAS)</li><li>상세: [inbox/README.md](../inbox/README.md)</li></ul>
+<ul><li><b>규칙은 하나</b>: 파일 맨 위에 <code>작성 YYYY-MM-DD</code> 와 <code>요지: 한 문장</code>. 이 두 줄이 있어야 큐레이션과 주간 다이제스트 자동 초안에 물린다.</li><li>흐름: <code>inbox/&lt;나&gt;/</code> 제출 → 팀장 검토·보완 → <code>docs/</code> 반영 → 웹 게시 → <b>주간 다이제스트에 요약</b></li><li>100MB 넘는 파일은 git 에 넣지 않는다. GitHub 이 거부한다 (NAS 나 클라우드에 두고 링크만)</li><li>상세: [inbox/README.md](../inbox/README.md)</li></ul>
 <h3>3-2. 주간 다이제스트: «이번 주 알게 된 것» (확정 2026-08-12)</h3>
 <p>주간 리포트(무엇을 <b>했나</b>)와 별개로, <b>무엇을 알게 됐나</b>를 3~6개 항목으로 요약한다. 각 항목 = 한 문장 + 증거 링크 하나. <code>docs/digest/</code> 에 쌓이고 웹의 연구 기록 페이지 상단에 걸린다. 초안은 문서들의 <code>요지:</code> 줄에서 자동으로 모으고, <b>확정은 사람이 한다</b> (자동 나열은 안 읽힌다).</p>
 </section>
