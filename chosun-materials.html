@@ -252,22 +252,8 @@ document.addEventListener('DOMContentLoaded',function(){
 </div>
 
 <div id="list"></div>
-<div class="item" style="border-top:3px solid var(--dim,var(--dim))">
-<b>실습 코드는 저장소에서 바로 받습니다</b>
-<div class="m">PDF 와 달리 코드는 읽는 게 아니라 빌드해서 돌립니다. 여기 사본을 두면
-조선대가 갱신할 때마다 낡습니다. 원본을 그대로 씁니다.</div>
-<pre style="background:var(--paper,#f4f2ec);border:1px solid var(--rule,#d8d4c8);
-border-radius:5px;padding:.7rem .9rem;font-size:.82rem;overflow-x:auto;margin:.4rem 0"
->git clone https://github.com/slihump/ros2_lecture.git
-cd ros2_lecture/ubuntu_practice</pre>
-<div class="m">설치 스크립트는 <code>00_setup_scripts/</code>, ROS2 실습 패키지는
-<code>ros2_ws/src/</code> 에 있습니다. 갱신은 <code>git pull</code> 한 번입니다.
-접근이 안 되면 조선대 이수혁 팀장에게 계정 권한을 요청하세요.</div>
-<a href="https://github.com/slihump/ros2_lecture" target="_blank" rel="noopener"
-   style="display:inline-block;margin-top:.3rem;padding:.4rem .9rem;font-weight:700;
-   border:1px solid var(--dim,var(--dim));border-radius:5px;color:var(--dim,var(--dim));
-   text-decoration:none">저장소 열기</a>
-</div>
+<div id="extra"></div>
+
 </div>
 <script>
 let MAN=null, KEY=null;
@@ -298,6 +284,13 @@ document.getElementById('go').addEventListener('click', async ()=>{
   document.getElementById('gate').style.display='none';
   const list = document.getElementById('list'); list.style.display='block';
   const KIND='chosun';
+  // 암호 뒤에 둔 안내(저장소 주소 · 담당자). 해제해야만 보인다.
+  if(MAN.notes && MAN.notes[KIND]){
+    try{
+      const nb = await decryptFile(MAN.notes[KIND]);
+      document.getElementById('extra').innerHTML = new TextDecoder().decode(nb);
+    }catch(e){ console.error('note', e); }
+  }
   for(const it of MAN.items.filter(x=>(x.kind||'chosun')===KIND)){
     const d = document.createElement('div'); d.className='item';
     d.innerHTML = '<span class="no">'+it.no+'</span><b>'+it.title+'</b>'

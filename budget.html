@@ -109,6 +109,7 @@ h1{font-size:1.5rem;margin:.4rem 0}
 </div>
 
 <div id="list"></div>
+<div id="extra"></div>
 
 </div>
 <script>
@@ -140,6 +141,13 @@ document.getElementById('go').addEventListener('click', async ()=>{
   document.getElementById('gate').style.display='none';
   const list = document.getElementById('list'); list.style.display='block';
   const KIND='budget';
+  // 암호 뒤에 둔 안내(저장소 주소 · 담당자). 해제해야만 보인다.
+  if(MAN.notes && MAN.notes[KIND]){
+    try{
+      const nb = await decryptFile(MAN.notes[KIND]);
+      document.getElementById('extra').innerHTML = new TextDecoder().decode(nb);
+    }catch(e){ console.error('note', e); }
+  }
   for(const it of MAN.items.filter(x=>(x.kind||'chosun')===KIND)){
     const d = document.createElement('div'); d.className='item';
     d.innerHTML = '<span class="no">'+it.no+'</span><b>'+it.title+'</b>'
