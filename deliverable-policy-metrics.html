@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>기준 정책 · 지표 세트 · FOOTHOLD</title>
-<meta name="description" content="우리 지형으로 학습한 기준 정책과 그 성능 지표.">
+<meta name="description" content="우리가 정한 험지로 학습한 정책과, 이후 모든 실험이 대조할 기준 지표.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -314,19 +314,40 @@ section .addr .big{font-size:1.2rem}
 <div class="hero">
   <div class="eyebrow">산출물 · A-정책 · 9월 12일</div>
   <h1>기준 정책 · 지표 세트</h1>
-  <p class="lede">우리 지형으로 학습한 기준 정책과 그 성능 지표.</p>
-  <div class="meta"><div><span class="k">관문</span><span class="v">A-정책 · 9월 12일</span></div><div><span class="k">작성</span><span class="v">(담당자) · YYYY-MM-DD</span></div><div><span class="k">상태</span><span class="v">대기</span></div><div><span class="k">원본</span><span class="v">foothold-lab / deliverables/midterm/policy-metrics.md</span></div></div>
+  <p class="lede">우리가 정한 험지로 학습한 정책과, 이후 모든 실험이 대조할 기준 지표.</p>
+  <div class="meta"><div><span class="k">관문</span><span class="v">A-정책 · 9월 12일</span></div><div><span class="k">작성</span><span class="v">(담당자) · YYYY-MM-DD HH:MM</span></div><div><span class="k">상태</span><span class="v">대기</span></div><div><span class="k">원본</span><span class="v">foothold-lab / deliverables/midterm/policy-metrics.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
 <blockquote><p>분류: 실험
-작성: (담당자) · YYYY-MM-DD
+작성: (담당자) · YYYY-MM-DD HH:MM
 근거: 실측
-요지: 우리 지형으로 학습한 기준 정책과 그 성능 지표.
+요지: 우리가 정한 험지로 학습한 정책과, 이후 모든 실험이 대조할 기준 지표.
 상태: 대기</p></blockquote>
-<blockquote><p><b>완료 기준</b>: 우리가 정한 험지로 학습한 정책이 있고, 속도추종 오차 · 통과 성공률 ·
-낙상 횟수가 수치로 기록되어 이후 모든 실험의 비교 기준이 되면 확정으로 바꾼다.
-마일스톤: A-정책 (9/12)</p></blockquote>
+<blockquote><p><b>완료 기준</b>: 아래 §2 표의 여섯 지표가 모두 숫자로 채워지고, §3 학습 조건이
+재현 가능하게 적히고, 체크포인트 경로가 남으면 상태를 <code>확정</code> 으로 바꾼다.
+관문: <code>A-정책</code> (2026-09-12)</p></blockquote>
+</section>
+<section id="s1"><h2>1. 이 문서가 하는 일</h2>
+<p>앞으로 모든 실험은 <b>「기준 대비 얼마나 나아졌나」</b> 로 말한다. 그 기준이 여기서 정해진다. 한 번 고정하면 중간발표까지 바꾸지 않는다. 기준이 흔들리면 비교가 무의미해진다.</p>
+</section>
+<section id="s2"><h2>2. 지표 (채울 것)</h2>
+<div class="tw"><table><thead><tr><th>지표</th><th>정의</th><th>기준 정책</th><th>측정 조건</th></tr></thead><tbody><tr><td>통과 성공률</td><td>지정 거리를 시간 안에 완주한 비율</td><td></td><td>에피소드 N회</td></tr><tr><td>낙상률</td><td>몸통이 지면에 닿은 에피소드 비율</td><td></td><td></td></tr><tr><td>속도추종 오차</td><td>명령 속도와 실제 속도의 차 (m/s)</td><td></td><td></td></tr><tr><td>평균 이동 거리</td><td>에피소드당 전진 거리 (m)</td><td></td><td></td></tr><tr><td>생존 시간</td><td>종료까지 걸린 시간 (초)</td><td></td><td></td></tr><tr><td>난이도 도달</td><td>커리큘럼에서 올라간 최고 행</td><td></td><td></td></tr></tbody></table></div>
+<blockquote><p>참고 기준선: NVIDIA 공식 체크포인트 1,500 iteration 의 통과율 <b>86.7%</b>
+(학습에 쓴 지형 기준, 30회 중 26회). 우리 정책은 이 숫자와 비교된다.
+근거: <code>docs/research/training-benchmarks.md</code> §5-3</p></blockquote>
+</section>
+<section id="s3"><h2>3. 학습 조건 (채울 것)</h2>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>지형 구성</td><td>(우리가 정한 험지 세트)</td></tr><tr><td>iteration</td><td></td></tr><tr><td>환경 수</td><td></td></tr><tr><td>보상 설정</td><td>기본 대비 바꾼 항목만</td></tr><tr><td>관측 구성</td><td></td></tr><tr><td>시드</td><td></td></tr><tr><td>체크포인트 경로</td><td></td></tr><tr><td>학습 시간 · 장비</td><td></td></tr></tbody></table></div>
+<p><b>재현할 수 있게 적는다.</b> 다른 사람이 이 표만 보고 같은 학습을 돌릴 수 있어야 한다.</p>
+</section>
+<section id="s4"><h2>4. 판정</h2>
+<div class="tw"><table><thead><tr><th>무엇</th><th>통과 조건</th></tr></thead><tbody><tr><td>안정성</td><td>시드 3개로 같은 결과가 나온다</td></tr><tr><td>기준 자격</td><td>이후 실험이 이 숫자와 비교될 수 있다</td></tr></tbody></table></div>
+<blockquote><p><b>주의</b>: 보상 값이 높다고 잘 걷는 것이 아니다. 보상 13.94 를 받은 정책의 실제
+통과율이 <b>0%</b> 였던 사례가 있다 (웅크리고 버티기만 함).
+학습 로그가 아니라 <b>평가 파이프라인의 숫자</b>로 판정한다.
+근거: <code>docs/research/visual-evidence.md</code> §04-2</p></blockquote>
+</section>
 
 </div>
 <script>
