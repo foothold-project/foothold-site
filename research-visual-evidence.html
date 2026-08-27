@@ -446,6 +446,15 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
@@ -458,7 +467,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>시각 증거: 우리가 실제로 본 것</h1>
   <p class="lede">숫자로만 보던 학습 결과를 눈으로 확인한 기록. 보상 13.94 정책이 실제로는 걷지 못하는 것을 영상이 잡았다.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-09</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / visual-evidence.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 1</span></div></div>
+  <div class="meta"><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-09</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / visual-evidence.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 1</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -586,7 +595,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p><b>④ ★★ 보상 높이가 «걷는다»를 뜻하지 않는다</b></p>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>보상 13.94 (300회)  → 실제 통과율   0.0%
 보상 22.88 (1500회) → 실제 통과율  86.7%</pre></div>
-<p>보상은 1.64배인데 통과율은 0 에서 86.7 이다. <b>지표만 보면 이 문턱을 못 본다.</b> → 그래서 [평가 파이프라인](training-benchmarks.md#5-3)이 필요하다.</p>
+<p>보상은 1.64배인데 통과율은 0 에서 86.7 이다. <b>지표만 보면 이 문턱을 못 본다.</b> → 그래서 <a href="research-training-benchmarks.html#5-3">평가 파이프라인</a>이 필요하다.</p>
 <h3>TensorBoard 를 직접 보려면</h3>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>http://&lt;워크스테이션&gt;:6006     (실제 주소는 팀 채널에)</pre></div>
 <p>왼쪽 목록에서 실행을 골라 겹쳐 볼 수 있다. 볼 것은 <code>Train/mean_reward</code>, <code>Train/mean_episode_length</code>, 그리고 <b><code>Curriculum/terrain_levels</code></b>(승급이 눈에 보인다).</p>
@@ -674,5 +683,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

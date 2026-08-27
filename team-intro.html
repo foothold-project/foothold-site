@@ -715,6 +715,15 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="on" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
@@ -1027,7 +1036,7 @@ document.addEventListener('DOMContentLoaded',function(){
       <span><i></i>수행 기간</span>
       <span><i class="soft"></i>확장 축(조건부 착수)</span>
       <span><i class="note"></i>최대 난이도, 변수를 한 번에 하나만 바꾼다</span>
-      <span><b class="mk">W4 · 9 · 14 · 18 · 20</b>마일스톤, 각 시점의 산출물로 진행을 판정</span>
+      <span><b class="mk">관문 5개</b>기획발표 9/4 · A-정책 9/12 · MVP 9/30 · NAV 11/7 · FINAL 12/10. 각 시점의 산출물로 진행을 판정</span>
     </div>
   </div>
 </section>
@@ -1039,19 +1048,19 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="p4">
     <div>
       <table class="d">
-        <tr><th>산출물 · 완료 시점</th><th>완료 기준 (Definition of Done)</th></tr>
-        <tr class="key"><td class="o">실증 수행계획서<small>W4 · 8월 말</small></td>
-          <td class="dod">문제정의·수요 근거·검증 시나리오·평가지표 확정. <b>멘토 검토 완료</b></td></tr>
-        <tr><td class="o">학습 환경 · 재현 절차서<small>W4 · 8월 말</small></td>
+        <tr><th>관문 · 산출물</th><th>완료 기준 (Definition of Done)</th></tr>
+        <tr class="key"><td class="o">기획발표<small>9/4 · 운영진 제출</small></td>
+          <td class="dod">프로젝트 기획서 · 브레인스토밍 · WBS 3종. 문제정의·수요 근거·검증 시나리오·평가지표 확정</td></tr>
+        <tr><td class="o">학습 환경 · 재현 절차서<small>9/4 이전 · 상시</small></td>
           <td class="dod">전원이 동일 환경을 재구축 가능한 절차 확보. 공개 정책이 우리 환경에서 <b>동일한 학습 곡선으로 재현</b>됨</td></tr>
-        <tr class="key"><td class="o">기준 정책 · 지표 세트<small>W9 · 9월 말</small></td>
-          <td class="dod">기본 험지 정책 학습 완료. 속도추종 오차·통과 성공률·낙상 횟수가 <b>수치로 기록</b>되고, 이후 모든 실험의 비교 기준이 됨</td></tr>
-        <tr><td class="o">커스텀 지형 정책<small>W14 · 11월 초</small></td>
-          <td class="dod">우리가 설계한 지형에서 학습 성공. 기준 정책 대비 <b>변화가 지표로 설명</b>됨</td></tr>
-        <tr class="key"><td class="o">현장검증 리포트<small>W18 · 11월 말</small></td>
-          <td class="dod">현장 조건을 반영한 검증 결과와 <b>한계까지</b> 문서화. 재현에 필요한 설정·커맨드 포함</td></tr>
-        <tr class="key"><td class="o">최종 실증결과 보고서 · 시연<small>W20 · 12월</small></td>
-          <td class="dod">정량 지표 + 비교 시연 영상 확보. <b>발표 리허설 1회 이상</b></td></tr>
+        <tr class="key"><td class="o">A-정책: 기준 정책 · 지표 세트<small>9/12</small></td>
+          <td class="dod">기본 험지 정책 학습 완료. 속도추종 오차·통과 성공률·낙상 횟수가 <b>수치로 기록</b>되고, 이후 모든 실험의 비교 기준이 됨. <b>한 번 고정하면 중간발표까지 안 바꾼다</b></td></tr>
+        <tr class="key"><td class="o">MVP · 중간발표<small>9/30</small></td>
+          <td class="dod">일반화 평가표(미학습 지형 10종)와 <b>실패 5종에 대한 개선 결과</b>. 디지털 트윈 · 렌더 시연 1컷</td></tr>
+        <tr><td class="o">NAV: 실기 항법 검증<small>11/7</small></td>
+          <td class="dod">실물 Go2 가 SLAM·Nav2 로 지정 코스를 자율 주행. 실패 회차와 원인까지 리포트</td></tr>
+        <tr class="key"><td class="o">FINAL: 최종 실증결과 보고서 · 시연<small>12/10</small></td>
+          <td class="dod">정량 지표 + 비교 시연 영상 확보. <b>못 한 것과 그 이유</b>까지. 발표 리허설 1회 이상</td></tr>
       </table>
     </div>
     <div>
@@ -1155,5 +1164,5 @@ document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

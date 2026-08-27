@@ -303,6 +303,15 @@ section .addr .big{font-size:1.2rem}
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="on" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
@@ -315,18 +324,21 @@ section .addr .big{font-size:1.2rem}
   <div class="eyebrow">산출물 · NAV 실기항법 · 11월 7일</div>
   <h1>실기 항법 검증 리포트</h1>
   <p class="lede">실물 Go2 가 SLAM 으로 지도를 만들고 Nav2 로 경로를 완주한 기록.</p>
-  <div class="meta"><div><span class="k">관문</span><span class="v">NAV 실기항법 · 11월 7일</span></div><div><span class="k">작성</span><span class="v">(담당자) · YYYY-MM-DD HH:MM</span></div><div><span class="k">상태</span><span class="v">대기</span></div><div><span class="k">원본</span><span class="v">foothold-lab / deliverables/final/nav-report.md</span></div></div>
+  <div class="meta"><div><span class="k">관문</span><span class="v">NAV 실기항법 · 11월 7일</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-27 11:20</span></div><div><span class="k">상태</span><span class="v">대기</span></div><div><span class="k">원본</span><span class="v">foothold-lab / deliverables/final/nav-report.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
 <blockquote><p>분류: 실험
-작성: (담당자) · YYYY-MM-DD HH:MM
+작성: 오흥재 · 2026-08-27 11:20
+담당: 오흥재 · B/항법
 근거: 실측
 요지: 실물 Go2 가 SLAM 으로 지도를 만들고 Nav2 로 경로를 완주한 기록.
 상태: 대기</p></blockquote>
 <blockquote><p><b>완료 기준</b>: §3 완주 기록이 영상·지도 파일·설정과 함께 남고, §4 실패 사례가
 정리되면 상태를 <code>확정</code> 으로 바꾼다.
-관문: <code>NAV · 실기 항법</code> (2026-11-07)</p></blockquote>
+관문: <code>NAV · 실기 항법</code> (2026-11-07)</p>
+<p><b>채우는 사람</b>: 오흥재 (B/항법). 오현민 (B/인지) 이 센서·지도 절을 채운다.
+채운 사람이 위 「작성」을 자기 이름과 그때 시각으로 바꾼다.</p></blockquote>
 </section>
 <section id="s1"><h2>1. 이 관문이 왜 11월 7일인가</h2>
 <p>11월 11일부터 <b>자체 대여</b>가 시작된다. 그때부터는 우리가 직접 관리한다. (대여 조건과 금액은 협약 사항이라 공개 문서에 적지 않는다. 내부 예산 문서 참조.) <b>조선대 Go2 로 할 수 있는 것은 그 전에 끝내야 한다.</b> 대여를 시작한 뒤에 「조선대에서 했어야 할 것」이 남아 있으면 되돌릴 수 없다.</p>
@@ -369,5 +381,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

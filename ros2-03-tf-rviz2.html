@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ROS 2 TF 좌표계와 RViz2 시각화 정리 · FOOTHOLD</title>
+<meta name="description" content="TF 좌표계 발행부터 lookup_transform 조회, Marker·Path 시각화까지를 코드 순서대로 재구성하고, 이 내용이 CV 담당의 「탐지한 물체를 지도 좌표로 옮기는」 작업에 그대로 대응된다는 점을 정리했다. 자료에 실린 15주 커리큘럼 표도 함께 옮겼다.">
+<style>
+:root{
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--dim:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+  --measure:760px;
+  /* ★ --dim / --note 를 연한 배경(--*-soft) 위 글자로 쓰면 대비가 모자란다.
+     실측 --dim on --dim-soft = 4.43 · --note on --note-soft = 3.93 (둘 다 4.5 미달).
+     그런 자리에는 아래 진한 짝을 쓴다. DESIGN.md §2 참조. */
+  --dim-ink:#0b6459;
+  --note-ink:#8a5600;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+    --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+    --rule:#2b323d;--dim:#3ec7b4;--dim-soft:#11302c;
+    --note:#dc9a30;--note-soft:#332710;
+    --stop:#e56d5e;--stop-soft:#331c19;
+    --grid:rgba(233,231,225,.035);
+    /* 어두운 모드에서는 soft 배경이 어두우므로 원래 토큰이 이미 충분히 밝다 */
+    --dim-ink:#3ec7b4;
+    --note-ink:#dc9a30;
+  }
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.75;font-size:15px;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+
+.top{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .row{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:.55rem 1.5rem;
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.top .home{font-size:.72rem;font-weight:700;color:var(--ink-2);text-decoration:none;
+  border:1px solid var(--rule);background:var(--card);padding:.26rem .6rem;border-radius:4px}
+.top .home:hover{border-color:var(--dim);color:var(--dim)}
+.top .doc{font-size:.72rem;color:var(--ink-3);letter-spacing:.02em}
+.top .sp{flex:1}
+.pdfbtn{background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.26rem .6rem;font-family:inherit;font-size:.66rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer;border-radius:4px;transition:.15s;line-height:1.3}
+.pdfbtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--dim);width:0;transition:width .12s}
+
+.wrap{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:2.2rem 1.5rem 5rem}
+
+.hero{padding-bottom:1.6rem;border-bottom:2px solid var(--ink);margin-bottom:1.8rem}
+.eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:.5rem}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin-bottom:.7rem}
+.lede{font-size:1rem;color:var(--ink-2);max-width:min(42em,100%);word-break:keep-all}
+.meta{display:flex;flex-wrap:wrap;gap:.35rem 1.6rem;margin-top:1rem;font-size:.72rem}
+.meta .k{color:var(--ink-3);margin-right:.4rem}
+.meta .v{color:var(--ink-2);font-weight:700}
+
+section{margin-top:2.6rem}
+h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem;
+  border-bottom:1px solid var(--rule);margin-bottom:1rem}
+h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
+h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
+p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+ul,ol{margin:.6rem 0 .6rem 1.2rem}
+li{margin:.24rem 0;word-break:keep-all}
+b{font-weight:800}
+a{color:var(--dim)}
+code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
+  border:1px solid var(--rule);padding:.05rem .28rem;border-radius:3px;word-break:break-all}
+.vlink{font-size:.82em;color:var(--ink-3);background:var(--paper-2);border:1px solid var(--rule);
+  padding:.02rem .32rem;border-radius:3px}
+.vlink i{font-style:normal;opacity:.75}
+blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.7rem .95rem;
+  margin:1rem 0;font-size:.88rem;color:var(--ink-2)}
+blockquote p{margin:.25rem 0}
+blockquote b{color:var(--ink)}
+
+/* 표: 모바일에서 가로 스크롤 (DESIGN.md §5) */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
+th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
+  word-break:keep-all}
+th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
+  letter-spacing:.04em;border-bottom:none}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--paper-2)}
+
+/* 코드 블록 + 복사 버튼 */
+.cb{margin:1rem 0;border:1px solid var(--rule);background:#0f141b}
+.cb-h{display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;background:#1a212b;
+  border-bottom:1px solid #2b323d;font-size:.62rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:#7d8693}
+.cb-h .copy{margin-left:auto;background:#232b36;border:1px solid #39424f;color:#c8cfd8;
+  font-family:inherit;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:.16rem .5rem;
+  border-radius:3px;cursor:pointer;transition:.14s}
+.cb-h .copy:hover{background:var(--dim);border-color:var(--dim);color:#fff}
+.cb-h .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+.cb pre{margin:0;padding:.75rem .85rem;overflow-x:auto;color:#dfe4ea;
+  font-family:'Consolas','D2Coding',monospace;font-size:.76rem;line-height:1.7}
+.cb pre .c{color:#6f7a88}
+
+/* ── 표지 아래 요약 카드 ── */
+.pin{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.6rem 0 .4rem}
+@media (max-width:640px){.pin{grid-template-columns:1fr}}
+.pin>div{border:1px solid var(--rule);background:var(--card);padding:.85rem .95rem}
+.pin .lab{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:.4rem}
+.pin.hot>div{border-color:var(--note);background:var(--note-soft)}
+.big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
+  color:var(--dim-ink);word-break:break-all}
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다. 눈에 띄게 */
+section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
+section .addr .big{font-size:1.2rem}
+.addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
+.addr .copy{background:var(--card);border:1px solid var(--dim);color:var(--dim);
+  font-family:inherit;font-size:.64rem;font-weight:800;letter-spacing:.06em;
+  padding:.16rem .5rem;border-radius:3px;cursor:pointer;transition:.14s}
+.addr .copy:hover{background:var(--dim);color:#fff}
+.addr .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+
+/* ── 도구 4종 역할 구분 (팀원이 가장 헷갈리는 것) ── */
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1.2rem 0}
+@media (max-width:820px){.tools{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.tools{grid-template-columns:1fr}}
+.tool{border:1px solid var(--rule);background:var(--card);padding:.85rem .8rem;display:flex;
+  flex-direction:column;gap:.35rem}
+.tool.pick{border:2px solid var(--dim);background:var(--dim-soft)}
+.tool .n{font-size:.6rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3)}
+.tool .t{font-size:.95rem;font-weight:800;line-height:1.3}
+.tool.pick .t{color:var(--dim-ink)}
+.tool .q{font-size:.76rem;color:var(--ink-2);flex:1}
+.tool .f{font-size:.68rem;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:.35rem;
+  margin-top:.2rem;line-height:1.6}
+.tool .f b{color:var(--ink-2)}
+.tool .badge{display:inline-block;font-size:.6rem;font-weight:800;padding:.08rem .35rem;
+  border-radius:2px;background:var(--dim);color:#fff;letter-spacing:.04em}
+.tool .badge.warn{background:var(--note)}
+.tool .badge.off{background:var(--ink-3)}
+
+/* ── 경고 박스 (프로세스 정리) ── */
+.warnbox{border:2px solid var(--note);background:var(--note-soft);padding:1rem 1.1rem;margin:1.2rem 0}
+.warnbox .wh{font-size:.95rem;font-weight:800;color:var(--note-ink);margin-bottom:.5rem}
+.warnbox .line{font-size:.92rem;font-weight:800;color:var(--ink);margin:.4rem 0}
+.warnbox p{font-size:.84rem;color:var(--ink-2)}
+
+/* 공개 페이지에서 가려진 값 안내 */
+.redacted-note{display:block;font-size:.72rem;color:var(--ink-3);margin-top:.35rem;
+  font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
+.redacted-note b{color:var(--note-ink)}
+
+/* 미확인 표시: 확정처럼 읽히면 안 된다 */
+.unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
+  background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
+  vertical-align:.08em;margin-right:.3rem}
+
+@media print{
+  @page{size:A4 portrait;margin:14mm 12mm}
+  html{font-size:10.5px}
+  body{background:#fff!important;background-image:none!important}
+  .top,.pdfbtn,.copy{display:none!important}
+  .wrap{max-width:none;padding:0}
+  section{break-inside:auto;margin-top:1.4rem}
+  h2,h3{break-after:avoid}
+  .tw,.cb,blockquote,.tool,.warnbox,.pin>div{break-inside:avoid;page-break-inside:avoid}
+  .tools,.pin{display:block}
+  .tool,.pin>div{margin-bottom:.5rem}
+  .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
+  .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
+  .cb pre{color:#161c26!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre .c{color:#666!important}
+  a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mdimg{break-inside:avoid;page-break-inside:avoid}
+}
+
+/* 마크다운 그림·영상: mdpage 가 만드는 <figure class="mdimg"> */
+.mdimg{margin:1.5rem 0;padding:0}
+.mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:var(--card)}
+.mdvid video{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:#0f141b}
+.mdimg figcaption{font-size:.74rem;color:var(--ink-3);margin-top:.45rem;line-height:1.5}
+
+/* ── 코드 문법 강조 ──
+   실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
+.cb pre .c{color:#6f7a88;font-style:italic}   /* 주석 */
+.cb pre .k{color:#5eb0ef;font-weight:700}     /* 키워드 */
+.cb pre .f{color:#f0c674}                     /* 명령 · 함수 */
+.cb pre .b{color:#c39ac9}                     /* 파이썬 내장 */
+.cb pre .s{color:#9ece6a}                     /* 문자열 */
+.cb pre .n{color:#e59f6a}                     /* 숫자 */
+.cb pre .v{color:#7ee0d0}                     /* 변수 */
+.cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
+@media print{
+  /* 종이에서는 색이 안 나올 수 있다. 굵기·기울기로도 구분되게 */
+  .cb pre .c{color:#777!important;font-style:italic}
+  .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
+  .cb pre .s{color:#2a6b2a!important}
+  .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
+}
+
+.ev{display:inline-block;padding:.05rem .4rem;border-radius:3px;font-size:.68rem;
+  font-weight:800;letter-spacing:.04em;vertical-align:.06em;white-space:nowrap;
+  border:1px solid transparent}
+.ev-ok{background:var(--dim-soft);color:var(--dim);border-color:var(--dim)}
+.ev-guess{background:var(--note-soft);color:var(--note);border-color:var(--note)}
+.ev-todo{background:var(--paper-2);color:var(--ink-3);border-color:var(--rule)}
+.evlegend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;font-size:.72rem;color:var(--ink-3)}
+.rcards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:18px 0}
+.rcard{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;padding:14px 16px}
+.rcard:hover{border-color:var(--dim)}
+.rcard .rt{font-weight:800;font-size:1rem;margin:.2rem 0 .35rem}
+.rcard .rd{font-size:.8rem;color:var(--ink-2);line-height:1.55}
+.rcard .rm{font-size:.7rem;color:var(--ink-3);margin-top:.5rem;letter-spacing:.04em}
+.rcard .rno{display:inline-block;min-width:1.7em;text-align:center;background:var(--paper-2);border:1px solid var(--rule);border-radius:3px;font-size:.72rem;color:var(--ink-3);margin-right:.15rem;vertical-align:.06em}
+/* 대표 그림. 카드가 «무엇에 관한 글인지»를 제목보다 빨리 말해준다 */
+.rcard.has-thumb{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.rcard .rthumb{background:var(--paper-2);border-bottom:1px solid var(--rule);
+  aspect-ratio:16/7;overflow:hidden}
+.rcard .rthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+.rcard.has-thumb .rbody{padding:14px 16px}
+.rcard:hover .rthumb img{transform:scale(1.03)}
+/* 목록 상단 배너: 최신 다이제스트만. (질문 지도는 표지로 승격: 팀장 컨펌 2026-08-12)
+   이모지 없이 브랜드 토큰만 쓴다. */
+.dgbar{margin:16px 0 4px}
+.dgbar a{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;text-decoration:none;
+  color:inherit;border:1px solid var(--rule);background:var(--card);border-radius:6px;
+  padding:.6rem .9rem;font-size:.85rem;border-left:4px solid var(--note)}
+.dgbar a .k{font-size:.62rem;font-weight:800;letter-spacing:.16em;color:var(--note);
+  text-transform:uppercase}
+.dgbar a span{color:var(--ink-3);font-size:.72rem}
+.dgbar a:hover{border-color:var(--dim)}
+</style>
+<style id="ia-css">
+.gnav{position:sticky;top:0;z-index:70;background:var(--paper);
+  border-bottom:1px solid var(--rule);font-size:.82rem}
+.gnav .in{max-width:1040px;margin:0 auto;padding:.5rem 1.2rem;display:flex;
+  align-items:center;gap:.1rem;flex-wrap:wrap}
+.gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
+  font-weight:700;white-space:nowrap}
+.gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
+.gnav a.home{color:var(--ink);font-weight:850;margin-right:.5rem}
+.gnav a.on{color:var(--dim);background:var(--dim-soft,rgba(0,0,0,.05))}
+.gnav .sp{flex:1}
+.gnav .q{color:var(--ink-3);font-weight:600;font-size:.76rem}
+
+.band{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:7px;
+  padding:1rem 1.2rem;margin:0 0 14px}
+.band:hover{border-color:var(--dim)}
+.band .t{font-size:1.06rem;font-weight:850;letter-spacing:.02em}
+.band .d{font-size:.8rem;color:var(--ink-3);margin-top:.22rem}
+.band .w{float:right;font-family:ui-monospace,Consolas,monospace;font-size:.72rem;
+  color:var(--ink-3);font-weight:700}
+
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));
+  gap:.6rem;margin:0 0 16px}
+.quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--note,var(--dim));
+  border-radius:6px;padding:.72rem .85rem}
+.quick a:hover{border-color:var(--dim)}
+.quick .k{font-size:.92rem;font-weight:800}
+.quick .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
+.quick .d{font-size:.72rem;color:var(--ink-3);line-height:1.5;margin-top:.3rem}
+
+.hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
+  gap:.6rem;margin:0 0 28px}
+.hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
+  padding:.8rem .9rem}
+.hubs a:hover{border-color:var(--dim)}
+.hubs .k{font-size:1rem;font-weight:850}
+.hubs .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
+.hubs .d{font-size:.73rem;color:var(--ink-3);line-height:1.5;margin-top:.34rem}
+.hubs .n{font-size:.7rem;color:var(--ink-3);font-weight:700;margin-top:.3rem}
+
+.hgroup{margin:26px 0 8px;font-size:.7rem;font-weight:800;letter-spacing:.12em;
+  color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:.35rem}
+.hlist{display:grid;gap:.5rem}
+.hlist a{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-radius:6px;padding:.65rem .85rem}
+.hlist a:hover{border-color:var(--dim)}
+.hlist a{position:relative;padding-left:3.1rem}
+.hlist .hn{position:absolute;left:.85rem;top:.68rem;font-family:ui-monospace,Consolas,monospace;
+  font-size:.72rem;font-weight:800;color:var(--ink-3);letter-spacing:.02em}
+.hlist .t{font-size:.92rem;font-weight:750}
+.hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
+.hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
+  font-variant-numeric:tabular-nums;opacity:.85}
+</style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
+</head>
+<body>
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
+
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">운영</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">Guide · ROS 2 TF 좌표계와 RViz2</div>
+  <h1>ROS 2 TF 좌표계와 RViz2 시각화 정리</h1>
+  <p class="lede">TF 좌표계 발행부터 lookup_transform 조회, Marker·Path 시각화까지를 코드 순서대로 재구성하고, 이 내용이 CV 담당의 「탐지한 물체를 지도 좌표로 옮기는」 작업에 그대로 대응된다는 점을 정리했다. 자료에 실린 15주 커리큘럼 표도 함께 옮겼다.</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">오현민 · 2026-08-27 12:20</span></div><div><span class="k">상태</span><span class="v">확정</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/guides/ros2-03-tf-rviz2.md</span></div></div>
+  <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
+</div>
+
+<blockquote><p>분류: 가이드
+작성: 오현민 · 2026-08-27 12:20
+근거: 조선대 ROS 2 수업 3편 「TF 좌표계 · RViz2 시각화」(자료 원본은 저장소에 넣지 않음) + ROS 2 Jazzy tf2 공식 문서 대조
+요지: TF 좌표계 발행부터 lookup_transform 조회, Marker·Path 시각화까지를 코드 순서대로 재구성하고, 이 내용이 CV 담당의 「탐지한 물체를 지도 좌표로 옮기는」 작업에 그대로 대응된다는 점을 정리했다. 자료에 실린 15주 커리큘럼 표도 함께 옮겼다.
+상태: 확정</p>
+<p>원본: <code>inbox/oh/20260826-ros2-03-tf좌표계-rviz2.md</code> (PR #63, 2026-08-27 머지). 팀장이 <code>docs/</code> 로 승격하며 머리글 형식만 정리했고 본문은 손대지 않았다.</p></blockquote>
+</section>
+<section id="s1"><h2>0. 이 문서를 읽는 법</h2>
+<p>1편은 환경 구축, 2편은 rclpy 로 노드 쓰기였습니다. <b>3편은 「로봇이 자기 몸과 주변의 위치 관계를 어떻게 아는가」입니다.</b> 자료 표지에도 「ROS2 심화과정 · TF 시리즈」로 적혀 있습니다.</p>
+<p><b>제 판단으로는 CV 담당인 저에게 지금까지 셋 중 가장 직접적으로 필요한 내용입니다.</b> 카메라가 「화면 좌표에서 사람을 찾았다」로 끝나면 로봇은 아무것도 못 합니다. 그 픽셀을 로봇 기준 좌표로, 다시 지도 기준 좌표로 옮겨야 Nav2 가 그쪽으로 갈 수 있는데, 그 변환을 담당하는 것이 정확히 TF 입니다.</p>
+<p><b>증거 표기 기준.</b> 아래 코드는 수업에서 다룬 핵심 조각을 순서대로 재구성한 것이고, <b>제 환경에서 실행하지 않았으므로 동작은 전부 <span class="ev ev-todo">미확인</span></b> 입니다. 자료에 전체 소스가 실려 있지는 않아서, 노드 골격(<code>__init__</code>, 타이머 생성 등)은 2편의 Node 클래스 패턴을 따라 채워야 합니다.</p>
+<p><b>환경 전제.</b> Ubuntu 24.04 + ROS 2 Jazzy. 자료 본문에도 「배포판 이름만 맞추면 명령은 Jazzy·Humble 동일」이라고 적혀 있습니다.</p>
+</section>
+<section id="s2"><h2>1. 용어부터</h2>
+<div class="tw"><table><thead><tr><th>용어</th><th>뜻</th></tr></thead><tbody><tr><td>좌표계(Frame)</td><td>위치와 방향을 기술하는 기준축 하나. <code>world</code>, <code>base_link</code>, <code>camera_link</code> 같은 이름을 가짐</td></tr><tr><td>TF (Transform)</td><td>두 좌표계 사이의 이동(translation) + 회전(rotation) 관계</td></tr><tr><td>tf2</td><td>그 변환들을 <b>트리로 관리하고 조회</b>하는 ROS 2 라이브러리</td></tr><tr><td>TF 트리</td><td>부모-자식 관계로 이어진 좌표계 구조. 각 프레임은 부모 대비 상대 좌표만 알면 됨</td></tr><tr><td><code>/tf</code>, <code>/tf_static</code></td><td>변환이 실제로 흐르는 토픽. 움직이는 것과 고정된 것이 나뉨</td></tr></tbody></table></div>
+<p><b>핵심 성질 하나.</b> 각 노드는 자기 부모에 대한 상대 관계만 발행하면 되고, 「카메라에서 본 점이 지도 기준으로 어디인가」 같은 여러 단계를 건너뛰는 질문은 tf2 가 트리를 따라 알아서 합성해 답합니다. 이 성질 때문에 로봇 소프트웨어가 좌표 변환 코드를 직접 쓰지 않아도 됩니다. <span class="ev ev-ok">확인됨</span> (<a href="https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Tf2.html" target="_blank" rel="noopener">tf2 개념 문서</a>)</p>
+</section>
+<section id="s3"><h2>2. 모듈 1: 좌표계를 발행한다 (Broadcaster)</h2>
+<p><b>목표.</b> <code>world</code> 를 고정해두고, 반지름 2m 원을 도는 <code>moving_frame</code> 을 발행합니다.</p>
+<div class="tw"><table><thead><tr><th>요소</th><th>뜻</th></tr></thead><tbody><tr><td><code>TransformStamped</code></td><td>변환 하나를 담는 메시지. <b>시각 + 부모 프레임 + 자식 프레임 + 이동 + 회전</b></td></tr><tr><td><code>frame_id</code></td><td>부모 프레임 이름</td></tr><tr><td><code>child_frame_id</code></td><td>자식 프레임 이름</td></tr><tr><td><code>TransformBroadcaster</code></td><td><code>/tf</code> 토픽으로 변환을 내보내는 객체</td></tr><tr><td>Stamped</td><td>「시각이 찍힌」이라는 뜻의 접미사. TF 는 항상 <b>언제의 관계인지</b>가 함께 있어야 함</td></tr></tbody></table></div>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">def</span> <span class="f">timer_callback</span>(<span class="k">self</span>):
+    <span class="k">self</span>.t += <span class="n">0.05</span>
+    x = <span class="n">2.0</span> * math.<span class="f">cos</span>(<span class="k">self</span>.t)   <span class="c"># 반지름 2m 원 궤도</span>
+    y = <span class="n">2.0</span> * math.<span class="f">sin</span>(<span class="k">self</span>.t)
+
+    tf = <span class="f">TransformStamped</span>()
+    tf.header.frame_id = <span class="s">&#x27;world&#x27;</span>
+    tf.child_frame_id = <span class="s">&#x27;moving_frame&#x27;</span>
+    tf.transform.translation.x = x
+    tf.transform.translation.y = y
+    <span class="k">self</span>.br.<span class="f">sendTransform</span>(tf)</pre></div>
+<div class="tw"><table><thead><tr><th>요소</th><th>뜻</th></tr></thead><tbody><tr><td><code>self.t += 0.05</code></td><td>각도 누적. 타이머 주기(자료 기준 10Hz)와 곱해져 회전 속도가 정해짐</td></tr><tr><td><code>math.cos</code> / <code>math.sin</code></td><td>각도를 원 위 좌표로. <code>cos</code> 이 x, <code>sin</code> 이 y</td></tr><tr><td><code>tf.header.frame_id</code></td><td><b>부모</b>가 들어갑니다. 이름이 <code>frame_id</code> 라 헷갈리기 쉬운 지점</td></tr><tr><td><code>sendTransform(tf)</code></td><td>발행. 타이머 콜백 안에서 주기적으로 불러야 살아 있는 변환이 됨</td></tr></tbody></table></div>
+<p>발행 주기는 10Hz, 궤도 반지름은 2m, 관계는 <code>world</code> → <code>moving_frame</code> 입니다.</p>
+<p>RViz2 에서 확인할 때 <b>Fixed Frame 을 <code>world</code> 로 바꾸고 TF display 를 추가</b>해야 보입니다. 이걸 안 해서 「아무것도 안 나온다」가 되는 경우가 가장 흔합니다. 좌표축 색은 RGB 가 XYZ 에 대응합니다(빨강 x, 초록 y, 파랑 z).</p>
+</section>
+<section id="s4"><h2>3. 왜 Quaternion 인가 (위치만으로는 부족합니다)</h2>
+<p>위치만 발행하면 「그 점이 어디를 보고 있는지」가 없습니다. 자세(orientation)를 표현하는 방법이 둘입니다.</p>
+<div class="tw"><table><thead><tr><th>방식</th><th>표현</th><th>문제</th></tr></thead><tbody><tr><td>오일러각 (Euler, RPY)</td><td>roll·pitch·yaw 세 각도</td><td><b>회전 순서에 따라 결과가 달라짐.</b> 특정 각도에서 축 둘이 겹쳐 자유도를 잃음 (Gimbal Lock)</td></tr><tr><td>쿼터니언 (Quaternion)</td><td>x, y, z, w 네 값</td><td>임의의 회전축 기준 1회 회전으로 표현. Gimbal Lock 없음. <b>ROS 2 표준</b></td></tr></tbody></table></div>
+<p>Gimbal Lock 은 짐벌(회전 고리) 두 축이 같은 평면에 겹쳐 한 방향의 회전을 잃어버리는 현상입니다. 사람이 각도를 읽기엔 오일러각이 편하지만, <b>저장·전송·보간은 쿼터니언으로 합니다.</b> ROS 2 메시지가 전부 쿼터니언인 이유입니다.</p>
+<p><code>moving_frame</code> 의 x축(빨강)이 항상 <code>world</code> 원점을 향하게 만드는 코드입니다.</p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre>yaw = math.<span class="f">atan2</span>(-y, -x)
+q = <span class="f">quaternion_from_euler</span>(<span class="n">0.0</span>, <span class="n">0.0</span>, yaw)
+tf.transform.rotation.x = q[<span class="n">0</span>]
+tf.transform.rotation.y = q[<span class="n">1</span>]
+tf.transform.rotation.z = q[<span class="n">2</span>]
+tf.transform.rotation.w = q[<span class="n">3</span>]</pre></div>
+<div class="tw"><table><thead><tr><th>요소</th><th>뜻</th></tr></thead><tbody><tr><td><code>atan2(y, x)</code></td><td>두 인자를 받는 아크탄젠트. <code>atan(y/x)</code> 와 달리 <b>사분면을 구분</b>하고 x=0 에서도 안전</td></tr><tr><td><code>atan2(-y, -x)</code></td><td>현재 위치의 <b>반대 방향</b>, 즉 원점을 향하는 각도</td></tr><tr><td><code>quaternion_from_euler(roll, pitch, yaw)</code></td><td>오일러각을 쿼터니언 4원소로 변환</td></tr><tr><td><code>q[0..3]</code></td><td>순서가 <b>x, y, z, w</b> 입니다. w 를 앞에 두는 라이브러리도 있어서 자주 틀리는 지점</td></tr></tbody></table></div>
+<blockquote><p><b>여기서 제가 막힐 것으로 보는 지점.</b> <code>quaternion_from_euler</code> 는 rclpy 기본 제공이 아니라 <code>tf_transformations</code> 쪽 함수입니다. Jazzy 에서 이 파이썬 모듈이 기본 설치인지, <code>ros-jazzy-tf-transformations</code> 나 <code>transforms3d</code> 를 따로 깔아야 하는지는 아직 확인하지 못했습니다. <span class="ev ev-todo">미확인</span> (수업 시간에 확인하거나 직접 설치해보고 이 문서를 갱신하겠습니다)</p></blockquote>
+<p><b>막히면 볼 것.</b> 자세가 안 변하면 <code>rotation</code> 을 실제로 채워 발행하는지 보십시오. 위치만 채우고 회전을 비워두면 기본값이 그대로 나갑니다.</p>
+</section>
+<section id="s5"><h2>4. 모듈 2: Child Frame 을 붙여 트리로 만든다</h2>
+<p><b>목표.</b> <code>moving_frame</code> 위에 <code>child_frame</code> 을 하나 더 얹습니다. 만들려는 트리는 <code>world</code> → <code>moving_frame</code> → <code>child_frame</code> 입니다.</p>
+<p>자료의 비유가 좋아서 그대로 씁니다. <b>태양 · 지구 · 달</b> 관계입니다. 지구가 태양을 돌고, 달은 지구에 끌려다니면서 지구를 더 빠르게 돕니다.</p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">def</span> <span class="f">timer_callback</span>(<span class="k">self</span>):
+    <span class="k">self</span>.t += <span class="n">0.05</span>
+    angle = <span class="n">2.0</span> * <span class="k">self</span>.t          <span class="c"># moving_frame 의 2배 각속도</span>
+    x = <span class="n">1.0</span> * math.<span class="f">cos</span>(angle)     <span class="c"># 반지름 1m</span>
+    y = <span class="n">1.0</span> * math.<span class="f">sin</span>(angle)
+
+    t = <span class="f">TransformStamped</span>()
+    t.header.frame_id = <span class="s">&#x27;moving_frame&#x27;</span>   # world 가 아닙니다
+    t.child_frame_id = <span class="s">&#x27;child_frame&#x27;</span>
+    t.transform.translation.x = x
+    t.transform.translation.y = y
+    <span class="k">self</span>.br.<span class="f">sendTransform</span>(t)</pre></div>
+<div class="tw"><table><thead><tr><th>프레임</th><th>부모</th><th>반지름</th><th>각속도</th></tr></thead><tbody><tr><td><code>moving_frame</code></td><td><code>world</code></td><td>2m</td><td>1배</td></tr><tr><td><code>child_frame</code></td><td><code>moving_frame</code></td><td>1m</td><td>2배</td></tr></tbody></table></div>
+<p><b>이 모듈 전체의 요점 한 줄.</b> <code>frame_id=&#x27;moving_frame&#x27;</code> 이므로 여기서 계산한 x, y 는 <b><code>moving_frame</code> 기준 상대 좌표</b>입니다. <code>world</code> 기준 절대 좌표를 넣으면 완전히 엉뚱한 곳에 붙습니다. 「부모를 <code>world</code> 로 착각」이 이 단계에서 가장 흔한 실수입니다.</p>
+<p>그리고 <b>부모 프레임을 발행하는 노드가 먼저 돌고 있어야 자식이 붙습니다.</b> <code>child_frame</code> 이 안 보이면 <code>moving_frame</code> 노드가 살아 있는지부터 봅니다.</p>
+<h3>4-1. 프레임이 늘어나면 노드를 늘리지 말고 헬퍼로 뺀다</h3>
+<p>프레임 하나에 노드 하나씩 만들면 터미널이 계속 늘어나고 발행 로직이 파일마다 복제됩니다. 발행 부분을 함수로 빼서 한 노드가 전부 발행하게 합니다.</p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">def</span> <span class="f">send_tf</span>(<span class="k">self</span>, parent, child, x, y, z, yaw):
+    t = <span class="f">TransformStamped</span>()
+    t.header.frame_id = parent
+    t.child_frame_id = child
+    <span class="c"># translation·rotation 채우기</span>
+    <span class="k">self</span>.br.<span class="f">sendTransform</span>(t)
+
+<span class="k">def</span> <span class="f">timer_callback</span>(<span class="k">self</span>):
+    <span class="k">self</span>.t += <span class="n">0.05</span>
+    <span class="k">self</span>.<span class="f">send_tf</span>(<span class="s">&#x27;world&#x27;</span>, <span class="s">&#x27;moving_frame&#x27;</span>, ...)
+    <span class="k">self</span>.<span class="f">send_tf</span>(<span class="s">&#x27;moving_frame&#x27;</span>, <span class="s">&#x27;child_frame&#x27;</span>, ...)</pre></div>
+<div class="tw"><table><thead><tr><th>별도 노드 방식</th><th>통합 노드 방식</th></tr></thead><tbody><tr><td>프레임당 노드 1개</td><td>노드 1개가 전부 관리</td></tr><tr><td>터미널 여러 개에서 실행</td><td>한 번에 실행</td></tr><tr><td>발행 로직이 파일마다 반복</td><td><code>send_tf</code> 호출 한 줄만 추가</td></tr><tr><td>타이머가 각각이라 미세하게 어긋남</td><td><b>같은 타이머라 동기화가 보장됨</b></td></tr></tbody></table></div>
+<p>마지막 줄이 실질적인 이유입니다. 프레임끼리 시각이 어긋나면 <code>lookup_transform</code> 이 예외를 던지거나 어긋난 값을 줍니다. 하나의 <code>TransformBroadcaster</code> 로 여러 TF 를 발행할 수 있으므로 굳이 나눌 이유가 없습니다.</p>
+</section>
+<section id="s6"><h2>5. 모듈 3: 발행된 TF 를 조회한다 (Listener)</h2>
+<p>지금까지는 <b>발행</b>만 했습니다. 발행된 TF 는 누군가 구독해서 써야 의미가 있습니다. tf2 의 두 축이 Broadcaster 와 Listener 입니다.</p>
+<div class="tw"><table><thead><tr><th></th><th>TF Broadcaster</th><th>TF Listener</th></tr></thead><tbody><tr><td>역할</td><td>변환 정보를 발행</td><td>변환 정보를 수신·조회</td></tr><tr><td>핵심 클래스</td><td><code>TransformBroadcaster</code></td><td><code>TransformListener</code> + <code>Buffer</code></td></tr><tr><td>핵심 함수</td><td><code>sendTransform()</code></td><td><code>lookup_transform()</code></td></tr><tr><td>예</td><td>로봇 관절 위치 브로드캐스트</td><td>두 프레임 사이 거리·각도 계산</td></tr></tbody></table></div>
+<p>조회에는 <b>항상 이 세 가지가 함께</b> 필요합니다.</p>
+<div class="tw"><table><thead><tr><th>요소</th><th>하는 일</th></tr></thead><tbody><tr><td><code>tf2_ros.Buffer()</code></td><td>수신된 TF 를 일정 시간(기본 10초) 저장하는 캐시</td></tr><tr><td><code>TransformListener(buffer, node)</code></td><td><code>/tf</code>, <code>/tf_static</code> 을 구독해 Buffer 를 자동으로 채움</td></tr><tr><td><code>buffer.lookup_transform(target, source, time)</code></td><td>Buffer 에서 두 프레임 사이 변환을 꺼냄</td></tr></tbody></table></div>
+<p><b>Listener 를 만들어두고 아무 데도 안 쓰는 것처럼 보여도 지워선 안 됩니다.</b> Buffer 를 채우는 것이 그 역할입니다.</p>
+<h3>5-1. lookup_transform</h3>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre>transform = <span class="k">self</span>.tf_buffer.<span class="f">lookup_transform</span>(<span class="s">&#x27;world&#x27;</span>, <span class="s">&#x27;child_frame&#x27;</span>, rclpy.time.<span class="f">Time</span>())</pre></div>
+<div class="tw"><table><thead><tr><th>인자</th><th>뜻</th></tr></thead><tbody><tr><td><code>&#x27;world&#x27;</code></td><td>target_frame. <b>기준이 되는 프레임</b></td></tr><tr><td><code>&#x27;child_frame&#x27;</code></td><td>source_frame. <b>알고 싶은 프레임</b></td></tr><tr><td><code>rclpy.time.Time()</code></td><td>시각. 기본 생성자는 0 이고, 0 은 「가장 최근 데이터」를 뜻함</td></tr><tr><td>반환값</td><td><code>TransformStamped</code>. translation + rotation</td></tr></tbody></table></div>
+<p><b>인자 순서 <code>(target, source, time)</code> 를 외워두는 편이 낫습니다.</b> 뒤바꿔도 예외 없이 그냥 반대 방향 변환이 나오기 때문에, 값이 이상한데 에러는 안 나는 상태가 됩니다. 디버깅이 가장 오래 걸리는 종류의 실수입니다.</p>
+<p><b><code>try-except</code> 가 사실상 필수입니다.</b> 프레임이 아직 발행되기 전이거나 요청한 시각이 Buffer 범위 밖이면 예외가 납니다. 노드가 막 켜진 직후에는 정상적으로 몇 번 실패합니다.</p>
+<h3>5-2. 거리 계산해서 새 토픽으로 발행</h3>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre>x = transform.transform.translation.x
+y = transform.transform.translation.y
+z = transform.transform.translation.z
+distance = math.<span class="f">sqrt</span>(x**<span class="n">2</span> + y**<span class="n">2</span> + z**<span class="n">2</span>)
+
+msg = <span class="f">Float32</span>()
+msg.data = distance
+<span class="k">self</span>.dist_pub.<span class="f">publish</span>(msg)</pre></div>
+<div class="tw"><table><thead><tr><th>요소</th><th>뜻</th></tr></thead><tbody><tr><td><code>transform.transform.translation</code></td><td><code>TransformStamped</code> 안의 이동 성분. <code>transform</code> 이 두 번 나오는 것은 메시지 구조 때문</td></tr><tr><td><code>math.sqrt(x**2+y**2+z**2)</code></td><td>3차원 유클리드 거리</td></tr><tr><td><code>Float32</code></td><td><code>std_msgs</code> 의 단일 실수 메시지 타입</td></tr></tbody></table></div>
+<p><code>ros2 topic list</code> 로 새 토픽이 생겼는지, <code>ros2 topic echo</code> 로 값이 도는지 확인합니다. <b>TF 로 얻은 정보를 다시 토픽으로 내보내는 이 패턴이 실무에서 가장 많이 쓰는 형태입니다.</b> <span class="ev ev-guess">추측</span></p>
+<p><b>막히면 볼 것.</b> 거리가 계속 0 이면 target/source 프레임 이름 오타입니다(같은 프레임을 두 번 넣으면 0). 값이 안 변하면 <code>child_frame</code> 을 움직이는 노드가 실제로 돌고 있는지 봅니다.</p>
+</section>
+<section id="s7"><h2>6. 모듈 4: RViz2 에 그린다 (Marker · Path)</h2>
+<p>지난 모듈에서 거리를 <b>숫자</b>로 얻었으니, 이제 경로를 <b>그림</b>으로 그립니다.</p>
+<div class="tw"><table><thead><tr><th>메시지</th><th>패키지</th><th>하는 일</th></tr></thead><tbody><tr><td><code>Marker</code></td><td><code>visualization_msgs.msg</code></td><td>점·선·화살표·텍스트 등 임의의 도형 표시</td></tr><tr><td><code>PoseStamped</code></td><td><code>geometry_msgs.msg</code></td><td>위치 + 방향 + 시각</td></tr><tr><td><code>Path</code></td><td><code>nav_msgs.msg</code></td><td><code>PoseStamped</code> 의 리스트로 구성된 경로</td></tr></tbody></table></div>
+<h3>6-1. Marker 로 지나간 경로 그리기</h3>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre>marker.<span class="b">type</span> = Marker.LINE_STRIP
+marker.scale.x = <span class="n">0.02</span>          <span class="c"># 선 두께</span>
+marker.color.r = <span class="n">1.0</span>           <span class="c"># 빨간색</span>
+marker.color.g, marker.color.b = <span class="n">0.2</span>, <span class="n">0.2</span>
+marker.lifetime.sec = <span class="n">0</span>        <span class="c"># 0 = 영구 표시</span>
+
+marker.points = []
+<span class="k">for</span> pos <span class="k">in</span> <span class="k">self</span>.positions:
+    p = <span class="f">Point</span>()
+    p.x, p.y, p.z = pos
+    marker.points.<span class="f">append</span>(p)
+
+<span class="k">self</span>.marker_pub.<span class="f">publish</span>(marker)</pre></div>
+<div class="tw"><table><thead><tr><th>요소</th><th>뜻</th></tr></thead><tbody><tr><td><code>LINE_STRIP</code></td><td><code>points</code> 를 순서대로 이어 하나의 선으로 그림</td></tr><tr><td><code>scale.x</code></td><td>LINE_STRIP 에서는 <b>선 두께</b>로 해석. 타입마다 scale 의미가 다름</td></tr><tr><td><code>color.r/g/b</code></td><td>0.0~1.0 범위. <code>color.a</code>(투명도)를 0 으로 두면 안 보이므로 주의</td></tr><tr><td><code>lifetime.sec = 0</code></td><td>0 은 「지우지 않음」. 값을 주면 그 초 뒤 자동 소멸</td></tr></tbody></table></div>
+<p><b>Marker 가 안 보이면</b> <code>header.frame_id</code>, <code>ns</code>(namespace), <code>id</code> 를 확인하고 RViz2 에 Marker display 를 추가했는지 봅니다.</p>
+<h3>6-2. 슬라이딩 윈도우로 메모리 제한</h3>
+<p>경로 좌표를 계속 쌓으면 메모리가 무한정 증가합니다. 최근 N 개만 유지합니다.</p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">self</span>.max_points = <span class="n">50</span>
+<span class="k">if</span> <span class="f">len</span>(<span class="k">self</span>.positions) &gt; <span class="k">self</span>.max_points:
+    <span class="k">self</span>.positions.<span class="f">pop</span>(<span class="n">0</span>)   <span class="c"># 가장 오래된 좌표 제거</span></pre></div>
+<div class="tw"><table><thead><tr><th>요소</th><th>뜻</th></tr></thead><tbody><tr><td><code>pop(0)</code></td><td>리스트 맨 앞 원소 제거. 뒤에서 append 하고 앞에서 pop 하면 고정 길이 창이 됨</td></tr></tbody></table></div>
+<p><b>작은 예제라 사소해 보이지만 장시간 구동하는 로봇에서는 필수 패턴입니다.</b> 한 시간 돌리면 그냥 죽습니다.</p>
+<h3>6-3. Path + 실시간 거리 텍스트</h3>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">self</span>.path_msg.poses.<span class="f">append</span>(pose)
+<span class="k">self</span>.path_pub.<span class="f">publish</span>(<span class="k">self</span>.path_msg)
+<span class="k">if</span> <span class="f">len</span>(<span class="k">self</span>.path_msg.poses) &gt; <span class="k">self</span>.max_poses:
+    <span class="k">self</span>.path_msg.poses.<span class="f">pop</span>(<span class="n">0</span>)
+
+marker.<span class="b">type</span> = Marker.TEXT_VIEW_FACING
+marker.text = f<span class="s">&#x27;Distance: {distance:.2f} m&#x27;</span>
+marker.scale.z = <span class="n">0.3</span>           <span class="c"># TEXT 에서는 글자 크기</span></pre></div>
+<div class="tw"><table><thead><tr><th>요소</th><th>뜻</th></tr></thead><tbody><tr><td><code>TEXT_VIEW_FACING</code></td><td>카메라를 항상 마주보는 텍스트 마커. 어느 각도에서 봐도 읽힘</td></tr><tr><td><code>marker.scale.z</code></td><td><b>TEXT 타입에서는 글자 크기입니다.</b> LINE_STRIP 의 <code>scale.x</code> 와 의미가 완전히 다름</td></tr><tr><td><code>f&#x27;{distance:.2f}&#x27;</code></td><td>파이썬 f-string. 소수점 둘째 자리까지</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>Marker 방식</th><th>Path 방식</th></tr></thead><tbody><tr><td>자유도가 가장 높음 (선·점·도형·텍스트)</td><td>네비게이션 전용 표준 경로 메시지</td></tr><tr><td><code>points</code> 에 append</td><td><code>poses</code> 에 append</td></tr><tr><td>커스텀 시각화용</td><td>Nav2 등 다른 노드가 그대로 받아 씀</td></tr></tbody></table></div>
+<p><b>둘 다 쓰는 이유가 있습니다.</b> Path 는 표준이라 다른 노드가 소비할 수 있고, Marker 는 표준에 없는 것(거리 텍스트 같은 것)을 그릴 수 있습니다.</p>
+</section>
+<section id="s8"><h2>7. 트러블슈팅 종합</h2>
+<div class="tw"><table><thead><tr><th>증상</th><th>원인 후보</th></tr></thead><tbody><tr><td>RViz2 에 TF 가 안 보임</td><td>Fixed Frame 이 <code>world</code> 가 아님 / TF display 미추가</td></tr><tr><td>자세가 안 변함</td><td><code>rotation</code>(쿼터니언)을 채우지 않고 발행</td></tr><tr><td>회전이 이상함</td><td>오일러 순서 문제 또는 Gimbal Lock. 쿼터니언으로 처리</td></tr><tr><td><code>child_frame</code> 이 안 보임</td><td>부모(<code>moving_frame</code>) 노드가 안 돌고 있음</td></tr><tr><td>프레임이 엉뚱한 데 붙음</td><td><code>frame_id</code> 에 부모가 아니라 <code>world</code> 를 넣음</td></tr><tr><td><code>lookup_transform</code> 예외</td><td>프레임 미존재 또는 시간 범위 밖. <code>try-except</code> 필수</td></tr><tr><td>거리가 0 만 나옴</td><td>target/source 프레임 이름 오타</td></tr><tr><td>Marker 가 안 보임</td><td><code>frame_id</code>·<code>ns</code>·<code>id</code> 확인, RViz2 에 display 추가</td></tr><tr><td>경로가 끊김</td><td><code>lifetime.sec</code> 이 0 인지, <code>points</code>/<code>poses</code> 가 계속 append 되는지</td></tr><tr><td>텍스트가 안 보임</td><td><code>scale.z</code> 가 0. TEXT 에서는 이게 글자 크기</td></tr></tbody></table></div>
+</section>
+<section id="s9"><h2>8. FOOTHOLD 로의 연결 (제가 이 문서를 팀에 올리는 이유)</h2>
+<p><b>CV 담당(작업 영역 <code>B/인지</code>, <code>nav/perception/</code>) 작업의 절반이 사실상 TF 문제입니다.</b> 대응 관계를 정리하면 이렇습니다.</p>
+<div class="tw"><table><thead><tr><th>수업 예제</th><th>FOOTHOLD 에서</th></tr></thead><tbody><tr><td><code>world</code> → <code>moving_frame</code></td><td><code>map</code> → <code>base_link</code> (지도 기준 로봇 위치. SLAM/Nav2 가 발행)</td></tr><tr><td><code>moving_frame</code> → <code>child_frame</code></td><td><code>base_link</code> → <code>camera_link</code> (로봇 몸체 기준 카메라 장착 위치)</td></tr><tr><td><code>lookup_transform(&#x27;world&#x27;,&#x27;child_frame&#x27;)</code></td><td>카메라에서 본 탐지 결과를 <code>map</code> 좌표로 환산</td></tr><tr><td>거리 계산 후 새 토픽 발행</td><td>「탐지한 대상까지 몇 m」를 토픽으로 내보내 Nav2 에 넘김</td></tr><tr><td>Marker <code>TEXT_VIEW_FACING</code></td><td>데모에서 탐지 결과·거리를 RViz2 화면에 띄우기</td></tr><tr><td><code>Path</code></td><td>Nav2 가 계획한 경로 표시</td></tr></tbody></table></div>
+<p>정리하면, <b>YOLO 가 「화면 왼쪽 위에 사람」이라고 답하는 것을 「지도상 (3.2, 1.7) 에 사람」으로 바꾸는 다리가 TF 입니다.</b> 이 변환이 없으면 탐지 결과를 자율주행에 연결할 방법이 없습니다.</p>
+<p>실제로 붙일 때 추가로 확인해야 할 것들입니다.</p>
+<ul><li>카메라 내부 파라미터(초점거리·왜곡)를 알아야 픽셀을 각도로 바꿀 수 있습니다. 캘리브레이션이 선행됩니다. <span class="ev ev-todo">미확인</span></li><li>깊이 정보가 없으면 픽셀 하나로는 방향만 알 뿐 거리를 모릅니다. Go2 의 카메라가 깊이를 주는지 확인이 필요합니다. <span class="ev ev-todo">미확인</span></li><li><code>base_link</code> → <code>camera_link</code> 는 고정값이므로 <code>/tf_static</code> 으로 한 번만 발행하면 됩니다. 매 프레임 발행할 필요가 없습니다. <span class="ev ev-guess">추측</span></li></ul>
+</section>
+<section id="s10"><h2>9. 자료에 실려 있던 15주 커리큘럼</h2>
+<blockquote><p><b>이 절은 공개 웹에 싣지 않습니다.</b> 남의 저작물(조선대 강의 자료)에서
+옮긴 대목이라 외부 공개 조건에 걸립니다. <b>내용은 저장소 원본</b>
+(<code>foothold-lab / docs/guides/ros2-03-tf-rviz2.md</code>)<b>에 그대로 있습니다.</b> 팀 안에서는 평소대로 씁니다.</p></blockquote>
+</section>
+<section id="s11"><h2>10. 출처</h2>
+<ul><li>tf2 개념 문서(공식): https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Tf2.html</li><li>tf2 튜토리얼 전체(공식): https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Tf2/Tf2-Main.html</li><li>tf2 브로드캐스터 작성 (Python, 공식): https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Tf2/Writing-A-Tf2-Broadcaster-Py.html</li><li>tf2 리스너 작성 (Python, 공식): https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Tf2/Writing-A-Tf2-Listener-Py.html</li><li>RViz2 Marker 타입 설명(공식): https://docs.ros.org/en/jazzy/Tutorials/Intermediate/RViz/RViz-Main.html</li><li><code>visualization_msgs/Marker</code> 메시지 정의: https://docs.ros.org/en/jazzy/p/visualization_msgs/msg/Marker.html</li><li>REP 105 (로봇 좌표계 표준 이름 규약: <code>map</code>, <code>odom</code>, <code>base_link</code>): https://www.ros.org/reps/rep-0105.html</li><li>조선대 ROS 2 수업 3편 「TF 좌표계 · RViz2 시각화」: 조선대 저작물이므로 저장소에 넣지 않았습니다. 원본은 팀 자료실에 있습니다.</li></ul>
+</section>
+
+</div>
+<script>
+document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('prog').style.width = (p * 100) + '%';
+}, {passive:true});
+/* 복사 버튼: 코드 블록과 접속 주소 공용 */
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('.copy');
+  if (!b) return;
+  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(function(){
+    var old = b.textContent;
+    b.textContent = '복사됨'; b.classList.add('done');
+    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
+  });
+});
+</script>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+</html>

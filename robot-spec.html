@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>일정 · FOOTHOLD</title>
-<meta name="description" content="조사와 실측의 원본 기록이다. 결론만이 아니라 <b>틀렸던 판단과 그 정정</b>도 남긴다. 번복의 이력이 곧 검증의 증거다.">
+<title>우리가 쓰는 Go2 실기 사양 · FOOTHOLD</title>
+<meta name="description" content="Unitree Go2 하드웨어 제원과 SDK 접근 경로 정리.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -168,7 +168,7 @@ section .addr .big{font-size:1.2rem}
 @media print{
   @page{size:A4 portrait;margin:14mm 12mm}
   html{font-size:10.5px}
-  body{background:var(--card)!important;background-image:none!important}
+  body{background:#fff!important;background-image:none!important}
   .top,.pdfbtn,.copy{display:none!important}
   .wrap{max-width:none;padding:0}
   section{break-inside:auto;margin-top:1.4rem}
@@ -178,7 +178,7 @@ section .addr .big{font-size:1.2rem}
   .tool,.pin>div{margin-bottom:.5rem}
   .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
   .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
-  .cb pre{color:var(--ink)!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre{color:#161c26!important;white-space:pre-wrap!important;word-break:break-all}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -244,150 +244,6 @@ section .addr .big{font-size:1.2rem}
 .dgbar a span{color:var(--ink-3);font-size:.72rem}
 .dgbar a:hover{border-color:var(--dim)}
 </style>
-<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg" color="#0e7a6e">
-<!--newbadge:v5--><style>
-a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
-  margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
-  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
-</style>
-<script>
-(function(){
-  var W=7*86400000,KEY='fh_seen';
-  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
-    .replace(/\.html$/,'');return s||'index'}
-  function apply(){
-    var seen={},raw={};
-    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-    for(var k in raw)seen[norm(k)]=raw[k];
-    seen[norm(location.pathname)]=Date.now();
-    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
-    document.querySelectorAll('a[data-added]').forEach(function(a){
-      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
-      var tgt=norm(a.getAttribute('href'));
-      a.classList.toggle('is-new',
-        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
-    });
-  }
-  document.addEventListener('DOMContentLoaded',apply);
-  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
-})();
-</script>
-<!--search:v8--><style>
-@media (max-width:640px){
-  .top .row{flex-wrap:nowrap}
-  .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
-    text-overflow:ellipsis;white-space:nowrap}
-  .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
-  .topbar .stage-chip{display:none}
-  .topbar .row{gap:.3rem}
-  .topbar .tbtn{padding:.32rem .5rem}
-  .topbar .counter{font-size:.62rem}
-  .fh-sbtn{display:inline-flex!important}
-  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
-    -webkit-overflow-scrolling:touch}
-  header.top{padding-top:28px}
-}
-.fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
-  border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
-  font-size:.55rem;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:4px;
-  display:inline-flex;align-items:center;gap:5px}
-.fh-so{position:fixed;inset:0;background:rgba(10,14,16,.45);z-index:300;display:none}
-.fh-so.on{display:flex;align-items:flex-start;justify-content:center;padding:9vh 14px 0}
-.fh-sp{width:min(560px,100%);background:var(--paper);border:1px solid var(--rule);
-  border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.32);overflow:hidden}
-.fh-sp input{width:100%;padding:.75rem .95rem;font-size:16px;border:0;
-  border-bottom:1px solid var(--rule);background:var(--paper);color:var(--ink);
-  font-family:inherit;outline:none}
-.fh-sr{max-height:56vh;overflow-y:auto}
-.fh-sr a{display:block;padding:.55rem .95rem;text-decoration:none;color:inherit;
-  border-bottom:1px solid var(--rule)}
-.fh-sr a:last-child{border-bottom:none}
-.fh-sr a:hover,.fh-sr a.sel{background:var(--dim-soft)}
-.fh-sr .sp1{font-size:.66rem;color:var(--dim);font-weight:800;letter-spacing:.03em}
-.fh-sr .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
-.fh-sr .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
-.fh-sr .none{padding:.7rem .95rem;font-size:.76rem;color:var(--ink-3)}
-</style>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  /* «← …로» 버튼은 라벨이 가리키는 곳으로만 간다.
-     예전의 «스마트 뒤로가기»(history.back)는 제거했다. 라벨은 «표지로»인데
-     실제로는 직전 페이지로 돌아가 사용자를 속였다. (2026-08-24) */
-  /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
-  var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
-  var sb=document.createElement('button');sb.type='button';
-  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
-  sb.setAttribute('aria-label','사이트 검색');
-  sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
-    +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
-    +'<circle cx="7" cy="7" r="4.2"/><path d="M10.4 10.4L14 14"/></svg>검색';
-  if(pb)pb.parentNode.insertBefore(sb,pb);else document.body.appendChild(sb);
-  function offset(){ /* PDF 버튼이 화면 고정형이면 그 왼쪽에 나란히 고정 */
-    if(!pb)return;var cs=getComputedStyle(pb);
-    var r=pb.getBoundingClientRect();
-    if(cs.display==='none'||r.width===0){ /* PDF 가 숨겨진 화면(백과 모바일): 검색이 그 자리에 */
-      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='70';
-    }else if(cs.position==='fixed'){
-      sb.style.position='fixed';sb.style.top=r.top+'px';
-      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
-    }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
-  offset();window.addEventListener('resize',offset);
-  /* 오버레이 */
-  var ov=document.createElement('div');ov.className='fh-so';
-  ov.innerHTML='<div class="fh-sp"><input type="search" placeholder="검색 (제목 · 절 · 본문)" '
-    +'aria-label="사이트 검색"><div class="fh-sr"></div></div>';
-  document.body.appendChild(ov);
-  var inp=ov.querySelector('input'),res=ov.querySelector('.fh-sr'),IDX=null,sel=-1;
-  function open(){ov.classList.add('on');inp.focus();inp.select();}
-  function close(){ov.classList.remove('on');}
-  sb.addEventListener('click',open);
-  ov.addEventListener('mousedown',function(e){if(e.target===ov)close();});
-  document.addEventListener('keydown',function(e){
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
-    else if(e.key==='Escape'&&ov.classList.contains('on'))close();
-  });
-  function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
-  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-  function go(){
-    var q=inp.value.trim().toLowerCase();sel=-1;
-    if(q.length<2){res.innerHTML='';return;}
-    load(function(){
-      var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
-        var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
-            pi=e.t.toLowerCase().indexOf(q);
-        if(hi<0&&ti<0&&pi<0)continue;
-        var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
-        var snip='';
-        if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
-      }
-      hits.sort(function(a,b){return b.s-a.s});
-      hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
-      else{res.innerHTML=hits.map(function(h){
-        return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
-          +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
-          +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
-    });
-  }
-  inp.addEventListener('input',go);
-  inp.addEventListener('keydown',function(e){
-    e.stopPropagation(); /* 커리큘럼 등 자체 키보드 내비게이션 페이지로 새지 않게 */
-    if(e.key==='Escape'){close();return;}
-    var as=res.querySelectorAll('a');if(!as.length)return;
-    if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,as.length-1);}
-    else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);}
-    else if(e.key==='Enter'&&sel>=0){e.preventDefault();as[sel].click();return;}
-    else return;
-    as.forEach(function(a,i){a.classList.toggle('sel',i===sel)});
-    if(as[sel])as[sel].scrollIntoView({block:'nearest'});
-  });
-});
-</script>
-
 <style id="ia-css">
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
@@ -458,12 +314,75 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
+
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">운영</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
 <div class="wrap">
-<h1>일정 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Schedule</span></h1>
-<p class="lede">언제 무엇을. 주간 계획과 마일스톤</p>
-<div class="hgroup">산출물 <span style="font-weight:600">11</span></div><div class="hlist"><a href="deliverable-brainstorming.html"><span class="hn">01</span><div class="t">brainstorming</div><div class="d">기획발표 · 9월 4일</div></a><a href="deliverable-final-report.html"><span class="hn">02</span><div class="t">final-report</div><div class="d">FINAL 최종발표 · 12월 11일</div></a><a href="deliverable-generalization-report.html"><span class="hn">03</span><div class="t">generalization-report</div><div class="d">MVP 중간발표 · 9월 30일</div></a><a href="deliverable-mentoring-log.html"><span class="hn">04</span><div class="t">mentoring-log</div><div class="d">진행 기록</div></a><a href="deliverable-nav-report.html"><span class="hn">05</span><div class="t">nav-report</div><div class="d">NAV 실기항법 · 11월 7일</div></a><a href="deliverable-policy-metrics.html"><span class="hn">06</span><div class="t">policy-metrics</div><div class="d">A-정책 · 9월 12일</div></a><a href="deliverable-progress-log.html"><span class="hn">07</span><div class="t">progress-log</div><div class="d">진행 기록</div></a><a href="deliverable-proposal-deck.html"><span class="hn">08</span><div class="t">proposal-deck</div><div class="d">기획발표 · 9월 4일</div></a><a href="deliverable-proposal-summary.html"><span class="hn">09</span><div class="t">proposal-summary</div><div class="d">기획발표 · 9월 4일</div></a><a href="deliverable-twin-render.html"><span class="hn">10</span><div class="t">twin-render</div><div class="d">MVP 중간발표 · 9월 30일</div></a><a href="deliverable-wbs.html"><span class="hn">11</span><div class="t">wbs</div><div class="d">기획발표 · 9월 4일</div></a></div><div class="hgroup">설계도 <span style="font-weight:600">1</span></div><div class="hlist"><a href="plan.html"><span class="hn">01</span><div class="t">프로젝트 설계도</div><div class="d">흐름 · 퀘스트 · 결정 안건</div></a></div><div class="hgroup">문서 <span style="font-weight:600">2</span></div><div class="hlist"><a href="deliverables.html"><span class="hn">01</span><div class="t">산출물 현황</div><div class="d">무엇을 언제까지 내는가</div></a><a href="personal-plans.html"><span class="hn">02</span><div class="t">개인 계획</div><div class="d">팀원이 스스로 세운 계획의 원본</div></a></div>
+
+<div class="hero">
+  <div class="eyebrow">Spec · 우리 Go2 사양</div>
+  <h1>우리가 쓰는 Go2 실기 사양</h1>
+  <p class="lede">Unitree Go2 하드웨어 제원과 SDK 접근 경로 정리.</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-14</span></div><div><span class="k">상태</span><span class="v">확정</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/ROBOT-SPEC.md</span></div></div>
+  <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
+
+<blockquote><p>분류: 리서치
+작성: 오흥재 · 2026-08-14
+근거: 공식 문서
+요지: Unitree Go2 하드웨어 제원과 SDK 접근 경로 정리.
+상태: 확정</p></blockquote>
+<blockquote><p>작성 2026-08-14 · 출처: 팀장 확인 · 이 문서가 «우리 로봇» 의 단일 진실이다.
+이 사양은 설계 갈림길 여러 개를 이미 닫는다. 아래 §3 참조.</p></blockquote>
+</section>
+<section id="s1"><h2>1. 확정 사양 <span class="ev ev-ok">확인됨</span></h2>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th><th>무엇이 결정되나</th></tr></thead><tbody><tr><td><b>트림</b></td><td><b>EDU</b></td><td>저수준 개발이 열려 있다. AIR/PRO 였다면 프로젝트가 성립하지 않았다</td></tr><tr><td><b>RJ45 이더넷</b></td><td><b>있음</b></td><td>유선 연결 가능. DDS NIC 바인딩의 전제</td></tr><tr><td><b>온보드 컴퓨팅</b></td><td><b>Jetson Orin NX 16GB</b></td><td>경량화 증류 불필요 (§3-1)</td></tr><tr><td><b>라이다</b></td><td>기본 라이다 <b>+ 등에 별도 Unitree 라이다 모듈</b></td><td>지형 인지 경로가 하나 더 있다 (§3-2)</td></tr><tr><td><b>카메라</b></td><td>장착됨</td><td>인지 갈래의 입력원</td></tr></tbody></table></div>
+<h3>등에 얹힌 라이다: 영상으로 확인한 것 <code>부분확인</code></h3>
+<p><figure class="mdimg"><img src="assets/visual/go2-back-lidar-20260814.jpg" alt="등에 얹힌 라이다" loading="lazy"><figcaption>등에 얹힌 라이다</figcaption></figure></p>
+<p><i>팀장 촬영 영상(IMG_6331.MOV, 4K) 0.3초 지점을 원본 해상도에서 잘라 확대.</i></p>
+<p>영상에서 <b>확실하게 판별되는 것</b>:</p>
+<div class="tw"><table><thead><tr><th>관찰</th><th>의미</th></tr></thead><tbody><tr><td>원통형 puck 형상, 검은 광학 밴드 + 아이보리 상단캡 + 은색 방열 베이스</td><td><b>기계식 회전 360° 라이다</b>. 고정형 솔리드스테이트가 아니다</td></tr><tr><td>몸통 등판에 <b>별도 브래킷</b>으로 얹힘</td><td>Go2 순정 구성이 아니라 <b>추가 장착물</b></td></tr><tr><td><b>자체 케이블</b>이 뒤로 빠짐</td><td>자체 전원·데이터 경로를 가진다. Orin NX 와 직결로 추정</td></tr><tr><td>검은 와이어 보호 바(롤바)가 위를 감쌈</td><td>넘어짐 대비 보호. 실기 시험을 전제한 장착</td></tr></tbody></table></div>
+<p><b>모델명은 이 영상만으로 특정할 수 없다.</b> 각인·라벨이 보이지 않는다. 형상만 보면 회전식 puck 계열(Velodyne Puck·RoboSense·Unitree 4D L2 등)과 모두 부합한다. <b>추측을 결론 자리에 앉히지 않는다</b>(COLLAB 하지말것 6번). 아래 방법 중 하나로 10초면 확정된다.</p>
+<ol><li>모듈 옆면·베이스 <b>라벨 사진</b> 한 장</li><li>로봇에서 <code>ros2 topic list</code> (별도 라이다면 <code>/livox/lidar</code>·<code>/rslidar_points</code>·<code>/velodyne_points</code> 등 자체 토픽이 뜬다)</li><li>Orin NX 에서 <code>ip -4 addr</code> + <code>ping</code> (이더넷 라이다는 자체 고정 IP 를 갖는다)</li></ol>
+<h3>그 밖에 아직 확인이 필요한 것 <span class="ev ev-todo">미확인</span></h3>
+<ul><li>펌웨어 버전, 개체 연식·고장 이력.</li><li>스포츠 모드 해제(<code>ReleaseMode</code>)가 <b>이 개체에서 실제로 되는지</b> (절차는 <a href="flow.html">FLOW §5</a> 참조).</li></ul>
+</section>
+<section id="s2"><h2>2. 이 사양이 닫은 갈림길</h2>
+<p><b>저수준 개방 여부는 더 이상 «프로젝트 성립 조건» 이 아니다.</b> EDU 이고 RJ45 가 있으므로 구조적 관문은 통과했다. 남은 것은 «이 개체에서 실제로 되는가» 라는 실행 확인뿐이다.</p>
+</section>
+<section id="s3"><h2>3. 재계산</h2>
+<h3>3-1. 경량화 증류는 필요 없다 <span class="ev ev-ok">확인됨</span></h3>
+<p>우리 정책은 파라미터 약 17만 개, 파일 6.9MB 다. Orin NX 16GB 는 그것을 실시간 50Hz 로 돌리기에 과분하다. 따라서 «작게 만드는 증류» 는 하지 않는다. <b>관측 증류</b>(특권 정보를 안 보는 정책 만들기)만 남는다. 둘은 다른 문제다.</p>
+<h3>3-2. 발밑 지형 문제에 길이 하나 더 생겼다 <span class="ev ev-guess">가설</span></h3>
+<p>기존 판단은 이랬다. 순정 컨트롤러(MCF)를 놔주면 <code>rt/utlidar/height_map_array</code> 가 MCF 오도메트리에 의존해 끊긴다. 그래서 관측 증류가 유일한 길이다.</p>
+<p>그런데 <b>등에 독립 라이다 모듈이 있다면</b> 그 판단이 바뀔 수 있다. MCF 가 아니라 그 모듈에서 직접 점군을 받아 우리가 높이맵을 만들 수 있다면, 저수준 제어와 지형 인지가 양립한다.</p>
+<div class="tw"><table><thead><tr><th>경로</th><th>성립 조건</th><th>비용</th></tr></thead><tbody><tr><td>A. 관측 증류</td><td>없음 (항상 가능)</td><td>Teacher-Student 학습 한 번 더</td></tr><tr><td>B. 독립 라이다로 높이맵 자체 생성</td><td>모듈이 MCF 와 무관하게 점군을 내보내야 함</td><td>점군 → 높이맵 변환·정합 구현</td></tr></tbody></table></div>
+<p><b>B 는 아직 가설이다.</b> 모델명 확인과 토픽 실측이 먼저다. A 는 조건 없이 성립하므로 <b>A 를 기본선으로 두고 B 를 확인한다.</b> B 가 되면 실기 성능이 올라갈 여지가 크다.</p>
+<h3>3-3. 현장 확인 목록에서 빠지는 항목</h3>
+<p><a href="field-check-go2-intake.html">FIELD-CHECK-GO2-INTAKE</a> 의 ①(EDU 인가)·②(컴퓨팅 보드)는 확정되었으므로 확인 대상이 아니다. 남은 것은 라이다 모델명·펌웨어·저수준 실행 확인이다.</p>
+</section>
+
+</div>
+<script>
+document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('prog').style.width = (p * 100) + '%';
+}, {passive:true});
+/* 복사 버튼: 코드 블록과 접속 주소 공용 */
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('.copy');
+  if (!b) return;
+  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(function(){
+    var old = b.textContent;
+    b.textContent = '복사됨'; b.classList.add('done');
+    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
+  });
+});
+</script>
 <!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

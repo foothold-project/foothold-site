@@ -303,6 +303,15 @@ section .addr .big{font-size:1.2rem}
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
@@ -381,10 +390,13 @@ docs/문서명-이름        문서만</pre></div>
 <p><b>다이제스트는 재료만 자동으로 모은다.</b> 「무엇을 알게 됐나」는 판단이라 기계가 못 쓴다. 커밋 목록에서 「보상이 높다고 걷는 것이 아니다」 같은 문장은 나오지 않는다.</p>
 </section>
 <section id="s8"><h2>8. 이 세션에서 배운 것 (재발 방지)</h2>
-<div class="tw"><table><thead><tr><th>무엇</th><th>어떻게 막나</th></tr></thead><tbody><tr><td><b>초록불이 거짓말을 할 수 있다</b></td><td>폐기된 어휘로 매칭하던 워크플로가 <code>exit 0</code> 으로 계속 success 를 냈다. 빈 산출물이 성공이 되는 경로를 남기지 않는다</td></tr><tr><td><b>내 검사식이 내 코드에 걸린다</b></td><td><code>id: quest</code> 가 <code>id: question</code> 에, <code>. ./triage.env</code> 가 내가 쓴 주석에 걸렸다. 줄 전체 일치로 본다</td></tr><tr><td><b>UTC 로 날짜를 찍으면 한국 새벽에 어제가 된다</b></td><td><code>TZ=Asia/Seoul</code> 을 쓴다</td></tr><tr><td><b>heredoc 안 파이썬의 백슬래시가 먹힌다</b></td><td>파이썬 코드는 파일 도구로 쓴다. <code>chr(10)</code>·<code>chr(92)</code> 로 우회</td></tr><tr><td><b>대화가 압축되면 결정이 사라진다</b></td><td>이 문서가 그 대응이다</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>무엇</th><th>어떻게 막나</th></tr></thead><tbody><tr><td><b>초록불이 거짓말을 할 수 있다</b></td><td>폐기된 어휘로 매칭하던 워크플로가 <code>exit 0</code> 으로 계속 success 를 냈다. 빈 산출물이 성공이 되는 경로를 남기지 않는다</td></tr><tr><td><b>내 검사식이 내 코드에 걸린다</b></td><td><code>id: quest</code> 가 <code>id: question</code> 에, <code>. ./triage.env</code> 가 내가 쓴 주석에 걸렸다. 줄 전체 일치로 본다</td></tr><tr><td><b>UTC 로 날짜를 찍으면 한국 새벽에 어제가 된다</b></td><td>GitHub Actions 러너에서는 <code>TZ=Asia/Seoul</code> 을 쓴다. <b>단 이 워크스테이션의 Git Bash 에서는 쓰지 않는다</b> (시계가 이미 KST 라 9시간 어긋난다. 2026-08-27 실측: 11:43 -&gt; 02:43). 로컬에서는 <code>date</code> 를 그대로 쓰거나 PowerShell <code>(Get-Date)</code> 를 쓴다</td></tr><tr><td><b>heredoc 안 파이썬의 백슬래시가 먹힌다</b></td><td>파이썬 코드는 파일 도구로 쓴다. <code>chr(10)</code>·<code>chr(92)</code> 로 우회</td></tr><tr><td><b>대화가 압축되면 결정이 사라진다</b></td><td>이 문서가 그 대응이다</td></tr></tbody></table></div>
 </section>
 <section id="s9"><h2>9. 아직 안 정해진 것</h2>
-<div class="tw"><table><thead><tr><th>무엇</th><th>누가 닫나</th></tr></thead><tbody><tr><td>실패 5종 개인 배정</td><td>팀 회의 (<code>#59</code>)</td></tr><tr><td>운영진 제출 형식이 hwp 필수인가 pdf 허용인가</td><td>팀장 확인</td></tr><tr><td>11월 운영진 중간점검이 공식 일정인가</td><td>팀장 확인</td></tr><tr><td><code>hub-research</code> 와 <code>research</code> 가 같은 내용을 본다</td><td>홈페이지 구조화 때</td></tr><tr><td>연구 허브를 성격별로 다시 가른다 (PoC 시험 · 자료 조사 · 파이프라인 점검 · 본 PoC)</td><td>홈페이지 구조화 때</td></tr><tr><td><code>jay/MAI_UNIVERSE</code> 와 <code>jay/인공지능사관학교/MAI_UNIVERSE</code> 두 벌</td><td>다음에 논의</td></tr><tr><td>트랙 B 주담당 재지정 (9/30 이후)</td><td>팀 회의</td></tr></tbody></table></div>
+<blockquote><p><b>닫힌 것 (2026-08-27)</b>: 실패 5종 개인 배정. <code>gap</code> 임석헌 · <code>rails</code> 맹라현 ·
+<code>stepping_stones</code> 오현민 · <code>pit</code> 이민우 · <code>floating_ring</code> 오흥재.
+근거와 각자 만질 파라미터는 <a href="research-terrain-finetune-plan.html">실패 지형 파인튜닝 실행 계획</a> §1.</p></blockquote>
+<div class="tw"><table><thead><tr><th>무엇</th><th>누가 닫나</th></tr></thead><tbody><tr><td>운영진 제출 형식이 hwp 필수인가 pdf 허용인가</td><td>팀장 확인</td></tr><tr><td>11월 운영진 중간점검이 공식 일정인가</td><td>팀장 확인</td></tr><tr><td><code>hub-research</code> 와 <code>research</code> 가 같은 내용을 본다</td><td>홈페이지 구조화 때</td></tr><tr><td>연구 허브를 성격별로 다시 가른다 (PoC 시험 · 자료 조사 · 파이프라인 점검 · 본 PoC)</td><td>홈페이지 구조화 때</td></tr><tr><td><code>jay/MAI_UNIVERSE</code> 와 <code>jay/인공지능사관학교/MAI_UNIVERSE</code> 두 벌</td><td>다음에 논의</td></tr><tr><td>트랙 B 주담당 재지정 (9/30 이후)</td><td>팀 회의</td></tr></tbody></table></div>
 </section>
 
 </div>
@@ -408,5 +420,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

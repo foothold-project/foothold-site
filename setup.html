@@ -270,6 +270,15 @@ details.trap .cb{margin:.5rem 0 .2rem}
 .hlist .t{font-size:.92rem;font-weight:750}
 .hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 <!--newbadge:v5--><style>
 a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
@@ -415,6 +424,18 @@ document.addEventListener('DOMContentLoaded',function(){
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1052,10 +1073,15 @@ Windows fatal exception: code 0xc0000139               <span class="c"># 엔트�
 </div>
 
 <h3>사용 가능한 Go2 태스크 4개 <span style="font-weight:400;font-size:.8rem;color:var(--ink-3)">설치 후 확인됨</span></h3>
-<div class="tree">Isaac-Velocity-Flat-Unitree-Go2-v0        평지 학습용
-Isaac-Velocity-Flat-Unitree-Go2-Play-v0   평지 재생용
-Isaac-Velocity-Rough-Unitree-Go2-v0       험지 학습용   <b>← 우리 베이스라인</b>
-Isaac-Velocity-Rough-Unitree-Go2-Play-v0  험지 재생용</div>
+<div class="tw"><table>
+<thead><tr><th>태스크 이름</th><th>지형</th><th>쓰임</th></tr></thead>
+<tbody>
+<tr><td><code>Isaac-Velocity-Flat-Unitree-Go2-v0</code></td><td>평지</td><td>학습</td></tr>
+<tr><td><code>Isaac-Velocity-Flat-Unitree-Go2-Play-v0</code></td><td>평지</td><td>재생(학습된 정책 보기)</td></tr>
+<tr><td><code>Isaac-Velocity-Rough-Unitree-Go2-v0</code></td><td><b>험지</b></td><td><b>학습 · 우리 베이스라인</b></td></tr>
+<tr><td><code>Isaac-Velocity-Rough-Unitree-Go2-Play-v0</code></td><td><b>험지</b></td><td><b>재생 · 결과 확인용</b></td></tr>
+</tbody>
+</table></div>
 
 <blockquote class="warn">
   <b>⚠️ 저장소가 둘입니다. 헷갈리기 쉬우니 미리 정리합니다.</b><br><br>
@@ -1114,10 +1140,16 @@ source/isaaclab_tasks/.../config/anymal_d/agents/rsl_rl_distillation_cfg.py</div
   수집(4.5s)이 학습(0.12s)의 <b>37배</b>입니다. 병목은 신경망이 아니라 <b>시뮬레이션</b>입니다.<br>
   이 수치는 <b>험지(Rough)</b> 기준이고, 평지(Flat)는 훨씬 빠릅니다.
 </blockquote>
-<div class="tree">C:\Users\&lt;사용자&gt;\anaconda3\envs\isaac311\      7.77 GB   파이썬 환경 전체
-C:\Users\&lt;사용자&gt;\AppData\Local\ov\             4.75 GB   Kit 런타임 캐시
-C:\isaac\IsaacLab\                              0.08 GB   Isaac Lab 소스
-C:\Users\&lt;사용자&gt;\AppData\Local\pip\Cache\      (삭제 가능)</div>
+<p><b>설치 후 디스크 사용량</b> 합계 약 <b>12.6 GB</b>. 여유 공간을 볼 때 이 숫자로 잡으세요.</p>
+<div class="tw"><table>
+<thead><tr><th>경로</th><th style="text-align:right">용량</th><th>무엇인가</th></tr></thead>
+<tbody>
+<tr><td><code>C:\Users\&lt;사용자&gt;\anaconda3\envs\isaac311\</code></td><td style="text-align:right"><b>7.77 GB</b></td><td>파이썬 환경 전체. 지우면 처음부터 다시</td></tr>
+<tr><td><code>C:\Users\&lt;사용자&gt;\AppData\Local\ov\</code></td><td style="text-align:right">4.75 GB</td><td>Kit 런타임 캐시. 지우면 첫 실행이 다시 느려짐</td></tr>
+<tr><td><code>C:\isaac\IsaacLab\</code></td><td style="text-align:right">0.08 GB</td><td>Isaac Lab 소스. git 으로 다시 받을 수 있음</td></tr>
+<tr><td><code>C:\Users\&lt;사용자&gt;\AppData\Local\pip\Cache\</code></td><td style="text-align:right">-</td><td><b>삭제 가능.</b> 설치가 끝나면 안 쓴다</td></tr>
+</tbody>
+</table></div>
 </section>
 
 <!-- ══════ 8 ══════ -->
@@ -1170,11 +1202,16 @@ C:\Users\&lt;사용자&gt;\AppData\Local\pip\Cache\      (삭제 가능)</div>
 <span class="f">cd</span> C:\isaac\IsaacLab; <span class="f">git</span> describe <span class="o">--tags</span></pre></div>
 
 <p><b>기대 출력</b></p>
-<div class="tree">py 3.11.x
-torch 2.7.0+cu128 12.8
-sm_120 True
-gpu &lt;각자 GPU 수&gt;
-v2.3.2</div>
+<div class="tw"><table>
+<thead><tr><th>줄</th><th>맞는 값</th><th>다르면 무슨 뜻인가</th></tr></thead>
+<tbody>
+<tr><td><code>py</code></td><td><code>3.11.x</code></td><td>다른 파이썬 환경이 켜져 있다. <code>conda activate isaac311</code></td></tr>
+<tr><td><code>torch</code></td><td><code>2.7.0+cu128 12.8</code></td><td>CPU 판이거나 구버전 CUDA 다. 재설치</td></tr>
+<tr><td><code>sm_120</code></td><td><b><code>True</code></b></td><td><b>여기가 관문.</b> False 면 RTX 5080 에서 아예 안 돈다</td></tr>
+<tr><td><code>gpu</code></td><td>각자 GPU 수</td><td><code>0</code> 이면 드라이버·CUDA 를 못 잡은 것</td></tr>
+<tr><td><code>git describe</code></td><td><code>v2.3.2</code></td><td>Isaac Lab 판이 다르다. 태스크 이름이 안 맞을 수 있다</td></tr>
+</tbody>
+</table></div>
 <p>하나라도 다르면 <b><a href="#s5" style="color:var(--stop)">§5 함정 목록</a></b>을 확인하세요.</p>
 </section>
 
@@ -1273,358 +1310,7 @@ document.querySelectorAll('.cb .copy').forEach(function(btn){
     openAll(); window.print();
   });
 })();
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:var(--brand);--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+</script><style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:var(--brand);--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <style>
 #themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
   background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
@@ -1649,5 +1335,5 @@ document.querySelectorAll('.cb .copy').forEach(function(btn){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

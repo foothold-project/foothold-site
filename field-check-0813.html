@@ -446,6 +446,15 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="on" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
@@ -471,7 +480,7 @@ document.addEventListener('DOMContentLoaded',function(){
 각 항목에 <b>&quot;이게 왜 중요한가 = 어떤 결정을 가르는가&quot;</b>를 붙였다. 시간이 없으면 🔴 부터 한다.</p>
 <p>근거: go2-hardware.md (내부 볼트) §6 «미확인(정직한 공백)» ·
 <a href="research-architecture-decision.html">architecture-decision.md</a> · <a href="flow.html">FLOW.md</a>
-같은 날 운영진 조율에서 확정한 것은 [8/13 운영 미팅](meetings/20260813-ops-alignment.md)이다. 이 문서는 현장 확인 목록이다.</p></blockquote>
+같은 날 운영진 조율에서 확정한 것은 <a href="meeting-20260813-ops-alignment.html">8/13 운영 미팅</a>이다. 이 문서는 현장 확인 목록이다.</p></blockquote>
 </section>
 <section id="s1"><h2>0. 왜 이 방문이 결정적인가</h2>
 <p>지금 프로젝트에서 <b>답을 모르는 채 설계를 미루고 있는 것이 4개</b>다.</p>
@@ -489,11 +498,11 @@ document.addEventListener('DOMContentLoaded',function(){
 <blockquote><p><b>왜</b>: 우리 정책은 파라미터 17만 개(6.9MB)다. Orin NX 급이면 <b>경량화 증류는 불필요</b>하고
 <b>관측 증류만</b> 하면 된다. Nano 4GB 급이면 이야기가 달라진다.</p></blockquote>
 <h3>1-3. 🔴 저수준 제어가 열려 있는가: 프로젝트 성립 여부</h3>
-<div class="tw"><table><thead><tr><th>#</th><th>확인할 것</th><th>왜</th></tr></thead><tbody><tr><td><s>⑪</s></td><td><s>EDU 모델이 맞나</s> <b>확정: EDU · RJ45 있음</b> ([ROBOT-SPEC](ROBOT-SPEC.md))</td><td>구조적 관문 통과</td></tr><tr><td><s>⑫</s></td><td><s>RJ45 포트 실물 확인</s> <b>확정: 있음</b></td><td>유선 연결 가능</td></tr><tr><td>⑬</td><td><b>스포츠 모드(MCF)를 끌 수 있나</b>. 저수준(SDK2) 전환이 실제로 되나</td><td>순정 컨트롤러와 우리 정책은 <b>동시에 못 켠다</b>. 호출은 <code>MotionSwitcherClient.ReleaseMode()</code> <span class="ev ev-ok">확인됨</span>, 이 개체에서 실제로 되는지가 확인 대상</td></tr><tr><td>⑭</td><td><code>unitree_ros2</code> 또는 <code>unitree_sdk2</code> 예제가 이미 설치돼 있나</td><td>있으면 며칠을 번다</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>#</th><th>확인할 것</th><th>왜</th></tr></thead><tbody><tr><td><s>⑪</s></td><td><s>EDU 모델이 맞나</s> <b>확정: EDU · RJ45 있음</b> (<a href="robot-spec.html">ROBOT-SPEC</a>)</td><td>구조적 관문 통과</td></tr><tr><td><s>⑫</s></td><td><s>RJ45 포트 실물 확인</s> <b>확정: 있음</b></td><td>유선 연결 가능</td></tr><tr><td>⑬</td><td><b>스포츠 모드(MCF)를 끌 수 있나</b>. 저수준(SDK2) 전환이 실제로 되나</td><td>순정 컨트롤러와 우리 정책은 <b>동시에 못 켠다</b>. 호출은 <code>MotionSwitcherClient.ReleaseMode()</code> <span class="ev ev-ok">확인됨</span>, 이 개체에서 실제로 되는지가 확인 대상</td></tr><tr><td>⑭</td><td><code>unitree_ros2</code> 또는 <code>unitree_sdk2</code> 예제가 이미 설치돼 있나</td><td>있으면 며칠을 번다</td></tr></tbody></table></div>
 </section>
 <section id="s3"><h2>2. 🟠 현장에서 5분이면 되는 실측</h2>
 <h3>2-1. 라이다 세대: L1 인가 L2 인가</h3>
-<p><b>★ 갱신(8/14)</b>: 이 개체는 기본 라이다 외에 <b>등에 별도 Unitree 라이다 모듈</b>이 있다(팀장 확인). 모델명 확인이 더 중요해졌다. 그 모듈이 MCF 와 무관하게 점군을 내면 <b>높이맵을 직접 만들 수 있다</b> ([ROBOT-SPEC §3-2](ROBOT-SPEC.md)).</p>
+<p><b>★ 갱신(8/14)</b>: 이 개체는 기본 라이다 외에 <b>등에 별도 Unitree 라이다 모듈</b>이 있다(팀장 확인). 모델명 확인이 더 중요해졌다. 그 모듈이 MCF 와 무관하게 점군을 내면 <b>높이맵을 직접 만들 수 있다</b> (<a href="robot-spec.html">ROBOT-SPEC §3-2</a>).</p>
 <p><b>왜</b>: 조사 결과 <b>웹페이지 표기 전환만 2026-01~02로 확정</b>됐고 <b>실제 생산 전환일은 미확인</b>이다. L1/L2에 따라 <code>height_scan</code> 대체 가능성이 달라진다.</p>
 <p><b>어떻게</b>: 라이다 모듈 각인·라벨 사진 촬영. 판매처/관리자에게 세대 문의.</p>
 <h3>2-2. <code>height_scan</code> 이 정말 저수준과 양립 불가한가: ★ 우리 조사의 핵심 가설 검증</h3>
@@ -600,5 +609,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

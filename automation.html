@@ -1,126 +1,249 @@
+<!doctype html>
+<html lang="ko">
+<head>
 <meta charset="utf-8">
-<link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg">
-<title>FOOTHOLD 자동화 지도</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>자동화 지도 · FOOTHOLD</title>
+<meta name="description" content="올린 것이 어디로 가고, 무엇이 저절로 일어나고, 어디서 사람이 필요한가.">
 <style>
 :root{
-  --paper:#FAFAF7; --card:#FFFFFF; --sunk:#F0F0EA;
-  --ink:#161A17; --body:#333A35; --muted:#5F6862;
-  --rule:#DEE1DA; --rule-soft:#EAEDE6;
-  --you:#1F6F4A;  --you-soft:#E4F1EA;
-  --bot:#2C4E8A;  --bot-soft:#E5EBF6;
-  --lead:#9A5B14; --lead-soft:#F8EEDF;
-  --stop:#A8342F; --stop-soft:#F8E7E5;
-  --shadow:0 1px 2px rgba(22,26,23,.05), 0 10px 26px -20px rgba(22,26,23,.4);
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--dim:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+  --measure:760px;
+  /* ★ --dim / --note 를 연한 배경(--*-soft) 위 글자로 쓰면 대비가 모자란다.
+     실측 --dim on --dim-soft = 4.43 · --note on --note-soft = 3.93 (둘 다 4.5 미달).
+     그런 자리에는 아래 진한 짝을 쓴다. DESIGN.md §2 참조. */
+  --dim-ink:#0b6459;
+  --note-ink:#8a5600;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#0E110F; --card:#171B18; --sunk:#1F2420;
-  --ink:#EDF1EC; --body:#C4CCC6; --muted:#8B948D;
-  --rule:#2A302C; --rule-soft:#232823;
-  --you:#63C193;  --you-soft:#13291E;
-  --bot:#8AA6DF;  --bot-soft:#171F31;
-  --lead:#DFA75A; --lead-soft:#31240F;
-  --stop:#E58279; --stop-soft:#301715;
-  --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 26px -20px rgba(0,0,0,.9);
-}}
-:root[data-theme="dark"]{
-  --paper:#0E110F; --card:#171B18; --sunk:#1F2420;
-  --ink:#EDF1EC; --body:#C4CCC6; --muted:#8B948D;
-  --rule:#2A302C; --rule-soft:#232823;
-  --you:#63C193;  --you-soft:#13291E;
-  --bot:#8AA6DF;  --bot-soft:#171F31;
-  --lead:#DFA75A; --lead-soft:#31240F;
-  --stop:#E58279; --stop-soft:#301715;
-  --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 26px -20px rgba(0,0,0,.9);
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+    --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+    --rule:#2b323d;--dim:#3ec7b4;--dim-soft:#11302c;
+    --note:#dc9a30;--note-soft:#332710;
+    --stop:#e56d5e;--stop-soft:#331c19;
+    --grid:rgba(233,231,225,.035);
+    /* 어두운 모드에서는 soft 배경이 어두우므로 원래 토큰이 이미 충분히 밝다 */
+    --dim-ink:#3ec7b4;
+    --note-ink:#dc9a30;
+  }
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--body);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Pretendard",
-    "Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
-  font-size:16px;line-height:1.78;word-break:keep-all;-webkit-font-smoothing:antialiased}
-.wrap{max-width:64rem;margin:0 auto;padding:clamp(1.8rem,5vw,4rem) clamp(1rem,4vw,2.4rem) 6rem}
-h1,h2,h3{color:var(--ink);margin:0;line-height:1.28;text-wrap:balance;letter-spacing:-.012em}
-h1{font-size:clamp(1.9rem,5.2vw,2.9rem);font-weight:800}
-h2{font-size:clamp(1.22rem,3.2vw,1.55rem);font-weight:800}
-h3{font-size:1.02rem;font-weight:700;margin:1.8rem 0 .4rem}
-p{margin:.9rem 0;max-width:64ch}
-code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--sunk);
-  border:1px solid var(--rule-soft);border-radius:3px;padding:.08em .32em;font-size:.87em;color:var(--ink)}
-a{color:var(--you);text-underline-offset:3px}
-.eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 .8rem}
-.lede{font-size:clamp(1rem,2.3vw,1.13rem);color:var(--muted);max-width:54ch;margin:1rem 0 0}
-section{margin-top:clamp(2.6rem,6vw,4rem)}
-.sechead{display:flex;align-items:baseline;gap:.7rem;padding-bottom:.7rem;border-bottom:2px solid var(--rule)}
-.sechead .n{font-size:.78rem;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.08em}
-.legend{display:flex;flex-wrap:wrap;gap:.5rem .9rem;margin:1.4rem 0 0;padding:.9rem 1rem;
-  background:var(--card);border:1px solid var(--rule);border-radius:4px}
-.lg{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem}
-.sw{width:.85rem;height:.85rem;border-radius:2px;display:inline-block}
-figure{margin:1.5rem 0 0}
-.scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--card)}
-svg{display:block;width:100%;min-width:44rem;height:auto}
-figcaption{font-size:.8rem;color:var(--muted);margin-top:.6rem;max-width:60ch}
-.tbl{overflow-x:auto;margin:1.3rem 0;border:1px solid var(--rule);border-radius:4px;background:var(--card)}
-table{border-collapse:collapse;width:100%;min-width:40rem;font-size:.88rem}
-th,td{text-align:left;padding:.68rem .8rem;border-bottom:1px solid var(--rule-soft);vertical-align:top}
-thead th{background:var(--sunk);color:var(--ink);font-size:.69rem;letter-spacing:.09em;
-  text-transform:uppercase;font-weight:800;white-space:nowrap}
-tbody tr:last-child td{border-bottom:0}
-td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
-.tag{display:inline-block;font-size:.68rem;font-weight:800;padding:.12rem .42rem;border-radius:3px;white-space:nowrap}
-.t-auto{background:var(--bot-soft);color:var(--bot);border:1px solid var(--bot)}
-.t-you{background:var(--you-soft);color:var(--you);border:1px solid var(--you)}
-.t-lead{background:var(--lead-soft);color:var(--lead);border:1px solid var(--lead)}
-.note{border-left:3px solid var(--stop);background:var(--stop-soft);padding:.85rem 1.05rem;
-  margin:1.3rem 0;border-radius:0 4px 4px 0}
-.note b{color:var(--ink)}
-.note p{margin:.3rem 0}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(15.5rem,1fr));gap:.9rem;margin-top:1.4rem}
-.card{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:1rem 1.1rem;box-shadow:var(--shadow)}
-.card h3{margin:0 0 .3rem;font-size:.96rem}
-.card p{margin:0;font-size:.86rem;color:var(--muted);max-width:none}
-.paste{margin:1.2rem 0;border:1px solid var(--rule);border-radius:4px;overflow:hidden}
-.paste-h{background:var(--sunk);padding:.5rem .85rem;border-bottom:1px solid var(--rule);
-  font-size:.78rem;color:var(--muted);font-weight:700}
-.paste pre{margin:0;background:#12160F;color:#E4EADF;padding:1rem;overflow-x:auto;
-  font-size:.8rem;line-height:1.72;white-space:pre-wrap;word-break:break-word}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .paste pre{background:#080B07}}
-:root[data-theme="dark"] .paste pre{background:#080B07}
-.topnav{position:sticky;top:0;z-index:60;background:var(--paper);
-  border-bottom:1px solid var(--rule)}
-.topnav .row{max-width:64rem;margin:0 auto;padding:.6rem clamp(1rem,4vw,2.4rem);
-  display:flex;align-items:center;gap:.9rem}
-.topnav a{color:inherit;text-decoration:none;font-weight:700;font-size:.85rem}
-.topnav a:hover{color:var(--you)}
-.topnav .doc{font-size:.8rem;color:var(--muted)}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.75;font-size:15px;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+
+.top{position:sticky;top:0;z-index:60;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .row{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:.55rem 1.5rem;
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.top .home{font-size:.72rem;font-weight:700;color:var(--ink-2);text-decoration:none;
+  border:1px solid var(--rule);background:var(--card);padding:.26rem .6rem;border-radius:4px}
+.top .home:hover{border-color:var(--dim);color:var(--dim)}
+.top .doc{font-size:.72rem;color:var(--ink-3);letter-spacing:.02em}
+.top .sp{flex:1}
+.pdfbtn{background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
+  padding:.26rem .6rem;font-family:inherit;font-size:.66rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer;border-radius:4px;transition:.15s;line-height:1.3}
+.pdfbtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
+#prog{position:absolute;left:0;bottom:-1px;height:2px;background:var(--dim);width:0;transition:width .12s}
+
+.wrap{max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:2.2rem 1.5rem 5rem}
+
+.hero{padding-bottom:1.6rem;border-bottom:2px solid var(--ink);margin-bottom:1.8rem}
+.eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:.5rem}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;margin-bottom:.7rem}
+.lede{font-size:1rem;color:var(--ink-2);max-width:min(42em,100%);word-break:keep-all}
+.meta{display:flex;flex-wrap:wrap;gap:.35rem 1.6rem;margin-top:1rem;font-size:.72rem}
+.meta .k{color:var(--ink-3);margin-right:.4rem}
+.meta .v{color:var(--ink-2);font-weight:700}
+
+section{margin-top:2.6rem}
+h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem;
+  border-bottom:1px solid var(--rule);margin-bottom:1rem}
+h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
+h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
+p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+ul,ol{margin:.6rem 0 .6rem 1.2rem}
+li{margin:.24rem 0;word-break:keep-all}
+b{font-weight:800}
+a{color:var(--dim)}
+code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
+  border:1px solid var(--rule);padding:.05rem .28rem;border-radius:3px;word-break:break-all}
+.vlink{font-size:.82em;color:var(--ink-3);background:var(--paper-2);border:1px solid var(--rule);
+  padding:.02rem .32rem;border-radius:3px}
+.vlink i{font-style:normal;opacity:.75}
+blockquote{border-left:3px solid var(--dim);background:var(--dim-soft);padding:.7rem .95rem;
+  margin:1rem 0;font-size:.88rem;color:var(--ink-2)}
+blockquote p{margin:.25rem 0}
+blockquote b{color:var(--ink)}
+
+/* 표: 모바일에서 가로 스크롤 (DESIGN.md §5) */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
+th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
+  word-break:keep-all}
+th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
+  letter-spacing:.04em;border-bottom:none}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--paper-2)}
+
+/* 코드 블록 + 복사 버튼 */
+.cb{margin:1rem 0;border:1px solid var(--rule);background:#0f141b}
+.cb-h{display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;background:#1a212b;
+  border-bottom:1px solid #2b323d;font-size:.62rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:#7d8693}
+.cb-h .copy{margin-left:auto;background:#232b36;border:1px solid #39424f;color:#c8cfd8;
+  font-family:inherit;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:.16rem .5rem;
+  border-radius:3px;cursor:pointer;transition:.14s}
+.cb-h .copy:hover{background:var(--dim);border-color:var(--dim);color:#fff}
+.cb-h .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+.cb pre{margin:0;padding:.75rem .85rem;overflow-x:auto;color:#dfe4ea;
+  font-family:'Consolas','D2Coding',monospace;font-size:.76rem;line-height:1.7}
+.cb pre .c{color:#6f7a88}
+
+/* ── 표지 아래 요약 카드 ── */
+.pin{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.6rem 0 .4rem}
+@media (max-width:640px){.pin{grid-template-columns:1fr}}
+.pin>div{border:1px solid var(--rule);background:var(--card);padding:.85rem .95rem}
+.pin .lab{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:.4rem}
+.pin.hot>div{border-color:var(--note);background:var(--note-soft)}
+.big{font-family:'Consolas','D2Coding',monospace;font-size:1.05rem;font-weight:800;
+  color:var(--dim-ink);word-break:break-all}
+/* 본문(§3)에 나오는 접속 주소는 페이지에서 가장 자주 쓰는 값이다. 눈에 띄게 */
+section .addr{border:2px solid var(--dim);background:var(--dim-soft);padding:.7rem .9rem}
+section .addr .big{font-size:1.2rem}
+.addr{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
+.addr .copy{background:var(--card);border:1px solid var(--dim);color:var(--dim);
+  font-family:inherit;font-size:.64rem;font-weight:800;letter-spacing:.06em;
+  padding:.16rem .5rem;border-radius:3px;cursor:pointer;transition:.14s}
+.addr .copy:hover{background:var(--dim);color:#fff}
+.addr .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}
+
+/* ── 도구 4종 역할 구분 (팀원이 가장 헷갈리는 것) ── */
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1.2rem 0}
+@media (max-width:820px){.tools{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.tools{grid-template-columns:1fr}}
+.tool{border:1px solid var(--rule);background:var(--card);padding:.85rem .8rem;display:flex;
+  flex-direction:column;gap:.35rem}
+.tool.pick{border:2px solid var(--dim);background:var(--dim-soft)}
+.tool .n{font-size:.6rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3)}
+.tool .t{font-size:.95rem;font-weight:800;line-height:1.3}
+.tool.pick .t{color:var(--dim-ink)}
+.tool .q{font-size:.76rem;color:var(--ink-2);flex:1}
+.tool .f{font-size:.68rem;color:var(--ink-3);border-top:1px solid var(--rule);padding-top:.35rem;
+  margin-top:.2rem;line-height:1.6}
+.tool .f b{color:var(--ink-2)}
+.tool .badge{display:inline-block;font-size:.6rem;font-weight:800;padding:.08rem .35rem;
+  border-radius:2px;background:var(--dim);color:#fff;letter-spacing:.04em}
+.tool .badge.warn{background:var(--note)}
+.tool .badge.off{background:var(--ink-3)}
+
+/* ── 경고 박스 (프로세스 정리) ── */
+.warnbox{border:2px solid var(--note);background:var(--note-soft);padding:1rem 1.1rem;margin:1.2rem 0}
+.warnbox .wh{font-size:.95rem;font-weight:800;color:var(--note-ink);margin-bottom:.5rem}
+.warnbox .line{font-size:.92rem;font-weight:800;color:var(--ink);margin:.4rem 0}
+.warnbox p{font-size:.84rem;color:var(--ink-2)}
+
+/* 공개 페이지에서 가려진 값 안내 */
+.redacted-note{display:block;font-size:.72rem;color:var(--ink-3);margin-top:.35rem;
+  font-family:'Pretendard','Malgun Gothic',system-ui,sans-serif;font-weight:400}
+.redacted-note b{color:var(--note-ink)}
+
+/* 미확인 표시: 확정처럼 읽히면 안 된다 */
+.unk{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;
+  background:var(--stop);color:#fff;padding:.08rem .38rem;border-radius:2px;
+  vertical-align:.08em;margin-right:.3rem}
+
+@media print{
+  @page{size:A4 portrait;margin:14mm 12mm}
+  html{font-size:10.5px}
+  body{background:#fff!important;background-image:none!important}
+  .top,.pdfbtn,.copy{display:none!important}
+  .wrap{max-width:none;padding:0}
+  section{break-inside:auto;margin-top:1.4rem}
+  h2,h3{break-after:avoid}
+  .tw,.cb,blockquote,.tool,.warnbox,.pin>div{break-inside:avoid;page-break-inside:avoid}
+  .tools,.pin{display:block}
+  .tool,.pin>div{margin-bottom:.5rem}
+  .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
+  .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
+  .cb pre{color:#161c26!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre .c{color:#666!important}
+  a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mdimg{break-inside:avoid;page-break-inside:avoid}
+}
+
+/* 마크다운 그림·영상: mdpage 가 만드는 <figure class="mdimg"> */
+.mdimg{margin:1.5rem 0;padding:0}
+.mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:var(--card)}
+.mdvid video{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  border-radius:4px;background:#0f141b}
+.mdimg figcaption{font-size:.74rem;color:var(--ink-3);margin-top:.45rem;line-height:1.5}
+
+/* ── 코드 문법 강조 ──
+   실제 PowerShell / Python 창의 색감에 맞췄다. 화면과 문서를 오갈 때 같은 것이 같게 보이게. */
+.cb pre .c{color:#6f7a88;font-style:italic}   /* 주석 */
+.cb pre .k{color:#5eb0ef;font-weight:700}     /* 키워드 */
+.cb pre .f{color:#f0c674}                     /* 명령 · 함수 */
+.cb pre .b{color:#c39ac9}                     /* 파이썬 내장 */
+.cb pre .s{color:#9ece6a}                     /* 문자열 */
+.cb pre .n{color:#e59f6a}                     /* 숫자 */
+.cb pre .v{color:#7ee0d0}                     /* 변수 */
+.cb pre .o{color:#a9b4c2}                     /* 플래그 · 옵션 */
+@media print{
+  /* 종이에서는 색이 안 나올 수 있다. 굵기·기울기로도 구분되게 */
+  .cb pre .c{color:#777!important;font-style:italic}
+  .cb pre .k,.cb pre .f{color:#000!important;font-weight:700}
+  .cb pre .s{color:#2a6b2a!important}
+  .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
+}
+
+.ev{display:inline-block;padding:.05rem .4rem;border-radius:3px;font-size:.68rem;
+  font-weight:800;letter-spacing:.04em;vertical-align:.06em;white-space:nowrap;
+  border:1px solid transparent}
+.ev-ok{background:var(--dim-soft);color:var(--dim);border-color:var(--dim)}
+.ev-guess{background:var(--note-soft);color:var(--note);border-color:var(--note)}
+.ev-todo{background:var(--paper-2);color:var(--ink-3);border-color:var(--rule)}
+.evlegend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;font-size:.72rem;color:var(--ink-3)}
+.rcards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:18px 0}
+.rcard{display:block;text-decoration:none;color:inherit;background:var(--card);
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;padding:14px 16px}
+.rcard:hover{border-color:var(--dim)}
+.rcard .rt{font-weight:800;font-size:1rem;margin:.2rem 0 .35rem}
+.rcard .rd{font-size:.8rem;color:var(--ink-2);line-height:1.55}
+.rcard .rm{font-size:.7rem;color:var(--ink-3);margin-top:.5rem;letter-spacing:.04em}
+.rcard .rno{display:inline-block;min-width:1.7em;text-align:center;background:var(--paper-2);border:1px solid var(--rule);border-radius:3px;font-size:.72rem;color:var(--ink-3);margin-right:.15rem;vertical-align:.06em}
+/* 대표 그림. 카드가 «무엇에 관한 글인지»를 제목보다 빨리 말해준다 */
+.rcard.has-thumb{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.rcard .rthumb{background:var(--paper-2);border-bottom:1px solid var(--rule);
+  aspect-ratio:16/7;overflow:hidden}
+.rcard .rthumb img{width:100%;height:100%;object-fit:cover;display:block;transition:.2s}
+.rcard.has-thumb .rbody{padding:14px 16px}
+.rcard:hover .rthumb img{transform:scale(1.03)}
+/* 목록 상단 배너: 최신 다이제스트만. (질문 지도는 표지로 승격: 팀장 컨펌 2026-08-12)
+   이모지 없이 브랜드 토큰만 쓴다. */
+.dgbar{margin:16px 0 4px}
+.dgbar a{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;text-decoration:none;
+  color:inherit;border:1px solid var(--rule);background:var(--card);border-radius:6px;
+  padding:.6rem .9rem;font-size:.85rem;border-left:4px solid var(--note)}
+.dgbar a .k{font-size:.62rem;font-weight:800;letter-spacing:.16em;color:var(--note);
+  text-transform:uppercase}
+.dgbar a span{color:var(--ink-3);font-size:.72rem}
+.dgbar a:hover{border-color:var(--dim)}
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
 <style id="ia-css">
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
@@ -172,471 +295,177 @@ td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
 .hlist a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-radius:6px;padding:.65rem .85rem}
 .hlist a:hover{border-color:var(--dim)}
+.hlist a{position:relative;padding-left:3.1rem}
+.hlist .hn{position:absolute;left:.85rem;top:.68rem;font-family:ui-monospace,Consolas,monospace;
+  font-size:.72rem;font-weight:800;color:var(--ink-3);letter-spacing:.02em}
 .hlist .t{font-size:.92rem;font-weight:750}
 .hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
+.hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
+  font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
+</head>
+<body>
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
 
-<div class="topnav"><div class="row">
-<a class="home" href="index.html">← 표지로</a>
-<span class="doc">Team · 자동화 지도</span>
-</div></div>
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">운영</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
 <div class="wrap">
 
-<header>
-  <p class="eyebrow">FOOTHOLD · 팀 공유</p>
+<div class="hero">
+  <div class="eyebrow">Automation · 자동화 지도</div>
   <h1>자동화 지도</h1>
-  <p class="lede">여러분이 올린 것이 어디로 가고, 무엇이 저절로 일어나고, 어디서 사람이 필요한가.</p>
-  <div class="legend">
-    <span class="lg"><span class="sw" style="background:var(--you)"></span> 팀원이 하는 일</span>
-    <span class="lg"><span class="sw" style="background:var(--bot)"></span> 자동으로 일어나는 일</span>
-    <span class="lg"><span class="sw" style="background:var(--lead)"></span> 팀장이 판단하는 일</span>
-    <span class="lg"><span class="sw" style="background:var(--stop)"></span> 아직 자동이 아닌 것</span>
-  </div>
-</header>
+  <p class="lede">올린 것이 어디로 가고, 무엇이 저절로 일어나고, 어디서 사람이 필요한가.</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-27 11:20</span></div><div><span class="k">상태</span><span class="v">확정</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/AUTOMATION.md</span></div></div>
+  <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
+</div>
 
-<section>
-  <div class="sechead"><span class="n">01</span><h2>제출부터 게시까지</h2></div>
-  <p>가장 자주 쓰는 길입니다. <b>여러분이 하는 일은 두 개뿐입니다.</b> 커밋하고, PR을 올리는 것. 나머지는 기계가 합니다.</p>
-
-  <figure>
-    <div class="scroll">
-      <svg viewBox="0 0 940 430" role="img" aria-label="팀원이 PR을 올리면 디스코드와 팀장 텔레그램에 알림이 가고 기계가 자동 검토한 뒤 팀장이 머지하면 웹에 게시되는 흐름">
-        <defs>
-          <marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
-          </marker>
-        </defs>
-
-        <rect x="16" y="20" width="196" height="76" rx="4" fill="var(--you-soft)" stroke="var(--you)" stroke-width="1.7"/>
-        <text x="114" y="46" fill="var(--you)" font-size="13" font-weight="800" text-anchor="middle">① 팀원</text>
-        <text x="114" y="66" fill="var(--body)" font-size="11" text-anchor="middle">브랜치에 commit</text>
-        <text x="114" y="84" fill="var(--body)" font-size="11" text-anchor="middle">PR 열기</text>
-
-        <line x1="212" y1="58" x2="286" y2="58" stroke="var(--bot)" stroke-width="1.9" color="var(--bot)" marker-end="url(#m1)"/>
-
-        <rect x="292" y="14" width="212" height="88" rx="4" fill="var(--bot-soft)" stroke="var(--bot)" stroke-width="1.7"/>
-        <text x="398" y="38" fill="var(--bot)" font-size="13" font-weight="800" text-anchor="middle">② 즉시 알림 (자동)</text>
-        <text x="398" y="58" fill="var(--body)" font-size="11" text-anchor="middle">디스코드 채널</text>
-        <text x="398" y="76" fill="var(--body)" font-size="11" text-anchor="middle">팀장 텔레그램</text>
-        <text x="398" y="94" fill="var(--muted)" font-size="10" text-anchor="middle">머지 전에 온다</text>
-
-        <line x1="504" y1="58" x2="578" y2="58" stroke="var(--bot)" stroke-width="1.9" color="var(--bot)" marker-end="url(#m1)"/>
-
-        <rect x="584" y="8" width="236" height="100" rx="4" fill="var(--bot-soft)" stroke="var(--bot)" stroke-width="1.7"/>
-        <text x="702" y="32" fill="var(--bot)" font-size="13" font-weight="800" text-anchor="middle">③ 자동 검토 (자동)</text>
-        <text x="702" y="52" fill="var(--body)" font-size="11" text-anchor="middle">개인정보 · 형식 · 증거 표기</text>
-        <text x="702" y="70" fill="var(--body)" font-size="11" text-anchor="middle">종류를 가려 기준을 다르게</text>
-        <text x="702" y="88" fill="var(--muted)" font-size="10" text-anchor="middle">연구문서 · 자기소개 · 개인사이트</text>
-        <text x="702" y="104" fill="var(--muted)" font-size="10" text-anchor="middle">결과를 팀장 텔레그램으로</text>
-
-        <line x1="702" y1="112" x2="702" y2="152" stroke="var(--lead)" stroke-width="1.9" color="var(--lead)" marker-end="url(#m1)"/>
-
-        <rect x="584" y="158" width="236" height="80" rx="4" fill="var(--lead-soft)" stroke="var(--lead)" stroke-width="1.7"/>
-        <text x="702" y="182" fill="var(--lead)" font-size="13" font-weight="800" text-anchor="middle">④ 팀장 확인</text>
-        <text x="702" y="202" fill="var(--body)" font-size="11" text-anchor="middle">GitHub 에서 머지</text>
-        <text x="702" y="220" fill="var(--body)" font-size="11" text-anchor="middle">또는 PR 에 «/머지» 코멘트</text>
-        <text x="702" y="234" fill="var(--muted)" font-size="10" text-anchor="middle">폰에서도 된다</text>
-
-        <line x1="584" y1="198" x2="510" y2="198" stroke="var(--bot)" stroke-width="1.9" color="var(--bot)" marker-end="url(#m1)"/>
-
-        <rect x="292" y="158" width="212" height="80" rx="4" fill="var(--bot-soft)" stroke="var(--bot)" stroke-width="1.7"/>
-        <text x="398" y="182" fill="var(--bot)" font-size="13" font-weight="800" text-anchor="middle">⑤ 머지 직후 (자동)</text>
-        <text x="398" y="202" fill="var(--body)" font-size="11" text-anchor="middle">승격 검토 이슈 자동 생성</text>
-        <text x="398" y="220" fill="var(--body)" font-size="11" text-anchor="middle">브랜치 삭제 · 결과 텔레그램</text>
-
-        <line x1="398" y1="244" x2="398" y2="288" stroke="var(--lead)" stroke-width="1.9" color="var(--lead)" marker-end="url(#m1)"/>
-
-        <rect x="292" y="294" width="212" height="76" rx="4" fill="var(--lead-soft)" stroke="var(--lead)" stroke-width="1.7"/>
-        <text x="398" y="318" fill="var(--lead)" font-size="13" font-weight="800" text-anchor="middle">⑥ 승격 판단</text>
-        <text x="398" y="338" fill="var(--body)" font-size="11" text-anchor="middle">이슈에 «/승격» 코멘트</text>
-        <text x="398" y="356" fill="var(--muted)" font-size="10" text-anchor="middle">보류 · 반려도 여기서</text>
-
-        <line x1="504" y1="332" x2="578" y2="332" stroke="var(--bot)" stroke-width="1.9" color="var(--bot)" marker-end="url(#m1)"/>
-
-        <rect x="584" y="294" width="236" height="76" rx="4" fill="var(--bot-soft)" stroke="var(--bot)" stroke-width="1.7"/>
-        <text x="702" y="318" fill="var(--bot)" font-size="13" font-weight="800" text-anchor="middle">⑦ 웹 게시 (자동)</text>
-        <text x="702" y="338" fill="var(--body)" font-size="11" text-anchor="middle">docs/research/ 로 이동</text>
-        <text x="702" y="356" fill="var(--muted)" font-size="10" text-anchor="middle">사이트 빌드가 페이지를 만든다</text>
-
-        <text x="16" y="398" fill="var(--muted)" font-size="11">파란 상자는 전부 자동이다. 사람이 손대는 곳은 ① 제출 · ④ 머지 · ⑥ 승격 판단 세 곳뿐이다.</text>
-        <text x="16" y="418" fill="var(--muted)" font-size="11">②③ 이 머지 «전» 에 온다는 것이 핵심이다. 팀장이 모르는 채로 지나가는 일이 없다.</text>
-      </svg>
-    </div>
-    <figcaption>2026-08-24 이전에는 ②③이 «머지한 뒤»에야 울렸습니다. 팀장이 이미 처리한 다음에 알림이 오니 소용이 없었고, 그것을 고친 것이 이 구조입니다.</figcaption>
-  </figure>
+<blockquote><p>분류: 가이드
+작성: 오흥재 · 2026-08-27 11:20
+근거: 실측 (2026-08-27 시험 이슈·시험 PR 로 각 경로 확인)
+요지: 올린 것이 어디로 가고, 무엇이 저절로 일어나고, 어디서 사람이 필요한가.
+상태: 확정</p></blockquote>
+<blockquote><p><b>이 문서는 md 가 원본이다</b> (2026-08-27 이관). 전에는 HTML 을 손으로 고쳤고,
+그래서 결정이 바뀌어도 이 페이지만 낡은 채 남았다. 폐기된 저장소 이름과
+옛 갈래 어휘가 여기 살아 있었다. 이제 md 를 고치면 웹이 따라온다.</p></blockquote>
 </section>
-
-<section>
-  <div class="sechead"><span class="n">02</span><h2>이슈로 일을 나눈다</h2></div>
-  <p>«무엇을 할지»를 먼저 선언하는 곳입니다. 이슈를 만들면 보드에 자동 등록되고, 디스코드에도 알림이 갑니다. <b>세 가지 중에 고르면 됩니다.</b></p>
-
-  <div class="cards">
-    <div class="card">
-      <h3>작업</h3>
-      <p>«이런 작업을 진행합니다» 하고 선언. 무엇을 하나 + 끝났다는 기준. 두 문장이면 충분합니다.</p>
-    </div>
-    <div class="card">
-      <h3>리서치</h3>
-      <p>답을 모르는 질문 하나. 왜 궁금한지 적으면 더 좋지만 필수는 아닙니다.</p>
-    </div>
-    <div class="card">
-      <h3>막힘 · 오류</h3>
-      <p>안 되는 것. 에러 메시지를 그대로 붙여넣으면 됩니다. 정리 안 해도 됩니다.</p>
-    </div>
-  </div>
-
-  <div class="note">
-    <p><b>«리서치» 템플릿이 그동안 고장나 있었습니다.</b> 템플릿이 지정한 라벨이 저장소에 없어서 이슈 생성이 실패했습니다. 한 번 실패하면 다시 안 쓰게 됩니다. 2026-08-25 에 고쳤습니다. 이제 세 가지 다 됩니다.</p>
-  </div>
-
-  <div class="tbl">
-    <table>
-      <thead><tr><th>이슈에 일어나는 일</th><th>누가</th><th>언제</th></tr></thead>
-      <tbody>
-        <tr><td>보드에 자동 등록</td><td><span class="tag t-auto">자동</span></td><td>이슈를 여는 즉시</td></tr>
-        <tr><td>디스코드 알림</td><td><span class="tag t-auto">자동</span></td><td>열릴 때 · 닫힐 때</td></tr>
-        <tr><td>갈래별 하위 이슈 연결</td><td><span class="tag t-auto">자동</span></td><td>본문에 갈래를 적으면</td></tr>
-        <tr><td>마감 지난 것 이름과 함께 호출</td><td><span class="tag t-auto">자동</span></td><td>평일 오전 9시</td></tr>
-        <tr><td>실적 종료일 기록</td><td><span class="tag t-auto">자동</span></td><td>이슈를 닫을 때</td></tr>
-        <tr><td>주간 리포트</td><td><span class="tag t-auto">자동</span></td><td>매주</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p>마감 알림은 <b>지난 것이 없으면 아무 말도 하지 않습니다.</b> 매일 «이상 없음»을 보내면 곧 아무도 안 보기 때문입니다.</p>
+<section id="s1"><h2>1. 손으로 하는 것은 하나뿐이다</h2>
+<div class="tw"><table><thead><tr><th>순서</th><th>무엇을 한다</th><th>보드</th><th>누가</th></tr></thead><tbody><tr><td>1</td><td>이슈를 만든다. 본인에게 배정하고 기간을 넣는다</td><td>Todo</td><td>자동</td></tr><tr><td>2</td><td>폼에서 「작업 영역」과 「어느 관문까지」를 고른다</td><td>라벨 · 마일스톤</td><td>자동</td></tr><tr><td>3</td><td>작업 전 브랜치를 판다</td><td></td><td>본인</td></tr><tr><td>4</td><td><b>이슈를 In Progress 로 옮긴다</b></td><td>In Progress</td><td><b>본인 (손으로)</b></td></tr><tr><td>5</td><td>작업하고 커밋한다</td><td></td><td>본인</td></tr><tr><td>6</td><td>PR 을 연다. 본문에 <code>Closes #번호</code></td><td>In Progress</td><td>자동</td></tr><tr><td>7</td><td>팀장이 확인한다</td><td></td><td>팀장</td></tr><tr><td>8</td><td>머지되면 이슈가 자동으로 닫힌다</td><td>Done</td><td>자동</td></tr></tbody></table></div>
+<p><b>4번 하나만 손으로 합니다.</b> 나머지는 전부 자동입니다.</p>
+<blockquote><p><code>Closes #29</code> 는 PR 을 <b>열 때가 아니라 머지될 때</b> 이슈를 닫습니다.
+그래서 PR 이 먼저입니다. <code>main</code> 에 안 들어간 작업은 아직 끝난 것이 아닙니다.</p></blockquote>
 </section>
-
-<section>
-  <div class="sechead"><span class="n">03</span><h2>그 밖에 저절로 도는 것</h2></div>
-  <div class="tbl">
-    <table>
-      <thead><tr><th>무엇</th><th>언제</th><th>어디로</th></tr></thead>
-      <tbody>
-        <tr><td>조선대 강의 자료 감시</td><td>매일 10시 · 16시</td><td>새 자료가 올라오면 디스코드 · 팀장 텔레그램</td></tr>
-        <tr><td>main 직접 push 감시</td><td>push 될 때</td><td>디스코드. 규칙을 깬 것을 조용히 넘기지 않는다</td></tr>
-        <tr><td>공지 발송</td><td>팀장이 실행</td><td>디스코드. 원고는 저장소에 남는다</td></tr>
-        <tr><td>주간 다이제스트</td><td>일요일 21시</td><td>이번 주에 무엇을 했는지 자동 정리</td></tr>
-        <tr><td>사이트 게시</td><td>docs 에 문서가 들어오면</td><td>웹페이지 자동 생성 · 배포</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p>강의 자료 감시는 <b>알림까지만 자동</b>입니다. 자료실은 암호를 걸어 올리는데 그 암호가 팀장 PC 에만 있어서, 실제 게시는 팀장이 합니다. 이것은 고장이 아니라 <b>일부러 그렇게 둔 것</b>입니다.</p>
+<section id="s2"><h2>2. 이슈를 만들면 무엇이 일어나나</h2>
+<div class="tw"><table><thead><tr><th>언제</th><th>무엇이</th><th>어디서</th></tr></thead><tbody><tr><td>이슈 생성</td><td>보드에 Todo 카드가 생긴다</td><td>GitHub Projects</td></tr><tr><td>이슈 생성</td><td>시작·종료 날짜가 박힌다</td><td><code>issue-dates.yml</code></td></tr><tr><td>이슈 생성</td><td>담당자가 작성자로 지정된다</td><td>GitHub Projects</td></tr><tr><td>이슈 생성·수정</td><td><b>폼의 답이 라벨·마일스톤이 된다</b></td><td><code>issue-triage.yml</code></td></tr><tr><td>이슈 생성·수정</td><td>팀장 텔레그램으로 알림</td><td><code>issue-triage.yml</code></td></tr><tr><td>이슈 닫힘</td><td>보드가 Done 으로</td><td>GitHub Projects</td></tr></tbody></table></div>
+<p><b>폼의 답이 옮겨지는 것이 핵심입니다.</b> 전에는 「어느 갈래인가」를 물어놓고 그 답이 본문 글자로만 남아 보드에서 묶이지 않았습니다. 팀원이 안 적어서가 아니라 <b>적은 것이 옮겨지지 않아서</b> 팀장이 손으로 분류하고 있었습니다.</p>
+<p>작업 영역을 안 고르면 팀장 텔레그램에 <b>「분류 안 됨」</b> 이 갑니다. 조용히 넘어가지 않습니다.</p>
+<h3>이슈 템플릿</h3>
+<div class="tw"><table><thead><tr><th>템플릿</th><th>언제</th><th>어디</th></tr></thead><tbody><tr><td>작업 등록</td><td>이런 작업을 하겠다고 미리 올릴 때</td><td>lab · go2</td></tr><tr><td>실험 기록</td><td>가설 하나, 변경 하나. 결과를 숫자로 판정할 때</td><td>go2</td></tr><tr><td>리서치</td><td>답을 모르는 질문이 있을 때</td><td>lab</td></tr><tr><td>막힘·오류</td><td>안 되는 것이 있을 때</td><td>lab · go2</td></tr></tbody></table></div>
+<p><b>빈 이슈로 만들지 않습니다.</b> 목록에서 골라야 폼이 뜨고, 폼이 있어야 자동 분류가 됩니다.</p>
 </section>
-
-<section>
-  <div class="sechead"><span class="n">04</span><h2>아직 자동이 아닌 것</h2></div>
-  <p>정직하게 적습니다. 자동이라고 믿고 있다가 안 되는 것이 가장 위험합니다.</p>
-  <div class="tbl">
-    <table>
-      <thead><tr><th>무엇</th><th>왜 자동이 아닌가</th></tr></thead>
-      <tbody>
-        <tr><td>머지</td><td>내용 판단이 필요하다. 다만 폰에서 «/머지» 코멘트로 할 수 있게 해두었다</td></tr>
-        <tr><td>승격 (웹 게시 여부)</td><td>같은 이유. 이슈에 «/승격» 코멘트</td></tr>
-        <tr><td>자료실 업로드</td><td>암호가 팀장 PC 에만 있다. 감지 · 내려받기까지 자동화하고 게시는 팀장이 «/머지» 로 하는 방향으로 <b>진행 중</b></td></tr>
-        <tr><td>회의록 작성</td><td>녹음 전사는 자동, 무엇이 결정이었나는 사람이 정한다</td></tr>
-        <tr><td>코드 리뷰</td><td>기계는 형식만 본다. 옳은지는 사람이 본다</td></tr>
-      </tbody>
-    </table>
-  </div>
+<section id="s3"><h2>3. 문서를 올리면 무엇이 일어나나</h2>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>inbox/&lt;내이름&gt;/ 에 md 를 올리고 PR
+        ↓
+① 디스코드 알림                          팀에 새 제출을 알린다
+② 팀장 텔레그램 검수 결과                 무엇이 갖춰졌고 무엇이 빠졌나
+③ PR 코멘트: 채워진 머리 다섯 줄          복사해서 붙이면 끝
+        ↓
+팀장이 확인하고 머지
+        ↓
+④ [승격 검토] 이슈 생성                   남은 일(정본으로 옮기기)만 추적
+        ↓
+팀장이 docs/ 로 승격
+        ↓
+⑤ 다음 웹 빌드에 페이지로 나간다</pre></div>
+<p><b>③이 새로 생긴 것입니다.</b> 문서 머리 다섯 줄이 없으면 봇이 <b>채워진 블록을 코멘트로</b> 달아 줍니다. 무엇을 어떻게 쓰라고 설명하는 것보다 <b>완성된 예시를 주는 게 빠릅니다.</b></p>
+<p>봇이 채우는 것과 못 채우는 것이 갈립니다.</p>
+<div class="tw"><table><thead><tr><th>줄</th><th>봇이 채우나</th></tr></thead><tbody><tr><td><code>&gt; 작성: 이름 · 날짜 시각</code></td><td>채운다 (PR 작성자를 이름으로 바꿔서)</td></tr><tr><td><code>&gt; 상태: 초안</code></td><td>채운다</td></tr><tr><td><code>&gt; 분류:</code> <code>&gt; 근거:</code> <code>&gt; 요지:</code></td><td>못 채운다. 내용을 읽어야 안다</td></tr></tbody></table></div>
 </section>
-
-<section>
-  <div class="sechead"><span class="n">05</span><h2>브랜치와 커밋</h2></div>
-  <p>이미 정해진 규약입니다. <code>docs/COLLAB.md</code> 5절에 있습니다. 여기서는 요약만 합니다.</p>
-
-  <div class="tbl">
-    <table>
-      <thead><tr><th>저장소</th><th>규칙</th></tr></thead>
-      <tbody>
-        <tr><td>rl</td><td>코드를 바꿀 때만 브랜치를 판다. <code>feature/작업명-이름</code> (예: <code>feature/terrain-lim</code>) → PR 로 <code>dev</code> → 검증된 것만 PR 로 <code>main</code></td></tr>
-        <tr><td>lab</td><td>팀원은 브랜치 → PR. main 직접 커밋은 팀장만. inbox 제출도 같다</td></tr>
-        <tr><td>site · brand</td><td>파이프라인이 관리한다. <b>직접 커밋하지 않는다</b></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p><b>이슈마다 브랜치를 만들 필요는 없습니다.</b> 브랜치는 이슈가 아니라 «PR 로 합칠 코드 변경» 단위입니다. 조사 · 회의 · 막힘 이슈는 브랜치가 아예 필요 없고, 작은 이슈 여럿을 브랜치 하나로 처리해도 됩니다.</p>
-
-  <p><b>이슈 번호를 브랜치 이름에 넣지 않습니다.</b> 권장이지 의무가 아니고, 우리는 넣지 않기로 했습니다. 이름은 <code>작업명-본인이름</code> 이면 충분합니다.</p>
-
-  <div class="note">
-    <p><b>대신 이것만은 반드시.</b> 추적의 핵심은 브랜치 이름이 아니라 커밋이나 PR 본문의 <code>Closes #번호</code> 입니다. 이 한 줄이 있어야 이슈가 자동으로 닫히고, 보드가 움직이고, 실적 날짜가 기록되고, 디스코드 알림이 나갑니다. <b>이것을 빠뜨리면 위의 자동화가 통째로 걸리지 않습니다.</b></p>
-  </div>
-
-  <p>머지된 브랜치는 자동으로 지워집니다. 브랜치는 소모품입니다.</p>
+<section id="s4"><h2>4. 그 밖에 저절로 도는 것</h2>
+<div class="tw"><table><thead><tr><th>언제</th><th>무엇</th><th>워크플로</th></tr></thead><tbody><tr><td>PR 이 열리면</td><td>디스코드 알림</td><td><code>pr-notify.yml</code></td></tr><tr><td>PR 이 머지되면</td><td>디스코드 알림</td><td><code>merge-notify.yml</code></td></tr><tr><td>이슈가 닫히면</td><td>완료 날짜 기록</td><td><code>done-date.yml</code></td></tr><tr><td>월요일 09시</td><td>주간 리포트 + <b>WBS 엑셀 생성</b></td><td><code>weekly-report.yml</code></td></tr><tr><td>일요일 21시</td><td><b>다이제스트 재료 수집</b></td><td><code>weekly-digest.yml</code></td></tr><tr><td>조선대 자료가 올라오면</td><td>감지 알림</td><td><code>lecture-watch.yml</code></td></tr><tr><td>마감이 다가오면</td><td>알림</td><td><code>deadline-alert.yml</code></td></tr><tr><td><code>main</code> 에 직접 push 하면</td><td>감지하고 안내</td><td><code>main-guard.yml</code></td></tr></tbody></table></div>
+<h3>다이제스트는 왜 「재료」만 모으나</h3>
+<p>다이제스트는 <b>「무엇을 알게 됐나」</b> 를 쓰는 문서입니다. 그건 판단이라 기계가 대신 못 씁니다. 커밋 목록에서 「보상이 높다고 걷는 것이 아니다」 같은 문장은 나오지 않습니다. <b>기계가 흉내 내면 그럴듯하고 틀린 글이 남습니다.</b></p>
+<p>그래서 모으는 일만 자동으로 합니다. PR · 닫힌 이슈 · 새 문서 · 커밋을 모아 팀장 텔레그램으로 보냅니다. 쓰는 일은 사람이 합니다.</p>
 </section>
-
-<section>
-  <div class="sechead"><span class="n">06</span><h2>AI 를 쓸 때</h2></div>
-  <p>AI 로 코드를 쓰거나 조사하는 것은 <b>권장합니다.</b> 다만 올리기 전에 아래는 지켜 주세요. 우리 문서는 밖에 나가고, 잘못된 숫자 하나가 프로젝트 전체의 신뢰를 깎습니다.</p>
-
-  <div class="cards">
-    <div class="card">
-      <h3>AI 가 썼어도 올리는 사람은 본인</h3>
-      <p>«AI 가 그랬다» 는 근거가 되지 않습니다. 본인이 읽고 이해한 것만 올려 주세요. 이해 못 한 부분이 있으면 PR 에 «이 부분은 잘 모르겠습니다» 라고 적어 주세요. 숨기는 것보다 낫습니다.</p>
-    </div>
-    <div class="card">
-      <h3>지어낸 것을 거른다</h3>
-      <p>AI 는 논문 제목 · 수치 · 함수 이름 · 링크를 그럴듯하게 만들어 냅니다. <b>링크는 실제로 열어보고</b>, 수치는 어디서 나왔는지 확인하고 올려 주세요.</p>
-    </div>
-    <div class="card">
-      <h3>직접 본 것과 들은 것을 구분</h3>
-      <p>문서에 <code>확인됨</code> · <code>추측</code> · <code>미측정</code> 을 붙여 주세요. 내가 돌려본 것과 AI 가 말한 것은 다릅니다. 이 표기가 없으면 자동 검토가 «손질 필요» 로 돌려보냅니다.</p>
-    </div>
-    <div class="card">
-      <h3>비공개 자료를 통째로 넣지 않는다</h3>
-      <p>조선대 제공 자료는 <b>저작물</b>입니다. 팀 내부 문서 · 계정 정보 · 개인정보도 마찬가지입니다. AI 에 통째로 붙여넣지 마세요. 필요하면 요약해서 묻거나 공개된 부분만 쓰세요.</p>
-    </div>
-    <div class="card">
-      <h3>코드는 돌려보고 올린다</h3>
-      <p>자동 검토는 <b>형식만</b> 봅니다. 돌아가는지는 보지 않습니다. 「생성했다」 가 아니라 「돌려서 이렇게 나왔다」 를 PR 에 적어 주세요.</p>
-    </div>
-    <div class="card">
-      <h3>AI 사용을 숨길 필요는 없다</h3>
-      <p>커밋이나 PR 에 「AI 로 초안을 만들고 확인했습니다」 라고 적어도 됩니다. 오히려 무엇을 검증했는지 알 수 있어 좋습니다.</p>
-    </div>
-  </div>
+<section id="s5"><h2>5. 아직 자동이 아닌 것</h2>
+<div class="tw"><table><thead><tr><th>무엇</th><th>왜 사람이 하나</th></tr></thead><tbody><tr><td>Todo → In Progress</td><td>「지금 시작했다」는 본인만 안다</td></tr><tr><td>inbox → <code>docs/</code> 승격</td><td>무엇을 정본으로 올릴지는 판단이다</td></tr><tr><td>다이제스트 본문</td><td>위 참조</td></tr><tr><td>산출물 상태를 <code>확정</code> 으로</td><td>완료 기준을 보고 사람이 판정한다</td></tr><tr><td>마일스톤 지정</td><td>「언제까지 끝나야 하나」는 담당자만 안다</td></tr></tbody></table></div>
 </section>
-
-<section>
-  <div class="sechead"><span class="n">07</span><h2>신경 쓰지 않아도 되는 것</h2></div>
-  <p>이미 처리되도록 만들어 두었습니다. <b>여기 적힌 것을 걱정하느라 시간을 쓰지 마세요.</b></p>
-  <div class="tbl">
-    <table>
-      <thead><tr><th>이것</th><th>어떻게 처리되나</th></tr></thead>
-      <tbody>
-        <tr><td>팀장에게 알리기</td><td>PR 을 여는 순간 디스코드와 텔레그램으로 자동으로 갑니다. 따로 연락하지 않아도 됩니다</td></tr>
-        <tr><td>보드에 등록하기</td><td>이슈를 만들면 자동으로 올라갑니다</td></tr>
-        <tr><td>개인정보가 섞였나</td><td>기계가 먼저 훑습니다 (전화번호 · 주민번호 · 주소). <b>다만 최종 책임은 본인</b>입니다</td></tr>
-        <tr><td>마크다운을 웹페이지로</td><td>승격되면 페이지 · 목차 · 검색 색인 · PDF 저장까지 자동으로 만들어집니다</td></tr>
-        <tr><td>파일 이름 규칙</td><td>팀장이 정돈합니다. 편한 이름으로 올리세요</td></tr>
-        <tr><td>문체 규칙 (em dash 등)</td><td>빌드가 막습니다. 어긴 채로는 게시되지 않습니다</td></tr>
-        <tr><td>다크 모드 · 모바일 대응</td><td>자동입니다</td></tr>
-        <tr><td>브랜치 지우기</td><td>머지되면 자동으로 지워집니다</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p><b>완벽하게 쓰려다 안 올리는 것이 가장 나쁩니다.</b> 형식은 위 장치들이 받아 줍니다. 여러분이 신경 쓸 것은 <b>내용이 맞는가</b> 하나입니다.</p>
+<section id="s6"><h2>6. 브랜치와 커밋</h2>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>feature/주제-이름      새로 만드는 것
+fix/무엇이안되나-이름    고치는 것
+docs/문서명-이름        문서만</pre></div>
+<p><b>이슈 번호를 붙이지 않습니다.</b> 뒤에 자기 이름을 붙입니다. 다섯이 같은 주제를 만져도 브랜치가 안 겹칩니다.</p>
+<div class="tw"><table><thead><tr><th>이름</th><th>임석헌</th><th>맹라현</th><th>오현민</th><th>오흥재</th><th>이민우</th></tr></thead><tbody><tr><td>브랜치 약자</td><td><code>lim</code></td><td><code>meang</code></td><td><code>oh</code></td><td><code>jay</code></td><td><code>lee</code></td></tr><tr><td>GitHub 핸들</td><td><code>IQ152</code></td><td><code>maengu86</code></td><td><code>less82</code></td><td><code>vfxpedia</code></td><td><code>lmw0207</code></td></tr></tbody></table></div>
+<p><b>추적의 핵심은 브랜치 이름이 아니라 커밋·PR 의 <code>Closes #번호</code> 입니다.</b> 이것만은 반드시.</p>
+<p><code>foothold-go2</code> 는 한 단계가 더 있습니다. 코드 저장소라 검증된 것만 <code>main</code> 에 둡니다.</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>feature/…  -&gt;  PR  -&gt;  dev  -&gt;  검증된 것만 PR  -&gt;  main</pre></div>
+<p>머지된 브랜치는 지웁니다. 브랜치는 소모품입니다.</p>
 </section>
-
-<section>
-  <div class="sechead"><span class="n">08</span><h2>AI 에이전트에게 시킬 때 걸리는 것</h2></div>
-  <p>이 지도만 읽고 AI 에게 일을 시키면 <b>거의 확실하게 걸리는 것들</b>이 있습니다. 기계가 막기 때문에 조용히 넘어가지 않고, 빌드가 멈추거나 자동화가 통째로 안 걸립니다.</p>
-
-  <div class="tbl">
-    <table>
-      <thead><tr><th>AI 가 하기 쉬운 것</th><th>무슨 일이 나나</th></tr></thead>
-      <tbody>
-        <tr><td>긴 줄표(em dash)를 쓴다</td><td><b>빌드가 멈춥니다.</b> AI 는 이 문자를 습관적으로 씁니다. 우리 문체 규칙에서 금지라 배포 직전 관문이 잡아냅니다</td></tr>
-        <tr><td>글자로 그린 도식을 만든다</td><td><b>빌드가 멈춥니다.</b> 박스·화살표·트리 가지를 글자로 그린 것은 웹에서 깨집니다. 표나 SVG 로 바꿔야 합니다</td></tr>
-        <tr><td><code>git push origin main</code> 을 시도한다</td><td>막혀 있지는 않지만 <b>디스코드에 알림이 갑니다.</b> 그리고 자동화가 전부 건너뛰어집니다</td></tr>
-        <tr><td>보드에서 <code>+ Add item</code> 으로 항목을 만든다</td><td>저장소에 없는 <b>가짜 이슈(draft)</b>가 되어 자동화가 하나도 안 붙습니다</td></tr>
-        <tr><td>커밋에 <code>Closes #번호</code> 를 안 넣는다</td><td>이슈가 안 닫히고 보드도 안 움직이고 실적 날짜도 안 남습니다</td></tr>
-        <tr><td>출처와 수치를 그럴듯하게 지어낸다</td><td>사실 검증 관문이 잡아 <b>배포를 중단</b>합니다. 링크는 실제로 열리는지 확인해야 합니다</td></tr>
-        <tr><td><code>확인됨</code> 표기 없이 문서를 쓴다</td><td>자동 검토가 «손질 필요» 로 돌려보냅니다</td></tr>
-        <tr><td>site · brand 저장소를 직접 고친다</td><td>파이프라인이 관리하는 곳입니다. 다음 빌드에 덮어써집니다</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>AI 에게 먼저 알려주세요</h3>
-  <p>작업을 시키기 전에 아래를 그대로 복사해 넣으면 위의 사고가 대부분 사라집니다.</p>
-
-  <div class="paste">
-    <div class="paste-h">복사해서 AI 에게 붙여넣기</div>
-    <pre>[FOOTHOLD 프로젝트 규칙 - 반드시 지킬 것]
-
-문체
-- 긴 줄표(em dash) 를 절대 쓰지 마라. 대신 마침표 · 쌍점 · 하이픈 · 가운뎃점을 써라.
-- 글자로 도식을 그리지 마라(박스 · 화살표 · 트리). 표로 쓰거나 그림이 필요하다고만 적어라.
-- 근거가 있는 것은 `확인됨`, 추측은 `추측`, 안 해본 것은 `미측정` 이라고 표기해라.
-- 출처 링크는 실제로 존재하는 것만 써라. 확신이 없으면 링크를 넣지 말고 "출처 미확인" 이라고 적어라.
-
-git
-- main 에 직접 push 하지 마라. 브랜치를 만들고 PR 을 열어라.
-- 브랜치 이름은 feature/작업명-내이름 형식. 이슈 번호는 넣지 않는다.
-- 커밋 메시지나 PR 본문에 Closes #번호 를 반드시 넣어라.
-- site · brand 저장소는 건드리지 마라.
-
-제출
-- 결과물은 inbox/내폴더/ 아래에 둔다.
-- 전화번호 · 주소 · 주민번호 같은 개인정보를 절대 쓰지 마라. 공개 사이트에 나간다.
-- 조선대 제공 자료는 저작물이다. 통째로 인용하거나 재배포하지 마라.
-
-확인
-- 코드는 실제로 돌려보고, "돌려서 이렇게 나왔다" 를 PR 에 적어라.
-- 내가 확인하지 못한 부분은 숨기지 말고 PR 에 그대로 적어라.</pre>
-  </div>
-
-  <div class="note">
-    <p><b>AI 에 넣으면 안 되는 것.</b> 조선대 제공 자료 원본, 팀 내부 문서, 계정 정보, 팀원 개인정보. 저작물이고 공개 서비스에 올라가는 순간 통제할 수 없습니다. 필요하면 <b>요약해서 묻거나 공개된 부분만</b> 쓰세요.</p>
-  </div>
+<section id="s7"><h2>7. 어디에 무엇을 올리나</h2>
+<div class="tw"><table><thead><tr><th>무엇</th><th>어디에</th><th>어떻게</th></tr></thead><tbody><tr><td><b>문서</b> (정리 안 된 것 포함)</td><td><code>inbox/&lt;내이름&gt;/</code></td><td>PR. 팀장이 확인하고 머지</td></tr><tr><td><b>코드</b></td><td><code>sim/</code> <code>nav/</code> <code>common/</code></td><td>브랜치 → PR. <b>inbox 를 거치지 않는다</b></td></tr><tr><td>정본 문서 <code>docs/</code></td><td>직접 고치지 않는다</td><td>팀장이 inbox 에서 승격</td></tr></tbody></table></div>
+<p><b>코드가 inbox 를 안 거치는 이유</b>: 문서는 팀장이 옮겨도 뜻이 안 변하지만 <b>코드는 옮기면 도는지 보장할 수 없습니다.</b></p>
+<h3>폴더가 작업 영역과 짝을 이룹니다</h3>
+<div class="tw"><table><thead><tr><th>작업 영역</th><th>폴더</th><th>주담당</th></tr></thead><tbody><tr><td><code>A/정책학습</code></td><td><code>sim/policy/</code></td><td>임석헌</td></tr><tr><td><code>A/지형씬제작</code></td><td><code>sim/terrain/</code></td><td>맹라현</td></tr><tr><td><code>A/평가</code></td><td><code>sim/eval/</code></td><td>오현민</td></tr><tr><td><code>A/트윈렌더</code></td><td><code>sim/twin/</code></td><td>맹라현</td></tr><tr><td><code>B/항법</code></td><td><code>nav/</code></td><td>오흥재</td></tr><tr><td><code>B/인지</code></td><td><code>nav/perception/</code></td><td>오현민</td></tr><tr><td><code>C/기록</code></td><td><code>docs/</code></td><td>이민우</td></tr><tr><td><code>C/운영</code></td><td><code>.github/</code></td><td>오흥재</td></tr></tbody></table></div>
+<p>이슈에 <code>A/평가</code> 가 붙으면 코드는 <code>sim/eval/</code> 입니다. 찾을 때 헤매지 않습니다.</p>
 </section>
-
-<section>
-  <div class="sechead"><span class="n">09</span><h2>실수로 main 에 push 했다면</h2></div>
-  <p>일어납니다. <b>당황해서 더 큰 사고를 내는 것이 진짜 문제</b>이므로 순서를 적어 둡니다.</p>
-
-  <h3>팀원이 할 것 (세 가지뿐)</h3>
-  <div class="tbl">
-    <table>
-      <thead><tr><th>순서</th><th>무엇을</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td><b>아무것도 더 하지 마세요.</b> 특히 <code>--force</code> 는 쓰지 마세요. 되돌리려다 남의 작업을 지웁니다</td></tr>
-        <tr><td>2</td><td>무엇이 올라갔는지만 확인해 알려주세요. <code>git log origin/main -3 --oneline</code></td></tr>
-        <tr><td>3</td><td>디스코드에 이미 알림이 갔습니다. <b>추가로 한 줄만</b> 남겨주세요. 「실수로 push 했습니다. 커밋 abc1234」</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p>혼나는 자리가 아닙니다. <b>빨리 말할수록 되돌리기 쉽습니다.</b> 숨기면 그 위에 다른 작업이 쌓여 되돌리기가 훨씬 어려워집니다.</p>
-
-  <h3>팀장이 할 것</h3>
-  <div class="tbl">
-    <table>
-      <thead><tr><th>상황</th><th>대응</th></tr></thead>
-      <tbody>
-        <tr><td>그냥 잘못 올라간 것</td><td><code>git revert &lt;커밋&gt;</code> 로 되돌리는 <b>새 커밋</b>을 만든다. 이력이 남아 안전하다</td></tr>
-        <tr><td>여러 커밋</td><td><code>git revert --no-commit A..B</code> 로 묶어서 되돌린다</td></tr>
-        <tr><td>내용은 괜찮은데 절차만 어긴 것</td><td><b>되돌리지 않는다.</b> 그대로 두고 다음부터 PR 로 오라고 말한다. 되돌리는 것이 항상 정답은 아니다</td></tr>
-        <tr><td>비밀번호 · 토큰 · 키가 섞였다</td><td><b>revert 로는 부족하다.</b> 이력에 그대로 남는다. <b>그 키를 즉시 무효화하고 새로 발급</b>하는 것이 진짜 대응이다</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="note">
-    <p><b><code>reset --hard</code> 뒤 강제 push 는 하지 않습니다.</b> 남의 로컬과 어긋나 더 큰 혼란을 만들고, 이미 받아간 사람에게는 아무것도 지워지지 않습니다. 되돌릴 때는 <code>revert</code> 입니다.</p>
-  </div>
+<section id="s8"><h2>8. AI 를 쓸 때</h2>
+<h3>AI 가 썼어도 올리는 사람은 본인이다</h3>
+<p>AI 가 만든 글이든 코드든 <b>PR 을 올린 사람이 책임집니다.</b> 읽지 않고 올리지 않습니다.</p>
+<h3>지어낸 것을 거른다</h3>
+<p>AI 는 없는 함수·없는 논문·없는 수치를 <b>자신 있게</b> 만들어 냅니다. <b>숫자와 출처는 반드시 눈으로 확인</b>하십시오.</p>
+<h3>직접 본 것과 들은 것을 구분한다</h3>
+<p>주장에 신뢰도를 답니다. 이게 이 팀 문서의 핵심 규칙입니다.</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>`확인됨`   직접 보거나 재서 확인한 것
+`추측`     그럴듯하지만 확인 안 한 것
+`미확인`   확인이 필요한 것
+`미측정`   재보지 않은 수치</pre></div>
+<p><b>재보지 않은 것에 「확인했다」를 쓰지 마십시오.</b> 확인 비용이 2분이면 확인하십시오.</p>
+<h3>비공개 자료를 통째로 넣지 않는다</h3>
+<p>조선대 강의 자료 원본 · 팀 내부 문서 · 계정 정보 · 개인정보는 AI 에 넣지 않습니다.</p>
+<h3>코드는 돌려보고 올린다</h3>
+<p>AI 가 준 코드가 <b>도는지 확인하고</b> 올립니다. 「그럴듯한 코드」와 「도는 코드」는 다릅니다.</p>
+<h3>AI 사용을 숨길 필요는 없다</h3>
+<p>우리는 AI 를 씁니다. 문제는 쓰는 것이 아니라 <b>확인 없이 올리는 것</b>입니다.</p>
 </section>
-
-<section>
-  <div class="sechead"><span class="n">10</span><h2>inbox 제출 : 어디까지 맞춰 오면 되나</h2></div>
-  <p><b>최소 규칙만 맞으면 됩니다.</b> 잘 만들어 오셨으면 그대로 올라갑니다. 완벽하게 다듬느라 안 올리는 것이 가장 나쁩니다.</p>
-
-  <div class="tbl">
-    <table>
-      <thead><tr><th>최소 규칙</th><th>왜</th></tr></thead>
-      <tbody>
-        <tr><td>본인 폴더에 넣는다 <code>inbox/본인폴더/</code></td><td>누가 낸 것인지 경로로 알 수 있게</td></tr>
-        <tr><td>개인정보를 넣지 않는다</td><td>공개 사이트로 나갑니다</td></tr>
-        <tr><td>긴 줄표 · 글자 도식을 쓰지 않는다</td><td>빌드가 멈춥니다</td></tr>
-        <tr><td>확인한 것과 추측을 구분한다</td><td>안 하면 어디까지 믿을지 알 수 없습니다</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>부족한 것이 있으면 어떻게 되나</h3>
-  <p><b>여러분의 글을 마음대로 고치지 않습니다.</b> 대신 이렇게 갑니다.</p>
-
-  <div class="tbl">
-    <table>
-      <thead><tr><th></th><th>무슨 일이</th><th>누가</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td>기계가 읽고 무엇이 부족한지 판정</td><td><span class="tag t-auto">자동</span></td></tr>
-        <tr><td>2</td><td>보완이 필요하면 <b>같은 PR 에 «보완» 커밋을 따로</b> 올린다. 원문 커밋과 섞지 않는다</td><td><span class="tag t-auto">자동</span></td></tr>
-        <tr><td>3</td><td>무엇을 왜 보탰는지 요약해 팀장 텔레그램으로</td><td><span class="tag t-auto">자동</span></td></tr>
-        <tr><td>4</td><td>팀장이 PR 에서 확인 · 승인하거나 피드백</td><td><span class="tag t-lead">팀장</span></td></tr>
-        <tr><td>5</td><td>승인되면 머지 · 웹 게시</td><td><span class="tag t-auto">자동</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p><b>보완 커밋을 따로 두는 이유</b>는 «어디까지가 내가 쓴 것이고 어디부터 보태진 것인가» 가 남아야 하기 때문입니다. 여러분의 이름으로 나가는 글입니다.</p>
-
-  <div class="note">
-    <p><b>지금은 여기까지가 완전 자동이 아닙니다.</b> 「무엇이 부족한가」를 판정하는 것까지는 기계가 혼자 합니다. 그러나 실제로 문장을 보태고 출처를 찾아 검증하는 2번 단계는 <b>팀장 워크스테이션의 세션이 붙어야</b> 돌아갑니다.</p>
-    <p>즉 팀장 PC 가 꺼져 있으면 <b>판정과 알림까지만 오고 보완은 멈춥니다.</b> 자동이라고 믿고 기다리면 안 되므로 적어 둡니다. 이것을 기계 쪽으로 옮기는 작업은 별도로 진행 중입니다.</p>
-  </div>
-
-  <p>팀장의 피드백은 <b>PR 코멘트로 남습니다.</b> 여러분도 볼 수 있고, 다음에 낼 때 같은 지적을 안 받게 됩니다.</p>
+<section id="s9"><h2>9. AI 에이전트에게 시킬 때 걸리는 것</h2>
+<h3>작업 전에 반드시 <code>git pull origin main</code></h3>
+<p>옛 상태에서 갈라진 브랜치로 작업하면 AI 는 <b>그 시점의 저장소만</b> 봅니다. 오래된 상태를 주면 오래된 답이 나옵니다. 8/25 와 8/26 에 같은 사고가 두 번 났습니다.</p>
+<h3>저장소 루트의 <code>AGENTS.md</code> 를 읽게 하십시오</h3>
+<p>Cursor 와 Codex 는 자동으로 읽습니다. Claude Code 는 <code>CLAUDE.md</code> 를 읽는데 그것도 같은 곳을 가리킵니다. <b>여러분이 따로 하실 일은 없습니다.</b></p>
+<p>개인 작업 방식은 <code>AGENTS.md</code> 에 적지 말고 <code>inbox/&lt;이름&gt;/AGENTS.md</code> 를 만들거나 로컬 설정(gitignore 대상)으로 두십시오. 공통 파일에 개인 설정이 섞이면 <b>다른 사람의 에이전트가 그것을 규칙으로 읽습니다.</b></p>
+<h3>AI 가 거의 확실하게 걸리는 것</h3>
+<div class="tw"><table><thead><tr><th>무엇</th><th>왜</th></tr></thead><tbody><tr><td><b>em dash</b> (긴 줄표)</td><td>AI 가 습관처럼 씁니다. 빌드가 배포를 멈춥니다</td></tr><tr><td>선으로 그린 글자 도식</td><td>표로 바꿔야 합니다</td></tr><tr><td>근거 표기 없는 단정</td><td><span class="ev ev-ok">확인됨</span>/<span class="ev ev-guess">추측</span>/<span class="ev ev-todo">미확인</span> 을 답니다</td></tr><tr><td>머리 다섯 줄 누락</td><td>PR 봇이 채워진 블록을 줍니다</td></tr></tbody></table></div>
 </section>
-
-<section>
-  <div class="sechead"><span class="n">11</span><h2>여러분이 기억할 것은 이것뿐입니다</h2></div>
-  <div class="tbl">
-    <table>
-      <thead><tr><th>하고 싶은 것</th><th>하면 되는 것</th></tr></thead>
-      <tbody>
-        <tr><td>무엇을 할지 알리고 싶다</td><td>이슈 → «작업»</td></tr>
-        <tr><td>모르는 것이 있다</td><td>이슈 → «리서치»</td></tr>
-        <tr><td>막혔다</td><td>이슈 → «막힘 · 오류». 에러를 그대로 붙여넣기</td></tr>
-        <tr><td>결과물을 냈다</td><td><code>inbox/본인폴더/</code> 에 넣고 commit → PR</td></tr>
-        <tr><td>지금 누가 뭘 하나 보고 싶다</td><td>보드 (이슈가 자동으로 모인다)</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <p><b>main 에 직접 push 하지 마세요.</b> 솔직히 말하면 <b>기술적으로 막혀 있지는 않습니다.</b> 무료 플랜의 비공개 저장소에서는 브랜치 보호를 걸 수 없습니다. 대신 <b>직접 push 하면 그 자리에서 디스코드에 알림이 갑니다.</b> 막을 수 없으니 보이게 만들어 둔 것입니다.</p>
-  <p>브랜치를 만들고 PR 을 여는 것이 번거로워 보이지만, <b>그 한 줄 덕분에 위의 모든 자동화가 걸립니다.</b> main 에 바로 밀면 알림도, 자동 검토도, 승격 큐도 전부 건너뛰어 버립니다.</p>
+<section id="s10"><h2>10. 웹 배포 관문</h2>
+<p><b>PR 은 막지 않습니다. 알려만 줍니다.</b> 막는 것은 <b>웹을 배포할 때</b>입니다.</p>
+<div class="tw"><table><thead><tr><th>관문</th><th>무엇을 막나</th></tr></thead><tbody><tr><td>메타데이터</td><td>머리 다섯 줄이 없거나 형식이 틀린 문서</td></tr><tr><td>문체</td><td>em dash</td></tr><tr><td>선 도식</td><td>선으로 그린 글자 그림</td></tr><tr><td>하위 경로</td><td>하위 폴더 페이지의 깨진 상대경로 (자동 보정)</td></tr><tr><td>링크</td><td>깨진 내부 링크</td></tr><tr><td><b>폐기된 사실</b></td><td>옛 저장소 이름 · 옛 갈래 · 옛 마일스톤이 웹으로 나가는 것</td></tr><tr><td>민감정보</td><td>비밀번호 · 토큰 · 개인 연락처 · 예산 금액</td></tr><tr><td>사실 주장</td><td>외부 원본이 아직 그 말을 하는지 실제로 조회</td></tr></tbody></table></div>
+<p><b>「폐기된 사실」 관문이 2026-08-27 에 생겼습니다.</b> 사실은 문서에만 있는 것이 아니라 빌드 스크립트에도 박혀 있고, 거기 박힌 것은 문서를 고쳐도 안 바뀝니다. 실제로 문서를 다 고쳤는데 웹에 옛 저장소 이름이 살아남은 일이 있었습니다.</p>
+</section>
+<section id="s11"><h2>11. 실수로 <code>main</code> 에 push 했다면</h2>
+<h3>팀원이 할 것 (세 가지뿐)</h3>
+<ol><li><b>더 만지지 마십시오.</b> 되돌리려다 더 꼬입니다</li><li>팀장에게 알리십시오. 무엇을 push 했는지만</li><li>기다리십시오</li></ol>
+<h3>팀장이 할 것</h3>
+<p>되돌릴지 그대로 둘지 판단하고 처리합니다. <code>main-guard.yml</code> 이 감지해서 알려 줍니다.</p>
+</section>
+<section id="s12"><h2>12. 신경 쓰지 않아도 되는 것</h2>
+<div class="tw"><table><thead><tr><th>무엇</th><th>왜</th></tr></thead><tbody><tr><td>웹 배포</td><td>팀장이 빌드합니다. <code>foothold-site</code> 를 직접 고치지 마십시오 (미러입니다)</td></tr><tr><td>라벨·마일스톤 붙이기</td><td>폼에서 고르면 자동입니다</td></tr><tr><td>보드 카드 만들기</td><td>이슈를 만들면 자동입니다</td></tr><tr><td>문서 형식 완벽하게 맞추기</td><td><code>inbox/</code> 는 자유입니다. 봇이 알려 줍니다</td></tr></tbody></table></div>
+</section>
+<section id="s13"><h2>13. 기억할 것은 이것뿐입니다</h2>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>1. 작업 전에 git pull origin main
+2. 이슈를 만들고 「작업 영역」을 고른다
+3. 시작하면 In Progress 로 옮긴다
+4. 커밋·PR 에 Closes #번호</pre></div>
+<p><b>나머지는 자동입니다.</b> 막히면 「막힘·오류」 이슈로 올려 주십시오.</p>
 </section>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<style>html[data-theme="light"]{--paper:#FAFAF7;--paper-2:#eeece6;--card:#FFFFFF;--ink:#161A17;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#DEE1DA;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#A8342F;--stop-soft:#F8E7E5}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
-<style>
-#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
-  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
-  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
-  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
-  line-height:1.3;white-space:nowrap}
-#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
-#themeBtn:active{transform:translateY(1px)}
-@media print{#themeBtn{display:none!important}}
-</style>
-<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
-<script>(function(){
-  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
-      mq=window.matchMedia('(prefers-color-scheme: dark)');
-  function apply(t){d.setAttribute('data-theme',t);
-    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
-  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
-  apply(cur());
-  b.addEventListener('click',function(){
-    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
-  mq.addEventListener&&mq.addEventListener('change',function(){
-    if(!localStorage.getItem(K))apply(cur());});
-})();</script>
+<script>
+document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
+addEventListener('scroll', function(){
+  var h = document.documentElement;
+  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  document.getElementById('prog').style.width = (p * 100) + '%';
+}, {passive:true});
+/* 복사 버튼: 코드 블록과 접속 주소 공용 */
+document.addEventListener('click', function(e){
+  var b = e.target.closest && e.target.closest('.copy');
+  if (!b) return;
+  var t = b.dataset.copy || (b.closest('.cb') && b.closest('.cb').querySelector('pre').innerText);
+  if (!t) return;
+  navigator.clipboard.writeText(t).then(function(){
+    var old = b.textContent;
+    b.textContent = '복사됨'; b.classList.add('done');
+    setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1400);
+  });
+});
+</script>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+</html>

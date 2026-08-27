@@ -446,6 +446,15 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
@@ -458,7 +467,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼</h1>
   <p class="lede">공식 Go2 rough 환경이 로봇·지형·명령·보상·시간축을 어떻게 묶는지, 요약 다음에 상세로 읽는다.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">2026-08-25</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / go2-rough-training.md</span></div><div><span class="k">증거</span><span class="v">확인 20 · 추측 1 · 미측정 0</span></div></div>
+  <div class="meta"><div><span class="k">작성</span><span class="v">맹라현 · 2026-08-25</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / go2-rough-training.md</span></div><div><span class="k">증거</span><span class="v">확인 20 · 추측 1 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -481,7 +490,7 @@ document.addEventListener('DOMContentLoaded',function(){
 → Commands · Actions · Observations
 → Events · Rewards · Terminations
 → PPO 학습 → Checkpoint</pre></div>
-<p>그 다음이 실기 배포라면 증류 → ONNX → Orin NX가 일반 경로다. <b>지금은 시뮬 안에서 평가·트윈·렌더로 닫는다</b> ([프로젝트 보고서](../REPORT.md)).</p>
+<p>그 다음이 실기 배포라면 증류 → ONNX → Orin NX가 일반 경로다. <b>지금은 시뮬 안에서 평가·트윈·렌더로 닫는다</b> (<a href="project-report.html">프로젝트 보고서</a>).</p>
 <div class="tw"><table><thead><tr><th>역할</th><th>클래스 / 파일</th></tr></thead><tbody><tr><td>로봇</td><td><code>UNITREE_GO2_CFG</code></td></tr><tr><td>공통 Env</td><td><code>LocomotionVelocityRoughEnvCfg</code> (<code>velocity_env_cfg.py</code>)</td></tr><tr><td>Go2 특화</td><td><code>UnitreeGo2RoughEnvCfg</code> (<code>go2/rough_env_cfg.py</code>)</td></tr><tr><td>지형</td><td><code>ROUGH_TERRAINS_CFG</code> / <code>TerrainGeneratorCfg</code></td></tr></tbody></table></div>
 </section>
 <section id="s3"><h2>로봇 · 스폰</h2>
@@ -669,7 +678,7 @@ isaaclab_tasks/.../locomotion/velocity/config/go2/rough_env_cfg.py
 <section id="s16"><h2>9. 팀 실험에서 이미 고정된 것</h2>
 <p>이 절은 스터디 메모와 팀 실측을 맞춘 것이다. 숫자를 인용할 때는 실측 문서를 연다.</p>
 <h3>설치 · 실행</h3>
-<p>학습은 Isaac Sim / Isaac Lab이 도는 GPU에서. 노트북에 Isaac을 올리지 않는다 <span class="ev ev-ok">확인됨</span> ([8/18 험지RL](../meetings/20260818-rough-terrain-study.md)). Python·ROS가 충돌하면 컨테이너를 나누고 통신만 맞추는 구성이 <a href="research-architecture-decision.html">아키텍처 결정</a>의 정본이다.</p>
+<p>학습은 Isaac Sim / Isaac Lab이 도는 GPU에서. 노트북에 Isaac을 올리지 않는다 <span class="ev ev-ok">확인됨</span> (<a href="research-terrain-rl-study-plan-0818.html">8/18 험지 RL 스터디 계획</a>). Python·ROS가 충돌하면 컨테이너를 나누고 통신만 맞추는 구성이 <a href="research-architecture-decision.html">아키텍처 결정</a>의 정본이다.</p>
 <p>셋업 후 <b>실제로 한 걸음 도는지</b>부터 확인한다. PLAY cfg, 소량 env가 먼저다.</p>
 <h3>플래그</h3>
 <p>다리를 원통으로 단순화하는 collision 근사 플래그는 속도를 올려 주지만 물리가 바뀌어 도달 상한이 낮아진다. <b>플래그 없이 기본 상태로 학습</b>이 봉인이다 <span class="ev ev-ok">확인됨</span>.</p>
@@ -751,5 +760,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

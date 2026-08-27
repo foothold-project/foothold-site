@@ -806,6 +806,15 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q on" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
@@ -849,7 +858,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="facts">
     <div class="fact"><dt>전체 단계</dt><dd>38개 화면</dd></div>
     <div class="fact"><dt>공통 학습</dt><dd>17단계</dd></div>
-    <div class="fact"><dt>분야별</dt><dd>5갈래</dd></div>
+    <div class="fact"><dt>작업 영역</dt><dd>8갈래</dd></div>
     <div class="fact"><dt>실전</dt><dd>8단계</dd></div>
   </div>
   <button class="startbtn" type="button" onclick="go(1)">시작하기 →</button>
@@ -919,11 +928,11 @@ document.addEventListener('DOMContentLoaded',function(){
 <!-- ══════ 3. 전체 구조 ══════ -->
 <section class="slide" data-stage="시작" data-title="전체 구조" data-id="">
   <div class="head"><div class="sid">안내</div><h2>전체 구조</h2></div>
-  <p class="oneline">세 구간입니다. A는 전원이 똑같이, B는 다섯 갈래로 나눠서, C는 다시 모여서.</p>
+  <p class="oneline">세 구간입니다. A는 전원이 똑같이, B는 여덟 갈래로 나눠서, C는 다시 모여서.</p>
 
   
 <figure class="fdia">
-<svg viewBox="0 0 420 316" role="img">
+<svg viewBox="0 0 420 342" role="img">
 <rect x="16" y="20" width="388" height="126" class="s-secA"/>
 <text x="30" y="36" class="a-h">구간 A · 공통 기반</text>
 <text x="392" y="36" class="a-h-r">전원 동일 · 17단계</text>
@@ -932,28 +941,31 @@ document.addEventListener('DOMContentLoaded',function(){
 <line x1="210" y1="146" x2="210" y2="164" class="a-flow"/>
 <polygon points="210,170 205,160 215,160" class="a-fill-ink"/>
 
-<rect x="16" y="172" width="388" height="62" class="s-secB"/>
-<text x="30" y="188" class="a-h">구간 B · 분야별</text>
-<text x="392" y="188" class="a-h-r">5명이 나눠서</text>
+<rect x="16" y="172" width="388" height="88" class="s-secB"/>
+<text x="30" y="188" class="a-h">구간 B · 작업 영역별</text>
+<text x="392" y="188" class="a-h-r">여덟 갈래</text>
 <line x1="30" y1="194" x2="390" y2="194" class="a-rule"/>
 <g class="a-branch">
-<rect x="30" y="202" width="68" height="22" class="c-b-b"/><text x="64" y="216" class="c-b-t">POLICY</text>
-<rect x="102" y="202" width="68" height="22" class="c-b-b"/><text x="136" y="216" class="c-b-t">ENV</text>
-<rect x="174" y="202" width="68" height="22" class="c-b-b"/><text x="208" y="216" class="c-b-t">INFRA</text>
-<rect x="246" y="202" width="68" height="22" class="c-b-b"/><text x="280" y="216" class="c-b-t">EVAL</text>
-<rect x="318" y="202" width="72" height="22" class="c-b-b"/><text x="354" y="216" class="c-b-t">RECON</text>
+<rect x="30" y="202" width="84" height="22" class="c-b-b"/><text x="72" y="216" class="c-b-t">A 정책학습</text>
+<rect x="122" y="202" width="84" height="22" class="c-b-b"/><text x="164" y="216" class="c-b-t">A 지형씬</text>
+<rect x="214" y="202" width="84" height="22" class="c-b-b"/><text x="256" y="216" class="c-b-t">A 평가</text>
+<rect x="306" y="202" width="84" height="22" class="c-b-b"/><text x="348" y="216" class="c-b-t">A 트윈렌더</text>
+<rect x="30" y="228" width="84" height="22" class="c-b-b"/><text x="72" y="242" class="c-b-t">B 항법</text>
+<rect x="122" y="228" width="84" height="22" class="c-b-b"/><text x="164" y="242" class="c-b-t">B 인지</text>
+<rect x="214" y="228" width="84" height="22" class="c-b-b"/><text x="256" y="242" class="c-b-t">C 기록</text>
+<rect x="306" y="228" width="84" height="22" class="c-b-b"/><text x="348" y="242" class="c-b-t">C 운영</text>
 </g>
 
-<line x1="210" y1="234" x2="210" y2="252" class="a-flow"/>
-<polygon points="210,258 205,248 215,248" class="a-fill-ink"/>
+<line x1="210" y1="260" x2="210" y2="278" class="a-flow"/>
+<polygon points="210,284 205,274 215,274" class="a-fill-ink"/>
 
-<rect x="16" y="260" width="388" height="48" class="s-secC"/>
-<text x="30" y="276" class="a-h">구간 C · 실전</text>
-<text x="392" y="276" class="a-h-r">다시 다 같이</text>
-<line x1="30" y1="282" x2="390" y2="282" class="a-rule"/>
-<rect x="30" y="288" width="42" height="15" rx="3" class="c-n-b"/><text x="51" y="298.8" class="c-n-t">C1</text><rect x="76" y="288" width="42" height="15" rx="3" class="c-n-b"/><text x="97" y="298.8" class="c-n-t">C2</text><rect x="122" y="288" width="42" height="15" rx="3" class="c-n-b"/><text x="143" y="298.8" class="c-n-t">C3</text><rect x="168" y="288" width="42" height="15" rx="3" class="c-n-b"/><text x="189" y="298.8" class="c-n-t">C4</text><rect x="214" y="288" width="42" height="15" rx="3" class="c-n-b"/><text x="235" y="298.8" class="c-n-t">C5</text><rect x="260" y="288" width="42" height="15" rx="3" class="c-k-b"/><text x="281" y="298.8" class="c-k-t">C6</text><rect x="306" y="288" width="42" height="15" rx="3" class="c-n-b"/><text x="327" y="298.8" class="c-n-t">C7</text><rect x="352" y="288" width="42" height="15" rx="3" class="c-n-b"/><text x="373" y="298.8" class="c-n-t">C8</text>
+<rect x="16" y="286" width="388" height="48" class="s-secC"/>
+<text x="30" y="302" class="a-h">구간 C · 실전</text>
+<text x="392" y="302" class="a-h-r">다시 다 같이</text>
+<line x1="30" y1="308" x2="390" y2="308" class="a-rule"/>
+<rect x="30" y="314" width="42" height="15" rx="3" class="c-n-b"/><text x="51" y="324.8" class="c-n-t">C1</text><rect x="76" y="314" width="42" height="15" rx="3" class="c-n-b"/><text x="97" y="324.8" class="c-n-t">C2</text><rect x="122" y="314" width="42" height="15" rx="3" class="c-n-b"/><text x="143" y="324.8" class="c-n-t">C3</text><rect x="168" y="314" width="42" height="15" rx="3" class="c-n-b"/><text x="189" y="324.8" class="c-n-t">C4</text><rect x="214" y="314" width="42" height="15" rx="3" class="c-n-b"/><text x="235" y="324.8" class="c-n-t">C5</text><rect x="260" y="314" width="42" height="15" rx="3" class="c-k-b"/><text x="281" y="324.8" class="c-k-t">C6</text><rect x="306" y="314" width="42" height="15" rx="3" class="c-n-b"/><text x="327" y="324.8" class="c-n-t">C7</text><rect x="352" y="314" width="42" height="15" rx="3" class="c-n-b"/><text x="373" y="324.8" class="c-n-t">C8</text>
 </svg>
-<figcaption><b>구간 A는 다섯 명이 똑같이 지납니다.</b> 그 뒤에야 다섯 갈래로 나뉘고, 실전에서 다시 합쳐집니다. 초록 칩(A5·A6·A10·A12·C6)은 <b>관문</b>입니다. 여기서 막히면 다음으로 못 갑니다.</figcaption>
+<figcaption><b>구간 A는 다섯 명이 똑같이 지납니다.</b> 그 뒤에야 여덟 갈래로 나뉘고, 실전에서 다시 합쳐집니다. 갈래는 사람 수가 아니라 <b>일의 종류</b>입니다. 한 사람이 둘을 맡기도 합니다. 초록 칩(A5·A6·A10·A12·C6)은 <b>관문</b>입니다. 여기서 막히면 다음으로 못 갑니다.</figcaption>
 </figure>
 
 
@@ -2620,43 +2632,46 @@ document.addEventListener('DOMContentLoaded',function(){
 </section>
 
 <!-- ══════════════════ 구간 B ══════════════════ -->
-<section class="slide" data-stage="구간 B · 분야별" data-title="여기서 다섯 갈래로 나뉩니다" data-id="B">
-  <div class="head"><div class="sid">구간 B</div><h2>여기서 다섯 갈래로 나뉩니다</h2></div>
-  <p class="oneline">구간 A까지는 전원 동일. 여기부터는 각자 자기 분야를 깊게 팝니다.</p>
+<section class="slide" data-stage="구간 B · 작업 영역별" data-title="여기서 여덟 갈래로 나뉩니다" data-id="B">
+  <div class="head"><div class="sid">구간 B</div><h2>여기서 여덟 갈래로 나뉩니다</h2></div>
+  <p class="oneline">구간 A까지는 전원 동일. 여기부터는 각자 자기 작업 영역을 깊게 팝니다. 이 여덟 갈래가 곧 이슈 라벨이고, 곧 폴더 이름입니다.</p>
 
   <div class="blk">
     <div class="lbl">배정</div>
     <div class="tw"><table>
-      <thead><tr><th>분야</th><th>하는 일</th><th>주 / 부</th></tr></thead>
+      <thead><tr><th>작업 영역</th><th>하는 일</th><th>주 / 부</th></tr></thead>
       <tbody>
-        <tr><td><b>POLICY</b></td><td><a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>을 어떻게 학습시킬 것인가: <a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 설계와 <a class="term" href="encyclopedia.html#t-hparam" data-t="하이퍼파라미터">하이퍼파라미터<span class="pop"><span class="ph">하이퍼파라미터 · hyperparameter</span><b>학습을 시작하기 전에 사람이 정해줘야 하는 설정값</b>입니다. 학습률, 배치 크기, 에피소드 길이 같은 것들.<br>학습으로 저절로 정해지는 값(가중치)과 구분됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>의 최종 결정권</td><td>임석헌 / 맹라현</td></tr>
-        <tr><td><b>ENV</b></td><td>무엇을 겪게 할 것인가: 지형을 만들고 난이도를 조절</td><td>맹라현 / 오흥재</td></tr>
-        <tr><td><b>INFRA</b></td><td>어디서 돌리고 실제 로봇에 어떻게 올리는가</td><td>이민우 / 오현민</td></tr>
-        <tr><td><b>EVAL</b></td><td>잘 됐는지 어떻게 아는가: 측정과 기록</td><td>오현민 / 임석헌</td></tr>
-        <tr><td><b>RECON</b></td><td>무엇을 왜 검증하는가: 계획서와 결과 전달</td><td>오흥재 / 이민우</td></tr>
+        <tr><td><b>A/<a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>학습</b></td><td>정책을 어떻게 학습시킬 것인가: <a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 설계와 <a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>, 실패 지형 파인튜닝</td><td>임석헌 / 전원</td></tr>
+        <tr><td><b>A/지형씬제작</b></td><td>무엇을 겪게 할 것인가: 지형과 씬 에셋을 만들고 난이도를 조절</td><td>맹라현 / 오흥재 · 이민우</td></tr>
+        <tr><td><b>A/평가</b></td><td>잘 됐는지 어떻게 아는가: 일반화 벤치마크와 지표</td><td>오현민 / 맹라현 · 이민우</td></tr>
+        <tr><td><b>A/트윈렌더</b></td><td>결과를 어떻게 보이는가: 실공간 복원 · 3DGS · 실사급 렌더</td><td>맹라현 / 오흥재 · 이민우</td></tr>
+        <tr><td><b>B/항법</b></td><td>실물이 스스로 길을 찾게: ROS2 · TF · SLAM · Nav2</td><td>오흥재 / 전원</td></tr>
+        <tr><td><b>B/인지</b></td><td>실물이 세상을 읽게: LiDAR · 카메라 · 센서 융합</td><td>오현민 / 맹라현 · 이민우</td></tr>
+        <tr><td><b>C/기록</b></td><td>무엇을 왜 했는가: 회의록 · 문서 · 발표 · 대외 보고</td><td>이민우 / 맹라현 · 오흥재</td></tr>
+        <tr><td><b>C/운영</b></td><td>일이 굴러가게: 인프라 · 자동화 · 깃 · 웹 · 예산 · 일정</td><td>오흥재 / 전원</td></tr>
       </tbody>
     </table></div>
   </div>
 
   <div class="box myth">
-    <div class="bt">주 1개 + 부 1개, 나머지는 안 해도 됩니다</div>
-    <p>다섯 분야를 다 얕게 아는 사람 다섯보다, <strong>하나를 깊게 알고 하나를 대신할 수 있는 사람 다섯</strong>이 훨씬 강합니다.</p>
-    <p>부 담당은 <strong>앞 3개 단계까지</strong>만 하면 됩니다. 주 담당이 빠져도 그 분야가 멈추지 않을 정도면 충분합니다.</p>
-    <p>나머지 세 분야는 <strong>주 1회 30분 공유 세션</strong>에서 각자 “이번 주에 알게 된 것 하나”를 5분씩 설명하는 것으로 자동 커버됩니다.</p>
+    <div class="bt">주 1개를 깊게, 부는 대신할 수 있을 만큼만</div>
+    <p>여덟 갈래를 다 얕게 아는 사람 다섯보다, <strong>하나를 깊게 알고 하나를 대신할 수 있는 사람 다섯</strong>이 훨씬 강합니다.</p>
+    <p>부 담당은 <strong>앞 3개 단계까지</strong>만 하면 됩니다. 주 담당이 빠져도 그 갈래가 멈추지 않을 정도면 충분합니다.</p>
+    <p>나머지 갈래는 <strong>주 1회 30분 공유 세션</strong>에서 각자 “이번 주에 알게 된 것 하나”를 5분씩 설명하는 것으로 자동 커버됩니다.</p>
   </div>
 
   <div class="box danger">
     <div class="bt">절대 나누면 안 되는 것</div>
-    <p><strong>12관절 표 · <a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 벡터 구성 · 여섯 개 지표 · 안전 절차 · 실험 기록 규칙.</strong></p>
+    <p><strong>12관절 표 · 관측 벡터 구성 · 여섯 개 지표 · 안전 절차 · 실험 기록 규칙.</strong></p>
     <p>이유는 각각 다릅니다. 12관절 표는 실기 사고 1순위 원인이라 서로 실수를 잡아야 하고,
     <strong>안전 절차는 사고가 모르는 사람 한 명에게서 나기 때문</strong>입니다.</p>
   </div>
 </section>
 
-<!-- POLICY -->
-<section class="slide" data-stage="구간 B · 분야별" data-title="POLICY 정책·학습" data-id="B·P">
-  <div class="head"><div class="sid">구간 B · POLICY</div><h2>POLICY: <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>·학습</h2><p class="sub">주 임석헌 / 부 맹라현</p></div>
-  <p class="oneline">정책이 잘 걷게 만드는 책임. <a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 설계와 설정값의 최종 결정권을 가집니다.</p>
+<!-- A/정책학습 -->
+<section class="slide" data-stage="구간 B · 작업 영역별" data-title="A/정책학습" data-id="B·A1">
+  <div class="head"><div class="sid">구간 B · A/<a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>학습</div><h2>A/정책학습: 정책이 잘 걷게 만든다</h2><p class="sub">주 임석헌 / 부 전원</p></div>
+  <p class="oneline"><a class="term" href="encyclopedia.html#t-reward" data-t="보상">보상<span class="pop"><span class="ph">보상 · reward</span><b>잘했는지 못했는지를 알려주는 점수</b>. 매 순간 숫자 하나가 나옵니다.<br>강화학습은 이 점수의 합을 최대로 만들려고 합니다. <b>그래서 보상을 잘못 쓰면 엉뚱한 걸 잘하게 됩니다</b> (A10 보상 해킹).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 설계와 <a class="term" href="encyclopedia.html#t-obs" data-t="관측">관측<span class="pop"><span class="ph">관측 · observation</span><b>정책이 매 순간 보는 숫자들의 묶음</b>입니다.<br>사람으로 치면 '지금 이 순간 내가 감지하는 모든 것'이에요. 여기 <b>안 들어간 정보는 정책이 절대 모릅니다.</b><br>그래서 관측 설계가 이 프로젝트의 급소입니다 (A12).<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 구성의 최종 결정권을 가집니다. 실패 지형 5종 파인튜닝도 이 영역입니다.</p>
   <div class="tw"><table>
     <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
     <tbody>
@@ -2666,18 +2681,21 @@ document.addEventListener('DOMContentLoaded',function(){
       <tr><td><b>P4</b></td><td><b>DreamWaQ 논문 정독</b>우리가 채택한 구조의 원본. 왜 “선생-학생” 2단계 방식을 버렸는지 이해</td><td>대조표 1장</td></tr>
       <tr><td><b>P5</b></td><td>설정값 민감도 순서: 결과가 안 좋을 때 <b>무엇부터 건드릴 것인가</b></td><td>튜닝 우선순위</td></tr>
       <tr><td><b>P6</b></td><td>학습 실패 진단 심화: 증상별 원인 트리</td><td>진단 체크리스트</td></tr>
+      <tr><td><b>P7</b></td><td><b>실패 지형 5종 파인튜닝</b>A/평가가 “여기서 넘어진다”를 찾아 주면, 그 지형만 비중을 올려 다시 학습시킨다. <span class="ok">5종이 서로 다른 실패 유형이라 처방도 다르다</span></td><td>지형별 개선 정책</td></tr>
+      <tr><td><b>P8</b></td><td><b>지형 배정 (8/27 확정)</b>한 사람이 한 지형을 온전히 소유한다. <b>gap 임석헌</b> · <b>rails 맹라현</b> · <b>stepping_stones 오현민</b> · <b>pit 이민우</b> · <b>floating_ring 오흥재</b>. <span class="no">합치는 것은 <a class="term" href="encyclopedia.html#t-checkpoint" data-t="체크포인트">체크포인트<span class="pop"><span class="ph">체크포인트 · checkpoint</span><b>학습 도중 저장해둔 신경망 상태 파일</b>입니다.<br>학습은 오래 걸리니 중간중간 저장하고, 나중에 그 지점부터 이어가거나 <b>학습 없이 재생만</b> 할 수 있습니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>가 아니라 레시피다</span> (RL 가중치 병합은 성립하지 않는다)</td><td>지형별 레시피 1장 × 5</td></tr>
     </tbody>
   </table></div>
+  <p class="sub"><strong>마일스톤 연결</strong> · A-정책 9/12(기준 정책 고정) · MVP 9/30(실패 5종 중 3종 개선)</p>
 </section>
 
-<!-- ENV -->
-<section class="slide" data-stage="구간 B · 분야별" data-title="ENV 환경·지형" data-id="B·E">
-  <div class="head"><div class="sid">구간 B · ENV</div><h2>ENV: 환경·지형</h2><p class="sub">주 맹라현 / 부 오흥재</p></div>
-  <p class="oneline"><a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>이 무엇을 겪을지 결정합니다. 3D 툴 경험이 그대로 쓰이는 분야입니다.</p>
+<!-- A/지형씬제작 -->
+<section class="slide" data-stage="구간 B · 작업 영역별" data-title="A/지형씬제작" data-id="B·A2">
+  <div class="head"><div class="sid">구간 B · A/지형씬제작</div><h2>A/지형씬제작: <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>이 무엇을 겪을지 정한다</h2><p class="sub">주 맹라현 / 부 오흥재 · 이민우</p></div>
+  <p class="oneline">3D 툴 경험이 그대로 쓰이는 영역입니다. 지형을 만들고 난이도를 조절합니다.</p>
   <div class="box myth">
     <div class="bt">왜 이 배정인가</div>
     <p>Isaac Lab의 지형은 결국 <strong>삼각형 메시</strong>입니다. Blender에서 만들어 넣을 수 있습니다.
-    “우리가 설계한 커스텀 지형”이 11월 산출물인데, 이건 3D 저작 툴을 다루는 사람이 있어야 제대로 나옵니다.
+    “우리가 설계한 커스텀 지형”이 MVP 산출물인데, 이건 3D 저작 툴을 다루는 사람이 있어야 제대로 나옵니다.
     <strong>시각화 담당이 아니라 지형 저작 담당</strong>으로 보셔야 합니다.</p>
   </div>
   <div class="tw"><table>
@@ -2689,15 +2707,129 @@ document.addEventListener('DOMContentLoaded',function(){
       <tr><td><b>E4</b></td><td><b><code>usd-core</code>로 파일 구조 익히기</b>Isaac Sim 설치 없이 USD 파일을 읽고 쓸 수 있다</td><td>USD 다루기</td></tr>
       <tr><td><b>E5</b></td><td>지형 커리큘럼 로직: 통과율 0.5~0.9를 유지하도록 자동 승급·강등시키는 방식</td><td>커리큘럼 설계안</td></tr>
       <tr><td><b>E6</b></td><td><a class="term" href="encyclopedia.html#t-domainrand" data-t="도메인 랜덤화">도메인 랜덤화<span class="pop"><span class="ph">도메인 랜덤화 · domain randomization</span><b>시뮬레이션 조건을 매번 무작위로 흔드는 것</b>입니다. 마찰·무게·모터 세기·지연을 판마다 바꿉니다.<br>한 가지 조건에만 맞춘 정책은 현실에서 무너지니, 여러 조건을 겪게 해 <b>강건하게</b> 만듭니다.<br>⚠️ 많이 걸수록 좋은 게 아닙니다. 과하면 '아무 데서나 못하는' 정책이 됩니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 설계: 항목별 범위와 <b>성능 손실 기록표 템플릿</b></td><td>손실 기록표</td></tr>
+      <tr><td><b>E7</b></td><td><b>실패 지형 5종을 씬으로</b>A/평가가 정의한 5종 실패 유형을 실제로 걸어 볼 수 있는 씬으로 만든다</td><td>실패 지형 씬 5종</td></tr>
     </tbody>
   </table></div>
   <p class="sub"><strong>E3 + E4만으로 서버 없이 지형 파이프라인의 대부분을 완성할 수 있습니다.</strong> 서버가 준비되면 붙이기만 하면 됩니다.</p>
 </section>
 
-<!-- INFRA -->
-<section class="slide" data-stage="구간 B · 분야별" data-title="INFRA 인프라·배포" data-id="B·I">
-  <div class="head"><div class="sid">구간 B · INFRA</div><h2>INFRA: 인프라·배포</h2><p class="sub">주 이민우 / 부 오현민</p></div>
-  <p class="oneline">팀이 실제로 돌릴 수 있게 만드는 책임. 초반에 가장 바쁜 분야입니다.</p>
+<!-- A/평가 -->
+<section class="slide" data-stage="구간 B · 작업 영역별" data-title="A/평가" data-id="B·A3">
+  <div class="head"><div class="sid">구간 B · A/평가</div><h2>A/평가: “잘 됐다”를 숫자로 만든다</h2><p class="sub">주 오현민 / 부 맹라현 · 이민우</p></div>
+  <p class="oneline">일반화 벤치마크와 지표를 세웁니다. 실패 5종을 “찾아내는” 것도 이 영역입니다.</p>
+  <div class="box danger">
+    <div class="bt">이 영역이 프로젝트의 숨은 급소입니다</div>
+    <p>A12에서 봤듯 우리는 몸통 속도를 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>에 안 줍니다. 그런데 그 결정에는 아무도 안 짚은 결과가 하나 있습니다.
+    <strong>정책이 속도를 못 보는 것과, 우리가 속도를 못 재는 것은 별개 문제인데 원인이 같습니다.</strong></p>
+    <p>그래서 여섯 지표 중 <strong>속도 추종 오차 · 무개입 주행거리 · 에너지 소모</strong> 세 개가
+    현재 실제 로봇에서 <strong>측정할 방법이 없습니다.</strong></p>
+    <p>이걸 만드는 것. 라이다로 로봇의 실제 이동을 추적하는 계측 장치를 세우는 것. 이것이 이 영역의 진짜 임무입니다.
+    <span class="sub">계측 장치의 센서 쪽 절반은 B/인지와 함께 합니다.</span></p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
+    <tbody>
+      <tr><td><b>V1</b></td><td>여섯 지표를 <b>시뮬에서 / 실기에서</b> 각각 어떻게 잴 것인지 확정</td><td>측정 방법 명세</td></tr>
+      <tr><td><b>V2</b></td><td>시뮬 평가 자동화: N번 시도해서 지표 표를 자동으로 뽑기</td><td>평가 스크립트</td></tr>
+      <tr><td><b>V3</b></td><td>기록 데이터 다루기 + <b>시간 동기화</b>두 센서가 같은 순간을 말하는지. 계측 오류의 주범</td><td>분석 실습</td></tr>
+      <tr><td><b>V4</b></td><td><b>라이다 기반 위치·속도 추적(Point-LIO)</b><span class="no">이 영역의 핵심.</span> 로봇이 없어도 공개 데이터로 미리 연습할 수 있다</td><td>공개 데이터로 구동</td></tr>
+      <tr><td><b>V5</b></td><td>실험 관리 체계: 기록 도구 세팅, 실험 이름 규칙, 설정 보관</td><td>기록 체계 가동</td></tr>
+      <tr><td><b>V6</b></td><td>통계적 판정: 시드마다 결과가 다른데 <b>“이 차이가 진짜 차이인가”</b></td><td>판정 기준</td></tr>
+      <tr><td><b>V7</b></td><td><b>일반화 벤치마크: 실패 5종을 찾아낸다</b>학습에 안 쓴 지형을 골고루 걸려 보고, 넘어지는 지점을 <b>유형별로</b> 분류한다. 그 5종이 A/정책학습과 A/지형씬제작의 다음 작업 지시서가 된다</td><td>실패 유형 5종 정의</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- A/트윈렌더 -->
+<section class="slide" data-stage="구간 B · 작업 영역별" data-title="A/트윈렌더" data-id="B·A4">
+  <div class="head"><div class="sid">구간 B · A/트윈렌더</div><h2>A/트윈렌더: 결과를 보이게 만든다</h2><p class="sub">주 맹라현 / 부 오흥재 · 이민우</p></div>
+  <p class="oneline">실공간을 복원해 우리 시뮬 안으로 가져오고, 결과를 실사급으로 보여 줍니다.</p>
+  <div class="box myth">
+    <div class="bt">이건 “예쁘게 만들기”가 아닙니다</div>
+    <p>심사위원이 보는 것은 학습 곡선이 아니라 <strong>“진짜 현장에서 저게 걷나”</strong>입니다.
+    실제 현장을 3D로 복원해 그 위에서 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>을 돌려 보여 주면, 지표 여섯 줄보다 그 30초가 더 설득력이 있습니다.
+    동시에 <strong>복원한 공간은 A/지형씬제작의 입력</strong>이 되기도 합니다. 발표용과 실사용이 같은 산출물입니다.</p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
+    <tbody>
+      <tr><td><b>T1</b></td><td><b>사진으로 3D 공간 복원: 촬영 기법</b>촬영이 결과의 80%다. 중첩률 · 조도 · 이동 궤적 설계는 영상 경험이 그대로 쓰인다</td><td>촬영 가이드</td></tr>
+      <tr><td><b>T2</b></td><td>3DGS의 원리와 한계: <b>보이는 것은 주지만 만져지는 물리는 못 준다</b>. 그래서 무엇을 3DGS로 하고 무엇을 메시로 할지 경계를 긋는다</td><td>활용 범위 정의</td></tr>
+      <tr><td><b>T3</b></td><td>복원 결과를 <b>충돌 가능한 메시로 변환</b>하는 경로. 여기서 A/지형씬제작과 만난다</td><td>변환 파이프라인</td></tr>
+      <tr><td><b>T4</b></td><td>렌더 세팅: 카메라 워크 · 조명 · 합성. <b>발표 30초 컷을 반복 생산할 수 있게</b> 템플릿화</td><td>렌더 템플릿</td></tr>
+      <tr><td><b>T5</b></td><td>브랜드 적용: 확정된 색·타이포를 렌더와 자막에 일관되게</td><td>브랜드 키트 적용</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- B/항법 -->
+<section class="slide" data-stage="구간 B · 작업 영역별" data-title="B/항법" data-id="B·B1">
+  <div class="head"><div class="sid">구간 B · B/항법</div><h2>B/항법: 실물이 스스로 길을 찾게</h2><p class="sub">주 오흥재 / 부 전원</p></div>
+  <p class="oneline">트랙 B는 실기입니다. 다만 <b>저수준 관절 제어를 실기로 옮기는 일이 아닙니다.</b></p>
+  <div class="box danger">
+    <div class="bt">8/19에 목표를 바꾼 지점</div>
+    <p>전에는 시뮬에서 학습한 <strong>저수준 보행 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>을 실제 Go2에 올리는 것</strong>을 트랙 B로 잡았습니다.
+    지금은 아닙니다. 내장 제어기를 끄고 관절을 직접 지령하는 경로는 <strong>사고 위험과 남는 시간에 견줘 이득이 없다</strong>고 판단했습니다.</p>
+    <p>대신 트랙 B는 <strong>Go2의 내장 보행 위에서 스스로 길을 찾게</strong> 하는 것입니다.
+    ROS2로 지도를 만들고, 목적지를 주면 알아서 가고, 막히면 돌아갑니다. 걷는 방법은 로봇이 이미 압니다.</p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
+    <tbody>
+      <tr><td><b>N1</b></td><td>ROS2 기초: 노드 · 토픽 · 서비스 · 액션. <b>메시지가 어디서 어디로 흐르는지</b></td><td>노드·토픽 실습</td></tr>
+      <tr><td><b>N2</b></td><td><b>TF 좌표 변환</b>“로봇 기준 앞 1m”와 “지도 기준 어느 지점”을 오가는 법. 항법 버그의 대부분이 여기서 난다</td><td>TF 트리 이해</td></tr>
+      <tr><td><b>N3</b></td><td>Go2 ROS2 인터페이스: 속도 지령을 어떻게 넣고 상태를 어떻게 받는지. <span class="ok">내장 제어기는 켜 둔 채로 쓴다</span></td><td>실기 원격 주행</td></tr>
+      <tr><td><b>N4</b></td><td><b>SLAM</b>움직이면서 지도를 만들고 동시에 자기 위치를 안다. LiDAR 기반</td><td>실내 지도 1장</td></tr>
+      <tr><td><b>N5</b></td><td><b>Nav2</b>목적지를 주면 경로를 짜고 장애물을 피해 간다. 코스트맵 · 플래너 · 컨트롤러의 역할 분담</td><td>자율 주행 1회</td></tr>
+      <tr><td><b>N6</b></td><td>안전 절차: 비상 정지 · 배터리 · 사람과의 거리. <b>이건 전원이 안다</b></td><td>안전 체크리스트</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub"><strong>마일스톤 연결</strong> · NAV · 실기 항법 11/7</p>
+</section>
+
+<!-- B/인지 -->
+<section class="slide" data-stage="구간 B · 작업 영역별" data-title="B/인지" data-id="B·B2">
+  <div class="head"><div class="sid">구간 B · B/인지</div><h2>B/인지: 실물이 세상을 읽게</h2><p class="sub">주 오현민 / 부 맹라현 · 이민우</p></div>
+  <p class="oneline">센서에서 나온 날 데이터를 “쓸 수 있는 것”으로 바꿉니다. A/평가의 계측 장치와 뿌리가 같습니다.</p>
+  <div class="box myth">
+    <div class="bt">왜 A/평가와 같은 사람인가</div>
+    <p>실기에서 <strong>“로봇이 실제로 얼마나 갔나”</strong>를 재는 것과, <strong>“로봇이 앞에 뭐가 있는지 아는 것”</strong>은
+    같은 라이다에서 같은 방식으로 나옵니다. 두 영역을 따로 배우면 같은 것을 두 번 배웁니다.</p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
+    <tbody>
+      <tr><td><b>S1</b></td><td>LiDAR 데이터 구조: 포인트 클라우드가 실제로 무슨 숫자 뭉치인지. 필터링 · 다운샘플링</td><td>포인트 클라우드 다루기</td></tr>
+      <tr><td><b>S2</b></td><td>카메라 · 깊이 센서: 내부 파라미터, 왜곡 보정, 깊이 이미지의 한계</td><td>캘리브레이션 1회</td></tr>
+      <tr><td><b>S3</b></td><td><b>센서 융합과 시간 동기화</b>두 센서가 같은 순간을 말하게 만드는 것. A/평가 V3과 같은 문제</td><td>동기화 파이프라인</td></tr>
+      <tr><td><b>S4</b></td><td>지면 분리 · 장애물 검출: “바닥”과 “걸리는 것”을 나누는 고전적 방법부터</td><td>장애물 맵</td></tr>
+      <tr><td><b>S5</b></td><td>Point-LIO 실기 적용: 공개 데이터로 익힌 것을 우리 로봇 로그에 건다</td><td>실기 궤적 추적</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- C/기록 -->
+<section class="slide" data-stage="구간 B · 작업 영역별" data-title="C/기록" data-id="B·C1">
+  <div class="head"><div class="sid">구간 B · C/기록</div><h2>C/기록: 무엇을 왜 했는가</h2><p class="sub">주 이민우 / 부 맹라현 · 오흥재</p></div>
+  <p class="oneline">한 일이 남지 않으면 안 한 것과 같습니다. 대외 제출물이 전부 여기서 나옵니다.</p>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
+    <tbody>
+      <tr><td><b>R1</b></td><td><b>프로젝트 기획서 · 브레인스토밍 · WBS</b>9/4 운영진 제출물 3종. 문제정의 · 수요 근거 · 검증 시나리오 · 평가지표</td><td>9/4 제출 완료</td></tr>
+      <tr><td><b>R2</b></td><td>검증 시나리오 설계: 어떤 지형에서 어떤 임무를 몇 번, <b>판정 기준까지 포함</b></td><td>시나리오 문서</td></tr>
+      <tr><td><b>R3</b></td><td>현장 조사: 설비 하부 · 배관 주변 · 좁은 통로의 실제 특성</td><td>현장 특성 정리</td></tr>
+      <tr><td><b>R4</b></td><td><b>회의록 규칙</b>정한 것 · 안 정한 것 · 다음에 할 것 세 줄. 회의가 끝난 그 자리에서 올린다</td><td>회의록 체계 가동</td></tr>
+      <tr><td><b>R5</b></td><td><b>메타 5줄 표준</b>분류 · 작성(이름 · 날짜 시각) · 근거 · 요지 · 상태. 빌드가 막으므로 안 쓰면 게시가 안 된다</td><td>문서 표준 준수</td></tr>
+      <tr><td><b>R6</b></td><td>발표 체계: 각 시점에서 <b>“멈춰도 발표 가능한”</b> 형태로</td><td>발표 템플릿</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sub"><strong>마일스톤 연결</strong> · 기획발표 9/4 · MVP · 중간발표 9/30 · 최종 12/10</p>
+</section>
+
+<!-- C/운영 -->
+<section class="slide" data-stage="구간 B · 작업 영역별" data-title="C/운영" data-id="B·C2">
+  <div class="head"><div class="sid">구간 B · C/운영</div><h2>C/운영: 일이 굴러가게</h2><p class="sub">주 오흥재 / 부 전원</p></div>
+  <p class="oneline">팀이 실제로 돌릴 수 있게 만드는 책임. 초반에 가장 바쁜 영역입니다.</p>
   <div class="tw"><table>
     <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
     <tbody>
@@ -2706,51 +2838,9 @@ document.addEventListener('DOMContentLoaded',function(){
       <tr><td><b>I3</b></td><td>Docker + NVIDIA 공식 컨테이너: 설치 삽질을 크게 줄일 수 있다</td><td>컨테이너 실행</td></tr>
       <tr><td><b>I4</b></td><td>Isaac Sim / Isaac Lab 설치 + <b>재현 절차서 작성</b></td><td>절차서</td></tr>
       <tr><td><b>I5</b></td><td>실험 운영: 예약 규칙, <a class="term" href="encyclopedia.html#t-checkpoint" data-t="체크포인트">체크포인트<span class="pop"><span class="ph">체크포인트 · checkpoint</span><b>학습 도중 저장해둔 신경망 상태 파일</b>입니다.<br>학습은 오래 걸리니 중간중간 저장하고, 나중에 그 지점부터 이어가거나 <b>학습 없이 재생만</b> 할 수 있습니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a> 백업, GPU 2장을 각각 다른 실험에 쓰기</td><td>운영 규칙</td></tr>
-      <tr><td><b>I6</b></td><td>ROS2 + 통신 기초</td><td>노드·토픽 실습</td></tr>
-      <tr><td><b>I7</b></td><td><b>실제 로봇 통신과 내장 제어기 끄는 절차</b></td><td>배포 절차서</td></tr>
-      <tr><td><b>I8</b></td><td>AWS: GPU 할당량 신청(승인에 며칠 걸림), 저렴한 Spot 사용법, 비용 관리</td><td>할당량 승인</td></tr>
-    </tbody>
-  </table></div>
-</section>
-
-<!-- EVAL -->
-<section class="slide" data-stage="구간 B · 분야별" data-title="EVAL 계측·평가" data-id="B·V">
-  <div class="head"><div class="sid">구간 B · EVAL</div><h2>EVAL: 계측·평가</h2><p class="sub">주 오현민 / 부 임석헌</p></div>
-  <p class="oneline">“잘 됐다”를 숫자로 말할 수 있게 만드는 책임.</p>
-  <div class="box danger">
-    <div class="bt">이 분야가 프로젝트의 숨은 급소입니다</div>
-    <p>A12에서 봤듯 우리는 몸통 속도를 <a class="term" href="encyclopedia.html#t-policy" data-t="정책">정책<span class="pop"><span class="ph">정책 · policy</span><b>지금 상태를 보고 무엇을 할지 정하는 함수</b>입니다. 우리 경우엔 신경망이죠.<br>입력은 관측(숫자 42개), 출력은 관절 목표 각도 12개.<br>"정책을 학습한다" = "이 신경망의 가중치를 조정한다"입니다.<span class="pmore">→ 용어 사전에서 자세히 · 공식 문서 링크</span></span></a>에 안 줍니다. 그런데 그 결정에는 아무도 안 짚은 결과가 하나 있습니다. 
-    <strong>정책이 속도를 못 보는 것과, 우리가 속도를 못 재는 것은 별개 문제인데 원인이 같습니다.</strong></p>
-    <p>그래서 여섯 지표 중 <strong>속도 추종 오차 · 무개입 주행거리 · 에너지 소모</strong> 세 개가
-    현재 실제 로봇에서 <strong>측정할 방법이 없습니다.</strong></p>
-    <p>이걸 만드는 것. 라이다로 로봇의 실제 이동을 추적하는 계측 장치를 세우는 것. 이 이 분야의 진짜 임무입니다.</p>
-  </div>
-  <div class="tw"><table>
-    <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
-    <tbody>
-      <tr><td><b>V1</b></td><td>여섯 지표를 <b>시뮬에서 / 실기에서</b> 각각 어떻게 잴 것인지 확정</td><td>측정 방법 명세</td></tr>
-      <tr><td><b>V2</b></td><td>시뮬 평가 자동화: N번 시도해서 지표 표를 자동으로 뽑기</td><td>평가 스크립트</td></tr>
-      <tr><td><b>V3</b></td><td>기록 데이터 다루기 + <b>시간 동기화</b>두 센서가 같은 순간을 말하는지. 계측 오류의 주범</td><td>분석 실습</td></tr>
-      <tr><td><b>V4</b></td><td><b>라이다 기반 위치·속도 추적(Point-LIO)</b><span class="no">이 분야의 핵심.</span> 로봇이 없어도 공개 데이터로 미리 연습할 수 있다</td><td>공개 데이터로 구동</td></tr>
-      <tr><td><b>V5</b></td><td>실험 관리 체계: 기록 도구 세팅, 실험 이름 규칙, 설정 보관</td><td>기록 체계 가동</td></tr>
-      <tr><td><b>V6</b></td><td>통계적 판정: 시드마다 결과가 다른데 <b>“이 차이가 진짜 차이인가”</b></td><td>판정 기준</td></tr>
-    </tbody>
-  </table></div>
-</section>
-
-<!-- RECON -->
-<section class="slide" data-stage="구간 B · 분야별" data-title="RECON 실증설계·재구성" data-id="B·R">
-  <div class="head"><div class="sid">구간 B · RECON</div><h2>RECON: 실증설계·재구성</h2><p class="sub">주 오흥재 / 부 이민우</p></div>
-  <p class="oneline">무엇을 왜 검증하는지 정하고, 결과를 전달 가능한 형태로 만듭니다.</p>
-  <div class="tw"><table>
-    <thead><tr><th></th><th>내용</th><th>하고 나면</th></tr></thead>
-    <tbody>
-      <tr><td><b>R1</b></td><td><b>실증 수행계획서</b>문제정의 · 수요 근거 · 검증 시나리오 · 평가지표. 8월 말 공식 제출물</td><td>계획서</td></tr>
-      <tr><td><b>R2</b></td><td>검증 시나리오 설계: 어떤 지형에서 어떤 임무를 몇 번, <b>판정 기준까지 포함</b></td><td>시나리오 문서</td></tr>
-      <tr><td><b>R3</b></td><td>현장 조사: 설비 하부 · 배관 주변 · 좁은 통로의 실제 특성</td><td>현장 특성 정리</td></tr>
-      <tr><td><b>R4</b></td><td><b>사진으로 3D 공간 복원: 촬영 기법</b>. 촬영이 결과의 80%다. 중첩률 · 조도 · 이동 궤적 설계는 영상 경험이 그대로 쓰인다</td><td>촬영 가이드</td></tr>
-      <tr><td><b>R5</b></td><td>3DGS의 원리와 한계: <b>보이는 것은 주지만 만져지는 물리는 못 준다</b></td><td>활용 범위 정의</td></tr>
-      <tr><td><b>R6</b></td><td>산출물 · 발표 체계: 각 시점에서 <b>“멈춰도 발표 가능한”</b> 형태로</td><td>발표 템플릿</td></tr>
+      <tr><td><b>I6</b></td><td>AWS: GPU 할당량 신청(승인에 며칠 걸림), 저렴한 Spot 사용법, 비용 관리</td><td>할당량 승인</td></tr>
+      <tr><td><b>I7</b></td><td><b>깃 · 이슈 · 자동화</b>이슈 하나가 브랜치 하나, 브랜치 하나가 PR 하나. 라벨·마일스톤 자동 분류와 웹 배포 관문</td><td>협업 규칙 가동</td></tr>
+      <tr><td><b>I8</b></td><td>예산 · 일정 · 대외 일정 관리</td><td>일정 운영</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -3144,5 +3234,5 @@ document.addEventListener('DOMContentLoaded',function(){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

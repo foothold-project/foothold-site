@@ -446,6 +446,15 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="on" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
@@ -477,7 +486,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <ul><li><b>트림이 다르면 시작조차 못 한다</b>: AIR/PRO는 저수준 2차 개발이 막혀 있고 RJ45 포트 자체가 없다. EDU만 개발용이다.</li><li><b>펌웨어·연식이 다르면 결과가 다르다</b>: 라이다 세대(L1/L2), 스포츠 모드 전환 동작이 개체마다 다를 수 있다.</li><li>한 개체에서 확인된 것을 다른 개체로 <b>옮겨 적지 않는다</b>. 개체별로 실측한다.</li></ul>
 </section>
 <section id="s2"><h2>1. 🔴 신원 확인 (이것부터, 5분)</h2>
-<div class="tw"><table><thead><tr><th>#</th><th>확인할 것</th><th>어떻게</th><th>왜</th></tr></thead><tbody><tr><td><s>①</s></td><td><s>트림: EDU 인가?</s> <b>확정: EDU</b> ([ROBOT-SPEC](ROBOT-SPEC.md))</td><td>몸통 측면·후면의 <b>RJ45 포트 유무</b> (1차 판별: AIR/PRO 는 없음) + 하판 모델 라벨·시리얼 사진 + 대여 계약서상 모델명</td><td>저수준 개발의 성립 조건</td></tr><tr><td><s>②</s></td><td><s>컴퓨팅 보드</s> <b>확정: Orin NX 16GB</b></td><td>SSH 후 <code>cat /etc/nv_tegra_release</code>, <code>free -h</code>, <code>df -h</code> (Orin NX/Nano · 메모리 · 저장공간)</td><td>온보드에서 뭘 돌릴 수 있나</td></tr><tr><td>③</td><td>펌웨어 버전</td><td>Unitree Go 앱 → 장비 정보</td><td>저수준 API 동작이 펌웨어에 따라 다를 수 있음</td></tr><tr><td>④</td><td>연식·이력</td><td>관리자에게: 도입 시기, 고장 이력, 이전 사용 프로젝트</td><td>상태 파악</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>#</th><th>확인할 것</th><th>어떻게</th><th>왜</th></tr></thead><tbody><tr><td><s>①</s></td><td><s>트림: EDU 인가?</s> <b>확정: EDU</b> (<a href="robot-spec.html">ROBOT-SPEC</a>)</td><td>몸통 측면·후면의 <b>RJ45 포트 유무</b> (1차 판별: AIR/PRO 는 없음) + 하판 모델 라벨·시리얼 사진 + 대여 계약서상 모델명</td><td>저수준 개발의 성립 조건</td></tr><tr><td><s>②</s></td><td><s>컴퓨팅 보드</s> <b>확정: Orin NX 16GB</b></td><td>SSH 후 <code>cat /etc/nv_tegra_release</code>, <code>free -h</code>, <code>df -h</code> (Orin NX/Nano · 메모리 · 저장공간)</td><td>온보드에서 뭘 돌릴 수 있나</td></tr><tr><td>③</td><td>펌웨어 버전</td><td>Unitree Go 앱 → 장비 정보</td><td>저수준 API 동작이 펌웨어에 따라 다를 수 있음</td></tr><tr><td>④</td><td>연식·이력</td><td>관리자에게: 도입 시기, 고장 이력, 이전 사용 프로젝트</td><td>상태 파악</td></tr></tbody></table></div>
 </section>
 <section id="s3"><h2>2. 🔴 저수준 개방 실측 (프로젝트의 관문, 3단계)</h2>
 <blockquote><p>순서대로. 앞 단계가 안 되면 뒤는 의미 없다. <b>반드시 관리자 허락 후 진행.</b></p></blockquote>
@@ -559,5 +568,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

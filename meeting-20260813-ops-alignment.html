@@ -446,6 +446,15 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="on" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
@@ -472,7 +481,7 @@ document.addEventListener('DOMContentLoaded',function(){
 자료: 녹음 62분 4초 → 전사 1,126세그먼트 (<code>20260813_전사_raw.txt</code>, faster-whisper large-v3, GPU 12.8배속) + MOSS-Transcribe-Diarize 0.9B 화자분리 5명 (<code>20260813_전사_MOSS_raw.txt</code>). 8/14에 MOSS 파이프라인을 구축했고 이후 회의는 MOSS 상설.
 참석: 김판구 교수(고정 멘토) · 유성현 교수(전자공학) · 이수혁 학생(BITE 팀장, 전자공학 3학년) · 오흥재(팀장) · 맹라현 · 이민우 · 오현민 · 임석헌.
 이 문서는 재기획(REPLAN)의 사실 입력으로 쓴다. 대괄호는 녹음 타임코드다. 원문 대조가 가능하다.
-같은 날 들고 간 종이는 [8/13 조선대 방문 현장 확인 목록](../FIELD-CHECK-0813.md)이다.</p></blockquote>
+같은 날 들고 간 종이는 <a href="field-check-0813.html">8/13 조선대 방문 현장 확인 목록</a>이다.</p></blockquote>
 </section>
 <section id="s1"><h2>한 줄 요약</h2>
 <p>방문 당일 팀 기획과 멘토·운영진 제시안이 한 테이블에서 갈렸다. 한 줄로 쓰면 <b>시뮬·강화·험지</b> 대 <b>ROS·SLAM</b>이다.</p>
@@ -550,7 +559,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <section id="s12"><h2>이후에 갈린 것 (당일 기록이 아니라 후속, 맹라현 추가)</h2>
 <p>8/19에 팀이 두 트랙으로 다시 고정한다. 시뮬 RL과 디지털 트윈이 중간, 순정 보행 위 SLAM·Nav2가 최종이다. 당일의 「SLAM 비메인」은 그 합의로 트랙 B로 재배치된다. 저수준 실기 이전도 목표에서 빠진다. 당일 대화의 충돌 자체는 여기 그대로 둔다.</p>
 <p><b>이 회의가 낳은 문서</b></p>
-<ol><li>녹음 전사 (워크스테이션 WS + MOSS 화자분리, [협업 규칙](../COLLAB.md) <code>COLLAB §11</code> 파이프라인). 발언 인용을 <code>전언</code>에서 <span class="ev ev-ok">확인됨</span>으로 승격했다.</li><li>재기획 1장 <code>04_plan/REPLAN-20260813.md</code> (내부 볼트)</li><li>재기획 멘토링 (당시 일정 미정)</li></ol>
+<ol><li>녹음 전사 (워크스테이션 WS + MOSS 화자분리, <a href="collab.html">협업 규칙</a> <code>COLLAB §11</code> 파이프라인). 발언 인용을 <code>전언</code>에서 <span class="ev ev-ok">확인됨</span>으로 승격했다.</li><li>재기획 1장 <code>04_plan/REPLAN-20260813.md</code> (내부 볼트)</li><li>재기획 멘토링 (당시 일정 미정)</li></ol>
 <p>→ <a href="meeting-20260819-team-lock.html">8/19 팀 합의</a> · <a href="project-report.html">프로젝트 보고서</a> · 다음날 운영: <a href="meeting-20260814-east-ops.html">8/14 운영 미팅</a></p>
 </section>
 <section id="s13"><h2>부록: 전사 근거</h2>
@@ -612,5 +621,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

@@ -414,6 +414,15 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
 </style>
+<style id="stamp-css">
+.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
+  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
+.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
+.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.bstamp .gap{flex:1}
+@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
@@ -435,7 +444,7 @@ document.addEventListener('DOMContentLoaded',function(){
 근거: 팀 합의
 요지: 프로젝트 전체 흐름 7단계와 각 단계의 산출물.
 상태: 확정</p></blockquote>
-<blockquote><p>🔶 <b>구판 주의 (2026-08-22)</b>: 이 문서의 상당 부분은 <b>8/19 방향 전환 이전</b>의 계획(실기 저수준 배포 포함)을 담고 있다. <b>현재 정본은 [프로젝트 보고서](../REPORT.md)(두 트랙)와 [8/21 팀 미팅 기록](meetings/20260821-team-meeting.md)이다.</b> 저수준 실기 이전·전환 절차 관련 내용은 폐기됐다. 이 문서는 구조 개편 때 전면 개정 예정.</p></blockquote>
+<blockquote><p>🔶 <b>구판 주의 (2026-08-22)</b>: 이 문서의 상당 부분은 <b>8/19 방향 전환 이전</b>의 계획(실기 저수준 배포 포함)을 담고 있다. <b>현재 정본은 <a href="project-report.html">프로젝트 보고서</a>(두 트랙)와 <a href="meeting-20260821-team-meeting.html">8/21 팀 미팅 기록</a>이다.</b> 저수준 실기 이전·전환 절차 관련 내용은 폐기됐다. 이 문서는 구조 개편 때 전면 개정 예정.</p></blockquote>
 <blockquote><p>이 문서는 <b>&quot;우리가 무엇을 어떤 순서로 하는가&quot;</b>를 한 장으로 보이게 한다.
 로봇공학을 모르는 사람이 읽어도 이해되게 쓴다. 용어는 나올 때마다 그 자리에서 푼다.
 마지막 §7 은 <b>자주 헷갈리는 것</b>을 모아둔 곳이다. 여기부터 읽어도 된다.</p></blockquote>
@@ -535,7 +544,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>difficulty = (행번호 + 랜덤 0~1) ÷ 전체 행수
 단 높이   = 0.05 + difficulty × (0.23 − 0.05)</pre></div>
 <p><b>level 5 는 계단 약 14 cm.</b> Go2 몸통 높이가 약 35 cm 이니 다리 길이의 절반에 가깝다.</p>
-<p>공식 Go2 rough cfg(로봇·스폰·6종 지형·보상 오버라이드·시간축)를 코드 순서로 읽는 장은 [험지 학습 커리큘럼](research/go2-rough-training.md)이다. 커스텀 지형 21종은 [지형 가이드](research/terrain-guide-isaaclab.md).</p>
+<p>공식 Go2 rough cfg(로봇·스폰·6종 지형·보상 오버라이드·시간축)를 코드 순서로 읽는 장은 <a href="research-go2-rough-training.html">험지 학습 커리큘럼</a>이다. 커스텀 지형 21종은 <a href="research-terrain-guide-isaaclab.html">지형 가이드</a>.</p>
 <h3>단위: 시계가 두 개다</h3>
 <div class="tw"><table><thead><tr><th>말</th><th>뜻</th></tr></thead><tbody><tr><td>물리 시계</td><td><code>sim.dt = 0.005 초</code> = <b>200 Hz.</b> 충돌·중력을 이 주기로 계산한다</td></tr><tr><td>정책 시계</td><td>물리 4번마다 1번 판단(<code>decimation = 4</code>) = <b>50 Hz</b></td></tr><tr><td>1 step</td><td>정책의 한 판단 = <b>0.02초</b></td></tr><tr><td>1 iteration</td><td>4,096마리 × 24 step = <b>98,304 env-step</b> ≈ 로봇 1대 기준 32.8분치 경험</td></tr><tr><td>에피소드</td><td>최대 1,000 step = <b>20초.</b> 넘어지면 그 자리에서 끝난다</td></tr><tr><td>기본 학습량</td><td>1,500 iteration = <b>실측 133분</b> (2026-08-12 완주)</td></tr></tbody></table></div>
 <blockquote><p>시뮬이 «빠르다»의 정확한 뜻: 로봇 1대로 32.8분 걸릴 경험을 GPU 가 4.2초에 모은다.
@@ -554,7 +563,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="tw"><table><thead><tr><th>항목</th><th>가중치</th><th>쉬운 말로</th></tr></thead><tbody><tr><td><code>track_lin_vel_xy_exp</code></td><td><b>+1.0</b></td><td>가라는 속도로 갔는가 (가장 큰 상)</td></tr><tr><td><code>track_ang_vel_z_exp</code></td><td>+0.5</td><td>돌라는 대로 돌았는가</td></tr><tr><td><code>feet_air_time</code></td><td>+0.125</td><td>발을 들고 걸었는가 (질질 끌지 말 것)</td></tr><tr><td><code>lin_vel_z_l2</code></td><td><b>−2.0</b></td><td>몸통이 위아래로 튀는가 (가장 큰 벌)</td></tr><tr><td><code>undesired_contacts</code></td><td>−1.0</td><td>발 아닌 곳(정강이 등)이 땅에 닿았는가</td></tr><tr><td><code>ang_vel_xy_l2</code></td><td>−0.05</td><td>몸통이 옆으로 흔들리는가</td></tr><tr><td><code>action_rate_l2</code></td><td>−0.01</td><td>명령이 널뛰는가 (부드럽게)</td></tr><tr><td><code>dof_torques_l2</code></td><td>−0.00001</td><td>힘을 낭비하는가</td></tr><tr><td><code>dof_acc_l2</code></td><td>−0.00000025</td><td>관절을 홱홱 꺾는가</td></tr></tbody></table></div>
 <blockquote><p>### ★ 이 표가 우리의 «편집 대상»이다
 난이도 곡선 실측에서 <b>실패의 원인이 «넘어짐»이 아니라 «느림»</b> 으로 나왔다
-([training-benchmarks.md](research/training-benchmarks.md) §5-4).
+(<a href="research-training-benchmarks.html">training-benchmarks.md</a> §5-4).
 그렇다면 손댈 곳은 안정 관련 벌이 아니라 <b>속도 추종 상(<code>track_lin_vel_xy_exp</code>)과
 지형별 속도 커리큘럼</b> 쪽이다. 채점표와 실측이 이렇게 연결된다.</p></blockquote>
 </section>
@@ -852,14 +861,14 @@ status, result = <span class="k">self</span>.msc.<span class="f">CheckMode</span
 <p><b>아니다. 이번에 실측으로 확인했다.</b></p>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>보상 13.94 (300회 학습)  →  실제 통과율   0.0%   (웅크리고 버티기만 한다)
 보상 22.88 (1,500회)     →  실제 통과율  86.7%</pre></div>
-<p>보상은 1.6배 올랐는데 통과율은 0 에서 86.7 로 뛰었다. <b>넘어지지 않고 버티는 것만으로도 보상이 쌓이기 때문</b>에, 로그만 보면 «잘 되고 있다»는 착시가 생긴다. 그래서 <b>평가 파이프라인</b>(따로 정한 성공 기준으로 실제 주행을 채점)이 반드시 필요하다. 얼어붙은 모습은 [visual-evidence.md](research/visual-evidence.md) §04-2 에서 영상으로 볼 수 있다.</p>
+<p>보상은 1.6배 올랐는데 통과율은 0 에서 86.7 로 뛰었다. <b>넘어지지 않고 버티는 것만으로도 보상이 쌓이기 때문</b>에, 로그만 보면 «잘 되고 있다»는 착시가 생긴다. 그래서 <b>평가 파이프라인</b>(따로 정한 성공 기준으로 실제 주행을 채점)이 반드시 필요하다. 얼어붙은 모습은 <a href="research-visual-evidence.html">visual-evidence.md</a> §04-2 에서 영상으로 볼 수 있다.</p>
 <h3>Q. 잘 학습된 공개 정책은 어디에 있고, 우리와 무슨 관계인가?</h3>
-<p>[go2-pretrained-policies.md](research/go2-pretrained-policies.md) 에 전수 조사가 있다. 요지:</p>
+<p><a href="research-go2-pretrained-policies.html">go2-pretrained-policies.md</a> 에 전수 조사가 있다. 요지:</p>
 <ul><li><b>NVIDIA 공식</b> (1,500 iter · 관측 235): 유일하게 우리 스택에 그대로 로드된다. <b>fine-tune 출발점 + Teacher</b></li><li><b>RoboGauge 점수표</b> 의 상위 정책(symmetry 0.7006 등)은 <b>관측 45 = 실물형</b>: 우리 <b>Student 의 비교 상대</b></li><li>NVIDIA 공식은 그 점수표에 없다: <b>우리가 처음 올릴 수 있다</b></li></ul>
 </section>
 <section id="s8"><h2>8. 지금 어디까지 왔나 (2026-08-12 기준)</h2>
 <div class="tw"><table><thead><tr><th>확인한 것</th><th>결과</th></tr></thead><tbody><tr><td>Isaac Sim + Isaac Lab 구축</td><td>✅ 완료 (Windows 네이티브)</td></tr><tr><td>300 / 1,500 iteration 학습</td><td>✅ 22분 · 보상 13.94 / <b>133분 · 보상 22.88</b></td></tr><tr><td><b>평가 파이프라인 v1 + 첫 기준선</b></td><td>✅ <b>통과율 86.7%</b> (level 0 · 전진 1.0 m/s · 30 에피소드)</td></tr><tr><td><b>난이도 0~9 곡선</b></td><td>✅ 83→53% · <b>실패 원인은 넘어짐이 아니라 «느림»</b></td></tr><tr><td><b>학습 씬 ≠ 렌더 씬 분리</b></td><td>✅ 실증 성공 (창고 씬 주행)</td></tr><tr><td>Path Tracing 실측</td><td>✅ 1080p 128spp = 1.751초/프레임 (30초 영상 44분)</td></tr><tr><td>공개 정책 3종 로컬 검증</td><td>✅ symmetry·HIM 입력 45 확인 (실물형 관측)</td></tr><tr><td>GPU 2장 DDP</td><td>❌ <b>Windows 는 NCCL 미지원 → 구조적 불가.</b> 우분투로 이월</td></tr></tbody></table></div>
-<p><b>상세</b>: [visual-evidence.md](research/visual-evidence.md) · [training-benchmarks.md](research/training-benchmarks.md) · [go2-rough-training.md](research/go2-rough-training.md) · [terrain-guide-isaaclab.md](research/terrain-guide-isaaclab.md) · [render-benchmarks.md](research/render-benchmarks.md) · [go2-pretrained-policies.md](research/go2-pretrained-policies.md) · [omniverse-stack.md](research/omniverse-stack.md) · [architecture-decision.md](research/architecture-decision.md)</p>
+<p><b>상세</b>: <a href="research-visual-evidence.html">visual-evidence.md</a> · <a href="research-training-benchmarks.html">training-benchmarks.md</a> · <a href="research-go2-rough-training.html">go2-rough-training.md</a> · <a href="research-terrain-guide-isaaclab.html">terrain-guide-isaaclab.md</a> · <a href="research-render-benchmarks.html">render-benchmarks.md</a> · <a href="research-go2-pretrained-policies.html">go2-pretrained-policies.md</a> · <a href="research-omniverse-stack.html">omniverse-stack.md</a> · <a href="research-architecture-decision.html">architecture-decision.md</a></p>
 </section>
 
 </div>
@@ -908,5 +917,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-</body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 12:58</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
