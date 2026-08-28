@@ -317,8 +317,12 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   .topbar .tbtn{padding:.32rem .5rem}
   .topbar .counter{font-size:.62rem}
   .fh-sbtn{display:inline-flex!important}
-  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
-    -webkit-overflow-scrolling:touch}
+  /* ★ 2026-08-28. 여기에 table{display:block} 이 있었다. 표를 블록으로 만들면
+     안쪽 표 상자가 «내용 너비» 로 줄어든다. 내용이 넓은 표는 우연히 꽉 차 보이고
+     좁은 표만 왼쪽으로 쏠린다. 팀장이 여러 번 지적한 «표가 틀어진다» 가 이것이다.
+     실측(같은 페이지 · 같은 표 · 크롬): 컨테이너 700px 에서 display:block 은 51%,
+     display:table 은 100%. 가로 스크롤은 표를 감싼 .tw 가 이미 맡고 있다. */
+  main table,.wrap table{min-width:0}
   header.top{padding-top:28px}
 }
 .fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
@@ -433,6 +437,18 @@ document.addEventListener('DOMContentLoaded',function(){
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button></span></div></div><!--/gnav:v1-->
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1000,13 +1016,13 @@ runpy.<span class="f">run_path</span>(SCRIPT, run_name=<span class="s">&quot;__m
     Isaac Sim Kit은 자기 네이티브 DLL을 먼저 올립니다.<br>
     네이티브 확장을 가진 파이썬 패키지를 Kit보다 <b>나중에 import하면 충돌</b>합니다.</p>
   <div class="tw" style="margin:.6rem 0">
-  <table>
+  <div class="tw"><table>
   <thead><tr><th>패키지</th><th>증상</th><th>언제</th></tr></thead>
   <tbody>
   <tr><td><code>tensordict</code></td><td>access violation <code>0xC0000005</code></td><td>헤드리스에서도</td></tr>
   <tr><td><code>h5py</code></td><td>entrypoint not found <code>0xC0000139</code></td><td>GUI 모드에서</td></tr>
   </tbody>
-  </table>
+  </table></div>
   </div>
   <p style="font-size:.84rem">함정 <b>⑤·⑥은 같은 부류</b>입니다.
     <b>앞으로 새 패키지를 추가할 때마다 같은 증상이 날 수 있고, 해법은 항상 「선점 import」입니다.</b><br>
@@ -1137,13 +1153,13 @@ Windows fatal exception: code 0xc0000139               <span class="c"># 엔트�
   이 가이드가 세우는 것은 <b>IsaacLab</b> 하나입니다. 여기서 <b>학습과 재생</b>이 다 됩니다.<br>
   그런데 학습 커리큘럼 A13은 <a href="https://github.com/unitreerobotics/unitree_rl_lab" target="_blank" rel="noopener">unitree_rl_lab ↗</a>
   코드를 읽으라고 합니다. <b>다른 저장소가 맞습니다.</b><br><br>
-  <table style="min-width:0;margin:.4rem 0 .2rem">
+  <div class="tw"><table style="min-width:0;margin:.4rem 0 .2rem">
   <tr><td style="padding:.3rem .6rem .3rem 0"><b>IsaacLab</b></td>
       <td style="padding:.3rem 0">학습 · 재생 · 지형 · 사전학습 체크포인트: <b>지금 세우는 것</b></td></tr>
   <tr><td style="padding:.3rem .6rem .3rem 0;border:none"><b>unitree_rl_lab</b></td>
       <td style="padding:.3rem 0;border:none">Go2 <b>실기 배포</b> 코드(C++ 컨트롤러 · FSM · 관절 매핑): 
       IsaacLab 에는 이게 없습니다</td></tr>
-  </table>
+  </table></div>
   <b>지금은 설치하지 마세요.</b> 실물 로봇에 올릴 때가 되면 그때 붙입니다.
   단 그 저장소는 <b>Isaac Lab 2.3.x</b>를 요구하므로, 지금 v2.3.2로 고정해 두는 것이 그때를 위한 준비이기도 합니다.
 </blockquote>
@@ -1384,5 +1400,5 @@ document.querySelectorAll('.cb .copy').forEach(function(btn){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 21:22</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 22:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

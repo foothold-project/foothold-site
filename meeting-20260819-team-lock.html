@@ -283,8 +283,12 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   .topbar .tbtn{padding:.32rem .5rem}
   .topbar .counter{font-size:.62rem}
   .fh-sbtn{display:inline-flex!important}
-  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
-    -webkit-overflow-scrolling:touch}
+  /* ★ 2026-08-28. 여기에 table{display:block} 이 있었다. 표를 블록으로 만들면
+     안쪽 표 상자가 «내용 너비» 로 줄어든다. 내용이 넓은 표는 우연히 꽉 차 보이고
+     좁은 표만 왼쪽으로 쏠린다. 팀장이 여러 번 지적한 «표가 틀어진다» 가 이것이다.
+     실측(같은 페이지 · 같은 표 · 크롬): 컨테이너 700px 에서 display:block 은 51%,
+     display:table 은 100%. 가로 스크롤은 표를 감싼 .tw 가 이미 맡고 있다. */
+  main table,.wrap table{min-width:0}
   header.top{padding-top:28px}
 }
 .fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
@@ -499,7 +503,7 @@ document.addEventListener('DOMContentLoaded',function(){
 상태: 확정</p></blockquote>
 <blockquote><p>2026-08-19 · 팀 회의 말하기 카드 + 당일 합의 + 조선대 첫 멘토링.
 이 장은 두 기록을 합쳤다. 앞부분은 맹라현이 2026-08-25에 제출한 당일 회의록이고, 뒤의 「팀장 사전 브리핑」은 오흥재가 8/18에 미리 써서 들고 간 데이터 기반 입장이다. 둘은 성격이 달라 나란히 둔다.
-정리 맹라현 (2026-08-25 제출) · 원본 카드 <code>Foothold_오늘말할것_260819</code>. 연계 한 장: <a href="research-rough-terrain-study-plan.html">험지 RL 학습 계획</a>.
+정리 맹라현 (2026-08-25 제출) · 원본 카드 <code>Foothold_오늘말할것_260819</code>. 연계 한 장: <span class="vlink">험지 RL 학습 계획<i>../research/rough-terrain-study-plan.md</i></span>.
 두 트랙의 본문·산출물 정의는 <a href="project-report.html">프로젝트 보고서 v2</a>가 정본이다 (작성 8/20, 원자료 임석헌 정리 양식, 팀 전원 합의 8/19).</p></blockquote>
 </section>
 <section id="s1"><h2>그날 무슨 일이었나</h2>
@@ -593,5 +597,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 21:22</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 22:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

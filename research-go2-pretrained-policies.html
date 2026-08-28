@@ -283,8 +283,12 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   .topbar .tbtn{padding:.32rem .5rem}
   .topbar .counter{font-size:.62rem}
   .fh-sbtn{display:inline-flex!important}
-  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
-    -webkit-overflow-scrolling:touch}
+  /* ★ 2026-08-28. 여기에 table{display:block} 이 있었다. 표를 블록으로 만들면
+     안쪽 표 상자가 «내용 너비» 로 줄어든다. 내용이 넓은 표는 우연히 꽉 차 보이고
+     좁은 표만 왼쪽으로 쏠린다. 팀장이 여러 번 지적한 «표가 틀어진다» 가 이것이다.
+     실측(같은 페이지 · 같은 표 · 크롬): 컨테이너 700px 에서 display:block 은 51%,
+     display:table 은 100%. 가로 스크롤은 표를 감싼 .tw 가 이미 맡고 있다. */
+  main table,.wrap table{min-width:0}
   header.top{padding-top:28px}
 }
 .fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
@@ -487,7 +491,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</h1>
   <p class="lede">NVIDIA 공식만 우리 스택에 그대로 로드된다. 이것이 우리 기준선이자 파인튜닝 출발점이다. 점수표 상위 정책은 관측 체급이 달라 참고선으로만 본다.</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v2.0</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-12 10:41</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / go2-pretrained-policies.md</span></div><div><span class="k">증거</span><span class="v">확인 14 · 추측 0 · 미측정 2</span></div></div>
+  <div class="meta"><div><span class="k">판</span><span class="v">v2.1</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-12 10:41</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / go2-pretrained-policies.md</span></div><div><span class="k">증거</span><span class="v">확인 14 · 추측 0 · 미측정 1</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -496,7 +500,7 @@ document.addEventListener('DOMContentLoaded',function(){
 근거: 공식 문서
 요지: NVIDIA 공식만 우리 스택에 그대로 로드된다. 이것이 우리 기준선이자 파인튜닝 출발점이다. 점수표 상위 정책은 관측 체급이 달라 참고선으로만 본다.
 상태: 확정
-판: v2.0</p></blockquote>
+판: v2.1</p></blockquote>
 <blockquote><p>작성 2026-08-12 · 워크스테이션 세션 · 방법: S3 버킷 직접 리스팅 + 체크포인트 바이너리 파싱 + HuggingFace 실제 다운로드·로드 검증
 목적: 제로베이스 학습 대신 «잘 학습된 정책»에서 출발하거나 비교 기준으로 삼기 위해, 공개된 Go2 정책을 전부 찾아 <b>우리 스택(Isaac Lab 2.3.2 + rsl_rl 3.1.2)에 붙는지</b> 판정한다.</p></blockquote>
 </section>
@@ -533,13 +537,18 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="tw"><table><thead><tr><th>저장소</th><th>Go2 가중치</th><th>비고</th></tr></thead><tbody><tr><td>unitree_rl_gym (공식)</td><td><b>없음</b> (g1/h1 만)</td><td>BSD-3</td></tr><tr><td>unitree_rl_lab (공식)</td><td><b>없음</b> (코드만)</td><td>Apache-2.0 · 실기 배포 포함 · <b>코드 호환 최상</b></td></tr><tr><td>walk-these-ways-go2 (615★)</td><td>있음 (MIT)</td><td>커스텀 rsl_rl 포크 · 이식하려면 전면 재작성</td></tr><tr><td>HIMLoco 원본</td><td>없음</td><td>CC-BY-NC (상업 불가)</td></tr><tr><td>파쿠르 계열</td><td>Go1 만 / depth 카메라 필수</td><td>우리 범위 밖</td></tr></tbody></table></div>
 </section>
 <section id="s6"><h2>5. 이것이 프로젝트에 주는 것</h2>
-<ol><li><b>작업 3(평가)의 성공 기준을 발명할 필요가 없다</b>: RoboGauge 의 Tracking·Safety·Quality 방법론을 참조한다.</li><li><b>«NVIDIA 공식 체크포인트를 점수표에 처음 올린 팀»</b> 이 될 수 있다: 검증 가능하고 남이 인용할 수 있는 기여다.</li><li><s>우리 Student 가 완성되면 symmetry(0.7006)와 같은 체급에서 정면 비교할 수 있다.</s> <b>8/19 에 증류를 안 하기로 했으므로 45차원 정책은 만들지 않는다.</b> symmetry 수치는 참고선으로만 본다. 2번의 「점수표에 올린다」를 실제로 하려면 <b>체급 차이를 어떻게 표기할지</b> 정해야 한다 <span class="ev ev-todo">미확인</span> · 멘토 확인 대상.</li></ol>
+<ol><li><b>작업 3(평가)의 성공 기준을 발명할 필요가 없다</b>: RoboGauge 의 Tracking·Safety·Quality 방법론을 참조한다.</li><li><s>«NVIDIA 공식 체크포인트를 점수표에 처음 올린 팀» 이 된다</s> 는 접는다. RoboGauge 표는 45차원 체급이라 235차원인 NVIDIA 공식을 그대로 못 올린다. <b>대신 우리가 만드는 것이 다른 표다.</b> RoboGauge 는 <i>학습한</i> 지형 성능을 재고 우리는 <i>안 배운</i> 지형을 잰다. 겹치지 않는 축이고 그것이 우리 고유 기여다.</li><li><b>공개 4종을 우리 10종 지형에 태워 「대조군」으로 쓴다.</b> 이것이 이 조사의 새 쓰임이다.</li></ol>
+<p>   <s>우리 Student 가 완성되면 symmetry(0.7006)와 같은 체급에서 정면 비교한다</s> 는    8/19 에 증류를 뺐으므로 성립하지 않는다. 45차원 정책을 만들지 않기 때문이다.</p>
+<p>   대신 더 쓸모 있는 질문이 남는다. <b>우리가 실패한 5종에서 이들도 실패하는가.</b></p>
+<div class="tw"><table><thead><tr><th>결과</th><th>뜻</th><th>다음 행동</th></tr></thead><tbody><tr><td>이들도 같은 5종에서 실패</td><td>미경험 지형 일반화는 아직 아무도 못 푼 문제다</td><td>파인튜닝 5종이 그 공백을 겨눈 것이 된다</td></tr><tr><td>이들은 통과</td><td>우리 학습·관측 설계에 고칠 데가 있다</td><td>남의 레시피를 먼저 읽고 방향을 다시 잡는다</td></tr></tbody></table></div>
+<p>   <b>순위는 매기지 않는다.</b> 우리는 235차원(특권 관측을 본다), 이들은 45차원이라    같은 자로 잰 것이 아니다. <b>어느 지형에서 깨지는가의 패턴만</b> 본다. 그 비교는    관측 차원과 무관하게 성립한다. 산출물은 점수 순위표가 아니라 <b>실패 지형 지도</b>다.</p>
+<p>   실행은 이미 가능하다. <a href="research-robogauge-observation-mapping.html">관측 매핑</a> 이 확정이고    4종 전부 로드·실행 검증을 마쳤다. 담당 <code>A/평가</code> · 이슈 #28.</p>
 </section>
 <section id="s7"><h2>연결</h2>
 <ul><li>평가 기준선 (1,500회 86.7%) → <a href="research-training-benchmarks.html">training-benchmarks.md</a></li><li>관측 매핑과 실물 제약 → 볼트 go2-hardware.md §4</li><li>프로젝트 흐름에서의 위치 → <a href="flow.html">FLOW.md</a> §3 (트랙 A · 시뮬에서 학습)</li></ul>
 </section>
 <section id="s8"><h2>판 이력</h2>
-<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.0</b></td><td>2026-08-28</td><td>Teacher/Student 틀을 걷어냈다. 증류는 실기 이전을 전제한 장치인데 8/19 에 그 목표가 빠졌다. 45차원 정책들은 «비교 상대» 가 아니라 «체급이 다른 참고선» 이다</td><td><code>DECISIONS</code> 08-19</td></tr><tr><td>v1.0</td><td>2026-08-12</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.1</b></td><td>2026-08-28</td><td>45차원 4종의 쓰임을 정했다. 「우리 비교 상대」가 아니라 «미경험 지형에서 이들도 깨지는가»를 가리는 대조군이다. 순위 대신 실패 지형 지도로 낸다</td><td>팀장 지시 · #28</td></tr><tr><td><b>v2.0</b></td><td>2026-08-28</td><td>Teacher/Student 틀을 걷어냈다. 증류는 실기 이전을 전제한 장치인데 8/19 에 그 목표가 빠졌다. 45차원 정책들은 «비교 상대» 가 아니라 «체급이 다른 참고선» 이다</td><td><code>DECISIONS</code> 08-19</td></tr><tr><td>v1.0</td><td>2026-08-12</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
 </section>
 
 </div>
@@ -588,5 +597,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 21:22</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 22:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
