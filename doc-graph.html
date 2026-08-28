@@ -351,7 +351,10 @@ section .addr .big{font-size:1.2rem}
 <div class="tw"><table><thead><tr><th>문서</th><th>목적</th><th>피인용</th><th>노출 가치</th></tr></thead><tbody><tr><td><code>research/architecture-decision.md</code></td><td>자료조사</td><td>8</td><td>보통</td></tr><tr><td><code>research/cloud-gpu-options.md</code></td><td>자료조사</td><td>4</td><td>보통</td></tr><tr><td><code>DESIGN-GUIDE.md</code></td><td>운영</td><td>1</td><td>보통</td></tr><tr><td><code>guides/ros2-01-setup.md</code></td><td>자료조사</td><td>1</td><td>보통</td></tr><tr><td><code>ops/VERIFIED.md</code></td><td>파이프라인점검</td><td>1</td><td>낮음</td></tr><tr><td><code>research/benchmark-setup-lim.md</code></td><td>파이프라인점검</td><td>1</td><td>보통</td></tr><tr><td><code>research/role-map-careers.md</code></td><td>자료조사</td><td>1</td><td>보통</td></tr></tbody></table></div>
 <h3>3-2. 고아 (연결이 필요한 문서)</h3>
 <div class="tw"><table><thead><tr><th>문서</th><th>목적</th><th>노출 가치</th><th>왜 고아인가</th></tr></thead><tbody><tr><td><code>AUTOMATION.md</code></td><td>운영</td><td>높음</td><td>최상위 규칙 문서라 원래 뿌리에 가깝다</td></tr><tr><td><code>research/runpod-team-ops.md</code></td><td>자료조사</td><td>보통</td><td>최상위 규칙 문서라 원래 뿌리에 가깝다</td></tr><tr><td><code>meetings/20260826-mentor-sync.md</code></td><td>운영</td><td>낮음</td><td>최상위 규칙 문서라 원래 뿌리에 가깝다</td></tr><tr><td><code>ops/DRAFT-0813-사전문의.md</code></td><td>운영</td><td>낮음</td><td>최상위 규칙 문서라 원래 뿌리에 가깝다</td></tr><tr><td><code>ops/INFRA-TODO.md</code></td><td>운영</td><td>낮음</td><td>최상위 규칙 문서라 원래 뿌리에 가깝다</td></tr></tbody></table></div>
-<p><code>AUTOMATION.md</code> 는 노출 가치가 <b>높음</b>인데 고아다. 아무도 안 가리키니 표지에서 찾을 길이 없다.</p>
+<blockquote><p><b>정정 (팀장 지적 2026-08-28).</b> <code>AUTOMATION.md</code> 를 「고아」로 적었는데 <b>틀렸다.</b> 웹에서는 <code>index.html</code> 과 <code>hub-pipeline.html</code> 이 「자동화 지도」로 가리키고 있다 <span class="ev ev-ok">실측</span>.</p>
+<p><b>이 표의 한계가 여기서 드러난다.</b> 관계를 <code>md -&gt; md</code> 링크로만 셌다. 그런데 우리 사이트의 연결은 두 층이다.</p>
+<div class="tw"><table><thead><tr><th>층</th><th>무엇이 잇나</th><th>이 표가 봤나</th></tr></thead><tbody><tr><td>md 본문 링크</td><td>글쓴이가 손으로 건 것</td><td>봤다</td></tr><tr><td>웹 배치 (<code>ia.py</code> · 허브 · 표지)</td><td>빌드가 거는 것</td><td><b>안 봤다</b></td></tr></tbody></table></div>
+<p>그래서 「고아」는 <b>「md 세계에서 고아」</b>로 읽어야 한다. 웹에서 접근 가능한지는 별개다. 2단계(노출 기준)에서는 <b>두 층을 합쳐</b> 다시 센다.</p></blockquote>
 </section>
 <section id="s4"><h2>4. 최신 결정과 어긋나는 문서 (20개)</h2>
 <p>v2.0.0 기준: 저장소 <code>foothold-go2</code> · 작업 영역 8갈래 · 관문 5개 · 트랙 B 는 순정 보행 위 SLAM·Nav2.</p>
@@ -395,5 +398,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 16:16</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 18:37</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
