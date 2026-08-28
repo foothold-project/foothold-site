@@ -321,12 +321,21 @@ document.addEventListener('DOMContentLoaded',function(){
   sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
     +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
     +'<circle cx="7" cy="7" r="4.2"/><path d="M10.4 10.4L14 14"/></svg>검색';
-  if(pb)pb.parentNode.insertBefore(sb,pb);else document.body.appendChild(sb);
-  function offset(){ /* PDF 버튼이 화면 고정형이면 그 왼쪽에 나란히 고정 */
+  /* ★ 2026-08-28. 전에는 PDF 버튼 옆에 붙이려다, PDF 가 숨겨진 화면(모바일)에서
+     position:fixed 로 튕겨나가 top:7px/right:14px 에 앉았다. 그 자리가 바로
+     sticky 상단바 위였고 z-index 가 둘 다 70 이라 나중에 그려지는 검색이 이겨서
+     「파이프라인」 글자를 덮었다 (팀장 모바일 실측).
+     상단바에 자리(.navctl)를 마련했으니 **거기 앉는다.** 떠다니지 않는다. */
+  var slot=document.querySelector('.gnav .navctl');
+  if(slot){ slot.insertBefore(sb, slot.firstChild); }
+  else if(pb){ pb.parentNode.insertBefore(sb,pb); }
+  else { document.body.appendChild(sb); }
+  function offset(){
+    if(slot){ sb.style.position='';sb.style.top='';sb.style.right='';sb.style.zIndex='';return; }
     if(!pb)return;var cs=getComputedStyle(pb);
     var r=pb.getBoundingClientRect();
-    if(cs.display==='none'||r.width===0){ /* PDF 가 숨겨진 화면(백과 모바일): 검색이 그 자리에 */
-      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='70';
+    if(cs.display==='none'||r.width===0){
+      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='71';
     }else if(cs.position==='fixed'){
       sb.style.position='fixed';sb.style.top=r.top+'px';
       sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
@@ -399,6 +408,17 @@ document.addEventListener('DOMContentLoaded',function(){
 .gnav a.on{color:var(--dim);background:var(--dim-soft,rgba(0,0,0,.05))}
 .gnav .sp{flex:1}
 .gnav .q{color:var(--ink-3);font-weight:600;font-size:.76rem}
+/* ★ 2026-08-28. 검색·다크 버튼이 position:fixed 로 «떠다니며» 상단바를 덮었다.
+   모바일 실측: 검색 버튼이 「파이프라인」 글자를 가렸고(둘 다 z-index:70 이라
+   나중에 그려지는 쪽이 이긴다), 다크 버튼은 iOS 에서 주소창이 접히자
+   화면 중간으로 튀어 카드 글씨를 덮었다(fixed 의 고질적 재계산).
+   떠다니게 두는 대신 **상단바 안의 정상 요소**로 앉힌다.
+   상단바는 이미 sticky 라 따라오고, 흐름 안이라 아무것도 안 가린다. */
+.gnav .navctl{display:inline-flex;align-items:center;gap:.3rem;margin-left:auto}
+.gnav .navctl>*{position:static!important;inset:auto!important;top:auto!important;
+  right:auto!important;bottom:auto!important;left:auto!important;z-index:auto!important;
+  margin:0!important;font-size:.62rem!important;padding:.24rem .55rem!important}
+@media (max-width:640px){.gnav .in{padding:.45rem .8rem}}
 
 .band{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:7px;
@@ -457,7 +477,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button></span></div></div><!--/gnav:v1-->
 
 <div class="top"><div class="row"><a class="home" href="research.html">← 연구 기록으로</a><span class="doc">FOOTHOLD · 연구 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
@@ -550,7 +570,7 @@ document.addEventListener('click', function(e){
 #themeBtn:active{transform:translateY(1px)}
 @media print{#themeBtn{display:none!important}}
 </style>
-<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
+
 <script>(function(){
   var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
       mq=window.matchMedia('(prefers-color-scheme: dark)');
@@ -564,5 +584,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 18:37</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 19:00</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
