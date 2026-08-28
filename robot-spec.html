@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>우리가 쓰는 Go2 실기 사양 · FOOTHOLD</title>
-<meta name="description" content="Unitree Go2 하드웨어 제원과 SDK 접근 경로 정리.">
+<meta name="description" content="Unitree Go2 하드웨어 제원과 SDK 접근 경로. 8/19 두 트랙 전환으로 «저수준 이전» 전제가 빠졌고 그 재계산을 반영했다.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -334,22 +334,22 @@ section .addr .big{font-size:1.2rem}
 <div class="hero">
   <div class="eyebrow">Spec · 우리 Go2 사양</div>
   <h1>우리가 쓰는 Go2 실기 사양</h1>
-  <p class="lede">Unitree Go2 하드웨어 제원과 SDK 접근 경로 정리.</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v1.0</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-14 17:52</span></div><div><span class="k">상태</span><span class="v">확정</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/ROBOT-SPEC.md</span></div></div>
+  <p class="lede">Unitree Go2 하드웨어 제원과 SDK 접근 경로. 8/19 두 트랙 전환으로 «저수준 이전» 전제가 빠졌고 그 재계산을 반영했다.</p>
+  <div class="meta"><div><span class="k">판</span><span class="v">v2.0</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-14 17:52</span></div><div><span class="k">상태</span><span class="v">확정</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/ROBOT-SPEC.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
 <blockquote><p>분류: 리서치
 작성: 오흥재 · 2026-08-14 17:52
 근거: 공식 문서
-요지: Unitree Go2 하드웨어 제원과 SDK 접근 경로 정리.
+요지: Unitree Go2 하드웨어 제원과 SDK 접근 경로. 8/19 두 트랙 전환으로 «저수준 이전» 전제가 빠졌고 그 재계산을 반영했다.
 상태: 확정
-판: v1.0</p></blockquote>
+판: v2.0</p></blockquote>
 <blockquote><p>작성 2026-08-14 · 출처: 팀장 확인 · 이 문서가 «우리 로봇» 의 단일 진실이다.
 이 사양은 설계 갈림길 여러 개를 이미 닫는다. 아래 §3 참조.</p></blockquote>
 </section>
 <section id="s1"><h2>1. 확정 사양 <span class="ev ev-ok">확인됨</span></h2>
-<div class="tw"><table><thead><tr><th>항목</th><th>값</th><th>무엇이 결정되나</th></tr></thead><tbody><tr><td><b>트림</b></td><td><b>EDU</b></td><td>저수준 개발이 열려 있다. AIR/PRO 였다면 프로젝트가 성립하지 않았다</td></tr><tr><td><b>RJ45 이더넷</b></td><td><b>있음</b></td><td>유선 연결 가능. DDS NIC 바인딩의 전제</td></tr><tr><td><b>온보드 컴퓨팅</b></td><td><b>Jetson Orin NX 16GB</b></td><td>경량화 증류 불필요 (§3-1)</td></tr><tr><td><b>라이다</b></td><td>기본 라이다 <b>+ 등에 별도 Unitree 라이다 모듈</b></td><td>지형 인지 경로가 하나 더 있다 (§3-2)</td></tr><tr><td><b>카메라</b></td><td>장착됨</td><td>인지 갈래의 입력원</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th><th>무엇이 결정되나</th></tr></thead><tbody><tr><td><b>트림</b></td><td><b>EDU</b></td><td>저수준 개발이 열려 있다. 이번 범위에서는 안 쓰지만 확장 여지로 남는다 (§2)</td></tr><tr><td><b>RJ45 이더넷</b></td><td><b>있음</b></td><td>유선 연결 가능. DDS NIC 바인딩의 전제</td></tr><tr><td><b>온보드 컴퓨팅</b></td><td><b>Jetson Orin NX 16GB</b></td><td>항법 스택(SLAM·Nav2)과 인지를 온보드로 돌릴 여유가 있다 (§3-1)</td></tr><tr><td><b>라이다</b></td><td>기본 라이다 <b>+ 등에 별도 Unitree 라이다 모듈</b></td><td>트랙 B 인지·SLAM 의 주 입력 후보 (§3-2)</td></tr><tr><td><b>카메라</b></td><td>장착됨</td><td>인지 갈래의 입력원</td></tr></tbody></table></div>
 <h3>등에 얹힌 라이다: 영상으로 확인한 것 <code>부분확인</code></h3>
 <p><figure class="mdimg"><img src="assets/visual/go2-back-lidar-20260814.jpg?v=2c2f7706" alt="등에 얹힌 라이다" loading="lazy"><figcaption>등에 얹힌 라이다</figcaption></figure></p>
 <p><i>팀장 촬영 영상(IMG_6331.MOV, 4K) 0.3초 지점을 원본 해상도에서 잘라 확대.</i></p>
@@ -358,24 +358,33 @@ section .addr .big{font-size:1.2rem}
 <p><b>모델명은 이 영상만으로 특정할 수 없다.</b> 각인·라벨이 보이지 않는다. 형상만 보면 회전식 puck 계열(Velodyne Puck·RoboSense·Unitree 4D L2 등)과 모두 부합한다. <b>추측을 결론 자리에 앉히지 않는다</b>(COLLAB 하지말것 6번). 아래 방법 중 하나로 10초면 확정된다.</p>
 <ol><li>모듈 옆면·베이스 <b>라벨 사진</b> 한 장</li><li>로봇에서 <code>ros2 topic list</code> (별도 라이다면 <code>/livox/lidar</code>·<code>/rslidar_points</code>·<code>/velodyne_points</code> 등 자체 토픽이 뜬다)</li><li>Orin NX 에서 <code>ip -4 addr</code> + <code>ping</code> (이더넷 라이다는 자체 고정 IP 를 갖는다)</li></ol>
 <h3>그 밖에 아직 확인이 필요한 것 <span class="ev ev-todo">미확인</span></h3>
-<ul><li>펌웨어 버전, 개체 연식·고장 이력.</li><li>스포츠 모드 해제(<code>ReleaseMode</code>)가 <b>이 개체에서 실제로 되는지</b> (절차는 <a href="flow.html">FLOW §5</a> 참조).</li></ul>
+<ul><li>펌웨어 버전, 개체 연식·고장 이력.</li><li>라이다 모듈의 토픽 이름과 좌표계 원점 (트랙 B 인지의 전제. <a href="flow.html">FLOW §6</a> 참조).</li></ul>
+<blockquote><p><s>스포츠 모드 해제(<code>ReleaseMode</code>) 가 이 개체에서 되는지</s> 는 <b>이번 범위의 확인 대상이 아니다.</b>
+8/19 에 저수준 이전을 목표에서 뺐고, 트랙 B 는 순정 보행을 그대로 쓰기 때문이다.
+EDU 라 열려 있다는 사실만 §2 에 남긴다.</p></blockquote>
 </section>
 <section id="s2"><h2>2. 이 사양이 닫은 갈림길</h2>
-<p><b>저수준 개방 여부는 더 이상 «프로젝트 성립 조건» 이 아니다.</b> EDU 이고 RJ45 가 있으므로 구조적 관문은 통과했다. 남은 것은 «이 개체에서 실제로 되는가» 라는 실행 확인뿐이다.</p>
+<p><b>저수준 개방 여부는 프로젝트 성립 조건이 아니다.</b> 두 번 그렇게 됐다.</p>
+<p>8/14 에는 「EDU 이고 RJ45 가 있으니 구조적 관문은 통과했다」는 뜻이었다. 8/19 에 두 트랙으로 나누면서 <b>저수준 이전 자체를 목표에서 뺐다.</b> 트랙 B 는 순정 보행 위에 항법을 얹으므로 관절 제어권을 가져올 일이 없다 (<code>DECISIONS</code> 08-19).</p>
+<p>그래서 EDU 라는 사실은 이제 <b>확장 여지</b>다. 이번 12/11 까지의 범위에는 안 들어간다.</p>
 </section>
-<section id="s3"><h2>3. 재계산</h2>
-<h3>3-1. 경량화 증류는 필요 없다 <span class="ev ev-ok">확인됨</span></h3>
-<p>우리 정책은 파라미터 약 17만 개, 파일 6.9MB 다. Orin NX 16GB 는 그것을 실시간 50Hz 로 돌리기에 과분하다. 따라서 «작게 만드는 증류» 는 하지 않는다. <b>관측 증류</b>(특권 정보를 안 보는 정책 만들기)만 남는다. 둘은 다른 문제다.</p>
-<h3>3-2. 발밑 지형 문제에 길이 하나 더 생겼다 <span class="ev ev-guess">가설</span></h3>
-<p>기존 판단은 이랬다. 순정 컨트롤러(MCF)를 놔주면 <code>rt/utlidar/height_map_array</code> 가 MCF 오도메트리에 의존해 끊긴다. 그래서 관측 증류가 유일한 길이다.</p>
-<p>그런데 <b>등에 독립 라이다 모듈이 있다면</b> 그 판단이 바뀔 수 있다. MCF 가 아니라 그 모듈에서 직접 점군을 받아 우리가 높이맵을 만들 수 있다면, 저수준 제어와 지형 인지가 양립한다.</p>
-<div class="tw"><table><thead><tr><th>경로</th><th>성립 조건</th><th>비용</th></tr></thead><tbody><tr><td>A. 관측 증류</td><td>없음 (항상 가능)</td><td>Teacher-Student 학습 한 번 더</td></tr><tr><td>B. 독립 라이다로 높이맵 자체 생성</td><td>모듈이 MCF 와 무관하게 점군을 내보내야 함</td><td>점군 → 높이맵 변환·정합 구현</td></tr></tbody></table></div>
-<p><b>B 는 아직 가설이다.</b> 모델명 확인과 토픽 실측이 먼저다. A 는 조건 없이 성립하므로 <b>A 를 기본선으로 두고 B 를 확인한다.</b> B 가 되면 실기 성능이 올라갈 여지가 크다.</p>
+<section id="s3"><h2>3. 재계산 (8/19 두 트랙 전환 반영)</h2>
+<p>이 절은 원래 「우리가 학습시킨 정책을 실물에 올린다」를 전제로 쓰였다. 그 전제가 8/19 에 빠졌으므로 결론이 바뀐다. 지운 판단도 함께 남겨 둔다. <b>되살릴 일이 생기면 왜 접었는지부터 알아야 하기 때문이다.</b></p>
+<h3>3-1. 온보드 여유는 이제 항법 쪽에서 쓴다 <span class="ev ev-ok">확인됨</span></h3>
+<p><s>경량화 증류</s> 는 하지 않는다. 애초에 필요도 없었다. 우리 정책은 파라미터 약 17만 개, 파일 6.9MB 라 Orin NX 16GB 에는 과분했다. <b>그리고 이제 실물에 정책을 안 올린다.</b></p>
+<p>대신 그 여유를 <b>트랙 B 가 쓴다.</b> SLAM 은 점군 정합을, Nav2 는 코스트맵 갱신을 실시간으로 돌린다. 둘 다 온보드에서 돌면 유선 의존이 줄어든다. 온보드로 갈지 외부 PC 로 갈지는 <span class="ev ev-todo">미확인</span> 이고 실측으로 정한다.</p>
+<h3>3-2. 등의 라이다는 인지의 주 입력 후보다 <span class="ev ev-guess">가설</span></h3>
+<p><b>옛 판단</b> <s>순정 컨트롤러(MCF)를 놔주면 <code>rt/utlidar/height_map_array</code> 가 MCF 오도메트리에 의존해 끊긴다. 그래서 관측 증류(Teacher-Student)가 유일한 길이다.</s></p>
+<p>이 판단은 <b>저수준 제어권을 가져올 때만</b> 성립한다. 우리는 안 가져온다. MCF 를 놔주지 않으므로 순정 높이맵도 끊기지 않는다. 관측 증류 문제 자체가 사라졌다.</p>
+<p><b>지금 남는 질문은 다른 것이다.</b> 등의 라이다가 MCF 와 무관하게 점군을 내보내는가. 내보낸다면 트랙 B 의 SLAM·인지가 그 점군을 주 입력으로 쓴다. 순정 높이맵보다 해상도와 범위가 낫고, 무엇보다 <b>좌표계를 우리가 정의할 수 있다.</b></p>
+<div class="tw"><table><thead><tr><th>경로</th><th>성립 조건</th><th>무엇이 좋아지나</th></tr></thead><tbody><tr><td>A. 순정 높이맵 사용</td><td>없음 (항상 가능)</td><td>구현이 없다. 대신 범위·해상도가 순정에 묶인다</td></tr><tr><td>B. 등 라이다 점군 직접 사용</td><td>모듈이 자체 토픽으로 점군을 내보내야 함</td><td>SLAM 품질과 좌표계 통제. 점군 정합 구현이 든다</td></tr></tbody></table></div>
+<p><b>A 를 기본선으로 두고 B 를 확인한다.</b> 확인 방법은 §1 의 세 가지와 같다 (라벨 사진 · <code>ros2 topic list</code> · <code>ip -4 addr</code>). 담당은 <code>B/인지</code> 다.</p>
 <h3>3-3. 현장 확인 목록에서 빠지는 항목</h3>
-<p><a href="field-check-go2-intake.html">FIELD-CHECK-GO2-INTAKE</a> 의 ①(EDU 인가)·②(컴퓨팅 보드)는 확정되었으므로 확인 대상이 아니다. 남은 것은 라이다 모델명·펌웨어·저수준 실행 확인이다.</p>
+<p><a href="field-check-go2-intake.html">현장 확인</a> 의 ①(EDU 인가)·②(컴퓨팅 보드)는 확정되었으므로 확인 대상이 아니다. <s>저수준 실행 확인</s> 도 §2 대로 범위 밖이다.</p>
+<p><b>남은 것은 라이다 모델명·펌웨어, 그리고 라이다 토픽·좌표계 실측이다.</b></p>
 </section>
 <section id="s4"><h2>판 이력</h2>
-<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td>v1.0</td><td>2026-08-14</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.0</b></td><td>2026-08-28</td><td>§2·§3 을 8/19 두 트랙 전환에 맞춰 다시 씀. 증류 · Teacher/Student · <code>ReleaseMode</code> 는 저수준 이전을 전제한 판단이라 폐기 표시하고 이유를 남겼다. 하드웨어 제원(§1)은 그대로</td><td><code>DECISIONS</code> 08-19</td></tr><tr><td>v1.0</td><td>2026-08-14</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
 </section>
 
 </div>
@@ -399,5 +408,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 21:07</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 21:22</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
