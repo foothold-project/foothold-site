@@ -219,15 +219,45 @@ document.getElementById('go').addEventListener('click', async ()=>{
       d.appendChild(v);
     }
     if(it.view){
+      // ★ 2026-08-28. HTML 은 «여기서 보기» 를 먼저 준다. 모바일에서 새 탭이
+      //   팝업 차단에 막히기 때문이다 (팀장 실사용에서 확인).
+      if(!isPdf){
+        const hv = document.createElement('button'); hv.textContent='여기서 보기';
+        hv.onclick = async ()=>{
+          let box = d.querySelector('.htmlbox');
+          if(box){ box.remove(); const c=d.querySelector('.hclose'); if(c) c.remove(); return; }
+          hv.disabled = true; hv.textContent = '여는 중...';
+          try{
+            const data = await decryptFile(it.view);
+            const url = URL.createObjectURL(new Blob([data],{type:'text/html;charset=utf-8'}));
+            box = document.createElement('iframe'); box.className='htmlbox';
+            box.src = url; box.setAttribute('sandbox','allow-scripts');
+            box.style.cssText='display:block;width:100%;height:78vh;margin-top:10px;border:1px solid var(--rule,#d8d4c8);border-radius:6px;background:#fff';
+            const cl = document.createElement('button'); cl.className='hclose';
+            cl.textContent='닫기'; cl.style.cssText='display:block;margin:8px 0';
+            cl.onclick = ()=>{ box.remove(); cl.remove(); URL.revokeObjectURL(url); };
+            d.appendChild(box); d.appendChild(cl);
+          }catch(e){ const er=document.createElement('div');
+            er.style.cssText='color:#b3452c;font-size:.8rem;margin-top:6px';
+            er.textContent='열기 실패: '+e.message; d.appendChild(er); }
+          hv.disabled = false; hv.textContent = '여기서 보기';
+        };
+        d.appendChild(hv);
+      }
       const nt = document.createElement('button'); nt.textContent='새 탭에서 보기';
       nt.onclick = async ()=>{
+        // ★ 창을 «먼저» 연다. 복호화(await) 뒤에 열면 사용자 제스처 맥락이
+        //   끊겨 모바일 브라우저가 팝업으로 막는다. 실제로 막혔다.
+        const w = window.open('', '_blank');
         nt.disabled = true; nt.textContent = '여는 중...';
         try{
           const data = await decryptFile(it.view);
           const mime = isPdf ? 'application/pdf' : 'text/html;charset=utf-8';
-          const w = window.open(URL.createObjectURL(new Blob([data],{type:mime})), '_blank');
-          if(!w) throw new Error('팝업이 막혔습니다. 이 사이트의 팝업을 허용해 주세요');
-        }catch(e){ const er=document.createElement('div');
+          const url = URL.createObjectURL(new Blob([data],{type:mime}));
+          if(w && !w.closed){ w.location = url; }
+          else { throw new Error('팝업이 막혔습니다. 위의 «여기서 보기» 를 쓰세요'); }
+        }catch(e){ if(w && !w.closed) w.close();
+          const er=document.createElement('div');
           er.style.cssText='color:#b3452c;font-size:.8rem;margin-top:6px';
           er.textContent='열기 실패: '+e.message; d.appendChild(er); }
         nt.disabled = false; nt.textContent = '새 탭에서 보기';
@@ -241,5 +271,5 @@ document.getElementById('pw').addEventListener('keydown', e=>{
   if(e.key==='Enter') document.getElementById('go').click();
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 23:42</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 23:56</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
