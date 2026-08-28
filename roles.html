@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Go2 신규 개체 점검 목록 (공통) · FOOTHOLD</title>
-<meta name="description" content="Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.">
+<title>역할 배치 · 누가 무엇을 맡나 · FOOTHOLD</title>
+<meta name="description" content="작업 영역 8갈래와 그 주담당·부담당, 그리고 사람별 강점. 이 문서가 정본이고 발표 자료는 여기서 생성된다">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -168,7 +168,7 @@ section .addr .big{font-size:1.2rem}
 @media print{
   @page{size:A4 portrait;margin:14mm 12mm}
   html{font-size:10.5px}
-  body{background:var(--card)!important;background-image:none!important}
+  body{background:#fff!important;background-image:none!important}
   .top,.pdfbtn,.copy{display:none!important}
   .wrap{max-width:none;padding:0}
   section{break-inside:auto;margin-top:1.4rem}
@@ -178,7 +178,7 @@ section .addr .big{font-size:1.2rem}
   .tool,.pin>div{margin-bottom:.5rem}
   .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
   .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
-  .cb pre{color:var(--ink)!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre{color:#161c26!important;white-space:pre-wrap!important;word-break:break-all}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -244,158 +244,6 @@ section .addr .big{font-size:1.2rem}
 .dgbar a span{color:var(--ink-3);font-size:.72rem}
 .dgbar a:hover{border-color:var(--dim)}
 </style>
-<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
-<!--newbadge:v5--><style>
-a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
-  margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
-  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
-</style>
-<script>
-(function(){
-  var W=7*86400000,KEY='fh_seen';
-  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
-    .replace(/\.html$/,'');return s||'index'}
-  function apply(){
-    var seen={},raw={};
-    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-    for(var k in raw)seen[norm(k)]=raw[k];
-    seen[norm(location.pathname)]=Date.now();
-    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
-    document.querySelectorAll('a[data-added]').forEach(function(a){
-      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
-      var tgt=norm(a.getAttribute('href'));
-      a.classList.toggle('is-new',
-        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
-    });
-  }
-  document.addEventListener('DOMContentLoaded',apply);
-  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
-})();
-</script>
-<!--search:v8--><style>
-@media (max-width:640px){
-  .top .row{flex-wrap:nowrap}
-  .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
-    text-overflow:ellipsis;white-space:nowrap}
-  .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
-  .topbar .stage-chip{display:none}
-  .topbar .row{gap:.3rem}
-  .topbar .tbtn{padding:.32rem .5rem}
-  .topbar .counter{font-size:.62rem}
-  .fh-sbtn{display:inline-flex!important}
-  main table,.wrap table{display:block;overflow-x:auto;min-width:0;
-    -webkit-overflow-scrolling:touch}
-  header.top{padding-top:28px}
-}
-.fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
-  border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
-  font-size:.55rem;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:4px;
-  display:inline-flex;align-items:center;gap:5px}
-.fh-so{position:fixed;inset:0;background:rgba(10,14,16,.45);z-index:300;display:none}
-.fh-so.on{display:flex;align-items:flex-start;justify-content:center;padding:9vh 14px 0}
-.fh-sp{width:min(560px,100%);background:var(--paper);border:1px solid var(--rule);
-  border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.32);overflow:hidden}
-.fh-sp input{width:100%;padding:.75rem .95rem;font-size:16px;border:0;
-  border-bottom:1px solid var(--rule);background:var(--paper);color:var(--ink);
-  font-family:inherit;outline:none}
-.fh-sr{max-height:56vh;overflow-y:auto}
-.fh-sr a{display:block;padding:.55rem .95rem;text-decoration:none;color:inherit;
-  border-bottom:1px solid var(--rule)}
-.fh-sr a:last-child{border-bottom:none}
-.fh-sr a:hover,.fh-sr a.sel{background:var(--dim-soft)}
-.fh-sr .sp1{font-size:.66rem;color:var(--dim);font-weight:800;letter-spacing:.03em}
-.fh-sr .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
-.fh-sr .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
-.fh-sr .none{padding:.7rem .95rem;font-size:.76rem;color:var(--ink-3)}
-</style>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  /* «← …로» 버튼은 라벨이 가리키는 곳으로만 간다.
-     예전의 «스마트 뒤로가기»(history.back)는 제거했다. 라벨은 «표지로»인데
-     실제로는 직전 페이지로 돌아가 사용자를 속였다. (2026-08-24) */
-  /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
-  var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
-  var sb=document.createElement('button');sb.type='button';
-  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
-  sb.setAttribute('aria-label','사이트 검색');
-  sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
-    +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
-    +'<circle cx="7" cy="7" r="4.2"/><path d="M10.4 10.4L14 14"/></svg>검색';
-  /* ★ 2026-08-28. 전에는 PDF 버튼 옆에 붙이려다, PDF 가 숨겨진 화면(모바일)에서
-     position:fixed 로 튕겨나가 top:7px/right:14px 에 앉았다. 그 자리가 바로
-     sticky 상단바 위였고 z-index 가 둘 다 70 이라 나중에 그려지는 검색이 이겨서
-     「파이프라인」 글자를 덮었다 (팀장 모바일 실측).
-     상단바에 자리(.navctl)를 마련했으니 **거기 앉는다.** 떠다니지 않는다. */
-  var slot=document.querySelector('.gnav .navctl');
-  if(slot){ slot.insertBefore(sb, slot.firstChild); }
-  else if(pb){ pb.parentNode.insertBefore(sb,pb); }
-  else { document.body.appendChild(sb); }
-  function offset(){
-    if(slot){ sb.style.position='';sb.style.top='';sb.style.right='';sb.style.zIndex='';return; }
-    if(!pb)return;var cs=getComputedStyle(pb);
-    var r=pb.getBoundingClientRect();
-    if(cs.display==='none'||r.width===0){
-      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='71';
-    }else if(cs.position==='fixed'){
-      sb.style.position='fixed';sb.style.top=r.top+'px';
-      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
-    }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
-  offset();window.addEventListener('resize',offset);
-  /* 오버레이 */
-  var ov=document.createElement('div');ov.className='fh-so';
-  ov.innerHTML='<div class="fh-sp"><input type="search" placeholder="검색 (제목 · 절 · 본문)" '
-    +'aria-label="사이트 검색"><div class="fh-sr"></div></div>';
-  document.body.appendChild(ov);
-  var inp=ov.querySelector('input'),res=ov.querySelector('.fh-sr'),IDX=null,sel=-1;
-  function open(){ov.classList.add('on');inp.focus();inp.select();}
-  function close(){ov.classList.remove('on');}
-  sb.addEventListener('click',open);
-  ov.addEventListener('mousedown',function(e){if(e.target===ov)close();});
-  document.addEventListener('keydown',function(e){
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
-    else if(e.key==='Escape'&&ov.classList.contains('on'))close();
-  });
-  function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
-  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-  function go(){
-    var q=inp.value.trim().toLowerCase();sel=-1;
-    if(q.length<2){res.innerHTML='';return;}
-    load(function(){
-      var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
-        var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
-            pi=e.t.toLowerCase().indexOf(q);
-        if(hi<0&&ti<0&&pi<0)continue;
-        var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
-        var snip='';
-        if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
-      }
-      hits.sort(function(a,b){return b.s-a.s});
-      hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
-      else{res.innerHTML=hits.map(function(h){
-        return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
-          +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
-          +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
-    });
-  }
-  inp.addEventListener('input',go);
-  inp.addEventListener('keydown',function(e){
-    e.stopPropagation(); /* 커리큘럼 등 자체 키보드 내비게이션 페이지로 새지 않게 */
-    if(e.key==='Escape'){close();return;}
-    var as=res.querySelectorAll('a');if(!as.length)return;
-    if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,as.length-1);}
-    else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);}
-    else if(e.key==='Enter'&&sel>=0){e.preventDefault();as[sel].click();return;}
-    else return;
-    as.forEach(function(a,i){a.classList.toggle('sel',i===sel)});
-    if(as[sel])as[sel].scrollIntoView({block:'nearest'});
-  });
-});
-</script>
 <style id="ia-css">
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
@@ -477,73 +325,66 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="on" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="on" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"></span></div></div><!--/gnav:v1-->
 
-<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">FOOTHOLD · 현장 확인</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
+<div class="top"><div class="row"><a class="home" href="index.html">← 표지로</a><span class="doc">운영</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">Field · 현장 확인 목록</div>
-  <h1>Go2 신규 개체 점검 목록 (공통)</h1>
-  <p class="lede">Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v1.0</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-14 10:34</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / FIELD-CHECK-GO2-INTAKE.md</span></div><div><span class="k">사용법</span><span class="v">현장에서 폰으로 열거나, 우상단 PDF 저장으로 인쇄</span></div></div>
+  <div class="eyebrow">Roles · 누가 무엇을 맡나</div>
+  <h1>역할 배치 · 누가 무엇을 맡나</h1>
+  <p class="lede">작업 영역 8갈래와 그 주담당·부담당, 그리고 사람별 강점. 이 문서가 정본이고 발표 자료는 여기서 생성된다</p>
+  <div class="meta"><div><span class="k">판</span><span class="v">v1.0</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-28 20:58</span></div><div><span class="k">상태</span><span class="v">확정</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/ROLES.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>분류: 현장
-작성: 오흥재 · 2026-08-14 10:34
-근거: 현장 준비
-요지: Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.
+<blockquote><p>분류: 결정
+작성: 오흥재 · 2026-08-28 20:58
+근거: 본인 노트 · GitHub 라벨 실측 · 08-27 팀장 확정
+요지: 작업 영역 8갈래와 그 주담당·부담당, 그리고 사람별 강점. 이 문서가 정본이고 발표 자료는 여기서 생성된다
 상태: 확정
 판: v1.0</p></blockquote>
-<blockquote><p><b>어떤 Go2를 만나든 이 한 장을 채운다.</b> 같은 Go2라도 트림·펌웨어·라이다 세대에 따라
-프로젝트에서 할 수 있는 범위가 완전히 갈린다. 지금 우리 앞에 온 개체는 두 대다:
-조선대 보유분, 그리고 운영진이 별도 업체를 통해 대여한 개체.
-채운 결과는 개체별로 팀 기록에 남긴다 (담당: 팀장).</p>
-<p>자매 문서: <a href="field-check-0813.html">8/13 조선대 방문 목록</a> (방문 일정 전용) · 근거 조사: <a href="research-architecture-decision.html">아키텍처 결정</a></p></blockquote>
 </section>
-<section id="s1"><h2>0. 왜 개체마다 다시 확인하나</h2>
-<ul><li><b>트림이 다르면 시작조차 못 한다</b>: AIR/PRO는 저수준 2차 개발이 막혀 있고 RJ45 포트 자체가 없다. EDU만 개발용이다.</li><li><b>펌웨어·연식이 다르면 결과가 다르다</b>: 라이다 세대(L1/L2), 스포츠 모드 전환 동작이 개체마다 다를 수 있다.</li><li>한 개체에서 확인된 것을 다른 개체로 <b>옮겨 적지 않는다</b>. 개체별로 실측한다.</li></ul>
+<section id="s1"><h2>왜 이 문서가 따로 있나</h2>
+<p><b>같은 사실을 세 군데에 손으로 적어 두었다가 한 군데만 고쳤기 때문이다.</b></p>
+<p>2026-08-27 에 작업 영역을 5갈래에서 <b>8갈래</b>로 바꿨다. GitHub 라벨은 바꿨고 <code>COLLAB.md</code> 표도 바꿨다. 그런데 <b>팀 소개 덱과 피치 덱은 그대로였다.</b> 발표에 쓰는 두 장짜리가 8/13 의 옛 5분야(<code>PM·Digital Twin</code> <code>Policy·RL</code> <code>Scene·Visualization</code> <code>Environment·Infra</code> <code>Perception·Data</code>)를 여전히 보여주고 있었다.</p>
+<p>원인은 부주의가 아니라 구조다. <b>손으로 관리하는 마스터가 셋이면 셋 다 고쳐야 하고, 셋 다 고쳤는지 확인해 주는 것이 아무것도 없다.</b> 커널 철칙 4 와 같은 부류다.</p>
+<p>그래서 이 문서를 <b>정본 하나</b>로 두고, 나머지는 여기서 <b>생성</b>한다.</p>
+<div class="tw"><table><thead><tr><th>어디</th><th>무엇을 보여주나</th><th>어떻게</th></tr></thead><tbody><tr><td>이 문서</td><td>8갈래 배치 + 사람별 강점</td><td><b>손으로 쓴다. 여기만.</b></td></tr><tr><td><code>team-intro</code> 덱 R&amp;R 장</td><td>사람별 카드 6장</td><td>빌드가 이 문서에서 생성</td></tr><tr><td><code>pitch</code> 덱 Team 장</td><td>사람별 카드 6장</td><td>빌드가 이 문서에서 생성</td></tr><tr><td><code>COLLAB.md</code> §3 표</td><td>갈래별 주·부담당·폴더</td><td>손으로 쓰되 관문이 이 문서와 대조</td></tr><tr><td>GitHub 라벨 <code>A/</code> <code>B/</code> <code>C/</code></td><td>이슈 분류</td><td>관문이 이 문서와 대조</td></tr></tbody></table></div>
+<p>관문은 <code>_build/rolecheck.py</code> (빌드 <code>[3.9]</code>). 세 곳이 어긋나면 배포가 선다.</p>
 </section>
-<section id="s2"><h2>1. 🔴 신원 확인 (이것부터, 5분)</h2>
-<div class="tw"><table><thead><tr><th>#</th><th>확인할 것</th><th>어떻게</th><th>왜</th></tr></thead><tbody><tr><td><s>①</s></td><td><s>트림: EDU 인가?</s> <b>확정: EDU</b> (<a href="robot-spec.html">ROBOT-SPEC</a>)</td><td>몸통 측면·후면의 <b>RJ45 포트 유무</b> (1차 판별: AIR/PRO 는 없음) + 하판 모델 라벨·시리얼 사진 + 대여 계약서상 모델명</td><td>저수준 개발의 성립 조건</td></tr><tr><td><s>②</s></td><td><s>컴퓨팅 보드</s> <b>확정: Orin NX 16GB</b></td><td>SSH 후 <code>cat /etc/nv_tegra_release</code>, <code>free -h</code>, <code>df -h</code> (Orin NX/Nano · 메모리 · 저장공간)</td><td>온보드에서 뭘 돌릴 수 있나</td></tr><tr><td>③</td><td>펌웨어 버전</td><td>Unitree Go 앱 → 장비 정보</td><td>저수준 API 동작이 펌웨어에 따라 다를 수 있음</td></tr><tr><td>④</td><td>연식·이력</td><td>관리자에게: 도입 시기, 고장 이력, 이전 사용 프로젝트</td><td>상태 파악</td></tr></tbody></table></div>
+<section id="s2"><h2>1. 작업 영역 8갈래</h2>
+<p>두 트랙(A 시뮬 · B 실기)과 공통(C)으로 갈린다. 트랙의 뜻은 <a href="flow.html">FLOW</a> 참조.</p>
+<div class="tw"><table><thead><tr><th>갈래</th><th>무엇을 하나</th><th>주담당</th><th>부담당</th><th>폴더</th></tr></thead><tbody><tr><td><code>A/정책학습</code></td><td>학습 · 보상 · 관측 · 파인튜닝</td><td><b>임석헌</b></td><td>이민우 · 오현민 · 맹라현 · 오흥재</td><td><code>sim/policy/</code></td></tr><tr><td><code>A/지형씬제작</code></td><td>지형과 씬 에셋 제작</td><td><b>맹라현</b></td><td>오흥재 · 이민우</td><td><code>sim/terrain/</code></td></tr><tr><td><code>A/평가</code></td><td>일반화 벤치마크 · 지표</td><td><b>오현민</b></td><td>맹라현 · 이민우</td><td><code>sim/eval/</code></td></tr><tr><td><code>A/트윈렌더</code></td><td>실공간 복원 · 3DGS · RTX 렌더 · 합성데이터</td><td><b>맹라현</b></td><td>오흥재 · 이민우</td><td><code>sim/twin/</code></td></tr><tr><td><code>B/항법</code></td><td>ROS 2 · TF · SLAM · Nav2</td><td><b>오흥재</b></td><td>임석헌 · 이민우 · 오현민 · 맹라현</td><td><code>nav/</code></td></tr><tr><td><code>B/인지</code></td><td>LiDAR · 카메라 · 센서 융합</td><td><b>오현민</b></td><td>맹라현 · 이민우</td><td><code>nav/perception/</code></td></tr><tr><td><code>C/기록</code></td><td>회의록 · 문서 · 백과 · 커리큘럼 · 발표 · 대외보고</td><td><b>이민우</b></td><td>맹라현 · 오흥재</td><td><code>docs/</code></td></tr><tr><td><code>C/운영</code></td><td>인프라 · 자동화 · 깃 · 웹 · 예산 · 일정</td><td><b>오흥재</b></td><td>전원</td><td><code>.github/</code></td></tr></tbody></table></div>
+<p><b>주담당은 「혼자 한다」가 아니라 「막히면 이 사람에게 묻는다」이다.</b> 부담당은 리뷰와 대체를 맡는다. 한 사람이 자리를 비워도 갈래가 멈추지 않게 두 명 이상을 둔다.</p>
+<h3>옛 5갈래는 왜 버렸나</h3>
+<p>8/13 에 정한 옛 5갈래는 평가 체계 · 험지 환경 · 정책 학습 · <s>실기 전이</s> · 운영이었다. 이것은 <b>8/19 두 트랙 전환 이전</b>의 것이다. <s>실기 전이</s> 는 그날 목표에서 뺀 이름이고, 트랙 B(항법)가 통째로 빠져 있었다. 그래서 8/27 에 폐기했다 (<code>DECISIONS</code> 08-27).</p>
 </section>
-<section id="s3"><h2>2. 🔴 저수준 개방 실측 (프로젝트의 관문, 3단계)</h2>
-<blockquote><p>순서대로. 앞 단계가 안 되면 뒤는 의미 없다. <b>반드시 관리자 허락 후 진행.</b></p></blockquote>
-<div class="tw"><table><thead><tr><th>단계</th><th>무엇</th><th>로봇 움직임</th><th>허락 부담</th></tr></thead><tbody><tr><td>⑤ 질문</td><td>&quot;이 개체에서 unitree_sdk2 low-level 예제를 돌려본 적 있나? 스포츠 모드 해제가 되던가?&quot;</td><td>없음</td><td>없음</td></tr><tr><td>⑥ 읽기</td><td>랜선 연결 → 저수준 상태(lowstate: 관절각·IMU·발힘)가 <b>수신되는지만</b> 확인</td><td>없음</td><td>낮음 (설정 변경 없음)</td></tr><tr><td>⑦ 확정</td><td>로봇 엎드린 자세 → MotionSwitcher 로 스포츠 모드 해제 → LowCmd 로 관절 1개 미세 명령</td><td>관절 1개 소폭</td><td><b>허락 필수</b></td></tr></tbody></table></div>
-<ul><li>⑦까지 되면: 우리 학습 정책의 실기 탑재가 <b>물리적으로 가능</b>한 개체다.</li><li>⑥에서 끊기면: 저수준 인터페이스가 닫힌 개체 (트림·펌웨어 재확인).</li><li>준비물: 우분투(또는 WSL) 노트북 + 랜선 3~5m + LAN-USB 어댑터.</li></ul>
+<section id="s3"><h2>2. 사람별 배치와 강점</h2>
+<p>발표 카드는 아래 항목을 그대로 읽어 만든다. <b>항목 이름을 바꾸면 빌드가 깨진다.</b></p>
+<h3>오흥재</h3>
+<ul><li>갈래: <code>B/항법</code> · <code>C/운영</code></li><li>대표: 예</li><li>한 줄: 프로젝트 리딩 · 항법과 운영</li><li>메인 역할: 일정·범위 관리, 멘토 인터페이스, <b>트랙 B 항법 축</b>과 팀 인프라</li><li>보유 강점: 영상·VFX <b>12년</b>· 카메라·공간·3D 파이프라인 설계, 포인트클라우드 기반 공간 재구성 실무, 기획·구조 설계</li><li>협업 스타일: 결정의 <b>배경까지 문서로</b> 남겨, 누구든 중간에 이어받을 수 있게 한다</li><li>피치 한 줄: 리딩 · 항법 · 운영. 영상·VFX 12년, 카메라·공간·3D 파이프라인, 포인트클라우드 재구성 실무.</li></ul>
+<h3>임석헌</h3>
+<ul><li>갈래: <code>A/정책학습</code></li><li>대표: 아니오</li><li>한 줄: 강화학습 정책 · 모델</li><li>메인 역할: 보행 정책 학습, 보상 설계, 실험 설계와 반복</li><li>보유 강점: 비전 모델 학습·데이터 구축, <b>파인튜닝 R&amp;D</b>, LLM 판단 로직 설계</li><li>협업 스타일: 직접 돌려본 <b>결과를 근거로</b> 가져와 논의를 빠르게 좁힌다</li><li>피치 한 줄: 보행 정책 학습 · 보상 설계 · 실험 반복. 비전 모델 학습·데이터 구축, 파인튜닝 R&amp;D.</li></ul>
+<h3>맹라현</h3>
+<ul><li>갈래: <code>A/지형씬제작</code> · <code>A/트윈렌더</code></li><li>대표: 아니오</li><li>한 줄: 3D 지형 · 트윈 · 렌더</li><li>메인 역할: 시뮬 지형 제작, 실공간 복원과 렌더 시연</li><li>보유 강점: Blender · 3ds Max · Unity, 2D CAD, 프리미어, HTML/CSS, MongoDB · SQL, Git · <b>제작부터 데이터까지</b></li><li>협업 스타일: 복잡한 구조를 <b>눈으로 볼 수 있게</b> 만들어, 말로 하면 길어질 논의를 짧게 만든다</li><li>피치 한 줄: 시뮬 지형 제작 · 실공간 복원 · 렌더 시연. Blender · 3ds Max · Unity, 웹·DB까지.</li></ul>
+<h3>오현민</h3>
+<ul><li>갈래: <code>A/평가</code> · <code>B/인지</code></li><li>대표: 아니오</li><li>한 줄: 일반화 평가 · 인지</li><li>메인 역할: 미경험 지형 일반화 벤치마크와 지표, 실기 LiDAR·카메라 인지</li><li>보유 강점: 컴퓨터비전 분류, <b>프론트엔드 구현</b>, AI 부트캠프 수료</li><li>협업 스타일: 결과를 <b>수치로 확인한 뒤</b> 넘겨, 뒷단이 다시 검증할 일을 줄인다</li><li>피치 한 줄: 일반화 벤치마크·지표 · 실기 센서 인지. 컴퓨터비전 분류, 결과 화면 구현.</li></ul>
+<h3>이민우</h3>
+<ul><li>갈래: <code>C/기록</code></li><li>대표: 아니오</li><li>한 줄: 기록 · 문서 · 대외보고</li><li>메인 역할: 회의록과 문서 정본화, 백과·커리큘럼, 발표 자료와 대외보고</li><li>보유 강점: 웹 <b>풀스택</b>· 기획부터 배포까지 직접 구현, 서버 구성·운영</li><li>협업 스타일: 막힌 곳을 먼저 찾아 손대고, <b>남이 그대로 쓸 수 있게</b> 정리해 넘긴다</li><li>피치 한 줄: 회의록·문서 정본화 · 백과·커리큘럼 · 대외보고. 웹 풀스택, 서버 구성·운영.</li></ul>
+<h3>외부 조달</h3>
+<ul><li>갈래: 없음</li><li>대표: 아니오</li><li>한 줄: 처음부터 멘토링 항목으로 설계</li><li>메인 역할: <b>실증 판정 기준</b>· 현장이 &quot;쓸 만하다&quot;고 보는 선. <b>현장 안전 요건</b>· 사람과 같은 공간에서의 검증 조건</li><li>보유 강점: 공개 자료로 채울 수 없는 <b>현장 지식</b>이다. RL·시뮬레이션은 자체 학습으로 가되, 이 둘은 <b>물어서 얻는 것</b>이 빠르고 정확하다</li><li>협업 스타일: 전담 멘토(박철제)와 고정 멘토(김판구 교수)를 통해 확보한다</li><li>피치 한 줄: 현장 판정 기준과 안전 요건. 공개 자료로 못 채우는 현장 지식을 물어서 얻는다.</li></ul>
 </section>
-<section id="s4"><h2>3. 🟠 센서·기구 (사진 필수)</h2>
-<div class="tw"><table><thead><tr><th>#</th><th>확인할 것</th><th>어떻게</th></tr></thead><tbody><tr><td>⑧</td><td>라이다 세대 (L1/L2)</td><td>모듈 각인·라벨 사진</td></tr><tr><td>⑨</td><td>하이트맵 토픽</td><td>스포츠 모드 상태에서 height_map 수신 확인 → <b>저수준 전환 후 재확인</b> (끊기면 증류 필수 근거)</td></tr><tr><td>⑩</td><td>발바닥</td><td>에어니들(공기 구멍) 유무 육안 + 사진 (분해 금지)</td></tr><tr><td>⑪</td><td>발힘 센서</td><td>lowstate 의 foot_force 값이 실제로 변하는지 (발 눌러보기)</td></tr><tr><td>⑫</td><td>카메라</td><td>전방 카메라 화질·토픽 확인</td></tr></tbody></table></div>
+<section id="s4"><h2>3. 짚어둘 것 (팀장 확인 필요)</h2>
+<p><b>이민우의 강점과 배치가 어긋나 보인다.</b></p>
+<p>프로필상 강점은 <b>웹 풀스택 · 서버 구성·운영</b>인데, 8갈래에서 인프라는 <code>C/운영</code> (오흥재)으로 갔고 이민우의 주담당은 <code>C/기록</code>(회의록·문서)이다. 8/21 역할 합의에서도 이민우는 네 축 모두에서 부담당이었고 주담당 축이 없었다.</p>
+<p>이것은 둘 중 하나다.</p>
+<ol><li><b>의도한 배치다.</b> 문서 축이 실제로 비어 있었고 그것을 맡기기로 했다.</li><li><b>강점이 안 쓰이고 있다.</b> 그렇다면 <code>C/운영</code> 중 인프라 부분을 나누거나 <code>A/정책학습</code>의 실행 파이프라인 쪽을 주담당으로 올리는 편이 낫다.</li></ol>
+<p><b>추측으로 정하지 않는다.</b> 팀장이 정하면 이 절을 지우고 §1·§2 에 반영한다.</p>
 </section>
-<section id="s5"><h2>4. 🟠 부속·구성품</h2>
-<ul><li>[ ] 배터리 몇 개, 실사용 시간 (스펙 4시간, 험지 주행 시 2~3시간 증언 있음)</li><li>[ ] 충전기·독, 리모컨, 케이블류</li><li>[ ] <b>외장 라이다(XT16 등) 포함 여부</b> (항법 데모를 하려면 필요할 수 있음)</li><li>[ ] 운반 케이스 (반출·이동 가능성과 직결)</li></ul>
-</section>
-<section id="s6"><h2>5. 🟡 사용 조건 (관리자·계약)</h2>
-<blockquote><p>⚠️ 금액은 웹·공개 문서에 적지 않는다. 내부 기록에만.</p></blockquote>
-<ul><li>[ ] 사용 장소 제한 (반출 가능? 어디까지?)</li><li>[ ] 사용 기간·예약 방식·빈도</li><li>[ ] <b>설정 변경 허용 범위</b>: 모드 전환·SDK 사용·소프트웨어 설치가 계약상 허용되는가, 반납 시 원복 의무는</li><li>[ ] 파손 책임·보험</li><li>[ ] 동시 사용 (다른 팀·수업과 겹치는가)</li></ul>
-</section>
-<section id="s7"><h2>부록: 현장 명령 모음</h2>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># 보드 사양</span>
-<span class="f">cat</span> /etc/nv_tegra_release
-<span class="f">free</span> <span class="o">-h</span>
-<span class="f">df</span> <span class="o">-h</span>
-
-<span class="c"># ROS2 환경 (설치되어 있다면)</span>
-<span class="f">ls</span> /opt/ros/
-<span class="f">ros2</span> topic list
-
-<span class="c"># 저수준 상태 수신 (읽기 전용)</span>
-<span class="f">ros2</span> topic echo /lowstate <span class="o">--once</span>
-<span class="f">ros2</span> topic hz /utlidar/height_map_array
-
-<span class="c"># 네트워크</span>
-<span class="f">ip</span> <span class="o">-br</span> addr</pre></div>
-<blockquote><p>⚠️ <b>대여 장비 공통 수칙</b>: 읽기 먼저, 변경은 허락 후. 설치·업데이트 금지. 원복 가능한 것만 만진다.</p></blockquote>
-</section>
-<section id="s8"><h2>판 이력</h2>
-<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td>v1.0</td><td>2026-08-14</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
+<section id="s5"><h2>판 이력</h2>
+<div class="tw"><table><thead><tr><th>판</th><th>날짜</th><th>무엇이 바뀌었나</th></tr></thead><tbody><tr><td>v1.0</td><td>2026-08-28</td><td>신설. 발표 덱 두 장에 손으로 적혀 있던 옛 5분야를 걷어내고, 8갈래 배치와 사람별 강점을 정본 하나로 모았다. 덱은 이 문서에서 생성된다</td></tr></tbody></table></div>
 </section>
 
 </div>
@@ -567,30 +408,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
-<style>
-#themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
-  background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
-  padding:.3rem .65rem;font-family:inherit;font-size:.66rem;font-weight:800;
-  letter-spacing:.12em;cursor:pointer;border-radius:4px;transition:.15s;
-  line-height:1.3;white-space:nowrap}
-#themeBtn:hover{border-color:var(--dim);color:var(--dim);background:var(--dim-soft)}
-#themeBtn:active{transform:translateY(1px)}
-@media print{#themeBtn{display:none!important}}
-</style>
-
-<script>(function(){
-  var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
-      mq=window.matchMedia('(prefers-color-scheme: dark)');
-  function apply(t){d.setAttribute('data-theme',t);
-    b.textContent=(t==='dark')?'\ub77c\uc774\ud2b8':'\ub2e4\ud06c';}
-  function cur(){return localStorage.getItem(K)||(mq.matches?'dark':'light');}
-  apply(cur());
-  b.addEventListener('click',function(){
-    var t=(cur()==='dark')?'light':'dark';localStorage.setItem(K,t);apply(t);});
-  mq.addEventListener&&mq.addEventListener('change',function(){
-    if(!localStorage.getItem(K))apply(cur());});
-})();</script>
-
 <!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 21:07</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
