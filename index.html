@@ -366,6 +366,9 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
 
+
+
+
 <button class="pdfbtn" id="pdfBtn" type="button"
         title="브라우저 인쇄 창이 열립니다. 대상에서 &quot;PDF로 저장&quot;을 선택하세요."
         aria-label="이 문서를 PDF로 저장">
@@ -394,6 +397,12 @@ document.addEventListener('DOMContentLoaded',function(){
     시뮬레이션에서 수백만 번 넘어뜨리고 그 경험을 현실로 옮기는 것,
     그리고 <b>옮기는 순간 벌어지는 간극을 메우는 것</b>이 우리가 5개월간 할 일이다.</div>
 </div>
+
+
+
+
+
+
 
 
 
@@ -569,17 +578,25 @@ document.addEventListener('DOMContentLoaded',function(){
   // ★ 이 script 는 .dday 블록보다 «앞» 에 들어간다 (표지 조립 순서 때문).
   //   그대로 querySelector 하면 null 이라 조용히 빠져나간다. 실제로 그랬다.
   function start(){
-  var el=document.querySelector('.dd-live'); if(!el) return;
-  var due=new Date(el.getAttribute('data-due')+'T09:00:00+09:00');
-  function tick(){
+  // ★ 2026-08-28. 전에는 querySelector 로 «하나만» 잡아서 FINAL 만 살아 있었다.
+  //   나머지 관문은 빌드 순간의 숫자가 그대로 굳어 있었고, 하루 지나면 틀렸다.
+  var els=document.querySelectorAll('.dd-live'); if(!els.length) return;
+  function one(el){
+    var due=new Date(el.getAttribute('data-due')+'T09:00:00+09:00');
     var ms=due-new Date();
-    if(ms<0){el.textContent='지남';return;}
+    if(ms<0){ el.textContent='지남'; return; }
     var d=Math.floor(ms/86400000), r=ms-d*86400000;
-    var h=String(Math.floor(r/3600000)).padStart(2,'0');
-    var m=String(Math.floor(r%3600000/60000)).padStart(2,'0');
-    var s=String(Math.floor(r%60000/1000)).padStart(2,'0');
-    el.textContent=d+'일 '+h+':'+m+':'+s;
+    if(el.classList.contains('dd-sec')){
+      var h=String(Math.floor(r/3600000)).padStart(2,'0');
+      var m=String(Math.floor(r%3600000/60000)).padStart(2,'0');
+      var s=String(Math.floor(r%60000/1000)).padStart(2,'0');
+      el.textContent=d+'일 '+h+':'+m+':'+s;
+    }else{
+      // 남은 «날»은 올림이다. 오늘이 D-7 이면 자정 전까지 계속 D-7 이어야 한다.
+      el.textContent = d>0 ? ('D-'+Math.ceil(ms/86400000)) : '오늘';
+    }
   }
+  function tick(){ for(var i=0;i<els.length;i++) one(els[i]); }
   tick(); setInterval(tick,1000);
   }
   if(document.readyState==='loading'){
@@ -587,7 +604,7 @@ document.addEventListener('DOMContentLoaded',function(){
   }else{ start(); }
 })();
 </script>
-<div class="dday" aria-label="다음 관문까지 남은 기간과 제출물"><a class="dd-cell" href="deliverables.html"><span class="dd-name">기획발표</span><span class="dd-num">D-8</span><span class="dd-sub">09월 04일 · 제출 0/4</span><span class="dd-list">브레인스토밍 · 프로젝트 기획서 (요약) · 프로젝트 기획서 (발표용) 외 1</span></a><a class="dd-cell" href="deliverables.html"><span class="dd-name">MVP · 중간발표</span><span class="dd-num">D-34</span><span class="dd-sub">09월 30일 · 제출 0/2</span><span class="dd-list">일반화 평가표 · 디지털 트윈 · 렌더 시연물</span></a><a class="dd-cell" href="deliverables.html"><span class="dd-name">FINAL · 최종발표</span><span class="dd-num"><span class="dd-live" data-due="2026-12-11">106일</span></span><span class="dd-sub">12월 11일 · 제출 0/1</span><span class="dd-list">최종 실증결과 보고서</span></a></div>
+<div class="dday" aria-label="다음 관문까지 남은 기간과 제출물"><a class="dd-cell" href="deliverables.html"><span class="dd-name">기획발표</span><span class="dd-num"><span class="dd-live" data-due="2026-09-04">D-7</span></span><span class="dd-sub">09월 04일 · 제출 0/4</span><span class="dd-list">브레인스토밍 · 프로젝트 기획서 (요약) · 프로젝트 기획서 (발표용) 외 1</span></a><a class="dd-cell" href="deliverables.html"><span class="dd-name">MVP · 중간발표</span><span class="dd-num"><span class="dd-live" data-due="2026-09-30">D-33</span></span><span class="dd-sub">09월 30일 · 제출 0/2</span><span class="dd-list">일반화 평가표 · 디지털 트윈 · 렌더 시연물</span></a><a class="dd-cell" href="deliverables.html"><span class="dd-name">FINAL · 최종발표</span><span class="dd-num"><span class="dd-live dd-sec" data-due="2026-12-11">105일</span></span><span class="dd-sub">12월 11일 · 제출 0/1</span><span class="dd-list">최종 실증결과 보고서</span></a></div>
 <a class="band" href="digest-2026-W35.html"><span class="w">2026년 35주차</span><div class="t">주 간 다 이 제 스 트</div><div class="d">이번 주에 알게 된 것. 회의 · 실측 · 결정을 한 장으로</div></a>
 <div class="quick"><a href="chosun-materials.html"><div class="k">팀 자료실</div><div class="e">Materials</div><div class="d">조선대 강의 자료 · 암호 필요</div></a><a href="encyclopedia.html"><div class="k">도메인 백과</div><div class="e">Encyclopedia</div><div class="d">사족보행 로봇 용어와 개념</div></a><a href="curriculum.html"><div class="k">학습 커리큘럼</div><div class="e">Curriculum</div><div class="d">무엇을 어떤 순서로 배우는가</div></a><a href="budget.html"><div class="k">예산안</div><div class="e">Budget</div><div class="d">지원금 사용 계획 · 암호 필요</div></a></div>
 <div class="hubs"><a href="hub-proposal.html"><div class="k">기획</div><div class="e">Proposal</div><div class="d">무엇을 왜 하는가. 밖에 보여주는 것</div><div class="n">5장</div></a><a href="hub-schedule.html"><div class="k">일정</div><div class="e">Schedule</div><div class="d">언제 무엇을. 주간 계획과 마일스톤</div><div class="n">14장</div></a><a href="hub-meeting.html"><div class="k">회의</div><div class="e">Meetings</div><div class="d">언제 무엇을 정했나. 최신이 위</div><div class="n">10장</div></a><a href="hub-research.html"><div class="k">연구</div><div class="e">Research</div><div class="d">우리가 돌린 실험과 밖에서 조사한 것</div><div class="n">23장</div></a><a href="hub-pipeline.html"><div class="k">파이프라인</div><div class="e">Pipeline</div><div class="d">환경 구축 · 협업 규칙 · 자동화</div><div class="n">12장</div></a></div><!--/home:v1-->
@@ -778,7 +795,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="status">
   <div class="st"><div class="k">기간</div><div class="v">4주차<small>전체 19주 · 2026.08 ~ 12</small></div></div>
   <div class="st"><div class="k">현 단계</div><div class="v">기획 발표 준비<small>두 트랙 기획 확정</small></div></div>
-  <div class="st" style="border-left-color:var(--dim)"><div class="k">다음 마일스톤</div><div class="v">D-8<small>9/4 기획 발표</small></div></div>
+  <div class="st" style="border-left-color:var(--dim)"><div class="k">다음 마일스톤</div><div class="v">D-7<small>9/4 기획 발표</small></div></div>
   <div class="st" style="border-left-color:var(--note)"><div class="k">미결 안건</div><div class="v">6건<small>설계도 5절 · 팀이 정할 것</small></div></div>
 </div>
 <!--/status:v1-->
@@ -818,5 +835,5 @@ document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-27 13:31</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 12:03</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
