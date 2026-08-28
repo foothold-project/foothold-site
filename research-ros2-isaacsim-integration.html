@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법</h1>
   <p class="lede">파이썬 충돌은 «같이 설치»가 아니라 «같은 셸에서 source» 할 때 난다. 통신은 DDS 층이라 버전과 무관하다.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-09 01:38</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / ros2-isaacsim-integration.md</span></div><div><span class="k">증거</span><span class="v">확인 3 · 추측 0 · 미측정 0</span></div></div>
+  <div class="meta"><div><span class="k">판</span><span class="v">v1.0</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-09 01:38</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / ros2-isaacsim-integration.md</span></div><div><span class="k">증거</span><span class="v">확인 3 · 추측 0 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -495,7 +495,8 @@ document.addEventListener('DOMContentLoaded',function(){
 작성: 오흥재 · 2026-08-09 01:38
 근거: 공식 문서
 요지: 파이썬 충돌은 «같이 설치»가 아니라 «같은 셸에서 source» 할 때 난다. 통신은 DDS 층이라 버전과 무관하다.
-상태: 확정</p></blockquote>
+상태: 확정
+판: v1.0</p></blockquote>
 <blockquote><p>작성 2026-08-09 · 출처: 공식 문서 검증 + <b>WS 세션 원본 회수 완료(§회수 완료)</b>
 상태: <span class="ev ev-ok">확인됨</span>. 참조 블로그·구현 저장소 URL 대조 완료</p></blockquote>
 </section>
@@ -531,6 +532,9 @@ nvcr.io/nvidia/isaac-lab:2.3.2     ← 우리가 고정한 태그와 일치</pre
 <p>컨테이너로 분리하면 <b>호스트 우분투 버전의 제약이 크게 줄어든다.</b> 컨테이너는 자기 파일시스템과 파이썬을 갖기 때문이다. ⚠️ 단 <b>커널은 호스트와 공유</b>하므로 GPU 드라이버·커널 버전은 여전히 호스트 것을 쓴다.</p>
 <p><b>그럼에도 22.04를 택했다. 기술이 아니라 수업 때문이다.</b> 8/10~14 ROS 보충수업이 <b>Ubuntu 22.04 + Humble 기준</b>(1일차 Docker 실습 포함)이고, PinkLAB 강의도 22.04다. <b>강의와 환경이 다르면 5일 내내 다른 문제로 시간을 쓴다.</b></p>
 <p><b>ISO 준비 완료</b>: <code>C:\Driver\ubuntu-22.04.5-desktop-amd64.iso</code> (4.44GB) SHA256 <b>공식 대조 일치 확인</b>: <code>bfd1cee02bc4f35db939e69b934ba49a39a378797ce9aee20f6e3e3e728fefbf</code></p>
+</section>
+<section id="s5"><h2>판 이력</h2>
+<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td>v1.0</td><td>2026-08-09</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
 </section>
 
 </div>
@@ -579,5 +583,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 19:00</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 19:24</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
