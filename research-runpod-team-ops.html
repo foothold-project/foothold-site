@@ -476,13 +476,15 @@ document.addEventListener('DOMContentLoaded',function(){
 근거: 공식 문서
 요지: Runpod 팀 워크스페이스 운용. 역할 · 볼륨 · 과금.
 상태: 확정</p></blockquote>
+<blockquote><p><b>이 페이지에서 가린 것</b>: 계약·대여 <b>금액 3곳</b>. 팀 내부에서는 저장소의
+원본(<code>foothold-lab / docs/research/runpod-team-ops.md</code>)에 그대로 남아 있습니다. 금액은 상대가 있는 정보라 공개하지 않습니다.</p></blockquote>
 <blockquote><p>작성 2026-08-22 (WS) · 근거: Runpod 공식 문서 정독 (하단 출처) + 팀 계정 실황 (FOOTHOLD&#x27;s Team, 5인) + 8/20 벤치마크 실측
 지위: 공식 문서에 있는 것은 <span class="ev ev-ok">확인됨</span>, 문서에 없어 우리가 직접 확인해야 하는 것은 <span class="ev ev-todo">미확인</span>으로 구분한다.</p></blockquote>
 </section>
 <section id="s1"><h2>1. 팀 계정과 권한 4종 <span class="ev ev-ok">확인됨</span></h2>
 <p>우리 팀 워크스페이스는 별도 지갑이 아니라 <b>팀장 계정을 팀으로 전환한 것</b>이며, 크레딧 잔액은 계정(=팀)당 하나를 전원이 공유한다. 크레딧은 선불이며 <b>환불·인출 불가</b>.</p>
 <div class="tw"><table><thead><tr><th>권한</th><th>Basic</th><th>Dev</th><th>Billing</th><th>Admin</th></tr></thead><tbody><tr><td>팀 접근 · 배포된 리소스 접속</td><td>O</td><td>O</td><td>X</td><td>O</td></tr><tr><td>Pod 생성·시작·정지·삭제</td><td>X</td><td>O</td><td>X</td><td>O</td></tr><tr><td>결제수단 관리 · 인보이스 열람</td><td>X</td><td>X</td><td>O</td><td>O</td></tr><tr><td>팀원 초대·권한 변경·계정 설정</td><td>X</td><td>X</td><td>X</td><td>O</td></tr><tr><td>감사 로그 열람</td><td>X</td><td>X</td><td>X</td><td>O</td></tr></tbody></table></div>
-<p><b>현황과 권고</b>: 현재 5인 전원 Admin이다. Admin은 팀원 강퇴·계정 설정·결제수단까지 전부 가능해, 실수 하나 또는 계정 1개 탈취로 팀 전체가 노출된다. 권고 재배분: <b>Admin 2 (팀장 + 백업 1) / Dev 3</b> (Dev로도 팟 운용에 부족함이 없다). 기본 지출 한도 $80/hr는 하향 조정 권고, 저잔액 알림 켜기 (아래 §3 볼륨 소실 예방).</p>
+<p><b>현황과 권고</b>: 현재 5인 전원 Admin이다. Admin은 팀원 강퇴·계정 설정·결제수단까지 전부 가능해, 실수 하나 또는 계정 1개 탈취로 팀 전체가 노출된다. 권고 재배분: <b>Admin 2 (팀장 + 백업 1) / Dev 3</b> (Dev로도 팟 운용에 부족함이 없다). 기본 「금액 대외비」/hr는 하향 조정 권고, 저잔액 알림 켜기 (아래 §3 볼륨 소실 예방).</p>
 </section>
 <section id="s2"><h2>2. 결제: &quot;각자 카드로 각자 몫 충전&quot;이 되는가</h2>
 <ul><li>공식 문서의 답: <b>명시 없음</b> <span class="ev ev-todo">미확인</span>. 카드 여러 장 등록 가능성은 시사되지만(&quot;예비 결제수단을 등록해 두라&quot; 권고 존재), <b>1회 충전 시 카드를 선택하는 절차는 어느 문서에도 없다.</b></li><li>따라서 월요일 상신 전에 <b>실측 3점</b>이 필요하다: ① Billing에 두 번째 카드가 등록되는가 ② 충전 모달에 카드 선택이 있는가 ③ 발행 영수증에 카드 식별 정보(뒷 4자리)가 남아 개인 비용 증빙이 성립하는가. 결제는 Stripe 경유라 영수증에 카드 정보가 남을 가능성이 높지만 이는 추론이다 <span class="ev ev-guess">추측</span>.</li><li>주의: 짧은 시간에 여러 카드 결제가 몰리면 이상거래로 차단될 수 있다는 공식 안내가 있다. <b>5명이 동시에 충전하지 말고 시차를 둘 것.</b> 선불카드는 거래당 최소 $100 제약.</li><li>Auto-pay는 기본 저장 카드에서 자동 충전된다. <b>팀 운용에서는 OFF 유지</b> (합의 8/21).</li></ul>
@@ -496,7 +498,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <ul><li>이동 경로: 작업 종료 시 팟에서 <code>rclone</code>/<code>rsync</code>로 볼륨 → NAS 하향 동기화. 팟에 Tailscale을 설치하면 NAS 직통 터널이 생긴다 (팀장 셋업 예정). 대안: 볼륨의 S3 API를 NAS 쪽에서 당기기.</li><li>효과: 볼륨은 작게 유지되고, NAS 팀 폴더가 &quot;클라우드처럼 쓰는&quot; 팀 저장소(합의 8/21)와 한 몸이 된다.</li></ul>
 </section>
 <section id="s5"><h2>5. 비용 좌표 (실측·공식 요금)</h2>
-<div class="tw"><table><thead><tr><th>항목</th><th>값</th><th>지위</th></tr></thead><tbody><tr><td>RTX 4090 Secure (템플릿 요율)</td><td>$0.74/hr</td><td>8/20 청구 실측</td></tr><tr><td>RTX 4090 Community</td><td>약 $0.34/hr</td><td>공식 요금표 (볼륨 못 씀)</td></tr><tr><td>벤치마크 작업일 하루</td><td>약 $5</td><td>8/20 청구 실측</td></tr><tr><td>네트워크 볼륨 100GB</td><td>월 $7</td><td>공식 요금</td></tr><tr><td>참고: 하루 8시간 × 30일</td><td>Secure 약 $166 / Community 약 $82</td><td>요금표 환산</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th><th>지위</th></tr></thead><tbody><tr><td>RTX 4090 Secure (템플릿 요율)</td><td>「금액 대외비」 실측</td><td></td></tr><tr><td>RTX 4090 Community</td><td>약 $0.34/hr</td><td>공식 요금표 (볼륨 못 씀)</td></tr><tr><td>벤치마크 작업일 하루</td><td>약 「금액 대외비」 실측</td><td></td></tr><tr><td>네트워크 볼륨 100GB</td><td>월 $7</td><td>공식 요금</td></tr><tr><td>참고: 하루 8시간 × 30일</td><td>Secure 약 $166 / Community 약 $82</td><td>요금표 환산</td></tr></tbody></table></div>
 </section>
 <section id="s6"><h2>출처</h2>
 <p>공식 문서: <a href="https://docs.runpod.io/accounts-billing/manage-accounts" target="_blank" rel="noopener">팀 계정·역할</a> · <a href="https://docs.runpod.io/accounts-billing/billing" target="_blank" rel="noopener">결제·크레딧</a> · <a href="https://docs.runpod.io/accounts-billing/manage-payment-cards" target="_blank" rel="noopener">카드 관리</a> · <a href="https://docs.runpod.io/storage/network-volumes" target="_blank" rel="noopener">네트워크 볼륨</a> · <a href="https://docs.runpod.io/pods/storage/types" target="_blank" rel="noopener">스토리지 유형</a> · <a href="https://docs.runpod.io/storage/s3-api" target="_blank" rel="noopener">S3 API</a> · <a href="https://docs.runpod.io/pods/templates/create-custom-template" target="_blank" rel="noopener">템플릿·이미지 캐싱</a></p>
@@ -548,5 +550,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 13:50</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 15:40</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
