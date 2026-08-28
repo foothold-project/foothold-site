@@ -336,7 +336,11 @@ document.getElementById('go').addEventListener('click', async ()=>{
       a.download = it.name; a.click();
     };
     d.appendChild(dl);
-    if(it.view){
+    // 2026-08-28: 자료실이 PDF 만 다룰 수 있었다. 조선대가 강의 PDF 4종을 지우고
+    //   4.5MB 짜리 HTML 런북 하나로 갈아탔으므로 형식을 넓힌다.
+    //   그림으로 그려 보여주는 것(pdf.js)은 PDF 에만 되고, HTML 은 새 탭으로 연다.
+    const isPdf = it.vkind === 'pdf';
+    if(it.view && isPdf){
       const v = document.createElement('button'); v.textContent='여기서 보기';
       v.onclick = async ()=>{
         let box = d.querySelector('.pdfbox');
@@ -369,10 +373,20 @@ document.getElementById('go').addEventListener('click', async ()=>{
         v.disabled = false; v.textContent = '여기서 보기';
       };
       d.appendChild(v);
+    }
+    if(it.view){
       const nt = document.createElement('button'); nt.textContent='새 탭에서 보기';
       nt.onclick = async ()=>{
-        const data = await decryptFile(it.view);
-        window.open(URL.createObjectURL(new Blob([data],{type:'application/pdf'})), '_blank');
+        nt.disabled = true; nt.textContent = '여는 중...';
+        try{
+          const data = await decryptFile(it.view);
+          const mime = isPdf ? 'application/pdf' : 'text/html;charset=utf-8';
+          const w = window.open(URL.createObjectURL(new Blob([data],{type:mime})), '_blank');
+          if(!w) throw new Error('팝업이 막혔습니다. 이 사이트의 팝업을 허용해 주세요');
+        }catch(e){ const er=document.createElement('div');
+          er.style.cssText='color:#b3452c;font-size:.8rem;margin-top:6px';
+          er.textContent='열기 실패: '+e.message; d.appendChild(er); }
+        nt.disabled = false; nt.textContent = '새 탭에서 보기';
       };
       d.appendChild(nt);
     }
@@ -408,5 +422,5 @@ document.getElementById('pw').addEventListener('keydown', e=>{
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 22:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-28 22:54</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
