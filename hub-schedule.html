@@ -483,6 +483,39 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
+
+/* 「먼저 볼 것」. 이 허브에 처음 왔으면 여기서 시작한다 (#73). */
+.hhero{display:block;text-decoration:none;color:inherit;margin:0 0 1.5rem;
+  border:1px solid var(--dim);border-radius:8px;background:var(--card);
+  padding:1rem 1.15rem 1.05rem;position:relative}
+.hhero:hover{box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.hhero .hk{font-size:.6rem;font-weight:800;letter-spacing:.16em;color:var(--dim);
+  margin-bottom:.4rem}
+.hhero .t{font-size:1.28rem;font-weight:820;line-height:1.3;letter-spacing:-.01em}
+.hhero .d{font-size:.88rem;color:var(--ink-2,var(--ink-3));line-height:1.6;
+  margin-top:.4rem;max-width:56ch}
+.hhero .m{font-size:.72rem;color:var(--ink-3);margin-top:.55rem;
+  font-variant-numeric:tabular-nums}
+.hhero .hv{font-size:.62rem;margin-left:.5rem;vertical-align:.3em}
+@media (max-width:560px){.hhero .t{font-size:1.08rem}}
+
+/* 표지 「최근 올라온 것」. ia-css 는 모든 페이지에 실리므로 여기 한 자리면 된다. */
+.recent{display:grid;gap:.45rem;margin:0 0 10px}
+.recent a{display:flex;gap:.75rem;align-items:baseline;flex-wrap:wrap;
+  text-decoration:none;color:inherit;border:1px solid var(--rule);
+  background:var(--card);border-radius:6px;padding:.5rem .85rem}
+.recent a:hover{border-color:var(--dim)}
+.recent .rd{flex:none;font-size:.72rem;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;min-width:3.2em}
+.recent .rk{flex:none;font-size:.62rem;font-weight:800;letter-spacing:.08em;
+  color:var(--dim);min-width:4.6em}
+.recent .rt{font-size:.86rem;font-weight:750;line-height:1.45}
+.recent .rn{flex:none;font-size:.58rem;font-weight:800;background:var(--dim);
+  color:var(--paper);border-radius:3px;padding:1px 5px;letter-spacing:.06em}
+@media (max-width:560px){
+  .recent a{gap:.4rem}
+  .recent .rt{flex-basis:100%}
+}
 </style>
 <style id="stamp-css">
 .bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
@@ -500,7 +533,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="wrap">
 <h1>일정 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Schedule</span></h1>
 <p class="lede">언제 무엇을. 주간 계획과 마일스톤</p>
-<div class="hgroup">산출물 <span style="font-weight:600">11</span></div><div class="hlist"><a href="deliverable-brainstorming.html"><span class="hn">01</span><div class="t">brainstorming</div><div class="d">기획발표 · 9월 4일</div></a><a href="deliverable-final-report.html"><span class="hn">02</span><div class="t">final-report</div><div class="d">FINAL 최종발표 · 12월 11일</div></a><a href="deliverable-generalization-report.html"><span class="hn">03</span><div class="t">generalization-report</div><div class="d">MVP 중간발표 · 9월 30일</div></a><a href="deliverable-mentoring-log.html"><span class="hn">04</span><div class="t">mentoring-log</div><div class="d">진행 기록</div></a><a href="deliverable-nav-report.html"><span class="hn">05</span><div class="t">nav-report</div><div class="d">NAV 실기항법 · 11월 7일</div></a><a href="deliverable-policy-metrics.html"><span class="hn">06</span><div class="t">policy-metrics</div><div class="d">A-정책 · 9월 12일</div></a><a href="deliverable-progress-log.html"><span class="hn">07</span><div class="t">progress-log</div><div class="d">진행 기록</div></a><a href="deliverable-proposal-deck.html"><span class="hn">08</span><div class="t">proposal-deck</div><div class="d">기획발표 · 9월 4일</div></a><a href="deliverable-proposal-summary.html"><span class="hn">09</span><div class="t">proposal-summary</div><div class="d">기획발표 · 9월 4일</div></a><a href="deliverable-twin-render.html"><span class="hn">10</span><div class="t">twin-render</div><div class="d">MVP 중간발표 · 9월 30일</div></a><a href="deliverable-wbs.html"><span class="hn">11</span><div class="t">wbs</div><div class="d">기획발표 · 9월 4일</div></a></div><div class="hgroup">아직 안 갈린 것 <span style="font-weight:600">3</span></div><div class="hlist"><a href="deliverables.html"><span class="hn">01</span><div class="t">산출물 현황</div><div class="d">무엇을 언제까지 내는가</div></a><a href="ledger.html"><span class="hn">02</span><div class="t">원장</div><div class="d">모든 요청이 지금 어디 있나. 열린 이슈 전수와 대기 큐</div></a><a href="personal-plans.html"><span class="hn">03</span><div class="t">개인 계획</div><div class="d">팀원이 스스로 세운 계획의 원본</div></a></div><div class="hgroup">설계도 <span style="font-weight:600">1</span></div><div class="hlist"><a href="plan.html"><span class="hn">01</span><div class="t">프로젝트 설계도</div><div class="d">흐름 · 퀘스트 · 결정 안건</div></a></div>
+<a class="hhero" data-added="2026-08-28" href="ledger.html"><div class="hk">먼저 볼 것</div><div class="t">원장</div><div class="d">모든 요청이 지금 어디 있나. 열린 이슈 전수와 대기 큐</div></a><div class="hgroup">무엇을 언제까지 <span style="font-weight:600">12</span></div><div class="hlist"><a data-added="2026-08-27" href="deliverables.html"><span class="hn">01</span><div class="t">산출물 현황</div><div class="d">무엇을 언제까지 내는가</div></a><a data-added="2026-08-27" href="deliverable-wbs.html"><span class="hn">02</span><div class="t">3.1 WBS 설계</div><div class="d">WBS 를 3층으로 짜고, 위 두 층은 사람이 정하고 아래 한 층은 깃에서 자동으로 채운다.</div><div class="m">기획발표 · 9월 4일</div></a><a data-added="2026-08-27" href="deliverable-brainstorming.html"><span class="hn">03</span><div class="t">브레인스토밍: 주제 구체화 과정</div><div class="d">초기 구상이 네 번의 검증을 거쳐 두 트랙으로 확정되기까지의 과정.</div><div class="m">기획발표 · 9월 4일</div></a><a data-added="2026-08-27" href="deliverable-proposal-deck.html"><span class="hn">04</span><div class="t">프로젝트 기획서 (기획발표용)</div><div class="d">9월 4일 기획발표 슬라이드의 장별 구성과 각 장에서 말할 내용.</div><div class="m">기획발표 · 9월 4일</div></a><a data-added="2026-08-27" href="deliverable-proposal-summary.html"><span class="hn">05</span><div class="t">프로젝트 기획서 (요약)</div><div class="d">Unitree Go2 사족보행 로봇이 순정 보행으로 못 건너는 험지를 강화학습으로 넘고, 검증된 보행 위에서 실기 자율주행을 구현한다.</div><div class="m">기획발표 · 9월 4일</div></a><a data-added="2026-08-27" href="deliverable-policy-metrics.html"><span class="hn">06</span><div class="t">기준 정책 · 지표 세트</div><div class="d">우리가 정한 험지로 학습한 정책과, 이후 모든 실험이 대조할 기준 지표.</div><div class="m">A-정책 · 9월 12일</div></a><a data-added="2026-08-27" href="deliverable-twin-render.html"><span class="hn">07</span><div class="t">디지털 트윈 · 렌더 시연물</div><div class="d">학습 결과를 실사급 렌더와 디지털 트윈으로 보이는 시연물. 중간발표에서 상영한다.</div><div class="m">MVP 중간발표 · 9월 30일</div></a><a data-added="2026-08-27" href="deliverable-generalization-report.html"><span class="hn">08</span><div class="t">일반화 평가표</div><div class="d">학습에 쓰지 않은 지형에서 우리 정책이 기준선보다 나은가를 숫자로 답한다.</div><div class="m">MVP 중간발표 · 9월 30일</div></a><a data-added="2026-08-27" href="deliverable-nav-report.html"><span class="hn">09</span><div class="t">실기 항법 검증 리포트</div><div class="d">실물 Go2 가 SLAM 으로 지도를 만들고 Nav2 로 경로를 완주한 기록.</div><div class="m">NAV 실기항법 · 11월 7일</div></a><a data-added="2026-08-27" href="deliverable-final-report.html"><span class="hn">10</span><div class="t">최종 실증결과 보고서</div><div class="d">두 트랙의 최종 결과. 무엇을 증명했고 무엇이 남았는가.</div><div class="m">FINAL 최종발표 · 12월 11일</div></a><a data-added="2026-08-27" href="deliverable-progress-log.html"><span class="hn">11</span><div class="t">3.2 프로젝트 진행일지</div><div class="d">무엇을 언제 했는가를 위에서부터 쌓는다. 제출 대상은 아니고 우리가 보려고 쓴다.</div><div class="m">진행 기록</div></a><a data-added="2026-08-27" href="deliverable-mentoring-log.html"><span class="hn">12</span><div class="t">3.3 멘토링 일지</div><div class="d">멘토링 회차별로 무엇을 받았고 무엇을 반영했는가. 제출 대상은 아니다.</div><div class="m">진행 기록</div></a></div><div class="hgroup">계획 <span style="font-weight:600">2</span></div><div class="hlist"><a data-added="2026-08-27" href="personal-plans.html"><span class="hn">01</span><div class="t">개인 계획</div><div class="d">팀원이 스스로 세운 계획의 원본</div></a><a data-added="2026-08-07" href="plan.html"><span class="hn">02</span><div class="t">프로젝트 설계도</div><div class="d">흐름 · 퀘스트 · 결정 안건</div></a></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 14:40</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 16:18</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

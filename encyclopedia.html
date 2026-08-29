@@ -225,7 +225,6 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
 .cf.part{background:var(--note);color:#fff}
 .cf.no{background:var(--ink-3);color:#fff}
 
-
 /* ── PDF 저장 버튼 (우측 상단 고정) ──────────────────────
    window.print() 를 호출한다. 브라우저 인쇄 창에서 "PDF로 저장"을 고르면
    이 문서의 인쇄 스타일(@media print)이 그대로 적용된 PDF가 나온다.
@@ -574,6 +573,39 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
+
+/* 「먼저 볼 것」. 이 허브에 처음 왔으면 여기서 시작한다 (#73). */
+.hhero{display:block;text-decoration:none;color:inherit;margin:0 0 1.5rem;
+  border:1px solid var(--dim);border-radius:8px;background:var(--card);
+  padding:1rem 1.15rem 1.05rem;position:relative}
+.hhero:hover{box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.hhero .hk{font-size:.6rem;font-weight:800;letter-spacing:.16em;color:var(--dim);
+  margin-bottom:.4rem}
+.hhero .t{font-size:1.28rem;font-weight:820;line-height:1.3;letter-spacing:-.01em}
+.hhero .d{font-size:.88rem;color:var(--ink-2,var(--ink-3));line-height:1.6;
+  margin-top:.4rem;max-width:56ch}
+.hhero .m{font-size:.72rem;color:var(--ink-3);margin-top:.55rem;
+  font-variant-numeric:tabular-nums}
+.hhero .hv{font-size:.62rem;margin-left:.5rem;vertical-align:.3em}
+@media (max-width:560px){.hhero .t{font-size:1.08rem}}
+
+/* 표지 「최근 올라온 것」. ia-css 는 모든 페이지에 실리므로 여기 한 자리면 된다. */
+.recent{display:grid;gap:.45rem;margin:0 0 10px}
+.recent a{display:flex;gap:.75rem;align-items:baseline;flex-wrap:wrap;
+  text-decoration:none;color:inherit;border:1px solid var(--rule);
+  background:var(--card);border-radius:6px;padding:.5rem .85rem}
+.recent a:hover{border-color:var(--dim)}
+.recent .rd{flex:none;font-size:.72rem;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;min-width:3.2em}
+.recent .rk{flex:none;font-size:.62rem;font-weight:800;letter-spacing:.08em;
+  color:var(--dim);min-width:4.6em}
+.recent .rt{font-size:.86rem;font-weight:750;line-height:1.45}
+.recent .rn{flex:none;font-size:.58rem;font-weight:800;background:var(--dim);
+  color:var(--paper);border-radius:3px;padding:1px 5px;letter-spacing:.06em}
+@media (max-width:560px){
+  .recent a{gap:.4rem}
+  .recent .rt{flex-basis:100%}
+}
 </style>
 <style id="stamp-css">
 .bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
@@ -789,8 +821,7 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
 
-
-  <figure class="duo">
+<figure class="duo">
     <div>
       <img loading="lazy" alt="Muybridge가 1878년 연속촬영으로 기록한 말의 걷기 · 네 다리의 착지 순서가 보인다"
         src="assets/muybridge-walk.gif?v=f8693167">
@@ -1097,8 +1128,7 @@ document.addEventListener('DOMContentLoaded',function(){
     <p>강화학습 · 시뮬레이션 · 도메인 랜덤화 · 지형 커리큘럼 · 관측 설계, 전부 위 세 문장의 <b>"그래서"</b>다. 도구를 먼저 고르고 이유를 붙인 게 아니다.</p>
   </div>
 
-
-  <h3 id="sim-limit">★ 그런데 시뮬레이터가 모래를 못 만든다</h3>
+<h3 id="sim-limit">★ 그런데 시뮬레이터가 모래를 못 만든다</h3>
   <p>우리 주제 원문이 <b>"모래·자갈·계단 험지 적응"</b>인데, 여기서 프로젝트 전제를 바꾸는 사실이 나온다.</p>
 
   <div class="stop">
@@ -1192,7 +1222,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
   <div class="因">그래서, 우리는 "보고 판단하는" 문제가 아니라 "밟아보고 적응하는" 문제를 푼다. 다음 층위로.</div>
 </section>
-
 
 <!-- ══════════════ LAYER 2 · 학습이란 무엇인가 ══════════════ -->
 <section class="layer" id="L2">
@@ -1411,8 +1440,7 @@ document.addEventListener('DOMContentLoaded',function(){
     </dl>
   </div>
 
-
-  <figure>
+<figure>
     <img loading="lazy" alt="로봇 주변 지형을 격자로 나눠 각 칸의 높이를 저장한 elevation map 시각화"
       src="assets/elevation-map.jpg?v=25a66344">
     <figcaption><b>높이맵(elevation map)이 실제로 어떻게 생겼는가.</b>
@@ -1717,8 +1745,7 @@ document.addEventListener('DOMContentLoaded',function(){
       관절별로 다르게 설정하는 것이 <b>sim-to-real 첫 실질 작업 후보</b>다.</p>
   </div>
 
-
-  <figure>
+<figure>
     <svg viewBox="0 0 620 250" aria-label="Go2 다리 관절 구조 · hip, thigh, calf">
       <!-- 정면(앞에서 본) -->
       <text x="120" y="22" font-size="10.5" font-weight="800" fill="var(--ink)" text-anchor="middle">앞에서 본 모습</text>
@@ -1911,8 +1938,7 @@ document.addEventListener('DOMContentLoaded',function(){
       위 "1.1 → 0.9"가 그 표의 템플릿이다.</p>
   </div>
 
-
-  <h3 id="gs">실공간을 시뮬레이터로, 3D Gaussian Splatting</h3>
+<h3 id="gs">실공간을 시뮬레이터로, 3D Gaussian Splatting</h3>
   <p>여기까지는 <b>사람이 만든 지형</b>에서 학습하는 이야기였다.
     그런데 실증 프로젝트라면 결국 <b>실제 현장</b>에서 통해야 한다.
     실제 공간을 시뮬레이터 안으로 가져오는 것. 그게 우리 확장 축이다.</p>
@@ -2282,8 +2308,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <p class="lsub">여기까지가 조사다. 이제 <b>우리가 내린 결정과 그 근거</b>를 한 장에 모은다.
     <b>모든 결정에는 위 층위 중 어느 절에서 나왔는지가 붙어 있다.</b> 근거 없는 선택은 없다.</p>
 
-
-  <figure>
+<figure>
     <svg viewBox="0 0 620 468" aria-label="프로젝트 전체 흐름 · 입력에서 산출물까지, 단계별 통과 조건 포함">
       <defs>
         <marker id="fa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
@@ -2525,8 +2550,7 @@ document.addEventListener('DOMContentLoaded',function(){
       <b>이 프로젝트·이 하드웨어에 한정된다.</b> 지금 필요하지만 외울 필요는 없다. 필요할 때 찾아보면 되는 것들.</p>
   </div>
 
-  
-  <div class="key gkey">
+<div class="key gkey">
     <div class="kl">링크 읽는 법. <b>이 분야엔 위키피디아 같은 단일 정본이 없다</b></div>
     <p style="font-size:.78rem;line-height:1.85"><span class="lkt lk-off">공식</span> 그 도구를 <b>만든 곳</b>의 문서. 버전이 바뀌면 여기가 먼저 바뀐다.<br><span class="lkt lk-book">교재</span> 표준 <b>교재·강의</b>의 무료 공개본. 개념이 흔들리지 않는다.<br><span class="lkt lk-pap">논문</span> <b>논문 원전</b>(arXiv 영구링크). <b>숫자를 인용할 땐 반드시 여기.</b><br><span class="lkt lk-exp">해설</span> 정평 난 <b>해설</b>. 이해는 가장 빠르지만 <b>정본은 아니다.</b><br><span class="lkt lk-wiki">백과</span> 영문 <b>위키피디아</b>. 물리·수학 일반 용어에만 붙였다.<br></p>
     <p style="font-size:.75rem;margin-top:.5rem;color:var(--ink-3)">⚠️ 그래서 <b>한 사이트로 통일하지 않고 등급으로 통일</b>했다. ML 용어 백과 노릇을 하던 <b>Papers with Code 는 2025년 7월 폐쇄</b>됐고(옛 링크는 전부 죽었다), 위키피디아에는 <b>“domain randomization” 문서가 없다</b>: 검색하면 뜻이 다른 <i>domain adaptation</i> 으로 넘어가니 주의.</p>
@@ -3067,5 +3091,5 @@ document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 14:40</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 16:18</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

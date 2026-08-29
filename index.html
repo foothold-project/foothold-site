@@ -339,142 +339,6 @@ document.addEventListener('DOMContentLoaded',function(){
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button></span></div></div><!--/gnav:v1-->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <button class="pdfbtn" id="pdfBtn" type="button"
         title="브라우저 인쇄 창이 열립니다. 대상에서 &quot;PDF로 저장&quot;을 선택하세요."
         aria-label="이 문서를 PDF로 저장">
@@ -503,280 +367,6 @@ document.addEventListener('DOMContentLoaded',function(){
     시뮬레이션에서 수백만 번 넘어뜨리고 그 경험을 현실로 옮기는 것,
     그리고 <b>옮기는 순간 벌어지는 간극을 메우는 것</b>이 우리가 5개월간 할 일이다.</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!--home:v1--><style id="ia-css">
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
@@ -850,6 +440,39 @@ document.addEventListener('DOMContentLoaded',function(){
 .hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
 .hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
   font-variant-numeric:tabular-nums;opacity:.85}
+
+/* 「먼저 볼 것」. 이 허브에 처음 왔으면 여기서 시작한다 (#73). */
+.hhero{display:block;text-decoration:none;color:inherit;margin:0 0 1.5rem;
+  border:1px solid var(--dim);border-radius:8px;background:var(--card);
+  padding:1rem 1.15rem 1.05rem;position:relative}
+.hhero:hover{box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.hhero .hk{font-size:.6rem;font-weight:800;letter-spacing:.16em;color:var(--dim);
+  margin-bottom:.4rem}
+.hhero .t{font-size:1.28rem;font-weight:820;line-height:1.3;letter-spacing:-.01em}
+.hhero .d{font-size:.88rem;color:var(--ink-2,var(--ink-3));line-height:1.6;
+  margin-top:.4rem;max-width:56ch}
+.hhero .m{font-size:.72rem;color:var(--ink-3);margin-top:.55rem;
+  font-variant-numeric:tabular-nums}
+.hhero .hv{font-size:.62rem;margin-left:.5rem;vertical-align:.3em}
+@media (max-width:560px){.hhero .t{font-size:1.08rem}}
+
+/* 표지 「최근 올라온 것」. ia-css 는 모든 페이지에 실리므로 여기 한 자리면 된다. */
+.recent{display:grid;gap:.45rem;margin:0 0 10px}
+.recent a{display:flex;gap:.75rem;align-items:baseline;flex-wrap:wrap;
+  text-decoration:none;color:inherit;border:1px solid var(--rule);
+  background:var(--card);border-radius:6px;padding:.5rem .85rem}
+.recent a:hover{border-color:var(--dim)}
+.recent .rd{flex:none;font-size:.72rem;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;min-width:3.2em}
+.recent .rk{flex:none;font-size:.62rem;font-weight:800;letter-spacing:.08em;
+  color:var(--dim);min-width:4.6em}
+.recent .rt{font-size:.86rem;font-weight:750;line-height:1.45}
+.recent .rn{flex:none;font-size:.58rem;font-weight:800;background:var(--dim);
+  color:var(--paper);border-radius:3px;padding:1px 5px;letter-spacing:.06em}
+@media (max-width:560px){
+  .recent a{gap:.4rem}
+  .recent .rt{flex-basis:100%}
+}
 </style><style>
 .dday{display:flex;gap:0;border:1px solid var(--rule);border-radius:10px;
   overflow:hidden;margin:0 0 18px;background:var(--card)}
@@ -924,6 +547,12 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="st" style="border-left-color:var(--note)"><div class="k">미결 안건</div><div class="v">6건<small>설계도 5절 · 팀이 정할 것</small></div></div>
 </div>
 <!--/status:v1-->
+<!--recent:v1-->
+<h2 class="sec">최근 올라온 것 <span class="en">Recent</span></h2>
+<p class="lede" style="margin:-2px 0 12px;font-size:.82rem;color:var(--ink-3)">종류를 가리지 않고 최근 5개. 내가 올린 것이 반영됐는지 여기서 본다.</p>
+<div class="recent"><a href="research-taxonomy.html"><span class="rd">08/29</span><span class="rk">파이프라인</span><span class="rt">연구 허브 분류 기준: 무엇을 물으러 왔는지로 가른다</span><span class="rn">NEW</span></a><a href="info-model.html"><span class="rd">08/29</span><span class="rk">파이프라인</span><span class="rt">정보 모델: 문서를 무엇으로 가르고, 새 문서는 어떻게 제자리에 서나</span><span class="rn">NEW</span></a><a href="roles.html"><span class="rd">08/28</span><span class="rk">기획</span><span class="rt">역할 배치 · 누가 무엇을 맡나</span></a><a href="ledger.html"><span class="rd">08/28</span><span class="rk">일정</span><span class="rt">원장(LEDGER): 모든 요청이 지금 어디 있나</span></a><a href="doc-graph.html"><span class="rd">08/28</span><span class="rk">파이프라인</span><span class="rt">문서 관계표: 무엇이 무엇의 상위인가</span></a></div>
+<!--/recent:v1-->
+
 <!--research:auto-->
 <h2 class="sec">연구 기록 <span class="en">Research</span></h2>
 <p class="lede" style="margin:-2px 0 14px;font-size:.82rem;color:var(--ink-3)">우리가 직접 재서 나온 숫자. 이 프로젝트의 근거다.</p>
@@ -1027,7 +656,6 @@ document.addEventListener('DOMContentLoaded',function(){
   </a>
 </div>
 
-
 <h2 class="sec">팀 <span class="en">Team</span></h2>
 <div class="team">
   <div class="tm lead"><div class="r">Project Lead · Systems</div><div class="n"><a href="team-lead.html">오흥재</a></div>
@@ -1043,7 +671,6 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="tm"><div class="r">Perception</div><div class="n">오현민</div>
     <div class="s">컴퓨터비전 · 프론트엔드<br>데이터 검증</div></div>
 </div>
-
 
 <h2 class="sec">참고 <span class="en">Reference</span></h2>
 <p class="lede" style="margin:-2px 0 14px;font-size:.82rem;color:var(--ink-3)">자주 여는 것은 위 상단바에 있습니다. 여기는 한 번 보고 마는 것들입니다.</p>
@@ -1074,7 +701,6 @@ document.addEventListener('DOMContentLoaded',function(){
   </ul>
   <div class="go">보기 →</div>
   </a><a class="doc" data-added="2026-08-19" href="project-report.html"><div class="tag">Report · 보고서</div><div class="t">프로젝트 보고서</div><div class="d">한 장으로 보는 전체 계획: 목표 · 단계 · 평가 체계 · 결정 안건. 멘토에게 보여줄 때 이 페이지부터.</div></a><a class="doc" data-added="2026-08-20" href="pitch.html"><div class="tag">Deck · 발표</div><div class="t">프로젝트 소개 덱 (12장)</div><div class="d">전체화면 발표용. 킥오프·외부 소개는 이 페이지 하나로. 방향키나 클릭으로 넘긴다.</div></a><a class="doc" data-added="2026-08-12" href="questions.html"><div class="tag">Guide · 길잡이</div><div class="t">질문으로 찾기</div><div class="d">«이 정보 어디 있지?»에 답하는 지도. 궁금한 문장을 찾아 누르면 해당 문서로 바로 간다.</div></a><a class="doc" data-added="2026-08-20" href="chosun-materials.html"><div class="tag">Team · 팀 전용</div><div class="t">팀 자료실 (암호)</div><div class="d">조선대 수업 자료 + 팀 내부 문서(예산). 비밀번호 필요 (디스코드 리소스 채널). 외부 공유 금지.</div></a><a class="doc" data-added="2026-08-19" href="project-report.html"><div class="tag">계획 · 항법 · 정책학습</div><div class="t">Unitree Go2 미경험 험지 적응 시뮬레이션 및 실기 자율주행 프로젝트</div><div class="d">§3 단계별 추진 계획, §7 운영 체계, §8 남은 결정 안건, §9 산출물 정의로 이뤄진 프로젝트 계획서다. 트랙 A/B 정의의 정본이라고 여러 회의록이 명시한다.</div></a><a class="doc" data-added="2026-08-25" href="research-go2-rough-training.html"><div class="tag">리서치 · 정책학습 · 지형씬제작</div><div class="t">Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼</div><div class="d">«클래스명·기본값·Go2 오버라이드는 Isaac Lab 공식 `UNITREE_GO2_CFG` · `LocomotionVelocityRoughEnvCfg` · `Unitree</div></a><a class="doc" data-added="2026-08-11" href="research-training-benchmarks.html"><div class="tag">실험 · 정책학습</div><div class="t">학습 성능 실측: Go2 험지 (AI-WS01)</div><div class="d">«웹 조사가 아니라 이 기계에서 실제로 돌린 숫자. 전부 로그에서 추출» 이라 머리글에 있고, §2 플래그 A/B 시드 고정 3회 · §5-3 1,500 iteration </div></a><a class="doc" data-added="2026-08-21" href="research-generalization-benchmark-10-terrains.html"><div class="tag">실험 · 평가 · 정책학습</div><div class="t">일반화 벤치마크: 미학습 지형 10종 실측 (5종 통과 · 5종 실패)</div><div class="d">§1 «대상 정책 체크포인트: 기준선 1,500 iter 에서 시작 `확인됨`» · §2 지형별 성공률 표 · §2-1 v2 재검(지형당 고유 행 50/50). 우리 기준선</div></a></div>
-
 
 <footer>
   <b>팀 FOOTHOLD</b> · 오흥재 · 임석헌 · 맹라현 · 이민우 · 오현민<br>
@@ -1111,5 +737,5 @@ document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 14:40</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 16:18</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
