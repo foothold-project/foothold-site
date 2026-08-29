@@ -300,6 +300,9 @@ section .addr .big{font-size:1.2rem}
 .hubs .d{font-size:.73rem;color:var(--ink-3);line-height:1.5;margin-top:.34rem}
 .hubs .n{font-size:.7rem;color:var(--ink-3);font-weight:700;margin-top:.3rem}
 
+.hlede{font-size:.74rem;color:var(--ink-3);margin:-2px 0 9px;line-height:1.5}
+.hv{border:1px solid var(--rule);border-radius:3px;padding:0 4px;font-weight:700;
+  font-size:.92em;margin-left:.4rem;color:var(--ink-3)}
 .hgroup{margin:26px 0 8px;font-size:.7rem;font-weight:800;letter-spacing:.12em;
   color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:.35rem}
 .hlist{display:grid;gap:.5rem}
@@ -356,7 +359,7 @@ DECISIONS(결정의 «왜») · 이슈(작업 실행)와 겹치지 않는다. �
 <p><b>협업 인프라 (노트북 축, 전부 실검증)</b> 자동화 16종(§SESSION-HANDOFF #3) · 날짜 KST · 이슈 템플릿 단순화(필수=큰 칸1+갈래1) · WBS=갈래 5 + 마일스톤 4 · inbox 파이프라인: 감지→3중 알림(디스코드·검토이슈·텔레그램 자동검토)→<code>/승격</code>→웹 자동 게시 · 권한: 팀원 4명 lab·rl write, main 은 팀장만(rl 룰셋 강제·lab 감시) · rl main 보호 누락 발견·복구 · 웹: 다크모드+토글 · 브랜드 정본(워드마크·파비콘·색14종·문구) 빌드 관문 · 검색 · 연구 기록 11편+REPORT 웹판 · 첫 팀원 기여: 임석헌 terrain 가이드 승격·게시 (8/13)</p>
 </section>
 <section id="s2"><h2>🔄 진행 중</h2>
-<div class="tw"><table><thead><tr><th>항목</th><th>어디까지</th><th>다음</th><th>이슈</th></tr></thead><tbody><tr><td><b>v2.0.0 범위 확정</b></td><td>이슈 아홉으로 못박음. 열 번째를 만들지 않는다</td><td>순서대로 닫기</td><td><code>20260829-v2-scope.md</code></td></tr><tr><td><b>정보 모델 (온톨로지 2~3단계)</b></td><td>축 다섯 + 작업 영역 자동 판정 + <b>관계표 매 빌드 자동 재생성</b></td><td>표지 노출 기준 적용 · 승격 흐름 개조</td><td>#76</td></tr><tr><td><b>프로젝트 페이지 v2.0.0</b></td><td>1단계 관계표 완료. 문서 56개의 목적·상하위·최신성 판정</td><td>2단계 노출 기준 -&gt; 3단계 목업</td><td>#76 #73 #71</td></tr><tr><td><b>실패 지형 5종</b></td><td>담당 확정·이슈 발행 완료. <code>rails</code> 만 물리 관문 없음</td><td>각자 0단계 관문 닫기</td><td>#65~#69</td></tr><tr><td><b>브랜드·테마</b></td><td>실측 완료 (로고 79/79 글씨 · 토글 51/79) · 역할 8갈래는 정본화로 해결</td><td>전역바 로고 · 토글 없는 27장</td><td>#85</td></tr><tr><td><b>일정 시스템</b></td><td>라벨 5종 생성 · 첫 회차 주간 이슈 7개 발행</td><td>워크플로 2개 · <code>plan_weekly.py</code></td><td>#74</td></tr><tr><td><b>wiki 흡수</b></td><td>흡수로 방향 확정</td><td>오현민 동의 -&gt; 기술 허브로 이관</td><td>#72</td></tr><tr><td>회의 전사</td><td>8/13 조선대(핵심메모만) · 8/14 운영 ×2 · 8/20 멘토 녹음 있음(NAS·볼트)</td><td>전사 -&gt; meetings 정본화</td><td></td></tr><tr><td><b>강의 저장소 감시 자동화</b></td><td>알림만 하고 파일은 안 받는 한계가 드러났다</td><td>비공개 저장소로 미러할지 팀장 결정</td><td>#88</td></tr><tr><td><b>공개 정책 4종 대조군</b></td><td>관측 매핑 확정 · 4종 로드·실행 검증 완료</td><td>우리 10종 지형에 태워 실패 지형 지도로</td><td>#28</td></tr><tr><td>도구 백과</td><td>범위를 「선택의 근거」로 좁힘 (명령·코드는 #71)</td><td>본 빌드</td><td>#6</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>항목</th><th>어디까지</th><th>다음</th><th>이슈</th></tr></thead><tbody><tr><td><b>v2.0.0 적용 완료 점검</b></td><td>여덟 가지 실측 항목 · 목업과 실제 화면 차이 3건 확인</td><td>목업 표현을 허브에 넣고 여덟 항목 실측</td><td>#89</td></tr><tr><td><b>v2.0.0 범위 확정</b></td><td>이슈 아홉으로 못박음. 열 번째를 만들지 않는다</td><td>순서대로 닫기</td><td><code>20260829-v2-scope.md</code></td></tr><tr><td><b>정보 모델 (온톨로지 2~3단계)</b></td><td>축 다섯 + 작업 영역 자동 판정 + <b>관계표 매 빌드 자동 재생성</b></td><td>표지 노출 기준 적용 · 승격 흐름 개조</td><td>#76</td></tr><tr><td><b>프로젝트 페이지 v2.0.0</b></td><td>1단계 관계표 완료. 문서 56개의 목적·상하위·최신성 판정</td><td>2단계 노출 기준 -&gt; 3단계 목업</td><td>#76 #73 #71</td></tr><tr><td><b>실패 지형 5종</b></td><td>담당 확정·이슈 발행 완료. <code>rails</code> 만 물리 관문 없음</td><td>각자 0단계 관문 닫기</td><td>#65~#69</td></tr><tr><td><b>브랜드·테마</b></td><td>실측 완료 (로고 79/79 글씨 · 토글 51/79) · 역할 8갈래는 정본화로 해결</td><td>전역바 로고 · 토글 없는 27장</td><td>#85</td></tr><tr><td><b>일정 시스템</b></td><td>라벨 5종 생성 · 첫 회차 주간 이슈 7개 발행</td><td>워크플로 2개 · <code>plan_weekly.py</code></td><td>#74</td></tr><tr><td><b>wiki 흡수</b></td><td>흡수로 방향 확정</td><td>오현민 동의 -&gt; 기술 허브로 이관</td><td>#72</td></tr><tr><td>회의 전사</td><td>8/13 조선대(핵심메모만) · 8/14 운영 ×2 · 8/20 멘토 녹음 있음(NAS·볼트)</td><td>전사 -&gt; meetings 정본화</td><td></td></tr><tr><td><b>강의 저장소 감시 자동화</b></td><td>알림만 하고 파일은 안 받는 한계가 드러났다</td><td>비공개 저장소로 미러할지 팀장 결정</td><td>#88</td></tr><tr><td><b>공개 정책 4종 대조군</b></td><td>관측 매핑 확정 · 4종 로드·실행 검증 완료</td><td>우리 10종 지형에 태워 실패 지형 지도로</td><td>#28</td></tr><tr><td>도구 백과</td><td>범위를 「선택의 근거」로 좁힘 (명령·코드는 #71)</td><td>본 빌드</td><td>#6</td></tr></tbody></table></div>
 </section>
 <section id="s3"><h2>🔧 대기 큐 (승인됨 · 착수 전)</h2>
 <p><b>문서 최신화 (v2.0.0 선행)</b></p>
@@ -378,7 +381,7 @@ DECISIONS(결정의 «왜») · 이슈(작업 실행)와 겹치지 않는다. �
 <p><b>관문에 걸린 것</b></p>
 <div class="tw"><table><thead><tr><th>관문</th><th>이슈</th></tr></thead><tbody><tr><td>기획발표 9/4</td><td>#77 WBS 웹 도달 · #79 W36 팀 목표</td></tr><tr><td>A-정책 9/12</td><td>#28 RoboGauge 붙이기 · #30 Vaultwarden·NAS · #51 멘토링 승격</td></tr><tr><td>MVP 9/30</td><td>#6 도구 백과 · #29 에셋·HDRI · #31 DDP 재측정 · #61 지형 조사 · #62 테스트 · #65~#69 실패 5종 · #71 기술 허브 · #72 wiki 흡수 · #73 허브 표현 · #74 일정 시스템 · #75 NEW 배지 · #76 온톨로지 · #85 브랜드</td></tr><tr><td>NAV 11/7</td><td>#55 CV 단계별 계획 (오현민)</td></tr><tr><td>관문 없음</td><td>#70 노션 기획 정리 (이민우) · #78 W35 · #80~#84 개인 목표</td></tr></tbody></table></div>
 <p><b>사람별로 열린 것</b></p>
-<div class="tw"><table><thead><tr><th>사람</th><th>이슈</th></tr></thead><tbody><tr><td>오흥재</td><td>#6 #29 #30 #31 #51 #69 #71 #73 #74 #75 #76 #77 #85 #88 #80</td></tr><tr><td>맹라현</td><td>#61 #62 #66 #81</td></tr><tr><td>오현민</td><td>#55 #67 #72 #82</td></tr><tr><td>임석헌</td><td>#65 #83</td></tr><tr><td>이민우</td><td>#68 #70 #84</td></tr><tr><td>팀 공동</td><td>#78 #79</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>사람</th><th>이슈</th></tr></thead><tbody><tr><td>오흥재</td><td>#6 #29 #30 #31 #51 #69 #71 #73 #74 #75 #76 #77 #85 #88 #89 #80</td></tr><tr><td>맹라현</td><td>#61 #62 #66 #81</td></tr><tr><td>오현민</td><td>#55 #67 #72 #82</td></tr><tr><td>임석헌</td><td>#65 #83</td></tr><tr><td>이민우</td><td>#68 #70 #84</td></tr><tr><td>팀 공동</td><td>#78 #79</td></tr></tbody></table></div>
 <p><b>손이 오래 안 간 것</b> (착수 흔적이 없다. 관문이 가까워지면 위험하다)</p>
 <div class="tw"><table><thead><tr><th>이슈</th><th>무엇</th><th>왜 남아 있나</th></tr></thead><tbody><tr><td>#62</td><td>「테스트」</td><td><b>제목이 내용을 말하지 않는다.</b> 정리하거나 닫아야 한다</td></tr><tr><td>#29</td><td>에셋 팩 수령과 HDRI 렌더</td><td>에셋 수령이 선행. 대기 중</td></tr><tr><td>#30</td><td>Vaultwarden · NAS 폴더</td><td>인프라. A-정책 관문에 걸려 있다</td></tr><tr><td>#31</td><td>우분투 전환 후 DDP 재측정</td><td>우분투 이관이 선행</td></tr><tr><td>#51</td><td>승격 검토</td><td>8/25 박철제 멘토링 inbox. 승격 여부 판단이 필요하다</td></tr></tbody></table></div>
 </section>
@@ -411,5 +414,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 11:44</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 12:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
