@@ -243,6 +243,16 @@ section .addr .big{font-size:1.2rem}
   text-transform:uppercase}
 .dgbar a span{color:var(--ink-3);font-size:.72rem}
 .dgbar a:hover{border-color:var(--dim)}
+
+.stand{border:1px solid var(--rule);border-left:3px solid var(--dim);border-radius:6px;
+  background:var(--card);padding:.7rem .9rem;margin:0 0 1.3rem;font-size:.8rem}
+.stand .sh{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:.4rem}
+.stand .sr{display:flex;gap:.5rem;align-items:baseline;margin:.22rem 0;flex-wrap:wrap}
+.stand .sk{flex:none;font-size:.68rem;font-weight:800;color:var(--ink-3);min-width:5.6em}
+.stand .sv a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
+.stand .sv a:hover{border-color:var(--dim);color:var(--dim)}
+.stand .sv i{font-style:normal;color:var(--ink-3)}
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
 <!--newbadge:v5--><style>
@@ -484,7 +494,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button></span></div></div><!--/gnav:v1-->
 
 <div class="top"><div class="row"><a class="home" href="research.html">← 연구 기록으로</a><span class="doc">FOOTHOLD · 연구 기록</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
@@ -498,7 +508,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>분류: 실험
+<div class="stand"><div class="sh">이 글이 선 자리</div><div class="sr"><span class="sk">무엇을 근거로</span><span class="sv"><a href="research-cloud-gpu-options.html">클라우드 GPU에서 Isaac Sim 돌리기: 가능성 조사</a></span></div></div><blockquote><p>분류: 실험
 작성: 오흥재 · 2026-08-13 15:31
 근거: 실측
 요지: 가용 연산 자원 실측과 배정. 무엇으로 무엇을 돌릴 수 있는가.
@@ -590,5 +600,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 12:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 14:40</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
