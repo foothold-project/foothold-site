@@ -419,7 +419,14 @@ document.addEventListener('DOMContentLoaded',function(){
 .gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
   font-weight:700;white-space:nowrap}
 .gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
-.gnav a.home{color:var(--ink);font-weight:850;margin-right:.5rem}
+.gnav a.home{display:inline-flex;align-items:center;margin-right:.6rem;padding:.3rem .3rem}
+.gnav .lgi,.gnav .lgr{display:block}
+.gnav .lgr{display:none}
+@media (prefers-color-scheme:dark){.gnav .lgi{display:none}.gnav .lgr{display:block}}
+html[data-theme="dark"] .gnav .lgi{display:none}
+html[data-theme="dark"] .gnav .lgr{display:block}
+html[data-theme="light"] .gnav .lgi{display:block}
+html[data-theme="light"] .gnav .lgr{display:none}
 .gnav a.on{color:var(--dim);background:var(--dim-soft,rgba(0,0,0,.05))}
 .gnav .sp{flex:1}
 .gnav .q{color:var(--ink-3);font-weight:600;font-size:.76rem}
@@ -531,7 +538,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="on" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="on" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"></span></div></div><!--/gnav:v1-->
 
 <div class="wrap">
 <h1>산출물 현황 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Deliverables</span></h1><p class="lede">우리가 무엇을 언제까지 내는가. 상태는 각 문서의 「상태」 줄이 정한다. 문서를 고치면 다음 배포에 그대로 반영된다.</p><style>
@@ -593,5 +600,5 @@ document.addEventListener('DOMContentLoaded',function(){
 <tr><td><a href="deliverable-final-report.html"><b>최종 실증결과 보고서</b></a></td><td><span class="st-wait">대기</span></td><td>§2~§5 가 모두 숫자로 채워지고, 시연 영상과 시스템 구성도가 붙고, 발표 리허설을 1회 이상 마치면 상태를 `확정` 으로 바꾼다. 관문: `FINAL · 최종발표` (2026-12-11)</td></tr>
 </tbody></table></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 23:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 23:40</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

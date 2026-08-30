@@ -33,10 +33,10 @@ nav.rail{width:var(--rail-w);flex-shrink:0;position:sticky;top:0;height:100vh;ov
 
 /* ---------- 히어로 ---------- */
 .hero{margin-bottom:44px;padding:34px 38px;background:var(--panel);
-  border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+  border:1px solid var(--line);border-radius:20px;
   position:relative;overflow:hidden}
 .hero::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;
-  border-radius:50%;background:radial-gradient(circle,var(--brand-soft),transparent 70%);pointer-events:none}
+  border-radius:50%;pointer-events:none}
 .eyebrow{font-size:12px;font-weight:800;color:var(--brand);letter-spacing:.14em;text-transform:uppercase}
 .hero h1{font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1.25;margin:.25em 0 .35em}
 .hero .lede{color:var(--sub);max-width:62ch;margin:0;font-size:16.5px}
@@ -75,7 +75,7 @@ pre code{background:none;padding:0}
 
 /* ---------- 용어 정의 (처음 나오는 개념) ---------- */
 dl.defs{margin:14px 0 20px;border:1px solid var(--line);border-radius:var(--radius);
-  background:var(--panel);box-shadow:var(--shadow);overflow:hidden}
+  background:var(--panel);overflow:hidden}
 dl.defs>div{display:grid;grid-template-columns:150px 1fr;gap:0 16px;
   padding:11px 16px;border-bottom:1px solid var(--line)}
 dl.defs>div:last-child{border-bottom:0}
@@ -85,7 +85,7 @@ dl.defs dd{margin:0;font-size:13.5px;color:var(--ink)}
 
 /* ---------- 표 ---------- */
 .tablewrap{overflow-x:auto;margin:16px 0 22px;background:var(--panel);
-  border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  border:1px solid var(--line);border-radius:var(--radius);}
 table{border-collapse:collapse;width:100%;font-size:13.5px}
 th{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);
   text-align:left;padding:11px 16px;border-bottom:2px solid var(--line);white-space:nowrap;
@@ -108,7 +108,7 @@ td.neg{color:var(--accent);font-weight:600}
 /* ---------- 카드 ---------- */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:18px 0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-  padding:18px 20px;box-shadow:var(--shadow)}
+  padding:18px 20px;}
 .card h4{margin:0 0 5px;font-size:15px;font-weight:700}
 .card p{margin:0;font-size:13.5px;color:var(--sub)}
 .card .who{display:inline-block;font-size:11.5px;font-weight:800;color:var(--brand-ink);
@@ -119,12 +119,11 @@ a.card .go{color:var(--brand);font-weight:700;font-size:13px}
 
 /* ---------- 페이즈 바 ---------- */
 .phasebar{display:flex;margin:22px 0 10px;border-radius:var(--radius);overflow:hidden;
-  border:1px solid var(--line);font-size:13.5px;text-align:center;background:var(--panel);
-  box-shadow:var(--shadow)}
+  border:1px solid var(--line);font-size:13.5px;text-align:center;background:var(--panel);}
 .phasebar>div{flex:1;padding:15px 12px}
 .phasebar>div+div{border-left:1px solid var(--line)}
 .phasebar b{display:block;font-size:14.5px}
-.phasebar .now{background:var(--brand-soft);box-shadow:inset 0 3px 0 var(--brand)}
+.phasebar .now{background:var(--brand-soft);}
 .phasebar small{color:var(--sub);font-size:12.5px}
 
 /* ---------- 푸터 ---------- */
@@ -135,8 +134,7 @@ footer a{color:var(--sub)}
 /* ---------- 페이지 하단 이동 ---------- */
 .pagerow{display:flex;gap:14px;margin-top:56px}
 .pagerow a{flex:1;display:block;text-decoration:none;background:var(--panel);
-  border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;color:var(--ink);
-  box-shadow:var(--shadow)}
+  border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;color:var(--ink);}
 .pagerow a:hover{border-color:var(--brand-line)}
 .pagerow .dir{font-size:11.5px;font-weight:800;letter-spacing:.09em;color:var(--sub);text-transform:uppercase}
 .pagerow .pt{font-weight:700;color:var(--brand-ink)}
@@ -261,7 +259,14 @@ main{max-width:900px;margin:0 auto;padding:1.5rem 1.4rem 4rem}</style>
 .gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
   font-weight:700;white-space:nowrap}
 .gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
-.gnav a.home{color:var(--ink);font-weight:850;margin-right:.5rem}
+.gnav a.home{display:inline-flex;align-items:center;margin-right:.6rem;padding:.3rem .3rem}
+.gnav .lgi,.gnav .lgr{display:block}
+.gnav .lgr{display:none}
+@media (prefers-color-scheme:dark){.gnav .lgi{display:none}.gnav .lgr{display:block}}
+html[data-theme="dark"] .gnav .lgi{display:none}
+html[data-theme="dark"] .gnav .lgr{display:block}
+html[data-theme="light"] .gnav .lgi{display:block}
+html[data-theme="light"] .gnav .lgr{display:none}
 .gnav a.on{color:var(--dim);background:var(--dim-soft,rgba(0,0,0,.05))}
 .gnav .sp{flex:1}
 .gnav .q{color:var(--ink-3);font-weight:600;font-size:.76rem}
@@ -373,7 +378,7 @@ main{max-width:900px;margin:0 auto;padding:1.5rem 1.4rem 4rem}</style>
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"></span></div></div><!--/gnav:v1-->
 <main>
 <p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (#72 1단계) · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
 
@@ -839,5 +844,5 @@ $ ros2 launch my_first_package turtlesim_and_teleop.launch.py</code></pre>
 <footer><span>FOOTHOLD 팀 위키</span><span>조선대 강의 자료 기반 · 2026-08</span></footer>
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 23:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 23:40</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

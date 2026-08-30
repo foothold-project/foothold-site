@@ -419,7 +419,14 @@ document.addEventListener('DOMContentLoaded',function(){
 .gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
   font-weight:700;white-space:nowrap}
 .gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
-.gnav a.home{color:var(--ink);font-weight:850;margin-right:.5rem}
+.gnav a.home{display:inline-flex;align-items:center;margin-right:.6rem;padding:.3rem .3rem}
+.gnav .lgi,.gnav .lgr{display:block}
+.gnav .lgr{display:none}
+@media (prefers-color-scheme:dark){.gnav .lgi{display:none}.gnav .lgr{display:block}}
+html[data-theme="dark"] .gnav .lgi{display:none}
+html[data-theme="dark"] .gnav .lgr{display:block}
+html[data-theme="light"] .gnav .lgi{display:block}
+html[data-theme="light"] .gnav .lgr{display:none}
 .gnav a.on{color:var(--dim);background:var(--dim-soft,rgba(0,0,0,.05))}
 .gnav .sp{flex:1}
 .gnav .q{color:var(--ink-3);font-weight:600;font-size:.76rem}
@@ -531,7 +538,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"></span></div></div><!--/gnav:v1-->
 
 <div class="wrap">
 <h1>파이프라인 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Pipeline</span></h1>
@@ -695,5 +702,5 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 </style><div class="wns3"><div class="ws3"><div class="wt3">처음 왔다면</div><div class="wd3">오늘 합류했다. 손을 움직이려면 무엇부터.</div><a class="wr3" href="setup.html"><b>개발환경 구축</b><span>팀 공통 세팅</span></a><a class="wr3" href="team-access.html"><b>워크스테이션 접속</b><span>원격 접속과 운영</span></a><a class="wr3" href="flow.html"><b>프로젝트 전체 흐름</b><span>두 트랙, 어떤 순서로</span></a></div><div class="ws3"><div class="wt3">일하면서 매일</div><div class="wd3">이슈를 열고 PR 을 올릴 때 펴 놓는 것.</div><a class="wr3" href="workflow.html"><b>작업 흐름</b><span>이슈부터 머지까지 한 장</span></a><a class="wr3" href="collab.html"><b>FOOTHOLD 협업 규칙</b><span>브랜치 · 보드 · 문서 규칙</span></a><a class="wr3" href="automation.html"><b>자동화 지도</b><span>무엇이 자동이고 무엇이 사람인가</span></a></div><div class="ws3"><div class="wt3">문서를 올릴 때</div><div class="wd3">내 글이 어디로 가는가.</div><a class="wr3" href="info-model.html"><b>정보 모델</b><span>내 글이 어디로 가나</span></a><a class="wr3" href="doc-graph.html"><b>문서 관계표</b><span>무엇이 무엇의 상위인가</span></a><a class="wr3" href="research-taxonomy.html"><b>연구 허브 분류 기준</b><span>검토중</span></a></div></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 23:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 23:40</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
