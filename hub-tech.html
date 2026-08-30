@@ -455,8 +455,11 @@ document.addEventListener('DOMContentLoaded',function(){
   letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
 .quick .d{font-size:.72rem;color:var(--ink-3);line-height:1.5;margin-top:.3rem}
 
-.hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
-  gap:.6rem;margin:0 0 28px}
+/* ★ v3: PC 3열×2행 (팀장 지시 2026-08-30). 좁으면 흘러내린다. */
+.hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:0 0 28px}
+@media (max-width:720px){.hubs{grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))}}
+.hubs a.hot{border-top-color:var(--note,#d29922)}
+.hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
 .hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
   padding:.8rem .9rem}
@@ -533,7 +536,159 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="wrap">
 <h1>기술 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Tech</span></h1>
 <p class="lede">이 기술을 어떻게 하는가. 명령 · 설정 · 개념</p>
-<a class="hhero" data-added="2026-08-27" href="ros2-01-setup.html"><div class="hk">먼저 볼 것</div><div class="t">ROS 2 개발환경 구축</div><div class="d">Ubuntu 24.04 + Jazzy. 명령마다 토큰별 뜻까지 (오현민)</div></a><div class="hgroup">ROS 2 기초 <span style="font-weight:600">2</span></div><div class="hlist"><a data-added="2026-08-27" href="ros2-02-python.html"><span class="hn">01</span><div class="t">ROS 2 Python 프로그래밍</div><div class="d">rclpy 노드 · colcon 패키지 · 커스텀 인터페이스 (오현민)</div></a><a data-added="2026-08-27" href="ros2-03-tf-rviz2.html"><span class="hn">02</span><div class="t">ROS 2 TF 좌표계와 RViz2</div><div class="d">로봇이 자기 몸과 주변의 위치 관계를 아는 법 (오현민)</div></a></div>
+<style id="hub3-css">
+.w3{border:1px solid var(--rule);border-radius:9px;background:var(--card);
+ padding:.95rem 1.15rem;margin:0 0 1rem}
+.w3h{font-size:.95rem;font-weight:830;display:flex;align-items:baseline;gap:.7rem}
+.w3b{margin-left:auto;font-size:.68rem;font-weight:800;color:var(--dim);
+ text-decoration:none;border:1px solid var(--dim);border-radius:99px;padding:.12rem .6rem}
+.w3t{display:block;text-decoration:none;color:inherit;margin:.55rem 0 0}
+.w3t b{font-size:.85rem;font-weight:780;display:block}
+.w3t span{font-size:.73rem;color:var(--ink-3)}
+.w3p{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+.w3p a{font-size:.72rem;font-weight:700;color:inherit;text-decoration:none;
+ border:1px solid var(--rule);border-radius:99px;padding:.2rem .65rem}
+.w3p a:hover{border-color:var(--dim)}
+.w3p a i{font-style:normal;color:var(--ink-3);font-size:.62rem}
+.w3empty{font-size:.78rem;color:var(--ink-3);margin-top:.4rem}
+.g3s{display:grid;gap:.5rem}
+.g3,.g3.near{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;
+ border:1px solid var(--rule);border-radius:8px;background:var(--card);
+ padding:.8rem 1.05rem}
+.g3.near{border-color:var(--note,#d29922);background:var(--card)}
+.g3l{display:flex;flex-direction:column}
+.g3d{font-size:1.35rem;font-weight:850;font-variant-numeric:tabular-nums;line-height:1.1}
+.g3.near .g3d{color:var(--note,#d29922)}
+.g3n{font-size:.82rem;font-weight:800;margin-top:.1rem}
+.g3u{font-size:.68rem;color:var(--ink-3)}
+.g3t{font-size:.7rem;font-weight:800;color:var(--ink-3);margin-bottom:.42rem}
+.g3.near .g3t{color:var(--note,#d29922)}
+.chips3{display:flex;flex-wrap:wrap;gap:.4rem}
+.c3{display:inline-flex;align-items:baseline;gap:.45rem;text-decoration:none;
+ color:inherit;border:1px solid var(--rule);border-radius:99px;
+ padding:.26rem .7rem;background:var(--paper)}
+.c3 b{font-size:.77rem;font-weight:700}
+.c3 i{font-style:normal;font-size:.66rem;color:var(--dim);font-weight:700}
+.c3 span{font-size:.6rem;font-weight:800;color:var(--ink-3)}
+.c3.draft{border-color:var(--note,#d29922)}
+.c3.draft span{color:var(--note,#d29922)}
+.c3.done{border-color:var(--dim)}.c3.done span{color:var(--dim)}
+.ref3{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.35rem .8rem;
+ align-items:baseline;border-top:1px dashed var(--rule);padding-top:.7rem}
+.rh3{font-size:.64rem;font-weight:800;letter-spacing:.1em;color:var(--ink-3)}
+.ref3 a{font-size:.74rem;color:var(--ink-2,var(--ink-3));text-decoration:none;
+ border-bottom:1px solid var(--rule)}
+.ref3 a:hover{color:var(--dim);border-color:var(--dim)}
+.hero3{border:1px solid var(--dim);border-radius:10px;background:var(--card);
+ padding:1.05rem 1.25rem;margin:0 0 1.2rem}
+.hk3{font-size:.62rem;font-weight:800;letter-spacing:.14em;color:var(--dim)}
+.ht3{display:block;font-size:1.25rem;font-weight:850;letter-spacing:-.01em;
+ margin:.3rem 0 .1rem;line-height:1.35;color:inherit;text-decoration:none}
+.ht3:hover{color:var(--dim)}
+.hd3{font-size:.8rem;color:var(--ink-3);max-width:70ch}
+.hk3b{font-size:.64rem;font-weight:800;letter-spacing:.1em;color:var(--ink-3);
+ margin:.9rem 0 .45rem}
+.fks3{display:flex;flex-wrap:wrap;gap:.4rem}
+.fk3{display:inline-flex;gap:.45rem;align-items:baseline;text-decoration:none;
+ color:inherit;border:1px solid var(--rule);border-radius:7px;background:var(--paper);
+ padding:.34rem .7rem}
+.fk3:hover{border-color:var(--dim)}
+.fk3 b{font-size:.74rem;font-weight:720}
+.fk3 i{font-style:normal;font-size:.62rem;color:var(--ink-3)}
+.eh3{font-size:.74rem;font-weight:800;letter-spacing:.06em;color:var(--ink-2,var(--ink-3));
+ margin:1.3rem 0 .5rem}
+.eh3 span{font-weight:600;letter-spacing:0;color:var(--ink-3)}
+.evs3{display:grid;gap:.3rem}
+.ev3{display:grid;grid-template-columns:5.4rem 1fr;gap:.9rem;align-items:baseline;
+ text-decoration:none;color:inherit;padding:.4rem .2rem;border-bottom:1px solid var(--rule)}
+.ev3:hover{background:var(--card)}
+.en3{font-size:1rem;font-weight:850;color:var(--dim);text-align:right;
+ font-variant-numeric:tabular-nums}
+.eb3 b{font-size:.82rem;font-weight:750;display:block}
+.eb3>span>span:first-of-type{font-size:.71rem;color:var(--ink-3)}
+.eb3 span{display:block}
+.em3{font-size:.62rem;color:var(--ink-3);margin-top:.15rem}
+.em3 u{text-decoration:none;border:1px solid var(--rule);border-radius:3px;
+ padding:0 .3rem;margin-right:.25rem}
+.rrs3{display:grid;grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));
+ gap:.05rem .9rem}
+.rr3{display:flex;gap:.55rem;align-items:baseline;text-decoration:none;color:inherit;
+ padding:.26rem 0}
+.rr3:hover .rr3 b{color:var(--dim)}
+.rk3{flex:none;font-size:.58rem;font-weight:800;color:var(--ink-3);
+ border:1px solid var(--rule);border-radius:3px;padding:0 .3rem;min-width:2.5rem;
+ text-align:center}
+.rr3 b{font-size:.76rem;font-weight:650;color:var(--ink-2,var(--ink-3));
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mfs{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}
+.mf{font:inherit;font-size:.72rem;font-weight:800;color:var(--ink-3);
+ background:var(--card);border:1px solid var(--rule);border-radius:99px;
+ padding:.3rem .8rem;cursor:pointer}
+.mf i{font-style:normal;font-weight:700;opacity:.7}
+.mf.on{color:var(--dim);border-color:var(--dim)}
+.tlw3{border-left:2px solid var(--rule);padding-left:1.1rem;margin-left:.4rem}
+.tl3,.tl3.old{position:relative;padding-bottom:1rem;display:flex;gap:.6rem;
+ align-items:baseline;flex-wrap:wrap;text-decoration:none;color:inherit}
+.tl3::before{content:'';position:absolute;left:-1.47rem;top:.4rem;width:.55rem;
+ height:.55rem;border-radius:99px;background:var(--dim)}
+.tl3.old{padding-bottom:.55rem}
+.tl3.old::before{background:var(--rule)}
+.tld3{font-size:.68rem;font-weight:800;color:var(--ink-3);
+ font-variant-numeric:tabular-nums;flex:none}
+.seat3{flex:none;font-size:.56rem;font-weight:800;letter-spacing:.08em;
+ border-radius:3px;padding:.06rem .35rem;border:1px solid var(--rule);color:var(--ink-3)}
+.s-mentor{color:var(--cool,#539bf5);border-color:var(--cool,#539bf5)}
+.s-ops{color:var(--note,#d29922);border-color:var(--note,#d29922)}
+.s-chosun{color:#f0883e;border-color:#f0883e}
+.tlb3{flex:1;min-width:14rem}
+.tlt3{font-size:.95rem;font-weight:780;line-height:1.45;display:block}
+.tl3.old .tlt3{font-size:.78rem;font-weight:650;color:var(--ink-2,var(--ink-3))}
+.tls3{font-size:.68rem;color:var(--ink-3);display:block}
+.ph3{font-size:.74rem;font-weight:800;letter-spacing:.06em;
+ color:var(--ink-2,var(--ink-3));margin:0 0 .6rem}
+.ph3+.ph3,.irs3+.ph3,.pcs3+.ph3{margin-top:1.6rem}
+.ph3 span{font-weight:600;color:var(--ink-3);letter-spacing:0}
+.pcs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.7rem}
+.pc3{display:flex;flex-direction:column;gap:.25rem;min-height:7rem;
+ text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:9px;
+ background:var(--card);padding:1rem 1.05rem}
+.pc3:hover{border-color:var(--dim)}
+.pk3{font-size:.58rem;font-weight:800;letter-spacing:.14em;color:var(--dim)}
+.pc3 b{font-size:1.02rem;font-weight:830}
+.pc3 span{font-size:.74rem;color:var(--ink-3)}
+.irs3{display:grid;gap:.1rem}
+.ir3{display:flex;gap:.9rem;align-items:baseline;text-decoration:none;color:inherit;
+ padding:.3rem .2rem;border-bottom:1px solid var(--rule)}
+.ir3 b{font-size:.78rem;font-weight:700;min-width:9rem}
+.ir3 span{font-size:.71rem;color:var(--ink-3)}
+.pt3{max-width:31rem}
+.st3{display:grid;grid-template-columns:2.3rem 1fr;gap:.8rem;align-items:center}
+.sn3{font-family:ui-monospace,Consolas,monospace;font-size:.95rem;font-weight:850;
+ color:var(--dim);border:2px solid var(--dim);border-radius:99px;width:2.2rem;
+ height:2.2rem;display:grid;place-items:center}
+.sb3{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);
+ border-radius:8px;background:var(--card);padding:.65rem .9rem}
+.sb3:hover{border-color:var(--dim)}
+.sb3 b{font-size:.9rem;font-weight:780;display:block}
+.sb3 span{font-size:.71rem;color:var(--ink-3)}
+.jt3{width:2px;height:.9rem;background:var(--rule);margin-left:1.1rem}
+.soon3{margin-top:1.2rem;font-size:.73rem;color:var(--ink-3);
+ border:1px dashed var(--rule);border-radius:7px;padding:.6rem .9rem;max-width:31rem}
+.wns3{display:grid;gap:1.3rem}
+.wt3{font-size:.95rem;font-weight:830;border-bottom:1px solid var(--rule);
+ padding-bottom:.3rem}
+.wd3{font-size:.74rem;color:var(--ink-3);margin:.25rem 0 .3rem}
+.wr3{display:flex;gap:.9rem;align-items:baseline;text-decoration:none;color:inherit;
+ padding:.3rem .2rem}
+.wr3:hover{background:var(--card)}
+.wr3 b{font-size:.8rem;font-weight:720;min-width:10.5rem}
+.wr3 span{font-size:.71rem;color:var(--ink-3)}
+@media (max-width:640px){
+ .g3,.g3.near{grid-template-columns:1fr;gap:.5rem}
+ .ev3{grid-template-columns:4rem 1fr}
+ .rr3 b{white-space:normal}
+}
+</style><div class="pt3"><div class="st3"><span class="sn3">01</span><a class="sb3" href="ros2-01-setup.html"><b>ROS 2 개발환경 구축</b><span>Ubuntu 24.04 + Jazzy. 명령마다 토큰별 뜻까지</span></a></div><div class="jt3"></div><div class="st3"><span class="sn3">02</span><a class="sb3" href="ros2-02-python.html"><b>ROS 2 Python 프로그래밍</b><span>rclpy 노드 · colcon · 커스텀 인터페이스</span></a></div><div class="jt3"></div><div class="st3"><span class="sn3">03</span><a class="sb3" href="ros2-03-tf-rviz2.html"><b>ROS 2 TF 좌표계와 RViz2</b><span>로봇이 위치 관계를 아는 법</span></a></div></div><div class="soon3">다음에 들어올 것 · Isaac Lab · SLAM · Nav2 · MuJoCo · Omniverse · wiki 흡수분 (#72). 새 문서는 머리말 «차례»로 경로에 선다.</div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 16:18</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 13:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

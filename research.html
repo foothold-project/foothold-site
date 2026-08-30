@@ -454,8 +454,11 @@ document.addEventListener('DOMContentLoaded',function(){
   letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
 .quick .d{font-size:.72rem;color:var(--ink-3);line-height:1.5;margin-top:.3rem}
 
-.hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
-  gap:.6rem;margin:0 0 28px}
+/* ★ v3: PC 3열×2행 (팀장 지시 2026-08-30). 좁으면 흘러내린다. */
+.hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:0 0 28px}
+@media (max-width:720px){.hubs{grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))}}
+.hubs a.hot{border-top-color:var(--note,#d29922)}
+.hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
 .hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
   padding:.8rem .9rem}
@@ -589,5 +592,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 16:18</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 13:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

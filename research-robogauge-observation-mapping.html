@@ -454,8 +454,11 @@ document.addEventListener('DOMContentLoaded',function(){
   letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
 .quick .d{font-size:.72rem;color:var(--ink-3);line-height:1.5;margin-top:.3rem}
 
-.hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
-  gap:.6rem;margin:0 0 28px}
+/* ★ v3: PC 3열×2행 (팀장 지시 2026-08-30). 좁으면 흘러내린다. */
+.hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:0 0 28px}
+@media (max-width:720px){.hubs{grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))}}
+.hubs a.hot{border-top-color:var(--note,#d29922)}
+.hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
 .hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
   padding:.8rem .9rem}
@@ -541,7 +544,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<div class="stand"><div class="sh">이 글이 선 자리</div><div class="sr"><span class="sk">무엇을 근거로</span><span class="sv"><a href="research-go2-pretrained-policies.html">Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</a> · <a href="research-training-benchmarks.html">학습 성능 실측: Go2 험지 (AI-WS01)</a> · <a href="flow.html">프로젝트 전체 흐름</a></span></div><div class="sr"><span class="sk">이 글을 근거로</span><span class="sv"><a href="research-go2-pretrained-policies.html">Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</a></span></div></div><blockquote><p>분류: 리서치
+<blockquote><p>분류: 리서치
 작성: 오흥재 · 2026-08-13 08:06
 근거: 코드 확인
 요지: 공개 최상위 정책 4종의 입력 45차원을 코드와 실행 양쪽으로 확정했고, 우리 env 관절 순서까지 실측해 변환 규칙이 완성됐다. 남은 것은 구현뿐이다.
@@ -637,5 +640,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 16:18</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 13:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

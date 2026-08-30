@@ -298,8 +298,11 @@ section .addr .big{font-size:1.2rem}
   letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
 .quick .d{font-size:.72rem;color:var(--ink-3);line-height:1.5;margin-top:.3rem}
 
-.hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
-  gap:.6rem;margin:0 0 28px}
+/* ★ v3: PC 3열×2행 (팀장 지시 2026-08-30). 좁으면 흘러내린다. */
+.hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:0 0 28px}
+@media (max-width:720px){.hubs{grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))}}
+.hubs a.hot{border-top-color:var(--note,#d29922)}
+.hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
 .hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
   padding:.8rem .9rem}
@@ -394,7 +397,7 @@ section .addr .big{font-size:1.2rem}
 <blockquote><p><b>역할</b>: 팀장의 모든 지시·질문·아이디어가 ①어떤 상태인지 ②산출물이 어디 있는지를 추적하는 <b>단일 지점</b>.
 DECISIONS(결정의 «왜») · 이슈(작업 실행)와 겹치지 않는다. 원장은 <b>«그거 어떻게 됐어?»의 답</b>이다.
 세션이 바뀌어도 여기부터 읽으면 같은 자리에서 잇는다. 갱신 책임 = 세션, 매 작업 턴마다.
-최종 갱신: 2026-08-28 (워크스테이션 세션)</p></blockquote>
+최종 갱신: 2026-08-30 (워크스테이션 세션 · #61 #62 닫힘, #90 개설 반영)</p></blockquote>
 </section>
 <section id="s1"><h2>✅ 완료 (요약. 상세는 DECISIONS·VERIFIED·커밋 이력)</h2>
 <p><b>기획·방향 (WS 축)</b> 8/13 조선대 미팅 → 재기획(REPLAN) → <b>REPORT v2: 트랙 A(시뮬 RL+트윈) / 트랙 B(실기 자율주행)</b> 확정 · 안건 1·2·5 확정 · 8/20 전담 멘토 확정 회의 기록 · <b>8/20 16:00 킥오프</b> (발표 덱 pitch.html, WS 제작)</p>
@@ -418,15 +421,15 @@ DECISIONS(결정의 «왜») · 이슈(작업 실행)와 겹치지 않는다. �
 <section id="s5"><h2>🔶 결정 대기</h2>
 <ul><li>lab 공개 전환 여부 (보류. 전제조건은 DECISIONS 08-12: 금액·외부실명·INFRA·LFS 정리)</li><li>허브를 몇 개로 갈지 (지금 5 -&gt; 기술 신설 시 6). 「파이프라인」 이름은 유지로 확정 (8/28)</li><li>연구 5갈래 이름 확정 여부</li><li><b>조선대 자료 미러를 어디에 둘지</b> (#88). 저작물이라 공개 저장소에 못 넣는다. 비공개 저장소를 하나 더 만들지 결정 필요</li></ul>
 </section>
-<section id="s6"><h2>📋 열린 이슈 전수 (2026-08-28 기준 31건)</h2>
+<section id="s6"><h2>📋 열린 이슈 전수 (2026-08-30 기준 31건)</h2>
 <blockquote><p><b>이 절이 원장의 뼈대다.</b> 열린 이슈가 여기 없으면 원장이 지금을 안 담고 있는 것이고,
 빌드 관문 <code>[3.8]</code> 이 그것을 잡는다. 닫힌 이슈는 지운다.</p></blockquote>
 <p><b>관문에 걸린 것</b></p>
-<div class="tw"><table><thead><tr><th>관문</th><th>이슈</th></tr></thead><tbody><tr><td>기획발표 9/4</td><td>#77 WBS 웹 도달 · #79 W36 팀 목표</td></tr><tr><td>A-정책 9/12</td><td>#28 RoboGauge 붙이기 · #30 Vaultwarden·NAS · #51 멘토링 승격</td></tr><tr><td>MVP 9/30</td><td>#6 도구 백과 · #29 에셋·HDRI · #31 DDP 재측정 · #61 지형 조사 · #62 테스트 · #65~#69 실패 5종 · #71 기술 허브 · #72 wiki 흡수 · #73 허브 표현 · #74 일정 시스템 · #75 NEW 배지 · #76 온톨로지 · #85 브랜드</td></tr><tr><td>NAV 11/7</td><td>#55 CV 단계별 계획 (오현민)</td></tr><tr><td>관문 없음</td><td>#70 노션 기획 정리 (이민우) · #78 W35 · #80~#84 개인 목표</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>관문</th><th>이슈</th></tr></thead><tbody><tr><td>기획발표 9/4</td><td>#77 WBS 웹 도달 · #79 W36 팀 목표</td></tr><tr><td>A-정책 9/12</td><td>#90 레일즈 MuJoCo 사전 측정 (맹라현) · #28 RoboGauge 붙이기 · #30 Vaultwarden·NAS · #51 멘토링 승격</td></tr><tr><td>MVP 9/30</td><td>#6 도구 백과 · #29 에셋·HDRI · #31 DDP 재측정 · #65~#69 실패 5종 · #71 기술 허브 · #72 wiki 흡수 · #73 허브 표현 · #74 일정 시스템 · #75 NEW 배지 · #76 온톨로지 · #85 브랜드</td></tr><tr><td>NAV 11/7</td><td>#55 CV 단계별 계획 (오현민)</td></tr><tr><td>관문 없음</td><td>#70 노션 기획 정리 (이민우) · #78 W35 · #80~#84 개인 목표</td></tr></tbody></table></div>
 <p><b>사람별로 열린 것</b></p>
-<div class="tw"><table><thead><tr><th>사람</th><th>이슈</th></tr></thead><tbody><tr><td>오흥재</td><td>#6 #29 #30 #31 #51 #69 #71 #73 #74 #75 #76 #77 #85 #88 #89 #80</td></tr><tr><td>맹라현</td><td>#61 #62 #66 #81</td></tr><tr><td>오현민</td><td>#55 #67 #72 #82</td></tr><tr><td>임석헌</td><td>#65 #83</td></tr><tr><td>이민우</td><td>#68 #70 #84</td></tr><tr><td>팀 공동</td><td>#78 #79</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>사람</th><th>이슈</th></tr></thead><tbody><tr><td>오흥재</td><td>#6 #29 #30 #31 #51 #69 #71 #73 #74 #75 #76 #77 #85 #88 #89 #80</td></tr><tr><td>맹라현</td><td>#66 #81 #90</td></tr><tr><td>오현민</td><td>#55 #67 #72 #82</td></tr><tr><td>임석헌</td><td>#65 #83</td></tr><tr><td>이민우</td><td>#68 #70 #84</td></tr><tr><td>팀 공동</td><td>#78 #79</td></tr></tbody></table></div>
 <p><b>손이 오래 안 간 것</b> (착수 흔적이 없다. 관문이 가까워지면 위험하다)</p>
-<div class="tw"><table><thead><tr><th>이슈</th><th>무엇</th><th>왜 남아 있나</th></tr></thead><tbody><tr><td>#62</td><td>「테스트」</td><td><b>제목이 내용을 말하지 않는다.</b> 정리하거나 닫아야 한다</td></tr><tr><td>#29</td><td>에셋 팩 수령과 HDRI 렌더</td><td>에셋 수령이 선행. 대기 중</td></tr><tr><td>#30</td><td>Vaultwarden · NAS 폴더</td><td>인프라. A-정책 관문에 걸려 있다</td></tr><tr><td>#31</td><td>우분투 전환 후 DDP 재측정</td><td>우분투 이관이 선행</td></tr><tr><td>#51</td><td>승격 검토</td><td>8/25 박철제 멘토링 inbox. 승격 여부 판단이 필요하다</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>이슈</th><th>무엇</th><th>왜 남아 있나</th></tr></thead><tbody><tr><td>#29</td><td>에셋 팩 수령과 HDRI 렌더</td><td>에셋 수령이 선행. 대기 중</td></tr><tr><td>#30</td><td>Vaultwarden · NAS 폴더</td><td>인프라. A-정책 관문에 걸려 있다</td></tr><tr><td>#31</td><td>우분투 전환 후 DDP 재측정</td><td>우분투 이관이 선행</td></tr><tr><td>#51</td><td>승격 검토</td><td>8/25 박철제 멘토링 inbox. 승격 여부 판단이 필요하다</td></tr></tbody></table></div>
 </section>
 <section id="s7"><h2>📌 오늘 남긴 것 (2026-08-28)</h2>
 <p>세션이 끝나도 사라지지 않게 여기 적는다. <b>이 절이 비어 있으면 그날 아무것도 안 남긴 것이다.</b></p>
@@ -457,5 +460,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 16:18</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 13:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

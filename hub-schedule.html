@@ -455,8 +455,11 @@ document.addEventListener('DOMContentLoaded',function(){
   letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
 .quick .d{font-size:.72rem;color:var(--ink-3);line-height:1.5;margin-top:.3rem}
 
-.hubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
-  gap:.6rem;margin:0 0 28px}
+/* ★ v3: PC 3열×2행 (팀장 지시 2026-08-30). 좁으면 흘러내린다. */
+.hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:0 0 28px}
+@media (max-width:720px){.hubs{grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))}}
+.hubs a.hot{border-top-color:var(--note,#d29922)}
+.hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
 .hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
   padding:.8rem .9rem}
@@ -533,7 +536,159 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="wrap">
 <h1>일정 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Schedule</span></h1>
 <p class="lede">언제 무엇을. 주간 계획과 마일스톤</p>
-<a class="hhero" data-added="2026-08-28" href="ledger.html"><div class="hk">먼저 볼 것</div><div class="t">원장</div><div class="d">모든 요청이 지금 어디 있나. 열린 이슈 전수와 대기 큐</div></a><div class="hgroup">무엇을 언제까지 <span style="font-weight:600">12</span></div><div class="hlist"><a data-added="2026-08-27" href="deliverables.html"><span class="hn">01</span><div class="t">산출물 현황</div><div class="d">무엇을 언제까지 내는가</div></a><a data-added="2026-08-27" href="deliverable-wbs.html"><span class="hn">02</span><div class="t">3.1 WBS 설계</div><div class="d">WBS 를 3층으로 짜고, 위 두 층은 사람이 정하고 아래 한 층은 깃에서 자동으로 채운다.</div><div class="m">기획발표 · 9월 4일</div></a><a data-added="2026-08-27" href="deliverable-brainstorming.html"><span class="hn">03</span><div class="t">브레인스토밍: 주제 구체화 과정</div><div class="d">초기 구상이 네 번의 검증을 거쳐 두 트랙으로 확정되기까지의 과정.</div><div class="m">기획발표 · 9월 4일</div></a><a data-added="2026-08-27" href="deliverable-proposal-deck.html"><span class="hn">04</span><div class="t">프로젝트 기획서 (기획발표용)</div><div class="d">9월 4일 기획발표 슬라이드의 장별 구성과 각 장에서 말할 내용.</div><div class="m">기획발표 · 9월 4일</div></a><a data-added="2026-08-27" href="deliverable-proposal-summary.html"><span class="hn">05</span><div class="t">프로젝트 기획서 (요약)</div><div class="d">Unitree Go2 사족보행 로봇이 순정 보행으로 못 건너는 험지를 강화학습으로 넘고, 검증된 보행 위에서 실기 자율주행을 구현한다.</div><div class="m">기획발표 · 9월 4일</div></a><a data-added="2026-08-27" href="deliverable-policy-metrics.html"><span class="hn">06</span><div class="t">기준 정책 · 지표 세트</div><div class="d">우리가 정한 험지로 학습한 정책과, 이후 모든 실험이 대조할 기준 지표.</div><div class="m">A-정책 · 9월 12일</div></a><a data-added="2026-08-27" href="deliverable-twin-render.html"><span class="hn">07</span><div class="t">디지털 트윈 · 렌더 시연물</div><div class="d">학습 결과를 실사급 렌더와 디지털 트윈으로 보이는 시연물. 중간발표에서 상영한다.</div><div class="m">MVP 중간발표 · 9월 30일</div></a><a data-added="2026-08-27" href="deliverable-generalization-report.html"><span class="hn">08</span><div class="t">일반화 평가표</div><div class="d">학습에 쓰지 않은 지형에서 우리 정책이 기준선보다 나은가를 숫자로 답한다.</div><div class="m">MVP 중간발표 · 9월 30일</div></a><a data-added="2026-08-27" href="deliverable-nav-report.html"><span class="hn">09</span><div class="t">실기 항법 검증 리포트</div><div class="d">실물 Go2 가 SLAM 으로 지도를 만들고 Nav2 로 경로를 완주한 기록.</div><div class="m">NAV 실기항법 · 11월 7일</div></a><a data-added="2026-08-27" href="deliverable-final-report.html"><span class="hn">10</span><div class="t">최종 실증결과 보고서</div><div class="d">두 트랙의 최종 결과. 무엇을 증명했고 무엇이 남았는가.</div><div class="m">FINAL 최종발표 · 12월 11일</div></a><a data-added="2026-08-27" href="deliverable-progress-log.html"><span class="hn">11</span><div class="t">3.2 프로젝트 진행일지</div><div class="d">무엇을 언제 했는가를 위에서부터 쌓는다. 제출 대상은 아니고 우리가 보려고 쓴다.</div><div class="m">진행 기록</div></a><a data-added="2026-08-27" href="deliverable-mentoring-log.html"><span class="hn">12</span><div class="t">3.3 멘토링 일지</div><div class="d">멘토링 회차별로 무엇을 받았고 무엇을 반영했는가. 제출 대상은 아니다.</div><div class="m">진행 기록</div></a></div><div class="hgroup">계획 <span style="font-weight:600">2</span></div><div class="hlist"><a data-added="2026-08-27" href="personal-plans.html"><span class="hn">01</span><div class="t">개인 계획</div><div class="d">팀원이 스스로 세운 계획의 원본</div></a><a data-added="2026-08-07" href="plan.html"><span class="hn">02</span><div class="t">프로젝트 설계도</div><div class="d">흐름 · 퀘스트 · 결정 안건</div></a></div>
+<style id="hub3-css">
+.w3{border:1px solid var(--rule);border-radius:9px;background:var(--card);
+ padding:.95rem 1.15rem;margin:0 0 1rem}
+.w3h{font-size:.95rem;font-weight:830;display:flex;align-items:baseline;gap:.7rem}
+.w3b{margin-left:auto;font-size:.68rem;font-weight:800;color:var(--dim);
+ text-decoration:none;border:1px solid var(--dim);border-radius:99px;padding:.12rem .6rem}
+.w3t{display:block;text-decoration:none;color:inherit;margin:.55rem 0 0}
+.w3t b{font-size:.85rem;font-weight:780;display:block}
+.w3t span{font-size:.73rem;color:var(--ink-3)}
+.w3p{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+.w3p a{font-size:.72rem;font-weight:700;color:inherit;text-decoration:none;
+ border:1px solid var(--rule);border-radius:99px;padding:.2rem .65rem}
+.w3p a:hover{border-color:var(--dim)}
+.w3p a i{font-style:normal;color:var(--ink-3);font-size:.62rem}
+.w3empty{font-size:.78rem;color:var(--ink-3);margin-top:.4rem}
+.g3s{display:grid;gap:.5rem}
+.g3,.g3.near{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;
+ border:1px solid var(--rule);border-radius:8px;background:var(--card);
+ padding:.8rem 1.05rem}
+.g3.near{border-color:var(--note,#d29922);background:var(--card)}
+.g3l{display:flex;flex-direction:column}
+.g3d{font-size:1.35rem;font-weight:850;font-variant-numeric:tabular-nums;line-height:1.1}
+.g3.near .g3d{color:var(--note,#d29922)}
+.g3n{font-size:.82rem;font-weight:800;margin-top:.1rem}
+.g3u{font-size:.68rem;color:var(--ink-3)}
+.g3t{font-size:.7rem;font-weight:800;color:var(--ink-3);margin-bottom:.42rem}
+.g3.near .g3t{color:var(--note,#d29922)}
+.chips3{display:flex;flex-wrap:wrap;gap:.4rem}
+.c3{display:inline-flex;align-items:baseline;gap:.45rem;text-decoration:none;
+ color:inherit;border:1px solid var(--rule);border-radius:99px;
+ padding:.26rem .7rem;background:var(--paper)}
+.c3 b{font-size:.77rem;font-weight:700}
+.c3 i{font-style:normal;font-size:.66rem;color:var(--dim);font-weight:700}
+.c3 span{font-size:.6rem;font-weight:800;color:var(--ink-3)}
+.c3.draft{border-color:var(--note,#d29922)}
+.c3.draft span{color:var(--note,#d29922)}
+.c3.done{border-color:var(--dim)}.c3.done span{color:var(--dim)}
+.ref3{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.35rem .8rem;
+ align-items:baseline;border-top:1px dashed var(--rule);padding-top:.7rem}
+.rh3{font-size:.64rem;font-weight:800;letter-spacing:.1em;color:var(--ink-3)}
+.ref3 a{font-size:.74rem;color:var(--ink-2,var(--ink-3));text-decoration:none;
+ border-bottom:1px solid var(--rule)}
+.ref3 a:hover{color:var(--dim);border-color:var(--dim)}
+.hero3{border:1px solid var(--dim);border-radius:10px;background:var(--card);
+ padding:1.05rem 1.25rem;margin:0 0 1.2rem}
+.hk3{font-size:.62rem;font-weight:800;letter-spacing:.14em;color:var(--dim)}
+.ht3{display:block;font-size:1.25rem;font-weight:850;letter-spacing:-.01em;
+ margin:.3rem 0 .1rem;line-height:1.35;color:inherit;text-decoration:none}
+.ht3:hover{color:var(--dim)}
+.hd3{font-size:.8rem;color:var(--ink-3);max-width:70ch}
+.hk3b{font-size:.64rem;font-weight:800;letter-spacing:.1em;color:var(--ink-3);
+ margin:.9rem 0 .45rem}
+.fks3{display:flex;flex-wrap:wrap;gap:.4rem}
+.fk3{display:inline-flex;gap:.45rem;align-items:baseline;text-decoration:none;
+ color:inherit;border:1px solid var(--rule);border-radius:7px;background:var(--paper);
+ padding:.34rem .7rem}
+.fk3:hover{border-color:var(--dim)}
+.fk3 b{font-size:.74rem;font-weight:720}
+.fk3 i{font-style:normal;font-size:.62rem;color:var(--ink-3)}
+.eh3{font-size:.74rem;font-weight:800;letter-spacing:.06em;color:var(--ink-2,var(--ink-3));
+ margin:1.3rem 0 .5rem}
+.eh3 span{font-weight:600;letter-spacing:0;color:var(--ink-3)}
+.evs3{display:grid;gap:.3rem}
+.ev3{display:grid;grid-template-columns:5.4rem 1fr;gap:.9rem;align-items:baseline;
+ text-decoration:none;color:inherit;padding:.4rem .2rem;border-bottom:1px solid var(--rule)}
+.ev3:hover{background:var(--card)}
+.en3{font-size:1rem;font-weight:850;color:var(--dim);text-align:right;
+ font-variant-numeric:tabular-nums}
+.eb3 b{font-size:.82rem;font-weight:750;display:block}
+.eb3>span>span:first-of-type{font-size:.71rem;color:var(--ink-3)}
+.eb3 span{display:block}
+.em3{font-size:.62rem;color:var(--ink-3);margin-top:.15rem}
+.em3 u{text-decoration:none;border:1px solid var(--rule);border-radius:3px;
+ padding:0 .3rem;margin-right:.25rem}
+.rrs3{display:grid;grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));
+ gap:.05rem .9rem}
+.rr3{display:flex;gap:.55rem;align-items:baseline;text-decoration:none;color:inherit;
+ padding:.26rem 0}
+.rr3:hover .rr3 b{color:var(--dim)}
+.rk3{flex:none;font-size:.58rem;font-weight:800;color:var(--ink-3);
+ border:1px solid var(--rule);border-radius:3px;padding:0 .3rem;min-width:2.5rem;
+ text-align:center}
+.rr3 b{font-size:.76rem;font-weight:650;color:var(--ink-2,var(--ink-3));
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mfs{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}
+.mf{font:inherit;font-size:.72rem;font-weight:800;color:var(--ink-3);
+ background:var(--card);border:1px solid var(--rule);border-radius:99px;
+ padding:.3rem .8rem;cursor:pointer}
+.mf i{font-style:normal;font-weight:700;opacity:.7}
+.mf.on{color:var(--dim);border-color:var(--dim)}
+.tlw3{border-left:2px solid var(--rule);padding-left:1.1rem;margin-left:.4rem}
+.tl3,.tl3.old{position:relative;padding-bottom:1rem;display:flex;gap:.6rem;
+ align-items:baseline;flex-wrap:wrap;text-decoration:none;color:inherit}
+.tl3::before{content:'';position:absolute;left:-1.47rem;top:.4rem;width:.55rem;
+ height:.55rem;border-radius:99px;background:var(--dim)}
+.tl3.old{padding-bottom:.55rem}
+.tl3.old::before{background:var(--rule)}
+.tld3{font-size:.68rem;font-weight:800;color:var(--ink-3);
+ font-variant-numeric:tabular-nums;flex:none}
+.seat3{flex:none;font-size:.56rem;font-weight:800;letter-spacing:.08em;
+ border-radius:3px;padding:.06rem .35rem;border:1px solid var(--rule);color:var(--ink-3)}
+.s-mentor{color:var(--cool,#539bf5);border-color:var(--cool,#539bf5)}
+.s-ops{color:var(--note,#d29922);border-color:var(--note,#d29922)}
+.s-chosun{color:#f0883e;border-color:#f0883e}
+.tlb3{flex:1;min-width:14rem}
+.tlt3{font-size:.95rem;font-weight:780;line-height:1.45;display:block}
+.tl3.old .tlt3{font-size:.78rem;font-weight:650;color:var(--ink-2,var(--ink-3))}
+.tls3{font-size:.68rem;color:var(--ink-3);display:block}
+.ph3{font-size:.74rem;font-weight:800;letter-spacing:.06em;
+ color:var(--ink-2,var(--ink-3));margin:0 0 .6rem}
+.ph3+.ph3,.irs3+.ph3,.pcs3+.ph3{margin-top:1.6rem}
+.ph3 span{font-weight:600;color:var(--ink-3);letter-spacing:0}
+.pcs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.7rem}
+.pc3{display:flex;flex-direction:column;gap:.25rem;min-height:7rem;
+ text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:9px;
+ background:var(--card);padding:1rem 1.05rem}
+.pc3:hover{border-color:var(--dim)}
+.pk3{font-size:.58rem;font-weight:800;letter-spacing:.14em;color:var(--dim)}
+.pc3 b{font-size:1.02rem;font-weight:830}
+.pc3 span{font-size:.74rem;color:var(--ink-3)}
+.irs3{display:grid;gap:.1rem}
+.ir3{display:flex;gap:.9rem;align-items:baseline;text-decoration:none;color:inherit;
+ padding:.3rem .2rem;border-bottom:1px solid var(--rule)}
+.ir3 b{font-size:.78rem;font-weight:700;min-width:9rem}
+.ir3 span{font-size:.71rem;color:var(--ink-3)}
+.pt3{max-width:31rem}
+.st3{display:grid;grid-template-columns:2.3rem 1fr;gap:.8rem;align-items:center}
+.sn3{font-family:ui-monospace,Consolas,monospace;font-size:.95rem;font-weight:850;
+ color:var(--dim);border:2px solid var(--dim);border-radius:99px;width:2.2rem;
+ height:2.2rem;display:grid;place-items:center}
+.sb3{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);
+ border-radius:8px;background:var(--card);padding:.65rem .9rem}
+.sb3:hover{border-color:var(--dim)}
+.sb3 b{font-size:.9rem;font-weight:780;display:block}
+.sb3 span{font-size:.71rem;color:var(--ink-3)}
+.jt3{width:2px;height:.9rem;background:var(--rule);margin-left:1.1rem}
+.soon3{margin-top:1.2rem;font-size:.73rem;color:var(--ink-3);
+ border:1px dashed var(--rule);border-radius:7px;padding:.6rem .9rem;max-width:31rem}
+.wns3{display:grid;gap:1.3rem}
+.wt3{font-size:.95rem;font-weight:830;border-bottom:1px solid var(--rule);
+ padding-bottom:.3rem}
+.wd3{font-size:.74rem;color:var(--ink-3);margin:.25rem 0 .3rem}
+.wr3{display:flex;gap:.9rem;align-items:baseline;text-decoration:none;color:inherit;
+ padding:.3rem .2rem}
+.wr3:hover{background:var(--card)}
+.wr3 b{font-size:.8rem;font-weight:720;min-width:10.5rem}
+.wr3 span{font-size:.71rem;color:var(--ink-3)}
+@media (max-width:640px){
+ .g3,.g3.near{grid-template-columns:1fr;gap:.5rem}
+ .ev3{grid-template-columns:4rem 1fr}
+ .rr3 b{white-space:normal}
+}
+</style><div class="w3"><div class="w3h">이번 주 · W36<a class="w3b" href="https://github.com/orgs/foothold-project/projects/1">프로젝트 보드</a></div><a class="w3t" href="https://github.com/foothold-project/foothold-lab/issues/79"><b>팀 목표 (8/31~9/6) · 기획발표 주</b><span>운영진 제출 3종 완성 · WBS 를 웹에서 볼 수 있게 · 제출 형식 확정 외 3</span></a><div class="w3p"><a href="https://github.com/foothold-project/foothold-lab/issues/81">맹라현 <i>#81</i></a><a href="https://github.com/foothold-project/foothold-lab/issues/82">오현민 <i>#82</i></a><a href="https://github.com/foothold-project/foothold-lab/issues/80">오흥재 <i>#80</i></a><a href="https://github.com/foothold-project/foothold-lab/issues/84">이민우 <i>#84</i></a><a href="https://github.com/foothold-project/foothold-lab/issues/83">임석헌 <i>#83</i></a></div></div><div class="g3s"><div class="g3 near"><div class="g3l"><span class="g3d">D-5</span><span class="g3n">기획발표</span><span class="g3u">9월 4일</span></div><div class="g3r"><div class="g3t">4장 전부 초안</div><div class="chips3"><a class="c3 draft" href="deliverable-brainstorming.html"><b>브레인스토밍</b><span>초안</span></a><a class="c3 draft" href="deliverable-proposal-summary.html"><b>프로젝트 기획서 (요약)</b><span>초안</span></a><a class="c3 draft" href="deliverable-proposal-deck.html"><b>프로젝트 기획서 (발표용)</b><span>초안</span></a><a class="c3 draft" href="deliverable-wbs.html"><b>WBS</b><span>초안</span></a></div></div></div><div class="g3"><div class="g3l"><span class="g3d">D-13</span><span class="g3n">A-정책</span><span class="g3u">9월 12일</span></div><div class="g3r"><div class="g3t">1장 전부 대기</div><div class="chips3"><a class="c3 wait" href="deliverable-policy-metrics.html"><b>기준 정책 · 지표 세트</b><i>임석헌</i><span>대기</span></a></div></div></div><div class="g3"><div class="g3l"><span class="g3d">D-31</span><span class="g3n">MVP · 중간발표</span><span class="g3u">9월 30일</span></div><div class="g3r"><div class="g3t">2장 전부 대기</div><div class="chips3"><a class="c3 wait" href="deliverable-generalization-report.html"><b>일반화 평가표</b><i>오현민</i><span>대기</span></a><a class="c3 wait" href="deliverable-twin-render.html"><b>디지털 트윈 · 렌더 시연물</b><i>맹라현</i><span>대기</span></a></div></div></div><div class="g3"><div class="g3l"><span class="g3d">D-69</span><span class="g3n">NAV · 실기 항법</span><span class="g3u">11월 7일</span></div><div class="g3r"><div class="g3t">1장 전부 대기</div><div class="chips3"><a class="c3 wait" href="deliverable-nav-report.html"><b>실기 항법 검증 리포트</b><i>오흥재</i><span>대기</span></a></div></div></div><div class="g3"><div class="g3l"><span class="g3d">D-103</span><span class="g3n">FINAL · 최종발표</span><span class="g3u">12월 11일</span></div><div class="g3r"><div class="g3t">1장 전부 대기</div><div class="chips3"><a class="c3 wait" href="deliverable-final-report.html"><b>최종 실증결과 보고서</b><i>이민우</i><span>대기</span></a></div></div></div></div><div class="ref3"><span class="rh3">더 깊이</span><a href="deliverables.html">산출물 현황</a><a href="ledger.html">원장 · 모든 요청이 어디 있나</a><a href="deliverable-wbs.html">WBS</a><a href="personal-plans.html">개인 계획</a><a href="plan.html">프로젝트 설계도</a><a href="deliverable-progress-log.html">진행일지</a><a href="deliverable-mentoring-log.html">멘토링 일지</a></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-29 16:18</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-30 13:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
