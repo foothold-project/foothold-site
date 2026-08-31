@@ -308,135 +308,6 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
 })();
 </script>
-<!--search:v8--><style>
-@media (max-width:640px){
-  .top .row{flex-wrap:nowrap}
-  .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
-    text-overflow:ellipsis;white-space:nowrap}
-  .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
-  .topbar .stage-chip{display:none}
-  .topbar .row{gap:.3rem}
-  .topbar .tbtn{padding:.32rem .5rem}
-  .topbar .counter{font-size:.62rem}
-  .fh-sbtn{display:inline-flex!important}
-  /* ★ 2026-08-28. 여기에 table{display:block} 이 있었다. 표를 블록으로 만들면
-     안쪽 표 상자가 «내용 너비» 로 줄어든다. 내용이 넓은 표는 우연히 꽉 차 보이고
-     좁은 표만 왼쪽으로 쏠린다. 팀장이 여러 번 지적한 «표가 틀어진다» 가 이것이다.
-     실측(같은 페이지 · 같은 표 · 크롬): 컨테이너 700px 에서 display:block 은 51%,
-     display:table 은 100%. 가로 스크롤은 표를 감싼 .tw 가 이미 맡고 있다. */
-  main table,.wrap table{min-width:0}
-  header.top{padding-top:28px}
-}
-.fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
-  border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
-  font-size:.55rem;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:4px;
-  display:inline-flex;align-items:center;gap:5px}
-.fh-so{position:fixed;inset:0;background:rgba(10,14,16,.45);z-index:300;display:none}
-.fh-so.on{display:flex;align-items:flex-start;justify-content:center;padding:9vh 14px 0}
-.fh-sp{width:min(560px,100%);background:var(--paper);border:1px solid var(--rule);
-  border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.32);overflow:hidden}
-.fh-sp input{width:100%;padding:.75rem .95rem;font-size:16px;border:0;
-  border-bottom:1px solid var(--rule);background:var(--paper);color:var(--ink);
-  font-family:inherit;outline:none}
-.fh-sr{max-height:56vh;overflow-y:auto}
-.fh-sr a{display:block;padding:.55rem .95rem;text-decoration:none;color:inherit;
-  border-bottom:1px solid var(--rule)}
-.fh-sr a:last-child{border-bottom:none}
-.fh-sr a:hover,.fh-sr a.sel{background:var(--dim-soft)}
-.fh-sr .sp1{font-size:.66rem;color:var(--dim);font-weight:800;letter-spacing:.03em}
-.fh-sr .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
-.fh-sr .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
-.fh-sr .none{padding:.7rem .95rem;font-size:.76rem;color:var(--ink-3)}
-</style>
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-  /* «← …로» 버튼은 라벨이 가리키는 곳으로만 간다.
-     예전의 «스마트 뒤로가기»(history.back)는 제거했다. 라벨은 «표지로»인데
-     실제로는 직전 페이지로 돌아가 사용자를 속였다. (2026-08-24) */
-  /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
-  var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
-  var sb=document.createElement('button');sb.type='button';
-  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
-  sb.setAttribute('aria-label','사이트 검색');
-  sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
-    +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
-    +'<circle cx="7" cy="7" r="4.2"/><path d="M10.4 10.4L14 14"/></svg>검색';
-  /* ★ 2026-08-28. 전에는 PDF 버튼 옆에 붙이려다, PDF 가 숨겨진 화면(모바일)에서
-     position:fixed 로 튕겨나가 top:7px/right:14px 에 앉았다. 그 자리가 바로
-     sticky 상단바 위였고 z-index 가 둘 다 70 이라 나중에 그려지는 검색이 이겨서
-     「파이프라인」 글자를 덮었다 (팀장 모바일 실측).
-     상단바에 자리(.navctl)를 마련했으니 **거기 앉는다.** 떠다니지 않는다. */
-  var slot=document.querySelector('.gnav .navctl');
-  if(slot){ slot.insertBefore(sb, slot.firstChild); }
-  else if(pb){ pb.parentNode.insertBefore(sb,pb); }
-  else { document.body.appendChild(sb); }
-  function offset(){
-    if(slot){ sb.style.position='';sb.style.top='';sb.style.right='';sb.style.zIndex='';return; }
-    if(!pb)return;var cs=getComputedStyle(pb);
-    var r=pb.getBoundingClientRect();
-    if(cs.display==='none'||r.width===0){
-      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='71';
-    }else if(cs.position==='fixed'){
-      sb.style.position='fixed';sb.style.top=r.top+'px';
-      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
-    }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
-  offset();window.addEventListener('resize',offset);
-  /* 오버레이 */
-  var ov=document.createElement('div');ov.className='fh-so';
-  ov.innerHTML='<div class="fh-sp"><input type="search" placeholder="검색 (제목 · 절 · 본문)" '
-    +'aria-label="사이트 검색"><div class="fh-sr"></div></div>';
-  document.body.appendChild(ov);
-  var inp=ov.querySelector('input'),res=ov.querySelector('.fh-sr'),IDX=null,sel=-1;
-  function open(){ov.classList.add('on');inp.focus();inp.select();}
-  function close(){ov.classList.remove('on');}
-  sb.addEventListener('click',open);
-  ov.addEventListener('mousedown',function(e){if(e.target===ov)close();});
-  document.addEventListener('keydown',function(e){
-    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
-    else if(e.key==='Escape'&&ov.classList.contains('on'))close();
-  });
-  function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
-  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-  function go(){
-    var q=inp.value.trim().toLowerCase();sel=-1;
-    if(q.length<2){res.innerHTML='';return;}
-    load(function(){
-      var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
-        var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
-            pi=e.t.toLowerCase().indexOf(q);
-        if(hi<0&&ti<0&&pi<0)continue;
-        var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
-        var snip='';
-        if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
-      }
-      hits.sort(function(a,b){return b.s-a.s});
-      hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
-      else{res.innerHTML=hits.map(function(h){
-        return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
-          +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
-          +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
-    });
-  }
-  inp.addEventListener('input',go);
-  inp.addEventListener('keydown',function(e){
-    e.stopPropagation(); /* 커리큘럼 등 자체 키보드 내비게이션 페이지로 새지 않게 */
-    if(e.key==='Escape'){close();return;}
-    var as=res.querySelectorAll('a');if(!as.length)return;
-    if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,as.length-1);}
-    else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);}
-    else if(e.key==='Enter'&&sel>=0){e.preventDefault();as[sel].click();return;}
-    else return;
-    as.forEach(function(a,i){a.classList.toggle('sel',i===sel)});
-    if(as[sel])as[sel].scrollIntoView({block:'nearest'});
-  });
-});
-</script>
-
 <script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
@@ -654,8 +525,139 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><style id="stamp-css">
-.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
+<script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
+@media (max-width:640px){
+  .top .row{flex-wrap:nowrap}
+  .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
+    text-overflow:ellipsis;white-space:nowrap}
+  .top .row a.home,.top .row .pdfbtn,.top .row .fh-sbtn{white-space:nowrap;flex:none}
+  .topbar .stage-chip{display:none}
+  .topbar .row{gap:.3rem}
+  .topbar .tbtn{padding:.32rem .5rem}
+  .topbar .counter{font-size:.62rem}
+  .fh-sbtn{display:inline-flex!important}
+  /* ★ 2026-08-28. 여기에 table{display:block} 이 있었다. 표를 블록으로 만들면
+     안쪽 표 상자가 «내용 너비» 로 줄어든다. 내용이 넓은 표는 우연히 꽉 차 보이고
+     좁은 표만 왼쪽으로 쏠린다. 팀장이 여러 번 지적한 «표가 틀어진다» 가 이것이다.
+     실측(같은 페이지 · 같은 표 · 크롬): 컨테이너 700px 에서 display:block 은 51%,
+     display:table 은 100%. 가로 스크롤은 표를 감싼 .tw 가 이미 맡고 있다. */
+  main table,.wrap table{min-width:0}
+  header.top{padding-top:28px}
+}
+.fh-sbtn-fix{position:fixed;top:7px;right:14px;z-index:70;background:var(--paper);
+  border:1px solid var(--rule);color:var(--ink-2);padding:4px 9px;font-family:inherit;
+  font-size:.55rem;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:4px;
+  display:inline-flex;align-items:center;gap:5px}
+.fh-so{position:fixed;inset:0;background:rgba(10,14,16,.45);z-index:300;display:none}
+.fh-so.on{display:flex;align-items:flex-start;justify-content:center;padding:9vh 14px 0}
+.fh-sp{width:min(560px,100%);background:var(--paper);border:1px solid var(--rule);
+  border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.32);overflow:hidden}
+.fh-sp input{width:100%;padding:.75rem .95rem;font-size:16px;border:0;
+  border-bottom:1px solid var(--rule);background:var(--paper);color:var(--ink);
+  font-family:inherit;outline:none}
+.fh-sr{max-height:56vh;overflow-y:auto}
+.fh-sr a{display:block;padding:.55rem .95rem;text-decoration:none;color:inherit;
+  border-bottom:1px solid var(--rule)}
+.fh-sr a:last-child{border-bottom:none}
+.fh-sr a:hover,.fh-sr a.sel{background:var(--dim-soft)}
+.fh-sr .sp1{font-size:.66rem;color:var(--dim);font-weight:800;letter-spacing:.03em}
+.fh-sr .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
+.fh-sr .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
+.fh-sr .none{padding:.7rem .95rem;font-size:.76rem;color:var(--ink-3)}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  /* «← …로» 버튼은 라벨이 가리키는 곳으로만 간다.
+     예전의 «스마트 뒤로가기»(history.back)는 제거했다. 라벨은 «표지로»인데
+     실제로는 직전 페이지로 돌아가 사용자를 속였다. (2026-08-24) */
+  /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
+  var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
+  var sb=document.createElement('button');sb.type='button';
+  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
+  sb.setAttribute('aria-label','사이트 검색');
+  sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
+    +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
+    +'<circle cx="7" cy="7" r="4.2"/><path d="M10.4 10.4L14 14"/></svg>검색';
+  /* ★ 2026-08-28. 전에는 PDF 버튼 옆에 붙이려다, PDF 가 숨겨진 화면(모바일)에서
+     position:fixed 로 튕겨나가 top:7px/right:14px 에 앉았다. 그 자리가 바로
+     sticky 상단바 위였고 z-index 가 둘 다 70 이라 나중에 그려지는 검색이 이겨서
+     「파이프라인」 글자를 덮었다 (팀장 모바일 실측).
+     상단바에 자리(.navctl)를 마련했으니 **거기 앉는다.** 떠다니지 않는다. */
+  var slot=document.querySelector('.gnav .navctl');
+  if(slot){ slot.insertBefore(sb, slot.firstChild); }
+  else if(pb){ pb.parentNode.insertBefore(sb,pb); }
+  else { document.body.appendChild(sb); }
+  function offset(){
+    if(slot){ sb.style.position='';sb.style.top='';sb.style.right='';sb.style.zIndex='';return; }
+    if(!pb)return;var cs=getComputedStyle(pb);
+    var r=pb.getBoundingClientRect();
+    if(cs.display==='none'||r.width===0){
+      sb.style.position='fixed';sb.style.top='7px';sb.style.right='14px';sb.style.zIndex='71';
+    }else if(cs.position==='fixed'){
+      sb.style.position='fixed';sb.style.top=r.top+'px';
+      sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
+    }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
+  offset();window.addEventListener('resize',offset);
+  /* 오버레이 */
+  var ov=document.createElement('div');ov.className='fh-so';
+  ov.innerHTML='<div class="fh-sp"><input type="search" placeholder="검색 (제목 · 절 · 본문)" '
+    +'aria-label="사이트 검색"><div class="fh-sr"></div></div>';
+  document.body.appendChild(ov);
+  var inp=ov.querySelector('input'),res=ov.querySelector('.fh-sr'),IDX=null,sel=-1;
+  function open(){ov.classList.add('on');inp.focus();inp.select();}
+  function close(){ov.classList.remove('on');}
+  sb.addEventListener('click',open);
+  ov.addEventListener('mousedown',function(e){if(e.target===ov)close();});
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
+    else if(e.key==='Escape'&&ov.classList.contains('on'))close();
+  });
+  function load(cb){if(IDX)return cb();
+    fetch('assets/search-index.json').then(function(r){return r.json()})
+      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function go(){
+    var q=inp.value.trim().toLowerCase();sel=-1;
+    if(q.length<2){res.innerHTML='';return;}
+    load(function(){
+      var hits=[];
+      for(var i=0;i<IDX.length&&hits.length<40;i++){
+        var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
+            pi=e.t.toLowerCase().indexOf(q);
+        if(hi<0&&ti<0&&pi<0)continue;
+        var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
+        var snip='';
+        if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
+        hits.push({e:e,s:score,snip:snip});
+      }
+      hits.sort(function(a,b){return b.s-a.s});
+      hits=hits.slice(0,12);
+      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      else{res.innerHTML=hits.map(function(h){
+        return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
+          +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
+          +(h.snip?'<div class="sp3">'+esc(h.snip)+'</div>':'')+'</a>';}).join('');}
+    });
+  }
+  inp.addEventListener('input',go);
+  inp.addEventListener('keydown',function(e){
+    e.stopPropagation(); /* 커리큘럼 등 자체 키보드 내비게이션 페이지로 새지 않게 */
+    if(e.key==='Escape'){close();return;}
+    var as=res.querySelectorAll('a');if(!as.length)return;
+    if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,as.length-1);}
+    else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);}
+    else if(e.key==='Enter'&&sel>=0){e.preventDefault();as[sel].click();return;}
+    else return;
+    as.forEach(function(a,i){a.classList.toggle('sel',i===sel)});
+    if(as[sel])as[sel].scrollIntoView({block:'nearest'});
+  });
+});
+</script>
+<style id="stamp-css">
+/* ★ 실측 (팀장 8/31): 푸터 폭이 944 / 995 / 1100 / 1136 로 제각각이었다.
+   페이지마다 다른 --w 를 따라갔기 때문. 본문과 같은 1040 한 값으로. */
+.bstamp{max-width:1040px;box-sizing:border-box;margin:40px auto 22px;
+  padding:12px 18px 0;
   border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
   align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
 .bstamp b{color:var(--ink-2,#57534e);font-weight:600}
@@ -765,6 +767,29 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .en3{font-size:1rem;color:var(--dim);text-align:right}
 .en3.src{font-size:.6rem;font-weight:800;color:var(--ink-3);white-space:nowrap;
   letter-spacing:.04em}
+/* 넘버링 · 썸네일 · 갈래 색 (팀장 8/31) */
+/* ★ 실측 (2026-09-01): 넘버·썸네일을 더하면서 자식이 4개가 됐는데 격자 선언이
+   앞의 것을 덮지 못해 본문이 세로로 뭉갰다. 4열을 명시하고 auto 를 마지막에. */
+.ev3{display:grid!important;grid-template-columns:2.2rem 5.4rem minmax(0,1fr) auto!important;
+  gap:.7rem;align-items:start}
+.ev3 .eb3{min-width:0}
+.ex3{font-family:ui-monospace,Consolas,monospace;font-size:.68rem;font-weight:800;
+  color:var(--ink-3);text-align:right;padding-top:.15rem}
+.eth3{flex:none;width:4.6rem;height:3rem;overflow:hidden;border-radius:4px;
+  background:var(--paper-2);align-self:center}
+.eth3 img{width:100%;height:100%;object-fit:cover;display:block}
+.em3 u{text-decoration:none;border:1px solid var(--rule);border-radius:3px;
+  padding:0 .3rem;margin-right:.25rem;font-size:.95em}
+.em3 u.ar-a1{color:#0e7a6e;border-color:#0e7a6e}
+.em3 u.ar-a2{color:#1b6b8f;border-color:#1b6b8f}
+.em3 u.ar-a3{color:#7a5a10;border-color:#7a5a10}
+.em3 u.ar-a4{color:#8a4a7a;border-color:#8a4a7a}
+.em3 u.ar-b1{color:#a3342a;border-color:#a3342a}
+.em3 u.ar-b2{color:#a86a08;border-color:#a86a08}
+.em3 u.ar-c1{color:#4a5566;border-color:#4a5566}
+.em3 u.ar-c2{color:#5a6a2a;border-color:#5a6a2a}
+@media (max-width:760px){.ev3{grid-template-columns:1.8rem 3.4rem 1fr}
+  .eth3{display:none}}
 
 .w3b{margin-left:auto;font-size:.68rem;font-weight:800;color:var(--dim);
  text-decoration:none;border:1px solid var(--dim);border-radius:99px;padding:.12rem .6rem}
@@ -902,7 +927,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
  .ev3{grid-template-columns:4rem 1fr}
  .rr3 b{white-space:normal}
 }
-</style><div class="hero3"><div class="hk3">출발선 · 자체 실측</div><a class="ht3" href="research-generalization-benchmark-10-terrains.html">기준 정책은 미학습 지형 <b>10종 중 5종</b>에서 실패한다</a><div class="hd3">일반화 벤치마크: 미학습 지형 10종 실측 (5종 통과 · 5종 실패)</div><div class="hk3b">후속 과제 5</div><div class="fks3"><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/69"><b>실패 지형 floating_ring</b><span>오흥재</span><i>#69</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/68"><b>실패 지형 pit</b><span>이민우</span><i>#68</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/67"><b>실패 지형 stepping_stones</b><span>오현민</span><i>#67</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/66"><b>실패 지형 rails</b><span>맹라현</span><i>#66</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/65"><b>실패 지형 gap</b><span>임석헌</span><i>#65</i></a></div></div><div class="eg3">본 PoC <span>2</span></div><div class="evs3"><a class="ev3" href="research-training-benchmarks.html"><span class="en3">86.7%</span><span class="eb3"><b>학습 성능 실측: Go2 험지 (AI-WS01)</b><span>첫 기준선 통과율 86.7%. 실패 원인은 넘어짐이 아니라 느림이며, 보상 수치는 걷기를 보증하지 않는다.</span><span class="em3">오흥재 · 08/09 <u>A/정책학습</u></span></span></a><a class="ev3" href="research-visual-evidence.html"><span class="en3">·</span><span class="eb3"><b>시각 증거: 우리가 실제로 본 것</b><span>숫자로만 보던 학습 결과를 눈으로 확인한 기록. 보상 13.94 정책이 실제로는 걷지 못하는 것을 영상이 잡았다.</span><span class="em3">오흥재 · 08/09 <u>A/정책학습</u></span></span></a></div><div class="eg3">PoC 시험 <span>1</span></div><div class="evs3"><a class="ev3" href="research-render-benchmarks.html"><span class="en3">1.75초</span><span class="eb3"><b>렌더 실측: Path Tracing 은 얼마나 걸리는가</b><span>1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.</span><span class="em3">오흥재 · 08/10 <u>A/트윈렌더</u></span></span></a></div><div class="eg3">파이프라인 점검 <span>2</span></div><div class="evs3"><a class="ev3" href="research-benchmark-repro-protocol.html"><span class="en3">·</span><span class="eb3"><b>벤치마크 재현 프로토콜: 동일 셋업 검증과 결정론 발견</b><span>벤치마크를 남이 그대로 다시 돌릴 수 있게 하는 절차.</span><span class="em3">오흥재 · 08/22 <u>A/평가</u></span></span></a><a class="ev3" href="research-benchmark-setup-lim.html"><span class="en3">·</span><span class="eb3"><b>Unitree Go2 Isaac Lab 2.3.2 베이스라인·미경험 험지 벤치마크</b><span>NVIDIA 공식 checkpoint 모델의 미경험 험지에 대한 간단한 지표 측정</span><span class="em3">임석헌 · 08/22 <u>A/지형씬제작</u> <u>A/정책학습</u></span></span></a></div><div class="eg3">운영 실측 <span>2</span></div><div class="evs3"><a class="ev3" href="research-compute-resources.html"><span class="en3">·</span><span class="eb3"><b>컴퓨팅 자원 계획: 무엇을 어디서 돌리나</b><span>가용 연산 자원 실측과 배정. 무엇으로 무엇을 돌릴 수 있는가.</span><span class="em3">오흥재 · 08/13 <u>A/정책학습</u></span></span></a><a class="ev3" href="research-terrain-finetune-plan.html"><span class="en3">5종</span><span class="eb3"><b>실패 지형 파인튜닝 실행 계획: 레시피 병렬, 혼합 단일 런</b><span>일반화 벤치마크 실패 5종을 5인이 하나씩 맡아 레시피를 찾고, 최종은 혼합 단일 런 1개로 합친다.</span><span class="em3">오흥재 · 08/27 <u>A/정책학습</u> <u>A/지형씬제작</u></span></span></a></div><div class="eh3">외부 자료 조사 12</div><div class="evs3"><a class="ev3" href="research-terrain-guide-isaaclab.html"><span class="en3 src">공식</span><span class="eb3"><b>Isaac Lab v2.3.2 지형 가이드: Go2 커스텀 험지 설계</b><span>Isaac Lab v2.3.2 의 지형 생성 구조와 설정 방법.</span><span class="em3">임석헌 · 08/13</span></span></a><a class="ev3" href="research-nvidia-curriculum-alignment.html"><span class="en3 src">공식</span><span class="eb3"><b>NVIDIA AI Campus 커리큘럼과 우리 프로젝트의 대응</b><span>우리가 정한 여덟 작업 영역이 NVIDIA 공인 로보틱스 과정의 5단계 17모듈과 어디까지 겹치는가.</span><span class="em3">오흥재 · 08/27</span></span></a><a class="ev3" href="research-runpod-team-ops.html"><span class="en3 src">공식</span><span class="eb3"><b>Runpod 팀 운용 가이드: 권한 · 결제 · 네트워크 볼륨 · NAS 연계</b><span>Runpod 팀 워크스페이스 운용. 역할 · 볼륨 · 과금.</span><span class="em3">오흥재 · 08/22</span></span></a><a class="ev3" href="research-role-map-careers.html"><span class="en3 src">공식</span><span class="eb3"><b>역할 지도: 이 프로젝트가 각자를 어떤 직무로 데려가는가</b><span>직무·공고와 우리 역할을 맞춘 지도.</span><span class="em3">오흥재 · 08/21</span></span></a><a class="ev3" href="research-robogauge-observation-mapping.html"><span class="en3 src">코드</span><span class="eb3"><b>RoboGauge 공개 정책 해부: 45차원 관측의 정확한 순서와 스케일</b><span>공개 최상위 정책 4종의 입력 45차원을 코드와 실행 양쪽으로 확정했고, 우리 env 관절 순서까지 실측해 변환 규칙이 완성됐다. 남은 것은</span><span class="em3">오흥재 · 08/13</span></span></a><a class="ev3" href="research-omniverse-stack.html"><span class="en3 src">공식</span><span class="eb3"><b>NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</b><span>Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.</span><span class="em3">오흥재 · 08/12</span></span></a><a class="ev3" href="research-go2-pretrained-policies.html"><span class="en3 src">공식</span><span class="eb3"><b>Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</b><span>NVIDIA 공식만 우리 스택에 그대로 로드된다. 이것이 우리 기준선이자 파인튜닝 출발점이다. 점수표 상위 정책은 관측 체급이 달라 참고선으</span><span class="em3">오흥재 · 08/12</span></span></a><a class="ev3" href="research-architecture-decision.html"><span class="en3 src">공식</span><span class="eb3"><b>시스템 아키텍처 결정: Isaac Sim + ROS2 + 실기 Go2</b><span>격리는 사람의 규율이 아니라 컨테이너 경계로 한다. 22.04+Humble 은 실기 Go2 가 강제하는 선택이다.</span><span class="em3">오흥재 · 08/09</span></span></a><a class="ev3" href="research-cloud-gpu-options.html"><span class="en3 src">공식</span><span class="eb3"><b>클라우드 GPU에서 Isaac Sim 돌리기: 가능성 조사</b><span>클라우드에서 Isaac Sim 은 가능하나 GPU 를 가려 받아야 하며, 성공 사례가 명시된 조합만 신뢰한다.</span><span class="em3">오흥재 · 08/09</span></span></a><a class="ev3" href="research-ros2-isaacsim-integration.html"><span class="en3 src">공식</span><span class="eb3"><b>ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법</b><span>파이썬 충돌은 «같이 설치»가 아니라 «같은 셸에서 source» 할 때 난다. 통신은 DDS 층이라 버전과 무관하다.</span><span class="em3">오흥재 · 08/09</span></span></a><a class="ev3" href="research-go2-rough-training.html"><span class="en3 src">공식</span><span class="eb3"><b>Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼</b><span>공식 Go2 rough 환경이 로봇·지형·명령·보상·시간축을 어떻게 묶는지, 요약 다음에 상세로 읽는다.</span><span class="em3">맹라현 · 08/25</span></span></a><a class="ev3" href="research-terrain-rl-study-plan-0818.html"><span class="en3 src">본인</span><span class="eb3"><b>8/18 험지RL 학습 계획: 무엇을 먼저 하고 무엇을 하지 않는가</b><span>미경험 험지에서 보행이 유지되게 하려면 지금 무엇을 하고 무엇을 하지 않는가. 8/18 시점의 개인 학습·우선순위 계획.</span><span class="em3">맹라현 · 08/18</span></span></a></div>
+</style><div class="hero3"><div class="hk3">출발선 · 자체 실측</div><a class="ht3" href="research-generalization-benchmark-10-terrains.html">기준 정책은 미학습 지형 <b>10종 중 5종</b>에서 실패한다</a><div class="hd3">일반화 벤치마크: 미학습 지형 10종 실측 (5종 통과 · 5종 실패)</div><div class="hk3b">후속 과제 5</div><div class="fks3"><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/69"><b>실패 지형 floating_ring</b><span>오흥재</span><i>#69</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/68"><b>실패 지형 pit</b><span>이민우</span><i>#68</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/67"><b>실패 지형 stepping_stones</b><span>오현민</span><i>#67</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/66"><b>실패 지형 rails</b><span>맹라현</span><i>#66</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/65"><b>실패 지형 gap</b><span>임석헌</span><i>#65</i></a></div></div><div class="eg3">본 PoC <span>2</span></div><div class="evs3"><a class="ev3" href="research-training-benchmarks.html"><span class="ex3">01</span><span class="en3">86.7%</span><span class="eb3"><b>학습 성능 실측: Go2 험지 (AI-WS01)</b><span>첫 기준선 통과율 86.7%. 실패 원인은 넘어짐이 아니라 느림이며, 보상 수치는 걷기를 보증하지 않는다.</span><span class="em3">오흥재 · 2026-08-09 14:19 <u class="ar-a1">A/정책학습</u></span></span><span class="eth3"><img src="assets/visual/09_difficulty_curve.png?v=c293d27d" alt="" loading="lazy"></span></a><a class="ev3" href="research-visual-evidence.html"><span class="ex3">02</span><span class="en3">·</span><span class="eb3"><b>시각 증거: 우리가 실제로 본 것</b><span>숫자로만 보던 학습 결과를 눈으로 확인한 기록. 보상 13.94 정책이 실제로는 걷지 못하는 것을 영상이 잡았다.</span><span class="em3">오흥재 · 2026-08-09 23:48 <u class="ar-a1">A/정책학습</u></span></span><span class="eth3"><img src="assets/visual/00_reference_unitree_official.png?v=d6ef9b7d" alt="" loading="lazy"></span></a></div><div class="eg3">PoC 시험 <span>1</span></div><div class="evs3"><a class="ev3" href="research-render-benchmarks.html"><span class="ex3">01</span><span class="en3">1.75초</span><span class="eb3"><b>렌더 실측: Path Tracing 은 얼마나 걸리는가</b><span>1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.</span><span class="em3">오흥재 · 2026-08-10 12:33 <u class="ar-a4">A/트윈렌더</u></span></span><span class="eth3"><img src="assets/visual/05_render_fhd_compare.png?v=56ec90de" alt="" loading="lazy"></span></a></div><div class="eg3">파이프라인 점검 <span>2</span></div><div class="evs3"><a class="ev3" href="research-benchmark-repro-protocol.html"><span class="ex3">01</span><span class="en3">·</span><span class="eb3"><b>벤치마크 재현 프로토콜: 동일 셋업 검증과 결정론 발견</b><span>벤치마크를 남이 그대로 다시 돌릴 수 있게 하는 절차.</span><span class="em3">오흥재 · 2026-08-22 12:02 <u class="ar-a2">A/평가</u></span></span></a><a class="ev3" href="research-benchmark-setup-lim.html"><span class="ex3">02</span><span class="en3">·</span><span class="eb3"><b>Unitree Go2 Isaac Lab 2.3.2 베이스라인·미경험 험지 벤치마크</b><span>NVIDIA 공식 checkpoint 모델의 미경험 험지에 대한 간단한 지표 측정</span><span class="em3">임석헌 · 2026-08-22 22:59 <u class="ar-a3">A/지형씬제작</u> <u class="ar-a1">A/정책학습</u></span></span></a></div><div class="eg3">운영 실측 <span>2</span></div><div class="evs3"><a class="ev3" href="research-compute-resources.html"><span class="ex3">01</span><span class="en3">·</span><span class="eb3"><b>컴퓨팅 자원 계획: 무엇을 어디서 돌리나</b><span>가용 연산 자원 실측과 배정. 무엇으로 무엇을 돌릴 수 있는가.</span><span class="em3">오흥재 · 2026-08-13 15:31 <u class="ar-a1">A/정책학습</u></span></span></a><a class="ev3" href="research-terrain-finetune-plan.html"><span class="ex3">02</span><span class="en3">5종</span><span class="eb3"><b>실패 지형 파인튜닝 실행 계획: 레시피 병렬, 혼합 단일 런</b><span>일반화 벤치마크 실패 5종을 5인이 하나씩 맡아 레시피를 찾고, 최종은 혼합 단일 런 1개로 합친다.</span><span class="em3">오흥재 · 2026-08-27 12:10 <u class="ar-a1">A/정책학습</u> <u class="ar-a3">A/지형씬제작</u></span></span><span class="eth3"><img src="assets/visual/finetune-plan-flow.svg?v=028f81ee" alt="" loading="lazy"></span></a></div><div class="eh3">외부 자료 조사 12</div><div class="evs3"><a class="ev3" href="research-terrain-guide-isaaclab.html"><span class="ex3">01</span><span class="en3 src">공식</span><span class="eb3"><b>Isaac Lab v2.3.2 지형 가이드: Go2 커스텀 험지 설계</b><span>Isaac Lab v2.3.2 의 지형 생성 구조와 설정 방법.</span><span class="em3">임석헌 · 2026-08-13 13:37</span></span></a><a class="ev3" href="research-nvidia-curriculum-alignment.html"><span class="ex3">02</span><span class="en3 src">공식</span><span class="eb3"><b>NVIDIA AI Campus 커리큘럼과 우리 프로젝트의 대응</b><span>우리가 정한 여덟 작업 영역이 NVIDIA 공인 로보틱스 과정의 5단계 17모듈과 어디까지 겹치는가.</span><span class="em3">오흥재 · 2026-08-27 03:53</span></span></a><a class="ev3" href="research-runpod-team-ops.html"><span class="ex3">03</span><span class="en3 src">공식</span><span class="eb3"><b>Runpod 팀 운용 가이드: 권한 · 결제 · 네트워크 볼륨 · NAS 연계</b><span>Runpod 팀 워크스페이스 운용. 역할 · 볼륨 · 과금.</span><span class="em3">오흥재 · 2026-08-22 12:02</span></span></a><a class="ev3" href="research-role-map-careers.html"><span class="ex3">04</span><span class="en3 src">공식</span><span class="eb3"><b>역할 지도: 이 프로젝트가 각자를 어떤 직무로 데려가는가</b><span>직무·공고와 우리 역할을 맞춘 지도.</span><span class="em3">오흥재 · 2026-08-21 09:37</span></span></a><a class="ev3" href="research-robogauge-observation-mapping.html"><span class="ex3">05</span><span class="en3 src">코드</span><span class="eb3"><b>RoboGauge 공개 정책 해부: 45차원 관측의 정확한 순서와 스케일</b><span>공개 최상위 정책 4종의 입력 45차원을 코드와 실행 양쪽으로 확정했고, 우리 env 관절 순서까지 실측해 변환 규칙이 완성됐다. 남은 것은</span><span class="em3">오흥재 · 2026-08-13 08:06</span></span></a><a class="ev3" href="research-omniverse-stack.html"><span class="ex3">06</span><span class="en3 src">공식</span><span class="eb3"><b>NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</b><span>Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.</span><span class="em3">오흥재 · 2026-08-12 10:41</span></span></a><a class="ev3" href="research-go2-pretrained-policies.html"><span class="ex3">07</span><span class="en3 src">공식</span><span class="eb3"><b>Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</b><span>NVIDIA 공식만 우리 스택에 그대로 로드된다. 이것이 우리 기준선이자 파인튜닝 출발점이다. 점수표 상위 정책은 관측 체급이 달라 참고선으</span><span class="em3">오흥재 · 2026-08-12 10:41</span></span></a><a class="ev3" href="research-architecture-decision.html"><span class="ex3">08</span><span class="en3 src">공식</span><span class="eb3"><b>시스템 아키텍처 결정: Isaac Sim + ROS2 + 실기 Go2</b><span>격리는 사람의 규율이 아니라 컨테이너 경계로 한다. 22.04+Humble 은 실기 Go2 가 강제하는 선택이다.</span><span class="em3">오흥재 · 2026-08-09 22:33</span></span></a><a class="ev3" href="research-cloud-gpu-options.html"><span class="ex3">09</span><span class="en3 src">공식</span><span class="eb3"><b>클라우드 GPU에서 Isaac Sim 돌리기: 가능성 조사</b><span>클라우드에서 Isaac Sim 은 가능하나 GPU 를 가려 받아야 하며, 성공 사례가 명시된 조합만 신뢰한다.</span><span class="em3">오흥재 · 2026-08-09 01:38</span></span></a><a class="ev3" href="research-ros2-isaacsim-integration.html"><span class="ex3">10</span><span class="en3 src">공식</span><span class="eb3"><b>ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법</b><span>파이썬 충돌은 «같이 설치»가 아니라 «같은 셸에서 source» 할 때 난다. 통신은 DDS 층이라 버전과 무관하다.</span><span class="em3">오흥재 · 2026-08-09 01:38</span></span></a><a class="ev3" href="research-go2-rough-training.html"><span class="ex3">11</span><span class="en3 src">공식</span><span class="eb3"><b>Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼</b><span>공식 Go2 rough 환경이 로봇·지형·명령·보상·시간축을 어떻게 묶는지, 요약 다음에 상세로 읽는다.</span><span class="em3">맹라현 · 2026-08-25 12:20</span></span></a><a class="ev3" href="research-terrain-rl-study-plan-0818.html"><span class="ex3">12</span><span class="en3 src">본인</span><span class="eb3"><b>8/18 험지RL 학습 계획: 무엇을 먼저 하고 무엇을 하지 않는가</b><span>미경험 험지에서 보행이 유지되게 하려면 지금 무엇을 하고 무엇을 하지 않는가. 8/18 시점의 개인 학습·우선순위 계획.</span><span class="em3">맹라현 · 2026-08-18 12:20</span></span></a></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 23:34</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 00:22</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
