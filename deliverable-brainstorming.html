@@ -280,6 +280,7 @@ html[data-theme="light"]{
   --note-ink:#8a5600;
 }
 </style>
+<link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2">
 <style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
@@ -497,7 +498,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
+<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -639,7 +640,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="on" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="on" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 
 <div class="wrap">
 
@@ -712,5 +713,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 00:22</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 01:07</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

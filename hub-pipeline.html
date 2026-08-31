@@ -308,7 +308,7 @@ a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
 })();
 </script>
-<script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><style id="ia-css">
+<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
    ② 허브 본문 폭이 824, 표지가 1000 -> PRD §4-1 대로 1040 한 벌
@@ -525,7 +525,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
+<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -667,7 +667,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 
 <div class="wrap">
 <h1>파이프라인 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Pipeline</span></h1>
@@ -765,8 +765,16 @@ document.addEventListener('DOMContentLoaded',function(){
 .g3d,.en3{font-weight:850;font-variant-numeric:tabular-nums;line-height:1.1}
 .g3d{font-size:1.4rem}
 .en3{font-size:1rem;color:var(--dim);text-align:right}
-.en3.src{font-size:.6rem;font-weight:800;color:var(--ink-3);white-space:nowrap;
-  letter-spacing:.04em}
+/* ★ 근거 태그도 색으로 (팀장 9/1). 공식=밖에서 온 것 · 코드=코드에서 확인 ·
+   본인=내 노트. 갈래 색과 겹치지 않게 «채도 낮은 계열» 로 둔다. */
+.en3.src{font-size:.6rem;font-weight:800;white-space:nowrap;letter-spacing:.04em;
+  color:var(--ink-3)}
+.en3.src.s-공식{color:#1b6b8f}
+.en3.src.s-코드{color:#5a6a2a}
+.en3.src.s-본인{color:#8a4a7a}
+.en3.src.s-팀{color:#4a5566}
+.en3.src.s-현장{color:#a86a08}
+.en3.src.s-조선대{color:#a3342a}
 /* 넘버링 · 썸네일 · 갈래 색 (팀장 8/31) */
 /* ★ 실측 (2026-09-01): 넘버·썸네일을 더하면서 자식이 4개가 됐는데 격자 선언이
    앞의 것을 덮지 못해 본문이 세로로 뭉갰다. 4열을 명시하고 auto 를 마지막에. */
@@ -929,5 +937,5 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 </style><div class="wns3"><div class="ws3"><div class="wt3">합류 시</div><div class="wd3">오늘 합류했다. 손을 움직이려면 무엇부터.</div><a class="wr3" href="setup.html"><b>개발환경 구축</b><span>팀 공통 세팅</span></a><a class="wr3" href="team-access.html"><b>워크스테이션 접속</b><span>원격 접속과 운영</span></a></div><div class="ws3"><div class="wt3">상시 참조</div><div class="wd3">이슈를 열고 PR 을 올릴 때 펴 놓는 것.</div><a class="wr3" href="workflow.html"><b>작업 흐름</b><span>이슈부터 머지까지 한 장</span></a><a class="wr3" href="collab.html"><b>FOOTHOLD 협업 규칙</b><span>브랜치 · 보드 · 문서 규칙</span></a><a class="wr3" href="automation.html"><b>자동화 지도</b><span>무엇이 자동이고 무엇이 사람인가</span></a></div><div class="ws3"><div class="wt3">문서 투고 시</div><div class="wd3">내 글이 어디로 가는가.</div><a class="wr3" href="info-model.html"><b>정보 모델</b><span>내 글이 어디로 가나</span></a><a class="wr3" href="doc-graph.html"><b>문서 관계표</b><span>무엇이 무엇의 상위인가</span></a><a class="wr3" href="research-taxonomy.html"><b>연구 허브 분류 기준</b><span>검토중</span></a></div></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 00:22</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 01:07</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
