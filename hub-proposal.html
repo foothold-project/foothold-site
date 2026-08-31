@@ -609,6 +609,12 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .eh3 span,.ph3 span,.eg3 span,.wt3 span{font-weight:600;letter-spacing:0;
   color:var(--ink-3)}
 .eg3{color:var(--dim)}
+/* ★ 8/31 실측: 셸의 기본 `a{color:link;text-decoration:underline}` 가 이겨
+   기획 카드가 파란 밑줄로 떴다. 부품 링크는 스스로 색을 껐다고 «명시» 한다.
+   (부품이 셸에 기대면 페이지마다 달라진다) */
+#hub3 a,.w3 a,.hero3 a,.pc3,.sb3,.c3,.fk3,.ir3,.dp3,.ev3,.rr3,.tl3,.wr3,
+.w3t,.w3p a,.w3p-q,.ht3{color:inherit;text-decoration:none}
+.pc3 *,.sb3 *,.dp3 *,.ir3 *,.ev3 *,.rr3 *{text-decoration:none}
 /* 부품 2: 카드 */
 .w3,.hero3,.pc3,.sb3,.g3,.c3,.fk3,.tile{border:1px solid var(--rule);
   border-radius:var(--p-radius);background:var(--card)}
@@ -677,7 +683,6 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .g3.near{border-color:var(--note,#d29922);background:var(--card)}
 .g3l{display:flex;flex-direction:column}
 
-.g3.near 
 .g3n{font-size:.82rem;font-weight:800;margin-top:.1rem}
 .g3u{font-size:.68rem;color:var(--ink-3)}
 .g3t{font-size:.7rem;font-weight:800;color:var(--ink-3);margin-bottom:.42rem}
@@ -735,7 +740,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 
 .mf i{font-style:normal;font-weight:700;opacity:.7}
 .mf.on{color:var(--dim);border-color:var(--dim)}
-.tlw3{border-left:2px solid var(--rule);padding-left:1.1rem;margin-left:.4rem}
+.tlw3{display:block;border-left:2px solid var(--rule);padding-left:1.1rem;
+ margin-left:.4rem}
 .tl3,.tl3.old{position:relative;padding-bottom:1rem;display:flex;gap:.6rem;
  align-items:baseline;flex-wrap:wrap;text-decoration:none;color:inherit}
 .tl3::before{content:'';position:absolute;left:-1.47rem;top:.4rem;width:.55rem;
@@ -753,10 +759,12 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .tl3.old .tlt3{font-size:.78rem;font-weight:650;color:var(--ink-2,var(--ink-3))}
 .tls3{font-size:.68rem;color:var(--ink-3);display:block}
 
-.ph3+.ph3,.irs3+.ph3,.pcs3+
-
-.pcs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.7rem}
-
+/* ★ 8/31 실측: 부품 통합 정규식이 결합 선택자를 반쯤 먹어 이 아래 규칙이
+   통째로 죽었다. 기획 카드가 인라인으로 뭉개진 원인. 복구. */
+.pcs3+.ph3,.irs3+.ph3{margin-top:1.6rem}
+.pcs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));
+ gap:var(--p-gap)}
+.pc3{display:flex;flex-direction:column;gap:.25rem;min-height:7rem}
 .pc3:hover{border-color:var(--dim)}
 .pk3{font-size:.58rem;font-weight:800;letter-spacing:.14em;color:var(--dim)}
 .pc3 b{font-size:1.02rem;font-weight:830}
@@ -766,7 +774,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
  padding:.3rem .2rem;border-bottom:1px solid var(--rule)}
 .ir3 b{font-size:.78rem;font-weight:700;min-width:9rem}
 .ir3 span{font-size:.71rem;color:var(--ink-3)}
-.pt3{max-width:31rem}
+.pt3{display:grid;gap:0;max-width:31rem}
 .st3{display:grid;grid-template-columns:2.3rem 1fr;gap:.8rem;align-items:center}
 .sn3{font-family:ui-monospace,Consolas,monospace;font-size:.95rem;font-weight:850;
  color:var(--dim);border:2px solid var(--dim);border-radius:99px;width:2.2rem;
@@ -793,5 +801,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 </style><div class="ph3">밖으로 나가는 것 <span>남이 이걸로 우리를 판단한다</span></div><div class="pcs3"><a class="pc3" href="project-report.html"><span class="pk3">읽는 문서</span><b>프로젝트 보고서</b><span>한 장으로 보는 전체 계획</span></a><a class="pc3" href="pitch.html"><span class="pk3">띄우는 화면</span><b>프로젝트 소개 덱</b><span>전체화면 발표용</span></a><a class="pc3" href="brief.html"><span class="pk3">건네는 한 장</span><b>프로젝트 브리핑</b><span>외부에 짧게 설명할 때</span></a></div><div class="ph3">안에서 쓰는 것</div><div class="irs3"><a class="ir3" href="flow.html"><b>프로젝트 전체 흐름</b><span>두 트랙으로 무엇을 어떤 순서로 하는가 (PRD §3)</span></a><a class="ir3" href="roles.html"><b>역할 배치</b><span>작업 영역 8갈래와 주담당 · 덱이 여기서 생성된다</span></a><a class="ir3" href="team-intro.html"><b>팀 소개 · 킥오프</b><span>팀과 역할</span></a><a class="ir3" href="team-lead.html"><b>오흥재</b><span>Project Lead · Robotics Systems Integrator</span></a></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 14:38</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 17:06</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
