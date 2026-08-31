@@ -270,134 +270,8 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
-<style id="ia-css">
-.gnav{position:sticky;top:0;z-index:70;background:var(--paper);
-  border-bottom:1px solid var(--rule);font-size:.82rem}
-.gnav .in{max-width:1040px;margin:0 auto;padding:.5rem 1.2rem;display:flex;
-  align-items:center;gap:.1rem;flex-wrap:wrap}
-.gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
-  font-weight:700;white-space:nowrap}
-.gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
-.gnav a.home{display:inline-flex;align-items:center;margin-right:.6rem;padding:.3rem .3rem}
-.gnav .lgi,.gnav .lgr{display:block}
-.gnav .lgr{display:none}
-@media (prefers-color-scheme:dark){.gnav .lgi{display:none}.gnav .lgr{display:block}}
-html[data-theme="dark"] .gnav .lgi{display:none}
-html[data-theme="dark"] .gnav .lgr{display:block}
-html[data-theme="light"] .gnav .lgi{display:block}
-html[data-theme="light"] .gnav .lgr{display:none}
-.gnav a.on{color:var(--dim);background:var(--dim-soft,rgba(0,0,0,.05))}
-.gnav .sp{flex:1}
-.gnav .q{color:var(--ink-3);font-weight:600;font-size:.76rem}
-/* ★ 2026-08-28. 검색·다크 버튼이 position:fixed 로 «떠다니며» 상단바를 덮었다.
-   모바일 실측: 검색 버튼이 「파이프라인」 글자를 가렸고(둘 다 z-index:70 이라
-   나중에 그려지는 쪽이 이긴다), 다크 버튼은 iOS 에서 주소창이 접히자
-   화면 중간으로 튀어 카드 글씨를 덮었다(fixed 의 고질적 재계산).
-   떠다니게 두는 대신 **상단바 안의 정상 요소**로 앉힌다.
-   상단바는 이미 sticky 라 따라오고, 흐름 안이라 아무것도 안 가린다. */
-.gnav .navctl{display:inline-flex;align-items:center;gap:.3rem;margin-left:auto}
-.gnav .navctl>*{position:static!important;inset:auto!important;top:auto!important;
-  right:auto!important;bottom:auto!important;left:auto!important;z-index:auto!important;
-  margin:0!important;font-size:.62rem!important;padding:.24rem .55rem!important}
-@media (max-width:640px){.gnav .in{padding:.45rem .8rem}}
-
-.band{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:7px;
-  padding:1rem 1.2rem;margin:0 0 14px}
-.band:hover{border-color:var(--dim)}
-.band .t{font-size:1.06rem;font-weight:850;letter-spacing:.02em}
-.band .d{font-size:.8rem;color:var(--ink-3);margin-top:.22rem}
-.band .w{float:right;font-family:ui-monospace,Consolas,monospace;font-size:.72rem;
-  color:var(--ink-3);font-weight:700}
-
-.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));
-  gap:.6rem;margin:0 0 16px}
-.quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-top:3px solid var(--note,var(--dim));
-  border-radius:6px;padding:.72rem .85rem}
-.quick a:hover{border-color:var(--dim)}
-.quick .k{font-size:.92rem;font-weight:800}
-.quick .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
-  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
-.quick .d{font-size:.72rem;color:var(--ink-3);line-height:1.5;margin-top:.3rem}
-
-/* ★ v3: PC 3열×2행 (팀장 지시 2026-08-30). 좁으면 흘러내린다. */
-.hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:0 0 28px}
-@media (max-width:720px){.hubs{grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))}}
-.hubs a.hot{border-top-color:var(--note,#d29922)}
-.hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
-.hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
-  padding:.8rem .9rem}
-.hubs a:hover{border-color:var(--dim)}
-.hubs .k{font-size:1rem;font-weight:850}
-.hubs .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
-  letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
-.hubs .d{font-size:.73rem;color:var(--ink-3);line-height:1.5;margin-top:.34rem}
-.hubs .n{font-size:.7rem;color:var(--ink-3);font-weight:700;margin-top:.3rem}
-
-.hlede{font-size:.74rem;color:var(--ink-3);margin:-2px 0 9px;line-height:1.5}
-.hv{border:1px solid var(--rule);border-radius:3px;padding:0 4px;font-weight:700;
-  font-size:.92em;margin-left:.4rem;color:var(--ink-3)}
-.hgroup{margin:26px 0 8px;font-size:.7rem;font-weight:800;letter-spacing:.12em;
-  color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:.35rem}
-.hlist{display:grid;gap:.5rem}
-.hlist a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-radius:6px;padding:.65rem .85rem}
-.hlist a:hover{border-color:var(--dim)}
-.hlist a{position:relative;padding-left:3.1rem}
-.hlist .hn{position:absolute;left:.85rem;top:.68rem;font-family:ui-monospace,Consolas,monospace;
-  font-size:.72rem;font-weight:800;color:var(--ink-3);letter-spacing:.02em}
-.hlist .t{font-size:.92rem;font-weight:750}
-.hlist .d{font-size:.75rem;color:var(--ink-3);line-height:1.55;margin-top:.2rem}
-.hlist .m{font-size:.7rem;color:var(--ink-3);margin-top:.35rem;
-  font-variant-numeric:tabular-nums;opacity:.85}
-
-/* 「먼저 볼 것」. 이 허브에 처음 왔으면 여기서 시작한다 (#73). */
-.hhero{display:block;text-decoration:none;color:inherit;margin:0 0 1.5rem;
-  border:1px solid var(--dim);border-radius:8px;background:var(--card);
-  padding:1rem 1.15rem 1.05rem;position:relative}
-.hhero:hover{border-color:var(--ink-3)}
-.hhero .hk{font-size:.6rem;font-weight:800;letter-spacing:.16em;color:var(--dim);
-  margin-bottom:.4rem}
-.hhero .t{font-size:1.28rem;font-weight:820;line-height:1.3;letter-spacing:-.01em}
-.hhero .d{font-size:.88rem;color:var(--ink-2,var(--ink-3));line-height:1.6;
-  margin-top:.4rem;max-width:56ch}
-.hhero .m{font-size:.72rem;color:var(--ink-3);margin-top:.55rem;
-  font-variant-numeric:tabular-nums}
-.hhero .hv{font-size:.62rem;margin-left:.5rem;vertical-align:.3em}
-@media (max-width:560px){.hhero .t{font-size:1.08rem}}
-
-/* 표지 「최근 올라온 것」. ia-css 는 모든 페이지에 실리므로 여기 한 자리면 된다. */
-.recent{display:grid;gap:.45rem;margin:0 0 10px}
-.recent a{display:flex;gap:.75rem;align-items:baseline;flex-wrap:wrap;
-  text-decoration:none;color:inherit;border:1px solid var(--rule);
-  background:var(--card);border-radius:6px;padding:.5rem .85rem}
-.recent a:hover{border-color:var(--dim)}
-.recent .rd{flex:none;font-size:.72rem;color:var(--ink-3);
-  font-variant-numeric:tabular-nums;min-width:3.2em}
-.recent .rk{flex:none;font-size:.62rem;font-weight:800;letter-spacing:.08em;
-  color:var(--dim);min-width:4.6em}
-.recent .rt{font-size:.86rem;font-weight:750;line-height:1.45}
-.recent .rn{flex:none;font-size:.58rem;font-weight:800;background:var(--dim);
-  color:var(--paper);border-radius:3px;padding:1px 5px;letter-spacing:.06em}
-@media (max-width:560px){
-  .recent a{gap:.4rem}
-  .recent .rt{flex-basis:100%}
-}
-</style>
-<style id="stamp-css">
-.bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
-  border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
-  align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
-.bstamp b{color:var(--ink-2,#57534e);font-weight:600}
-.bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
-.bstamp .gap{flex:1}
-@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
-</style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="on" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button></span></div></div><!--/gnav:v1-->
 <div class="bar" id="bar"></div>
 <div class="hd">
   <img src="assets/brand/foothold-lockup-compact-dark.svg?v=1b14c22e" alt="FOOTHOLD">
@@ -435,8 +309,6 @@ html[data-theme="light"] .gnav .lgr{display:none}
       <div class="d">일반화 벤치마크·지표 · 실기 센서 인지. 컴퓨터비전 분류, 결과 화면 구현.</div></div>
     <div class="card"><div class="k">C/기록</div><div class="t">이민우</div>
       <div class="d">회의록·문서 정본화 · 백과·커리큘럼 · 대외보고. 웹 풀스택, 서버 구성·운영.</div></div>
-    <div class="card"><div class="k">External · 조달</div><div class="t">외부 조달</div>
-      <div class="d">현장 판정 기준과 안전 요건. 공개 자료로 못 채우는 현장 지식을 물어서 얻는다.</div></div>
     <div class="card" style="border-color:var(--brand)"><div class="k">6th Member · 전담 멘토</div><div class="t">현직 전문가 (8/20 합류)</div>
       <div class="d">매일 오후 15~18시 협업. 현장의 기준으로 우리 실험과 코드를 검증받는다.</div></div>
   </div>
@@ -695,7 +567,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 #themeBtn:active{transform:translateY(1px)}
 @media print{#themeBtn{display:none!important}}
 </style>
-
+<button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button>
 <script>(function(){
   var d=document.documentElement,K='foothold-theme',b=document.getElementById('themeBtn'),
       mq=window.matchMedia('(prefers-color-scheme: dark)');
@@ -709,5 +581,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 10:12</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+</body>
 </html>

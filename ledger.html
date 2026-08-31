@@ -320,6 +320,9 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .band .w{float:right;font-family:ui-monospace,Consolas,monospace;font-size:.72rem;
   color:var(--ink-3);font-weight:700}
 
+.bands2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:0 0 14px}
+.bands2 .band{margin:0}
+@media (max-width:680px){.bands2{grid-template-columns:1fr}}
 .quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));
   gap:.6rem;margin:0 0 16px}
 .quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
@@ -449,7 +452,7 @@ DECISIONS(결정의 «왜») · 이슈(작업 실행)와 겹치지 않는다. �
 보행을 그대로 쓰므로 스포츠 모드를 해제할 일이 없다. 근거 = <code>ROBOT-SPEC</code> v2.0.</p></blockquote>
 </section>
 <section id="s4"><h2>👆 팀장 확인 대기</h2>
-<div class="tw"><table><thead><tr><th>무엇</th><th>왜 막혀 있나</th></tr></thead><tbody><tr><td><b>10종 실측이 누구 정책의 숫자인가</b></td><td><code>generalization-benchmark</code> §1 은 「기준선 1,500 iter」, <code>benchmark-setup-lim</code> 명령은 NVIDIA 공식 체크포인트. 본문만으로 안 가려진다. <b>우리 핵심 근거 문서라 확정이 필요하다</b></td></tr><tr><td>임석헌 · 이민우 예산 승인</td><td>8/28 기준 승인 대기. 승인이 나야 학습을 돌린다</td></tr><tr><td><code>team-intro</code> md 이관을 지금 할지 v2.0.0 때 할지</td><td>분량이 있다</td></tr><tr><td>실패 5종 개인 목표를 각자 고치게 할지</td><td>이미 알림이 갔다</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>무엇</th><th>왜 막혀 있나</th></tr></thead><tbody><tr><td><b>10종 실측이 누구 정책의 숫자인가</b></td><td><code>generalization-benchmark</code> §1 은 「기준선 1,500 iter」, <code>benchmark-setup-lim</code> 명령은 NVIDIA 공식 체크포인트. 본문만으로 안 가려진다. <b>우리 핵심 근거 문서라 확정이 필요하다</b></td></tr><tr><td>임석헌 · 이민우 예산 납부</td><td>팀비는 3인 납부로 <b>이미 학습을 돌릴 수 있다.</b> 남은 2인은 1차분을 채우면 된다 (팀장 정정 8/31)</td></tr><tr><td><code>team-intro</code> md 이관을 지금 할지 v2.0.0 때 할지</td><td>분량이 있다</td></tr><tr><td>실패 5종 개인 목표를 각자 고치게 할지</td><td>이미 알림이 갔다</td></tr></tbody></table></div>
 </section>
 <section id="s5"><h2>🔶 결정 대기</h2>
 <ul><li>lab 공개 전환 여부 (보류. 전제조건은 DECISIONS 08-12: 금액·외부실명·INFRA·LFS 정리)</li><li>허브를 몇 개로 갈지 (지금 5 -&gt; 기술 신설 시 6). 「파이프라인」 이름은 유지로 확정 (8/28)</li><li>연구 5갈래 이름 확정 여부</li><li><b>조선대 자료 미러를 어디에 둘지</b> (#88). 저작물이라 공개 저장소에 못 넣는다. 비공개 저장소를 하나 더 만들지 결정 필요</li></ul>
@@ -493,5 +496,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 10:12</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 11:04</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

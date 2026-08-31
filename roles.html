@@ -320,6 +320,9 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .band .w{float:right;font-family:ui-monospace,Consolas,monospace;font-size:.72rem;
   color:var(--ink-3);font-weight:700}
 
+.bands2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:0 0 14px}
+.bands2 .band{margin:0}
+@media (max-width:680px){.bands2{grid-template-columns:1fr}}
 .quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));
   gap:.6rem;margin:0 0 16px}
 .quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
@@ -417,7 +420,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   <div class="eyebrow">Roles · 누가 무엇을 맡나</div>
   <h1>역할 배치 · 누가 무엇을 맡나</h1>
   <p class="lede">작업 영역 8갈래와 그 주담당·부담당, 그리고 사람별 강점. 이 문서가 정본이고 발표 자료는 여기서 생성된다</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v1.1</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-28 20:58</span></div><div><span class="k">상태</span><span class="v">확정</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/ROLES.md</span></div></div>
+  <div class="meta"><div><span class="k">판</span><span class="v">v1.2</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-28 20:58</span></div><div><span class="k">상태</span><span class="v">확정</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/ROLES.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -426,7 +429,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 근거: 본인 노트 · GitHub 라벨 실측 · 08-27 팀장 확정
 요지: 작업 영역 8갈래와 그 주담당·부담당, 그리고 사람별 강점. 이 문서가 정본이고 발표 자료는 여기서 생성된다
 상태: 확정
-판: v1.1</p></blockquote>
+판: v1.2</p></blockquote>
 </section>
 <section id="s1"><h2>왜 이 문서가 따로 있나</h2>
 <p><b>같은 사실을 세 군데에 손으로 적어 두었다가 한 군데만 고쳤기 때문이다.</b></p>
@@ -448,26 +451,15 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <h3>오흥재</h3>
 <ul><li>갈래: <code>B/항법</code> · <code>C/운영</code></li><li>대표: 예</li><li>한 줄: 프로젝트 리딩 · 항법과 운영</li><li>메인 역할: 일정·범위 관리, 멘토 인터페이스, <b>트랙 B 항법 축</b>과 팀 인프라</li><li>보유 강점: 영상·VFX <b>12년</b>· 카메라·공간·3D 파이프라인 설계, 포인트클라우드 기반 공간 재구성 실무, 기획·구조 설계</li><li>협업 스타일: 결정의 <b>배경까지 문서로</b> 남겨, 누구든 중간에 이어받을 수 있게 한다</li><li>피치 한 줄: 리딩 · 항법 · 운영. 영상·VFX 12년, 카메라·공간·3D 파이프라인, 포인트클라우드 재구성 실무.</li></ul>
 <h3>임석헌</h3>
-<ul><li>갈래: <code>A/정책학습</code></li><li>대표: 아니오</li><li>한 줄: 강화학습 정책 · 모델</li><li>메인 역할: 보행 정책 학습, 보상 설계, 실험 설계와 반복</li><li>보유 강점: 비전 모델 학습·데이터 구축, <b>파인튜닝 R&amp;D</b>, LLM 판단 로직 설계</li><li>협업 스타일: 직접 돌려본 <b>결과를 근거로</b> 가져와 논의를 빠르게 좁힌다</li><li>피치 한 줄: 보행 정책 학습 · 보상 설계 · 실험 반복. 비전 모델 학습·데이터 구축, 파인튜닝 R&amp;D.</li></ul>
+<ul><li>갈래: <code>A/정책학습</code></li><li>한 줄: 강화학습 정책 · 모델</li><li>메인 역할: 보행 정책 학습, 보상 설계, 실험 설계와 반복</li><li>보유 강점: 비전 모델 학습·데이터 구축, <b>파인튜닝 R&amp;D</b>, LLM 판단 로직 설계</li><li>협업 스타일: 직접 돌려본 <b>결과를 근거로</b> 가져와 논의를 빠르게 좁힌다</li><li>피치 한 줄: 보행 정책 학습 · 보상 설계 · 실험 반복. 비전 모델 학습·데이터 구축, 파인튜닝 R&amp;D.</li></ul>
 <h3>맹라현</h3>
-<ul><li>갈래: <code>A/지형씬제작</code> · <code>A/트윈렌더</code></li><li>대표: 아니오</li><li>한 줄: 3D 지형 · 트윈 · 렌더</li><li>메인 역할: 시뮬 지형 제작, 실공간 복원과 렌더 시연</li><li>보유 강점: Blender · 3ds Max · Unity, 2D CAD, 프리미어, HTML/CSS, MongoDB · SQL, Git · <b>제작부터 데이터까지</b></li><li>협업 스타일: 복잡한 구조를 <b>눈으로 볼 수 있게</b> 만들어, 말로 하면 길어질 논의를 짧게 만든다</li><li>피치 한 줄: 시뮬 지형 제작 · 실공간 복원 · 렌더 시연. Blender · 3ds Max · Unity, 웹·DB까지.</li></ul>
+<ul><li>갈래: <code>A/지형씬제작</code> · <code>A/트윈렌더</code></li><li>한 줄: 3D 지형 · 트윈 · 렌더</li><li>메인 역할: 시뮬 지형 제작, 실공간 복원과 렌더 시연</li><li>보유 강점: Blender · 3ds Max · Unity, 2D CAD, 프리미어, HTML/CSS, MongoDB · SQL, Git · <b>제작부터 데이터까지</b></li><li>협업 스타일: 복잡한 구조를 <b>눈으로 볼 수 있게</b> 만들어, 말로 하면 길어질 논의를 짧게 만든다</li><li>피치 한 줄: 시뮬 지형 제작 · 실공간 복원 · 렌더 시연. Blender · 3ds Max · Unity, 웹·DB까지.</li></ul>
 <h3>오현민</h3>
-<ul><li>갈래: <code>A/평가</code> · <code>B/인지</code></li><li>대표: 아니오</li><li>한 줄: 일반화 평가 · 인지</li><li>메인 역할: 미경험 지형 일반화 벤치마크와 지표, 실기 LiDAR·카메라 인지</li><li>보유 강점: 컴퓨터비전 분류, <b>프론트엔드 구현</b>, AI 부트캠프 수료</li><li>협업 스타일: 결과를 <b>수치로 확인한 뒤</b> 넘겨, 뒷단이 다시 검증할 일을 줄인다</li><li>피치 한 줄: 일반화 벤치마크·지표 · 실기 센서 인지. 컴퓨터비전 분류, 결과 화면 구현.</li></ul>
+<ul><li>갈래: <code>A/평가</code> · <code>B/인지</code></li><li>한 줄: 일반화 평가 · 인지</li><li>메인 역할: 미경험 지형 일반화 벤치마크와 지표, 실기 LiDAR·카메라 인지</li><li>보유 강점: 컴퓨터비전 분류, <b>프론트엔드 구현</b>, AI 부트캠프 수료</li><li>협업 스타일: 결과를 <b>수치로 확인한 뒤</b> 넘겨, 뒷단이 다시 검증할 일을 줄인다</li><li>피치 한 줄: 일반화 벤치마크·지표 · 실기 센서 인지. 컴퓨터비전 분류, 결과 화면 구현.</li></ul>
 <h3>이민우</h3>
-<ul><li>갈래: <code>C/기록</code></li><li>대표: 아니오</li><li>한 줄: 기록 · 문서 · 대외보고</li><li>메인 역할: 회의록과 문서 정본화, 백과·커리큘럼, 발표 자료와 대외보고</li><li>보유 강점: 웹 <b>풀스택</b>· 기획부터 배포까지 직접 구현, 서버 구성·운영</li><li>협업 스타일: 막힌 곳을 먼저 찾아 손대고, <b>남이 그대로 쓸 수 있게</b> 정리해 넘긴다</li><li>피치 한 줄: 회의록·문서 정본화 · 백과·커리큘럼 · 대외보고. 웹 풀스택, 서버 구성·운영.</li></ul>
-<h3>외부 조달</h3>
-<ul><li>갈래: 없음</li><li>대표: 아니오</li><li>한 줄: 처음부터 멘토링 항목으로 설계</li><li>메인 역할: <b>실증 판정 기준</b>· 현장이 &quot;쓸 만하다&quot;고 보는 선. <b>현장 안전 요건</b>· 사람과 같은 공간에서의 검증 조건</li><li>보유 강점: 공개 자료로 채울 수 없는 <b>현장 지식</b>이다. RL·시뮬레이션은 자체 학습으로 가되, 이 둘은 <b>물어서 얻는 것</b>이 빠르고 정확하다</li><li>협업 스타일: 전담 멘토(박철제)와 고정 멘토(김판구 교수)를 통해 확보한다</li><li>피치 한 줄: 현장 판정 기준과 안전 요건. 공개 자료로 못 채우는 현장 지식을 물어서 얻는다.</li></ul>
+<ul><li>갈래: <code>C/기록</code></li><li>한 줄: 기록 · 문서 · 대외보고</li><li>메인 역할: 회의록과 문서 정본화, 백과·커리큘럼, 발표 자료와 대외보고</li><li>보유 강점: 웹 <b>풀스택</b>· 기획부터 배포까지 직접 구현, 서버 구성·운영</li><li>협업 스타일: 막힌 곳을 먼저 찾아 손대고, <b>남이 그대로 쓸 수 있게</b> 정리해 넘긴다</li><li>피치 한 줄: 회의록·문서 정본화 · 백과·커리큘럼 · 대외보고. 웹 풀스택, 서버 구성·운영.</li></ul>
 </section>
-<section id="s4"><h2>3. 이민우 배치는 왜 <code>C/기록</code> 인가 <code>확정</code></h2>
-<p>한 번 짚었던 것이라 답을 남긴다. <b>강점과 배치가 어긋나 보인다</b>고 봤다. 프로필상 강점은 웹 풀스택·서버 운영인데 주담당은 문서 축이고, 인프라는 <code>C/운영</code>(오흥재)으로 갔기 때문이다.</p>
-<p><b>팀장 답 (2026-08-28): 지금 배치가 맞다.</b></p>
-<p>근거는 둘이다.</p>
-<ol><li><b>초기 5분야는 임의 배치였다.</b> 8/13 에 정한 「Environment · Infra」는 각자 무엇을 잘하는지 알기 전에 그은 선이다. 8/27 의 8갈래는 <b>일이 실제로 갈라지는 지점</b>을 보고 다시 그은 것이고, 그쪽이 정본이다.</li><li><b>실제로 잘하고 있다.</b> 노션에 운영진용 문서를 정리하는 일을 맹점 없이 해내고 있다. 배치는 「무엇을 배웠나」가 아니라 <b>「맡겨 놓으면 굴러가나」</b>로 정한다.</li></ol>
-<p>그래서 이 절은 확인 대기가 아니라 <b>기록</b>이다. 다음에 같은 의문이 나오면 여기를 본다.</p>
-<blockquote><p>서버·인프라 강점이 안 쓰이는 것은 아니다. <code>C/운영</code> 의 부담당이 전원이고,
-<code>A/정책학습</code> 의 실행 파이프라인에도 부담당으로 들어가 있다.</p></blockquote>
-</section>
-<section id="s5"><h2>판 이력</h2>
+<section id="s4"><h2>판 이력</h2>
 <div class="tw"><table><thead><tr><th>판</th><th>날짜</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v1.1</b></td><td>2026-08-28</td><td>이민우 배치 의문에 팀장이 답했다. 초기 5분야는 임의 배치였고 8갈래가 정본이다. 확인 대기 절을 「왜 이 배치인가」 기록으로 바꿨다</td><td>팀장 확정</td></tr><tr><td>v1.0</td><td>2026-08-28</td><td>신설. 발표 덱 두 장에 손으로 적혀 있던 옛 5분야를 걷어내고, 8갈래 배치와 사람별 강점을 정본 하나로 모았다. 덱은 이 문서에서 생성된다</td><td>#85</td></tr></tbody></table></div>
 </section>
 
@@ -492,5 +484,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 10:12</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 11:04</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
