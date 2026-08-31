@@ -418,7 +418,9 @@ document.addEventListener('DOMContentLoaded',function(){
 html{scrollbar-gutter:stable}
 /* PRD §4-1: 바깥 컨테이너 1040 한 벌. 셸(research.html)이 --measure 기반 824 를
    물려주고 표지는 1000 이라 페이지마다 본문 좌표가 달랐다 (실측 179 vs 91). */
-body .wrap,main.wrap,div.wrap{max-width:1040px!important}
+/* box-sizing 이 content-box 인 페이지는 패딩이 폭 밖에 붙어 1080 이 됐다
+   (예산·자료실 실측). 컨테이너는 border-box 로 못박는다. */
+body .wrap,main.wrap,div.wrap{max-width:1040px!important;box-sizing:border-box}
 /* .wrap 을 안 쓰고 main 을 컨테이너로 쓰는 페이지(커리큘럼 784 · 백과 931)도
    같은 폭으로. 실측으로 잡았다. */
 body main:not(.wrap):not(#deck){max-width:1040px!important;
@@ -429,8 +431,13 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
   border-bottom:1px solid var(--rule);font-size:.82rem}
 /* ★ 바 높이가 44 / 48 / 50 세 가지였다 (실측). 바가 «페이지의 line-height» 를
    물려받아 링크 높이가 27 / 31 / 33 으로 달라졌다. 바는 자기 값으로 선다. */
+/* 바도 border-box 로. content-box 인 페이지에서 1078px 이 되어 좌표가
+   51 로 밀렸다 (예산·자료실 실측). */
+.gnav *{box-sizing:border-box}
 .gnav .in{max-width:1040px;margin:0 auto;padding:.5rem 1.2rem;display:flex;
-  align-items:center;gap:.1rem;flex-wrap:wrap;line-height:1.5;min-height:2.6rem}
+  align-items:center;gap:.1rem;flex-wrap:wrap;line-height:1.5;min-height:2.6rem;
+  box-sizing:border-box;height:2.94rem}
+/* 높이를 값으로 못박는다. 페이지마다 제어 버튼 수가 달라 45~47px 로 흔들렸다. */
 .gnav a,.gnav .q,.gnav .navctl>*{line-height:1.5}
 .gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
   font-weight:700;white-space:nowrap}
@@ -453,9 +460,16 @@ html[data-theme="light"] .gnav .lgr{display:none}
    떠다니게 두는 대신 **상단바 안의 정상 요소**로 앉힌다.
    상단바는 이미 sticky 라 따라오고, 흐름 안이라 아무것도 안 가린다. */
 .gnav .navctl{display:inline-flex;align-items:center;gap:.3rem;margin-left:auto}
+/* ★ 통일성 실측 (팀장 8/31): 바 안에 폰트 3종(13.1 / 12.2 / 9.9px) ·
+   반경 2종(4px / 99px) · 굵기 3종이 섞여 있었다. 두 등급으로 줄인다.
+   허브(주) .82rem 700 · 바로가기와 제어(부) .76rem 600 · 반경은 전부 4px. */
 .gnav .navctl>*{position:static!important;inset:auto!important;top:auto!important;
   right:auto!important;bottom:auto!important;left:auto!important;z-index:auto!important;
-  margin:0!important;font-size:.62rem!important;padding:.24rem .55rem!important}
+  margin:0!important;font-size:.76rem!important;font-weight:600!important;
+  padding:.3rem .62rem!important;border-radius:4px!important;
+  border:1px solid var(--rule)!important;background:var(--card)!important;
+  color:var(--ink-3)!important;line-height:1.5}
+.gnav .navctl>*:hover{border-color:var(--dim)!important;color:var(--ink)!important}
 @media (max-width:640px){.gnav .in{padding:.45rem .8rem}}
 
 .band{display:block;text-decoration:none;color:inherit;background:var(--card);
@@ -471,7 +485,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
    토큰의 soft 짝을 써서 셋을 구분한다. 새 색을 만들지 않는다. */
 .bands3{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:0 0 14px}
 .bands3 .band{margin:0;padding:.85rem 1.05rem;min-height:5.4rem;
-  display:flex;flex-direction:column;justify-content:center}
+  display:flex;flex-direction:column;justify-content:center;
+  border:0;border-left:3px solid var(--dim)}
 .bands3 .band .t{font-size:.98rem}
 .bands3 .b-notice{background:var(--dim-soft);border-left-color:var(--dim)}
 .bands3 .b-digest{background:var(--paper-2);border-left-color:var(--ink-3)}
@@ -496,12 +511,15 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
 /* ★ 높이 통일 (팀장 8/31): 설명 길이가 달라 행마다 높이가 달랐다.
    같은 격자 안에서 늘려 맞추고, 설명은 두 줄로 잘라 통일한다. */
+/* ★ AI 슬롭 제거 (팀장 8/31): 카드마다 두른 외곽선을 없앤다.
+   구분은 «면(배경)» 과 위쪽 3px 한 줄로만. 선을 겹쳐 두르지 않는다. */
 .hubs a{display:flex;flex-direction:column;text-decoration:none;color:inherit;
-  background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--dim);
+  background:var(--card);border:0;border-top:3px solid var(--dim);
   border-radius:var(--p-radius,8px);padding:.8rem .9rem;min-height:6.6rem}
+.hubs a:hover{background:var(--paper-2)}
 .hubs .d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
   overflow:hidden;margin-top:auto}
-.hubs a:hover{border-color:var(--dim)}
+
 .hubs .k{font-size:1rem;font-weight:850}
 .hubs .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
   letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
@@ -721,5 +739,5 @@ document.addEventListener('click', function(e){
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 18:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 18:47</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
