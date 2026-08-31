@@ -32,6 +32,36 @@ h1{font-size:1.5rem;margin:.4rem 0}
   border-radius:5px;background:transparent;color:var(--dim,#0e7a6e);cursor:pointer}
 .pdfbox{margin-top:10px;max-height:82vh;overflow-y:auto;border-radius:6px}
 #list{display:none}
+
+:root{
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--dim:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+  --measure:760px;
+  /* ★ --dim / --note 를 연한 배경(--*-soft) 위 글자로 쓰면 대비가 모자란다.
+     실측 --dim on --dim-soft = 4.43 · --note on --note-soft = 3.93 (둘 다 4.5 미달).
+     그런 자리에는 아래 진한 짝을 쓴다. DESIGN.md §2 참조. */
+  --dim-ink:#0b6459;
+  --note-ink:#8a5600;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+    --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+    --rule:#2b323d;--dim:#3ec7b4;--dim-soft:#11302c;
+    --note:#dc9a30;--note-soft:#332710;
+    --stop:#e56d5e;--stop-soft:#331c19;
+    --grid:rgba(233,231,225,.035);
+    /* 어두운 모드에서는 soft 배경이 어두우므로 원래 토큰이 이미 충분히 밝다 */
+    --dim-ink:#3ec7b4;
+    --note-ink:#dc9a30;
+  }
+html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}
+html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}
+:root{--bg:var(--paper);--panel:var(--card);--sub:var(--ink-3);--line:var(--rule);--brand:var(--dim);--brand-ink:var(--dim-ink,#0b3d2e);--brand-soft:var(--dim-soft);--brand-line:var(--dim);--accent:var(--note);--accent-soft:var(--note-soft);--code:var(--paper-2);--shadow:none}body{font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;background:var(--paper);color:var(--ink)}
 </style>
 <style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
@@ -39,6 +69,12 @@ h1{font-size:1.5rem;margin:.4rem 0}
    ② 허브 본문 폭이 824, 표지가 1000 -> PRD §4-1 대로 1040 한 벌
    ③ navctl 안에 <script> 가 인라인 요소로 들어가 바 높이가 2px 달랐다 */
 html{scrollbar-gutter:stable}
+/* ★ 실측 (팀장 8/31 · 백과): 페이지가 가진 «고정» 요소(사이드바 · 떠 있는 버튼)가
+   top:0 이라 sticky 전역바 «뒤» 로 깔려 안 보였다. 바 높이(2.94rem)만큼 내린다.
+   바 자신과 그 안의 것은 제외한다. */
+body :not(.gnav):not(.gnav *){--navh:2.94rem}
+nav:not(.gnav),aside{top:var(--navh)!important;height:calc(100vh - var(--navh))!important}
+body>button[class]:not(.gnav *),body>a[class]:not(.gnav *){top:calc(var(--navh) + 7px)!important}
 /* PRD §4-1: 바깥 컨테이너 1040 한 벌. 셸(research.html)이 --measure 기반 824 를
    물려주고 표지는 1000 이라 페이지마다 본문 좌표가 달랐다 (실측 179 vs 91). */
 /* box-sizing 이 content-box 인 페이지는 패딩이 폭 밖에 붙어 1080 이 됐다
@@ -46,6 +82,9 @@ html{scrollbar-gutter:stable}
 body .wrap,main.wrap,div.wrap{max-width:1040px!important;box-sizing:border-box}
 /* .wrap 을 안 쓰고 main 을 컨테이너로 쓰는 페이지(커리큘럼 784 · 백과 931)도
    같은 폭으로. 실측으로 잡았다. */
+/* ⑤ 커리큘럼만 784. #deck 제외 규칙이 커리큘럼을 통째로 비켜갔다.
+   덱 슬라이드 «안» 은 그대로 두고 컨테이너 폭만 맞춘다. */
+main#deck{max-width:1040px!important;margin-left:auto;margin-right:auto}
 body main:not(.wrap):not(#deck){max-width:1040px!important;
   margin-left:auto;margin-right:auto}
 @media print{.wrap{max-width:none!important}}
@@ -408,5 +447,5 @@ document.getElementById('pw').addEventListener('keydown', e=>{
   if(e.key==='Enter') document.getElementById('go').click();
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 22:46</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 23:34</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

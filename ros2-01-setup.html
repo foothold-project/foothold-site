@@ -286,6 +286,12 @@ html[data-theme="light"]{
    ② 허브 본문 폭이 824, 표지가 1000 -> PRD §4-1 대로 1040 한 벌
    ③ navctl 안에 <script> 가 인라인 요소로 들어가 바 높이가 2px 달랐다 */
 html{scrollbar-gutter:stable}
+/* ★ 실측 (팀장 8/31 · 백과): 페이지가 가진 «고정» 요소(사이드바 · 떠 있는 버튼)가
+   top:0 이라 sticky 전역바 «뒤» 로 깔려 안 보였다. 바 높이(2.94rem)만큼 내린다.
+   바 자신과 그 안의 것은 제외한다. */
+body :not(.gnav):not(.gnav *){--navh:2.94rem}
+nav:not(.gnav),aside{top:var(--navh)!important;height:calc(100vh - var(--navh))!important}
+body>button[class]:not(.gnav *),body>a[class]:not(.gnav *){top:calc(var(--navh) + 7px)!important}
 /* PRD §4-1: 바깥 컨테이너 1040 한 벌. 셸(research.html)이 --measure 기반 824 를
    물려주고 표지는 1000 이라 페이지마다 본문 좌표가 달랐다 (실측 179 vs 91). */
 /* box-sizing 이 content-box 인 페이지는 패딩이 폭 밖에 붙어 1080 이 됐다
@@ -293,6 +299,9 @@ html{scrollbar-gutter:stable}
 body .wrap,main.wrap,div.wrap{max-width:1040px!important;box-sizing:border-box}
 /* .wrap 을 안 쓰고 main 을 컨테이너로 쓰는 페이지(커리큘럼 784 · 백과 931)도
    같은 폭으로. 실측으로 잡았다. */
+/* ⑤ 커리큘럼만 784. #deck 제외 규칙이 커리큘럼을 통째로 비켜갔다.
+   덱 슬라이드 «안» 은 그대로 두고 컨테이너 폭만 맞춘다. */
+main#deck{max-width:1040px!important;margin-left:auto;margin-right:auto}
 body main:not(.wrap):not(#deck){max-width:1040px!important;
   margin-left:auto;margin-right:auto}
 @media print{.wrap{max-width:none!important}}
@@ -709,5 +718,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 22:46</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 23:34</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
