@@ -466,13 +466,21 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
   box-sizing:border-box;height:2.94rem}
 /* 높이를 값으로 못박는다. 페이지마다 제어 버튼 수가 달라 45~47px 로 흔들렸다. */
 .gnav a,.gnav .q,.gnav .navctl>*{line-height:1.5}
-/* ★ 팀장 재지적 (8/31): 13.12 / 12.16px 두 크기가 섞여 통일감이 없다.
-   크기는 «한 값». 주/부 위계는 색과 굵기로만 만든다. */
-.gnav a,.gnav button{font-size:.8rem;letter-spacing:-.01em}
-.gnav a{color:var(--ink-2,var(--ink-3));text-decoration:none;padding:.3rem .55rem;
-  border-radius:4px;font-weight:650;white-space:nowrap}
-.gnav a:hover{color:var(--ink);background:transparent}
-.gnav a.home{display:inline-flex;align-items:center;margin-right:.6rem;padding:.3rem .3rem}
+/* ★ 팀장 3차 지적 (8/31). 실측으로 남아 있던 어긋남:
+     굵기 650 / 600 두 종 · 색 두 종 · 높이 25 / 26 / 29px 세 종 ·
+     세로 위치 9 / 10 / 11px 세 종 («다크» 버튼만 3px 낮고 1px 위로 밀림).
+   상단바 «모든» 항목이 같은 상자로 선다. 하나라도 예외를 두면 또 어긋난다. */
+.gnav a,.gnav button,.gnav .navctl>*{
+  font-size:.8rem!important;font-weight:600!important;letter-spacing:-.01em;
+  line-height:1.5!important;color:var(--ink-3)!important;
+  padding:.34rem .55rem!important;border-radius:4px!important;
+  border:0!important;background:transparent!important;
+  display:inline-flex!important;align-items:center!important;
+  height:1.85rem!important;box-sizing:border-box!important;
+  white-space:nowrap;text-decoration:none;cursor:pointer}
+.gnav a:hover,.gnav button:hover,.gnav .navctl>*:hover{
+  color:var(--ink)!important;background:var(--paper-2)!important}
+.gnav a.home{margin-right:.6rem;padding:.34rem .3rem!important}
 .gnav .lgi,.gnav .lgr{display:block}
 .gnav .lgr{display:none}
 @media (prefers-color-scheme:dark){.gnav .lgi{display:none}.gnav .lgr{display:block}}
@@ -480,10 +488,10 @@ html[data-theme="dark"] .gnav .lgi{display:none}
 html[data-theme="dark"] .gnav .lgr{display:block}
 html[data-theme="light"] .gnav .lgi{display:block}
 html[data-theme="light"] .gnav .lgr{display:none}
-.gnav a.on{color:var(--ink);font-weight:800;background:transparent;
+.gnav a.on{color:var(--ink)!important;font-weight:800!important;
   box-shadow:inset 0 -2px 0 var(--dim)}
 .gnav .sp{flex:1}
-.gnav .q{color:var(--ink-3);font-weight:600}
+
 /* ★ 2026-08-28. 검색·다크 버튼이 position:fixed 로 «떠다니며» 상단바를 덮었다.
    모바일 실측: 검색 버튼이 「파이프라인」 글자를 가렸고(둘 다 z-index:70 이라
    나중에 그려지는 쪽이 이긴다), 다크 버튼은 iOS 에서 주소창이 접히자
@@ -496,11 +504,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
    허브(주) .82rem 700 · 바로가기와 제어(부) .76rem 600 · 반경은 전부 4px. */
 .gnav .navctl>*{position:static!important;inset:auto!important;top:auto!important;
   right:auto!important;bottom:auto!important;left:auto!important;z-index:auto!important;
-  margin:0!important;font-size:.8rem!important;font-weight:600!important;
-  padding:.3rem .55rem!important;border-radius:4px!important;
-  border:0!important;background:transparent!important;
-  color:var(--ink-3)!important;line-height:1.5}
-.gnav .navctl>*:hover{color:var(--ink)!important}
+  margin:0!important}
 /* ★ 모바일 실측 (2026-08-31 · 390px): 상단바가 13개 항목을 wrap 해 3줄이 되고
    화면 상단 1/8 을 먹었다. 모바일에서는 **허브 여섯만** 한 줄로 두고
    가로 스크롤로 넘긴다. 바로가기는 접는다 (표지와 각 허브에서 닿는다). */
@@ -863,5 +867,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 </style><a class="w3t" style="display:block;border:1px solid var(--rule);border-radius:8px;padding:.7rem 1rem;margin-bottom:1rem" href="decisions-log.html"><b>결정 로그</b><span style="display:block;font-size:.73rem;color:var(--ink-3)">무엇을 언제 왜 정했나. 뒤집은 것은 취소선으로 남는다 · 누적 기록이라 시간축 밖에 둔다</span></a><div class="mfs"><button class="mf on" data-seat="">전체 <i>11</i></button><button class="mf" data-seat="팀내부">팀내부 <i>3</i></button><button class="mf" data-seat="멘토링">멘토링 <i>2</i></button><button class="mf" data-seat="운영진">운영진 <i>2</i></button><button class="mf" data-seat="조선대">조선대 <i>1</i></button><button class="mf" data-seat="결정">결정 <i>1</i></button><button class="mf" data-seat="현장">현장 <i>2</i></button></div><div class="tlw3"><a class="tl3" data-seat="결정" href="decisions-20260827.html"><span class="tld3">08/27</span><span class="seat3 s-ops">결정</span><span class="tlb3"><span class="tlt3">8/26~27 에 확정한 것 전부</span><span class="tls3">설계 결정 기록</span></span></a><a class="tl3" data-seat="팀내부" href="meeting-20260826-mentor-sync.html"><span class="tld3">08/26</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">오늘 멘토링은 취소. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤.</span><span class="tls3">8/26 팀: 오늘 멘토링은 취소, 프로젝트 피드백으로 조율</span></span></a><a class="tl3" data-seat="멘토링" href="meeting-20260825-park-mentoring.html"><span class="tld3">08/25</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">2회차 멘토링. 프로젝트 화면을 보고, 실패 험지는 3점 지지로 읽는다.</span><span class="tls3">8/25 멘토링: 프로젝트 화면을 보고, 실패 험지는 3점 지지로</span></span></a><a class="tl3 old" data-seat="멘토링" href="meeting-20260824-park-mentoring.html"><span class="tld3">08/24</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">본 과제와 CAD 학습은 분리한다. 개별 취업 멘토링 첫 회차.</span></span></a><a class="tl3 old" data-seat="팀내부" href="meeting-20260821-team-meeting.html"><span class="tld3">08/21</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.</span></span></a><a class="tl3 old" data-seat="운영진" href="meeting-20260820-kickoff.html"><span class="tld3">08/20</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">전담 멘토 확정과 박철제 킥오프. 같은 날 두 자리를 한 장으로.</span></span></a><a class="tl3 old" data-seat="팀내부" href="meeting-20260819-team-lock.html"><span class="tld3">08/19</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">두 트랙으로 가기로 합의했다. C(미경험 지형 통과율)는 필수로 지킨다.</span></span></a><a class="tl3 old" data-seat="현장" href="field-check-go2-intake.html"><span class="tld3">08/14</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.</span></span></a><a class="tl3 old" data-seat="운영진" href="meeting-20260814-east-ops.html"><span class="tld3">08/14</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">원안이 확정됐다. 그리고 미팅 도중 조선대가 「Go2 저수준 제어 가능」으로 정정해 왔다. 전날의 최대 쟁점이 하루 만에 뒤집혔다.</span></span></a><a class="tl3 old" data-seat="현장" href="field-check-0813.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">8/13 조선대 방문 때 들고 가는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</span></span></a><a class="tl3 old" data-seat="조선대" href="meeting-20260813-ops-alignment.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">조선대</span><span class="tlb3"><span class="tlt3">「실시간 불가」 발언은 비전·항법 층 이야기였다. 진짜 쟁점은 Go2 저수준 개방 여부이고 아직 미확인이다.</span></span></a></div><script>document.querySelectorAll(".mf").forEach(function(b){b.onclick=function(){document.querySelectorAll(".mf").forEach(function(x){x.classList.remove("on")});b.classList.add("on");var s=b.dataset.seat;document.querySelectorAll("a[data-seat]").forEach(function(t){t.style.display=(!s||t.dataset.seat===s)?"":"none"});};});</script>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 20:04</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 20:15</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
