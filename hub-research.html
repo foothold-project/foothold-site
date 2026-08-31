@@ -466,9 +466,12 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
   box-sizing:border-box;height:2.94rem}
 /* 높이를 값으로 못박는다. 페이지마다 제어 버튼 수가 달라 45~47px 로 흔들렸다. */
 .gnav a,.gnav .q,.gnav .navctl>*{line-height:1.5}
-.gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
-  font-weight:700;white-space:nowrap}
-.gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
+/* ★ 팀장 재지적 (8/31): 13.12 / 12.16px 두 크기가 섞여 통일감이 없다.
+   크기는 «한 값». 주/부 위계는 색과 굵기로만 만든다. */
+.gnav a,.gnav button{font-size:.8rem;letter-spacing:-.01em}
+.gnav a{color:var(--ink-2,var(--ink-3));text-decoration:none;padding:.3rem .55rem;
+  border-radius:4px;font-weight:650;white-space:nowrap}
+.gnav a:hover{color:var(--ink);background:transparent}
 .gnav a.home{display:inline-flex;align-items:center;margin-right:.6rem;padding:.3rem .3rem}
 .gnav .lgi,.gnav .lgr{display:block}
 .gnav .lgr{display:none}
@@ -477,9 +480,10 @@ html[data-theme="dark"] .gnav .lgi{display:none}
 html[data-theme="dark"] .gnav .lgr{display:block}
 html[data-theme="light"] .gnav .lgi{display:block}
 html[data-theme="light"] .gnav .lgr{display:none}
-.gnav a.on{color:var(--dim);background:var(--dim-soft,rgba(0,0,0,.05))}
+.gnav a.on{color:var(--ink);font-weight:800;background:transparent;
+  box-shadow:inset 0 -2px 0 var(--dim)}
 .gnav .sp{flex:1}
-.gnav .q{color:var(--ink-3);font-weight:600;font-size:.76rem}
+.gnav .q{color:var(--ink-3);font-weight:600}
 /* ★ 2026-08-28. 검색·다크 버튼이 position:fixed 로 «떠다니며» 상단바를 덮었다.
    모바일 실측: 검색 버튼이 「파이프라인」 글자를 가렸고(둘 다 z-index:70 이라
    나중에 그려지는 쪽이 이긴다), 다크 버튼은 iOS 에서 주소창이 접히자
@@ -492,17 +496,29 @@ html[data-theme="light"] .gnav .lgr{display:none}
    허브(주) .82rem 700 · 바로가기와 제어(부) .76rem 600 · 반경은 전부 4px. */
 .gnav .navctl>*{position:static!important;inset:auto!important;top:auto!important;
   right:auto!important;bottom:auto!important;left:auto!important;z-index:auto!important;
-  margin:0!important;font-size:.76rem!important;font-weight:600!important;
-  padding:.3rem .62rem!important;border-radius:4px!important;
-  border:1px solid var(--rule)!important;background:var(--card)!important;
+  margin:0!important;font-size:.8rem!important;font-weight:600!important;
+  padding:.3rem .55rem!important;border-radius:4px!important;
+  border:0!important;background:transparent!important;
   color:var(--ink-3)!important;line-height:1.5}
-.gnav .navctl>*:hover{border-color:var(--dim)!important;color:var(--ink)!important}
-@media (max-width:640px){.gnav .in{padding:.45rem .8rem}}
+.gnav .navctl>*:hover{color:var(--ink)!important}
+/* ★ 모바일 실측 (2026-08-31 · 390px): 상단바가 13개 항목을 wrap 해 3줄이 되고
+   화면 상단 1/8 을 먹었다. 모바일에서는 **허브 여섯만** 한 줄로 두고
+   가로 스크롤로 넘긴다. 바로가기는 접는다 (표지와 각 허브에서 닿는다). */
+@media (max-width:720px){
+  .gnav{height:auto}
+  .gnav .in{padding:.4rem .7rem;flex-wrap:nowrap;overflow-x:auto;height:auto;
+    min-height:2.7rem;scrollbar-width:none}
+  .gnav .in::-webkit-scrollbar{display:none}
+  .gnav .q{display:none}
+  .gnav .sp{display:none}
+  .gnav a.home{margin-right:.35rem;flex:none}
+  .gnav a{flex:none;padding:.3rem .45rem}
+  .gnav .navctl{margin-left:.3rem;flex:none}
+}
 
-.band{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:var(--p-radius,8px);
-  padding:1rem 1.2rem;margin:0 0 14px}
-.band:hover{border-color:var(--dim)}
+.band{display:block;text-decoration:none;color:inherit;background:var(--paper-2);
+  border:0;border-radius:var(--p-radius,8px);padding:1rem 1.2rem;margin:0 0 14px}
+.band:hover{background:var(--card)}
 .band .t{font-size:1.06rem;font-weight:850;letter-spacing:.02em}
 .band .d{font-size:.8rem;color:var(--ink-3);margin-top:.22rem}
 .band .w{float:right;font-family:ui-monospace,Consolas,monospace;font-size:.72rem;
@@ -511,21 +527,21 @@ html[data-theme="light"] .gnav .lgr{display:none}
 /* ★ 표지 3열 (팀장 8/31): 디자인 시스템 안에서 배경톤 베리에이션.
    토큰의 soft 짝을 써서 셋을 구분한다. 새 색을 만들지 않는다. */
 .bands3{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:0 0 14px}
-.bands3 .band{margin:0;padding:.85rem 1.05rem;min-height:5.4rem;
-  display:flex;flex-direction:column;justify-content:center;
-  border:0;border-left:3px solid var(--dim)}
+/* ★ 팀장 재지적: 「면과 위쪽 한 줄」도 AI 슬롭이다. 악센트 바를 전부 뺀다.
+   구분은 배경 면 · 여백 · 글자 위계로만. 색은 뜻이 있을 때만 (급한 것). */
+.bands3 .band{margin:0;padding:.9rem 1.1rem;min-height:5.2rem;
+  display:flex;flex-direction:column;justify-content:center;border:0}
 .bands3 .band .t{font-size:.98rem}
-.bands3 .b-notice{background:var(--dim-soft);border-left-color:var(--dim)}
-.bands3 .b-digest{background:var(--paper-2);border-left-color:var(--ink-3)}
-.bands3 .b-deliv{background:var(--note-soft);border-left-color:var(--note)}
+.bands3 .b-notice,.bands3 .b-digest{background:var(--paper-2)}
+.bands3 .b-deliv{background:var(--note-soft)}
 .bands3 .b-deliv .d{color:var(--note-ink,var(--note));font-weight:700}
+.bands3 .band:hover{background:var(--card)}
 @media (max-width:820px){.bands3{grid-template-columns:1fr}}
 .quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));
   gap:.6rem;margin:0 0 16px}
 .quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-top:3px solid var(--note,var(--dim));
-  border-radius:var(--p-radius,8px);padding:.72rem .85rem}
-.quick a:hover{border-color:var(--dim)}
+  border:0;border-radius:var(--p-radius,8px);padding:.72rem .85rem}
+.quick a:hover{background:var(--paper-2)}
 .quick .k{font-size:.92rem;font-weight:800}
 .quick .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
   letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
@@ -534,16 +550,16 @@ html[data-theme="light"] .gnav .lgr{display:none}
 /* ★ v3: PC 3열×2행 (팀장 지시 2026-08-30). 좁으면 흘러내린다. */
 .hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:0 0 28px}
 @media (max-width:720px){.hubs{grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))}}
-.hubs a.hot{border-top-color:var(--note,#d29922)}
-.hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
+.hubs a.hot .d{color:var(--note-ink,var(--note));font-weight:700}
 /* ★ 높이 통일 (팀장 8/31): 설명 길이가 달라 행마다 높이가 달랐다.
    같은 격자 안에서 늘려 맞추고, 설명은 두 줄로 잘라 통일한다. */
 /* ★ AI 슬롭 제거 (팀장 8/31): 카드마다 두른 외곽선을 없앤다.
    구분은 «면(배경)» 과 위쪽 3px 한 줄로만. 선을 겹쳐 두르지 않는다. */
 .hubs a{display:flex;flex-direction:column;text-decoration:none;color:inherit;
-  background:var(--card);border:0;border-top:3px solid var(--dim);
-  border-radius:var(--p-radius,8px);padding:.8rem .9rem;min-height:6.6rem}
+  background:var(--card);border:0;border-radius:var(--p-radius,8px);
+  padding:.9rem 1rem;min-height:6.4rem}
 .hubs a:hover{background:var(--paper-2)}
+.hubs a.hot{background:var(--note-soft)}
 .hubs .d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
   overflow:hidden;margin-top:auto}
 
@@ -847,5 +863,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 </style><div class="hero3"><div class="hk3">출발선 · 우리가 잰 것</div><a class="ht3" href="research-generalization-benchmark-10-terrains.html">기준 정책은 미학습 지형 <b>10종 중 5종</b>에서 실패한다</a><div class="hd3">일반화 벤치마크: 미학습 지형 10종 실측 (5종 통과 · 5종 실패)</div><div class="hk3b">여기서 갈라진 열린 질문 5</div><div class="fks3"><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/69"><b>실패 지형 floating_ring</b><span>오흥재</span><i>#69</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/68"><b>실패 지형 pit</b><span>이민우</span><i>#68</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/67"><b>실패 지형 stepping_stones</b><span>오현민</span><i>#67</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/66"><b>실패 지형 rails</b><span>맹라현</span><i>#66</i></a><a class="fk3" href="https://github.com/foothold-project/foothold-lab/issues/65"><b>실패 지형 gap</b><span>임석헌</span><i>#65</i></a></div></div><div class="eg3">본 PoC · 트랙 A 핵심 증거 <span>2</span></div><div class="evs3"><a class="ev3" href="research-training-benchmarks.html"><span class="en3">86.7%</span><span class="eb3"><b>학습 성능 실측: Go2 험지 (AI-WS01)</b><span>첫 기준선 통과율 86.7%. 실패 원인은 넘어짐이 아니라 느림이며, 보상 수치는 걷기를 보증하지 않는다.</span><span class="em3"><u>A/정책학습</u></span></span></a><a class="ev3" href="research-visual-evidence.html"><span class="en3">·</span><span class="eb3"><b>시각 증거: 우리가 실제로 본 것</b><span>숫자로만 보던 학습 결과를 눈으로 확인한 기록. 보상 13.94 정책이 실제로는 걷지 못하는 것을 영상이 잡았다.</span><span class="em3"><u>A/정책학습</u></span></span></a></div><div class="eg3">PoC 시험 <span>1</span></div><div class="evs3"><a class="ev3" href="research-render-benchmarks.html"><span class="en3">1.75초</span><span class="eb3"><b>렌더 실측: Path Tracing 은 얼마나 걸리는가</b><span>1080p Path Tracing 128spp = 프레임당 1.75초(30초 영상 44분). 렌더 시간은 병목이 아니다.</span><span class="em3"><u>A/트윈렌더</u></span></span></a></div><div class="eg3">파이프라인 점검 · 재현과 셋업 <span>2</span></div><div class="evs3"><a class="ev3" href="research-benchmark-repro-protocol.html"><span class="en3">·</span><span class="eb3"><b>벤치마크 재현 프로토콜: 동일 셋업 검증과 결정론 발견</b><span>벤치마크를 남이 그대로 다시 돌릴 수 있게 하는 절차.</span><span class="em3"><u>A/평가</u></span></span></a><a class="ev3" href="research-benchmark-setup-lim.html"><span class="en3">·</span><span class="eb3"><b>Unitree Go2 Isaac Lab 2.3.2 베이스라인·미경험 험지 벤치마크</b><span>NVIDIA 공식 checkpoint 모델의 미경험 험지에 대한 간단한 지표 측정</span><span class="em3"><u>A/지형씬제작</u> <u>A/정책학습</u></span></span></a></div><div class="eg3">운영 실측 · 자원과 비용 <span>2</span></div><div class="evs3"><a class="ev3" href="research-compute-resources.html"><span class="en3">·</span><span class="eb3"><b>컴퓨팅 자원 계획: 무엇을 어디서 돌리나</b><span>가용 연산 자원 실측과 배정. 무엇으로 무엇을 돌릴 수 있는가.</span><span class="em3"><u>A/정책학습</u></span></span></a><a class="ev3" href="research-terrain-finetune-plan.html"><span class="en3">5종</span><span class="eb3"><b>실패 지형 파인튜닝 실행 계획: 레시피 병렬, 혼합 단일 런</b><span>일반화 벤치마크 실패 5종을 5인이 하나씩 맡아 레시피를 찾고, 최종은 혼합 단일 런 1개로 합친다.</span><span class="em3"><u>A/정책학습</u> <u>A/지형씬제작</u></span></span></a></div><div class="eh3">밖에서 읽은 것 12 <span>근거가 남의 것 · 제목이면 충분</span></div><div class="rrs3"><a class="rr3" href="research-architecture-decision.html"><span class="rk3">공식</span><b>시스템 아키텍처 결정: Isaac Sim + ROS2 + 실기 Go2</b></a><a class="rr3" href="research-cloud-gpu-options.html"><span class="rk3">공식</span><b>클라우드 GPU에서 Isaac Sim 돌리기: 가능성 조사</b></a><a class="rr3" href="research-go2-pretrained-policies.html"><span class="rk3">공식</span><b>Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</b></a><a class="rr3" href="research-go2-rough-training.html"><span class="rk3">공식</span><b>Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼</b></a><a class="rr3" href="research-nvidia-curriculum-alignment.html"><span class="rk3">공식</span><b>NVIDIA AI Campus 커리큘럼과 우리 프로젝트의 대응</b></a><a class="rr3" href="research-omniverse-stack.html"><span class="rk3">공식</span><b>NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</b></a><a class="rr3" href="research-robogauge-observation-mapping.html"><span class="rk3">코드</span><b>RoboGauge 공개 정책 해부: 45차원 관측의 정확한 순서와 스케일</b></a><a class="rr3" href="research-role-map-careers.html"><span class="rk3">공식</span><b>역할 지도: 이 프로젝트가 각자를 어떤 직무로 데려가는가</b></a><a class="rr3" href="research-ros2-isaacsim-integration.html"><span class="rk3">공식</span><b>ROS2 ↔ Isaac Sim: 파이썬 버전 충돌과 통합 방법</b></a><a class="rr3" href="research-runpod-team-ops.html"><span class="rk3">공식</span><b>Runpod 팀 운용 가이드: 권한 · 결제 · 네트워크 볼륨 · NAS 연계</b></a><a class="rr3" href="research-terrain-guide-isaaclab.html"><span class="rk3">공식</span><b>Isaac Lab v2.3.2 지형 가이드: Go2 커스텀 험지 설계</b></a><a class="rr3" href="research-terrain-rl-study-plan-0818.html"><span class="rk3">본인</span><b>8/18 험지RL 학습 계획: 무엇을 먼저 하고 무엇을 하지 않는가</b></a></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 18:47</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 20:04</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
