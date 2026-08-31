@@ -400,7 +400,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 @media (max-width:640px){.gnav .in{padding:.45rem .8rem}}
 
 .band{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:7px;
+  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:var(--p-radius,8px);
   padding:1rem 1.2rem;margin:0 0 14px}
 .band:hover{border-color:var(--dim)}
 .band .t{font-size:1.06rem;font-weight:850;letter-spacing:.02em}
@@ -418,7 +418,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   gap:.6rem;margin:0 0 16px}
 .quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-top:3px solid var(--note,var(--dim));
-  border-radius:6px;padding:.72rem .85rem}
+  border-radius:var(--p-radius,8px);padding:.72rem .85rem}
 .quick a:hover{border-color:var(--dim)}
 .quick .k{font-size:.92rem;font-weight:800}
 .quick .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
@@ -431,7 +431,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .hubs a.hot{border-top-color:var(--note,#d29922)}
 .hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
 .hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:var(--p-radius,8px);
   padding:.8rem .9rem}
 .hubs a:hover{border-color:var(--dim)}
 .hubs .k{font-size:1rem;font-weight:850}
@@ -447,7 +447,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:.35rem}
 .hlist{display:grid;gap:.5rem}
 .hlist a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-radius:6px;padding:.65rem .85rem}
+  border:1px solid var(--rule);border-radius:var(--p-radius,8px);padding:.65rem .85rem}
 .hlist a:hover{border-color:var(--dim)}
 .hlist a{position:relative;padding-left:3.1rem}
 .hlist .hn{position:absolute;left:.85rem;top:.68rem;font-family:ui-monospace,Consolas,monospace;
@@ -476,7 +476,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .recent{display:grid;gap:.45rem;margin:0 0 10px}
 .recent a{display:flex;gap:.75rem;align-items:baseline;flex-wrap:wrap;
   text-decoration:none;color:inherit;border:1px solid var(--rule);
-  background:var(--card);border-radius:6px;padding:.5rem .85rem}
+  background:var(--card);border-radius:var(--p-radius,8px);padding:.5rem .85rem}
 .recent a:hover{border-color:var(--dim)}
 .recent .rd{flex:none;font-size:.72rem;color:var(--ink-3);
   font-variant-numeric:tabular-nums;min-width:3.2em}
@@ -568,103 +568,6 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <div class="recent"><a href="tech-slam-nav.html"><span class="rd">08/30</span><span class="rk">기술</span><span class="rt">SLAM · Nav2 자율주행</span></a><a href="tech-ros2-ref.html"><span class="rd">08/30</span><span class="rk">기술</span><span class="rt">ROS 2 기초</span></a><a href="tech-rl.html"><span class="rd">08/30</span><span class="rk">기술</span><span class="rt">시뮬레이션 강화학습</span></a><a href="tech-cv.html"><span class="rd">08/30</span><span class="rk">기술</span><span class="rt">컴퓨터 비전</span></a><a href="research-taxonomy.html"><span class="rd">08/29</span><span class="rk">파이프라인</span><span class="rt">연구 허브 분류 기준: 무엇을 물으러 왔는지로 가른다</span></a></div>
 <!--/recent:v1-->
 
-<h2 class="sec">처음 왔다면 <span class="en">Start Here</span></h2>
-<p class="seclede">이 셋만 읽으면 우리가 무엇을, 어떤 순서로, 어떤 규칙으로 하는지 알 수 있다.</p>
-<div class="docs work">
-<a class="doc learn" data-added="2026-08-11" href="flow.html">
-  
-  <div class="tag">Flow · 프로젝트 전체 흐름</div>
-  <div class="t">무엇을 어떤 순서로 하는가</div>
-  <div class="d">학습은 시뮬에서, 확인은 실물에서. <b>시뮬은 학습장이고 실기는 시험장이다</b>
-  실기에서는 학습하지 않는다. 로봇공학을 몰라도 읽히게 썼다.</div>
-  <ul>
-  <li>한 장으로 보는 전체 흐름 (도식)</li>
-  <li>특권 정보와 증류: 왜 필요한가 (도식)</li>
-  <li>Unitree 순정과 우리 정책 (도식)</li>
-  <li>실측: 씬 분리 성공 · 렌더 1.75초/프레임</li>
-  <li>자주 헷갈리는 것 6가지</li>
-  </ul>
-  <div class="go">읽기 →</div>
-  </a>
-<a class="doc setup" data-added="2026-08-07" href="plan.html">
-  
-  <div class="tag">Plan · 살아있는 설계도</div>
-  <div class="t">프로젝트 설계도</div>
-  <div class="d">7단계 지도와 <b>퀘스트 보드</b>, KPI 메뉴, 그리고 <b>아직 팀이 정하지 않은 것(🔶)</b>.
-  결정이 나면 이 문서가 갱신된다. 갱신 이력이 곧 기획 과정의 기록이다.</div>
-  <ul>
-  <li>7단계 지도: 집짓기 · 로봇 원리로 번역</li>
-  <li>이야기로 풀기: "어 되네? 그다음은?"</li>
-  <li>퀘스트 Q0~Q12 + 보스전</li>
-  <li>KPI 메뉴 12종 · 통과율의 정의</li>
-  <li>🔶 결정 안건 6건</li>
-  </ul>
-  <div class="go">읽기 →</div>
-  </a>
-<a class="doc learn" data-added="2026-08-09" href="collab.html">
-  <div class="tag">Collab · 일하는 방식</div>
-  <div class="t">협업 규칙</div>
-  <div class="d">손으로 하는 건 <b>두 가지뿐</b>이슈 만들기와 Closes #번호. 나머지는 자동이다.
-  원칙·브랜치·회의·실험 규율과 <b>온보딩 30분 경로</b>.</div>
-  <ul>
-  <li>원칙 3 · 팀 역할(리드+백업)</li>
-  <li>일의 흐름 · 브랜치 전략 (도식)</li>
-  <li>회의 녹음 · 결정 기록 규칙</li>
-  <li>온보딩: 0분에서 30분</li>
-  <li>용어 8 · 하지 말 것 6</li>
-  </ul>
-  <div class="go">읽기 →</div>
-  </a>
-</div>
-
-<h2 class="sec">손을 움직이려면 <span class="en">Get Working</span></h2>
-<p class="seclede">내 컴퓨터에서 돌리고, 팀 자원에 접근하고, 필요한 개념을 익히는 데 필요한 것.</p>
-<div class="docs work">
-<a class="doc setup" data-added="2026-08-05" href="setup.html">
-  <div class="tag">Setup · 따라 하기</div>
-  <div class="t">개발환경 구축</div>
-  <div class="d">Isaac Sim 5.1 + Isaac Lab v2.3.2를 <b>워크스테이션에</b> 올려
-  사전학습 Go2 험지 정책을 재생·학습하는 데까지. <b>실제로 성공한 절차</b>다.
-  <b>설치할 사람 1명</b>이 읽는다.</div>
-  <ul>
-  <li>왜 최신 버전을 안 쓰는가</li>
-  <li>설치 9단계 (복사 버튼)</li>
-  <li>검증 체크리스트 8개</li>
-  <li>함정 6개와 해법</li>
-  <li>학습 속도 실측 · 출처</li>
-  </ul>
-  <div class="go">따라 하기 →</div>
-  </a>
-<a class="doc access" data-added="2026-08-05" href="team-access.html">
-  <div class="tag">Access · 팀원 4인</div>
-  <div class="t">팀원 사용 가이드</div>
-  <div class="d">노트북에는 <b>설치하지 않는다.</b> 워크스테이션 한 대를 함께 쓴다.
-  무엇을 어떻게 보고, <b>끝나고 무엇을 반드시 해야 하는지</b>.</div>
-  <ul>
-  <li>도구 4종: 무엇을 언제 쓰나</li>
-  <li>TensorBoard 접속 주소</li>
-  <li>학습 실행 · 실측 성능</li>
-  <li>🔴 프로세스 정리 규칙</li>
-  <li>아직 정해지지 않은 것</li>
-  </ul>
-  <div class="go">읽기 →</div>
-  </a>
-<a class="doc learn" data-added="2026-08-05" href="curriculum.html">
-  <div class="tag">Learn · 5인 공통</div>
-  <div class="t">학습 커리큘럼</div>
-  <div class="d">로봇도 강화학습도 처음인 사람을 위한 <b>순서</b>.
-  무엇을 <b>안 배워도 되는지</b>부터 정하고, 구간 A를 다 함께 지난 뒤 다섯 갈래로 나뉜다.</div>
-  <ul>
-  <li>구간 A · 공통 기반 17단계</li>
-  <li>구간 B · 역할별 다섯 갈래</li>
-  <li>구간 C · 실전 8단계</li>
-  <li>도식 · 용어 풀이 · 논문 근거</li>
-  <li>선행 사례의 실패 기록</li>
-  </ul>
-  <div class="go">읽기 →</div>
-  </a>
-</div>
-
 <h2 class="sec">팀 <span class="en">Team</span></h2>
 <div class="team">
   <div class="tm lead"><div class="r">Project Lead · Systems</div><div class="n"><a href="team-lead.html">오흥재</a></div>
@@ -679,49 +582,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
     <div class="s">웹 풀스택·서버 구성<br>환경 구축</div></div>
   <div class="tm"><div class="r">Perception</div><div class="n">오현민</div>
     <div class="s">컴퓨터비전 · 프론트엔드<br>데이터 검증</div></div>
-</div>
-
-<h2 class="sec">참고 <span class="en">Reference</span></h2>
-<p class="lede" style="margin:-2px 0 14px;font-size:.82rem;color:var(--ink-3)">자주 여는 것은 위 상단바에 있습니다. 여기는 한 번 보고 마는 것들입니다.</p>
-<div class="docs work"><a class="doc" data-added="2026-08-25" href="automation.html">
-  <div class="tag">Team · 상시 갱신</div>
-  <div class="t">자동화 지도</div>
-  <div class="d">올린 것이 어디로 가고, 무엇이 저절로 일어나고,
-  어디서 사람이 필요한가. 브랜치 규약과 AI 사용 주의점까지.</div>
-  <ul>
-  <li>제출부터 게시까지 한 흐름</li>
-  <li>이슈 세 가지 · 브랜치와 커밋</li>
-  <li>AI 에게 시킬 때 걸리는 것</li>
-  <li>실수로 main 에 push 했다면</li>
-  <li>신경 쓰지 않아도 되는 것</li>
-  </ul>
-  <div class="go">보기 →</div>
-  </a><a class="doc" data-added="2026-07-30" href="team-intro.html">
-  <div class="tag">Slides · 6장</div>
-  <div class="t">팀 소개 · 프로젝트 킥오프</div>
-  <div class="d">우리가 누구인지(3장)에서 무엇을 어떻게 하는지(3장)까지.
-  발표·보고용 한 벌이다.</div>
-  <ul>
-  <li>팀 정체성 · 비전 · 목표</li>
-  <li>팀원 R&amp;R 및 강점 분석</li>
-  <li>협업 구조 · 그라운드 룰</li>
-  <li>프로젝트 개요 · 20주 일정</li>
-  <li>산출물 목표 · 완료 기준</li>
-  </ul>
-  <div class="go">보기 →</div>
-  </a><a class="doc" data-added="2026-08-19" href="project-report.html"><div class="tag">Report · 보고서</div><div class="t">프로젝트 보고서</div><div class="d">한 장으로 보는 전체 계획: 목표 · 단계 · 평가 체계 · 결정 안건. 멘토에게 보여줄 때 이 페이지부터.</div></a><a class="doc" data-added="2026-08-20" href="pitch.html"><div class="tag">Deck · 발표</div><div class="t">프로젝트 소개 덱 (12장)</div><div class="d">전체화면 발표용. 킥오프·외부 소개는 이 페이지 하나로. 방향키나 클릭으로 넘긴다.</div></a><a class="doc" data-added="2026-08-12" href="questions.html"><div class="tag">Guide · 길잡이</div><div class="t">질문으로 찾기</div><div class="d">«이 정보 어디 있지?»에 답하는 지도. 궁금한 문장을 찾아 누르면 해당 문서로 바로 간다.</div></a><a class="doc" data-added="2026-08-20" href="chosun-materials.html"><div class="tag">Team · 팀 전용</div><div class="t">팀 자료실 (암호)</div><div class="d">조선대 수업 자료 + 팀 내부 문서(예산). 비밀번호 필요 (디스코드 리소스 채널). 외부 공유 금지.</div></a><a class="doc" data-added="2026-08-19" href="project-report.html"><div class="tag">계획 · 항법 · 정책학습</div><div class="t">Unitree Go2 미경험 험지 적응 시뮬레이션 및 실기 자율주행 프로젝트</div><div class="d">§3 단계별 추진 계획, §7 운영 체계, §8 남은 결정 안건, §9 산출물 정의로 이뤄진 프로젝트 계획서다. 트랙 A/B 정의의 정본이라고 여러 회의록이 명시한다.</div></a><a class="doc" data-added="2026-08-25" href="research-go2-rough-training.html"><div class="tag">리서치 · 정책학습 · 지형씬제작</div><div class="t">Isaac Lab Go2 험지 학습: cfg를 읽는 커리큘럼</div><div class="d">«클래스명·기본값·Go2 오버라이드는 Isaac Lab 공식 `UNITREE_GO2_CFG` · `LocomotionVelocityRoughEnvCfg` · `Unitree</div></a><a class="doc" data-added="2026-08-11" href="research-training-benchmarks.html"><div class="tag">실험 · 정책학습</div><div class="t">학습 성능 실측: Go2 험지 (AI-WS01)</div><div class="d">«웹 조사가 아니라 이 기계에서 실제로 돌린 숫자. 전부 로그에서 추출» 이라 머리글에 있고, §2 플래그 A/B 시드 고정 3회 · §5-3 1,500 iteration </div></a><a class="doc" data-added="2026-08-21" href="research-generalization-benchmark-10-terrains.html"><div class="tag">실험 · 평가 · 정책학습</div><div class="t">일반화 벤치마크: 미학습 지형 10종 실측 (5종 통과 · 5종 실패)</div><div class="d">§1 «대상 정책 체크포인트: 기준선 1,500 iter 에서 시작 `확인됨`» · §2 지형별 성공률 표 · §2-1 v2 재검(지형당 고유 행 50/50). 우리 기준선</div></a></div>
-
-<footer>
-  <b>팀 FOOTHOLD</b> · 오흥재 · 임석헌 · 맹라현 · 이민우 · 오현민<br>
-  인공지능사관학교 7기 AI 도약과정 실증 프로젝트 · 2026<br>
-  이 사이트의 모든 기술적 주장에는 출처와 신뢰도를 표기했으며,
-  확인하지 못한 항목은 <b>「인용 금지」</b>로 별도 명시합니다.
-</footer>
-
-</div>
-<script>
-document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
-</script><style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:var(--brand);--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
+</div><style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:var(--brand);--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <style>
 #themeBtn{position:fixed;bottom:14px;right:14px;z-index:9999;
   background:var(--card);border:1px solid var(--rule);color:var(--ink-2);
@@ -746,5 +607,5 @@ document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 11:54</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 12:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

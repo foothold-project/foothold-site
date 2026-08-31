@@ -469,7 +469,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 @media (max-width:640px){.gnav .in{padding:.45rem .8rem}}
 
 .band{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:7px;
+  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:var(--p-radius,8px);
   padding:1rem 1.2rem;margin:0 0 14px}
 .band:hover{border-color:var(--dim)}
 .band .t{font-size:1.06rem;font-weight:850;letter-spacing:.02em}
@@ -487,7 +487,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   gap:.6rem;margin:0 0 16px}
 .quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-top:3px solid var(--note,var(--dim));
-  border-radius:6px;padding:.72rem .85rem}
+  border-radius:var(--p-radius,8px);padding:.72rem .85rem}
 .quick a:hover{border-color:var(--dim)}
 .quick .k{font-size:.92rem;font-weight:800}
 .quick .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
@@ -500,7 +500,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .hubs a.hot{border-top-color:var(--note,#d29922)}
 .hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
 .hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:var(--p-radius,8px);
   padding:.8rem .9rem}
 .hubs a:hover{border-color:var(--dim)}
 .hubs .k{font-size:1rem;font-weight:850}
@@ -516,7 +516,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:.35rem}
 .hlist{display:grid;gap:.5rem}
 .hlist a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-radius:6px;padding:.65rem .85rem}
+  border:1px solid var(--rule);border-radius:var(--p-radius,8px);padding:.65rem .85rem}
 .hlist a:hover{border-color:var(--dim)}
 .hlist a{position:relative;padding-left:3.1rem}
 .hlist .hn{position:absolute;left:.85rem;top:.68rem;font-family:ui-monospace,Consolas,monospace;
@@ -545,7 +545,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .recent{display:grid;gap:.45rem;margin:0 0 10px}
 .recent a{display:flex;gap:.75rem;align-items:baseline;flex-wrap:wrap;
   text-decoration:none;color:inherit;border:1px solid var(--rule);
-  background:var(--card);border-radius:6px;padding:.5rem .85rem}
+  background:var(--card);border-radius:var(--p-radius,8px);padding:.5rem .85rem}
 .recent a:hover{border-color:var(--dim)}
 .recent .rd{flex:none;font-size:.72rem;color:var(--ink-3);
   font-variant-numeric:tabular-nums;min-width:3.2em}
@@ -576,9 +576,44 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <h1>회의 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Meetings</span></h1>
 <p class="lede">언제 무엇을 정했나. 최신이 위</p>
 <style id="hub3-css">
-.w3{border:1px solid var(--rule);border-radius:9px;background:var(--card);
- padding:.95rem 1.15rem;margin:0 0 1rem}
-.w3h{font-size:.95rem;font-weight:830;display:flex;align-items:baseline;gap:.7rem}
+/* ★ PRD §4-2 부품 한 벌 (팀장 지적 «허브 넘어갈 때마다 틀어진다» · 실측:
+   카드 반경 7/8/9/10px 4종 · 절 머리글 5종 · 패딩 16종).
+   부품 사양을 토큰으로 두고 모든 허브가 이것만 참조한다. 방언 금지. */
+:root{
+  --p-radius:8px;          /* 카드 반경 한 값 */
+  --p-radius-chip:99px;    /* 칩만 예외 (알약) */
+  --p-radius-tag:3px;      /* 작은 딱지 */
+  --p-pad:.85rem 1.05rem;  /* 카드 안쪽 */
+  --p-pad-chip:.26rem .7rem;
+  --p-head:.72rem;         /* 절 머리글 크기 */
+  --p-head-ls:.08em;
+  --p-title:.9rem;         /* 카드 제목 */
+  --p-body:.75rem;         /* 카드 설명 */
+  --p-meta:.68rem;         /* 메타 */
+  --p-gap:.5rem;
+}
+/* 부품 1: 절 머리글 */
+.eh3,.eg3,.ph3,.rh3,.w3h,.wt3{font-size:var(--p-head);font-weight:800;
+  letter-spacing:var(--p-head-ls);color:var(--ink-2,var(--ink-3));
+  border-bottom:1px solid var(--rule);padding-bottom:.3rem;margin:1.4rem 0 .5rem}
+.eh3:first-child,.ph3:first-child,.w3h{margin-top:0}
+.eh3 span,.ph3 span,.eg3 span,.wt3 span{font-weight:600;letter-spacing:0;
+  color:var(--ink-3)}
+.eg3{color:var(--dim)}
+/* 부품 2: 카드 */
+.w3,.hero3,.pc3,.sb3,.g3,.c3,.fk3,.tile{border:1px solid var(--rule);
+  border-radius:var(--p-radius);background:var(--card)}
+.w3,.hero3,.pc3,.sb3,.g3{padding:var(--p-pad)}
+.pc3:hover,.sb3:hover,.fk3:hover{border-color:var(--dim)}
+/* 부품 3: 칩 */
+.c3,.fk3,.mf,.w3p a{border-radius:var(--p-radius-chip);
+  padding:var(--p-pad-chip);font-size:var(--p-body)}
+.rk3,.rdk,.seat3,.em3 u{border-radius:var(--p-radius-tag)}
+/* 부품 4: 큰 숫자 (D-day · 실측치 공용) */
+.g3d,.en3{font-weight:850;font-variant-numeric:tabular-nums;line-height:1.1}
+.g3d{font-size:1.4rem}
+.en3{font-size:1rem;color:var(--dim);text-align:right}
+
 .w3b{margin-left:auto;font-size:.68rem;font-weight:800;color:var(--dim);
  text-decoration:none;border:1px solid var(--dim);border-radius:99px;padding:.12rem .6rem}
 .w3t{display:block;text-decoration:none;color:inherit;margin:.55rem 0 0}
@@ -591,21 +626,17 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .w3p a i{font-style:normal;color:var(--ink-3);font-size:.62rem}
 .w3empty{font-size:.78rem;color:var(--ink-3);margin-top:.4rem}
 .g3s{display:grid;gap:.5rem}
-.g3,.g3.near{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;
- border:1px solid var(--rule);border-radius:8px;background:var(--card);
- padding:.8rem 1.05rem}
+
 .g3.near{border-color:var(--note,#d29922);background:var(--card)}
 .g3l{display:flex;flex-direction:column}
-.g3d{font-size:1.35rem;font-weight:850;font-variant-numeric:tabular-nums;line-height:1.1}
-.g3.near .g3d{color:var(--note,#d29922)}
+
+.g3.near 
 .g3n{font-size:.82rem;font-weight:800;margin-top:.1rem}
 .g3u{font-size:.68rem;color:var(--ink-3)}
 .g3t{font-size:.7rem;font-weight:800;color:var(--ink-3);margin-bottom:.42rem}
 .g3.near .g3t{color:var(--note,#d29922)}
 .chips3{display:flex;flex-wrap:wrap;gap:.4rem}
-.c3{display:inline-flex;align-items:baseline;gap:.45rem;text-decoration:none;
- color:inherit;border:1px solid var(--rule);border-radius:99px;
- padding:.26rem .7rem;background:var(--paper)}
+
 .c3 b{font-size:.77rem;font-weight:700}
 .c3 i{font-style:normal;font-size:.66rem;color:var(--dim);font-weight:700}
 .c3 span{font-size:.6rem;font-weight:800;color:var(--ink-3)}
@@ -614,12 +645,11 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .c3.done{border-color:var(--dim)}.c3.done span{color:var(--dim)}
 .ref3{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.35rem .8rem;
  align-items:baseline;border-top:1px dashed var(--rule);padding-top:.7rem}
-.rh3{font-size:.64rem;font-weight:800;letter-spacing:.1em;color:var(--ink-3)}
+
 .ref3 a{font-size:.74rem;color:var(--ink-2,var(--ink-3));text-decoration:none;
  border-bottom:1px solid var(--rule)}
 .ref3 a:hover{color:var(--dim);border-color:var(--dim)}
-.hero3{border:1px solid var(--dim);border-radius:10px;background:var(--card);
- padding:1.05rem 1.25rem;margin:0 0 1.2rem}
+
 .hk3{font-size:.62rem;font-weight:800;letter-spacing:.14em;color:var(--dim)}
 .ht3{display:block;font-size:1.25rem;font-weight:850;letter-spacing:-.01em;
  margin:.3rem 0 .1rem;line-height:1.35;color:inherit;text-decoration:none}
@@ -628,26 +658,18 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .hk3b{font-size:.64rem;font-weight:800;letter-spacing:.1em;color:var(--ink-3);
  margin:.9rem 0 .45rem}
 .fks3{display:flex;flex-wrap:wrap;gap:.4rem}
-.fk3{display:inline-flex;gap:.45rem;align-items:baseline;text-decoration:none;
- color:inherit;border:1px solid var(--rule);border-radius:7px;background:var(--paper);
- padding:.34rem .7rem}
+
 .fk3:hover{border-color:var(--dim)}
 .fk3 b{font-size:.74rem;font-weight:720}
 .fk3 i{font-style:normal;font-size:.62rem;color:var(--ink-3)}
-.eh3{font-size:.74rem;font-weight:800;letter-spacing:.06em;color:var(--ink-2,var(--ink-3));
- margin:1.3rem 0 .5rem}
-.eh3 span{font-weight:600;letter-spacing:0;color:var(--ink-3)}
-.eg3{font-size:.7rem;font-weight:800;letter-spacing:.08em;color:var(--dim);
- border-bottom:1px solid var(--rule);padding-bottom:.3rem;margin:1.2rem 0 .45rem}
-.eg3 span{color:var(--ink-3);font-weight:700}
+
 .fk3 span{font-size:.68rem;color:var(--cool,#539bf5);font-weight:700}
 .ht3 b{color:var(--dim);font-size:1.15em}
 .evs3{display:grid;gap:.3rem}
 .ev3{display:grid;grid-template-columns:5.4rem 1fr;gap:.9rem;align-items:baseline;
  text-decoration:none;color:inherit;padding:.4rem .2rem;border-bottom:1px solid var(--rule)}
 .ev3:hover{background:var(--card)}
-.en3{font-size:1rem;font-weight:850;color:var(--dim);text-align:right;
- font-variant-numeric:tabular-nums}
+
 .eb3 b{font-size:.82rem;font-weight:750;display:block}
 .eb3>span>span:first-of-type{font-size:.71rem;color:var(--ink-3)}
 .eb3 span{display:block}
@@ -659,15 +681,11 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .rr3{display:flex;gap:.55rem;align-items:baseline;text-decoration:none;color:inherit;
  padding:.26rem 0}
 .rr3:hover .rr3 b{color:var(--dim)}
-.rk3{flex:none;font-size:.58rem;font-weight:800;color:var(--ink-3);
- border:1px solid var(--rule);border-radius:3px;padding:0 .3rem;min-width:2.5rem;
- text-align:center}
+
 .rr3 b{font-size:.76rem;font-weight:650;color:var(--ink-2,var(--ink-3));
  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mfs{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}
-.mf{font:inherit;font-size:.72rem;font-weight:800;color:var(--ink-3);
- background:var(--card);border:1px solid var(--rule);border-radius:99px;
- padding:.3rem .8rem;cursor:pointer}
+
 .mf i{font-style:normal;font-weight:700;opacity:.7}
 .mf.on{color:var(--dim);border-color:var(--dim)}
 .tlw3{border-left:2px solid var(--rule);padding-left:1.1rem;margin-left:.4rem}
@@ -679,8 +697,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .tl3.old::before{background:var(--rule)}
 .tld3{font-size:.68rem;font-weight:800;color:var(--ink-3);
  font-variant-numeric:tabular-nums;flex:none}
-.seat3{flex:none;font-size:.56rem;font-weight:800;letter-spacing:.08em;
- border-radius:3px;padding:.06rem .35rem;border:1px solid var(--rule);color:var(--ink-3)}
+
 .s-mentor{color:var(--cool,#539bf5);border-color:var(--cool,#539bf5)}
 .s-ops{color:var(--note,#d29922);border-color:var(--note,#d29922)}
 .s-chosun{color:#f0883e;border-color:#f0883e}
@@ -688,14 +705,11 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .tlt3{font-size:.95rem;font-weight:780;line-height:1.45;display:block}
 .tl3.old .tlt3{font-size:.78rem;font-weight:650;color:var(--ink-2,var(--ink-3))}
 .tls3{font-size:.68rem;color:var(--ink-3);display:block}
-.ph3{font-size:.74rem;font-weight:800;letter-spacing:.06em;
- color:var(--ink-2,var(--ink-3));margin:0 0 .6rem}
-.ph3+.ph3,.irs3+.ph3,.pcs3+.ph3{margin-top:1.6rem}
-.ph3 span{font-weight:600;color:var(--ink-3);letter-spacing:0}
+
+.ph3+.ph3,.irs3+.ph3,.pcs3+
+
 .pcs3{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.7rem}
-.pc3{display:flex;flex-direction:column;gap:.25rem;min-height:7rem;
- text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:9px;
- background:var(--card);padding:1rem 1.05rem}
+
 .pc3:hover{border-color:var(--dim)}
 .pk3{font-size:.58rem;font-weight:800;letter-spacing:.14em;color:var(--dim)}
 .pc3 b{font-size:1.02rem;font-weight:830}
@@ -710,17 +724,15 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .sn3{font-family:ui-monospace,Consolas,monospace;font-size:.95rem;font-weight:850;
  color:var(--dim);border:2px solid var(--dim);border-radius:99px;width:2.2rem;
  height:2.2rem;display:grid;place-items:center}
-.sb3{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);
- border-radius:8px;background:var(--card);padding:.65rem .9rem}
+
 .sb3:hover{border-color:var(--dim)}
 .sb3 b{font-size:.9rem;font-weight:780;display:block}
 .sb3 span{font-size:.71rem;color:var(--ink-3)}
 .jt3{width:2px;height:.9rem;background:var(--rule);margin-left:1.1rem}
 .soon3{margin-top:1.2rem;font-size:.73rem;color:var(--ink-3);
- border:1px dashed var(--rule);border-radius:7px;padding:.6rem .9rem;max-width:31rem}
+ border:1px dashed var(--rule);border-radius:var(--p-radius);padding:.6rem .9rem;max-width:31rem}
 .wns3{display:grid;gap:1.3rem}
-.wt3{font-size:.95rem;font-weight:830;border-bottom:1px solid var(--rule);
- padding-bottom:.3rem}
+
 .wd3{font-size:.74rem;color:var(--ink-3);margin:.25rem 0 .3rem}
 .wr3{display:flex;gap:.9rem;align-items:baseline;text-decoration:none;color:inherit;
  padding:.3rem .2rem}
@@ -728,11 +740,11 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .wr3 b{font-size:.8rem;font-weight:720;min-width:10.5rem}
 .wr3 span{font-size:.71rem;color:var(--ink-3)}
 @media (max-width:640px){
- .g3,.g3.near{grid-template-columns:1fr;gap:.5rem}
+ 
  .ev3{grid-template-columns:4rem 1fr}
  .rr3 b{white-space:normal}
 }
 </style><a class="w3t" style="display:block;border:1px solid var(--rule);border-radius:8px;padding:.7rem 1rem;margin-bottom:1rem" href="decisions-log.html"><b>결정 로그</b><span style="display:block;font-size:.73rem;color:var(--ink-3)">무엇을 언제 왜 정했나. 뒤집은 것은 취소선으로 남는다 · 누적 기록이라 시간축 밖에 둔다</span></a><div class="mfs"><button class="mf on" data-seat="">전체 <i>11</i></button><button class="mf" data-seat="팀내부">팀내부 <i>3</i></button><button class="mf" data-seat="멘토링">멘토링 <i>2</i></button><button class="mf" data-seat="운영진">운영진 <i>2</i></button><button class="mf" data-seat="조선대">조선대 <i>1</i></button><button class="mf" data-seat="결정">결정 <i>1</i></button><button class="mf" data-seat="현장">현장 <i>2</i></button></div><div class="tlw3"><a class="tl3" data-seat="결정" href="decisions-20260827.html"><span class="tld3">08/27</span><span class="seat3 s-ops">결정</span><span class="tlb3"><span class="tlt3">8/26~27 에 확정한 것 전부</span><span class="tls3">설계 결정 기록</span></span></a><a class="tl3" data-seat="팀내부" href="meeting-20260826-mentor-sync.html"><span class="tld3">08/26</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">오늘 멘토링은 취소. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤.</span><span class="tls3">8/26 팀: 오늘 멘토링은 취소, 프로젝트 피드백으로 조율</span></span></a><a class="tl3" data-seat="멘토링" href="meeting-20260825-park-mentoring.html"><span class="tld3">08/25</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">2회차 멘토링. 프로젝트 화면을 보고, 실패 험지는 3점 지지로 읽는다.</span><span class="tls3">8/25 멘토링: 프로젝트 화면을 보고, 실패 험지는 3점 지지로</span></span></a><a class="tl3 old" data-seat="멘토링" href="meeting-20260824-park-mentoring.html"><span class="tld3">08/24</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">본 과제와 CAD 학습은 분리한다. 개별 취업 멘토링 첫 회차.</span></span></a><a class="tl3 old" data-seat="팀내부" href="meeting-20260821-team-meeting.html"><span class="tld3">08/21</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.</span></span></a><a class="tl3 old" data-seat="운영진" href="meeting-20260820-kickoff.html"><span class="tld3">08/20</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">전담 멘토 확정과 박철제 킥오프. 같은 날 두 자리를 한 장으로.</span></span></a><a class="tl3 old" data-seat="팀내부" href="meeting-20260819-team-lock.html"><span class="tld3">08/19</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">두 트랙으로 가기로 합의했다. C(미경험 지형 통과율)는 필수로 지킨다.</span></span></a><a class="tl3 old" data-seat="현장" href="field-check-go2-intake.html"><span class="tld3">08/14</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.</span></span></a><a class="tl3 old" data-seat="운영진" href="meeting-20260814-east-ops.html"><span class="tld3">08/14</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">원안이 확정됐다. 그리고 미팅 도중 조선대가 「Go2 저수준 제어 가능」으로 정정해 왔다. 전날의 최대 쟁점이 하루 만에 뒤집혔다.</span></span></a><a class="tl3 old" data-seat="현장" href="field-check-0813.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">8/13 조선대 방문 때 들고 가는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</span></span></a><a class="tl3 old" data-seat="조선대" href="meeting-20260813-ops-alignment.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">조선대</span><span class="tlb3"><span class="tlt3">「실시간 불가」 발언은 비전·항법 층 이야기였다. 진짜 쟁점은 Go2 저수준 개방 여부이고 아직 미확인이다.</span></span></a></div><script>document.querySelectorAll(".mf").forEach(function(b){b.onclick=function(){document.querySelectorAll(".mf").forEach(function(x){x.classList.remove("on")});b.classList.add("on");var s=b.dataset.seat;document.querySelectorAll("a[data-seat]").forEach(function(t){t.style.display=(!s||t.dataset.seat===s)?"":"none"});};});</script>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 11:54</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 12:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

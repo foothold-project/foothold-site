@@ -312,7 +312,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 @media (max-width:640px){.gnav .in{padding:.45rem .8rem}}
 
 .band{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:7px;
+  border:1px solid var(--rule);border-left:4px solid var(--dim);border-radius:var(--p-radius,8px);
   padding:1rem 1.2rem;margin:0 0 14px}
 .band:hover{border-color:var(--dim)}
 .band .t{font-size:1.06rem;font-weight:850;letter-spacing:.02em}
@@ -330,7 +330,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   gap:.6rem;margin:0 0 16px}
 .quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
   border:1px solid var(--rule);border-top:3px solid var(--note,var(--dim));
-  border-radius:6px;padding:.72rem .85rem}
+  border-radius:var(--p-radius,8px);padding:.72rem .85rem}
 .quick a:hover{border-color:var(--dim)}
 .quick .k{font-size:.92rem;font-weight:800}
 .quick .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
@@ -343,7 +343,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .hubs a.hot{border-top-color:var(--note,#d29922)}
 .hubs a.hot .d{color:var(--note,#d29922);font-weight:700}
 .hubs a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;
+  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:var(--p-radius,8px);
   padding:.8rem .9rem}
 .hubs a:hover{border-color:var(--dim)}
 .hubs .k{font-size:1rem;font-weight:850}
@@ -359,7 +359,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   color:var(--ink-3);border-bottom:1px solid var(--rule);padding-bottom:.35rem}
 .hlist{display:grid;gap:.5rem}
 .hlist a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-radius:6px;padding:.65rem .85rem}
+  border:1px solid var(--rule);border-radius:var(--p-radius,8px);padding:.65rem .85rem}
 .hlist a:hover{border-color:var(--dim)}
 .hlist a{position:relative;padding-left:3.1rem}
 .hlist .hn{position:absolute;left:.85rem;top:.68rem;font-family:ui-monospace,Consolas,monospace;
@@ -388,7 +388,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .recent{display:grid;gap:.45rem;margin:0 0 10px}
 .recent a{display:flex;gap:.75rem;align-items:baseline;flex-wrap:wrap;
   text-decoration:none;color:inherit;border:1px solid var(--rule);
-  background:var(--card);border-radius:6px;padding:.5rem .85rem}
+  background:var(--card);border-radius:var(--p-radius,8px);padding:.5rem .85rem}
 .recent a:hover{border-color:var(--dim)}
 .recent .rd{flex:none;font-size:.72rem;color:var(--ink-3);
   font-variant-numeric:tabular-nums;min-width:3.2em}
@@ -501,5 +501,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 11:54</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 12:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
