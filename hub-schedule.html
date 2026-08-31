@@ -521,16 +521,14 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 
 .band{display:block;text-decoration:none;color:inherit;background:var(--paper-2);
-  border:0;border-radius:var(--p-radius,8px);padding:1rem 1.2rem;margin:0 0 14px;
-  transition:background .12s}
-/* ★ 호버 한 벌 (팀장 8/31): 표지의 아홉 버튼과 전역바가 같은 방식으로 반응한다.
-   아웃라인이 생기는 게 아니라 «톤이 한 단계» 움직인다. */
+  border:1px solid var(--rule);border-radius:var(--p-radius,8px);
+  padding:1rem 1.2rem;margin:0 0 14px;transition:border-color .12s,background .12s}
+/* ★ 호버 한 벌 (팀장 정정 8/31): 슬롭은 «위·왼쪽 악센트 바» 였지 테두리가 아니었다.
+   「최근 올라온 것」처럼 **호버에 테두리 색이 들어가** 눈에 띄게 한다.
+   표지 아홉 · 바로가기 · 최근 목록이 같은 방식으로 반응한다. */
 .band:hover,.bands3 .band:hover,.hubs a:hover,.quick a:hover{
-  background:var(--dim-soft)}
-/* 급한 것은 «색이 아니라 밝기» 로 반응한다. hex 도 그림자도 새로 안 쓴다
-   (DESIGN-GUIDE §1 · BRAND_BIBLE no shadows). 관문이 잡아 줬다. */
-.hubs a.hot:hover,.bands3 .b-deliv:hover{background:var(--note-soft);
-  filter:brightness(.97)}
+  border-color:var(--dim)}
+.hubs a.hot:hover,.bands3 .b-deliv:hover{border-color:var(--note)}
 .band .t{font-size:1.06rem;font-weight:850;letter-spacing:.02em}
 .band .d{font-size:.8rem;color:var(--ink-3);margin-top:.22rem}
 .band .w{float:right;font-family:ui-monospace,Consolas,monospace;font-size:.72rem;
@@ -542,7 +540,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 /* ★ 팀장 재지적: 「면과 위쪽 한 줄」도 AI 슬롭이다. 악센트 바를 전부 뺀다.
    구분은 배경 면 · 여백 · 글자 위계로만. 색은 뜻이 있을 때만 (급한 것). */
 .bands3 .band{margin:0;padding:.9rem 1.1rem;min-height:5.2rem;
-  display:flex;flex-direction:column;justify-content:center;border:0}
+  display:flex;flex-direction:column;justify-content:center;
+  border:1px solid var(--rule)}
 .bands3 .band .t{font-size:.98rem}
 /* ★ 배경톤 베리에이션 (팀장 8/31). 새 색을 만들지 않는다.
    토큰의 soft 짝을 쓰되 «뜻» 에 맞춰 고른다:
@@ -557,8 +556,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));
   gap:.6rem;margin:0 0 16px}
 .quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:0;border-radius:var(--p-radius,8px);padding:.72rem .85rem;
-  transition:background .12s}
+  border:1px solid var(--rule);border-radius:var(--p-radius,8px);
+  padding:.72rem .85rem;transition:border-color .12s}
 .quick .k{font-size:.92rem;font-weight:800}
 .quick .e{font-family:ui-monospace,Consolas,monospace;font-size:.6rem;font-weight:700;
   letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-top:.08rem}
@@ -579,8 +578,9 @@ html[data-theme="light"] .gnav .lgr{display:none}
      급한 것(일정)             = note-soft
    전부 기존 토큰이다. 새 색 없음. */
 .hubs a{display:flex;flex-direction:column;text-decoration:none;color:inherit;
-  background:var(--card);border:0;border-radius:var(--p-radius,8px);
-  padding:.9rem 1rem;min-height:6.4rem;transition:background .12s}
+  background:var(--card);border:1px solid var(--rule);
+  border-radius:var(--p-radius,8px);padding:.9rem 1rem;min-height:6.4rem;
+  transition:border-color .12s,background .12s}
 .hubs a:nth-child(4),.hubs a:nth-child(5),.hubs a:nth-child(6){background:var(--paper-2)}
 .hubs a.hot{background:var(--note-soft)}
 .hubs .d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
@@ -886,5 +886,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 </style><div class="wks"><div class="w3"><div class="w3h">이번 주 · W36<a class="w3b" href="https://github.com/orgs/foothold-project/projects/1">프로젝트 보드</a></div><a class="w3t" href="https://github.com/foothold-project/foothold-lab/issues/79"><b>팀 목표 (8/31~9/6) · 기획발표 주</b><span>운영진 제출 3종 완성 · WBS 를 웹에서 볼 수 있게 · 제출 형식 확정 외 3</span><span class="w3done">끝났다는 기준 0 / 3</span></a><div class="w3p"><a href="https://github.com/foothold-project/foothold-lab/issues/81">맹라현 <i>#81</i></a><a href="https://github.com/foothold-project/foothold-lab/issues/82">오현민 <i>#82</i></a><a href="https://github.com/foothold-project/foothold-lab/issues/80">오흥재 <i>#80</i></a><a href="https://github.com/foothold-project/foothold-lab/issues/84">이민우 <i>#84</i></a><a href="https://github.com/foothold-project/foothold-lab/issues/83">임석헌 <i>#83</i></a></div></div><div class="w3 dim"><div class="w3h">차주 · W37</div><div class="w3sub">아직 안 열렸다. 일요일에 이슈 템플릿 「주간 팀 목표」로 연다. 열리면 여기에 저절로 뜬다.<br><a href="https://github.com/foothold-project/foothold-lab/issues/new?template=weekly-team.md">지금 열기</a></div></div></div><div class="w3"><div class="w3h">다음 멘토링 · 조선대 (금)<span class="w3b" style="border-color:var(--note,#d29922);color:var(--note,#d29922)">D-4</span></div><div class="w3sub">모인 질문 없음 · 이슈 템플릿 「멘토링 질문」으로 미리 올린다</div></div><div class="g3s"><div class="g3 near"><div class="g3l"><span class="g3d">D-4</span><span class="g3n">기획발표</span><span class="g3u">9월 4일</span></div><div class="g3r"><div class="g3t">4장 전부 초안</div><div class="chips3"><a class="c3 draft" href="deliverable-brainstorming.html"><b>브레인스토밍</b><span>초안</span></a><a class="c3 draft" href="deliverable-proposal-summary.html"><b>프로젝트 기획서 (요약)</b><span>초안</span></a><a class="c3 draft" href="deliverable-proposal-deck.html"><b>프로젝트 기획서 (발표용)</b><span>초안</span></a><a class="c3 draft" href="deliverable-wbs.html"><b>WBS</b><span>초안</span></a></div></div></div><div class="g3"><div class="g3l"><span class="g3d">D-12</span><span class="g3n">A-정책</span><span class="g3u">9월 12일</span></div><div class="g3r"><div class="g3t">1장 전부 대기</div><div class="chips3"><a class="c3 wait" href="deliverable-policy-metrics.html"><b>기준 정책 · 지표 세트</b><i>임석헌</i><span>대기</span></a></div></div></div><div class="g3"><div class="g3l"><span class="g3d">D-30</span><span class="g3n">MVP · 중간발표</span><span class="g3u">9월 30일</span></div><div class="g3r"><div class="g3t">2장 전부 대기</div><div class="chips3"><a class="c3 wait" href="deliverable-generalization-report.html"><b>일반화 평가표</b><i>오현민</i><span>대기</span></a><a class="c3 wait" href="deliverable-twin-render.html"><b>디지털 트윈 · 렌더 시연물</b><i>맹라현</i><span>대기</span></a></div></div></div><div class="g3"><div class="g3l"><span class="g3d">D-68</span><span class="g3n">NAV · 실기 항법</span><span class="g3u">11월 7일</span></div><div class="g3r"><div class="g3t">1장 전부 대기</div><div class="chips3"><a class="c3 wait" href="deliverable-nav-report.html"><b>실기 항법 검증 리포트</b><i>오흥재</i><span>대기</span></a></div></div></div><div class="g3"><div class="g3l"><span class="g3d">D-102</span><span class="g3n">FINAL · 최종발표</span><span class="g3u">12월 11일</span></div><div class="g3r"><div class="g3t">1장 전부 대기</div><div class="chips3"><a class="c3 wait" href="deliverable-final-report.html"><b>최종 실증결과 보고서</b><i>이민우</i><span>대기</span></a></div></div></div></div><div class="eh3">더 깊이 <span>7</span></div><div class="deep3"><a class="dp3" href="deliverables.html"><b>산출물 현황</b><span>무엇을 언제까지 · 상태 한눈에</span></a><a class="dp3" href="ledger.html"><b>원장</b><span>모든 요청이 지금 어디 있나</span></a><a class="dp3" href="deliverable-wbs.html"><b>WBS</b><span>3층 분해 · 계획율과 완료율</span></a><a class="dp3" href="personal-plans.html"><b>개인 계획</b><span>팀원이 스스로 세운 것</span></a><a class="dp3" href="plan.html"><b>프로젝트 설계도</b><span>흐름 · 퀘스트 · 결정 안건</span></a><a class="dp3" href="deliverable-progress-log.html"><b>진행일지</b><span>무엇을 언제 했는가</span></a><a class="dp3" href="deliverable-mentoring-log.html"><b>멘토링 일지</b><span>무엇을 받았고 무엇을 반영했나</span></a></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 21:17</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 21:54</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
