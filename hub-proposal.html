@@ -609,6 +609,44 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .c3,.fk3,.mf,.w3p a{border-radius:var(--p-radius-chip);
   padding:var(--p-pad-chip);font-size:var(--p-body)}
 .rk3,.rdk,.seat3,.em3 u{border-radius:var(--p-radius-tag)}
+/* 부품 6: 관문 띠 (PRD §4-2) · 왼쪽 D-day 열 9.5rem.
+   부품 통합 때 이 규칙이 지워져 세로로 늘어졌다 (실측 8/31). */
+.g3,.g3.near{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;
+  align-items:start}
+.g3.near{border-color:var(--note,#d29922)}
+.g3l{display:flex;flex-direction:column}
+.g3n{font-size:.82rem;font-weight:800;margin-top:.12rem}
+.g3u{font-size:var(--p-meta);color:var(--ink-3)}
+.g3t{font-size:var(--p-meta);font-weight:800;color:var(--ink-3);margin-bottom:.42rem}
+.g3.near .g3t,.g3.near .g3d{color:var(--note,#d29922)}
+.c3{display:inline-flex;align-items:baseline;gap:.45rem;text-decoration:none;
+  color:inherit;background:var(--paper)}
+.c3 b{font-size:.77rem;font-weight:700}
+.c3 i{font-style:normal;font-size:.66rem;color:var(--dim);font-weight:700}
+.c3 span{font-size:.6rem;font-weight:800;color:var(--ink-3)}
+.c3.draft{border-color:var(--note,#d29922)}
+.c3.draft span{color:var(--note,#d29922)}
+.c3.done{border-color:var(--dim)}
+.c3.done span{color:var(--dim)}
+@media (max-width:640px){.g3,.g3.near{grid-template-columns:1fr;gap:.5rem}}
+
+/* 일정: 주간 2단 · 더 깊이 카드 */
+.wks{display:grid;grid-template-columns:1fr 1fr;gap:var(--p-gap);margin:0 0 .6rem}
+.wks .w3.dim{opacity:.62}
+.w3sub{font-size:var(--p-body);color:var(--ink-3);margin-top:.3rem}
+.w3done{display:block;font-size:var(--p-meta);color:var(--dim);font-weight:700;
+  margin-top:.25rem}
+.w3p-q{font-size:var(--p-body);color:inherit;text-decoration:none;
+  border:1px solid var(--rule);border-radius:var(--p-radius-chip);
+  padding:var(--p-pad-chip);display:inline-block;margin:.15rem .2rem 0 0}
+.deep3{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));
+  gap:var(--p-gap)}
+.dp3{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);
+  border-radius:var(--p-radius);background:var(--card);padding:.7rem .9rem}
+.dp3:hover{border-color:var(--dim)}
+.dp3 b{font-size:var(--p-title);font-weight:780;display:block}
+.dp3 span{font-size:var(--p-body);color:var(--ink-3)}
+@media (max-width:760px){.wks{grid-template-columns:1fr}}
 /* 부품 4: 큰 숫자 (D-day · 실측치 공용) */
 .g3d,.en3{font-weight:850;font-variant-numeric:tabular-nums;line-height:1.1}
 .g3d{font-size:1.4rem}
@@ -746,5 +784,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 </style><div class="ph3">밖으로 나가는 것 <span>남이 이걸로 우리를 판단한다</span></div><div class="pcs3"><a class="pc3" href="project-report.html"><span class="pk3">읽는 문서</span><b>프로젝트 보고서</b><span>한 장으로 보는 전체 계획</span></a><a class="pc3" href="pitch.html"><span class="pk3">띄우는 화면</span><b>프로젝트 소개 덱</b><span>전체화면 발표용</span></a><a class="pc3" href="brief.html"><span class="pk3">건네는 한 장</span><b>프로젝트 브리핑</b><span>외부에 짧게 설명할 때</span></a></div><div class="ph3">안에서 쓰는 것</div><div class="irs3"><a class="ir3" href="flow.html"><b>프로젝트 전체 흐름</b><span>두 트랙으로 무엇을 어떤 순서로 하는가 (PRD §3)</span></a><a class="ir3" href="roles.html"><b>역할 배치</b><span>작업 영역 8갈래와 주담당 · 덱이 여기서 생성된다</span></a><a class="ir3" href="team-intro.html"><b>팀 소개 · 킥오프</b><span>팀과 역할</span></a><a class="ir3" href="team-lead.html"><b>오흥재</b><span>Project Lead · Robotics Systems Integrator</span></a></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 12:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 14:09</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

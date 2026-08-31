@@ -609,6 +609,44 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .c3,.fk3,.mf,.w3p a{border-radius:var(--p-radius-chip);
   padding:var(--p-pad-chip);font-size:var(--p-body)}
 .rk3,.rdk,.seat3,.em3 u{border-radius:var(--p-radius-tag)}
+/* 부품 6: 관문 띠 (PRD §4-2) · 왼쪽 D-day 열 9.5rem.
+   부품 통합 때 이 규칙이 지워져 세로로 늘어졌다 (실측 8/31). */
+.g3,.g3.near{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;
+  align-items:start}
+.g3.near{border-color:var(--note,#d29922)}
+.g3l{display:flex;flex-direction:column}
+.g3n{font-size:.82rem;font-weight:800;margin-top:.12rem}
+.g3u{font-size:var(--p-meta);color:var(--ink-3)}
+.g3t{font-size:var(--p-meta);font-weight:800;color:var(--ink-3);margin-bottom:.42rem}
+.g3.near .g3t,.g3.near .g3d{color:var(--note,#d29922)}
+.c3{display:inline-flex;align-items:baseline;gap:.45rem;text-decoration:none;
+  color:inherit;background:var(--paper)}
+.c3 b{font-size:.77rem;font-weight:700}
+.c3 i{font-style:normal;font-size:.66rem;color:var(--dim);font-weight:700}
+.c3 span{font-size:.6rem;font-weight:800;color:var(--ink-3)}
+.c3.draft{border-color:var(--note,#d29922)}
+.c3.draft span{color:var(--note,#d29922)}
+.c3.done{border-color:var(--dim)}
+.c3.done span{color:var(--dim)}
+@media (max-width:640px){.g3,.g3.near{grid-template-columns:1fr;gap:.5rem}}
+
+/* 일정: 주간 2단 · 더 깊이 카드 */
+.wks{display:grid;grid-template-columns:1fr 1fr;gap:var(--p-gap);margin:0 0 .6rem}
+.wks .w3.dim{opacity:.62}
+.w3sub{font-size:var(--p-body);color:var(--ink-3);margin-top:.3rem}
+.w3done{display:block;font-size:var(--p-meta);color:var(--dim);font-weight:700;
+  margin-top:.25rem}
+.w3p-q{font-size:var(--p-body);color:inherit;text-decoration:none;
+  border:1px solid var(--rule);border-radius:var(--p-radius-chip);
+  padding:var(--p-pad-chip);display:inline-block;margin:.15rem .2rem 0 0}
+.deep3{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));
+  gap:var(--p-gap)}
+.dp3{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);
+  border-radius:var(--p-radius);background:var(--card);padding:.7rem .9rem}
+.dp3:hover{border-color:var(--dim)}
+.dp3 b{font-size:var(--p-title);font-weight:780;display:block}
+.dp3 span{font-size:var(--p-body);color:var(--ink-3)}
+@media (max-width:760px){.wks{grid-template-columns:1fr}}
 /* 부품 4: 큰 숫자 (D-day · 실측치 공용) */
 .g3d,.en3{font-weight:850;font-variant-numeric:tabular-nums;line-height:1.1}
 .g3d{font-size:1.4rem}
@@ -746,5 +784,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 </style><div class="eh3" style="margin-top:1.6rem">ROS 2 기초 <span>4편</span></div><div class="pt3"><div class="st3"><span class="sn3">01</span><a class="sb3" href="ros2-01-setup.html"><b>ROS 2 개발환경 구축</b><span>Ubuntu 24.04 + Jazzy. 명령마다 토큰별 뜻까지 (오현민)</span></a></div><div class="jt3"></div><div class="st3"><span class="sn3">02</span><a class="sb3" href="ros2-02-python.html"><b>ROS 2 Python 프로그래밍</b><span>rclpy 노드 · colcon 패키지 · 커스텀 인터페이스 (오현민)</span></a></div><div class="jt3"></div><div class="st3"><span class="sn3">03</span><a class="sb3" href="ros2-03-tf-rviz2.html"><b>ROS 2 TF 좌표계와 RViz2</b><span>로봇이 자기 몸과 주변의 위치 관계를 아는 법 (오현민)</span></a></div><div class="jt3"></div><div class="st3"><span class="sn3">04</span><a class="sb3" href="tech-ros2-ref.html"><b>ROS 2 레퍼런스</b><span>큰 그림 · 통신 4형제 · rclpy · 패키지 · 디버깅. 1~3편의 심화 레퍼런스</span></a></div></div><div class="eh3" style="margin-top:1.6rem">트랙 A · 시뮬 학습 <span>1편</span></div><div class="pt3"><div class="st3"><span class="sn3">01</span><a class="sb3" href="tech-rl.html"><b>시뮬레이션 RL 레퍼런스</b><span>Isaac Lab 선택 근거 · 험지 RL 표준 레시피 · 핵심 논문 5편</span></a></div></div><div class="eh3" style="margin-top:1.6rem">트랙 B · 실기 항법 <span>2편</span></div><div class="pt3"><div class="st3"><span class="sn3">01</span><a class="sb3" href="tech-slam-nav.html"><b>SLAM · Nav2 레퍼런스</b><span>Go2 와 ROS 2 연동 · SLAM 2D 메인 · Nav2 차동구동 설정</span></a></div><div class="jt3"></div><div class="st3"><span class="sn3">02</span><a class="sb3" href="tech-cv.html"><b>컴퓨터 비전 교재</b><span>이미지의 정체부터 YOLO 실측 · ROS 2 이미지 파이프라인까지 12절</span></a></div></div><div class="soon3">다음에 들어올 것 · Isaac Lab 실전 · MuJoCo · Omniverse. lab 문서는 머리말 «차례»로, 볼트 페이지는 TECH_ORDER 로 경로에 선다. 학습자료·커리큘럼 병합은 #72 2단계.</div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 12:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 14:09</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

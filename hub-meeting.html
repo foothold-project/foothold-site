@@ -609,6 +609,44 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .c3,.fk3,.mf,.w3p a{border-radius:var(--p-radius-chip);
   padding:var(--p-pad-chip);font-size:var(--p-body)}
 .rk3,.rdk,.seat3,.em3 u{border-radius:var(--p-radius-tag)}
+/* 부품 6: 관문 띠 (PRD §4-2) · 왼쪽 D-day 열 9.5rem.
+   부품 통합 때 이 규칙이 지워져 세로로 늘어졌다 (실측 8/31). */
+.g3,.g3.near{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;
+  align-items:start}
+.g3.near{border-color:var(--note,#d29922)}
+.g3l{display:flex;flex-direction:column}
+.g3n{font-size:.82rem;font-weight:800;margin-top:.12rem}
+.g3u{font-size:var(--p-meta);color:var(--ink-3)}
+.g3t{font-size:var(--p-meta);font-weight:800;color:var(--ink-3);margin-bottom:.42rem}
+.g3.near .g3t,.g3.near .g3d{color:var(--note,#d29922)}
+.c3{display:inline-flex;align-items:baseline;gap:.45rem;text-decoration:none;
+  color:inherit;background:var(--paper)}
+.c3 b{font-size:.77rem;font-weight:700}
+.c3 i{font-style:normal;font-size:.66rem;color:var(--dim);font-weight:700}
+.c3 span{font-size:.6rem;font-weight:800;color:var(--ink-3)}
+.c3.draft{border-color:var(--note,#d29922)}
+.c3.draft span{color:var(--note,#d29922)}
+.c3.done{border-color:var(--dim)}
+.c3.done span{color:var(--dim)}
+@media (max-width:640px){.g3,.g3.near{grid-template-columns:1fr;gap:.5rem}}
+
+/* 일정: 주간 2단 · 더 깊이 카드 */
+.wks{display:grid;grid-template-columns:1fr 1fr;gap:var(--p-gap);margin:0 0 .6rem}
+.wks .w3.dim{opacity:.62}
+.w3sub{font-size:var(--p-body);color:var(--ink-3);margin-top:.3rem}
+.w3done{display:block;font-size:var(--p-meta);color:var(--dim);font-weight:700;
+  margin-top:.25rem}
+.w3p-q{font-size:var(--p-body);color:inherit;text-decoration:none;
+  border:1px solid var(--rule);border-radius:var(--p-radius-chip);
+  padding:var(--p-pad-chip);display:inline-block;margin:.15rem .2rem 0 0}
+.deep3{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));
+  gap:var(--p-gap)}
+.dp3{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);
+  border-radius:var(--p-radius);background:var(--card);padding:.7rem .9rem}
+.dp3:hover{border-color:var(--dim)}
+.dp3 b{font-size:var(--p-title);font-weight:780;display:block}
+.dp3 span{font-size:var(--p-body);color:var(--ink-3)}
+@media (max-width:760px){.wks{grid-template-columns:1fr}}
 /* 부품 4: 큰 숫자 (D-day · 실측치 공용) */
 .g3d,.en3{font-weight:850;font-variant-numeric:tabular-nums;line-height:1.1}
 .g3d{font-size:1.4rem}
@@ -746,5 +784,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 </style><a class="w3t" style="display:block;border:1px solid var(--rule);border-radius:8px;padding:.7rem 1rem;margin-bottom:1rem" href="decisions-log.html"><b>결정 로그</b><span style="display:block;font-size:.73rem;color:var(--ink-3)">무엇을 언제 왜 정했나. 뒤집은 것은 취소선으로 남는다 · 누적 기록이라 시간축 밖에 둔다</span></a><div class="mfs"><button class="mf on" data-seat="">전체 <i>11</i></button><button class="mf" data-seat="팀내부">팀내부 <i>3</i></button><button class="mf" data-seat="멘토링">멘토링 <i>2</i></button><button class="mf" data-seat="운영진">운영진 <i>2</i></button><button class="mf" data-seat="조선대">조선대 <i>1</i></button><button class="mf" data-seat="결정">결정 <i>1</i></button><button class="mf" data-seat="현장">현장 <i>2</i></button></div><div class="tlw3"><a class="tl3" data-seat="결정" href="decisions-20260827.html"><span class="tld3">08/27</span><span class="seat3 s-ops">결정</span><span class="tlb3"><span class="tlt3">8/26~27 에 확정한 것 전부</span><span class="tls3">설계 결정 기록</span></span></a><a class="tl3" data-seat="팀내부" href="meeting-20260826-mentor-sync.html"><span class="tld3">08/26</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">오늘 멘토링은 취소. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤.</span><span class="tls3">8/26 팀: 오늘 멘토링은 취소, 프로젝트 피드백으로 조율</span></span></a><a class="tl3" data-seat="멘토링" href="meeting-20260825-park-mentoring.html"><span class="tld3">08/25</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">2회차 멘토링. 프로젝트 화면을 보고, 실패 험지는 3점 지지로 읽는다.</span><span class="tls3">8/25 멘토링: 프로젝트 화면을 보고, 실패 험지는 3점 지지로</span></span></a><a class="tl3 old" data-seat="멘토링" href="meeting-20260824-park-mentoring.html"><span class="tld3">08/24</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">본 과제와 CAD 학습은 분리한다. 개별 취업 멘토링 첫 회차.</span></span></a><a class="tl3 old" data-seat="팀내부" href="meeting-20260821-team-meeting.html"><span class="tld3">08/21</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.</span></span></a><a class="tl3 old" data-seat="운영진" href="meeting-20260820-kickoff.html"><span class="tld3">08/20</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">전담 멘토 확정과 박철제 킥오프. 같은 날 두 자리를 한 장으로.</span></span></a><a class="tl3 old" data-seat="팀내부" href="meeting-20260819-team-lock.html"><span class="tld3">08/19</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">두 트랙으로 가기로 합의했다. C(미경험 지형 통과율)는 필수로 지킨다.</span></span></a><a class="tl3 old" data-seat="현장" href="field-check-go2-intake.html"><span class="tld3">08/14</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.</span></span></a><a class="tl3 old" data-seat="운영진" href="meeting-20260814-east-ops.html"><span class="tld3">08/14</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">원안이 확정됐다. 그리고 미팅 도중 조선대가 「Go2 저수준 제어 가능」으로 정정해 왔다. 전날의 최대 쟁점이 하루 만에 뒤집혔다.</span></span></a><a class="tl3 old" data-seat="현장" href="field-check-0813.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">8/13 조선대 방문 때 들고 가는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</span></span></a><a class="tl3 old" data-seat="조선대" href="meeting-20260813-ops-alignment.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">조선대</span><span class="tlb3"><span class="tlt3">「실시간 불가」 발언은 비전·항법 층 이야기였다. 진짜 쟁점은 Go2 저수준 개방 여부이고 아직 미확인이다.</span></span></a></div><script>document.querySelectorAll(".mf").forEach(function(b){b.onclick=function(){document.querySelectorAll(".mf").forEach(function(x){x.classList.remove("on")});b.classList.add("on");var s=b.dataset.seat;document.querySelectorAll("a[data-seat]").forEach(function(t){t.style.display=(!s||t.dataset.seat===s)?"":"none"});};});</script>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 12:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 14:09</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

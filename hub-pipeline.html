@@ -609,6 +609,44 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .c3,.fk3,.mf,.w3p a{border-radius:var(--p-radius-chip);
   padding:var(--p-pad-chip);font-size:var(--p-body)}
 .rk3,.rdk,.seat3,.em3 u{border-radius:var(--p-radius-tag)}
+/* 부품 6: 관문 띠 (PRD §4-2) · 왼쪽 D-day 열 9.5rem.
+   부품 통합 때 이 규칙이 지워져 세로로 늘어졌다 (실측 8/31). */
+.g3,.g3.near{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;
+  align-items:start}
+.g3.near{border-color:var(--note,#d29922)}
+.g3l{display:flex;flex-direction:column}
+.g3n{font-size:.82rem;font-weight:800;margin-top:.12rem}
+.g3u{font-size:var(--p-meta);color:var(--ink-3)}
+.g3t{font-size:var(--p-meta);font-weight:800;color:var(--ink-3);margin-bottom:.42rem}
+.g3.near .g3t,.g3.near .g3d{color:var(--note,#d29922)}
+.c3{display:inline-flex;align-items:baseline;gap:.45rem;text-decoration:none;
+  color:inherit;background:var(--paper)}
+.c3 b{font-size:.77rem;font-weight:700}
+.c3 i{font-style:normal;font-size:.66rem;color:var(--dim);font-weight:700}
+.c3 span{font-size:.6rem;font-weight:800;color:var(--ink-3)}
+.c3.draft{border-color:var(--note,#d29922)}
+.c3.draft span{color:var(--note,#d29922)}
+.c3.done{border-color:var(--dim)}
+.c3.done span{color:var(--dim)}
+@media (max-width:640px){.g3,.g3.near{grid-template-columns:1fr;gap:.5rem}}
+
+/* 일정: 주간 2단 · 더 깊이 카드 */
+.wks{display:grid;grid-template-columns:1fr 1fr;gap:var(--p-gap);margin:0 0 .6rem}
+.wks .w3.dim{opacity:.62}
+.w3sub{font-size:var(--p-body);color:var(--ink-3);margin-top:.3rem}
+.w3done{display:block;font-size:var(--p-meta);color:var(--dim);font-weight:700;
+  margin-top:.25rem}
+.w3p-q{font-size:var(--p-body);color:inherit;text-decoration:none;
+  border:1px solid var(--rule);border-radius:var(--p-radius-chip);
+  padding:var(--p-pad-chip);display:inline-block;margin:.15rem .2rem 0 0}
+.deep3{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));
+  gap:var(--p-gap)}
+.dp3{display:block;text-decoration:none;color:inherit;border:1px solid var(--rule);
+  border-radius:var(--p-radius);background:var(--card);padding:.7rem .9rem}
+.dp3:hover{border-color:var(--dim)}
+.dp3 b{font-size:var(--p-title);font-weight:780;display:block}
+.dp3 span{font-size:var(--p-body);color:var(--ink-3)}
+@media (max-width:760px){.wks{grid-template-columns:1fr}}
 /* 부품 4: 큰 숫자 (D-day · 실측치 공용) */
 .g3d,.en3{font-weight:850;font-variant-numeric:tabular-nums;line-height:1.1}
 .g3d{font-size:1.4rem}
@@ -746,5 +784,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 </style><div class="wns3"><div class="ws3"><div class="wt3">처음 왔다면</div><div class="wd3">오늘 합류했다. 손을 움직이려면 무엇부터.</div><a class="wr3" href="setup.html"><b>개발환경 구축</b><span>팀 공통 세팅</span></a><a class="wr3" href="team-access.html"><b>워크스테이션 접속</b><span>원격 접속과 운영</span></a></div><div class="ws3"><div class="wt3">일하면서 매일</div><div class="wd3">이슈를 열고 PR 을 올릴 때 펴 놓는 것.</div><a class="wr3" href="workflow.html"><b>작업 흐름</b><span>이슈부터 머지까지 한 장</span></a><a class="wr3" href="collab.html"><b>FOOTHOLD 협업 규칙</b><span>브랜치 · 보드 · 문서 규칙</span></a><a class="wr3" href="automation.html"><b>자동화 지도</b><span>무엇이 자동이고 무엇이 사람인가</span></a></div><div class="ws3"><div class="wt3">문서를 올릴 때</div><div class="wd3">내 글이 어디로 가는가.</div><a class="wr3" href="info-model.html"><b>정보 모델</b><span>내 글이 어디로 가나</span></a><a class="wr3" href="doc-graph.html"><b>문서 관계표</b><span>무엇이 무엇의 상위인가</span></a><a class="wr3" href="research-taxonomy.html"><b>연구 허브 분류 기준</b><span>검토중</span></a></div></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 12:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 14:09</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
