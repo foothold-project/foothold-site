@@ -320,9 +320,12 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .band .w{float:right;font-family:ui-monospace,Consolas,monospace;font-size:.72rem;
   color:var(--ink-3);font-weight:700}
 
-.bands2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:0 0 14px}
-.bands2 .band{margin:0}
-@media (max-width:680px){.bands2{grid-template-columns:1fr}}
+.bands3{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:0 0 14px}
+.bands3 .band{margin:0;padding:.85rem 1.05rem}
+.bands3 .band.hot{border-left-color:var(--note,#d29922)}
+.bands3 .band.hot .d{color:var(--note,#d29922);font-weight:700}
+.bands3 .band .t{font-size:.98rem}
+@media (max-width:820px){.bands3{grid-template-columns:1fr}}
 .quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));
   gap:.6rem;margin:0 0 16px}
 .quick a{display:block;text-decoration:none;color:inherit;background:var(--card);
@@ -463,5 +466,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 11:04</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 11:54</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
