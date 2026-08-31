@@ -438,10 +438,27 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 
 <style id="ia-css">
+/* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
+   ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
+   ② 허브 본문 폭이 824, 표지가 1000 -> PRD §4-1 대로 1040 한 벌
+   ③ navctl 안에 <script> 가 인라인 요소로 들어가 바 높이가 2px 달랐다 */
+html{scrollbar-gutter:stable}
+/* PRD §4-1: 바깥 컨테이너 1040 한 벌. 셸(research.html)이 --measure 기반 824 를
+   물려주고 표지는 1000 이라 페이지마다 본문 좌표가 달랐다 (실측 179 vs 91). */
+body .wrap,main.wrap,div.wrap{max-width:1040px!important}
+/* .wrap 을 안 쓰고 main 을 컨테이너로 쓰는 페이지(커리큘럼 784 · 백과 931)도
+   같은 폭으로. 실측으로 잡았다. */
+body main:not(.wrap):not(#deck){max-width:1040px!important;
+  margin-left:auto;margin-right:auto}
+@media print{.wrap{max-width:none!important}}
+.gnav .navctl script{display:none}
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
+/* ★ 바 높이가 44 / 48 / 50 세 가지였다 (실측). 바가 «페이지의 line-height» 를
+   물려받아 링크 높이가 27 / 31 / 33 으로 달라졌다. 바는 자기 값으로 선다. */
 .gnav .in{max-width:1040px;margin:0 auto;padding:.5rem 1.2rem;display:flex;
-  align-items:center;gap:.1rem;flex-wrap:wrap}
+  align-items:center;gap:.1rem;flex-wrap:wrap;line-height:1.5;min-height:2.6rem}
+.gnav a,.gnav .q,.gnav .navctl>*{line-height:1.5}
 .gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
   font-weight:700;white-space:nowrap}
 .gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
@@ -568,7 +585,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<style id="stamp-css">
+<script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><style id="stamp-css">
 .bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
   border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
   align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
@@ -579,7 +596,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 
 <div class="wrap">
 <h1>회의 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Meetings</span></h1>
@@ -601,6 +618,12 @@ html[data-theme="light"] .gnav .lgr{display:none}
   --p-meta:.68rem;         /* 메타 */
   --p-gap:.5rem;
 }
+/* 부품 1-b: 머리글 줄 (제목 + 우측 액션). 부품 통합 때 .w3h 가 flex 를
+   잃어 「프로젝트 보드」 칩이 제목에 딱 붙었다 (팀장 스크린샷 8/31).
+   머리글이면서 «오른쪽에 무언가 붙는» 것은 이 부품이다. */
+.w3h,.mfs{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.w3h>:last-child{margin-left:auto}
+.w3h{font-size:.95rem!important;font-weight:830}
 /* 부품 1: 절 머리글 */
 .eh3,.eg3,.ph3,.rh3,.w3h,.wt3{font-size:var(--p-head);font-weight:800;
   letter-spacing:var(--p-head-ls);color:var(--ink-2,var(--ink-3));
@@ -801,5 +824,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 </style><a class="w3t" style="display:block;border:1px solid var(--rule);border-radius:8px;padding:.7rem 1rem;margin-bottom:1rem" href="decisions-log.html"><b>결정 로그</b><span style="display:block;font-size:.73rem;color:var(--ink-3)">무엇을 언제 왜 정했나. 뒤집은 것은 취소선으로 남는다 · 누적 기록이라 시간축 밖에 둔다</span></a><div class="mfs"><button class="mf on" data-seat="">전체 <i>11</i></button><button class="mf" data-seat="팀내부">팀내부 <i>3</i></button><button class="mf" data-seat="멘토링">멘토링 <i>2</i></button><button class="mf" data-seat="운영진">운영진 <i>2</i></button><button class="mf" data-seat="조선대">조선대 <i>1</i></button><button class="mf" data-seat="결정">결정 <i>1</i></button><button class="mf" data-seat="현장">현장 <i>2</i></button></div><div class="tlw3"><a class="tl3" data-seat="결정" href="decisions-20260827.html"><span class="tld3">08/27</span><span class="seat3 s-ops">결정</span><span class="tlb3"><span class="tlt3">8/26~27 에 확정한 것 전부</span><span class="tls3">설계 결정 기록</span></span></a><a class="tl3" data-seat="팀내부" href="meeting-20260826-mentor-sync.html"><span class="tld3">08/26</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">오늘 멘토링은 취소. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤.</span><span class="tls3">8/26 팀: 오늘 멘토링은 취소, 프로젝트 피드백으로 조율</span></span></a><a class="tl3" data-seat="멘토링" href="meeting-20260825-park-mentoring.html"><span class="tld3">08/25</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">2회차 멘토링. 프로젝트 화면을 보고, 실패 험지는 3점 지지로 읽는다.</span><span class="tls3">8/25 멘토링: 프로젝트 화면을 보고, 실패 험지는 3점 지지로</span></span></a><a class="tl3 old" data-seat="멘토링" href="meeting-20260824-park-mentoring.html"><span class="tld3">08/24</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">본 과제와 CAD 학습은 분리한다. 개별 취업 멘토링 첫 회차.</span></span></a><a class="tl3 old" data-seat="팀내부" href="meeting-20260821-team-meeting.html"><span class="tld3">08/21</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.</span></span></a><a class="tl3 old" data-seat="운영진" href="meeting-20260820-kickoff.html"><span class="tld3">08/20</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">전담 멘토 확정과 박철제 킥오프. 같은 날 두 자리를 한 장으로.</span></span></a><a class="tl3 old" data-seat="팀내부" href="meeting-20260819-team-lock.html"><span class="tld3">08/19</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">두 트랙으로 가기로 합의했다. C(미경험 지형 통과율)는 필수로 지킨다.</span></span></a><a class="tl3 old" data-seat="현장" href="field-check-go2-intake.html"><span class="tld3">08/14</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.</span></span></a><a class="tl3 old" data-seat="운영진" href="meeting-20260814-east-ops.html"><span class="tld3">08/14</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">원안이 확정됐다. 그리고 미팅 도중 조선대가 「Go2 저수준 제어 가능」으로 정정해 왔다. 전날의 최대 쟁점이 하루 만에 뒤집혔다.</span></span></a><a class="tl3 old" data-seat="현장" href="field-check-0813.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">8/13 조선대 방문 때 들고 가는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</span></span></a><a class="tl3 old" data-seat="조선대" href="meeting-20260813-ops-alignment.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">조선대</span><span class="tlb3"><span class="tlt3">「실시간 불가」 발언은 비전·항법 층 이야기였다. 진짜 쟁점은 Go2 저수준 개방 여부이고 아직 미확인이다.</span></span></a></div><script>document.querySelectorAll(".mf").forEach(function(b){b.onclick=function(){document.querySelectorAll(".mf").forEach(function(x){x.classList.remove("on")});b.classList.add("on");var s=b.dataset.seat;document.querySelectorAll("a[data-seat]").forEach(function(t){t.style.display=(!s||t.dataset.seat===s)?"":"none"});};});</script>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 17:06</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 18:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

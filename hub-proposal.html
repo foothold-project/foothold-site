@@ -438,10 +438,27 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 
 <style id="ia-css">
+/* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
+   ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
+   ② 허브 본문 폭이 824, 표지가 1000 -> PRD §4-1 대로 1040 한 벌
+   ③ navctl 안에 <script> 가 인라인 요소로 들어가 바 높이가 2px 달랐다 */
+html{scrollbar-gutter:stable}
+/* PRD §4-1: 바깥 컨테이너 1040 한 벌. 셸(research.html)이 --measure 기반 824 를
+   물려주고 표지는 1000 이라 페이지마다 본문 좌표가 달랐다 (실측 179 vs 91). */
+body .wrap,main.wrap,div.wrap{max-width:1040px!important}
+/* .wrap 을 안 쓰고 main 을 컨테이너로 쓰는 페이지(커리큘럼 784 · 백과 931)도
+   같은 폭으로. 실측으로 잡았다. */
+body main:not(.wrap):not(#deck){max-width:1040px!important;
+  margin-left:auto;margin-right:auto}
+@media print{.wrap{max-width:none!important}}
+.gnav .navctl script{display:none}
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
+/* ★ 바 높이가 44 / 48 / 50 세 가지였다 (실측). 바가 «페이지의 line-height» 를
+   물려받아 링크 높이가 27 / 31 / 33 으로 달라졌다. 바는 자기 값으로 선다. */
 .gnav .in{max-width:1040px;margin:0 auto;padding:.5rem 1.2rem;display:flex;
-  align-items:center;gap:.1rem;flex-wrap:wrap}
+  align-items:center;gap:.1rem;flex-wrap:wrap;line-height:1.5;min-height:2.6rem}
+.gnav a,.gnav .q,.gnav .navctl>*{line-height:1.5}
 .gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
   font-weight:700;white-space:nowrap}
 .gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
@@ -568,7 +585,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<style id="stamp-css">
+<script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><style id="stamp-css">
 .bstamp{max-width:var(--w,1100px);margin:40px auto 22px;padding:12px 18px 0;
   border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
   align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
@@ -579,7 +596,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><script>try{var _t=localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 
 <div class="wrap">
 <h1>기획 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Proposal</span></h1>
@@ -601,6 +618,12 @@ html[data-theme="light"] .gnav .lgr{display:none}
   --p-meta:.68rem;         /* 메타 */
   --p-gap:.5rem;
 }
+/* 부품 1-b: 머리글 줄 (제목 + 우측 액션). 부품 통합 때 .w3h 가 flex 를
+   잃어 「프로젝트 보드」 칩이 제목에 딱 붙었다 (팀장 스크린샷 8/31).
+   머리글이면서 «오른쪽에 무언가 붙는» 것은 이 부품이다. */
+.w3h,.mfs{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.w3h>:last-child{margin-left:auto}
+.w3h{font-size:.95rem!important;font-weight:830}
 /* 부품 1: 절 머리글 */
 .eh3,.eg3,.ph3,.rh3,.w3h,.wt3{font-size:var(--p-head);font-weight:800;
   letter-spacing:var(--p-head-ls);color:var(--ink-2,var(--ink-3));
@@ -801,5 +824,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
 }
 </style><div class="ph3">밖으로 나가는 것 <span>남이 이걸로 우리를 판단한다</span></div><div class="pcs3"><a class="pc3" href="project-report.html"><span class="pk3">읽는 문서</span><b>프로젝트 보고서</b><span>한 장으로 보는 전체 계획</span></a><a class="pc3" href="pitch.html"><span class="pk3">띄우는 화면</span><b>프로젝트 소개 덱</b><span>전체화면 발표용</span></a><a class="pc3" href="brief.html"><span class="pk3">건네는 한 장</span><b>프로젝트 브리핑</b><span>외부에 짧게 설명할 때</span></a></div><div class="ph3">안에서 쓰는 것</div><div class="irs3"><a class="ir3" href="flow.html"><b>프로젝트 전체 흐름</b><span>두 트랙으로 무엇을 어떤 순서로 하는가 (PRD §3)</span></a><a class="ir3" href="roles.html"><b>역할 배치</b><span>작업 영역 8갈래와 주담당 · 덱이 여기서 생성된다</span></a><a class="ir3" href="team-intro.html"><b>팀 소개 · 킥오프</b><span>팀과 역할</span></a><a class="ir3" href="team-lead.html"><b>오흥재</b><span>Project Lead · Robotics Systems Integrator</span></a></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 17:06</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 18:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

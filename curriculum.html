@@ -760,10 +760,27 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 <style id="ia-css">
+/* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
+   ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
+   ② 허브 본문 폭이 824, 표지가 1000 -> PRD §4-1 대로 1040 한 벌
+   ③ navctl 안에 <script> 가 인라인 요소로 들어가 바 높이가 2px 달랐다 */
+html{scrollbar-gutter:stable}
+/* PRD §4-1: 바깥 컨테이너 1040 한 벌. 셸(research.html)이 --measure 기반 824 를
+   물려주고 표지는 1000 이라 페이지마다 본문 좌표가 달랐다 (실측 179 vs 91). */
+body .wrap,main.wrap,div.wrap{max-width:1040px!important}
+/* .wrap 을 안 쓰고 main 을 컨테이너로 쓰는 페이지(커리큘럼 784 · 백과 931)도
+   같은 폭으로. 실측으로 잡았다. */
+body main:not(.wrap):not(#deck){max-width:1040px!important;
+  margin-left:auto;margin-right:auto}
+@media print{.wrap{max-width:none!important}}
+.gnav .navctl script{display:none}
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
+/* ★ 바 높이가 44 / 48 / 50 세 가지였다 (실측). 바가 «페이지의 line-height» 를
+   물려받아 링크 높이가 27 / 31 / 33 으로 달라졌다. 바는 자기 값으로 선다. */
 .gnav .in{max-width:1040px;margin:0 auto;padding:.5rem 1.2rem;display:flex;
-  align-items:center;gap:.1rem;flex-wrap:wrap}
+  align-items:center;gap:.1rem;flex-wrap:wrap;line-height:1.5;min-height:2.6rem}
+.gnav a,.gnav .q,.gnav .navctl>*{line-height:1.5}
 .gnav a{color:var(--ink-3);text-decoration:none;padding:.3rem .62rem;border-radius:4px;
   font-weight:700;white-space:nowrap}
 .gnav a:hover{background:var(--rule-2,rgba(0,0,0,.05));color:var(--ink)}
@@ -1014,6 +1031,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   <div class="head"><div class="sid">안내</div><h2>전체 구조</h2></div>
   <p class="oneline">세 구간입니다. A는 전원이 똑같이, B는 여덟 갈래로 나눠서, C는 다시 모여서.</p>
 
+  
 <figure class="fdia">
 <svg viewBox="0 0 420 342" role="img">
 <rect x="16" y="20" width="388" height="126" class="s-secA"/>
@@ -1051,7 +1069,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <figcaption><b>구간 A는 다섯 명이 똑같이 지납니다.</b> 그 뒤에야 여덟 갈래로 나뉘고, 실전에서 다시 합쳐집니다. 갈래는 사람 수가 아니라 <b>일의 종류</b>입니다. 한 사람이 둘을 맡기도 합니다. 초록 칩(A5·A6·A10·A12·C6)은 <b>관문</b>입니다. 여기서 막히면 다음으로 못 갑니다.</figcaption>
 </figure>
 
-<div class="blk">
+
+  <div class="blk">
     <div class="lbl">순서를 이렇게 정한 이유 세 가지</div>
     <div class="cards">
       <div class="mini"><div class="n">원칙 1</div><h4>물리를 먼저, 강화학습을 나중에</h4>
@@ -1174,7 +1193,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <figcaption><b>정책이 보는 것과 못 보는 것.</b> 관절 12개와 IMU는 있지만 <b>속도계와 나침반이 없습니다.</b> A12 「관측 설계」가 이 그림에서 출발합니다.</figcaption>
 </figure>
 
-<div class="box danger">
+
+  <div class="box danger">
     <div class="bt">★ 그런데 없는 것이 더 중요합니다</div>
     <ul>
       <li><strong>몸통이 얼마나 빨리 가고 있는지. 재는 센서가 아예 없습니다.</strong> 자동차 속도계 같은 게 없다는 뜻입니다. 이 사실 하나가 나중에 프로젝트 설계 전체를 바꿉니다(A12에서 다시 나옵니다)</li>
@@ -1277,7 +1297,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <figcaption><b>"기울었다"를 숫자로 만드는 법.</b> 같은 중력인데 <b>누구 기준으로 보느냐</b>에 따라 방향이 달라집니다. 로봇 기준으로 본 중력이 <code>projected_gravity</code>이고, 이것이 로봇의 평형 감각입니다.</figcaption>
 </figure>
 
-<div class="box analogy">
+
+  <div class="box analogy">
     <div class="bt">비유</div>
     <p>비행기 안 물컵을 생각하세요. 비행기가 기울면 수면이 컵 기준으로 기울어 보입니다.
     사실 물은 그대로 아래를 향하고 있고, <strong>기울어진 건 컵(=로봇 몸통)</strong>입니다.
@@ -1392,7 +1413,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <figcaption><b>"신경망이 모터를 돌린다"는 흔한 오해입니다.</b> 신경망은 <b>목표 각도만</b> 말하고, 실제로 힘을 주는 건 PD 제어기입니다. 로봇이 뻣뻣하거나 흐물거리는 이유가 전부 이 두 숫자(kp·kd)에 있습니다.</figcaption>
 </figure>
 
-<div class="box analogy">
+
+  <div class="box analogy">
     <div class="bt">비유</div>
     <p>문을 닫는 도어클로저를 생각하세요. 문이 많이 열려 있을수록 세게 당기고(kp),
     너무 빨리 닫히면 속도를 줄여서 쾅 소리가 안 나게 합니다(kd). 조합이 나쁘면 문이 쾅 닫히거나 영영 안 닫힙니다.</p>
@@ -1537,7 +1559,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <figcaption><b>A2·A3·A4가 여기서 합쳐집니다.</b> 정책은 초당 50번 "어떻게 걸을까"를 정하고, PD는 초당 500번 "그 각도로 맞춰라"를 실행합니다. 이 그림이 프로젝트 전체의 뼈대입니다.</figcaption>
 </figure>
 
-<div class="blk">
+
+  <div class="blk">
     <div class="lbl">반드시 짚을 네 가지</div>
     <ul>
       <li><strong>정책은 토크를 내지 않습니다.</strong> “목표 각도”를 냅니다. 초보자가 가장 많이 오해하는 지점입니다</li>
@@ -1601,6 +1624,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   </div>
 
 </section>
+
 
 <!-- A6 -->
 <section class="slide" data-stage="구간 A · 공통" data-title="MuJoCo에서 Go2 세우기" data-id="A6">
@@ -1886,7 +1910,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <figcaption><b>숫자가 오른다고 잘 되는 게 아닙니다.</b> 반드시 <b>곡선과 영상을 같이</b> 보세요. 보상은 오르는데 로봇이 기어가고 있으면 그건 성공이 아니라 A10의 보상 해킹입니다.</figcaption>
 </figure>
 
-<div class="box check">
+
+  <div class="box check">
     <div class="bt">이렇게 확인한다</div>
     <p>학습이 실패한 그래프를 보고 “아마 이것 때문일 것”이라고 원인 후보를 댈 수 있다.</p>
   </div>
@@ -1972,7 +1997,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <figcaption><b>강화학습이 배신하는 방식.</b> 로봇은 규칙을 어기지 않습니다. 우리가 쓴 규칙의 <b>빈틈</b>을 찾아냅니다. 그래서 보상 설계가 이 프로젝트의 실제 난이도입니다.</figcaption>
 </figure>
 
-<div class="blk">
+
+  <div class="blk">
     <div class="lbl">다섯 가지를 일부러 망가뜨립니다</div>
     <p>각각 <strong>“이렇게 될 것 같다”를 먼저 적고</strong> → 돌리고 → 맞았는지 대조합니다.</p>
     <div class="tw"><table>
@@ -2208,7 +2234,8 @@ html[data-theme="light"] .gnav .lgr{display:none}
 <figcaption><b>관측 설계가 왜 급소인가.</b> 시뮬레이터는 마찰계수를 알지만 <b>실제 로봇은 모릅니다.</b> 그 차이를 무시하고 학습하면 시뮬에서만 잘 걷는 정책이 나옵니다. 이 프로젝트가 푸는 문제가 바로 이것입니다.</figcaption>
 </figure>
 
-<div class="box danger">
+
+  <div class="box danger">
     <div class="bt">MCF 딜레마: 우리가 blind로 가는 진짜 이유</div>
     <p>Go2에는 유니트리가 만든 내장 보행 제어기(MCF)가 들어 있습니다. 우리 신경망으로 관절을 직접 명령하려면
     <strong>이걸 반드시 꺼야 합니다.</strong> 두 제어기가 동시에 살아 있으면 명령이 충돌해서 제어를 잃습니다.</p>
@@ -2344,6 +2371,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   </div>
 
 </section>
+
 
 <!-- A13 -->
 <section class="slide" data-stage="구간 A · 공통" data-title="우리가 쓸 코드 읽기" data-id="A13">
@@ -2527,6 +2555,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   </div>
 
 </section>
+
 
 <!-- A15 -->
 <section class="slide" data-stage="구간 A · 공통" data-title="무엇을 성공이라 부를 것인가" data-id="A15">
@@ -3306,5 +3335,5 @@ html[data-theme="light"] .gnav .lgr{display:none}
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 17:06</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-08-31 18:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
