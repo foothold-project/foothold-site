@@ -744,7 +744,7 @@ body>*{flex-shrink:0}
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>/workspace/isaaclab/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/go2/generalization_env_cfg.py</pre></div>
 <h3>파일 전체 작성</h3>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> /workspace/isaaclab
-<span class="f">cat</span> &gt; <span class="f">source</span>/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/go2/generalization_env_cfg.py &lt;&lt;<span class="s">&#x27;PY&#x27;</span>
+<span class="f">cat</span> <span class="o">&gt;</span> <span class="f">source</span>/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/go2/generalization_env_cfg.py &lt;&lt;<span class="s">&#x27;PY&#x27;</span>
 <span class="f">import</span> isaaclab.terrains as terrain_gen
 <span class="f">from</span> isaaclab.utils import configclass
 <span class="f">from</span> isaaclab_tasks.manager_based.locomotion.velocity.config.go2.rough_env_cfg import UnitreeGo2RoughEnvCfg
@@ -919,7 +919,7 @@ PY</pre></div>
 )</pre></div>
 <h3><code>cat</code> 기반 추가 방식</h3>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> /workspace/isaaclab
-<span class="f">cat</span> &gt;&gt; <span class="f">source</span>/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/go2/__init__.py &lt;&lt;<span class="s">&#x27;PY&#x27;</span>
+<span class="f">cat</span> <span class="o">&gt;&gt;</span> <span class="f">source</span>/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/go2/__init__.py &lt;&lt;<span class="s">&#x27;PY&#x27;</span>
 
 <span class="f">gym.register</span>(
     <span class="f">id</span>=<span class="s">&quot;Isaac-Velocity-Unseen-Unitree-Go2-v0&quot;</span>,
@@ -965,7 +965,7 @@ TXT
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>/workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/eval_generalization.py</pre></div>
 <h3>파일 전체 작성</h3>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> /workspace/isaaclab
-<span class="f">cat</span> &gt; <span class="f">scripts</span>/reinforcement_learning/rsl_rl/eval_generalization.py &lt;&lt;<span class="s">&#x27;PY&#x27;</span>
+<span class="f">cat</span> <span class="o">&gt;</span> <span class="f">scripts</span>/reinforcement_learning/rsl_rl/eval_generalization.py &lt;&lt;<span class="s">&#x27;PY&#x27;</span>
 
 <span class="f">import</span> argparse
 <span class="f">import</span> csv
@@ -1150,7 +1150,7 @@ TERRAIN_NAMES = [
     <span class="f">for</span> env_id in range(raw_env.num_envs):
         <span class="f">terrain_type</span> = int(types[env_id])
 
-        <span class="f">if</span> terrain_type &lt; <span class="n">0</span> or terrain_type &gt;= len(TERRAIN_NAMES):
+        <span class="f">if</span> terrain_type &lt; <span class="n">0</span> or terrain_type <span class="o">&gt;</span>= len(TERRAIN_NAMES):
             <span class="f">raise</span> RuntimeError(
                 <span class="f">f</span><span class="s">&quot;env {env_id} has invalid terrain_type={terrain_type}&quot;</span>
             )
@@ -1196,7 +1196,7 @@ TERRAIN_NAMES = [
             <span class="f">f</span><span class="s">&quot; | wz={values[2]: .3f}&quot;</span>
         )
 
-    <span class="f">if</span> max_error &gt; <span class="n">1</span>.0e-<span class="n">6</span>:
+    <span class="f">if</span> max_error <span class="o">&gt;</span> <span class="n">1</span>.0e-<span class="n">6</span>:
         <span class="f">raise</span> RuntimeError(
             <span class="f">f</span><span class="s">&quot;Commands are not fixed as expected. max error={max_error}&quot;</span>
         )
@@ -1381,7 +1381,7 @@ TERRAIN_NAMES = [
 
     <span class="f">while</span> simulation_app.is_running():
 
-        <span class="f">if</span> torch.all(episode_counts &gt;= target_episodes):
+        <span class="f">if</span> torch.all(episode_counts <span class="o">&gt;</span>= target_episodes):
             <span class="f">break</span>
 
         <span class="f">active</span> = episode_counts &lt; <span class="f">target_episodes</span>
@@ -1395,7 +1395,7 @@ TERRAIN_NAMES = [
 
         <span class="f">command_error</span> = torch.max(torch.abs(command - expected)).item()
 
-        <span class="f">if</span> command_error &gt; <span class="n">1</span>.0e-<span class="n">5</span>:
+        <span class="f">if</span> command_error <span class="o">&gt;</span> <span class="n">1</span>.0e-<span class="n">5</span>:
             <span class="f">raise</span> RuntimeError(
                 <span class="f">f</span><span class="s">&quot;Command changed during evaluation. &quot;</span>
                 <span class="f">f</span><span class="s">&quot;max deviation={command_error}&quot;</span>
@@ -1423,7 +1423,7 @@ TERRAIN_NAMES = [
         <span class="f">timed_out</span> = raw_env.reset_time_outs.clone()
 
         <span class="f">done_ids</span> = torch.nonzero(
-            (terminated | <span class="f">timed_out</span>) &amp; <span class="f">active</span>,
+            (terminated <span class="o">|</span> <span class="f">timed_out</span>) &amp; <span class="f">active</span>,
             <span class="f">as_tuple</span>=False,
         ).squeeze(-<span class="n">1</span>)
 
@@ -1474,7 +1474,7 @@ TERRAIN_NAMES = [
             )
 
             <span class="f">progress_success</span> = bool(
-                <span class="f">forward</span> &gt;= min_progress
+                <span class="f">forward</span> <span class="o">&gt;</span>= min_progress
             )
 
             <span class="f">tracking_success</span> = bool(
@@ -1498,7 +1498,7 @@ TERRAIN_NAMES = [
 
             <span class="f">progress_ratio</span> = (
                 <span class="f">forward</span> / ideal_distance
-                <span class="f">if</span> ideal_distance &gt; <span class="n">0.0</span>
+                <span class="f">if</span> ideal_distance <span class="o">&gt;</span> <span class="n">0.0</span>
                 <span class="f">else</span> <span class="n">0.0</span>
             )
 
@@ -1636,7 +1636,7 @@ PY</pre></div>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>/workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/record_generalization.py</pre></div>
 <h3>파일 전체 작성</h3>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> /workspace/isaaclab
-<span class="f">cat</span> &gt; <span class="f">scripts</span>/reinforcement_learning/rsl_rl/record_generalization.py &lt;&lt;<span class="s">&#x27;PY&#x27;</span>
+<span class="f">cat</span> <span class="o">&gt;</span> <span class="f">scripts</span>/reinforcement_learning/rsl_rl/record_generalization.py &lt;&lt;<span class="s">&#x27;PY&#x27;</span>
 <span class="f">import</span> argparse
 <span class="f">import</span> os
 <span class="f">import</span> sys
@@ -1683,7 +1683,7 @@ TERRAIN_NAMES = [
 
 <span class="f">def</span> configure_recording(env_cfg, agent_cfg):
     <span class="f">env_id</span> = args_cli.record_env
-    <span class="f">if</span> env_id &lt; <span class="n">0</span> or env_id &gt;= len(TERRAIN_NAMES):
+    <span class="f">if</span> env_id &lt; <span class="n">0</span> or env_id <span class="o">&gt;</span>= len(TERRAIN_NAMES):
         <span class="f">raise</span> ValueError(
             <span class="f">f</span><span class="s">&quot;--record_env must be 0-{len(TERRAIN_NAMES) - 1}&quot;</span>
         )
@@ -1870,7 +1870,7 @@ TERRAIN_NAMES = [
 
         <span class="f">step</span> += <span class="n">1</span>
 
-        <span class="f">if</span> step &gt;= args_cli.video_length:
+        <span class="f">if</span> step <span class="o">&gt;</span>= args_cli.video_length:
             <span class="f">break</span>
 
     <span class="f">env.close</span>()
@@ -1897,7 +1897,7 @@ PY</pre></div>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>/workspace/isaaclab/record_all_generalization.sh</pre></div>
 <h3>파일 전체 작성</h3>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> /workspace/isaaclab
-<span class="f">cat</span> &gt; /workspace/isaaclab/record_all_generalization.sh &lt;&lt;<span class="s">&#x27;SH&#x27;</span>
+<span class="f">cat</span> <span class="o">&gt;</span> /workspace/isaaclab/record_all_generalization.sh &lt;&lt;<span class="s">&#x27;SH&#x27;</span>
 <span class="c">#!/bin/bash</span>
 
 <span class="f">set</span> <span class="o">-e</span>
@@ -1991,7 +1991,7 @@ TXT</pre></div>
 <h3>영상 확인</h3>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> /workspace/isaaclab
 <span class="f">find</span> /workspace/isaaclab/generalization_videos <span class="o">-type</span> f <span class="o">-name</span> <span class="s">&quot;*.mp4&quot;</span> <span class="o">-print</span>
-<span class="f">find</span> /workspace/isaaclab/generalization_videos <span class="o">-type</span> f <span class="o">-name</span> <span class="s">&quot;*.mp4&quot;</span> | <span class="f">wc</span> <span class="o">-l</span>
+<span class="f">find</span> /workspace/isaaclab/generalization_videos <span class="o">-type</span> f <span class="o">-name</span> <span class="s">&quot;*.mp4&quot;</span> <span class="o">|</span> <span class="f">wc</span> <span class="o">-l</span>
 <span class="f">cat</span> &lt;&lt;<span class="s">&#x27;TXT&#x27;</span>
 00_discrete_obstacles
 01_wave
@@ -2018,8 +2018,8 @@ TXT</pre></div>
   <span class="f">generalization_videos</span></pre></div>
 <h3><code>zip</code> 미설치 시 설치</h3>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> /workspace/isaaclab
-<span class="f">apt-get</span> update
-<span class="f">apt-get</span> install <span class="o">-y</span> zip unzip</pre></div>
+<span class="f">apt-get</span><span class="k"> update</span>
+<span class="f">apt-get</span><span class="k"> install</span> <span class="o">-y</span> zip unzip</pre></div>
 <h3>압축 검증</h3>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> /workspace/isaaclab
 <span class="f">ls</span> <span class="o">-lh</span> /workspace/isaaclab/go2_generalization_benchmark_v2.zip
@@ -2078,5 +2078,5 @@ document.addEventListener('click', function(e){
 @media print{}
 </style>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 16:44</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 17:30</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

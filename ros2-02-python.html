@@ -755,8 +755,8 @@ body>*{flex-shrink:0}
 <section id="s2"><h2>1. 준비: Jupyter 커널에 가상환경 연결</h2>
 <div class="tw"><table><thead><tr><th>용어</th><th>뜻</th></tr></thead><tbody><tr><td>rclpy</td><td>ROS 2 Client Library for Python. 파이썬에서 노드를 만들고 통신하게 해주는 라이브러리</td></tr><tr><td>커널(kernel)</td><td>Jupyter 가 실제로 코드를 실행시키는 파이썬 프로세스</td></tr></tbody></table></div>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">source</span> ~/venv/robot_venv/bin/activate
-<span class="f">pip3</span> install jupyter ipykernel
-<span class="f">python</span> <span class="o">-m</span> ipykernel install <span class="o">--user</span> <span class="o">--name</span> ros <span class="o">--display-name</span> ros</pre></div>
+<span class="f">pip3</span><span class="k"> install</span> jupyter ipykernel
+<span class="f">python</span> <span class="o">-m</span> ipykernel<span class="k"> install</span> <span class="o">--user</span> <span class="o">--name</span> ros <span class="o">--display-name</span> ros</pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>ipykernel</code></td><td>특정 파이썬 환경을 Jupyter 커널로 등록해주는 패키지</td></tr><tr><td><code>--user</code></td><td>시스템 전체가 아니라 내 계정에만 등록</td></tr><tr><td><code>--name ros</code></td><td>내부 식별자</td></tr><tr><td><code>--display-name ros</code></td><td>노트북 커널 선택 목록에 보이는 이름</td></tr></tbody></table></div>
 <blockquote><p><b>여기서 제가 걸린다고 보는 지점.</b> <code>rclpy</code> 는 venv 안에 pip 로 설치되는 패키지가 아니라 <code>/opt/ros/jazzy</code> 아래에 설치되어 있고, <code>source /opt/ros/jazzy/setup.bash</code> 가 <code>PYTHONPATH</code> 에 그 경로를 넣어주는 방식으로 잡힙니다. 즉 <b>venv 를 켰더라도 그 터미널에서 ROS 2 환경을 source 해야 <code>import rclpy</code> 가 됩니다.</b> 그리고 venv 의 파이썬 버전이 ROS 2 가 빌드된 버전(24.04 기준 3.12)과 어긋나면 경로가 맞아도 못 찾습니다. <span class="ev ev-guess">추측</span> (근거: setup.bash 가 PYTHONPATH 를 설정하는 구조. 직접 재현해보지는 않았습니다)</p>
 <p><code>import rclpy</code> 가 실패하면 커널 문제인지 source 문제인지부터 가르는 것이 빠릅니다.</p></blockquote>
@@ -823,7 +823,7 @@ future = cli.<span class="f">call_async</span>(req)
 <p><b>왜 이 단계가 필요한가.</b> 노트북 코드는 다른 사람이 <code>ros2 run</code> 으로 실행할 수 없고, launch 파일에도 못 올리고, 로봇에 배포할 수도 없습니다. 재사용 가능한 단위로 옮기는 것이 이 모듈입니다.</p>
 <div class="tw"><table><thead><tr><th>용어</th><th>뜻</th></tr></thead><tbody><tr><td>패키지(package)</td><td>노드·설정·의존성을 묶어 배포·재사용하는 ROS 2 의 기본 단위</td></tr><tr><td>워크스페이스</td><td>패키지들을 모아 한꺼번에 빌드하는 상위 폴더. 안에 <code>src/</code> 를 둠</td></tr><tr><td>colcon</td><td>여러 패키지를 한 번에 빌드하는 빌드 도구</td></tr><tr><td>ament_python</td><td>순수 파이썬 패키지용 빌드 타입</td></tr></tbody></table></div>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> ~/dev_ws/ros/src
-<span class="f">ros2</span> pkg create <span class="o">--build-type</span> ament_python my_first_package <span class="o">--dependencies</span> rclpy</pre></div>
+<span class="f">ros2</span><span class="k"> pkg</span><span class="k"> create</span> <span class="o">--build-type</span> ament_python my_first_package <span class="o">--dependencies</span> rclpy</pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>pkg create</code></td><td>패키지 뼈대(폴더·<code>package.xml</code>·<code>setup.py</code>)를 자동 생성</td></tr><tr><td><code>--build-type ament_python</code></td><td>파이썬 패키지로 만들라는 지정</td></tr><tr><td><code>my_first_package</code></td><td>패키지 이름. <b>폴더 이름·파이썬 모듈 이름·<code>ros2 run</code> 첫 인자가 모두 이 이름입니다</b></td></tr><tr><td><code>--dependencies rclpy</code></td><td><code>package.xml</code> 에 의존성을 미리 적어줌</td></tr></tbody></table></div>
 <p>생성되는 구조입니다.</p>
 <div class="tw"><table><thead><tr><th>경로</th><th>무엇</th></tr></thead><tbody><tr><td><code>my_first_package/my_first_package/</code></td><td>실제 파이썬 소스가 들어가는 곳 (<code>__init__.py</code> 포함)</td></tr><tr><td><code>my_first_package/package.xml</code></td><td>패키지 메타정보와 의존성</td></tr><tr><td><code>my_first_package/setup.py</code></td><td>설치 규칙. <b><code>entry_points</code> 를 여기서 고칩니다</b></td></tr><tr><td><code>my_first_package/resource/</code></td><td>패키지 인덱스 마커</td></tr></tbody></table></div>
@@ -863,10 +863,10 @@ future = cli.<span class="f">call_async</span>(req)
 <div class="tw"><table><thead><tr><th>조각</th><th>뜻</th></tr></thead><tbody><tr><td><code>my_subscriber</code> (등호 왼쪽)</td><td><b><code>ros2 run</code> 에 칠 실행 파일 이름</b></td></tr><tr><td><code>my_first_package.my_subscriber</code></td><td>모듈 경로 (패키지.파일)</td></tr><tr><td><code>:main</code></td><td>그 모듈 안에서 부를 함수 이름</td></tr></tbody></table></div>
 <h3>5-3. 빌드하고 실행</h3>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> ~/dev_ws/ros
-<span class="f">colcon</span> build
-<span class="f">source</span> install/setup.bash
-<span class="f">ros2</span> run my_first_package my_subscriber
-<span class="f">ros2</span> run my_first_package my_publisher</pre></div>
+<span class="f">colcon</span><span class="k"> build</span>
+<span class="f">source</span><span class="k"> install</span>/setup.bash
+<span class="f">ros2</span><span class="k"> run</span> my_first_package my_subscriber
+<span class="f">ros2</span><span class="k"> run</span> my_first_package my_publisher</pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>colcon build</code></td><td><b>워크스페이스 최상위(<code>src</code> 의 부모)에서</b> 실행. <code>src</code> 안에서 치면 안 됨</td></tr><tr><td><code>install/setup.bash</code></td><td>방금 빌드한 패키지 경로를 현재 셸에 심는 스크립트</td></tr><tr><td><code>source</code></td><td>새 터미널마다 다시 필요. <code>/opt/ros/jazzy/setup.bash</code> 와는 별개의 두 번째 source</td></tr></tbody></table></div>
 <p><b>가장 자주 나는 사고 세 가지입니다.</b></p>
 <div class="tw"><table><thead><tr><th>증상</th><th>원인</th></tr></thead><tbody><tr><td>실행 파일을 못 찾음</td><td><code>entry_points</code> 등록 누락, 또는 등록 후 재빌드 안 함</td></tr><tr><td>코드를 고쳤는데 반영이 안 됨</td><td><code>colcon build</code> 를 다시 안 함</td></tr><tr><td>새 터미널에서 import 에러</td><td><code>source install/setup.bash</code> 를 안 함</td></tr></tbody></table></div>
@@ -875,7 +875,7 @@ future = cli.<span class="f">call_async</span>(req)
 <section id="s7"><h2>6. 커스텀 메시지·서비스 정의</h2>
 <p><b>왜 별도 패키지가 필요한가.</b> 기본 제공 타입(<code>Twist</code>, <code>Pose</code> 등) 밖의 타입을 쓰려면 정의 파일을 코드로 생성해야 하는데, <b><code>ament_python</code> 패키지는 그 생성을 못 합니다.</b> 그래서 <code>ament_cmake</code> 로 별도 <code>_msgs</code> 패키지를 하나 더 만듭니다.</p>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> ~/dev_ws/ros/src
-<span class="f">ros2</span> pkg create <span class="o">--build-type</span> ament_cmake my_first_package_msgs</pre></div>
+<span class="f">ros2</span><span class="k"> pkg</span><span class="k"> create</span> <span class="o">--build-type</span> ament_cmake my_first_package_msgs</pre></div>
 <p><code>.msg</code> 는 필드만 나열합니다.</p>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>string name
 int64 id
@@ -887,8 +887,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   &quot;msg/MyFirstMsg.msg&quot;
 )</pre></div>
 <div class="tw"><table><thead><tr><th>요소</th><th>뜻</th></tr></thead><tbody><tr><td><code>rosidl</code></td><td>ROS Interface Definition Language. <code>.msg</code>/<code>.srv</code>/<code>.action</code> 을 각 언어 코드로 변환하는 계층</td></tr><tr><td><code>rosidl_generate_interfaces</code></td><td>나열한 정의 파일을 실제 파이썬·C++ 클래스로 생성하는 매크로</td></tr><tr><td><code>${PROJECT_NAME}</code></td><td>CMake 변수 참조. 패키지 이름이 들어감</td></tr></tbody></table></div>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">colcon</span> build &amp;&amp; <span class="f">source</span> install/setup.bash
-<span class="f">ros2</span> interface show my_first_package_msgs/msg/MyFirstMsg</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">colcon</span><span class="k"> build</span> <span class="o">&amp;&amp;</span> <span class="f">source</span><span class="k"> install</span>/setup.bash
+<span class="f">ros2</span><span class="k"> interface</span><span class="k"> show</span> my_first_package_msgs/msg/MyFirstMsg</pre></div>
 <p>정의한 필드가 그대로 출력되면 생성 성공입니다. <span class="ev ev-todo">미확인</span></p>
 <p>쓸 때는 기본 메시지와 완전히 같습니다.</p>
 <div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> my_first_package_msgs.msg <span class="k">import</span> MyFirstMsg
@@ -945,10 +945,10 @@ N = <span class="n">8</span>
     goal_handle.<span class="f">succeed</span>()
     <span class="k">return</span> DistTurtle.<span class="f">Result</span>(total_dist=<span class="k">self</span>.total_dist)</pre></div>
 <div class="tw"><table><thead><tr><th>요소</th><th>뜻</th></tr></thead><tbody><tr><td><code>ActionServer(node, 타입, 이름, 콜백)</code></td><td>인자 넷</td></tr><tr><td><code>execute_callback</code></td><td>목표가 들어오면 자동 호출됨. <b>이 함수가 끝날 때까지가 한 목표의 수명</b></td></tr><tr><td><code>goal_handle.request.dist</code></td><td>클라이언트가 보낸 Goal 필드</td></tr><tr><td><code>publish_feedback(msg)</code></td><td>진행상황 전송. 루프 안에서 반복 호출</td></tr><tr><td><code>goal_handle.succeed()</code></td><td>성공으로 종료 표시. <b>이걸 빠뜨리면 목표가 안 끝납니다</b></td></tr><tr><td><code>return 타입.Result(...)</code></td><td>최종 결과 반환</td></tr></tbody></table></div>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">colcon</span> build &amp;&amp; <span class="f">source</span> install/setup.bash
-<span class="f">ros2</span> run my_first_package dist_turtle_action_server
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">colcon</span><span class="k"> build</span> <span class="o">&amp;&amp;</span> <span class="f">source</span><span class="k"> install</span>/setup.bash
+<span class="f">ros2</span><span class="k"> run</span> my_first_package dist_turtle_action_server
 <span class="c"># 다른 터미널에서</span>
-<span class="f">ros2</span> action send_goal dist_turtle my_first_package_msgs/action/DistTurtle <span class="s">&#x27;{linear_x: 2., angular_z: 2., dist: 2.}&#x27;</span></pre></div>
+<span class="f">ros2</span><span class="k"> action</span><span class="k"> send_goal</span> dist_turtle my_first_package_msgs/action/DistTurtle <span class="s">&#x27;{linear_x: 2., angular_z: 2., dist: 2.}&#x27;</span></pre></div>
 <p><b>서버와 <code>send_goal</code> 은 반드시 다른 터미널입니다.</b> 서버를 켜둔 채 목표를 여러 번 바꿔 보내며 실험할 수 있습니다.</p>
 <p>정상이면 <code>Feedback: remained_dist</code> 가 반복해서 찍히다가 <code>Result: total_dist</code> 와 <code>SUCCEEDED</code> 로 끝납니다. <span class="ev ev-todo">미확인</span></p>
 <blockquote><p><b>우리 프로젝트에서 다시 나오는 곳.</b> Nav2 의 <code>NavigateToPose</code> 가 정확히 이 구조입니다. 목표 좌표를 Goal 로 주고, 남은 거리를 Feedback 으로 받고, 도착 여부를 Result 로 받습니다. 이 예제의 <code>remained_dist</code> 가 Nav2 의 <code>distance_remaining</code> 에 그대로 대응됩니다. <span class="ev ev-guess">추측</span></p></blockquote>
@@ -956,11 +956,11 @@ N = <span class="n">8</span>
 <section id="s9"><h2>8. 파라미터</h2>
 <p><b>왜 필요한가.</b> 임계값 하나를 바꾸려고 코드를 고치고 다시 빌드하는 것은 낭비입니다. 파라미터는 노드를 켜둔 채 값을 바꾸게 해줍니다.</p>
 <p>터미널에서:</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span> param list
-<span class="f">ros2</span> param get /turtlesim background_g
-<span class="f">ros2</span> param set /turtlesim background_r <span class="n">250</span>
-<span class="f">ros2</span> param dump /turtlesim &gt; ./turtlesim.yaml
-<span class="f">ros2</span> param load /turtlesim ./turtlesim.yaml</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span><span class="k"> param</span><span class="k"> list</span>
+<span class="f">ros2</span><span class="k"> param</span><span class="k"> get</span> /turtlesim background_g
+<span class="f">ros2</span><span class="k"> param</span><span class="k"> set</span> /turtlesim background_r <span class="n">250</span>
+<span class="f">ros2</span><span class="k"> param</span><span class="k"> dump</span> /turtlesim <span class="o">&gt;</span> ./turtlesim.yaml
+<span class="f">ros2</span><span class="k"> param</span><span class="k"> load</span> /turtlesim ./turtlesim.yaml</pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>param list</code></td><td>노드별 파라미터 이름 목록</td></tr><tr><td><code>get</code> / <code>set</code></td><td>조회 / 변경. <code>set</code> 하면 turtlesim 창 색이 즉시 바뀜</td></tr><tr><td><code>dump</code></td><td>현재 값을 YAML 형식으로 표준출력에 뱉음</td></tr><tr><td><code>&gt;</code></td><td>리다이렉트. 표준출력을 파일로 씀 (덮어쓰기. <code>&gt;&gt;</code> 는 이어붙이기)</td></tr><tr><td><code>load</code></td><td>YAML 파일의 값을 노드에 적용</td></tr></tbody></table></div>
 <p><b>노드를 재시작하면 초기값으로 되돌아갑니다.</b> 영구 보존은 YAML 담당입니다. <code>param load</code> 가 실패하면 대개 상대경로 문제입니다.</p>
 <p>코드에서:</p>
@@ -989,8 +989,8 @@ desc = <span class="f">ParameterDescriptor</span>(floating_point_range=[
 <h3>9-1. 로깅</h3>
 <div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">self</span>.<span class="f">get_logger</span>().<span class="f">info</span>(<span class="s">&#x27;메시지&#x27;</span>)</pre></div>
 <p><code>print</code> 대신 쓰면 <b>노드 이름·시각·레벨이 함께 기록</b>되고 rqt Console 에서 레벨별로 걸러볼 수 있습니다. 노드가 5개쯤 돌기 시작하면 <code>print</code> 는 누가 찍은 건지 알 수 없어 쓸모가 없어집니다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt install ros-jazzy-rqt* <span class="o">-y</span>
-<span class="f">ros2</span> run turtlesim turtlesim_node
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt<span class="k"> install</span> ros-jazzy-rqt* <span class="o">-y</span>
+<span class="f">ros2</span><span class="k"> run</span> turtlesim turtlesim_node
 <span class="f">rqt</span></pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>ros-jazzy-rqt*</code></td><td>이름이 <code>ros-jazzy-rqt</code> 로 시작하는 rqt 플러그인 패키지를 전부 설치. 셸이 아니라 <b>apt 가 직접 이 패턴을 해석</b>합니다</td></tr><tr><td>rqt</td><td>플러그인을 끼워 쓰는 ROS 2 GUI 도구 모음</td></tr></tbody></table></div>
 <p>거북이가 벽에 부딪히면 rqt Console 에 이렇게 남습니다.</p>
@@ -998,11 +998,11 @@ desc = <span class="f">ParameterDescriptor</span>(floating_point_range=[
 <div class="tw"><table><thead><tr><th>플러그인</th><th>하는 일</th></tr></thead><tbody><tr><td>Logging &gt; Console</td><td>로그를 레벨별로 필터링</td></tr><tr><td>Visualization &gt; Plot (<code>rqt_plot</code>)</td><td>토픽의 수치 필드를 실시간 그래프로</td></tr><tr><td>Topic Monitor</td><td>토픽 값과 수신 주기(Hz) 관찰</td></tr><tr><td>Message Publisher</td><td>GUI 로 값을 채워 토픽 수동 발행</td></tr></tbody></table></div>
 <h3>9-2. rosbag</h3>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># 터미널 A: 토픽 발행</span>
-<span class="f">ros2</span> topic pub <span class="o">--rate</span> <span class="n">1</span> /turtle1/cmd_vel geometry_msgs/msg/Twist <span class="s">&#x27;{linear: {x: 2.}, angular: {z: 1.8}}&#x27;</span>
+<span class="f">ros2</span><span class="k"> topic</span> pub <span class="o">--rate</span> <span class="n">1</span> /turtle1/cmd_vel geometry_msgs/msg/Twist <span class="s">&#x27;{linear: {x: 2.}, angular: {z: 1.8}}&#x27;</span>
 <span class="c"># 터미널 B: 기록 (Ctrl+C 로 종료)</span>
-<span class="f">ros2</span> bag record <span class="o">-o</span> turtle_test <span class="o">-a</span>
+<span class="f">ros2</span><span class="k"> bag</span><span class="k"> record</span> <span class="o">-o</span> turtle_test <span class="o">-a</span>
 <span class="c"># 나중에 재생</span>
-<span class="f">ros2</span> bag play turtle_test</pre></div>
+<span class="f">ros2</span><span class="k"> bag</span><span class="k"> play</span> turtle_test</pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>bag record</code></td><td>흐르는 토픽을 파일로 기록</td></tr><tr><td><code>-o turtle_test</code></td><td>output. 저장할 폴더 이름</td></tr><tr><td><code>-a</code></td><td>all. 모든 토픽 기록</td></tr><tr><td><code>bag play</code></td><td>기록한 토픽을 그때의 타이밍 그대로 재생</td></tr></tbody></table></div>
 <blockquote><p><b>우리 프로젝트에서 가장 크게 쓰일 도구가 이것입니다.</b> Go2 실기를 만질 수 있는 시간은 짧고 나눠 써야 합니다. <b>실기가 있는 동안 카메라·LiDAR 토픽을 rosbag 으로 통째로 기록해두면, 이후 탐지 알고리즘 개발과 튜닝은 로봇 없이 재생만으로 할 수 있습니다.</b> CV 담당 입장에서 실기 접근 시간의 제약을 가장 크게 줄여주는 수단이라고 봅니다. <span class="ev ev-guess">추측</span></p></blockquote>
 <h3>9-3. launch</h3>
@@ -1016,9 +1016,9 @@ desc = <span class="f">ParameterDescriptor</span>(floating_point_range=[
         <span class="f">Node</span>(package=<span class="s">&#x27;my_first_package&#x27;</span>, executable=<span class="s">&#x27;my_publisher&#x27;</span>),
     ])</pre></div>
 <div class="tw"><table><thead><tr><th>요소</th><th>뜻</th></tr></thead><tbody><tr><td><code>generate_launch_description()</code></td><td>ROS 2 가 찾는 고정된 함수 이름. 바꾸면 안 됨</td></tr><tr><td><code>LaunchDescription([...])</code></td><td>실행할 것들의 목록</td></tr><tr><td><code>Node(package=, executable=)</code></td><td><code>ros2 run &lt;package&gt; &lt;executable&gt;</code> 과 같은 두 인자</td></tr></tbody></table></div>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">colcon</span> build
-<span class="f">source</span> install/setup.bash
-<span class="f">ros2</span> launch my_first_package turtlesim_and_teleop.launch.py</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">colcon</span><span class="k"> build</span>
+<span class="f">source</span><span class="k"> install</span>/setup.bash
+<span class="f">ros2</span><span class="k"> launch</span> my_first_package turtlesim_and_teleop.launch.py</pre></div>
 <p><b>launch 파일도 <code>setup.py</code> 의 <code>data_files</code> 에 등록해야 설치 폴더로 복사됩니다.</b> 등록하지 않으면 파일은 있는데 <code>ros2 launch</code> 가 못 찾는 상태가 됩니다. launch 구조를 바꿀 때마다 재빌드와 재 source 가 필요한 것도 같습니다.</p>
 </section>
 <section id="s11"><h2>10. 우리 프로젝트로의 연결</h2>
@@ -1052,5 +1052,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 16:44</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 17:30</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

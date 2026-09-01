@@ -802,7 +802,7 @@ body>*{flex-shrink:0}
 <h3 id="C1-1"><span class="step">C1-1</span>OpenCV 설치 · 이미지 한 장 열어 보기</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>CV의 첫 단추는 "이미지가 파이썬에서 무엇으로 보이는가"다. 이걸 눈으로 확인하지 않으면 뒤의 모든 코드가 마법처럼 보인다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>&gt; <span class="f">pip</span> install opencv-python numpy</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">&gt;</span> <span class="f">pip</span><span class="k"> install</span> opencv-python numpy</pre></div>
 <div class="anno">
 <div><code>opencv-python</code><span>OpenCV의 파이썬 배포판. <b>패키지 이름은 <code>opencv-python</code>인데 코드에서 부르는 이름은 <code>cv2</code></b>다. 이 불일치는 OpenCV 2.x 시절 이름이 남은 것으로, 3·4버전을 써도 계속 <code>cv2</code>다.</span></div>
 <div><code>numpy</code><span>수치 배열 라이브러리. OpenCV가 이미지를 <b>numpy 배열로 돌려주기 때문에</b> 사실상 한 몸이다. 보통 같이 깔린다.</span></div>
@@ -1004,8 +1004,8 @@ h  = (y2 - y1) / H
 <h3 id="C3-1"><span class="step">C3-1</span>설치 + GPU 확인 <span class="sub">15분 · 08-27 저녁</span></h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span><strong>이 스텝을 추론과 분리한 이유</strong>: 설치는 15분이면 끝나는데 <b>GPU가 안 잡히는 문제</b>는 한 시간을 먹는다. 둘을 한 항목으로 묶어 두면 통째로 이월된다(실제로 2회 이월됐다). <b>여기서는 <code>True</code>가 찍히는 것까지만</b> 확인하고 끝낸다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>&gt; <span class="f">pip</span> install ultralytics
-&gt; <span class="f">python</span> <span class="o">-c</span> <span class="s">&quot;import torch; print(torch.__version__, torch.cuda.is_available())&quot;</span></pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">&gt;</span> <span class="f">pip</span><span class="k"> install</span> ultralytics
+<span class="o">&gt;</span> <span class="f">python</span> <span class="o">-c</span> <span class="s">&quot;import torch; print(torch.__version__, torch.cuda.is_available())&quot;</span></pre></div>
 <div class="anno">
 <div><code>ultralytics</code><span>YOLO를 만드는 회사가 내놓은 패키지. <b><code>torch</code>·<code>opencv-python</code>을 의존성으로 함께 끌고 온다</b>(수백 MB). 설치가 오래 걸리는 건 정상이다.</span></div>
 <div><code>torch.cuda.is_available()</code><span><b>이 한 줄이 이 스텝의 전부다.</b> <code>True</code>면 GPU를 쓴다는 뜻, <code>False</code>면 CPU로 돈다는 뜻 · 돌긴 도는데 <b>10배 느리다.</b> 조용히 CPU로 도는 것이 이 단계 최대의 함정이라, 눈으로 확인하고 넘어간다.</span></div>
@@ -1017,9 +1017,9 @@ h  = (y2 - y1) / H
 <div class="body">
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>거의 항상 원인은 하나다 · <code>pip install ultralytics</code>가 <b>CPU판 torch를 먼저 끌어와 버린 것</b>. GPU판으로 갈아 끼운다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>&gt; <span class="f">pip</span> uninstall <span class="o">-y</span> torch torchvision
-&gt; <span class="f">pip</span> install torch torchvision <span class="o">--index-url</span> https://download.pytorch.org/whl/cu121
-&gt; <span class="f">python</span> <span class="o">-c</span> <span class="s">&quot;import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))&quot;</span></pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">&gt;</span> <span class="f">pip</span> uninstall <span class="o">-y</span> torch torchvision
+<span class="o">&gt;</span> <span class="f">pip</span><span class="k"> install</span> torch torchvision <span class="o">--index-url</span> https://download.pytorch.org/whl/cu121
+<span class="o">&gt;</span> <span class="f">python</span> <span class="o">-c</span> <span class="s">&quot;import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))&quot;</span></pre></div>
 <div class="anno">
 <div><code>--index-url</code><span>패키지를 <b>기본 PyPI가 아니라 PyTorch 공식 저장소</b>에서 받게 한다. GPU판 torch는 여기에만 있다. <code>cu121</code>은 CUDA 12.1용이라는 뜻.</span></div>
 <div><code>cu121</code><span>내 드라이버가 지원하는 CUDA 버전에 맞춰야 한다. <code>nvidia-smi</code>를 쳤을 때 오른쪽 위에 뜨는 <b>CUDA Version</b>보다 <b>같거나 낮은</b> 것을 고른다. 최신 조합은 pytorch.org 첫 화면의 선택기가 알려 준다.</span></div>
@@ -1171,13 +1171,16 @@ cap.<span class="f">release</span>(); cv2.<span class="f">destroyAllWindows</spa
 <h3 id="C4-1"><span class="step">C4-1</span><code>usb_cam</code>으로 웹캠을 토픽으로 <span class="sub">← 08-28 낮</span></h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span><span class="tag lx">LINUX</span>카메라를 직접 여는 코드를 쓰지 않는다. <strong>표준 드라이버가 내주는 <code>/image_raw</code>를 쓰면, 나중에 Go2 카메라로 바뀌어도 토픽 이름만 갈아 끼우면 된다.</strong></p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ sudo apt install ros-jazzy-usb-cam ros-jazzy-image-view
-$ ros2 run usb_cam usb_cam_node_exe
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> install</span> ros-jazzy-usb-cam ros-jazzy-image-view
+<span class="o">
+$</span> <span class="f">ros2</span><span class="k"> run</span> usb_cam usb_cam_node_exe
 <span class="c"># 새 터미널
-</span>
-$ ros2 topic list <span class="o">-t</span>
-$ ros2 topic hz /image_raw
-$ ros2 run rqt_image_view rqt_image_view</pre></div>
+</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> topic</span><span class="k"> list</span> <span class="o">-t</span>
+<span class="o">
+$</span> <span class="f">ros2</span><span class="k"> topic</span> hz /image_raw
+<span class="o">
+$</span> <span class="f">ros2</span><span class="k"> run</span> rqt_image_view rqt_image_view</pre></div>
 <div class="anno">
 <div><code>ros-jazzy-usb-cam</code><span>ROS 2 패키지의 apt 이름은 <b><code>ros-&lt;배포판&gt;-&lt;패키지명&gt;</code></b> 꼴이다. 우리는 Jazzy(Ubuntu 24.04)이므로 <code>ros-jazzy-</code>. 언더스코어가 아니라 <b>하이픈</b>인 것에 주의한다.</span></div>
 <div><code>usb_cam_node_exe</code><span>실행 파일 이름. <b><code>usb_cam</code>이 아니다</b> · 패키지 이름과 실행 파일 이름이 다른 흔한 경우다. 뭐가 있는지 모를 땐 <code>ros2 pkg executables usb_cam</code>으로 목록을 본다.</span></div>
@@ -1204,7 +1207,7 @@ $ ros2 run rqt_image_view rqt_image_view</pre></div>
 <div><code>qos_profile_sensor_data</code><span>rclpy가 미리 만들어 둔 <b>센서용 프로파일</b>. <code>BEST_EFFORT</code> + 얕은 큐로 맞춰져 있다. <b>이미지·LiDAR·IMU를 구독할 때는 숫자(<code>10</code>) 대신 이걸 넣는 것을 기본으로 한다.</b></span></div>
 <div><code>10</code> (숫자를 넣을 때)<span>큐 깊이만 지정하고 나머지는 기본값(<code>RELIABLE</code>)이 된다. <b>일반 토픽에는 맞지만 카메라에는 이것이 함정</b>이다.</span></div>
 </div>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 topic info /image_raw <span class="o">--verbose</span></pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> topic</span><span class="k"> info</span> /image_raw <span class="o">--verbose</span></pre></div>
 <div class="anno">
 <div><code>--verbose</code><span>발행자·구독자의 <b>QoS를 나란히</b> 보여준다. 양쪽 <code>Reliability</code> 줄을 비교하는 것이 이 증상의 유일한 확진 방법이다.</span></div>
 </div>
@@ -1214,7 +1217,7 @@ $ ros2 run rqt_image_view rqt_image_view</pre></div>
 <h3 id="C4-3"><span class="step">C4-3</span><code>cv_bridge</code> · ROS 이미지와 OpenCV 배열 사이의 번역기</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span>ROS의 <code>sensor_msgs/Image</code>는 <strong>바이트 배열 + 메타데이터</strong>다. YOLO는 <a href="#C1-1">C1-1</a>의 numpy 배열을 먹는다. 그 사이를 이어 주는 것이 <code>cv_bridge</code>다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ sudo apt install ros-jazzy-cv-bridge ros-jazzy-vision-msgs</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> install</span> ros-jazzy-cv-bridge ros-jazzy-vision-msgs</pre></div>
 <div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> cv_bridge <span class="k">import</span> CvBridge
 
 bridge = <span class="f">CvBridge</span>()
@@ -1343,19 +1346,19 @@ qos = <span class="f">QoSProfile</span>(depth=<span class="n">1</span>,
 <h3 id="C4-7"><span class="step">C4-7</span>진단 명령 묶음 · 안 보일 때 이 순서로</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span><strong>순서가 중요하다.</strong> 위에서부터 차례로 치면 문제가 카메라 쪽인지 내 노드 쪽인지가 <b>세 번째 줄쯤에서 갈린다.</b></p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 topic list <span class="o">-t</span>                       <span class="c"># ① 토픽이 존재하나 · 타입은 맞나
-</span>
-$ ros2 topic hz /image_raw                 <span class="c"># ② 데이터가 실제로 흐르나
-</span>
-$ ros2 topic info /image_raw <span class="o">--verbose</span>     <span class="c"># ③ QoS가 맞나  ← 여기가 최다 원인
-</span>
-$ ros2 run rqt_image_view rqt_image_view   <span class="c"># ④ 눈으로 확인
-</span>
-$ ros2 node info /detector                 <span class="c"># ⑤ 내 노드가 진짜 구독 중인가
-</span>
-$ ros2 param list /detector                <span class="c"># ⑥ 파라미터가 내가 준 값인가
-</span>
-$ ros2 run tf2_tools view_frames           <span class="c"># ⑦ (C6) TF 트리를 PDF로</span></pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> topic</span><span class="k"> list</span> <span class="o">-t</span>                       <span class="c"># ① 토픽이 존재하나 · 타입은 맞나
+</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> topic</span> hz /image_raw                 <span class="c"># ② 데이터가 실제로 흐르나
+</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> topic</span><span class="k"> info</span> /image_raw <span class="o">--verbose</span>     <span class="c"># ③ QoS가 맞나  ← 여기가 최다 원인
+</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> run</span> rqt_image_view rqt_image_view   <span class="c"># ④ 눈으로 확인
+</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> node</span><span class="k"> info</span> /detector                 <span class="c"># ⑤ 내 노드가 진짜 구독 중인가
+</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"> list</span> /detector                <span class="c"># ⑥ 파라미터가 내가 준 값인가
+</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> run</span> tf2_tools view_frames           <span class="c"># ⑦ (C6) TF 트리를 PDF로</span></pre></div>
 <div class="anno">
 <div>① 이름은 있는데 <b>타입</b>이 다르면<span>구독은 성립하지 않는다. <code>-t</code>를 항상 붙이는 이유.</span></div>
 <div>② <code>hz</code>가 <b>안 찍히면</b><span>발행자 문제다. <b>내 코드를 보지 말고 카메라 드라이버를 본다.</b></span></div>
@@ -1381,8 +1384,9 @@ $ ros2 run tf2_tools view_frames           <span class="c"># ⑦ (C6) TF 트리�
              name=<span class="s">&#x27;detector&#x27;</span>, output=<span class="s">&#x27;screen&#x27;</span>,
              parameters=[{<span class="s">&#x27;image_topic&#x27;</span>: topic, <span class="s">&#x27;imgsz&#x27;</span>: <span class="n">640</span>}]),
     ])</pre></div>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 launch foothold_perception detector.launch.py
-$ ros2 launch foothold_perception detector.launch.py image_topic:=/go2_camera/color/image</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> launch</span> foothold_perception detector.launch.py
+<span class="o">
+$</span> <span class="f">ros2</span><span class="k"> launch</span> foothold_perception detector.launch.py image_topic:=/go2_camera/color/image</pre></div>
 <div class="anno">
 <div><code>DeclareLaunchArgument</code><span>launch 파일이 <b>바깥에서 받는 인자</b>를 선언한다. <code>default_value</code>가 있으니 안 주면 웹캠으로 뜬다.</span></div>
 <div><code>LaunchConfiguration</code><span>그 인자의 <b>값을 가리키는 자리표</b>. launch 파일이 실행될 때 실제 값으로 치환된다. 파이썬 변수가 아니라 <b>지연 평가되는 객체</b>라, 여기서 <code>if</code>로 비교하려 하면 뜻대로 안 된다.</span></div>
@@ -1411,7 +1415,7 @@ v = fy · (Y / Z) + cy</pre></div>
 <h3 id="C5-2"><span class="step">C5-2</span><code>CameraInfo</code>와 <code>K</code> 행렬</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span>위 네 숫자는 ROS에서 <code>sensor_msgs/CameraInfo</code>라는 <b>렌즈의 신원 메시지</b>로 흐른다. 카메라 드라이버가 <code>/image_raw</code> 옆에 <code>/camera_info</code>를 같이 발행한다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 topic echo /camera_info <span class="o">--once</span></pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> topic</span><span class="k"> echo</span> /camera_info <span class="o">--once</span></pre></div>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>K = [ fx   0  cx ]        # 메시지에서는 길이 9의 1차원 배열로 온다
     [  0  fy  cy ]        # k[0]=fx  k[2]=cx  k[4]=fy  k[5]=cy
     [  0   0   1 ]
@@ -1445,8 +1449,9 @@ undist = cv2.<span class="f">undistort</span>(frame, K, D)</pre></div>
 <h3 id="C5-4"><span class="step">C5-4</span>캘리브레이션 · 체스보드로 <code>K</code> 구하기</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span><code>K</code>를 모르면 <a href="#c6">C6</a>이 시작되지 않는다. 체스보드 한 장을 여러 각도에서 찍어 역산하는 것이 표준 절차다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ sudo apt install ros-jazzy-camera-calibration
-$ ros2 run camera_calibration cameracalibrator \
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> install</span> ros-jazzy-camera-calibration
+<span class="o">
+$</span> <span class="f">ros2</span><span class="k"> run</span> camera_calibration cameracalibrator \
     <span class="o">--size</span> 8x6 <span class="o">--square</span> <span class="n">0.025</span> \
     <span class="o">--ros-args</span> <span class="o">-r</span> image:=/image_raw <span class="o">-p</span> camera:=/camera</pre></div>
 <div class="anno">
@@ -1485,9 +1490,9 @@ $ ros2 run camera_calibration cameracalibrator \
 <tr><td><code>camera_optical_frame</code></td><td>실제 광학 좌표계</td><td>같음</td></tr>
 </table></div></div>
 <p><strong>왜 <code>map</code>과 <code>odom</code>이 둘 다 있나.</strong> 오도메트리는 부드럽지만 시간이 갈수록 밀린다. SLAM은 밀림을 고쳐 주지만 고칠 때 순간적으로 <strong>위치가 튄다.</strong> 제어에는 부드러운 것이, 지도 표시에는 정확한 것이 필요하므로 <strong>둘을 다 두고 상황에 따라 골라 쓴다.</strong> 탐지 결과를 지도에 남길 때는 <code>map</code> 기준이다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 run tf2_tools view_frames        <span class="c"># TF 트리를 PDF로 그려 준다
-</span>
-$ ros2 run tf2_ros tf2_echo map camera_optical_frame</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> run</span> tf2_tools view_frames        <span class="c"># TF 트리를 PDF로 그려 준다
+</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> run</span> tf2_ros tf2_echo map camera_optical_frame</pre></div>
 <div class="anno">
 <div><code>view_frames</code><span>현재 살아 있는 프레임과 <b>누가 누구를 발행하는지</b>를 PDF로 뽑는다. <b>카메라 프레임이 트리에 안 붙어 있을 때 이걸로 찾는다.</b></span></div>
 <div><code>tf2_echo A B</code><span>두 프레임 사이 변환을 <b>실시간으로 찍어 준다.</b> 코드를 쓰기 전에 이걸로 <b>변환이 존재하는지</b> 먼저 확인한다 · 없으면 코드는 예외를 던진다.</span></div>
@@ -1701,9 +1706,10 @@ print(r.box.map50, r.box.map)     # mAP50, mAP50-95</pre></div>
 <div class="call"><div class="t">대여 장비 수칙 · 실기 블록마다 상단에 박는다</div>
 <p><strong>읽기 먼저 · 변경은 허락 후 · 설치·업데이트 금지.</strong></p>
 <p>그래서 현장에서 개발하지 않는다. <strong>녹화해 와서 오프라인으로 개발한다.</strong></p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 bag record <span class="o">-o</span> go2_run01 \
-    /image_raw /camera_info /tf /tf_static &lt;<span class="f">lidar_topic</span>&gt;
-$ ros2 bag play go2_run01 <span class="o">--clock</span>       <span class="c"># 집에서 재생
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> bag</span><span class="k"> record</span> <span class="o">-o</span> go2_run01 \
+    /image_raw /camera_info /tf /tf_static &lt;<span class="f">lidar_topic</span><span class="o">&gt;</span>
+<span class="o">
+$</span> <span class="f">ros2</span><span class="k"> bag</span><span class="k"> play</span> go2_run01 <span class="o">--clock</span>       <span class="c"># 집에서 재생
 </span></pre></div>
 <div class="anno">
 <div><code>/tf</code>와 <code>/tf_static</code><span><b>반드시 같이 녹화한다.</b> 이게 없으면 <a href="#c6">C6</a>의 좌표 변환을 오프라인에서 재현할 수 없다. <b>가장 흔히 빠뜨리는 토픽</b>이다.</span></div>
@@ -1793,5 +1799,5 @@ $ ros2 bag play go2_run01 <span class="o">--clock</span>       <span class="c">#
 </table></div></div>
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 16:44</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 17:30</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

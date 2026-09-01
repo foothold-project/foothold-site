@@ -757,19 +757,19 @@ body>*{flex-shrink:0}
 <p>그래서 22.04 에 Jazzy 를 얹거나 24.04 에 Humble 을 얹는 조합은 apt 로는 애초에 길이 없습니다. 팀 표준을 24.04 로 고정한 실질적인 이유가 이것입니다.</p>
 <blockquote><p><b>팀에 걸리는 지점.</b> Go2 커뮤니티 자료(<code>unitree_ros2</code> 등)는 상당수가 Humble(22.04) 기준입니다. Jazzy 에서 그대로 도는지는 별도 검증이 필요합니다. <span class="ev ev-todo">미확인</span></p></blockquote>
 <p>설치를 마치고 가장 먼저 치는 명령입니다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt update &amp;&amp; <span class="f">sudo</span> apt upgrade <span class="o">-y</span></pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> upgrade</span> <span class="o">-y</span></pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>sudo</code></td><td>superuser do. 이 한 줄만 관리자 권한으로 실행</td></tr><tr><td><code>apt update</code></td><td>패키지 <b>목록</b>만 갱신. 설치된 패키지는 안 건드림</td></tr><tr><td><code>&amp;&amp;</code></td><td>앞 명령이 성공(종료코드 0)했을 때만 뒤 명령 실행. <code>;</code> 는 실패해도 실행하므로 다름</td></tr><tr><td><code>apt upgrade</code></td><td>갱신된 목록을 근거로 실제 패키지를 최신으로 올림</td></tr><tr><td><code>-y</code></td><td>yes. 「계속할까요?」 확인 질문에 자동으로 예</td></tr></tbody></table></div>
 <p><code>update</code> 없이 <code>upgrade</code> 만 치면 옛 목록을 보고 올리므로 의미가 없습니다. 항상 짝입니다.</p>
 </section>
 <section id="s3"><h2>2. 터미널과 기본 앱</h2>
 <p>수업은 Terminator(창 분할 터미널)와 Chrome 을 깔면서 리눅스 기본 명령을 익히는 순서로 갑니다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt update
-<span class="f">sudo</span> apt install terminator <span class="o">-y</span></pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt<span class="k"> update</span>
+<span class="f">sudo</span> apt<span class="k"> install</span> terminator <span class="o">-y</span></pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>apt install &lt;이름&gt;</code></td><td>저장소에서 해당 패키지를 내려받아 설치</td></tr><tr><td><code>terminator</code></td><td>한 창을 여러 칸으로 쪼개 쓰는 터미널. ROS 2 는 터미널을 3~4개씩 동시에 쓰므로 사실상 필수</td></tr></tbody></table></div>
 <p>Chrome 은 apt 저장소에 없으므로 .deb 파일을 직접 받아 설치합니다.</p>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">wget</span> https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 <span class="f">sudo</span> dpkg <span class="o">-i</span> google-chrome*.deb
-<span class="f">sudo</span> apt <span class="o">--fix-broken</span> install <span class="o">-y</span></pre></div>
+<span class="f">sudo</span> apt <span class="o">--fix-broken</span><span class="k"> install</span> <span class="o">-y</span></pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>wget</code></td><td>web get. URL 을 현재 폴더로 내려받음</td></tr><tr><td><code>dpkg</code></td><td>Debian package. .deb 파일 하나를 직접 설치하는 저수준 도구</td></tr><tr><td><code>-i</code></td><td>install</td></tr><tr><td><code>*</code></td><td>셸 와일드카드. <code>google-chrome</code> 으로 시작하고 <code>.deb</code> 로 끝나는 파일 이름을 셸이 대신 채워줌</td></tr><tr><td><code>--fix-broken install</code></td><td><code>dpkg</code> 는 의존성을 자동으로 안 채움. 빠진 의존 패키지를 apt 가 뒤이어 메움</td></tr></tbody></table></div>
 <p><code>dpkg -i</code> 뒤에 <code>--fix-broken install</code> 이 따라붙는 이유가 여기 있습니다. <b>순서가 바뀌면 안 됩니다.</b> <span class="ev ev-todo">미확인</span></p>
 <p>리눅스 기본 명령 넷입니다.</p>
@@ -783,14 +783,14 @@ body>*{flex-shrink:0}
 x This environment is externally managed</pre></div>
 <p>이건 고장이 아니라 <b>의도된 차단</b>입니다. 해결책은 venv 를 만드는 것이지, <code>--break-system-packages</code> 로 뚫는 것이 아닙니다.</p>
 <p>준비(최초 1회):</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt update &amp;&amp; <span class="f">sudo</span> apt install python3-pip <span class="o">-y</span>
-<span class="f">sudo</span> apt install python3.<span class="n">12</span>-venv <span class="o">-y</span></pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> install</span> python3-pip <span class="o">-y</span>
+<span class="f">sudo</span> apt<span class="k"> install</span> python3.<span class="n">12</span>-venv <span class="o">-y</span></pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>python3-pip</code></td><td>pip 본체</td></tr><tr><td><code>python3.12-venv</code></td><td>venv 모듈. <b>버전 번호가 붙습니다.</b> 24.04 의 기본 파이썬이 3.12 라서 3.12</td></tr></tbody></table></div>
 <p><code>python3 -V</code> 로 실제 버전을 먼저 확인하고 숫자를 맞추는 것이 안전합니다.</p>
 <p>가상환경 생성·활성화·해제:</p>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">python3</span> <span class="o">-m</span> venv ~/venv/robot_venv
 <span class="f">source</span> ~/venv/robot_venv/bin/activate
-<span class="f">pip</span> install <span class="o">--upgrade</span> pip
+<span class="f">pip</span><span class="k"> install</span> <span class="o">--upgrade</span> pip
 <span class="f">deactivate</span></pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>-m venv</code></td><td>module. 설치된 <code>venv</code> 모듈을 스크립트처럼 실행</td></tr><tr><td><code>~/venv/robot_venv</code></td><td>만들 위치. 경로일 뿐이라 어디든 되지만 수업은 이 경로로 통일</td></tr><tr><td><code>source</code></td><td>스크립트를 <b>새 셸이 아니라 현재 셸에서</b> 실행. 그래야 PATH 변경이 지금 터미널에 남음</td></tr><tr><td><code>activate</code></td><td>PATH 앞에 가상환경의 <code>bin</code> 을 끼워 넣는 스크립트</td></tr><tr><td><code>deactivate</code></td><td>그것을 되돌림</td></tr></tbody></table></div>
 <p>활성화되면 프롬프트 앞에 <code>(robot_venv)</code> 가 붙습니다. <b>이게 붙어 있는지 눈으로 확인하는 습관이 실습 내내 가장 많은 오류를 막아줍니다.</b> 수업은 <code>test_venv</code> 로 한 번 연습한 뒤 <code>robot_venv</code> 하나를 끝까지 재사용합니다.</p>
@@ -798,7 +798,7 @@ x This environment is externally managed</pre></div>
 <section id="s5"><h2>4. Jupyter Notebook</h2>
 <p><b>왜 여기서 Jupyter 인가.</b> ROS 2 노드를 처음부터 패키지로 만들면 코드 한 줄 고칠 때마다 빌드를 다시 해야 합니다. 셀 단위로 굴려보는 단계를 먼저 두는 것이 2편(Python 프로그래밍)의 전제입니다.</p>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">source</span> ~/venv/robot_venv/bin/activate
-<span class="f">pip</span> install jupyter
+<span class="f">pip</span><span class="k"> install</span> jupyter
 <span class="f">mkdir</span> <span class="o">-p</span> ~/dev_ws/robot
 <span class="f">cd</span> ~/dev_ws/robot
 <span class="f">jupyter</span> notebook</pre></div>
@@ -807,17 +807,17 @@ x This environment is externally managed</pre></div>
 </section>
 <section id="s6"><h2>5. VSCode</h2>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> dpkg <span class="o">-i</span> code_*.deb
-<span class="f">sudo</span> apt <span class="o">--fix-broken</span> install <span class="o">-y</span>
-<span class="f">cd</span> ~/dev_ws/robot &amp;&amp; <span class="f">code</span> .</pre></div>
+<span class="f">sudo</span> apt <span class="o">--fix-broken</span><span class="k"> install</span> <span class="o">-y</span>
+<span class="f">cd</span> ~/dev_ws/robot <span class="o">&amp;&amp;</span> <span class="f">code</span> .</pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>code .</code></td><td>현재 폴더(<code>.</code>)를 VSCode 로 엶</td></tr><tr><td><code>&amp;&amp;</code></td><td><code>cd</code> 가 성공했을 때만 <code>code</code> 실행. 폴더가 없는데 여는 사고를 막음</td></tr></tbody></table></div>
 <p>설치 중 「Microsoft 저장소를 추가할까요?」에 Yes 를 누르면 이후 apt 로 업데이트됩니다. 설치 직후 <code>code</code> 명령이 안 먹히면 <b>터미널을 새로 여십시오.</b> PATH 환경변수는 새 셸 세션부터 반영됩니다.</p>
 <p>VSCode 에서 노트북을 쓸 때 자주 나는 오류는 <code>ModuleNotFoundError</code> 인데, 원인은 대개 <b>커널이 robot_venv 가 아닌 것</b>입니다. 하단 상태바의 인터프리터를 먼저 확인하고, 그래도 없으면 그 환경 안에서 설치합니다.</p>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">source</span> ~/venv/robot_venv/bin/activate
-<span class="f">pip</span> install numpy</pre></div>
+<span class="f">pip</span><span class="k"> install</span> numpy</pre></div>
 </section>
 <section id="s7"><h2>6. ROS 2 Jazzy 설치 (여기서 공식 문서와 갈립니다)</h2>
 <h3>6-1. 로케일과 universe 저장소</h3>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt update &amp;&amp; <span class="f">sudo</span> apt install locales software-properties-common <span class="o">-y</span>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> install</span> locales software-properties-common <span class="o">-y</span>
 <span class="f">sudo</span> locale-gen en_US en_US.UTF-<span class="n">8</span>
 <span class="f">sudo</span> update-locale LC_ALL=en_US.UTF-<span class="n">8</span> LANG=en_US.UTF-<span class="n">8</span>
 <span class="f">sudo</span> add-apt-repository universe</pre></div>
@@ -825,32 +825,32 @@ x This environment is externally managed</pre></div>
 <p>이 두 가지는 <b>ROS 2 저장소를 등록하기 전에</b> 끝나 있어야 합니다. 공식 문서도 같은 순서입니다. <span class="ev ev-ok">확인됨</span> (<a href="https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html" target="_blank" rel="noopener">Jazzy deb 설치 문서</a>)</p>
 <h3>6-2. 저장소 등록: 수업 방식과 현재 공식 방식이 다릅니다</h3>
 <p><b>수업에서 시연된 방식</b> (GPG 키를 직접 내려받아 apt 소스 목록을 손으로 씀):</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt update &amp;&amp; <span class="f">sudo</span> apt install curl <span class="o">-y</span>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> install</span> curl <span class="o">-y</span>
 <span class="f">sudo</span> curl <span class="o">-sSL</span> https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
   <span class="o">-o</span> /usr/share/keyrings/ros-archive-keyring.gpg
 <span class="f">echo</span> <span class="s">&quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release &amp;&amp; echo $UBUNTU_CODENAME) main&quot;</span> \
-  | <span class="f">sudo</span> tee /etc/apt/sources.list.d/ros2.list</pre></div>
+  <span class="o">|</span> <span class="f">sudo</span> tee /etc/apt/sources.list.d/ros2.list</pre></div>
 <p>토큰 해부는 나중에 저 줄을 다시 볼 때를 위해 남겨둡니다.</p>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>curl</code></td><td>URL 로 데이터를 주고받는 도구</td></tr><tr><td><code>-sSL</code></td><td><code>-s</code> 진행표시 숨김 · <code>-S</code> 그래도 에러는 표시 · <code>-L</code> 리다이렉트 따라가기</td></tr><tr><td><code>-o &lt;경로&gt;</code></td><td>output. 받은 내용을 그 파일로 저장</td></tr><tr><td>GPG 키</td><td>저장소가 진짜 ROS 배포처에서 온 것인지 검증하는 서명. 이게 없으면 apt 가 거부</td></tr><tr><td><code>\</code> (줄 끝)</td><td>줄바꿈 무효화. 긴 한 줄 명령을 여러 줄로 나눠 쓰는 표시</td></tr><tr><td><code>$(...)</code></td><td>명령 치환. 괄호 안 명령을 먼저 실행하고 그 출력을 그 자리에 끼워 넣음</td></tr><tr><td><code>dpkg --print-architecture</code></td><td><code>amd64</code> 같은 CPU 아키텍처 문자열 출력</td></tr><tr><td><code>. /etc/os-release</code></td><td><code>.</code> 은 <code>source</code> 의 축약. OS 정보 파일을 읽어 변수로 만듦</td></tr><tr><td><code>$UBUNTU_CODENAME</code></td><td>위에서 읽힌 변수. 24.04 면 <code>noble</code></td></tr><tr><td><code>|</code></td><td>파이프. 앞 명령의 출력을 뒤 명령의 입력으로 넘김</td></tr><tr><td><code>tee &lt;파일&gt;</code></td><td>입력을 파일에 쓰면서 화면에도 출력. <code>&gt;</code> 대신 쓰는 이유는 <code>sudo</code> 가 필요한 파일이기 때문</td></tr></tbody></table></div>
 <p><code>echo ... &gt; /etc/apt/...</code> 로 쓰면 리다이렉트(<code>&gt;</code>)는 sudo 권한을 받기 전의 셸이 수행하므로 권한 오류가 납니다. <code>sudo tee</code> 를 쓰는 이유가 이것입니다.</p>
 <p><b>현재 공식 문서의 방식</b>은 위 두 단계를 <code>ros2-apt-source</code> 패키지 하나로 대체합니다. <span class="ev ev-ok">확인됨</span> (<a href="https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html" target="_blank" rel="noopener">Jazzy deb 설치 문서</a>, <a href="https://github.com/ros-infrastructure/ros-apt-source/" target="_blank" rel="noopener">ros-apt-source 저장소</a>)</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt update &amp;&amp; <span class="f">sudo</span> apt install curl <span class="o">-y</span>
-<span class="f">export</span> ROS_APT_SOURCE_VERSION=$(curl <span class="o">-s</span> https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | <span class="f">grep</span> <span class="o">-F</span> <span class="s">&quot;tag_name&quot;</span> | <span class="f">awk</span> <span class="o">-F</span>&#x27;&quot;<span class="s">&#x27; &#x27;</span>{print $<span class="n">4</span>}&#x27;)
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> install</span> curl <span class="o">-y</span>
+<span class="f">export</span> ROS_APT_SOURCE_VERSION=$(curl <span class="o">-s</span> https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest <span class="o">|</span> <span class="f">grep</span> <span class="o">-F</span> <span class="s">&quot;tag_name&quot;</span> <span class="o">|</span> <span class="f">awk</span> <span class="o">-F</span>&#x27;&quot;<span class="s">&#x27; &#x27;</span>{print $<span class="n">4</span>}&#x27;)
 <span class="f">curl</span> <span class="o">-L</span> <span class="o">-o</span> /tmp/ros2-apt-source.deb <span class="s">&quot;https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release &amp;&amp; echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb&quot;</span>
 <span class="f">sudo</span> dpkg <span class="o">-i</span> /tmp/ros2-apt-source.deb</pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>export</code></td><td>셸 변수를 자식 프로세스도 볼 수 있게 환경변수로 내보냄</td></tr><tr><td><code>grep -F &quot;tag_name&quot;</code></td><td>fixed string. 정규식으로 해석하지 않고 문자 그대로 찾음</td></tr><tr><td><code>awk -F&#x27;&quot;&#x27; &#x27;{print $4}&#x27;</code></td><td><code>&quot;</code> 를 구분자로 잘라 4번째 조각(버전 문자열)만 출력</td></tr><tr><td><code>${VAR:-대체값}</code></td><td>VAR 이 비어 있으면 대체값을 씀</td></tr><tr><td><code>ros2-apt-source</code></td><td>키와 소스 목록을 한꺼번에 넣어주는 패키지. 키가 교체돼도 이 패키지 업데이트로 따라감</td></tr></tbody></table></div>
 <p><b>어느 쪽을 쓸지에 대한 제 판단.</b> 수업 방식도 지금 동작할 가능성이 높지만 <span class="ev ev-todo">미확인</span>이고, 서명 키가 바뀌면 <code>NO_PUBKEY</code> 계열 에러로 조용히 깨지는 쪽입니다. 실제로 ROS 측이 apt 소스 관리를 패키지로 옮긴 이유가 그것입니다. <b>팀 환경 구축 문서를 쓸 때는 공식 방식을 기본으로 두는 편이 낫다고 봅니다.</b> <span class="ev ev-guess">추측</span> (근거: 공식 문서가 이 방식만 안내하고 있음)</p>
 <h3>6-3. 설치와 동작 확인</h3>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt update
-<span class="f">sudo</span> apt install ros-dev-tools <span class="o">-y</span>
-<span class="f">sudo</span> apt install ros-jazzy-desktop <span class="o">-y</span>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">sudo</span> apt<span class="k"> update</span>
+<span class="f">sudo</span> apt<span class="k"> install</span> ros-dev-tools <span class="o">-y</span>
+<span class="f">sudo</span> apt<span class="k"> install</span> ros-jazzy-desktop <span class="o">-y</span>
 <span class="f">source</span> /opt/ros/jazzy/setup.bash</pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>ros-dev-tools</code></td><td>colcon·rosdep 등 빌드/개발 도구 묶음</td></tr><tr><td><code>ros-jazzy-desktop</code></td><td>ROS 2 본체 + RViz2 + demo 노드 + turtlesim 등이 포함된 큰 묶음</td></tr><tr><td><code>/opt/ros/jazzy/setup.bash</code></td><td>ROS 2 환경변수를 현재 셸에 심는 스크립트</td></tr><tr><td><code>source</code></td><td><b>새 터미널마다 다시 해야 합니다.</b> 안 하면 <code>ros2</code> 명령을 못 찾습니다</td></tr></tbody></table></div>
 <p>터미널 두 개로 통신을 확인합니다. <b>각 터미널에서 각각 source 가 필요합니다.</b></p>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># 터미널 A</span>
-<span class="f">ros2</span> run demo_nodes_cpp talker
+<span class="f">ros2</span><span class="k"> run</span> demo_nodes_cpp talker
 <span class="c"># 터미널 B</span>
-<span class="f">ros2</span> run demo_nodes_py listener</pre></div>
+<span class="f">ros2</span><span class="k"> run</span> demo_nodes_py listener</pre></div>
 <p>A 가 보낸 문자열이 B 에 찍히면 설치가 정상입니다. C++ 노드와 Python 노드가 아무 설정 없이 통신한다는 점이 요지입니다. 언어가 달라도 메시지 타입만 같으면 붙습니다. <span class="ev ev-todo">미확인</span></p>
 </section>
 <section id="s8"><h2>7. bashrc · alias · ROS_DOMAIN_ID</h2>
@@ -874,32 +874,32 @@ x This environment is externally managed</pre></div>
 <section id="s9"><h2>8. turtlesim 으로 4대 통신 체득</h2>
 <div class="tw"><table><thead><tr><th>용어</th><th>뜻</th></tr></thead><tbody><tr><td>ROS 2 그래프</td><td>실행 중인 노드들과 그 사이 연결(토픽·서비스·액션)을 합쳐 부르는 말</td></tr><tr><td>노드(Node)</td><td>하나의 기능을 담당하는 실행 단위 프로그램</td></tr><tr><td>turtlesim</td><td>학습용 거북이 시뮬레이터 노드</td></tr></tbody></table></div>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">source</span> /opt/ros/jazzy/setup.bash
-<span class="f">ros2</span> run turtlesim turtlesim_node</pre></div>
+<span class="f">ros2</span><span class="k"> run</span> turtlesim turtlesim_node</pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>ros2</code></td><td>ROS 2 통합 CLI. 뒤에 오는 첫 단어가 하위 명령</td></tr><tr><td><code>run</code></td><td>「패키지 안의 실행 파일을 돌려라」</td></tr><tr><td><code>turtlesim</code></td><td>패키지 이름</td></tr><tr><td><code>turtlesim_node</code></td><td>그 패키지 안의 실행 파일 이름</td></tr></tbody></table></div>
 <h3>8-1. 노드 조회</h3>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span> node list
-<span class="f">ros2</span> node info /turtlesim</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span><span class="k"> node</span><span class="k"> list</span>
+<span class="f">ros2</span><span class="k"> node</span><span class="k"> info</span> /turtlesim</pre></div>
 <p><code>node list</code> 는 실행 중인 노드 이름만, <code>node info</code> 는 그 노드가 구독·발행하는 토픽과 제공하는 서비스·액션까지 보여줍니다. <b>모르는 로봇 패키지를 처음 만질 때 가장 먼저 치는 명령이 <code>node info</code> 입니다.</b></p>
 <h3>8-2. 서비스: 요청 → 응답의 1:1 동기 통신</h3>
 <div class="tw"><table><thead><tr><th>용어</th><th>뜻</th></tr></thead><tbody><tr><td>서비스(Service)</td><td>Request 를 보내면 Response 가 돌아오는 1:1 단발성 통신</td></tr><tr><td>namespace</td><td><code>/turtle1/set_pen</code> 처럼 특정 이름 아래 묶인 계층. <code>/reset</code> 처럼 없는 것도 있음</td></tr></tbody></table></div>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span> service list
-<span class="f">ros2</span> interface show turtlesim/srv/TeleportAbsolute
-<span class="f">ros2</span> service call /turtle1/teleport_absolute turtlesim/srv/TeleportAbsolute <span class="s">&quot;{x: 2, y: 2, theta: 1.57}&quot;</span>
-<span class="f">ros2</span> service call /reset std_srvs/srv/Empty {}
-<span class="f">ros2</span> service call /spawn turtlesim/srv/Spawn <span class="s">&quot;{x: 1, y: 1, theta: 0, name: &#x27;&#x27;}&quot;</span></pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span><span class="k"> service</span><span class="k"> list</span>
+<span class="f">ros2</span><span class="k"> interface</span><span class="k"> show</span> turtlesim/srv/TeleportAbsolute
+<span class="f">ros2</span><span class="k"> service</span><span class="k"> call</span> /turtle1/teleport_absolute turtlesim/srv/TeleportAbsolute <span class="s">&quot;{x: 2, y: 2, theta: 1.57}&quot;</span>
+<span class="f">ros2</span><span class="k"> service</span><span class="k"> call</span> /reset std_srvs/srv/Empty {}
+<span class="f">ros2</span><span class="k"> service</span><span class="k"> call</span> /spawn turtlesim/srv/Spawn <span class="s">&quot;{x: 1, y: 1, theta: 0, name: &#x27;&#x27;}&quot;</span></pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>interface show</code></td><td>그 타입이 어떤 필드를 요구하는지 정의를 출력. <code>---</code> 위가 Request, 아래가 Response</td></tr><tr><td><code>service call &lt;이름&gt; &lt;타입&gt; &quot;{...}&quot;</code></td><td>세 조각이 전부 필요. 이름만으로는 부족</td></tr><tr><td><code>&quot;{x: 2, y: 2, theta: 1.57}&quot;</code></td><td>YAML 문법. 셸이 중괄호를 해석하지 않도록 따옴표로 감쌈</td></tr><tr><td><code>1.57</code></td><td>라디안. 3.14/2 이므로 90도</td></tr><tr><td><code>{}</code></td><td>Empty 타입이라 채울 필드가 없다는 뜻</td></tr></tbody></table></div>
 <p><b>우리 프로젝트에서 다시 나오는 곳.</b> 카메라 노드를 켜고 끄거나 지도를 저장하는 것 같은 단발 명령이 전부 서비스입니다.</p>
 <h3>8-3. 토픽: 발행 → 구독의 비동기 다대다 스트리밍</h3>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span> topic list <span class="o">-t</span>
-<span class="f">ros2</span> topic echo /turtle1/pose
-<span class="f">ros2</span> topic pub <span class="o">--once</span> /turtle1/cmd_vel geometry_msgs/msg/Twist <span class="s">&quot;{linear: {x: 2.0}, angular: {z: 1.8}}&quot;</span>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span><span class="k"> topic</span><span class="k"> list</span> <span class="o">-t</span>
+<span class="f">ros2</span><span class="k"> topic</span><span class="k"> echo</span> /turtle1/pose
+<span class="f">ros2</span><span class="k"> topic</span> pub <span class="o">--once</span> /turtle1/cmd_vel geometry_msgs/msg/Twist <span class="s">&quot;{linear: {x: 2.0}, angular: {z: 1.8}}&quot;</span>
 <span class="f">rqt_graph</span></pre></div>
 <div class="tw"><table><thead><tr><th>토큰</th><th>뜻</th></tr></thead><tbody><tr><td><code>-t</code></td><td>type. 토픽 이름 옆에 메시지 타입까지 같이 표시</td></tr><tr><td><code>echo</code></td><td>그 토픽에 흐르는 메시지를 터미널에 계속 출력</td></tr><tr><td><code>pub</code></td><td>publish. 터미널에서 직접 발행</td></tr><tr><td><code>--once</code></td><td>한 번만 발행하고 종료</td></tr><tr><td><code>--rate 1</code></td><td>초당 1회씩 계속 발행. 위 값으로 주면 원을 그림</td></tr><tr><td><code>Twist</code></td><td>속도 메시지 타입. <code>linear.x</code> 는 전진 속도, <code>angular.z</code> 는 회전 속도</td></tr><tr><td><code>2.0</code></td><td><b>소수점을 꼭 붙입니다.</b> float 필드에 <code>2</code> 를 주면 타입 오류가 납니다</td></tr><tr><td><code>rqt_graph</code></td><td>노드와 토픽 연결을 그림으로 보여주는 GUI</td></tr></tbody></table></div>
 <p><b>우리 프로젝트에서 다시 나오는 곳.</b> 카메라 이미지, LiDAR 스캔, 속도 명령이 전부 토픽입니다. CV 담당 입장에서는 「이미지 토픽을 구독해서 탐지 결과 토픽을 발행한다」가 작업의 기본 골격입니다.</p>
 <h3>8-4. 액션: 목표 → 피드백 → 결과</h3>
 <div class="tw"><table><thead><tr><th>용어</th><th>뜻</th></tr></thead><tbody><tr><td>액션(Action)</td><td>Goal 을 주면 Feedback 이 계속 오다가 마지막에 Result 가 오는 통신. 중간 취소 가능</td></tr></tbody></table></div>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span> action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute <span class="s">&quot;{theta: 3.14}&quot;</span>
-<span class="f">ros2</span> run turtlesim turtle_teleop_key</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span><span class="k"> action</span><span class="k"> send_goal</span> /turtle1/rotate_absolute turtlesim/action/RotateAbsolute <span class="s">&quot;{theta: 3.14}&quot;</span>
+<span class="f">ros2</span><span class="k"> run</span> turtlesim turtle_teleop_key</pre></div>
 <p><b>우리 프로젝트에서 다시 나오는 곳.</b> Nav2 의 목표점 이동(<code>NavigateToPose</code>)이 정확히 액션입니다. 「목표 좌표를 주고, 남은 거리를 피드백으로 받고, 도착하면 결과를 받는」 구조가 그대로 대응됩니다. 그래서 이 단계에서 액션을 대충 넘기면 Nav2 에서 다시 막힙니다.</p>
 <h3>8-5. 세 통신 비교</h3>
 <div class="tw"><table><thead><tr><th>통신</th><th>방식</th><th>예</th><th>언제 쓰나</th></tr></thead><tbody><tr><td>토픽</td><td>Pub/Sub 비동기 다대다</td><td><code>/turtle1/cmd_vel</code>, 카메라 이미지</td><td>계속 흐르는 데이터</td></tr><tr><td>서비스</td><td>Req/Res 동기 1:1</td><td><code>/spawn</code>, <code>/reset</code></td><td>즉시 끝나는 단발 요청</td></tr><tr><td>액션</td><td>Goal/Feedback/Result</td><td><code>RotateAbsolute</code>, Nav2 이동</td><td>오래 걸리고 진행상황이 필요한 작업</td></tr></tbody></table></div>
@@ -935,5 +935,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 16:44</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 17:30</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

@@ -749,17 +749,17 @@ body>*{flex-shrink:0}
 <p>조사 결론: <code>rt/utlidar/height_map_array</code> 는 존재하지만 <b>MCF 오도메트리에 의존</b>해서 <b>저수준 제어로 전환하면 끊긴다.</b> 이게 사실이면 <b>증류가 필수</b>로 확정된다.</p>
 <p><b>5분 테스트</b> (SSH + ROS2 환경이 있다면):</p>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># ① 스포츠 모드 켜진 상태에서 하이트맵이 나오는가</span>
-<span class="f">ros2</span> topic hz /utlidar/height_map_array
+<span class="f">ros2</span><span class="k"> topic</span> hz /utlidar/height_map_array
 
 <span class="c"># ② 저수준 제어로 전환한 뒤 같은 명령</span>
 <span class="c">#    → 여기서 0 Hz 가 되면 우리 가설이 실증된다</span>
-<span class="f">ros2</span> topic hz /utlidar/height_map_array</pre></div>
+<span class="f">ros2</span><span class="k"> topic</span> hz /utlidar/height_map_array</pre></div>
 <blockquote><p><b>이 하나가 프로젝트에서 가장 값진 실측</b>이다. 되면 &quot;증류 불필요&quot;라는 대안이 열리고,
 안 되면 <b>teacher-student 증류가 유일한 길</b>임이 확정된다.</p></blockquote>
 <h3>2-3. 관측 항목 실제 확인</h3>
 <p>Unitree 공식 실물 배포 코드가 쓰는 관측이 실제로 나오는지 본다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span> topic list | <span class="f">grep</span> <span class="o">-i</span> <span class="s">&quot;low\|sport\|imu\|utlidar&quot;</span>
-<span class="f">ros2</span> topic echo /lowstate <span class="o">--once</span>      <span class="c"># imu_state · motor_state · foot_force</span></pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">ros2</span><span class="k"> topic</span><span class="k"> list</span> <span class="o">|</span> <span class="f">grep</span> <span class="o">-i</span> <span class="s">&quot;low\|sport\|imu\|utlidar&quot;</span>
+<span class="f">ros2</span><span class="k"> topic</span><span class="k"> echo</span> /lowstate <span class="o">--once</span>      <span class="c"># imu_state · motor_state · foot_force</span></pre></div>
 <div class="tw"><table><thead><tr><th>볼 것</th><th>기대</th></tr></thead><tbody><tr><td><code>imu_state.gyroscope</code> · <code>.quaternion</code></td><td>🟢 그대로 쓸 수 있어야 함</td></tr><tr><td><code>motor_state[i].q</code> · <code>.dq</code> · <code>.tau_est</code></td><td>🟢 관절 각도·속도·토크</td></tr><tr><td><code>foot_force[4]</code></td><td>🟠 EDU 전용 + raw 정수 + <b>Unitree 본인이 드리프트 인정</b></td></tr><tr><td><code>sportmodestate.velocity</code></td><td>🔴 MCF 켜져야 나옴 → 저수준과 양립 불가</td></tr></tbody></table></div>
 <h3>2-4. 발바닥: 5분에 결판나는 것</h3>
 <p>조사 §6-①: <b>Go2 족단 센서의 물리 원리가 미확인</b>이다. Go1은 공기압식으로 확정됐으나 Go2 증거가 없다.</p>
@@ -786,16 +786,16 @@ body>*{flex-shrink:0}
 <span class="f">cat</span> /etc/nv_tegra_release          <span class="c"># JetPack / L4T 버전</span>
 <span class="f">free</span> <span class="o">-h</span>                            <span class="c"># 메모리</span>
 <span class="f">df</span> <span class="o">-h</span>                              <span class="c"># 저장공간</span>
-<span class="f">nvidia-smi</span> <span class="n">2</span>&gt;/dev/null || <span class="f">tegrastats</span> <span class="o">--interval</span> <span class="n">1000</span>   <span class="c"># GPU</span>
+<span class="f">nvidia-smi</span> <span class="n">2</span><span class="o">&gt;</span>/dev/null <span class="o">||</span> <span class="f">tegrastats</span> <span class="o">--interval</span> <span class="n">1000</span>   <span class="c"># GPU</span>
 
 <span class="c"># -- ROS2 환경 --</span>
 <span class="f">ls</span> /opt/ros/                       <span class="c"># 설치된 배포판</span>
 <span class="f">echo</span> <span class="v">$ROS_DISTRO</span> <span class="v">$RMW_IMPLEMENTATION</span> <span class="v">$ROS_DOMAIN_ID</span>
-<span class="f">ros2</span> topic list                    <span class="c"># 토픽 전수</span>
+<span class="f">ros2</span><span class="k"> topic</span><span class="k"> list</span>                    <span class="c"># 토픽 전수</span>
 
 <span class="c"># -- 관측 확인 --</span>
-<span class="f">ros2</span> topic echo /lowstate <span class="o">--once</span>
-<span class="f">ros2</span> topic hz /utlidar/height_map_array
+<span class="f">ros2</span><span class="k"> topic</span><span class="k"> echo</span> /lowstate <span class="o">--once</span>
+<span class="f">ros2</span><span class="k"> topic</span> hz /utlidar/height_map_array
 
 <span class="c"># -- 네트워크 (CycloneDDS 바인딩용) --</span>
 <span class="f">ip</span> <span class="o">-br</span> addr                        <span class="c"># NIC 이름·주소</span></pre></div>
@@ -829,5 +829,5 @@ document.addEventListener('click', function(e){
 @media print{}
 </style>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 16:44</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 17:30</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

@@ -805,7 +805,7 @@ bash: /workspace/isaaclab/_isaac_sim/python.sh: No such file or directory</pre><
 <p>Pod 안에서 가장 자주 사고가 나는 지점이다. <b>v1.0 과 표가 뒤바뀌었으니 주의한다.</b></p>
 <div class="tw"><table><thead><tr><th>경로</th><th>정체</th><th>Stop</th><th>Terminate</th></tr></thead><tbody><tr><td><b><code>/data</code></b></td><td>네트워크 볼륨 30 GB</td><td>남음</td><td>남음</td></tr><tr><td><code>/workspace</code> <code>/</code> <code>/root</code> <code>/tmp</code></td><td>컨테이너 디스크 50 GB</td><td>사라짐</td><td>사라짐</td></tr></tbody></table></div>
 <p><b>남겨야 하는 모든 것은 <code>/data</code> 아래에 둔다.</b> 이 한 줄이 규칙 전부다. <code>/workspace</code> 는 Isaac Lab 이 사는 실행 공간이지 저장 공간이 아니다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">df</span> <span class="o">-h</span> | <span class="f">grep</span> mfs</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">df</span> <span class="o">-h</span> <span class="o">|</span> <span class="f">grep</span> mfs</pre></div>
 <p><code>mfs#euro-3.runpod.net:9421</code> 이 <b><code>/data</code> 에</b> 붙어 있으면 정상이다. <code>/workspace</code> 에 붙어 있으면 잘못 배포한 것이다.</p>
 </section>
 <section id="s5"><h2>4. 접속: 웹 터미널</h2>
@@ -815,7 +815,7 @@ bash: /workspace/isaaclab/_isaac_sim/python.sh: No such file or directory</pre><
 <p>출처: https://docs.runpod.io/pods/connect-to-a-pod</p>
 <blockquote><p><b>단, 웹 터미널은 오래 도는 작업에 권장되지 않는다</b> (공식 문서 표기). 브라우저 탭이 닫히거나 세션이 끊기면 그 터미널에서 돌던 것이 함께 죽는다. <b>학습처럼 오래 도는 것은 반드시 <code>tmux</code> 안에서 돌린다</b> (8-1 절). tmux 안에 있으면 세션이 끊겨도 Pod 안에서 계속 돈다.</p></blockquote>
 <h3>접속 직후 확인 4줄</h3>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">df</span> <span class="o">-h</span> | <span class="f">grep</span> mfs
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">df</span> <span class="o">-h</span> <span class="o">|</span> <span class="f">grep</span> mfs
 <span class="f">ls</span> /workspace/isaaclab
 <span class="f">ls</span> /data
 <span class="f">nvidia-smi</span></pre></div>
@@ -830,7 +830,7 @@ bash: /workspace/isaaclab/_isaac_sim/python.sh: No such file or directory</pre><
 <p><code>&lt;사용자ID&gt;</code> 는 각자의 짧은 식별자로 바꿔 쓴다.</p>
 <div class="tw"><table><thead><tr><th>경로</th><th>무엇을 두나</th></tr></thead><tbody><tr><td><code>/data/shared/checkpoints/</code></td><td>학습된 정책 <code>.pt</code>. 예: <code>go2-rough/20260901-&lt;사용자ID&gt;-1500iter.pt</code></td></tr><tr><td><code>/data/shared/assets/</code></td><td>USD · 지형 등 무거운 공유 자산</td></tr><tr><td><code>/data/shared/setup.sh</code></td><td>Pod 켤 때마다 실행하는 스크립트</td></tr><tr><td><code>/data/&lt;사용자ID&gt;/repos/</code></td><td>개인 작업 저장소</td></tr><tr><td><code>/data/&lt;사용자ID&gt;/logs/</code></td><td>개인 학습 로그</td></tr><tr><td><code>/data/&lt;사용자ID&gt;/videos/</code></td><td>개인 영상</td></tr></tbody></table></div>
 <p><code>/data/shared/</code> 는 팀 공유다. 읽기는 자유롭게 하되 쓰기는 조심한다. <code>/data/&lt;사용자ID&gt;/</code> 는 개인 작업 공간이다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">mkdir</span> <span class="o">-p</span> /data/shared/{checkpoints,assets} /data/&lt;사용자ID&gt;/{repos,logs,videos}</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">mkdir</span> <span class="o">-p</span> /data/shared/{checkpoints,assets} /data/&lt;사용자ID<span class="o">&gt;</span>/{repos,logs,videos}</pre></div>
 <p><b>개인 폴더와 공유 폴더를 나눈다.</b> 여러 명이 같은 볼륨을 쓰는데 루트에 다 쏟으면 누가 무엇을 지웠는지 추적할 수 없다.</p>
 <p><b><code>/data/shared/</code> 에 넣는 파일은 이름에 날짜와 작성자를 박는다.</b> 동시 쓰기 동작이 <code>미검증</code> 이므로 덮어쓰기 사고를 이름으로 막는다.</p>
 <h3>5-3. 넣는 것</h3>
@@ -847,9 +847,9 @@ bash: /workspace/isaaclab/_isaac_sim/python.sh: No such file or directory</pre><
 <p>09-01 에 실제로 통과한 순서다 <span class="ev ev-ok">확인됨</span>. 경로 <code>/workspace/isaaclab</code> 은 팀 템플릿 기준이므로, 다른 이미지를 쓰면 2-3 절 표로 먼저 확인한다.</p>
 <h3>6-1. 로그를 볼륨으로 돌려둔다</h3>
 <p><code>/workspace</code> 는 Stop 하면 사라지므로 학습 로그가 날아간다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">mkdir</span> <span class="o">-p</span> /data/&lt;사용자ID&gt;/logs
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">mkdir</span> <span class="o">-p</span> /data/&lt;사용자ID<span class="o">&gt;</span>/logs
 <span class="f">cd</span> /workspace/isaaclab
-[ <span class="o">-e</span> logs ] || <span class="f">ln</span> <span class="o">-s</span> /data/&lt;사용자ID&gt;/logs logs</pre></div>
+[ <span class="o">-e</span> logs ] <span class="o">||</span> <span class="f">ln</span> <span class="o">-s</span> /data/&lt;사용자ID<span class="o">&gt;</span>/logs logs</pre></div>
 <h3>6-2. 사전학습 정책으로 파이프라인 확인</h3>
 <p>학습 없이 NVIDIA 가 미리 학습해 둔 정책을 받아 돌린다. 환경이 살아 있는지만 본다.</p>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> /workspace/isaaclab
@@ -870,16 +870,16 @@ Actor MLP: ... (0): Linear(in_features=235, out_features=512 ...</pre></div>
 <div class="tw"><table><thead><tr><th>경고</th><th>판단</th></tr></thead><tbody><tr><td><code>GLFW initialization failed</code> · <code>Failed to create NGX context</code></td><td><b>이번 headless 영상 실측에서는 결과에 영향 없었다</b> <span class="ev ev-ok">확인됨</span>. 화면과 DLSS 를 안 쓰는 실행이라 영상 4초가 정상 생성됐다</td></tr><tr><td><code>CPU performance profile is set to powersave</code> · <code>PCIe link width 8 vs 16</code></td><td><b>성능 저하 신호다.</b> 무시가 아니라, <b>출력과 소요 시간이 허용 범위일 때만</b> 넘어간다. 학습 시간이 예상보다 길면 여기를 먼저 의심한다</td></tr></tbody></table></div>
 <h3>6-4. 영상 위치</h3>
 <p>사전학습 체크포인트를 쓰면 영상이 <code>logs/</code> 가 아니라 <b>체크포인트 옆</b>에 떨어진다. 그 폴더가 <code>.</code> 으로 시작해서 <code>ls</code> 에 보이지 않는다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">find</span> /workspace/isaaclab <span class="o">-name</span> <span class="s">&#x27;*.mp4&#x27;</span> <span class="n">2</span>&gt;/dev/null
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">find</span> /workspace/isaaclab <span class="o">-name</span> <span class="s">&#x27;*.mp4&#x27;</span> <span class="n">2</span><span class="o">&gt;</span>/dev/null
 <span class="c"># /workspace/isaaclab/.pretrained_checkpoints/rsl_rl/Isaac-Velocity-Rough-Unitree-Go2-v0/videos/play/rl-video-step-0.mp4</span></pre></div>
 <p>컨테이너 디스크이므로 <b>반드시 볼륨으로 옮긴다.</b></p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cp</span> &lt;위 경로&gt; /data/&lt;사용자ID&gt;/videos/</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cp</span> &lt;위 경로<span class="o">&gt;</span> /data/&lt;사용자ID<span class="o">&gt;</span>/videos/</pre></div>
 </section>
 <section id="s8"><h2>7. 파일을 노트북으로 가져오기</h2>
 <p><b>웹 터미널과 Basic SSH 로는 파일을 직접 복사할 수 없다.</b> RunPod 공식 문서의 연결 방식 표에서 Basic SSH 의 SCP/SFTP 지원이 <code>No</code> 다. 출처: https://docs.runpod.io/pods/configuration/use-ssh</p>
 <p><code>runpodctl</code> 을 쓴다. Pod 에 기본 설치되어 있다 <span class="ev ev-ok">확인됨</span>.</p>
 <p>Pod 에서:</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">runpodctl</span> send /data/&lt;사용자ID&gt;/videos/rl-video-step-<span class="n">0</span>.mp4</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">runpodctl</span> send /data/&lt;사용자ID<span class="o">&gt;</span>/videos/rl-video-step-<span class="n">0</span>.mp4</pre></div>
 <p>일회용 코드가 나온다. <b>받는 쪽이 실행할 때까지 대기 상태로 멈춰 있다.</b> 다운로드가 안 되는 것이 아니다.</p>
 <p>노트북에서 (최초 1회 설치):</p>
 <div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">Invoke-WebRequest</span> <span class="o">-Uri</span> <span class="s">&quot;https://github.com/runpod/runpodctl/releases/latest/download/runpodctl-windows-amd64.exe&quot;</span> <span class="o">-OutFile</span> <span class="s">&quot;runpodctl.exe&quot;</span></pre></div>
@@ -896,7 +896,7 @@ Actor MLP: ... (0): Linear(in_features=235, out_features=512 ...</pre></div>
 <span class="f">tmux</span> attach <span class="o">-t</span> work     <span class="c"># 다시 들어가기</span></pre></div>
 <p>없으면 <code>apt update &amp;&amp; apt install -y tmux</code>.</p>
 <h3>8-2. 편집은 nano</h3>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">nano</span> /data/&lt;사용자ID&gt;/repos/&lt;저장소&gt;/파일명.py</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">nano</span> /data/&lt;사용자ID<span class="o">&gt;</span>/repos/&lt;저장소<span class="o">&gt;</span>/파일명.py</pre></div>
 <p><code>Ctrl+O</code> 후 Enter 로 저장, <code>Ctrl+X</code> 로 나가기.</p>
 <h3>8-3. 코드는 git 으로 왕복시킨다</h3>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>노트북에서 작성 -&gt; git push -&gt; GitHub -&gt; Pod 에서 git pull -&gt; 실행
@@ -905,7 +905,7 @@ Pod 에서 결과 커밋 -&gt; git push -&gt; GitHub -&gt; 노트북에서 git p
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">git</span> config <span class="o">--global</span> user.name <span class="s">&quot;&lt;GitHub 사용자명&gt;&quot;</span>
 <span class="f">git</span> config <span class="o">--global</span> user.email <span class="s">&quot;&lt;이메일&gt;&quot;</span>
 <span class="f">git</span> config <span class="o">--global</span> credential.helper cache
-<span class="f">mkdir</span> <span class="o">-p</span> /data/&lt;사용자ID&gt;/repos &amp;&amp; <span class="f">cd</span> /data/&lt;사용자ID&gt;/repos</pre></div>
+<span class="f">mkdir</span> <span class="o">-p</span> /data/&lt;사용자ID<span class="o">&gt;</span>/repos <span class="o">&amp;&amp;</span> <span class="f">cd</span> /data/&lt;사용자ID<span class="o">&gt;</span>/repos</pre></div>
 <p>클론 대상은 두 가지다.</p>
 <div class="tw"><table><thead><tr><th>무엇</th><th>주소</th></tr></thead><tbody><tr><td>팀 정본</td><td><code>https://github.com/foothold-project/foothold-go2.git</code></td></tr><tr><td>개인 fork · 개인 실험 저장소</td><td><code>https://github.com/&lt;GitHub 사용자명&gt;/&lt;저장소&gt;.git</code></td></tr></tbody></table></div>
 <p><b>개인 저장소에서 시작했더라도 커밋 기록은 정본으로 그대로 옮길 수 있다.</b> 정본을 remote 로 추가해 브랜치를 밀면 된다.</p>
@@ -913,9 +913,9 @@ Pod 에서 결과 커밋 -&gt; git push -&gt; GitHub -&gt; 노트북에서 git p
 <blockquote><p><b>토큰을 문서 · 저장소 · 볼륨에 적지 않는다.</b> 클론 URL 에 토큰을 끼워 넣으면 <code>.git/config</code> 에 평문으로 남으므로 하지 않는다.</p></blockquote>
 <h3>8-4. 처음 돌리는 명령은 로그를 남기고, 자르지 않는다</h3>
 <p>08-31 에 <code>2&gt;&amp;1 | grep Go2</code> 로 묶어 실행했다가 에러까지 함께 삼켜 원인 파악이 늦어졌다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>./isaaclab.sh <span class="o">-p</span> &lt;스크립트&gt; <span class="n">2</span>&gt;&amp;<span class="n">1</span> | <span class="f">tee</span> /data/&lt;사용자ID&gt;/logs/&lt;이름&gt;.log</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>./isaaclab.sh <span class="o">-p</span> &lt;스크립트<span class="o">&gt;</span> <span class="n">2</span><span class="o">&gt;</span>&amp;<span class="n">1</span> <span class="o">|</span> <span class="f">tee</span> /data/&lt;사용자ID<span class="o">&gt;</span>/logs/&lt;이름<span class="o">&gt;</span>.log</pre></div>
 <p><b><code>| tail -40</code> 을 뒤에 붙이지 않는다.</b> <code>tail</code> 은 입력이 끝나야 출력하므로, 붙이면 프로세스가 도는 동안 화면이 비어 있어 진행 중인지 죽은 것인지 구분할 수 없다. <code>tee</code> 까지만 걸어 진행 상황을 그대로 보고, <b>끝난 뒤에 따로</b> 본다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">tail</span> <span class="o">-n</span> <span class="n">40</span> /data/&lt;사용자ID&gt;/logs/&lt;이름&gt;.log</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">tail</span> <span class="o">-n</span> <span class="n">40</span> /data/&lt;사용자ID<span class="o">&gt;</span>/logs/&lt;이름<span class="o">&gt;</span>.log</pre></div>
 <h3>8-5. 끝나면 Stop</h3>
 <p>작업 종료 습관: 결과물을 <code>/data</code> 로 복사 → tmux detach → 콘솔에서 Pod <b>Stop</b>. Stop 을 잊으면 시간당 $0.74 가 계속 나간다.</p>
 </section>
@@ -952,5 +952,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 16:44</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 17:30</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
