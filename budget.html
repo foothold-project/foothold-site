@@ -436,19 +436,31 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
-<!--newbadge:v5--><style>
-a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
-a.is-new .ex3::after,a.is-new .pk3::after,
-a.band.is-new .bt::after,a.band.is-new strong::after,
-a.is-new .k::after,a.is-new .rt::after{content:'NEW';display:inline-block;
-  margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
-  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
+<!--newbadge:v6--><style>
+span.fh-new{display:inline-block;margin-left:.45rem;vertical-align:.14em;
+  background:var(--note);color:#fff;font-size:.55rem;font-weight:800;
+  letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px;white-space:nowrap}
 </style>
 <script>
 (function(){
   var W=7*86400000,KEY='fh_seen';
+  var TITLE='.t,.rt,.bt,.tlt3,.ex3,.pk3,.k,.hb3,b,strong,h2,h3';
   function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
     .replace(/\.html$/,'');return s||'index'}
+  function host(a){
+    var h=a.querySelector(TITLE);
+    if(h)return h;
+    for(var i=0;i<a.children.length;i++)
+      if(a.children[i].textContent.trim())return a.children[i];
+    return a;
+  }
+  function mark(a,on){
+    var b=a.querySelector('.fh-new');
+    if(!on){if(b)b.parentNode.removeChild(b);return}
+    if(b)return;
+    b=document.createElement('span');b.className='fh-new';b.textContent='NEW';
+    host(a).appendChild(b);
+  }
   function apply(){
     var seen={},raw={};
     try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
@@ -458,8 +470,9 @@ a.is-new .k::after,a.is-new .rt::after{content:'NEW';display:inline-block;
     document.querySelectorAll('a[data-added]').forEach(function(a){
       var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
       var tgt=norm(a.getAttribute('href'));
-      a.classList.toggle('is-new',
-        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
+      var on=!isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt];
+      a.classList.toggle('is-new',on);
+      mark(a,on);
     });
   }
   document.addEventListener('DOMContentLoaded',apply);
@@ -656,5 +669,5 @@ document.getElementById('pw').addEventListener('keydown', e=>{
   if(e.key==='Enter') document.getElementById('go').click();
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 15:08</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 15:44</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

@@ -646,19 +646,31 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
-<!--newbadge:v5--><style>
-a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
-a.is-new .ex3::after,a.is-new .pk3::after,
-a.band.is-new .bt::after,a.band.is-new strong::after,
-a.is-new .k::after,a.is-new .rt::after{content:'NEW';display:inline-block;
-  margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
-  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
+<!--newbadge:v6--><style>
+span.fh-new{display:inline-block;margin-left:.45rem;vertical-align:.14em;
+  background:var(--note);color:#fff;font-size:.55rem;font-weight:800;
+  letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px;white-space:nowrap}
 </style>
 <script>
 (function(){
   var W=7*86400000,KEY='fh_seen';
+  var TITLE='.t,.rt,.bt,.tlt3,.ex3,.pk3,.k,.hb3,b,strong,h2,h3';
   function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
     .replace(/\.html$/,'');return s||'index'}
+  function host(a){
+    var h=a.querySelector(TITLE);
+    if(h)return h;
+    for(var i=0;i<a.children.length;i++)
+      if(a.children[i].textContent.trim())return a.children[i];
+    return a;
+  }
+  function mark(a,on){
+    var b=a.querySelector('.fh-new');
+    if(!on){if(b)b.parentNode.removeChild(b);return}
+    if(b)return;
+    b=document.createElement('span');b.className='fh-new';b.textContent='NEW';
+    host(a).appendChild(b);
+  }
   function apply(){
     var seen={},raw={};
     try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
@@ -668,8 +680,9 @@ a.is-new .k::after,a.is-new .rt::after{content:'NEW';display:inline-block;
     document.querySelectorAll('a[data-added]').forEach(function(a){
       var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
       var tgt=norm(a.getAttribute('href'));
-      a.classList.toggle('is-new',
-        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
+      var on=!isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt];
+      a.classList.toggle('is-new',on);
+      mark(a,on);
     });
   }
   document.addEventListener('DOMContentLoaded',apply);
@@ -878,9 +891,9 @@ docs/문서명-이름        문서만</pre></div>
 </section>
 <section id="s11"><h2>10. 웹 배포 관문</h2>
 <p><b>PR 은 막지 않습니다. 알려만 줍니다.</b> 막는 것은 <b>웹을 배포할 때</b>입니다.</p>
-<div class="tw"><table><thead><tr><th>단계</th><th>관문</th><th>무엇을 막나</th><th>스크립트</th></tr></thead><tbody><tr><td><code>[3.4]</code></td><td>메타데이터</td><td>머리 여섯 줄이 없거나 형식이 틀린 문서</td><td><code>metacheck.py</code></td></tr><tr><td><code>[3.5]</code></td><td>문체</td><td>em dash. <b>웹만이 아니라 GitHub 이슈 제목·본문·코멘트까지</b></td><td><code>dashcheck.py</code></td></tr><tr><td><code>[1.82]</code></td><td>선 도식</td><td>선으로 그린 글자 그림</td><td><code>asciicheck.py</code></td></tr><tr><td><code>[3.55]</code></td><td>하위 경로</td><td>하위 폴더 페이지의 깨진 상대경로 (자동 보정)</td><td><code>subpaths.py</code></td></tr><tr><td><code>[3.56]</code></td><td><b>표 정렬</b></td><td>스크롤 래퍼 밖 표 · 표를 블록으로 만드는 CSS · 원본 md 의 열 수 어긋남</td><td><code>tablefix.py</code></td></tr><tr><td><code>[3.6]</code></td><td>링크</td><td>깨진 내부 링크</td><td><code>linkcheck.py</code></td></tr><tr><td><code>[3.62]</code></td><td><b>절 참조</b></td><td>없는 절을 가리키는 §번호 · 절은 있으나 뜻이 바뀐 딱지</td><td><code>xrefcheck.py</code></td></tr><tr><td><code>[3.65]</code></td><td>마크다운 원문</td><td>마크다운 링크 문법이 링크로 안 바뀌고 글자 그대로 화면에 나가는 것</td><td><code>mdlinks.py</code></td></tr><tr><td><code>[3.7]</code></td><td><b>폐기된 사실</b></td><td>옛 저장소 이름 · 옛 갈래 · 옛 마일스톤이 웹으로 나가는 것</td><td><code>stalecheck.py</code></td></tr><tr><td><code>[3.8]</code></td><td><b>원장 최신성</b></td><td>원장이 사흘 넘게 낡음 · 열린 이슈가 전수 절에 빠짐 · 닫힌 이슈가 남음</td><td><code>ledgercheck.py</code></td></tr><tr><td><code>[3.9]</code></td><td><b>역할 배치</b></td><td>정본 <code>ROLES.md</code> · <code>COLLAB</code> 표 · GitHub 라벨 · 게시물 네 곳의 어긋남</td><td><code>roles.py</code></td></tr><tr><td><code>[4]</code></td><td>민감정보</td><td>비밀번호 · 토큰 · 개인 연락처 · 예산 금액</td><td><code>scan.py</code></td></tr><tr><td><code>--verify</code></td><td>사실 주장</td><td>외부 원본이 아직 그 말을 하는지 실제로 조회</td><td><code>selfclaim.py</code></td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>단계</th><th>관문</th><th>무엇을 막나</th><th>스크립트</th></tr></thead><tbody><tr><td><code>[3.4]</code></td><td>메타데이터</td><td>머리 여섯 줄이 없거나 형식이 틀린 문서</td><td><code>metacheck.py</code></td></tr><tr><td><code>[3.5]</code></td><td>문체</td><td>em dash. <b>웹만이 아니라 GitHub 이슈 제목·본문·코멘트까지</b></td><td><code>dashcheck.py</code></td></tr><tr><td><code>[1.82]</code></td><td>선 도식</td><td>선으로 그린 글자 그림</td><td><code>asciicheck.py</code></td></tr><tr><td><code>[3.55]</code></td><td>하위 경로</td><td>하위 폴더 페이지의 깨진 상대경로 (자동 보정)</td><td><code>subpaths.py</code></td></tr><tr><td><code>[3.56]</code></td><td><b>표 정렬</b></td><td>스크롤 래퍼 밖 표 · 표를 블록으로 만드는 CSS · 원본 md 의 열 수 어긋남</td><td><code>tablefix.py</code></td></tr><tr><td><code>[3.6]</code></td><td>링크</td><td>깨진 내부 링크</td><td><code>linkcheck.py</code></td></tr><tr><td><code>[3.62]</code></td><td><b>절 참조</b></td><td>없는 절을 가리키는 §번호 · 절은 있으나 뜻이 바뀐 딱지</td><td><code>xrefcheck.py</code></td></tr><tr><td><code>[3.65]</code></td><td>마크다운 원문</td><td>마크다운 링크 문법이 링크로 안 바뀌고 글자 그대로 화면에 나가는 것</td><td><code>mdlinks.py</code></td></tr><tr><td><code>[3.7]</code></td><td><b>폐기된 사실</b></td><td>옛 저장소 이름 · 옛 갈래 · 옛 마일스톤이 웹으로 나가는 것</td><td><code>stalecheck.py</code></td></tr><tr><td><code>[3.8]</code></td><td><b>진행 현황 최신성</b></td><td>진행 현황이 사흘 넘게 낡음 · 열린 이슈가 전수 절에 빠짐 · 닫힌 이슈가 남음</td><td><code>ledgercheck.py</code></td></tr><tr><td><code>[3.9]</code></td><td><b>역할 배치</b></td><td>정본 <code>ROLES.md</code> · <code>COLLAB</code> 표 · GitHub 라벨 · 게시물 네 곳의 어긋남</td><td><code>roles.py</code></td></tr><tr><td><code>[4]</code></td><td>민감정보</td><td>비밀번호 · 토큰 · 개인 연락처 · 예산 금액</td><td><code>scan.py</code></td></tr><tr><td><code>--verify</code></td><td>사실 주장</td><td>외부 원본이 아직 그 말을 하는지 실제로 조회</td><td><code>selfclaim.py</code></td></tr></tbody></table></div>
 <p><b>굵게 표시한 다섯은 2026-08-27~28 에 생겼습니다.</b> 전부 같은 이유입니다. 규칙을 문서에만 적으면 안 지켜지고, <b>관문을 한 자리에만 달면 나머지 자리에서 조용히 무너집니다.</b> 실제로 하루에 같은 부류를 다섯 번 봤습니다 (커널 철칙 4).</p>
-<ul><li><code>[3.56]</code> 표 정렬: 모바일 CSS 가 표를 내용 너비로 줄여 좁은 표만 왼쪽으로 쏠렸습니다</li><li><code>[3.62]</code> 절 참조: <code>FLOW</code> 를 다시 쓰자 남이 가리키던 절 번호와 뜻이 어긋났습니다</li><li><code>[3.8]</code> 원장 최신성: 누수 방지 장치인 원장 자체가 8일 낡아 있었습니다</li><li><code>[3.9]</code> 역할 배치: 8갈래로 바꿨는데 발표 덱 두 장만 옛 5분야로 남았습니다</li><li><code>[3.5]</code> 문체: 웹만 보던 관문 밖, <b>이슈 코멘트</b>에서 em dash 가 샜습니다</li></ul>
+<ul><li><code>[3.56]</code> 표 정렬: 모바일 CSS 가 표를 내용 너비로 줄여 좁은 표만 왼쪽으로 쏠렸습니다</li><li><code>[3.62]</code> 절 참조: <code>FLOW</code> 를 다시 쓰자 남이 가리키던 절 번호와 뜻이 어긋났습니다</li><li><code>[3.8]</code> 진행 현황 최신성: 누수 방지 장치인 그 문서 자체가 8일 낡아 있었습니다</li><li><code>[3.9]</code> 역할 배치: 8갈래로 바꿨는데 발표 덱 두 장만 옛 5분야로 남았습니다</li><li><code>[3.5]</code> 문체: 웹만 보던 관문 밖, <b>이슈 코멘트</b>에서 em dash 가 샜습니다</li></ul>
 <p><b>「폐기된 사실」 관문이 2026-08-27 에 생겼습니다.</b> 사실은 문서에만 있는 것이 아니라 빌드 스크립트에도 박혀 있고, 거기 박힌 것은 문서를 고쳐도 안 바뀝니다. 실제로 문서를 다 고쳤는데 웹에 옛 저장소 이름이 살아남은 일이 있었습니다.</p>
 </section>
 <section id="s12"><h2>11. 실수로 <code>main</code> 에 push 했다면</h2>
@@ -924,5 +937,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 15:08</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 15:44</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

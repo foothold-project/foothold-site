@@ -646,19 +646,31 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
-<!--newbadge:v5--><style>
-a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
-a.is-new .ex3::after,a.is-new .pk3::after,
-a.band.is-new .bt::after,a.band.is-new strong::after,
-a.is-new .k::after,a.is-new .rt::after{content:'NEW';display:inline-block;
-  margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
-  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
+<!--newbadge:v6--><style>
+span.fh-new{display:inline-block;margin-left:.45rem;vertical-align:.14em;
+  background:var(--note);color:#fff;font-size:.55rem;font-weight:800;
+  letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px;white-space:nowrap}
 </style>
 <script>
 (function(){
   var W=7*86400000,KEY='fh_seen';
+  var TITLE='.t,.rt,.bt,.tlt3,.ex3,.pk3,.k,.hb3,b,strong,h2,h3';
   function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
     .replace(/\.html$/,'');return s||'index'}
+  function host(a){
+    var h=a.querySelector(TITLE);
+    if(h)return h;
+    for(var i=0;i<a.children.length;i++)
+      if(a.children[i].textContent.trim())return a.children[i];
+    return a;
+  }
+  function mark(a,on){
+    var b=a.querySelector('.fh-new');
+    if(!on){if(b)b.parentNode.removeChild(b);return}
+    if(b)return;
+    b=document.createElement('span');b.className='fh-new';b.textContent='NEW';
+    host(a).appendChild(b);
+  }
   function apply(){
     var seen={},raw={};
     try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
@@ -668,8 +680,9 @@ a.is-new .k::after,a.is-new .rt::after{content:'NEW';display:inline-block;
     document.querySelectorAll('a[data-added]').forEach(function(a){
       var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
       var tgt=norm(a.getAttribute('href'));
-      a.classList.toggle('is-new',
-        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
+      var on=!isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt];
+      a.classList.toggle('is-new',on);
+      mark(a,on);
     });
   }
   document.addEventListener('DOMContentLoaded',apply);
@@ -953,10 +966,15 @@ body>*{flex-shrink:0}
 @media (max-width:760px){.pt3{grid-template-columns:1fr}}
 .st3{display:grid;grid-template-columns:2.3rem 1fr;gap:.8rem;align-items:center}
 /* 사람 한 줄. 이름 다섯을 카드로 늘어놓지 않는다 (팀장 9/1) */
-.ppl3{margin-top:1.4rem;padding-top:.7rem;border-top:1px solid var(--rule);font-size:.72rem;font-weight:800;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
-.ppl3 span{margin-left:.7rem;font-size:.86rem;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2)}
-.ppl3 a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
-.ppl3 a:hover{color:var(--dim);border-color:var(--dim)}
+.tms3{display:grid;grid-template-columns:repeat(auto-fit,minmax(11.5rem,1fr));gap:.55rem}
+.tm3{display:flex;flex-direction:column;gap:.2rem;padding:.7rem .8rem;
+  border:1px solid var(--rule);border-radius:8px;background:var(--card);
+  text-decoration:none;color:inherit;min-height:5.4rem}
+.tm3:hover{border-color:var(--dim)}
+.tmk3{font-size:.55rem;font-weight:800;letter-spacing:.12em;color:var(--dim);
+  text-transform:uppercase}
+.tm3 b{font-size:.94rem;font-weight:820}
+.tml3{font-size:.68rem;line-height:1.5;color:var(--ink-3)}
 /* 예정 줄: 같은 자리에 서되 «아직 없다» 가 보이게. 번호는 비고, 글은 옅다 */
 .st3.soon .sn3{opacity:.45}
 .st3.soon .sb3 b{color:var(--ink-2);font-weight:700}
@@ -987,5 +1005,5 @@ body>*{flex-shrink:0}
 }
 </style><div class="wns3"><div class="ws3"><div class="wt3">합류 시</div><div class="wd3">오늘 합류했다. 손을 움직이려면 무엇부터.</div><a class="wr3" data-added="2026-08-05" href="setup.html"><b>개발환경 구축</b><span>팀 공통 세팅</span></a><a class="wr3" data-added="2026-08-05" href="team-access.html"><b>워크스테이션 접속</b><span>원격 접속과 운영</span></a><a class="wr3" data-added="2026-09-01" href="runpod-setup.html"><b>RunPod Isaac Lab 환경</b><span>볼륨 · 템플릿 · 첫 실행. 마운트는 /data</span></a></div><div class="ws3"><div class="wt3">상시 참조</div><div class="wd3">이슈를 열고 PR 을 올릴 때 펴 놓는 것.</div><a class="wr3" data-added="2026-08-27" href="workflow.html"><b>작업 흐름</b><span>이슈부터 머지까지 한 장</span></a><a class="wr3" data-added="2026-08-09" href="collab.html"><b>FOOTHOLD 협업 규칙</b><span>브랜치 · 보드 · 문서 규칙</span></a><a class="wr3" data-added="2026-08-25" href="automation.html"><b>자동화 지도</b><span>무엇이 자동이고 무엇이 사람인가</span></a></div><div class="ws3"><div class="wt3">문서 투고 시</div><div class="wd3">내 글이 어디로 가는가.</div><a class="wr3" data-added="2026-08-29" href="info-model.html"><b>정보 모델</b><span>내 글이 어디로 가나</span></a><a class="wr3" data-added="2026-08-28" href="doc-graph.html"><b>문서 관계표</b><span>무엇이 무엇의 상위인가</span></a><a class="wr3" data-added="2026-08-29" href="research-taxonomy.html"><b>연구 허브 분류 기준</b><span>검토중</span></a></div></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 15:08</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 15:44</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
