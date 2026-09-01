@@ -96,7 +96,7 @@ td.pos{color:var(--brand-ink);font-weight:600}
 td.neg{color:var(--accent);font-weight:600}
 
 /* ---------- 콜아웃 ---------- */
-.call{border:1px solid var(--brand-line);border-left:4px solid var(--brand);
+.call{border:1px solid var(--brand-line);
   background:var(--brand-soft);border-radius:0 var(--radius) var(--radius) 0;
   padding:14px 20px;margin:18px 0}
 .call.trap{border-color:var(--accent-soft);border-left-color:var(--accent);background:var(--accent-soft)}
@@ -208,7 +208,7 @@ h3 .dirtag.nb, h4 .dirtag.nb{color:var(--accent);border-color:var(--accent);back
 @media (max-width:640px){h3 .dirtag,h4 .dirtag{float:none;display:block;margin:6px 0 0;width:fit-content}}
 
 /* ---------- 조건부 예비책 (해당될 때만 펴 보는 블록) ---------- */
-details.ifonly{border:1px solid var(--line);border-left:4px solid var(--sub);border-radius:0 var(--radius) var(--radius) 0;
+details.ifonly{border:1px solid var(--line);border-radius:0 var(--radius) var(--radius) 0;
   background:var(--code);margin:18px 0;padding:0}
 details.ifonly>summary{cursor:pointer;list-style:none;padding:12px 18px;font-size:14px;color:var(--sub);
   display:flex;align-items:baseline;gap:9px}
@@ -263,7 +263,7 @@ details.ifonly>.body>.cmd:first-child{margin-top:16px}
 html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}
 html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}
 :root{--bg:var(--paper);--panel:var(--card);--sub:var(--ink-3);--line:var(--rule);--brand:var(--dim);--brand-ink:var(--dim-ink,#0b3d2e);--brand-soft:var(--dim-soft);--brand-line:var(--dim);--accent:var(--note);--accent-soft:var(--note-soft);--code:var(--paper-2);--shadow:none}body{font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;background:var(--paper);color:var(--ink)}
-main{max-width:1040px;margin:0 auto;padding:1.5rem 1.4rem 4rem}.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}.tw table{min-width:max-content}</style>
+main{max-width:1040px;margin:0 auto;padding:1.5rem 1.4rem 4rem}.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}.tw table{min-width:max-content}.fh-doc{font-size:15px;line-height:1.75;color:var(--ink)}.fh-doc p,.fh-doc li,.fh-doc .lede{font-size:15px;line-height:1.75}.fh-doc h1,.fh-doc .hero h1{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.25}.fh-doc h2{font-size:20.48px;font-weight:800;line-height:1.75;margin:2.2rem 0 .7rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule)}.fh-doc h3{font-size:16px;font-weight:800;line-height:1.75;margin:1.4rem 0 .5rem}.fh-doc h4{font-size:15px;font-weight:700;margin:1.1rem 0 .4rem}.fh-doc h5{font-size:13.5px;font-weight:700;margin:1rem 0 .35rem}.fh-doc .hero,.fh-doc .card,.fh-doc .box,.fh-doc .panel,.fh-doc .call,.fh-doc .stamp{border-radius:8px;border:1px solid var(--rule);background:var(--card)}.fh-doc table{border-collapse:collapse;width:100%}.fh-doc th,.fh-doc td{font-size:13.12px;line-height:1.75;border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left}.fh-doc th{font-weight:700;color:var(--ink-2)}.fh-doc code,.fh-doc kbd{font-family:ui-monospace,Consolas,monospace;font-size:13.5px;background:var(--paper-2);border-radius:3px;padding:0 .25em}.fh-doc pre{font-size:12.16px;line-height:1.7;background:var(--paper-2);border:1px solid var(--rule);border-radius:8px;padding:.9rem 1rem;overflow-x:auto}.fh-doc pre code{font-size:inherit;background:none;padding:0}.fh-doc a{color:var(--dim)}</style>
 <link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2">
 <style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
@@ -274,8 +274,17 @@ html{scrollbar-gutter:stable}
 /* ★ 실측 (팀장 8/31 · 백과): 페이지가 가진 «고정» 요소(사이드바 · 떠 있는 버튼)가
    top:0 이라 sticky 전역바 «뒤» 로 깔려 안 보였다. 바 높이(2.94rem)만큼 내린다.
    바 자신과 그 안의 것은 제외한다. */
-body :not(.gnav):not(.gnav *){--navh:2.94rem}
+/* ★ 9/1 실측: 2.94rem = 47.04px 인데 바의 실제 높이는 48px 이었다.
+   1px 틈이 생겨 아래 요소가 바 밑으로 비쳤다. 실측값을 쓴다. */
+body :not(.gnav):not(.gnav *){--navh:48px}
 nav:not(.gnav),aside{top:var(--navh)!important;height:calc(100vh - var(--navh))!important}
+/* ★ 9/1 실측 (커리큘럼): 「1 / 44 · 표지로 · PDF」 줄이 top:0 sticky 라
+   전역바와 48px «전부» 겹쳐 스크롤 중 아예 안 보였다. nav·aside 만 내리던
+   규칙이 <div> 로 만든 상단 줄을 통째로 비켜간 것이다 (철칙 4: 관문이 한
+   층위만 봤다). 이름이 아니라 «역할» 로 잡는다. */
+body .topbar:not(.gnav),body .subnav,body .deckbar,body .pagebar{
+  top:var(--navh)!important}
+body .topbar .row{max-width:1040px!important;box-sizing:border-box}
 body>button[class]:not(.gnav *),body>a[class]:not(.gnav *){top:calc(var(--navh) + 7px)!important}
 /* PRD §4-1: 바깥 컨테이너 1040 한 벌. 셸(research.html)이 --measure 기반 824 를
    물려주고 표지는 1000 이라 페이지마다 본문 좌표가 달랐다 (실측 179 vs 91). */
@@ -610,6 +619,35 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
+<!--newbadge:v5--><style>
+a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
+a.is-new .ex3::after,a.is-new .pk3::after,
+a.band.is-new .bt::after,a.band.is-new strong::after{content:'NEW';display:inline-block;
+  margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
+  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
+</style>
+<script>
+(function(){
+  var W=7*86400000,KEY='fh_seen';
+  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
+    .replace(/\.html$/,'');return s||'index'}
+  function apply(){
+    var seen={},raw={};
+    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+    for(var k in raw)seen[norm(k)]=raw[k];
+    seen[norm(location.pathname)]=Date.now();
+    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
+    document.querySelectorAll('a[data-added]').forEach(function(a){
+      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
+      var tgt=norm(a.getAttribute('href'));
+      a.classList.toggle('is-new',
+        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
+    });
+  }
+  document.addEventListener('DOMContentLoaded',apply);
+  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
+})();
+</script>
 <style id="stamp-css">
 /* ★ 실측 (팀장 8/31): 푸터 폭이 944 / 995 / 1100 / 1136 로 제각각이었다.
    페이지마다 다른 --w 를 따라갔기 때문. 본문과 같은 1040 한 값으로. */
@@ -625,7 +663,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
-<main>
+<main class="fh-doc">
 <p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (#72 1단계) · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
 
 <div class="hero">
@@ -685,5 +723,5 @@ document.addEventListener('DOMContentLoaded',function(){
 <footer><span>FOOTHOLD 팀 위키</span><span>조사 기준일 2026-08</span></footer>
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 01:07</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:05</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

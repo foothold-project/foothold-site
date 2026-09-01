@@ -220,7 +220,7 @@ section .addr .big{font-size:1.2rem}
 .evlegend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;font-size:.72rem;color:var(--ink-3)}
 .rcards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:18px 0}
 .rcard{display:block;text-decoration:none;color:inherit;background:var(--card);
-  border:1px solid var(--rule);border-top:3px solid var(--dim);border-radius:6px;padding:14px 16px}
+  border:1px solid var(--rule);border-radius:6px;padding:14px 16px;transition:border-color .15s}
 .rcard:hover{border-color:var(--dim)}
 .rcard .rt{font-weight:800;font-size:1rem;margin:.2rem 0 .35rem}
 .rcard .rd{font-size:.8rem;color:var(--ink-2);line-height:1.55}
@@ -237,15 +237,15 @@ section .addr .big{font-size:1.2rem}
    이모지 없이 브랜드 토큰만 쓴다. */
 .dgbar{margin:16px 0 4px}
 .dgbar a{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;text-decoration:none;
-  color:inherit;border:1px solid var(--rule);background:var(--card);border-radius:6px;
-  padding:.6rem .9rem;font-size:.85rem;border-left:4px solid var(--note)}
+  color:inherit;border:1px solid var(--rule);background:var(--note-soft);border-radius:6px;
+  padding:.6rem .9rem;font-size:.85rem;transition:border-color .15s}
 .dgbar a .k{font-size:.62rem;font-weight:800;letter-spacing:.16em;color:var(--note);
   text-transform:uppercase}
 .dgbar a span{color:var(--ink-3);font-size:.72rem}
-.dgbar a:hover{border-color:var(--dim)}
+.dgbar a:hover{border-color:var(--note)}
 
-.stand{border:1px solid var(--rule);border-left:3px solid var(--dim);border-radius:6px;
-  background:var(--card);padding:.7rem .9rem;margin:0 0 1.3rem;font-size:.8rem}
+.stand{border:1px solid var(--rule);border-radius:6px;
+  background:var(--paper-2);padding:.7rem .9rem;margin:0 0 1.3rem;font-size:.8rem}
 .stand .sh{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
   color:var(--dim);margin-bottom:.4rem}
 .stand .sr{display:flex;gap:.5rem;align-items:baseline;margin:.22rem 0;flex-wrap:wrap}
@@ -290,8 +290,17 @@ html{scrollbar-gutter:stable}
 /* ★ 실측 (팀장 8/31 · 백과): 페이지가 가진 «고정» 요소(사이드바 · 떠 있는 버튼)가
    top:0 이라 sticky 전역바 «뒤» 로 깔려 안 보였다. 바 높이(2.94rem)만큼 내린다.
    바 자신과 그 안의 것은 제외한다. */
-body :not(.gnav):not(.gnav *){--navh:2.94rem}
+/* ★ 9/1 실측: 2.94rem = 47.04px 인데 바의 실제 높이는 48px 이었다.
+   1px 틈이 생겨 아래 요소가 바 밑으로 비쳤다. 실측값을 쓴다. */
+body :not(.gnav):not(.gnav *){--navh:48px}
 nav:not(.gnav),aside{top:var(--navh)!important;height:calc(100vh - var(--navh))!important}
+/* ★ 9/1 실측 (커리큘럼): 「1 / 44 · 표지로 · PDF」 줄이 top:0 sticky 라
+   전역바와 48px «전부» 겹쳐 스크롤 중 아예 안 보였다. nav·aside 만 내리던
+   규칙이 <div> 로 만든 상단 줄을 통째로 비켜간 것이다 (철칙 4: 관문이 한
+   층위만 봤다). 이름이 아니라 «역할» 로 잡는다. */
+body .topbar:not(.gnav),body .subnav,body .deckbar,body .pagebar{
+  top:var(--navh)!important}
+body .topbar .row{max-width:1040px!important;box-sizing:border-box}
 body>button[class]:not(.gnav *),body>a[class]:not(.gnav *){top:calc(var(--navh) + 7px)!important}
 /* PRD §4-1: 바깥 컨테이너 1040 한 벌. 셸(research.html)이 --measure 기반 824 를
    물려주고 표지는 1000 이라 페이지마다 본문 좌표가 달랐다 (실측 179 vs 91). */
@@ -626,6 +635,35 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
+<!--newbadge:v5--><style>
+a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
+a.is-new .ex3::after,a.is-new .pk3::after,
+a.band.is-new .bt::after,a.band.is-new strong::after{content:'NEW';display:inline-block;
+  margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
+  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
+</style>
+<script>
+(function(){
+  var W=7*86400000,KEY='fh_seen';
+  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
+    .replace(/\.html$/,'');return s||'index'}
+  function apply(){
+    var seen={},raw={};
+    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+    for(var k in raw)seen[norm(k)]=raw[k];
+    seen[norm(location.pathname)]=Date.now();
+    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
+    document.querySelectorAll('a[data-added]').forEach(function(a){
+      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
+      var tgt=norm(a.getAttribute('href'));
+      a.classList.toggle('is-new',
+        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
+    });
+  }
+  document.addEventListener('DOMContentLoaded',apply);
+  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
+})();
+</script>
 <style id="stamp-css">
 /* ★ 실측 (팀장 8/31): 푸터 폭이 944 / 995 / 1100 / 1136 로 제각각이었다.
    페이지마다 다른 --w 를 따라갔기 때문. 본문과 같은 1040 한 값으로. */
@@ -690,5 +728,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 01:07</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:05</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

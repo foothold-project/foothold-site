@@ -89,7 +89,7 @@ ul.body li,ol.body li{margin:5px 0}
 
 /* 개념 카드 */
 .concept{
-  background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--dim);
+  background:var(--dim-soft);border:1px solid var(--rule);
   padding:16px 20px;margin:16px 0;
 }
 .concept .term{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
@@ -145,7 +145,7 @@ figure.duo > div{min-width:0}
 figure.duo figcaption{grid-column:1/-1}
 @media(max-width:700px){figure.duo{grid-template-columns:1fr}}
 .paths{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:20px 0 8px}
-.path{background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--dim);padding:13px 16px}
+.path{background:var(--dim-soft);border:1px solid var(--rule);padding:13px 16px}
 .path.mentor{border-top-color:var(--note)}
 .path .who{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
 .path.mentor .who{color:var(--note)}
@@ -346,33 +346,6 @@ code{background:var(--paper-2);padding:1px 5px;font-family:'Consolas',monospace;
 
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
-<!--newbadge:v5--><style>
-a.is-new .t::after,a.is-new .rt::after{content:'NEW';display:inline-block;
-  margin-left:.45rem;vertical-align:.14em;background:var(--note,#a86a08);color:#fff;
-  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
-</style>
-<script>
-(function(){
-  var W=7*86400000,KEY='fh_seen';
-  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
-    .replace(/\.html$/,'');return s||'index'}
-  function apply(){
-    var seen={},raw={};
-    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-    for(var k in raw)seen[norm(k)]=raw[k];
-    seen[norm(location.pathname)]=Date.now();
-    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
-    document.querySelectorAll('a[data-added]').forEach(function(a){
-      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
-      var tgt=norm(a.getAttribute('href'));
-      a.classList.toggle('is-new',
-        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
-    });
-  }
-  document.addEventListener('DOMContentLoaded',apply);
-  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
-})();
-</script>
 <style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
@@ -382,8 +355,17 @@ html{scrollbar-gutter:stable}
 /* ★ 실측 (팀장 8/31 · 백과): 페이지가 가진 «고정» 요소(사이드바 · 떠 있는 버튼)가
    top:0 이라 sticky 전역바 «뒤» 로 깔려 안 보였다. 바 높이(2.94rem)만큼 내린다.
    바 자신과 그 안의 것은 제외한다. */
-body :not(.gnav):not(.gnav *){--navh:2.94rem}
+/* ★ 9/1 실측: 2.94rem = 47.04px 인데 바의 실제 높이는 48px 이었다.
+   1px 틈이 생겨 아래 요소가 바 밑으로 비쳤다. 실측값을 쓴다. */
+body :not(.gnav):not(.gnav *){--navh:48px}
 nav:not(.gnav),aside{top:var(--navh)!important;height:calc(100vh - var(--navh))!important}
+/* ★ 9/1 실측 (커리큘럼): 「1 / 44 · 표지로 · PDF」 줄이 top:0 sticky 라
+   전역바와 48px «전부» 겹쳐 스크롤 중 아예 안 보였다. nav·aside 만 내리던
+   규칙이 <div> 로 만든 상단 줄을 통째로 비켜간 것이다 (철칙 4: 관문이 한
+   층위만 봤다). 이름이 아니라 «역할» 로 잡는다. */
+body .topbar:not(.gnav),body .subnav,body .deckbar,body .pagebar{
+  top:var(--navh)!important}
+body .topbar .row{max-width:1040px!important;box-sizing:border-box}
 body>button[class]:not(.gnav *),body>a[class]:not(.gnav *){top:calc(var(--navh) + 7px)!important}
 /* PRD §4-1: 바깥 컨테이너 1040 한 벌. 셸(research.html)이 --measure 기반 824 를
    물려주고 표지는 1000 이라 페이지마다 본문 좌표가 달랐다 (실측 179 vs 91). */
@@ -590,7 +572,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<!--search:v8--><style>
+<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -718,6 +700,35 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
+<!--newbadge:v5--><style>
+a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
+a.is-new .ex3::after,a.is-new .pk3::after,
+a.band.is-new .bt::after,a.band.is-new strong::after{content:'NEW';display:inline-block;
+  margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
+  font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
+</style>
+<script>
+(function(){
+  var W=7*86400000,KEY='fh_seen';
+  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
+    .replace(/\.html$/,'');return s||'index'}
+  function apply(){
+    var seen={},raw={};
+    try{raw=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+    for(var k in raw)seen[norm(k)]=raw[k];
+    seen[norm(location.pathname)]=Date.now();
+    try{localStorage.setItem(KEY,JSON.stringify(seen))}catch(e){}
+    document.querySelectorAll('a[data-added]').forEach(function(a){
+      var t=Date.parse(a.getAttribute('data-added')+'T00:00:00');
+      var tgt=norm(a.getAttribute('href'));
+      a.classList.toggle('is-new',
+        !isNaN(t)&&Date.now()-t>=0&&Date.now()-t<=W&&!seen[tgt]);
+    });
+  }
+  document.addEventListener('DOMContentLoaded',apply);
+  window.addEventListener('pageshow',function(e){if(e.persisted)apply()});
+})();
+</script>
 <style id="stamp-css">
 /* ★ 실측 (팀장 8/31): 푸터 폭이 944 / 995 / 1100 / 1136 로 제각각이었다.
    페이지마다 다른 --w 를 따라갔기 때문. 본문과 같은 1040 한 값으로. */
@@ -732,7 +743,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q on" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="다크/라이트 전환" title="다크/라이트 전환">다크</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q on" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 
 <button class="pdfbtn" id="pdfBtn" type="button"
         title="브라우저 인쇄 창이 열립니다. 대상에서 &quot;PDF로 저장&quot;을 선택하세요."
@@ -935,8 +946,7 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
   </div>
 
-
-  <figure class="duo">
+<figure class="duo">
     <div>
       <img loading="lazy" alt="Muybridge가 1878년 연속촬영으로 기록한 말의 걷기 · 네 다리의 착지 순서가 보인다"
         src="assets/muybridge-walk.gif?v=f8693167">
@@ -1243,8 +1253,7 @@ document.addEventListener('DOMContentLoaded',function(){
     <p>강화학습 · 시뮬레이션 · 도메인 랜덤화 · 지형 커리큘럼 · 관측 설계, 전부 위 세 문장의 <b>"그래서"</b>다. 도구를 먼저 고르고 이유를 붙인 게 아니다.</p>
   </div>
 
-
-  <h3 id="sim-limit">★ 그런데 시뮬레이터가 모래를 못 만든다</h3>
+<h3 id="sim-limit">★ 그런데 시뮬레이터가 모래를 못 만든다</h3>
   <p>우리 주제 원문이 <b>"모래·자갈·계단 험지 적응"</b>인데, 여기서 프로젝트 전제를 바꾸는 사실이 나온다.</p>
 
   <div class="stop">
@@ -1338,7 +1347,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
   <div class="因">그래서, 우리는 "보고 판단하는" 문제가 아니라 "밟아보고 적응하는" 문제를 푼다. 다음 층위로.</div>
 </section>
-
 
 <!-- ══════════════ LAYER 2 · 학습이란 무엇인가 ══════════════ -->
 <section class="layer" id="L2">
@@ -1557,8 +1565,7 @@ document.addEventListener('DOMContentLoaded',function(){
     </dl>
   </div>
 
-
-  <figure>
+<figure>
     <img loading="lazy" alt="로봇 주변 지형을 격자로 나눠 각 칸의 높이를 저장한 elevation map 시각화"
       src="assets/elevation-map.jpg?v=25a66344">
     <figcaption><b>높이맵(elevation map)이 실제로 어떻게 생겼는가.</b>
@@ -1863,8 +1870,7 @@ document.addEventListener('DOMContentLoaded',function(){
       관절별로 다르게 설정하는 것이 <b>sim-to-real 첫 실질 작업 후보</b>다.</p>
   </div>
 
-
-  <figure>
+<figure>
     <svg viewBox="0 0 620 250" aria-label="Go2 다리 관절 구조 · hip, thigh, calf">
       <!-- 정면(앞에서 본) -->
       <text x="120" y="22" font-size="10.5" font-weight="800" fill="var(--ink)" text-anchor="middle">앞에서 본 모습</text>
@@ -2057,8 +2063,7 @@ document.addEventListener('DOMContentLoaded',function(){
       위 "1.1 → 0.9"가 그 표의 템플릿이다.</p>
   </div>
 
-
-  <h3 id="gs">실공간을 시뮬레이터로, 3D Gaussian Splatting</h3>
+<h3 id="gs">실공간을 시뮬레이터로, 3D Gaussian Splatting</h3>
   <p>여기까지는 <b>사람이 만든 지형</b>에서 학습하는 이야기였다.
     그런데 실증 프로젝트라면 결국 <b>실제 현장</b>에서 통해야 한다.
     실제 공간을 시뮬레이터 안으로 가져오는 것. 그게 우리 확장 축이다.</p>
@@ -2428,8 +2433,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <p class="lsub">여기까지가 조사다. 이제 <b>우리가 내린 결정과 그 근거</b>를 한 장에 모은다.
     <b>모든 결정에는 위 층위 중 어느 절에서 나왔는지가 붙어 있다.</b> 근거 없는 선택은 없다.</p>
 
-
-  <figure>
+<figure>
     <svg viewBox="0 0 620 468" aria-label="프로젝트 전체 흐름 · 입력에서 산출물까지, 단계별 통과 조건 포함">
       <defs>
         <marker id="fa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
@@ -2671,8 +2675,7 @@ document.addEventListener('DOMContentLoaded',function(){
       <b>이 프로젝트·이 하드웨어에 한정된다.</b> 지금 필요하지만 외울 필요는 없다. 필요할 때 찾아보면 되는 것들.</p>
   </div>
 
-  
-  <div class="key gkey">
+<div class="key gkey">
     <div class="kl">링크 읽는 법. <b>이 분야엔 위키피디아 같은 단일 정본이 없다</b></div>
     <p style="font-size:.78rem;line-height:1.85"><span class="lkt lk-off">공식</span> 그 도구를 <b>만든 곳</b>의 문서. 버전이 바뀌면 여기가 먼저 바뀐다.<br><span class="lkt lk-book">교재</span> 표준 <b>교재·강의</b>의 무료 공개본. 개념이 흔들리지 않는다.<br><span class="lkt lk-pap">논문</span> <b>논문 원전</b>(arXiv 영구링크). <b>숫자를 인용할 땐 반드시 여기.</b><br><span class="lkt lk-exp">해설</span> 정평 난 <b>해설</b>. 이해는 가장 빠르지만 <b>정본은 아니다.</b><br><span class="lkt lk-wiki">백과</span> 영문 <b>위키피디아</b>. 물리·수학 일반 용어에만 붙였다.<br></p>
     <p style="font-size:.75rem;margin-top:.5rem;color:var(--ink-3)">⚠️ 그래서 <b>한 사이트로 통일하지 않고 등급으로 통일</b>했다. ML 용어 백과 노릇을 하던 <b>Papers with Code 는 2025년 7월 폐쇄</b>됐고(옛 링크는 전부 죽었다), 위키피디아에는 <b>“domain randomization” 문서가 없다</b>: 검색하면 뜻이 다른 <i>domain adaptation</i> 으로 넘어가니 주의.</p>
@@ -3213,5 +3216,5 @@ document.getElementById('pdfBtn').addEventListener('click',()=>window.print());
     if(!localStorage.getItem(K))apply(cur());});
 })();</script>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 01:07</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:05</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
