@@ -680,7 +680,7 @@ body>*{flex-shrink:0}
 .bstamp .gap{flex:1}
 @media (max-width:640px){.bstamp{margin:28px 14px 18px}}
 </style>
-</head>
+<style>a.ilink{color:var(--dim);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--dim) 35%,transparent);font-variant-numeric:tabular-nums;white-space:nowrap}a.ilink:hover{border-bottom-color:var(--dim)}</style></head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 
@@ -718,7 +718,7 @@ body>*{flex-shrink:0}
 <div class="tw"><table><thead><tr><th>궁금한 것</th><th>여기</th></tr></thead><tbody><tr><td>실물 Go2 는 어떻게 움직이나 (순정과의 관계)</td><td><a href="project-report.html">프로젝트 보고서 §9</a> · <b>제어를 넘겨받지 않는다.</b> 순정 보행 위에 항법을 얹는다 (8/19 결정)</td></tr><tr><td>8/13 조선대 방문에서 무엇을 확인했나 (기록)</td><td><a href="field-check-0813.html">현장 확인 목록</a></td></tr><tr><td>새 Go2 개체가 생기면 뭘 점검하나 (저수준 되는지 포함)</td><td><a href="field-check-go2-intake.html">Go2 개체 점검 목록</a></td></tr><tr><td>우분투·ROS2·컨테이너 구조는 어떻게 확정됐나</td><td><a href="research-architecture-decision.html">아키텍처 결정</a></td></tr><tr><td>워크스테이션에 접속해서 학습을 돌리고 싶다</td><td><a href="team-access.html">팀원 접속 가이드</a></td></tr><tr><td>내 노트북에 환경을 깔고 싶다</td><td><a href="setup.html">개발환경 가이드</a></td></tr><tr><td>우리 팀은 어떻게 일하나 (이슈·브랜치·제출함)</td><td><a href="collab.html">협업 규칙</a></td></tr><tr><td>조선대 수업 자료(OT·ROS2 구축)를 보고 싶다</td><td><a href="chosun-materials.html">팀 자료실</a> (비밀번호: 디스코드 리소스 채널)</td></tr><tr><td>이번 주에 뭘 알게 됐는지 5분에 알고 싶다</td><td>연구 기록 페이지 상단의 <b>주간 다이제스트</b></td></tr></tbody></table></div>
 </section>
 <section id="s6"><h2>판 이력</h2>
-<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.0</b></td><td>2026-08-28</td><td>구판 FLOW 를 정답으로 가리키던 링크 8곳 정정. 저수준 실기 이전 -&gt; 트랙 B</td><td>#76</td></tr><tr><td>v1.0</td><td>2026-08-12</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.0</b></td><td>2026-08-28</td><td>구판 FLOW 를 정답으로 가리키던 링크 8곳 정정. 저수준 실기 이전 -&gt; 트랙 B</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/76">#76</a></td></tr><tr><td>v1.0</td><td>2026-08-12</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
 </section>
 
 </div>
@@ -747,5 +747,5 @@ document.addEventListener('click', function(e){
 @media print{}
 </style>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:24</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:57</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

@@ -680,7 +680,7 @@ body>*{flex-shrink:0}
 .bstamp .gap{flex:1}
 @media (max-width:640px){.bstamp{margin:28px 14px 18px}}
 </style>
-</head>
+<style>a.ilink{color:var(--dim);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--dim) 35%,transparent);font-variant-numeric:tabular-nums;white-space:nowrap}a.ilink:hover{border-bottom-color:var(--dim)}</style></head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 
@@ -705,7 +705,7 @@ body>*{flex-shrink:0}
 연결: <a href="setup.html">개발환경 구축 가이드</a> · <a href="team-access.html">팀원 사용 가이드</a> · <span class="vlink">mvp-install-log</span></p></blockquote>
 </section>
 <section id="s1"><h2>🔴 결론 3줄</h2>
-<ol><li><s>RunPod 실패의 최유력 원인 = A100/H100 선택</s> → 🔴 <b>정정(08-09): 팀원은 RTX 5090 을 선택했다(팀장 확인). A100 가설 폐기.</b> 5090 은 RT 코어가 있고 우리 5080 과 같은 세대(sm_120)라 GPU 자체는 문제가 아니다. → <b>남는 유력 원인 = ② RunPod UDP 차단(IsaacLab #2271, 문서화된 미해결 이슈) 또는 ③ 파드 내 Docker 재실행 불가.</b> ⚠️ 이 정정의 교훈: &quot;흔히 A100 을 고른다&quot;는 추측을 확인 없이 최유력으로 올렸다. <b>팀원에게 먼저 물었어야 했다.</b></li><li><b>★ 우리 버전과 정확히 일치하는 공식 컨테이너가 NGC에 이미 있다</b>. <code>nvcr.io/nvidia/isaac-lab:2.3.2</code>, <code>nvcr.io/nvidia/isaac-sim:5.1.0</code>. <b>직접 빌드 불필요.</b> <span class="ev ev-ok">확인됨</span></li><li><b>가장 검증된 경로 = AWS <code>g6e</code>(L40S) + 공식 AMI 또는 위 컨테이너.</b> NVIDIA가 직접 문서화한 배포 가이드가 있다. <span class="ev ev-ok">확인됨</span></li></ol>
+<ol><li><s>RunPod 실패의 최유력 원인 = A100/H100 선택</s> → 🔴 <b>정정(08-09): 팀원은 RTX 5090 을 선택했다(팀장 확인). A100 가설 폐기.</b> 5090 은 RT 코어가 있고 우리 5080 과 같은 세대(sm_120)라 GPU 자체는 문제가 아니다. → <b>남는 유력 원인 = ② RunPod UDP 차단(IsaacLab <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/2271">#2271</a>, 문서화된 미해결 이슈) 또는 ③ 파드 내 Docker 재실행 불가.</b> ⚠️ 이 정정의 교훈: &quot;흔히 A100 을 고른다&quot;는 추측을 확인 없이 최유력으로 올렸다. <b>팀원에게 먼저 물었어야 했다.</b></li><li><b>★ 우리 버전과 정확히 일치하는 공식 컨테이너가 NGC에 이미 있다</b>. <code>nvcr.io/nvidia/isaac-lab:2.3.2</code>, <code>nvcr.io/nvidia/isaac-sim:5.1.0</code>. <b>직접 빌드 불필요.</b> <span class="ev ev-ok">확인됨</span></li><li><b>가장 검증된 경로 = AWS <code>g6e</code>(L40S) + 공식 AMI 또는 위 컨테이너.</b> NVIDIA가 직접 문서화한 배포 가이드가 있다. <span class="ev ev-ok">확인됨</span></li></ol>
 </section>
 <section id="s2"><h2>1. GPU 요구사항: RT 코어가 관문이다</h2>
 <p><b>NVIDIA 공식 원문</b> (https://docs.isaacsim.omniverse.nvidia.com/5.1.0/installation/requirements.html):</p>
@@ -748,13 +748,13 @@ nvcr.io/nvidia/isaac-lab:2.3.2      ← 우리가 고정한 태그와 동일</pr
 <p><b>Omniverse Cloud</b>: Launcher가 2025-10-01 폐기되고 배포가 GitHub/NGC로 이동: 단일 &quot;클라우드 제품&quot; 형태는 사실상 소멸 <code>부분확인</code> <b>Vast.ai / Lambda / Paperspace</b>: 문서화된 Isaac Sim 성공 사례 못 찾음 <span class="ev ev-todo">미확인</span></p>
 </section>
 <section id="s7"><h2>6. ★ 권고</h2>
-<ol><li><s>팀원에게 GPU 확인</s> → <b>확인됨: RTX 5090.</b> 따라서 <b>#2271 UDP 차단을 1순위로 의심</b>: 팀원의 에러 로그를 회수해 <code>/workspace/isaaclab/</code> 빈 폴더 증상인지 대조하라.</li><li><b>가장 검증된 경로 = AWS <code>g6e</code>(L40S) + 공식 AMI 또는 <code>nvcr.io/nvidia/isaac-lab:2.3.2</code>.</b> 우리 버전과 일치하는 공식 이미지가 있어 직접 빌드 불필요. g6e.xlarge 약 <b>$1.86/hr</b>.</li><li><b>RunPod을 다시 쓴다면 RTX 4090($0.34) 또는 L40S($0.79)를 선택</b>하고 isaac-lab 이미지를 파드 템플릿으로 지정. 단 <b>UDP 가능한 데이터센터인지 먼저 확인</b>해야 하고, 문서화된 성공 보증이 없다.</li><li><b>설정 부담을 없애려면 NVIDIA Brev의 Isaac Launchable</b>이 공식 대안이다. 팀원 노트북 사양을 고려하면 검토 가치가 높다.</li><li><b>A100/H100에서 &quot;헤드리스면 되지 않을까&quot;는 공식적으로 부정됐다.</b> 커뮤니티 부분 성공 사례만 있다. <b>기반으로 삼지 말 것.</b></li></ol>
+<ol><li><s>팀원에게 GPU 확인</s> → <b>확인됨: RTX 5090.</b> 따라서 <b><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/2271">#2271</a> UDP 차단을 1순위로 의심</b>: 팀원의 에러 로그를 회수해 <code>/workspace/isaaclab/</code> 빈 폴더 증상인지 대조하라.</li><li><b>가장 검증된 경로 = AWS <code>g6e</code>(L40S) + 공식 AMI 또는 <code>nvcr.io/nvidia/isaac-lab:2.3.2</code>.</b> 우리 버전과 일치하는 공식 이미지가 있어 직접 빌드 불필요. g6e.xlarge 약 <b>$1.86/hr</b>.</li><li><b>RunPod을 다시 쓴다면 RTX 4090($0.34) 또는 L40S($0.79)를 선택</b>하고 isaac-lab 이미지를 파드 템플릿으로 지정. 단 <b>UDP 가능한 데이터센터인지 먼저 확인</b>해야 하고, 문서화된 성공 보증이 없다.</li><li><b>설정 부담을 없애려면 NVIDIA Brev의 Isaac Launchable</b>이 공식 대안이다. 팀원 노트북 사양을 고려하면 검토 가치가 높다.</li><li><b>A100/H100에서 &quot;헤드리스면 되지 않을까&quot;는 공식적으로 부정됐다.</b> 커뮤니티 부분 성공 사례만 있다. <b>기반으로 삼지 말 것.</b></li></ol>
 </section>
 <section id="s8"><h2>7. 미확인 (판단 근거로 쓰지 말 것)</h2>
 <ul><li>RunPod에서 Isaac Sim 성공한 구체 사례(GPU·이미지·설정)</li><li>5.1에서 A100 헤드리스 동작 여부</li><li>Brev / Isaac Launchable 실제 비용</li><li>AWS g6e 외 사이즈·리전 요금</li><li>Vast.ai · Lambda · Paperspace 사례</li><li>Isaac Sim 5.1의 Vulkan 세부 요구사항</li></ul>
 </section>
 <section id="s9"><h2>변경 이력</h2>
-<ul><li>2026-08-09 v2: <b>A100 가설 폐기</b>: 실제 선택 GPU = RTX 5090(팀장 확인). 최유력을 UDP 차단(#2271)으로 교체. 추측을 확인 없이 결론에 올린 것을 정정.</li><li>2026-08-08 v1: RunPod 실패 원인 조사. <b>RT 코어 요구가 관문임을 공식 문서로 확정.</b> <b>★ <code>nvcr.io/nvidia/isaac-lab:2.3.2</code> 공식 이미지 발견: 우리 버전과 정확히 일치.</b></li></ul>
+<ul><li>2026-08-09 v2: <b>A100 가설 폐기</b>: 실제 선택 GPU = RTX 5090(팀장 확인). 최유력을 UDP 차단(<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/2271">#2271</a>)으로 교체. 추측을 확인 없이 결론에 올린 것을 정정.</li><li>2026-08-08 v1: RunPod 실패 원인 조사. <b>RT 코어 요구가 관문임을 공식 문서로 확정.</b> <b>★ <code>nvcr.io/nvidia/isaac-lab:2.3.2</code> 공식 이미지 발견: 우리 버전과 정확히 일치.</b></li></ul>
 </section>
 <section id="s10"><h2>판 이력</h2>
 <div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td>v1.0</td><td>2026-08-09</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
@@ -786,5 +786,5 @@ document.addEventListener('click', function(e){
 @media print{}
 </style>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:24</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:57</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

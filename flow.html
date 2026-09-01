@@ -638,7 +638,7 @@ body>*{flex-shrink:0}
 .bstamp .gap{flex:1}
 @media (max-width:640px){.bstamp{margin:28px 14px 18px}}
 </style>
-</head>
+<style>a.ilink{color:var(--dim);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--dim) 35%,transparent);font-variant-numeric:tabular-nums;white-space:nowrap}a.ilink:hover{border-bottom-color:var(--dim)}</style></head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="on" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 
@@ -808,7 +808,7 @@ body>*{flex-shrink:0}
 <div class="tw"><table><thead><tr><th>모양</th><th>무슨 일이 일어나나</th><th>어디를 고치나</th></tr></thead><tbody><tr><td><b>낙상형</b></td><td>몇 초 못 버티고 몸통이 지면에 닿아 끝난다</td><td>관측과 발 배치. <b>보는 만큼만 걷는다</b></td></tr><tr><td><b>전진 불능형</b></td><td>넘어지지는 않는데 나아가지 못한다</td><td>보상 균형. 넘어지기 싫어 멈칫거리는 것</td></tr></tbody></table></div>
 <p>같은 「실패」라도 손댈 곳이 다르다. 이 구분이 파인튜닝 계획의 뼈대가 된다.</p>
 <h3>지금 하는 일: 5종을 5인이 하나씩</h3>
-<div class="tw"><table><thead><tr><th>지형</th><th>담당</th><th>이슈</th></tr></thead><tbody><tr><td><code>gap</code></td><td>임석헌</td><td>#65</td></tr><tr><td><code>rails</code></td><td>맹라현</td><td>#66</td></tr><tr><td><code>stepping_stones</code></td><td>오현민</td><td>#67</td></tr><tr><td><code>pit</code></td><td>이민우</td><td>#68</td></tr><tr><td><code>floating_ring</code></td><td>오흥재</td><td>#69</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>지형</th><th>담당</th><th>이슈</th></tr></thead><tbody><tr><td><code>gap</code></td><td>임석헌</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/65">#65</a></td></tr><tr><td><code>rails</code></td><td>맹라현</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/66">#66</a></td></tr><tr><td><code>stepping_stones</code></td><td>오현민</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/67">#67</a></td></tr><tr><td><code>pit</code></td><td>이민우</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/68">#68</a></td></tr><tr><td><code>floating_ring</code></td><td>오흥재</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/69">#69</a></td></tr></tbody></table></div>
 <p><b>나눈 것은 학습이 아니라 연구다.</b> 각자 파인튜닝한 정책 두 개를 합칠 방법은 없다 (RL 에서 가중치 병합은 성립하지 않는다). 합치는 것은 <b>레시피</b>, 즉 어떤 설정이 통했는가라는 지식이고, 최종 정책은 <b>혼합 단일 런 하나</b>에서 나온다.</p>
 <p>근거: <a href="research-terrain-finetune-plan.html">실패 지형 파인튜닝 실행 계획</a></p>
 </section>
@@ -874,11 +874,11 @@ body>*{flex-shrink:0}
 <section id="s8"><h2>8. 지금 어디까지 왔나</h2>
 <blockquote><p>이 절은 손으로 갱신한다. 낡으면 <a href="deliverables.html">산출물 현황</a>과
 <a href="decisions-log.html">결정 로그</a>가 정본이다.</p></blockquote>
-<div class="tw"><table><thead><tr><th>트랙</th><th>어디까지</th><th>다음</th></tr></thead><tbody><tr><td><b>A · 학습</b></td><td>기준선 정책으로 미경험 10종 평가 완료. 5종 실패 확인</td><td>실패 5종 파인튜닝 (#65~69)</td></tr><tr><td><b>A · 트윈렌더</b></td><td>렌더 속도 실측 완료 (PT 1.75초/프레임)</td><td>실공간 복원</td></tr><tr><td><b>B · 항법</b></td><td>ROS 2 학습자료 정리 완료</td><td>노트북 Jazzy 셋업 · Go2 연결</td></tr><tr><td><b>B · 인지</b></td><td>미착수</td><td>LiDAR 데이터 다루기</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>트랙</th><th>어디까지</th><th>다음</th></tr></thead><tbody><tr><td><b>A · 학습</b></td><td>기준선 정책으로 미경험 10종 평가 완료. 5종 실패 확인</td><td>실패 5종 파인튜닝 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/65">#65</a>~69)</td></tr><tr><td><b>A · 트윈렌더</b></td><td>렌더 속도 실측 완료 (PT 1.75초/프레임)</td><td>실공간 복원</td></tr><tr><td><b>B · 항법</b></td><td>ROS 2 학습자료 정리 완료</td><td>노트북 Jazzy 셋업 · Go2 연결</td></tr><tr><td><b>B · 인지</b></td><td>미착수</td><td>LiDAR 데이터 다루기</td></tr></tbody></table></div>
 <p><b>관문</b>: <code>기획발표 9/4</code> · <code>A-정책 9/12</code> · <code>MVP 9/30</code> · <code>NAV 11/7</code> · <code>FINAL 12/11</code></p>
 </section>
 <section id="s9"><h2>판 이력</h2>
-<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.0</b></td><td>2026-08-28</td><td><b>뼈대를 두 트랙으로 다시 씀.</b> 폐기된 §3 증류 · §5 sim2real 을 걷어내고 트랙 B 절을 새로 썼다. 살아 있던 학습·렌더·문답 절은 그대로 옮겼다</td><td>#76</td></tr><tr><td>v1.0</td><td>2026-08-11</td><td>처음 씀. 한 줄기 흐름 (학습 -&gt; 증류 -&gt; sim2sim -&gt; 실기)</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.0</b></td><td>2026-08-28</td><td><b>뼈대를 두 트랙으로 다시 씀.</b> 폐기된 §3 증류 · §5 sim2real 을 걷어내고 트랙 B 절을 새로 썼다. 살아 있던 학습·렌더·문답 절은 그대로 옮겼다</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/76">#76</a></td></tr><tr><td>v1.0</td><td>2026-08-11</td><td>처음 씀. 한 줄기 흐름 (학습 -&gt; 증류 -&gt; sim2sim -&gt; 실기)</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
 </section>
 
 </div>
@@ -907,5 +907,5 @@ document.addEventListener('click', function(e){
 @media print{}
 </style>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:24</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:57</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
