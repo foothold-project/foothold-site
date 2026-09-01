@@ -248,6 +248,11 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
   margin-left:auto;margin-right:auto}
 @media print{.wrap{max-width:none!important}}
 .gnav .navctl script{display:none}
+/* ★ 9/1: 검색 버튼은 런타임에 JS 가 만든다. 그때 «그 페이지의 PDF 버튼
+   클래스» 를 복사해 페이지마다 크기가 달랐다 (팀장: 돋보기 크기가 변한다).
+   복사는 searchbox 에서 없앴고, 여기서 바의 규격으로 못박는다. */
+.gnav .fh-sbtn{font-size:.8rem!important;font-weight:600!important;letter-spacing:-.01em!important;line-height:1.5!important;padding:.34rem .55rem!important;height:1.85rem!important;gap:.28rem!important;border:0!important;background:transparent!important;position:static!important;box-sizing:border-box!important}
+.gnav .fh-sbtn svg{width:11px!important;height:11px!important;flex:none}
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
 /* ★ 바 높이가 44 / 48 / 50 세 가지였다 (실측). 바가 «페이지의 line-height» 를
@@ -264,8 +269,11 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
      굵기 650 / 600 두 종 · 색 두 종 · 높이 25 / 26 / 29px 세 종 ·
      세로 위치 9 / 10 / 11px 세 종 («다크» 버튼만 3px 낮고 1px 위로 밀림).
    상단바 «모든» 항목이 같은 상자로 선다. 하나라도 예외를 두면 또 어긋난다. */
+/* ★ 9/1 실측: 버튼 폭이 페이지마다 2px 달랐다. 원인은 «선언된 폰트 스택» 이
+   달라서다 (기획 Arial · 백과·커리큘럼 Pretendard). 같은 글자여도 폭이 다르다.
+   바는 자기 폰트를 갖는다. 그래야 페이지를 옮겨도 안 흔들린다. */
 .gnav a,.gnav button,.gnav .navctl>*{
-  font-size:.8rem!important;font-weight:600!important;letter-spacing:-.01em;
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo','Segoe UI',system-ui,sans-serif!important;letter-spacing:-.01em!important;  font-size:.8rem!important;font-weight:600!important;
   line-height:1.5!important;color:var(--ink-3)!important;
   padding:.34rem .55rem!important;border-radius:4px!important;
   border:0!important;background:transparent!important;
@@ -439,7 +447,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
+<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -487,7 +495,11 @@ document.addEventListener('DOMContentLoaded',function(){
   /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
   var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
   var sb=document.createElement('button');sb.type='button';
-  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
+  /* ★ 9/1 팀장 실측: 「돋보기 아이콘 크기가 달라지면서 위치가 변한다」.
+     여기가 그 원인이다. 검색 버튼이 «그 페이지의 PDF 버튼 클래스를 복사» 해서
+     페이지마다 패딩·글자·자간이 달랐고, 그만큼 오른쪽 묶음이 밀렸다.
+     전역바가 바를 소유한 지금은 복사할 이유가 없다. 자기 클래스만 쓴다. */
+  sb.className=(pb&&!pb.closest('.gnav')?'fh-sbtn-fix ':'')+'fh-sbtn';
   sb.setAttribute('aria-label','사이트 검색');
   sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
     +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
@@ -571,7 +583,7 @@ document.addEventListener('DOMContentLoaded',function(){
 a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
 a.is-new .ex3::after,a.is-new .pk3::after,
 a.band.is-new .bt::after,a.band.is-new strong::after,
-a.is-new .k::after{content:'NEW';display:inline-block;
+a.is-new .k::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
   font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
 </style>
@@ -667,7 +679,11 @@ body>*{flex-shrink:0}
 <blockquote><p>2026-08-27 이전에는 갈래가 다섯이었다 (평가 체계 · 험지 환경 · 정책 학습 ·
 실기 전이 · 운영). 그 목록은 8/19 두 트랙 전환 <b>이전</b> 것이라
 「실기 전이」가 폐기된 목표 이름이었고 트랙 B 가 통째로 빠져 있었다. 폐기한다.</p></blockquote>
-<ul><li><b>시기는 마일스톤</b>이 담당한다. 2026-08-27 에 다섯 관문으로 재정의했다: <code>기획발표 9/4</code> · <code>A-정책 9/12</code> · <code>MVP · 중간발표 9/30</code> · <code>NAV · 실기 항법 11/7</code> · <code>FINAL · 최종발표 12/11</code></li><li>폼에서 <b>「어느 관문까지」</b> 를 고르면 마일스톤이 자동으로 붙는다. 모르면 비워 둔다.</li><li>7단계(땅 보러 가기…)는 소통용 지도다. 관리 도구에는 등장하지 않는다.</li></ul>
+<ul><li><b>시기는 마일스톤</b>이 담당한다. 2026-08-27 에 다섯 관문으로 재정의했다: <code>기획발표 9/4</code> · <code>A-정책 9/12</code> · <code>MVP · 중간발표 9/30</code> · <code>NAV · 실기 항법 11/7</code> · <code>FINAL · 최종발표 12/11</code></li></ul>
+<p>  <b>시각</b> (팀장 확정 2026-09-01 · 이전에는 날짜만 있고 시간이 어디에도 없었다)</p>
+<div class="tw"><table><thead><tr><th>언제</th><th>무엇</th></tr></thead><tbody><tr><td>9/4 (금) <b>오전</b></td><td>기획발표</td></tr><tr><td>9/4 (금) <b>오후 14~18</b></td><td>조선대 멘토링 (매주 금요일 고정)</td></tr><tr><td>월 · 수 15~18</td><td>박철제 멘토링 (운영진 협의 중 · 우리 쪽 확정치)</td></tr></tbody></table></div>
+<p>  9/4 은 오전에 발표하고 오후에 멘토링이다. <b>같은 날 둘 다 있다.</b> 발표 준비를   전날까지 끝내야 오후 멘토링에서 그 결과를 놓고 이야기할 수 있다.</p>
+<ul><li>폼에서 <b>「어느 관문까지」</b> 를 고르면 마일스톤이 자동으로 붙는다. 모르면 비워 둔다.</li><li>7단계(땅 보러 가기…)는 소통용 지도다. 관리 도구에는 등장하지 않는다.</li></ul>
 </section>
 <section id="s4"><h2>3. 공간 지도: 어디에 무엇이 있나</h2>
 <div class="tw"><table><thead><tr><th>공간</th><th>성격</th><th>무엇이 사나</th></tr></thead><tbody><tr><td><b>foothold-lab</b> <code>docs/</code></td><td>비공개 · 팀</td><td><b>정본만.</b> 리서치 정제본 · 회의록 · 결정 로그 · 기획</td></tr><tr><td><b>foothold-lab</b> <code>deliverables/</code></td><td>비공개 · 팀</td><td>운영진에 낼 산출물</td></tr><tr><td><b>foothold-lab</b> <code>inbox/</code></td><td>비공개 · 팀</td><td><b>팀원 제출함.</b> 다듬지 않은 것을 자기 폴더에 그냥 올린다</td></tr><tr><td><b>foothold-lab</b> <code>sim/</code> <code>nav/</code> <code>common/</code></td><td>비공개 · 팀</td><td>개발 공간. go2 와 같은 트리</td></tr><tr><td><b>foothold-go2</b></td><td>공개 · 개발</td><td>코드 · 재현 절차. <code>sim/</code> <code>nav/</code> <code>common/</code> <code>guide/</code> <code>report/</code></td></tr><tr><td><b>foothold-site</b></td><td>공개 · 산출물</td><td>빌드된 웹: <b>직접 수정 금지(미러)</b></td></tr><tr><td><b>foothold-brand</b></td><td>공개 · 디자인</td><td>토큰 원본 · 로고 정본 · 브랜드 규칙</td></tr><tr><td>보드 <b>FOOTHOLD</b></td><td>org Projects</td><td>모든 레포 이슈가 모이는 상황판</td></tr><tr><td>디스코드 #foothold-git</td><td>팀</td><td><b>자동 알림 전용</b> (새 작업·완료·문서·주간 리포트)</td></tr><tr><td>디스코드 #foothold-general</td><td>팀</td><td>일반 대화</td></tr><tr><td>디스코드 #foothold-notice</td><td>팀</td><td>공지. 주요 업데이트·전달사항</td></tr><tr><td>디스코드 #foothold-resource</td><td>비공개</td><td>팀 공용 계정 · NAS 경로. <b>토큰류 금지</b></td></tr><tr><td>NAS <code>foothold/meetings/</code></td><td>팀 스토리지</td><td>회의 녹음 원본</td></tr><tr><td>팀장 볼트</td><td>개인</td><td>타인 저작물 원문 등: 팀 자산은 위로 이관</td></tr></tbody></table></div>
@@ -858,5 +874,5 @@ document.addEventListener('click', function(e){
 @media print{}
 </style>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 12:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

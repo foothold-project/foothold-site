@@ -280,7 +280,7 @@ html[data-theme="light"]{
 }/*/themefix*/
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
-<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><style id="ia-css">
+<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
    ② 허브 본문 폭이 824, 표지가 1000 -> PRD §4-1 대로 1040 한 벌
@@ -315,6 +315,11 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
   margin-left:auto;margin-right:auto}
 @media print{.wrap{max-width:none!important}}
 .gnav .navctl script{display:none}
+/* ★ 9/1: 검색 버튼은 런타임에 JS 가 만든다. 그때 «그 페이지의 PDF 버튼
+   클래스» 를 복사해 페이지마다 크기가 달랐다 (팀장: 돋보기 크기가 변한다).
+   복사는 searchbox 에서 없앴고, 여기서 바의 규격으로 못박는다. */
+.gnav .fh-sbtn{font-size:.8rem!important;font-weight:600!important;letter-spacing:-.01em!important;line-height:1.5!important;padding:.34rem .55rem!important;height:1.85rem!important;gap:.28rem!important;border:0!important;background:transparent!important;position:static!important;box-sizing:border-box!important}
+.gnav .fh-sbtn svg{width:11px!important;height:11px!important;flex:none}
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
 /* ★ 바 높이가 44 / 48 / 50 세 가지였다 (실측). 바가 «페이지의 line-height» 를
@@ -331,8 +336,11 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
      굵기 650 / 600 두 종 · 색 두 종 · 높이 25 / 26 / 29px 세 종 ·
      세로 위치 9 / 10 / 11px 세 종 («다크» 버튼만 3px 낮고 1px 위로 밀림).
    상단바 «모든» 항목이 같은 상자로 선다. 하나라도 예외를 두면 또 어긋난다. */
+/* ★ 9/1 실측: 버튼 폭이 페이지마다 2px 달랐다. 원인은 «선언된 폰트 스택» 이
+   달라서다 (기획 Arial · 백과·커리큘럼 Pretendard). 같은 글자여도 폭이 다르다.
+   바는 자기 폰트를 갖는다. 그래야 페이지를 옮겨도 안 흔들린다. */
 .gnav a,.gnav button,.gnav .navctl>*{
-  font-size:.8rem!important;font-weight:600!important;letter-spacing:-.01em;
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo','Segoe UI',system-ui,sans-serif!important;letter-spacing:-.01em!important;  font-size:.8rem!important;font-weight:600!important;
   line-height:1.5!important;color:var(--ink-3)!important;
   padding:.34rem .55rem!important;border-radius:4px!important;
   border:0!important;background:transparent!important;
@@ -506,7 +514,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
+<!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -554,7 +562,11 @@ document.addEventListener('DOMContentLoaded',function(){
   /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
   var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
   var sb=document.createElement('button');sb.type='button';
-  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
+  /* ★ 9/1 팀장 실측: 「돋보기 아이콘 크기가 달라지면서 위치가 변한다」.
+     여기가 그 원인이다. 검색 버튼이 «그 페이지의 PDF 버튼 클래스를 복사» 해서
+     페이지마다 패딩·글자·자간이 달랐고, 그만큼 오른쪽 묶음이 밀렸다.
+     전역바가 바를 소유한 지금은 복사할 이유가 없다. 자기 클래스만 쓴다. */
+  sb.className=(pb&&!pb.closest('.gnav')?'fh-sbtn-fix ':'')+'fh-sbtn';
   sb.setAttribute('aria-label','사이트 검색');
   sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
     +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
@@ -638,7 +650,7 @@ document.addEventListener('DOMContentLoaded',function(){
 a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
 a.is-new .ex3::after,a.is-new .pk3::after,
 a.band.is-new .bt::after,a.band.is-new strong::after,
-a.is-new .k::after{content:'NEW';display:inline-block;
+a.is-new .k::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
   font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
 </style>
@@ -940,6 +952,11 @@ body>*{flex-shrink:0}
 .pt3 .jt3{display:none}
 @media (max-width:760px){.pt3{grid-template-columns:1fr}}
 .st3{display:grid;grid-template-columns:2.3rem 1fr;gap:.8rem;align-items:center}
+/* 사람 한 줄. 이름 다섯을 카드로 늘어놓지 않는다 (팀장 9/1) */
+.ppl3{margin-top:1.4rem;padding-top:.7rem;border-top:1px solid var(--rule);font-size:.72rem;font-weight:800;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
+.ppl3 span{margin-left:.7rem;font-size:.86rem;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-2)}
+.ppl3 a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
+.ppl3 a:hover{color:var(--dim);border-color:var(--dim)}
 /* 예정 줄: 같은 자리에 서되 «아직 없다» 가 보이게. 번호는 비고, 글은 옅다 */
 .st3.soon .sn3{opacity:.45}
 .st3.soon .sb3 b{color:var(--ink-2);font-weight:700}
@@ -968,7 +985,7 @@ body>*{flex-shrink:0}
  .ev3{grid-template-columns:4rem 1fr}
  .rr3 b{white-space:normal}
 }
-</style><div class="ph3">대외 산출물</div><div class="pcs3"><a class="pc3" data-added="2026-08-19" href="project-report.html"><span class="pk3">읽는 문서</span><b>프로젝트 보고서</b><span>한 장으로 보는 전체 계획</span></a><a class="pc3" data-added="2026-08-20" href="pitch.html"><span class="pk3">띄우는 화면</span><b>프로젝트 소개 덱</b><span>전체화면 발표용</span></a><a class="pc3" data-added="2026-08-05" href="brief.html"><span class="pk3">건네는 한 장</span><b>프로젝트 브리핑</b><span>외부에 짧게 설명할 때</span></a></div><div class="ph3">내부 문서</div><div class="irs3"><a class="ir3" data-added="2026-08-11" href="flow.html"><b>프로젝트 전체 흐름</b><span>두 트랙으로 무엇을 어떤 순서로 하는가 (PRD §3)</span></a><a class="ir3" data-added="2026-08-28" href="roles.html"><b>역할 배치</b><span>작업 영역 8갈래와 주담당 · 덱이 여기서 생성된다</span></a><a class="ir3" data-added="2026-07-30" href="team-intro.html"><b>팀 소개 · 킥오프</b><span>팀과 역할</span></a><a class="ir3" data-added="2026-08-24" href="team-lead.html"><b>오흥재</b><span>Project Lead · Robotics Systems Integrator</span></a></div>
+</style><div class="ph3">대외 산출물</div><div class="pcs3"><a class="pc3" data-added="2026-08-19" href="project-report.html"><span class="pk3">읽는 문서</span><b>프로젝트 보고서</b><span>한 장으로 보는 전체 계획</span></a><a class="pc3" data-added="2026-08-20" href="pitch.html"><span class="pk3">띄우는 화면</span><b>프로젝트 소개 덱</b><span>전체화면 발표용</span></a><a class="pc3" data-added="2026-08-05" href="brief.html"><span class="pk3">건네는 한 장</span><b>프로젝트 브리핑</b><span>외부에 짧게 설명할 때</span></a></div><div class="ph3">내부 문서</div><div class="irs3"><a class="ir3" data-added="2026-08-11" href="flow.html"><b>프로젝트 전체 흐름</b><span>두 트랙으로 무엇을 어떤 순서로 하는가 (PRD §3)</span></a><a class="ir3" data-added="2026-08-28" href="roles.html"><b>역할 배치</b><span>작업 영역 8갈래와 주담당 · 덱이 여기서 생성된다</span></a><a class="ir3" data-added="2026-07-30" href="team-intro.html"><b>팀 소개 · 킥오프</b><span>팀과 역할</span></a></div><div class="ppl3">사람 <span><a href="team-lead.html">오흥재</a> · <a href="team-lim.html">임석헌</a> · <a href="team-meang/index.html">맹라현</a> · <a href="team-oh.html">오현민</a> · <a href="team-lee.html">이민우</a></span></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 12:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

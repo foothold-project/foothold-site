@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가 · FOOTHOLD</title>
-<meta name="description" content="Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.">
+<title>RunPod 에서 Isaac Lab 돌리기: 네트워크 볼륨 · 템플릿 · 첫 실행 · FOOTHOLD</title>
+<meta name="description" content="RunPod 에서 Isaac Lab 을 실제로 돌리기까지의 절차. 볼륨 마운트 경로를 `/workspace` 로 잡으면 안 되는 것이 핵심이다.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -168,7 +168,7 @@ section .addr .big{font-size:1.2rem}
 @media print{
   @page{size:A4 portrait;margin:14mm 12mm}
   html{font-size:10.5px}
-  body{background:var(--card)!important;background-image:none!important}
+  body{background:#fff!important;background-image:none!important}
   .top,.pdfbtn,.copy{display:none!important}
   .wrap{max-width:none;padding:0}
   section{break-inside:auto;margin-top:1.4rem}
@@ -178,7 +178,7 @@ section .addr .big{font-size:1.2rem}
   .tool,.pin>div{margin-bottom:.5rem}
   .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
   .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
-  .cb pre{color:var(--ink)!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre{color:#161c26!important;white-space:pre-wrap!important;word-break:break-all}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -253,8 +253,33 @@ section .addr .big{font-size:1.2rem}
 .stand .sv a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
 .stand .sv a:hover{border-color:var(--dim);color:var(--dim)}
 .stand .sv i{font-style:normal;color:var(--ink-3)}
+/*themefix*/html[data-theme="dark"]{
+    --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+    --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+    --rule:#2b323d;--dim:#3ec7b4;--dim-soft:#11302c;
+    --note:#dc9a30;--note-soft:#332710;
+    --stop:#e56d5e;--stop-soft:#331c19;
+    --grid:rgba(233,231,225,.035);
+    /* 어두운 모드에서는 soft 배경이 어두우므로 원래 토큰이 이미 충분히 밝다 */
+    --dim-ink:#3ec7b4;
+    --note-ink:#dc9a30;
+  }
+html[data-theme="light"]{
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--dim:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+  --measure:760px;
+  /* ★ --dim / --note 를 연한 배경(--*-soft) 위 글자로 쓰면 대비가 모자란다.
+     실측 --dim on --dim-soft = 4.43 · --note on --note-soft = 3.93 (둘 다 4.5 미달).
+     그런 자리에는 아래 진한 짝을 쓴다. DESIGN.md §2 참조. */
+  --dim-ink:#0b6459;
+  --note-ink:#8a5600;
+}/*/themefix*/
 </style>
-<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
+<link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2">
 <style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
@@ -682,58 +707,211 @@ body>*{flex-shrink:0}
 </style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">Research · 근거 기록</div>
-  <h1>NVIDIA 도구 지도: Omniverse · Isaac Sim · SimReady 가 각각 무엇인가</h1>
-  <p class="lede">Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v1.0</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-12 10:41</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / omniverse-stack.md</span></div><div><span class="k">증거</span><span class="v">확인 1 · 추측 0 · 미측정 1</span></div></div>
+  <div class="eyebrow">Guide · RunPod Isaac Lab 환경 구축</div>
+  <h1>RunPod 에서 Isaac Lab 돌리기: 네트워크 볼륨 · 템플릿 · 첫 실행</h1>
+  <p class="lede">RunPod 에서 Isaac Lab 을 실제로 돌리기까지의 절차. 볼륨 마운트 경로를 `/workspace` 로 잡으면 안 되는 것이 핵심이다.</p>
+  <div class="meta"><div><span class="k">판</span><span class="v">v2.0</span></div><div><span class="k">작성</span><span class="v">오현민 · 2026-08-31 13:40</span></div><div><span class="k">상태</span><span class="v">검토중</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/guides/runpod-setup.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>분류: 리서치
-작성: 오흥재 · 2026-08-12 10:41
-근거: 공식 문서
-요지: Isaac Sim 과 USD Composer 는 같은 RTX 렌더러다. 화질은 렌더러가 아니라 에셋(룩뎁)에서 갈린다.
-상태: 확정
-판: v1.0</p></blockquote>
-<blockquote><p>작성 2026-08-12 · 워크스테이션 세션 · 방법: 공식 문서 + 쇼케이스 1차 출처 + 우리 실측(렌더 벤치마크·Racer 프레임 분석) 연결
-목적: «이 도구들이 서로 무슨 관계인가»를 한 장으로. 팀장이 VFX 출신이라 <b>Foundry 라인업에 빗대어</b> 설명한다.</p></blockquote>
+<p>&lt;!-- 승격: inbox/oh/20260831-runpod-환경구축.md · 원저자 오현민 · PR #106      고칠 것이 있으면 이슈로. 원본은 inbox 에 남는다 (이력) --&gt;</p>
+<!--H1:RunPod 에서 Isaac Lab 돌리기: 네트워크 볼륨 · 템플릿 · 첫 실행-->
+<blockquote><p>분류: 운영
+작성: 오현민 · 2026-08-31 13:40
+근거: 실측 (콘솔 화면 · Pod 안 실행 결과) · 공식 문서 · 일부 미확인 표기
+요지: RunPod 에서 Isaac Lab 을 실제로 돌리기까지의 절차. 볼륨 마운트 경로를 <code>/workspace</code> 로 잡으면 안 되는 것이 핵심이다.
+상태: 검토중
+판: v2.0</p></blockquote>
+<p>관련 이슈: #94 (RunPod 네트워크 볼륨 개설과 팀 폴더 구조 표준화)</p>
 </section>
-<section id="s1"><h2>1. 한 장 지도: Foundry 에 빗대면</h2>
-<div class="tw"><table><thead><tr><th>Foundry 세계</th><th>층위</th><th><b>NVIDIA 세계</b></th><th>정체</th></tr></thead><tbody><tr><td>EXR · Alembic</td><td>파일 표준</td><td><b>OpenUSD</b></td><td>씬·에셋의 공통 파일 형식. Pixar 가 만들었다</td></tr><tr><td>-</td><td>협업 플랫폼</td><td><b>Omniverse</b></td><td>여러 툴이 같은 USD 를 실시간으로 함께 편집하는 판</td></tr><tr><td>NDK</td><td>앱 엔진</td><td><b>Omniverse Kit</b></td><td>아래 앱들이 전부 이 위에 얹혀 있다</td></tr><tr><td><b>Katana</b></td><td>조립·룩뎁·렌더 앱</td><td><b>USD Composer</b> (구 Create)</td><td>모델링 도구가 아니다. 불러와서 조립·라이팅·렌더</td></tr><tr><td>-</td><td>로봇 시뮬 앱</td><td><b>Isaac Sim</b></td><td>USD Composer 와 <b>같은 Kit 위의 형제 앱</b></td></tr><tr><td>-</td><td>그 위의 라이브러리</td><td><b>Isaac Lab</b></td><td>강화학습 프레임워크. 앱이 아니라 파이썬 라이브러리</td></tr><tr><td>Karma · Arnold</td><td>렌더러</td><td><b>RTX Renderer</b></td><td><b>Isaac Sim 과 USD Composer 가 이것을 공유한다</b></td></tr><tr><td>-</td><td>물리 엔진</td><td><b>PhysX</b></td><td>기본 물리. (차세대 Newton 은 험지 미지원이라 우리는 금지)</td></tr><tr><td>Mari</td><td>3D 텍스처</td><td>(없음 → <b>Substance 3D Painter</b> 를 쓴다)</td><td></td></tr><tr><td>-</td><td>에셋 품질 라벨</td><td><b>SimReady</b></td><td>«물리 속성이 붙어 시뮬에 바로 쓸 수 있는 USD» 인증 표식</td></tr></tbody></table></div>
-<blockquote><p>### 핵심 한 줄
-<b>Isaac Sim 과 USD Composer 는 같은 RTX 렌더러를 쓴다.</b> <span class="ev ev-ok">확인됨</span> (<a href="https://docs.isaacsim.omniverse.nvidia.com/latest/reference_material/rendering_modes.html" target="_blank" rel="noopener">공식 문서</a>)
-그래서 «시뮬은 Isaac, 시연 영상은 Omniverse 에서» 라고 따로 갈 필요가 없다. 이미 같은 렌더러다.
-<b>화질 차이는 렌더러가 아니라 에셋(룩뎁)에서 갈린다.</b></p></blockquote>
+<section id="s1"><h2>0. v2.0 에서 뒤집힌 것</h2>
+<p>v1.0(08-31)에서 세 가지가 틀렸다. 그 때문에 하루를 썼으므로 먼저 적는다.</p>
+<div class="tw"><table><thead><tr><th>v1.0</th><th>v2.0</th><th>결과</th></tr></thead><tbody><tr><td>마운트 경로 <code>/workspace</code></td><td><b><code>/data</code></b></td><td><code>/workspace</code> 로 잡으면 이미지 안의 Isaac Lab 이 가려진다</td></tr><tr><td>&quot;RunPod 으로 확정&quot;</td><td><b>결제만 시작, 최종 선택은 D6 판단 대기</b></td><td>팀 결정 문서와 어긋난 서술이었다</td></tr><tr><td><span class="ev ev-todo">미확인</span> 2건 (볼륨 생존 · 동시 부착)</td><td>둘 다 <b><span class="ev ev-ok">확인됨</span></b></td><td>09-01 실측</td></tr></tbody></table></div>
+<p>09-01 도달점: 사전학습 정책으로 Go2 험지 보행 영상까지 뽑아 노트북으로 회수했다 <span class="ev ev-ok">확인됨</span>.</p>
 </section>
-<section id="s2"><h2>2. 렌더 품질의 상한: 눈으로 확인할 수 있는 사례</h2>
-<p>전부 클릭해서 직접 볼 수 있는 1차 출처다.</p>
-<div class="tw"><table><thead><tr><th>사례</th><th>무엇</th><th>품질 판정</th><th>도구 조합</th></tr></thead><tbody><tr><td><a href="https://www.behance.net/gallery/146438613/Ramen-Shop-NVIDIA-Omniverse" target="_blank" rel="noopener">Ramen Shop</a> (<a href="https://80.lv/articles/photorealistic-ramen-shop-made-in-nvidia-omniverse" target="_blank" rel="noopener">제작기</a>)</td><td>도쿄 라멘집 인테리어</td><td><b>실사와 구분이 어려운 수준에 가장 근접한 공개 사례</b></td><td>ZBrush·Blender 모델링 + Substance 텍스처 + Omniverse 렌더. 4K 텍스처 3,000장 · 레퍼런스 사진 2,000장</td></tr><tr><td><a href="https://www.youtube.com/watch?v=NgcYLIvlp_k" target="_blank" rel="noopener">Marbles at Night</a> (<a href="https://blogs.nvidia.com/blog/omniverse-marbles-rtx-playable-sample/" target="_blank" rel="noopener">비하인드</a>)</td><td>물리 기반 구슬 게임</td><td>실시간 기준 최상급. RTX 3090 한 장 1440p</td><td>수작업 에셋 165개 · 텍스처 500GB</td></tr><tr><td><a href="https://www.youtube.com/watch?v=AsykNkUMoNU" target="_blank" rel="noopener">Racer RTX</a></td><td>RC카 질주</td><td>실사급 재질. <b>단 모래·먼지는 물리가 아니라 대부분 모션블러다</b>: 우리가 프레임 단위로 확인했다 → <a href="research-render-benchmarks.html">render-benchmarks.md</a> §4-2</td><td>ZBrush·Maya·Blender + Substance</td></tr><tr><td><a href="https://www.youtube.com/watch?v=g78YHYXXils" target="_blank" rel="noopener">BMW 가상 공장</a></td><td>산업 디지털 트윈</td><td>시각화로는 훌륭. VFX 기준으로는 «클린한 CG» 티가 남</td><td>커스텀 CAD 룩뎁</td></tr></tbody></table></div>
-<blockquote><p>### 정직한 단서
-위 쇼케이스는 전부 <b>외부 DCC 로 수개월 수작업한 에셋</b>을 Omniverse 로 렌더한 것이다.
-Omniverse 는 «렌더러 + 조립 도구»다. <b>에셋을 좋게 만들어 주는 도구가 아니다.</b>
-Isaac Sim 기본 콘텐츠(창고·오피스)는 로봇 테스트용이라 룩뎁 기준으로 만든 것이 아니다.
-우리 실측에서도 창고 씬은 Path Tracing 을 켜도 차이가 작았다 → <a href="research-render-benchmarks.html">render-benchmarks.md</a> §4.</p></blockquote>
+<section id="s2"><h2>1. 왜 이 환경을 쓰는가</h2>
+<p><code>stepping_stones</code> 지형의 관측 게이트 판정(#67 · #82)을 하려면 Isaac Lab 을 돌릴 GPU 가 필요하다. 개발 노트북은 RTX 3060 6GB / 16GB RAM 이라 Isaac Sim 요구사항에 미달한다 <span class="ev ev-ok">확인됨</span>.</p>
+<p>2026-08-28 에 FOOTHOLD 팀 계정으로 RunPod 결제를 시작했고, 현재 실험은 RunPod 에서 돌리고 있다 <span class="ev ev-ok">확인됨</span>.</p>
+<blockquote><p><b>이것은 확정 결정이 아니다.</b> 학습 컴퓨팅의 최종 선택(WS · RunPod · A6000)은 <code>docs/DECISIONS.md</code> <b>D6 에서 판단 대기</b> 상태다. 판단 근거는 &quot;실험 병렬 필요성&quot;이다. 이 문서는 결정 기록이 아니라 <b>현재 쓰고 있는 환경의 운영 기록</b>이다.</p></blockquote>
+<p>팀원 각자가 따로 Pod 을 만들면 학습 결과물이 각자 Pod 안에 갇힌다. <b>공용 네트워크 볼륨 하나로 결과물을 공유하고, 각자 작업은 개인 폴더에서 하자</b>는 것이 이 작업의 목적이다.</p>
 </section>
-<section id="s3"><h2>3. 지금 받아서 쓸 수 있는 에셋 (전부 근거 링크)</h2>
-<div class="tw"><table><thead><tr><th>#</th><th>무엇</th><th>규모</th><th>라이선스</th><th>난이도</th></tr></thead><tbody><tr><td>1</td><td><a href="https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/downloadable_packs.html" target="_blank" rel="noopener">NVIDIA 공식 USD 팩</a>: SimReady Warehouse 01/02 · Containers · Residential · <b>Sample Scenes(441개, 26GB: Marbles·Old Attic 쇼케이스 원본 포함)</b> · Skies</td><td>팩당 9~26GB</td><td>프로젝트 사용 무료</td><td>최하 (드래그)</td></tr><tr><td>2</td><td><a href="https://huggingface.co/datasets/nvidia/PhysicalAI-SimReady-Warehouse-01" target="_blank" rel="noopener">PhysicalAI SimReady Warehouse</a></td><td>USD 753개 · 15GB</td><td><b>CC-BY-4.0</b></td><td>최하</td></tr><tr><td>3</td><td><a href="https://developer.nvidia.com/vmaterials" target="_blank" rel="noopener">vMaterials 2</a></td><td>측정 기반 물리 재질 <b>1,854종</b> · 5.5GB</td><td>무료</td><td>하: 재질만 갈아끼움</td></tr><tr><td>4</td><td><a href="https://polyhaven.com" target="_blank" rel="noopener">Poly Haven</a> · <a href="https://ambientcg.com" target="_blank" rel="noopener">AmbientCG</a></td><td>HDRI 16K · 텍스처 · 모델</td><td><b>CC0</b></td><td>하</td></tr><tr><td>5</td><td><a href="https://github.com/unitreerobotics/unitree_model" target="_blank" rel="noopener">Unitree 공식 Go2 USD</a> · <a href="https://github.com/unitreerobotics/unitree_cad" target="_blank" rel="noopener">CAD</a></td><td>로봇 모델</td><td>BSD-3</td><td>하</td></tr></tbody></table></div>
-<ul><li><b>가장 싸게 룩이 올라가는 순서: HDRI 하나 → vMaterials → 스캔 에셋.</b> 돔 라이트에 실사 HDRI 를 거는 것 하나로 «회색 디퓨즈» 인상이 가장 크게 바뀐다.</li><li>위험지역(잔해·터널) 계열은 Sketchfab 포토그래메트리 스캔이 실사에 가장 유리하다. ⚠️ <b>UE 전용 팩은 피할 것</b>: Unreal 재질·블루프린트 의존이라 USD 변환 시 셰이더가 깨진다.</li><li>워크스테이션 보유 현황(2026-08-12): Poly Haven HDRI 1장 수령(<code>C:\isaac\assets\hdri\</code>) · vMaterials·Sample Scenes 는 미수령.</li></ul>
-<h3>Go2 모델에 대한 정직한 답</h3>
-<p><b>«영화용 히어로 에셋» 수준의 Go2 는 시판되지 않는다.</b> <span class="ev ev-todo">미확인</span> (부재 증명 불가) 실사급 클로즈업이 필요하면 공식 CAD + 직접 룩뎁(Substance)이 현실적 경로다. 이건 팀장의 본업 영역이다.</p>
+<section id="s3"><h2>2. 만든 것</h2>
+<h3>2-1. 네트워크 볼륨</h3>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>이름</td><td><code>foothold-shared</code></td></tr><tr><td>용량</td><td>30 GB</td></tr><tr><td>리전</td><td>EU-RO-1</td></tr><tr><td>요금</td><td>$0.07 / GB / 월 = 월 약 $2.1 <span class="ev ev-ok">확인됨</span></td></tr><tr><td>마운트 경로</td><td><b><code>/data</code></b></td></tr></tbody></table></div>
+<p><b>다섯 가지 성질을 알고 써야 한다.</b></p>
+<ol><li><b>Secure Cloud 에서만 쓸 수 있다</b> <span class="ev ev-ok">확인됨</span>. Pod 용 네트워크 볼륨은 Secure Cloud 전용이다. Community Cloud Pod 에는 붙지 않는다. 출처: https://docs.runpod.io/storage/network-volumes</li><li><b>리전에 묶인다</b> <span class="ev ev-ok">확인됨</span>. EU-RO-1 에 만들었으므로 Pod 도 EU-RO-1 에서만 띄울 수 있다. GPU 재고도 그 데이터센터 것으로 제한된다.</li><li><b>Pod 배포 시점에만 붙일 수 있다</b> <span class="ev ev-ok">확인됨</span>. 이미 돌고 있는 Pod 에 나중에 붙이지 못한다. 까먹으면 Pod 을 지우고 다시 만들어야 한다.</li><li><b>Pod 수명과 무관하게 남는다</b> <span class="ev ev-ok">확인됨</span> (09-01 실측). Pod <code>27df3ee78fd8</code> 에서 만든 <code>list_envs.log</code> 가, Pod 을 갈아치운 뒤 새 Pod <code>3ebc47b29eed</code> 의 <code>/data/logs/</code> 에 그대로 있었다.</li><li><b>여러 Pod 이 동시에 붙을 수 있다</b> <span class="ev ev-ok">확인됨</span> (09-01 실측). 다른 Pod 에서 같은 볼륨을 붙여 정상 동작했다.</li></ol>
+<blockquote><p>5번의 단서: <b>부착이 된다는 것까지만 확인했다.</b> 두 Pod 이 같은 파일에 동시에 쓸 때의 동작은 <code>미검증</code> 이다. 아래 5-2 절의 이름 규칙으로 회피한다.</p></blockquote>
+<h3>2-2. ★ 마운트 경로 정하기</h3>
+<p><b>이 문서에서 가장 중요한 절이다.</b> 08-31 에 여기서 막혔다.</p>
+<p>RunPod 기본값이 <code>/workspace</code> 이고 v1.0 이 그대로 따랐다. 그런데 Isaac Lab 이미지는 <b><code>/workspace</code> 아래에 Isaac Lab 본체를 담고 있다.</b> 빈 볼륨을 그 위에 마운트하면 아래 내용이 <b>가려진다.</b> 삭제가 아니라 가림이다.</p>
+<p>관측된 증상:</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>root@...:/workspace/isaaclab# ls
+(아무것도 없음)
+
+root@...:/# mount | grep workspace
+mfs#euro-3.runpod.net:9421 on /workspace type fuse
+
+root@...:/# ./isaaclab.sh -p ...
+bash: /workspace/isaaclab/_isaac_sim/python.sh: No such file or directory</pre></div>
+<p>근거 세 겹 <span class="ev ev-ok">확인됨</span>:</p>
+<ol><li>RunPod 공식 문서(스토리지 비교표): 네트워크 볼륨의 Mount path 가 <code>/workspace (replaces volume disk)</code>. 본문에도 &quot;Network volumes <b>replace</b> the Pod&#x27;s default volume disk, typically mounted at <code>/workspace</code>&quot;. 출처: https://docs.runpod.io/pods/storage/types · https://docs.runpod.io/storage/network-volumes</li><li>RunPod 블로그: &quot;<code>/workspace</code> <b>is a convention, not a guarantee.</b> Official templates use it, but community templates are free to mount the volume elsewhere. Before trusting a new template with real work, check where the volume is actually mounted. Then confirm it from inside the Pod with <code>df -h</code>.&quot; 출처: https://www.runpod.io/blog/where-did-my-files-go-a-straight-guide-to-runpod-storage</li><li>Docker 공식 문서(마운트가 무엇을 하는지): &quot;If you bind-mount a directory into a non-empty directory on the container, <b>the directory&#x27;s existing contents are obscured by the bind mount.</b>&quot; 출처: https://docs.docker.com/engine/storage/bind-mounts/</li></ol>
+<blockquote><p>헷갈리기 쉬운 지점: Docker 의 <b>named volume</b> 은 빈 볼륨에 이미지 내용을 <b>복사해 준다.</b> <b>bind mount</b> 는 <b>가린다.</b> RunPod 네트워크 볼륨은 뒤쪽으로 동작한다.</p></blockquote>
+<p><b>규칙:</b></p>
+<ol><li>쓰려는 이미지가 어느 경로를 쓰는지 먼저 확인한다. 이미지마다 다르다(2-3 절 표).</li><li>마운트 경로는 <b>이미지가 쓰지 않는 빈 경로</b>인지 확인한다.</li><li>확인한 뒤 <b>팀 표준인 <code>/data</code></b> 를 쓴다.</li></ol>
+<p><code>/data</code> 가 기술적으로 특별한 것은 아니지만, 팀원끼리 경로가 갈리면 문서와 스크립트가 전부 갈라진다. 표준을 하나로 둔다.</p>
+<h3>2-3. 이미지마다 Isaac Lab 위치가 다르다</h3>
+<p><code>/workspace</code> 아래인 것은 같지만 <b>폴더 이름이 다르다.</b> 확인하지 않고 경로를 외워 쓰면 걸린다.</p>
+<div class="tw"><table><thead><tr><th>이미지</th><th>Isaac Lab 위치</th><th>근거</th></tr></thead><tbody><tr><td><code>nvcr.io/nvidia/isaac-lab:2.3.2</code> (NVIDIA 공식 pre-built)</td><td><b><code>/workspace/IsaacLab</code></b> (대문자 I·L)</td><td>공식 문서 <span class="ev ev-ok">확인됨</span></td></tr><tr><td>직접 빌드 (<code>container.py</code>)</td><td><code>/workspace/isaaclab</code></td><td>공식 문서 <span class="ev ev-ok">확인됨</span></td></tr><tr><td>팀 템플릿 <code>IsaacLab-2.3.2-Go2</code></td><td><code>/workspace/isaaclab</code></td><td>09-01 실측 <span class="ev ev-ok">확인됨</span></td></tr></tbody></table></div>
+<p>공식 pre-built 컨테이너에 대한 문서 원문:</p>
+<blockquote><p>&quot;In Isaac Lab 2.0 release, we introduced a minimal pre-built container ... The Isaac Lab source code will be available in this container under <code>/workspace/IsaacLab</code>. This container is designed for running <b>headless</b> only.&quot;</p></blockquote>
+<p>출처: https://isaac-sim.github.io/IsaacLab/main/source/deployment/docker.html</p>
+<blockquote><p><b>공식 이미지는 정상이다.</b> v1.0 이 공식 이미지를 문제 원인처럼 적었던 것은 잘못이다.</p></blockquote>
+<h4>쓰지 말 것: <code>limseokheon/isaaclab-runpod:sim5.1-lab2.3.2</code></h4>
+<p><b>설치 누락 문제는 이 이미지 하나에 한정된다</b> <span class="ev ev-ok">확인됨</span>. <code>/workspace/isaaclab</code> 에 소스 트리는 있으나 파이썬 패키지 설치가 되어 있지 않다.</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>ModuleNotFoundError: No module named &#x27;isaaclab&#x27;</pre></div>
+<p><code>./isaaclab.sh --install</code> 로 고칠 수는 있다. 다만 설치 결과가 <code>/isaac-sim</code> 아래 컨테이너 디스크로 들어가므로 <b>Stop 할 때마다 사라져 매번 10분씩 다시 깔아야 한다.</b> 설치가 이미 된 이미지를 쓰는 편이 낫다.</p>
+<h3>2-4. 템플릿</h3>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>이름</td><td><b><code>IsaacLab-2.3.2-Go2</code></b></td></tr><tr><td>컨테이너 디스크</td><td><b>50 GB</b></td></tr><tr><td>영구 저장소</td><td>Network storage → <code>foothold-shared</code></td></tr><tr><td>마운트 경로</td><td><b><code>/data</code></b></td></tr><tr><td>CUDA 필터</td><td><b>12.8</b></td></tr></tbody></table></div>
+<p>컨테이너 디스크 50 GB 인 이유: Isaac Sim 이 첫 실행 때 셰이더를 컴파일해 캐시로 쌓는다. 20 GB 로는 학습 중에 <code>No space left on device</code> 가 날 수 있다. 시간당 차액은 약 $0.005 다.</p>
+<p>CUDA 필터는 배포 화면 아래 경고(&quot;Only 12.8 is compatible with this template&quot;)를 따른다.</p>
+<blockquote><p>Pod 안 <code>nvidia-smi</code> 가 <code>CUDA Version: 13.0</code> 을 표시하는 것은 정상이다 <span class="ev ev-ok">확인됨</span>. 그것은 <b>드라이버가 지원하는 최대 버전</b>이지 컨테이너가 쓰는 버전이 아니다. Isaac Sim 은 자기 CUDA 런타임을 들고 다니고 드라이버는 하위 호환이다.</p></blockquote>
+<h3>2-5. Pod</h3>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>GPU</td><td>RTX 4090 (VRAM 24 GB)</td></tr><tr><td>RAM · vCPU</td><td>46 GB · 8</td></tr><tr><td>유형</td><td>On-Demand · Secure Cloud</td></tr><tr><td>리전</td><td>EU-RO-1 (볼륨이 강제)</td></tr><tr><td>시간당</td><td>약 $0.74 <span class="ev ev-ok">확인됨</span></td></tr></tbody></table></div>
+<p><b>Pod 은 켜져 있는 동안 계속 과금된다.</b> 작업이 끝나면 Stop 한다.</p>
 </section>
-<section id="s4"><h2>4. 우리 프로젝트에서의 결론</h2>
-<div class="tw"><table><thead><tr><th>컷 성격</th><th>도구</th></tr></thead><tbody><tr><td>로봇 클로즈업 · 핵심 컷</td><td><b>Blender</b> (설치 완료 · 제어권 최상)</td></tr><tr><td>넓은 씬 · 다수 컷</td><td><b>Isaac Sim Path Tracing</b> (실측 1.75초/프레임 @1080p 128spp)</td></tr><tr><td>원경 실사 배경</td><td>NuRec/3DGS (5.1 은 조명 상호작용 약함 · 6.0 에서 개선)</td></tr></tbody></table></div>
-<p>컷마다 섞어 쓰는 것: VFX 에서 늘 하던 방식이고, 팀장이 확정한 방향이다(2026-08-12).</p>
+<section id="s4"><h2>3. 두 개의 디스크</h2>
+<p>Pod 안에서 가장 자주 사고가 나는 지점이다. <b>v1.0 과 표가 뒤바뀌었으니 주의한다.</b></p>
+<div class="tw"><table><thead><tr><th>경로</th><th>정체</th><th>Stop</th><th>Terminate</th></tr></thead><tbody><tr><td><b><code>/data</code></b></td><td>네트워크 볼륨 30 GB</td><td>남음</td><td>남음</td></tr><tr><td><code>/workspace</code> <code>/</code> <code>/root</code> <code>/tmp</code></td><td>컨테이너 디스크 50 GB</td><td>사라짐</td><td>사라짐</td></tr></tbody></table></div>
+<p><b>남겨야 하는 모든 것은 <code>/data</code> 아래에 둔다.</b> 이 한 줄이 규칙 전부다. <code>/workspace</code> 는 Isaac Lab 이 사는 실행 공간이지 저장 공간이 아니다.</p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">df</span> <span class="o">-h</span> | <span class="f">grep</span> mfs</pre></div>
+<p><code>mfs#euro-3.runpod.net:9421</code> 이 <b><code>/data</code> 에</b> 붙어 있으면 정상이다. <code>/workspace</code> 에 붙어 있으면 잘못 배포한 것이다.</p>
 </section>
-<section id="s5"><h2>연결</h2>
-<ul><li>렌더 실측·Racer 프레임 판정 → <a href="research-render-benchmarks.html">render-benchmarks.md</a></li><li>시각 증거 → <a href="research-visual-evidence.html">visual-evidence.md</a></li><li>아키텍처(버전·EOL) → <a href="research-architecture-decision.html">architecture-decision.md</a></li></ul>
+<section id="s5"><h2>4. 접속: 웹 터미널</h2>
+<p><b>브라우저만 있으면 된다. 설치할 것도, 키를 만들 것도 없다</b> <span class="ev ev-ok">확인됨</span>.</p>
+<ol><li>RunPod 콘솔 → <b>Pods</b></li><li>해당 Pod 을 펼치고 <b>Connect</b></li><li>터미널이 꺼져 있으면 <b>Start</b>, 그다음 <b>Open Web Terminal</b></li></ol>
+<p>브라우저에 터미널이 열린다. 이 문서의 명령은 <b>전부 여기에 그대로 복사해 붙이면 된다.</b></p>
+<p>출처: https://docs.runpod.io/pods/connect-to-a-pod</p>
+<blockquote><p><b>단, 웹 터미널은 오래 도는 작업에 권장되지 않는다</b> (공식 문서 표기). 브라우저 탭이 닫히거나 세션이 끊기면 그 터미널에서 돌던 것이 함께 죽는다. <b>학습처럼 오래 도는 것은 반드시 <code>tmux</code> 안에서 돌린다</b> (8-1 절). tmux 안에 있으면 세션이 끊겨도 Pod 안에서 계속 돈다.</p></blockquote>
+<h3>접속 직후 확인 4줄</h3>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">df</span> <span class="o">-h</span> | <span class="f">grep</span> mfs
+<span class="f">ls</span> /workspace/isaaclab
+<span class="f">ls</span> /data
+<span class="f">nvidia-smi</span></pre></div>
+<div class="tw"><table><thead><tr><th>줄</th><th>기대 결과</th></tr></thead><tbody><tr><td>1</td><td><code>mfs#...</code> 가 <b><code>/data</code></b> 에 붙어 있다</td></tr><tr><td>2</td><td><code>scripts</code> · <code>source</code> · <code>isaaclab.sh</code> 등이 보인다</td></tr><tr><td>3</td><td>팀 폴더가 보인다</td></tr><tr><td>4</td><td>RTX 4090</td></tr></tbody></table></div>
+<p><b>두 번째 줄이 비어 있으면 거기서 멈춘다.</b> 마운트 경로를 잘못 잡은 것이므로 그 상태로 진행하면 시간만 쓴다.</p>
 </section>
-<section id="s6"><h2>판 이력</h2>
-<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td>v1.0</td><td>2026-08-12</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
+<section id="s6"><h2>5. 네트워크 볼륨 사용 규칙</h2>
+<h3>5-1. 왜 있는가</h3>
+<p><b>git 에 못 올리는 것을 담는 곳이다.</b></p>
+<p>팀 규칙상 <code>.pt</code> 체크포인트는 저장소에 커밋 금지다(용량 제한 · 히스토리 오염). 그런데 학습 결과물의 본체가 바로 그 <code>.pt</code> 다. 코드는 git 으로, <b>결과물은 이 볼륨으로</b> 오간다.</p>
+<h3>5-2. 폴더 구조</h3>
+<p><code>&lt;사용자ID&gt;</code> 는 각자의 짧은 식별자로 바꿔 쓴다.</p>
+<div class="tw"><table><thead><tr><th>경로</th><th>무엇을 두나</th></tr></thead><tbody><tr><td><code>/data/shared/checkpoints/</code></td><td>학습된 정책 <code>.pt</code>. 예: <code>go2-rough/20260901-&lt;사용자ID&gt;-1500iter.pt</code></td></tr><tr><td><code>/data/shared/assets/</code></td><td>USD · 지형 등 무거운 공유 자산</td></tr><tr><td><code>/data/shared/setup.sh</code></td><td>Pod 켤 때마다 실행하는 스크립트</td></tr><tr><td><code>/data/&lt;사용자ID&gt;/repos/</code></td><td>개인 작업 저장소</td></tr><tr><td><code>/data/&lt;사용자ID&gt;/logs/</code></td><td>개인 학습 로그</td></tr><tr><td><code>/data/&lt;사용자ID&gt;/videos/</code></td><td>개인 영상</td></tr></tbody></table></div>
+<p><code>/data/shared/</code> 는 팀 공유다. 읽기는 자유롭게 하되 쓰기는 조심한다. <code>/data/&lt;사용자ID&gt;/</code> 는 개인 작업 공간이다.</p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">mkdir</span> <span class="o">-p</span> /data/shared/{checkpoints,assets} /data/&lt;사용자ID&gt;/{repos,logs,videos}</pre></div>
+<p><b>개인 폴더와 공유 폴더를 나눈다.</b> 여러 명이 같은 볼륨을 쓰는데 루트에 다 쏟으면 누가 무엇을 지웠는지 추적할 수 없다.</p>
+<p><b><code>/data/shared/</code> 에 넣는 파일은 이름에 날짜와 작성자를 박는다.</b> 동시 쓰기 동작이 <code>미검증</code> 이므로 덮어쓰기 사고를 이름으로 막는다.</p>
+<h3>5-3. 넣는 것</h3>
+<div class="tw"><table><thead><tr><th>무엇</th><th>왜</th></tr></thead><tbody><tr><td><code>.pt</code> 체크포인트</td><td>git 금지 대상. 여기 말고 갈 데가 없다</td></tr><tr><td>학습 로그 · TensorBoard</td><td>재현과 비교에 필요하다</td></tr><tr><td>영상 (mp4)</td><td>발표 · 검증 자료</td></tr><tr><td>USD · 지형 에셋</td><td>크고, 팀이 같은 것을 써야 한다</td></tr><tr><td><code>setup.sh</code></td><td>Pod 켤 때마다 필요한 셋업</td></tr></tbody></table></div>
+<h3>5-4. 넣지 않는 것</h3>
+<div class="tw"><table><thead><tr><th>무엇</th><th>왜</th></tr></thead><tbody><tr><td><b>토큰 · 자격증명</b></td><td><b>팀 전체가 마운트한다.</b> 여기 두면 전원에게 노출된다</td></tr><tr><td>Isaac Sim · Isaac Lab 본체</td><td>이미지에 이미 있다. 볼륨은 네트워크 파일시스템이라 느리고 용량만 먹는다</td></tr><tr><td>pip 패키지 · site-packages</td><td>파이썬 경로가 꼬인다. 매번 설치가 정답이다</td></tr><tr><td>셰이더 캐시 · <code>/tmp</code> 부스러기</td><td>30 GB 가 금방 찬다</td></tr></tbody></table></div>
+<p>토큰 규칙은 예외가 없다. GitHub 인증은 <code>git config --global credential.helper cache</code> (메모리)로 처리한다. <code>credential.helper store</code> 는 평문으로 남으므로 쓰지 않는다.</p>
+<h3>5-5. 용량 관리</h3>
+<p>체크포인트 하나는 작지만 학습 한 번에 수십 개가 쌓인다.</p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">du</span> <span class="o">-sh</span> /data/*</pre></div>
+<p>찼을 때 <b>남의 폴더를 지우지 않는다.</b> 볼륨은 콘솔에서 키울 수 있다(줄이는 것은 불가).</p>
+</section>
+<section id="s7"><h2>6. Isaac Lab 첫 실행</h2>
+<p>09-01 에 실제로 통과한 순서다 <span class="ev ev-ok">확인됨</span>. 경로 <code>/workspace/isaaclab</code> 은 팀 템플릿 기준이므로, 다른 이미지를 쓰면 2-3 절 표로 먼저 확인한다.</p>
+<h3>6-1. 로그를 볼륨으로 돌려둔다</h3>
+<p><code>/workspace</code> 는 Stop 하면 사라지므로 학습 로그가 날아간다.</p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">mkdir</span> <span class="o">-p</span> /data/&lt;사용자ID&gt;/logs
+<span class="f">cd</span> /workspace/isaaclab
+[ <span class="o">-e</span> logs ] || <span class="f">ln</span> <span class="o">-s</span> /data/&lt;사용자ID&gt;/logs logs</pre></div>
+<h3>6-2. 사전학습 정책으로 파이프라인 확인</h3>
+<p>학습 없이 NVIDIA 가 미리 학습해 둔 정책을 받아 돌린다. 환경이 살아 있는지만 본다.</p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cd</span> /workspace/isaaclab
+./isaaclab.sh <span class="o">-p</span> scripts/reinforcement_learning/rsl_rl/play.py \
+  <span class="o">--task</span> Isaac-Velocity-Rough-Unitree-Go2-Play-v0 \
+  <span class="o">--use_pretrained_checkpoint</span> <span class="o">--headless</span></pre></div>
+<p><code>--headless</code> 라 출력이 없고 무한 루프로 계속 돈다. <b>멈춘 것이 아니다.</b> <code>Ctrl+C</code> 로 끝낸다.</p>
+<p>성공 판정은 두 줄이다.</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>Loading model checkpoint from: .../Isaac-Velocity-Rough-Unitree-Go2-v0/checkpoint.pt
+Actor MLP: ... (0): Linear(in_features=235, out_features=512 ...</pre></div>
+<blockquote><p>덤으로 확인된 것: 출력의 Observation Manager 표에 <code>height_scan (187,)</code> 이 찍힌다. 08-30 <code>T0-stepping-stones-관측판정.md</code> 의 손계산(1.6 m x 1.0 m, 0.1 m 간격 → 17 x 11 = 187)과 일치한다 <span class="ev ev-ok">확인됨</span>. 관측 235 차원 중 187 이 지형 스캔이다.</p></blockquote>
+<h3>6-3. 영상 뽑기</h3>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>./isaaclab.sh <span class="o">-p</span> scripts/reinforcement_learning/rsl_rl/play.py \
+  <span class="o">--task</span> Isaac-Velocity-Rough-Unitree-Go2-Play-v0 \
+  <span class="o">--use_pretrained_checkpoint</span> <span class="o">--headless</span> \
+  <span class="o">--video</span> <span class="o">--video_length</span> <span class="n">200</span></pre></div>
+<p>200 스텝(4초) 찍고 스스로 끝난다. 이때는 <code>isaaclab.python.headless.rendering.kit</code> 이 로딩되므로 아래 경고가 뜬다.</p>
+<div class="tw"><table><thead><tr><th>경고</th><th>판단</th></tr></thead><tbody><tr><td><code>GLFW initialization failed</code> · <code>Failed to create NGX context</code></td><td><b>이번 headless 영상 실측에서는 결과에 영향 없었다</b> <span class="ev ev-ok">확인됨</span>. 화면과 DLSS 를 안 쓰는 실행이라 영상 4초가 정상 생성됐다</td></tr><tr><td><code>CPU performance profile is set to powersave</code> · <code>PCIe link width 8 vs 16</code></td><td><b>성능 저하 신호다.</b> 무시가 아니라, <b>출력과 소요 시간이 허용 범위일 때만</b> 넘어간다. 학습 시간이 예상보다 길면 여기를 먼저 의심한다</td></tr></tbody></table></div>
+<h3>6-4. 영상 위치</h3>
+<p>사전학습 체크포인트를 쓰면 영상이 <code>logs/</code> 가 아니라 <b>체크포인트 옆</b>에 떨어진다. 그 폴더가 <code>.</code> 으로 시작해서 <code>ls</code> 에 보이지 않는다.</p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">find</span> /workspace/isaaclab <span class="o">-name</span> <span class="s">&#x27;*.mp4&#x27;</span> <span class="n">2</span>&gt;/dev/null
+<span class="c"># /workspace/isaaclab/.pretrained_checkpoints/rsl_rl/Isaac-Velocity-Rough-Unitree-Go2-v0/videos/play/rl-video-step-0.mp4</span></pre></div>
+<p>컨테이너 디스크이므로 <b>반드시 볼륨으로 옮긴다.</b></p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">cp</span> &lt;위 경로&gt; /data/&lt;사용자ID&gt;/videos/</pre></div>
+</section>
+<section id="s8"><h2>7. 파일을 노트북으로 가져오기</h2>
+<p><b>웹 터미널과 Basic SSH 로는 파일을 직접 복사할 수 없다.</b> RunPod 공식 문서의 연결 방식 표에서 Basic SSH 의 SCP/SFTP 지원이 <code>No</code> 다. 출처: https://docs.runpod.io/pods/configuration/use-ssh</p>
+<p><code>runpodctl</code> 을 쓴다. Pod 에 기본 설치되어 있다 <span class="ev ev-ok">확인됨</span>.</p>
+<p>Pod 에서:</p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">runpodctl</span> send /data/&lt;사용자ID&gt;/videos/rl-video-step-<span class="n">0</span>.mp4</pre></div>
+<p>일회용 코드가 나온다. <b>받는 쪽이 실행할 때까지 대기 상태로 멈춰 있다.</b> 다운로드가 안 되는 것이 아니다.</p>
+<p>노트북에서 (최초 1회 설치):</p>
+<div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">Invoke-WebRequest</span> <span class="o">-Uri</span> <span class="s">&quot;https://github.com/runpod/runpodctl/releases/latest/download/runpodctl-windows-amd64.exe&quot;</span> <span class="o">-OutFile</span> <span class="s">&quot;runpodctl.exe&quot;</span></pre></div>
+<p>받기:</p>
+<div class="cb"><div class="cb-h">PowerShell<button class="copy" type="button" aria-label="복사">복사</button></div><pre>.\runpodctl.exe receive &lt;코드&gt;</pre></div>
+<p><code>Runpod config file not found</code> 경고는 무시해도 된다. send/receive 는 설정 없이 동작한다 <span class="ev ev-ok">확인됨</span>.</p>
+<blockquote><p>v1.0 의 &quot;git 이 유일한 통로다&quot; 는 <b>정정한다.</b> 코드는 git 이 맞지만 <code>.pt</code> 와 영상은 <code>runpodctl</code> 로 옮긴다.</p></blockquote>
+</section>
+<section id="s9"><h2>8. 터미널 작업 방식</h2>
+<h3>8-1. tmux 로 세션을 Pod 에 남긴다</h3>
+<p>웹 터미널은 세션이 끊기면 그 안에서 돌던 것이 함께 죽는다. <b>학습처럼 오래 도는 것은 반드시 tmux 안에서 돌린다.</b></p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">tmux</span> new <span class="o">-s</span> work        <span class="c"># 새 세션</span>
+<span class="c"># Ctrl+b 를 누르고 뗀 뒤 d        빠져나오기 (detach)</span>
+<span class="f">tmux</span> attach <span class="o">-t</span> work     <span class="c"># 다시 들어가기</span></pre></div>
+<p>없으면 <code>apt update &amp;&amp; apt install -y tmux</code>.</p>
+<h3>8-2. 편집은 nano</h3>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">nano</span> /data/&lt;사용자ID&gt;/repos/&lt;저장소&gt;/파일명.py</pre></div>
+<p><code>Ctrl+O</code> 후 Enter 로 저장, <code>Ctrl+X</code> 로 나가기.</p>
+<h3>8-3. 코드는 git 으로 왕복시킨다</h3>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>노트북에서 작성 -&gt; git push -&gt; GitHub -&gt; Pod 에서 git pull -&gt; 실행
+Pod 에서 결과 커밋 -&gt; git push -&gt; GitHub -&gt; 노트북에서 git pull</pre></div>
+<p>Pod 최초 설정:</p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">git</span> config <span class="o">--global</span> user.name <span class="s">&quot;&lt;GitHub 사용자명&gt;&quot;</span>
+<span class="f">git</span> config <span class="o">--global</span> user.email <span class="s">&quot;&lt;이메일&gt;&quot;</span>
+<span class="f">git</span> config <span class="o">--global</span> credential.helper cache
+<span class="f">mkdir</span> <span class="o">-p</span> /data/&lt;사용자ID&gt;/repos &amp;&amp; <span class="f">cd</span> /data/&lt;사용자ID&gt;/repos</pre></div>
+<p>클론 대상은 두 가지다.</p>
+<div class="tw"><table><thead><tr><th>무엇</th><th>주소</th></tr></thead><tbody><tr><td>팀 정본</td><td><code>https://github.com/foothold-project/foothold-go2.git</code></td></tr><tr><td>개인 fork · 개인 실험 저장소</td><td><code>https://github.com/&lt;GitHub 사용자명&gt;/&lt;저장소&gt;.git</code></td></tr></tbody></table></div>
+<p><b>개인 저장소에서 시작했더라도 커밋 기록은 정본으로 그대로 옮길 수 있다.</b> 정본을 remote 로 추가해 브랜치를 밀면 된다.</p>
+<p>비공개 저장소는 비밀번호 자리에 <b>GitHub 토큰</b>을 넣는다. 일반 비밀번호는 거부된다.</p>
+<blockquote><p><b>토큰을 문서 · 저장소 · 볼륨에 적지 않는다.</b> 클론 URL 에 토큰을 끼워 넣으면 <code>.git/config</code> 에 평문으로 남으므로 하지 않는다.</p></blockquote>
+<h3>8-4. 처음 돌리는 명령은 로그를 남기고, 자르지 않는다</h3>
+<p>08-31 에 <code>2&gt;&amp;1 | grep Go2</code> 로 묶어 실행했다가 에러까지 함께 삼켜 원인 파악이 늦어졌다.</p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>./isaaclab.sh <span class="o">-p</span> &lt;스크립트&gt; <span class="n">2</span>&gt;&amp;<span class="n">1</span> | <span class="f">tee</span> /data/&lt;사용자ID&gt;/logs/&lt;이름&gt;.log</pre></div>
+<p><b><code>| tail -40</code> 을 뒤에 붙이지 않는다.</b> <code>tail</code> 은 입력이 끝나야 출력하므로, 붙이면 프로세스가 도는 동안 화면이 비어 있어 진행 중인지 죽은 것인지 구분할 수 없다. <code>tee</code> 까지만 걸어 진행 상황을 그대로 보고, <b>끝난 뒤에 따로</b> 본다.</p>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">tail</span> <span class="o">-n</span> <span class="n">40</span> /data/&lt;사용자ID&gt;/logs/&lt;이름&gt;.log</pre></div>
+<h3>8-5. 끝나면 Stop</h3>
+<p>작업 종료 습관: 결과물을 <code>/data</code> 로 복사 → tmux detach → 콘솔에서 Pod <b>Stop</b>. Stop 을 잊으면 시간당 $0.74 가 계속 나간다.</p>
+</section>
+<section id="s10"><h2>9. 아직 확인하지 않은 것 · 알려진 제약</h2>
+<div class="tw"><table><thead><tr><th>항목</th><th>상태</th><th>비고</th></tr></thead><tbody><tr><td>두 Pod 이 같은 파일에 동시에 쓸 때의 동작</td><td><code>미검증</code></td><td>부착은 되지만 쓰기 충돌은 안 재봤다. 이름 규칙으로 회피 중</td></tr><tr><td>VS Code Remote-SSH</td><td>제약 <span class="ev ev-ok">확인됨</span></td><td>Basic SSH(프록시)는 VS Code Remote-SSH 를 <b>지원하지 않는다.</b> 정확한 내부 거절 원인은 <span class="ev ev-todo">미확인</span></td></tr><tr><td>팀 명의 과금 Pod 개인 생성 권한</td><td><span class="ev ev-todo">미확인</span></td><td>운영 담당(오흥재)에게 확인 필요</td></tr><tr><td>잔액 부족 알림 설정</td><td>안 함</td><td>Pod 이 조용히 죽는 것을 막는다</td></tr><tr><td>1500 iteration 소요 시간</td><td>133 분 · 약 $1.7 <span class="ev ev-ok">확인됨</span></td><td>30 iteration 외삽치(113 분)보다 18% 길다</td></tr><tr><td>Go2 발 접촉 반경</td><td><span class="ev ev-todo">미측정</span></td><td>T0 판정의 마지막 남은 항목 (#67)</td></tr></tbody></table></div>
+<p><b>해소된 항목</b> (09-01): Terminate 후 볼륨 생존 <span class="ev ev-ok">확인됨</span> · 여러 Pod 동시 부착 <span class="ev ev-ok">확인됨</span> · 팀원별 폴더 구조(5-2 절에서 확정).</p>
+</section>
+<section id="s11"><h2>10. 다음에 같은 일을 하는 사람에게</h2>
+<ol><li>네트워크 볼륨을 만든다 (리전을 정한다. 이후 Pod 은 그 리전에 묶인다)</li><li>배포 화면에서 볼륨 <code>foothold-shared</code> 를 선택한다 (<b>배포할 때만 붙일 수 있다</b> · Secure Cloud)</li><li>템플릿 <code>IsaacLab-2.3.2-Go2</code> 를 고른다</li><li><b>Edit 을 눌러 Volume mount path 를 <code>/data</code> 로 바꾼다</b> ← 가장 많이 걸리는 곳</li><li>컨테이너 디스크 50 GB · CUDA 12.8 확인 후 배포</li><li><b>Connect → Open Web Terminal</b> 로 붙는다</li><li>4절의 확인 4줄을 돌린다. <b><code>ls /workspace/isaaclab</code> 이 비어 있으면 4번을 안 한 것이다</b></li><li>오래 도는 작업은 tmux 안에서, 저장은 <code>/data</code> 아래에</li><li>결과물을 <code>/data</code> 로 옮기고 Stop</li></ol>
+<p><b>가장 많이 걸리는 곳은 4번을 건너뛰는 것이다.</b> Isaac Lab 이 통째로 가려져 빈 폴더만 보인다. 08-31 에 하루를 썼다.</p>
+</section>
+<section id="s12"><h2>판 이력</h2>
+<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.0</b></td><td>2026-09-01</td><td>마운트 경로 <code>/workspace</code> -&gt; <code>/data</code> 정정(v1.0 서술이 뒤집힘) · &quot;RunPod 확정&quot; -&gt; D6 판단 대기로 정정 · 이미지별 Isaac Lab 경로 표 신설(공식 이미지 오인 정정) · 볼륨 사용 규칙 · Isaac Lab 첫 실행 · <code>runpodctl</code> 파일 회수 신설 · SSH 절을 웹 터미널로 대체 · 미확인 2건 해소</td><td>#94 · 09-01 실측 · 공식 문서</td></tr><tr><td>v1.0</td><td>2026-08-31</td><td>처음 씀 (볼륨 · 템플릿 · SSH · VS Code 실패 기록)</td><td>#94</td></tr></tbody></table></div>
 </section>
 
 </div>
@@ -757,10 +935,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
-<style>
-@media print{}
-</style>
-
 <!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

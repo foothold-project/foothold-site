@@ -265,7 +265,7 @@ html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#16
 html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}
 :root{--bg:var(--paper);--panel:var(--card);--sub:var(--ink-3);--line:var(--rule);--brand:var(--dim);--brand-ink:var(--dim-ink,#0b3d2e);--brand-soft:var(--dim-soft);--brand-line:var(--dim);--accent:var(--note);--accent-soft:var(--note-soft);--code:var(--paper-2);--shadow:none}body{font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;background:var(--paper);color:var(--ink)}
 main{max-width:1040px;margin:0 auto;padding:1.5rem 1.4rem 4rem}.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}.tw table{min-width:max-content}.fh-doc{font-size:15px;line-height:1.75;color:var(--ink)}.fh-doc p,.fh-doc li,.fh-doc .lede{font-size:15px;line-height:1.75}.fh-doc h1,.fh-doc .hero h1{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.25}.fh-doc h2{font-size:20.48px;font-weight:800;line-height:1.75;margin:2.2rem 0 .7rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule)}.fh-doc h3{font-size:16px;font-weight:800;line-height:1.75;margin:1.4rem 0 .5rem}.fh-doc h4{font-size:15px;font-weight:700;margin:1.1rem 0 .4rem}.fh-doc h5{font-size:13.5px;font-weight:700;margin:1rem 0 .35rem}.fh-doc .hero,.fh-doc .card,.fh-doc .box,.fh-doc .panel,.fh-doc .call,.fh-doc .stamp{border-radius:8px;border:1px solid var(--rule);background:var(--card)}.fh-doc table{border-collapse:collapse;width:100%}.fh-doc th,.fh-doc td{font-size:13.12px;line-height:1.75;border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left}.fh-doc th{font-weight:700;color:var(--ink-2)}.fh-doc code,.fh-doc kbd{font-family:ui-monospace,Consolas,monospace;font-size:13.5px;background:var(--paper-2);border-radius:3px;padding:0 .25em}.fh-doc pre{font-size:12.16px;line-height:1.7;background:var(--paper-2);border:1px solid var(--rule);border-radius:8px;padding:.9rem 1rem;overflow-x:auto}.fh-doc pre code{font-size:inherit;background:none;padding:0}.fh-doc .hero{background:none;border:0;border-radius:0;padding:0;margin:0 0 2.2rem;overflow:visible}.fh-doc .hero .eyebrow{font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:.4rem}.fh-doc h2 .n{color:var(--ink-3);font-weight:700;margin-right:.42rem;font-size:1em;letter-spacing:0}.fh-doc h2 .n::after{content:"."}.fh-doc th{text-transform:none;letter-spacing:0;font-size:13.12px;color:var(--ink-2);border-bottom:1px solid var(--rule);white-space:normal;padding:.5rem .7rem;background:none}.fh-doc h2{border-top:0}.fh-doc a{color:var(--dim)}</style>
-<link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2">
+<style id="fh-cb">.cb{margin:1rem 0;border:1px solid var(--rule);background:#0f141b;border-radius:8px;overflow:hidden}.cb-h{display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;background:#1a212b;border-bottom:1px solid #2b323d;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7d8693}.cb-h .copy{margin-left:auto;background:#232b36;border:1px solid #39424f;color:#c8cfd8;font-family:inherit;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:.16rem .5rem;border-radius:3px;cursor:pointer;transition:.14s}.cb-h .copy:hover{background:var(--dim);border-color:var(--dim);color:#fff}.cb-h .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}.fh-doc .cb pre{margin:0;padding:.75rem .85rem;overflow-x:auto;color:#dfe4ea;background:none;border:0;border-radius:0;font-family:'Consolas','D2Coding',ui-monospace,monospace;font-size:12.16px;line-height:1.7}.cb pre .c{color:#6f7a88}</style><script id="fh-cb-js">document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".copy");if(!b)return;var w=b.closest(".cb");var t=w&&w.querySelector("pre");if(!t)return;navigator.clipboard.writeText(t.innerText).then(function(){var o=b.textContent;b.textContent="복사됨";b.classList.add("done");setTimeout(function(){b.textContent=o;b.classList.remove("done")},1400)})});</script><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2">
 <style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
@@ -301,6 +301,11 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
   margin-left:auto;margin-right:auto}
 @media print{.wrap{max-width:none!important}}
 .gnav .navctl script{display:none}
+/* ★ 9/1: 검색 버튼은 런타임에 JS 가 만든다. 그때 «그 페이지의 PDF 버튼
+   클래스» 를 복사해 페이지마다 크기가 달랐다 (팀장: 돋보기 크기가 변한다).
+   복사는 searchbox 에서 없앴고, 여기서 바의 규격으로 못박는다. */
+.gnav .fh-sbtn{font-size:.8rem!important;font-weight:600!important;letter-spacing:-.01em!important;line-height:1.5!important;padding:.34rem .55rem!important;height:1.85rem!important;gap:.28rem!important;border:0!important;background:transparent!important;position:static!important;box-sizing:border-box!important}
+.gnav .fh-sbtn svg{width:11px!important;height:11px!important;flex:none}
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
 /* ★ 바 높이가 44 / 48 / 50 세 가지였다 (실측). 바가 «페이지의 line-height» 를
@@ -317,8 +322,11 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
      굵기 650 / 600 두 종 · 색 두 종 · 높이 25 / 26 / 29px 세 종 ·
      세로 위치 9 / 10 / 11px 세 종 («다크» 버튼만 3px 낮고 1px 위로 밀림).
    상단바 «모든» 항목이 같은 상자로 선다. 하나라도 예외를 두면 또 어긋난다. */
+/* ★ 9/1 실측: 버튼 폭이 페이지마다 2px 달랐다. 원인은 «선언된 폰트 스택» 이
+   달라서다 (기획 Arial · 백과·커리큘럼 Pretendard). 같은 글자여도 폭이 다르다.
+   바는 자기 폰트를 갖는다. 그래야 페이지를 옮겨도 안 흔들린다. */
 .gnav a,.gnav button,.gnav .navctl>*{
-  font-size:.8rem!important;font-weight:600!important;letter-spacing:-.01em;
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo','Segoe UI',system-ui,sans-serif!important;letter-spacing:-.01em!important;  font-size:.8rem!important;font-weight:600!important;
   line-height:1.5!important;color:var(--ink-3)!important;
   padding:.34rem .55rem!important;border-radius:4px!important;
   border:0!important;background:transparent!important;
@@ -492,7 +500,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
+<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -540,7 +548,11 @@ document.addEventListener('DOMContentLoaded',function(){
   /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
   var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
   var sb=document.createElement('button');sb.type='button';
-  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
+  /* ★ 9/1 팀장 실측: 「돋보기 아이콘 크기가 달라지면서 위치가 변한다」.
+     여기가 그 원인이다. 검색 버튼이 «그 페이지의 PDF 버튼 클래스를 복사» 해서
+     페이지마다 패딩·글자·자간이 달랐고, 그만큼 오른쪽 묶음이 밀렸다.
+     전역바가 바를 소유한 지금은 복사할 이유가 없다. 자기 클래스만 쓴다. */
+  sb.className=(pb&&!pb.closest('.gnav')?'fh-sbtn-fix ':'')+'fh-sbtn';
   sb.setAttribute('aria-label','사이트 검색');
   sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
     +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
@@ -624,7 +636,7 @@ document.addEventListener('DOMContentLoaded',function(){
 a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
 a.is-new .ex3::after,a.is-new .pk3::after,
 a.band.is-new .bt::after,a.band.is-new strong::after,
-a.is-new .k::after{content:'NEW';display:inline-block;
+a.is-new .k::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
   font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
 </style>
@@ -773,19 +785,22 @@ body>*{flex-shrink:0}
 <h3 id="C1-1"><span class="step">C1-1</span>OpenCV 설치 · 이미지 한 장 열어 보기</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>CV의 첫 단추는 "이미지가 파이썬에서 무엇으로 보이는가"다. 이걸 눈으로 확인하지 않으면 뒤의 모든 코드가 마법처럼 보인다.</p>
-<pre><code>&gt; pip install opencv-python numpy</code></pre>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>&gt; <span class="f">pip</span> install opencv-python numpy</pre></div>
 <div class="anno">
 <div><code>opencv-python</code><span>OpenCV의 파이썬 배포판. <b>패키지 이름은 <code>opencv-python</code>인데 코드에서 부르는 이름은 <code>cv2</code></b>다. 이 불일치는 OpenCV 2.x 시절 이름이 남은 것으로, 3·4버전을 써도 계속 <code>cv2</code>다.</span></div>
 <div><code>numpy</code><span>수치 배열 라이브러리. OpenCV가 이미지를 <b>numpy 배열로 돌려주기 때문에</b> 사실상 한 몸이다. 보통 같이 깔린다.</span></div>
 </div>
 <p class="why"><span class="tag">PY</span>아무 사진 파일 하나를 <code>test.jpg</code>로 두고 파이썬에서 연다.</p>
-<pre><code>import cv2
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">import</span> cv2
 
-img = cv2.imread("test.jpg")
-print(type(img))     # &lt;class 'numpy.ndarray'&gt;
-print(img.shape)     # (480, 640, 3)  ← (높이, 너비, 채널)
-print(img.dtype)     # uint8
-print(img[0, 0])     # [ 34  87 201 ]  ← B, G, R</code></pre>
+img = cv2.<span class="f">imread</span>(<span class="s">&quot;test.jpg&quot;</span>)
+<span class="f">print</span>(<span class="f">type</span>(img))     <span class="c"># &lt;class &#x27;numpy.ndarray&#x27;&gt;
+</span>
+<span class="f">print</span>(img.shape)     <span class="c"># (480, 640, 3)  ← (높이, 너비, 채널)
+</span>
+<span class="f">print</span>(img.dtype)     <span class="c"># uint8
+</span>
+<span class="f">print</span>(img[<span class="n">0</span>, <span class="n">0</span>])     <span class="c"># [ 34  87 201 ]  ← B, G, R</span></pre></div>
 <div class="anno">
 <div><code>cv2.imread</code><span>파일을 읽어 배열로 돌려준다. <b>파일이 없거나 경로가 틀리면 에러를 내지 않고 <code>None</code>을 돌려준다.</b> 그 다음 줄에서 <code>NoneType has no attribute</code> 에러가 나는 것이 이 함수의 실패 신호다. 한글 경로에서도 <code>None</code>이 나오니 파일은 영문 경로에 둔다.</span></div>
 <div><code>.shape</code><span>배열의 크기. <b><code>(높이, 너비, 채널)</code> 순서다.</b> 사람은 "640×480"이라고 가로를 먼저 말하는데 배열은 세로가 먼저다. 이 뒤집힘이 초심자 버그 1위다.</span></div>
@@ -797,18 +812,18 @@ print(img[0, 0])     # [ 34  87 201 ]  ← B, G, R</code></pre>
 
 <div class="call trap"><div class="t">함정 · OpenCV는 BGR, 나머지 세상은 RGB</div>
 <p>OpenCV는 채널 순서가 <strong><code>B → G → R</code></strong>이다. matplotlib·PIL·YOLO 시각화는 <strong><code>R → G → B</code></strong>다. 섞이면 <strong>사람 피부가 파랗게 나오는데 에러는 하나도 안 난다.</strong></p>
-<pre><code>rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)   # OpenCV → matplotlib으로 넘길 때
-bgr = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)   # 되돌릴 때</code></pre>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)   # OpenCV → matplotlib으로 넘길 때
+bgr = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)   # 되돌릴 때</pre></div>
 <p>ROS 2에서도 같은 문제가 나온다. <code>sensor_msgs/Image</code>의 <code>encoding</code> 필드가 <code>bgr8</code>인지 <code>rgb8</code>인지가 바로 이 이야기이고, <a href="#C4-3">C4-3</a>의 <code>cv_bridge</code>에서 <code>desired_encoding='bgr8'</code>을 명시하는 이유다.</p></div>
 
 <h3 id="C1-2"><span class="step">C1-2</span>좌표계 · 원점은 왼쪽 위, y는 아래로 증가한다</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>이 규약은 외우는 게 아니라 <strong>지금 한 번 그려 보고 넘어가야</strong> 한다. <a href="#c6">C6</a>에서 <code>camera_optical_frame</code>의 축 방향과 정확히 같은 규약이 다시 나오기 때문이다.</p>
-<pre><code>h, w = img.shape[:2]
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>h, w = img.shape[:2]
 img[0:50, 0:200] = (0, 0, 255)      # 빨간 띠가 어디에 생기나?
-cv2.imshow("where", img)
+cv2.imshow(&quot;where&quot;, img)
 cv2.waitKey(0)
-cv2.destroyAllWindows()</code></pre>
+cv2.destroyAllWindows()</pre></div>
 <div class="anno">
 <div><code>img[0:50, 0:200]</code><span>numpy 슬라이싱. <b>앞이 행(y), 뒤가 열(x)</b>이다. 즉 "y가 0~49, x가 0~199인 영역". 사람이 말하는 순서와 반대라, <code>img[x, y]</code>로 쓰면 조용히 엉뚱한 데를 건드린다.</span></div>
 <div><code>(0, 0, 255)</code><span>BGR이므로 이것이 <b>빨강</b>이다. 파랑은 <code>(255, 0, 0)</code>.</span></div>
@@ -823,12 +838,12 @@ cv2.destroyAllWindows()</code></pre>
 <h3 id="C1-3"><span class="step">C1-3</span>자주 쓰는 변형 네 가지</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>탐지 노드에서 실제로 쓰게 되는 것은 이 넷이 거의 전부다. 나머지 OpenCV 함수는 필요해질 때 찾아 쓴다.</p>
-<pre><code>small = cv2.resize(img, (640, 480))                 # 크기 바꾸기
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>small = cv2.resize(img, (640, 480))                 # 크기 바꾸기
 gray  = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)       # 흑백으로
 roi   = img[100:300, 200:500]                       # 일부만 잘라내기
 cv2.rectangle(img, (200, 100), (500, 300), (0, 255, 0), 2)   # 박스 그리기
-cv2.putText(img, "person 0.87", (200, 95),
-            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)</code></pre>
+cv2.putText(img, &quot;person 0.87&quot;, (200, 95),
+            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)</pre></div>
 <div class="anno">
 <div><code>cv2.resize</code><span>크기 변경. 두 번째 인자가 <b><code>(너비, 높이)</code> 순서</b>다 · <code>.shape</code>와 <b>반대</b>다. OpenCV 안에서도 순서가 통일되어 있지 않으니 매번 확인한다. <b>추론 속도는 대체로 입력 픽셀 수에 비례</b>하므로, 이 한 줄이 <a href="#C3-5">C3-5</a> FPS 실측의 주요 변수가 된다.</span></div>
 <div><code>cvtColor(..., BGR2GRAY)</code><span>3채널을 1채널로 줄인다. <code>.shape</code>가 <code>(480, 640)</code>이 되어 채널 축이 <b>사라진다</b>. 뒤에서 3채널을 기대하는 코드에 넣으면 에러가 난다.</span></div>
@@ -842,22 +857,23 @@ cv2.putText(img, "person 0.87", (200, 95),
 <h3 id="C1-4"><span class="step">C1-4</span>웹캠 열기 · 실시간 루프의 뼈대</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>이 루프의 구조가 <a href="#C3-3">C3-3</a>의 실시간 탐지, 나아가 <a href="#C4-4">C4-4</a>의 ROS 2 콜백까지 그대로 이어진다. <strong>영상 처리는 전부 "한 장 꺼내 → 처리해 → 보여주기"의 반복</strong>이다.</p>
-<pre><code>import cv2
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">import</span> cv2
 
-cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)     # Windows
-if not cap.isOpened():
-    raise SystemExit("카메라를 못 열었다")
+cap = cv2.<span class="f">VideoCapture</span>(<span class="n">0</span>, cv2.CAP_DSHOW)     <span class="c"># Windows
+</span>
+<span class="k">if</span> <span class="k">not</span> cap.<span class="f">isOpened</span>():
+    <span class="k">raise</span> <span class="f">SystemExit</span>(<span class="s">&quot;카메라를 못 열었다&quot;</span>)
 
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
-    cv2.imshow("cam", frame)
-    if cv2.waitKey(1) &amp; 0xFF == ord('q'):
-        break
+<span class="k">while</span> <span class="k">True</span>:
+    ret, frame = cap.<span class="f">read</span>()
+    <span class="k">if</span> <span class="k">not</span> ret:
+        <span class="k">break</span>
+    cv2.<span class="f">imshow</span>(<span class="s">&quot;cam&quot;</span>, frame)
+    <span class="k">if</span> cv2.<span class="f">waitKey</span>(<span class="n">1</span>) &amp; 0xFF == <span class="f">ord</span>(<span class="s">&#x27;q&#x27;</span>):
+        <span class="k">break</span>
 
-cap.release()
-cv2.destroyAllWindows()</code></pre>
+cap.<span class="f">release</span>()
+cv2.<span class="f">destroyAllWindows</span>()</pre></div>
 <div class="anno">
 <div><code>cv2.VideoCapture(0)</code><span>카메라를 연다. <code>0</code>은 <b>첫 번째 카메라 장치</b>. 외장 웹캠을 꽂으면 <code>1</code>일 수도 있으니 안 되면 숫자를 바꿔 본다. 문자열(파일 경로·RTSP URL)을 넣으면 <b>동영상 파일이나 네트워크 스트림</b>도 같은 코드로 열린다 · Go2 카메라 스트림을 열 때 이 성질을 쓴다.</span></div>
 <div><code>cv2.CAP_DSHOW</code><span><b>Windows에서만</b> 붙인다. DirectShow 백엔드를 지정하는 것으로, 이게 없으면 기본 MSMF 백엔드가 쓰여 <b>카메라 열기에 5~10초가 걸리거나 해상도 설정이 무시된다.</b> Ubuntu(학원 노트북)에서는 <b>빼야 한다</b> · 그 상수는 리눅스에서 의미가 없다.</span></div>
@@ -872,19 +888,19 @@ cv2.destroyAllWindows()</code></pre>
 <h3 id="C1-5"><span class="step">C1-5</span>내 웹캠의 실제 성능 재기</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span><strong>모델이 느린 건지 카메라가 느린 건지를 구분하려면 카메라만의 속도를 먼저 알아야 한다.</strong> 이 값이 <a href="#C3-5">C3-5</a> 실측표의 기준선이 된다.</p>
-<pre><code>import cv2, time
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">import</span> cv2, time
 
-cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-print("해상도:", cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-print("카메라가 주장하는 FPS:", cap.get(cv2.CAP_PROP_FPS))
+cap = cv2.<span class="f">VideoCapture</span>(<span class="n">0</span>, cv2.CAP_DSHOW)
+<span class="f">print</span>(<span class="s">&quot;해상도:&quot;</span>, cap.<span class="f">get</span>(cv2.CAP_PROP_FRAME_WIDTH), cap.<span class="f">get</span>(cv2.CAP_PROP_FRAME_HEIGHT))
+<span class="f">print</span>(<span class="s">&quot;카메라가 주장하는 FPS:&quot;</span>, cap.<span class="f">get</span>(cv2.CAP_PROP_FPS))
 
-n, t0 = 0, time.perf_counter()
-while n &lt; 120:
-    ret, frame = cap.read()
-    if not ret: break
-    n += 1
-print(f"실측 FPS: {n / (time.perf_counter() - t0):.1f}")
-cap.release()</code></pre>
+n, t0 = <span class="n">0</span>, time.<span class="f">perf_counter</span>()
+<span class="k">while</span> n &lt; <span class="n">120</span>:
+    ret, frame = cap.<span class="f">read</span>()
+    <span class="k">if</span> <span class="k">not</span> ret: <span class="k">break</span>
+    n += <span class="n">1</span>
+<span class="f">print</span>(f<span class="s">&quot;실측 FPS: {n / (time.perf_counter() - t0):.1f}&quot;</span>)
+cap.<span class="f">release</span>()</pre></div>
 <div class="anno">
 <div><code>cap.get(cv2.CAP_PROP_*)</code><span>장치 속성 읽기. <b>여기 나오는 FPS는 「주장」이지 실측이 아니다.</b> 조명이 어두우면 카메라가 노출 시간을 늘려 실제 FPS를 스스로 절반으로 떨어뜨리는 일이 흔하다.</span></div>
 <div><code>time.perf_counter()</code><span>고해상도 시계. <b>속도 측정에는 <code>time.time()</code>이 아니라 이것을 쓴다</b> · <code>time.time()</code>은 시스템 시각 보정에 영향을 받아 뒤로 갈 수도 있다.</span></div>
@@ -925,12 +941,12 @@ cap.release()</code></pre>
 <tr><td><code>YOLO 포맷</code></td><td><b>중심</b> x, <b>중심</b> y, 너비, 높이</td><td><b>0~1 정규화</b></td><td><b>라벨 파일(<code>.txt</code>)</b> · <a href="#c7">C7</a> 파인튜닝</td></tr>
 </table></div></div>
 <p><strong>정규화가 왜 있나.</strong> 학습 중에 이미지 크기가 계속 바뀌기 때문이다. 640×480으로 찍은 사진을 416×416으로 줄여 학습에 넣어도 <strong>비율로 적어 두면 라벨을 고칠 필요가 없다.</strong></p>
-<pre><code># 픽셀 xyxy → YOLO 포맷 (라벨 파일에 적을 때)
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre># 픽셀 xyxy → YOLO 포맷 (라벨 파일에 적을 때)
 cx = ((x1 + x2) / 2) / W
 cy = ((y1 + y2) / 2) / H
 w  = (x2 - x1) / W
 h  = (y2 - y1) / H
-# 라벨 파일 한 줄:  &lt;클래스번호&gt; cx cy w h     예:  0 0.514 0.377 0.212 0.406</code></pre>
+# 라벨 파일 한 줄:  &lt;클래스번호&gt; cx cy w h     예:  0 0.514 0.377 0.212 0.406</pre></div>
 <div class="call trap"><div class="t">함정 · 좌표가 절반쯤 어긋나 보이면 여기다</div>
 <p>박스가 <strong>대각선으로 밀려 있거나 크기가 두 배</strong>로 나오면 십중팔구 <code>xyxy</code>와 <code>중심 xywh</code>를 섞은 것이다. 에러는 안 난다 · 숫자 네 개는 어느 쪽이든 숫자 네 개이기 때문이다. <strong>변수 이름에 표기법을 박아 두는 것</strong>(<code>box_xyxy</code>, <code>box_cxcywh</code>)이 이 버그를 막는 가장 싼 방법이다.</p></div>
 
@@ -971,8 +987,8 @@ h  = (y2 - y1) / H
 <h3 id="C3-1"><span class="step">C3-1</span>설치 + GPU 확인 <span class="sub">15분 · 08-27 저녁</span></h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span><strong>이 스텝을 추론과 분리한 이유</strong>: 설치는 15분이면 끝나는데 <b>GPU가 안 잡히는 문제</b>는 한 시간을 먹는다. 둘을 한 항목으로 묶어 두면 통째로 이월된다(실제로 2회 이월됐다). <b>여기서는 <code>True</code>가 찍히는 것까지만</b> 확인하고 끝낸다.</p>
-<pre><code>&gt; pip install ultralytics
-&gt; python -c "import torch; print(torch.__version__, torch.cuda.is_available())"</code></pre>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>&gt; <span class="f">pip</span> install ultralytics
+&gt; <span class="f">python</span> <span class="o">-c</span> <span class="s">&quot;import torch; print(torch.__version__, torch.cuda.is_available())&quot;</span></pre></div>
 <div class="anno">
 <div><code>ultralytics</code><span>YOLO를 만드는 회사가 내놓은 패키지. <b><code>torch</code>·<code>opencv-python</code>을 의존성으로 함께 끌고 온다</b>(수백 MB). 설치가 오래 걸리는 건 정상이다.</span></div>
 <div><code>torch.cuda.is_available()</code><span><b>이 한 줄이 이 스텝의 전부다.</b> <code>True</code>면 GPU를 쓴다는 뜻, <code>False</code>면 CPU로 돈다는 뜻 · 돌긴 도는데 <b>10배 느리다.</b> 조용히 CPU로 도는 것이 이 단계 최대의 함정이라, 눈으로 확인하고 넘어간다.</span></div>
@@ -984,9 +1000,9 @@ h  = (y2 - y1) / H
 <div class="body">
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>거의 항상 원인은 하나다 · <code>pip install ultralytics</code>가 <b>CPU판 torch를 먼저 끌어와 버린 것</b>. GPU판으로 갈아 끼운다.</p>
-<pre><code>&gt; pip uninstall -y torch torchvision
-&gt; pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
-&gt; python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))"</code></pre>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>&gt; <span class="f">pip</span> uninstall <span class="o">-y</span> torch torchvision
+&gt; <span class="f">pip</span> install torch torchvision <span class="o">--index-url</span> https://download.pytorch.org/whl/cu121
+&gt; <span class="f">python</span> <span class="o">-c</span> <span class="s">&quot;import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))&quot;</span></pre></div>
 <div class="anno">
 <div><code>--index-url</code><span>패키지를 <b>기본 PyPI가 아니라 PyTorch 공식 저장소</b>에서 받게 한다. GPU판 torch는 여기에만 있다. <code>cu121</code>은 CUDA 12.1용이라는 뜻.</span></div>
 <div><code>cu121</code><span>내 드라이버가 지원하는 CUDA 버전에 맞춰야 한다. <code>nvidia-smi</code>를 쳤을 때 오른쪽 위에 뜨는 <b>CUDA Version</b>보다 <b>같거나 낮은</b> 것을 고른다. 최신 조합은 pytorch.org 첫 화면의 선택기가 알려 준다.</span></div>
@@ -1000,17 +1016,21 @@ h  = (y2 - y1) / H
 <h3 id="C3-2"><span class="step">C3-2</span>사진 한 장으로 추론 · 결과 객체 뜯어보기</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>실시간으로 가기 전에 <strong>결과가 어떤 모양인지</strong>를 한 번 봐야 한다. <a href="#C4-5">C4-5</a>에서 이 값들을 ROS 2 메시지로 옮겨 담게 된다.</p>
-<pre><code>from ultralytics import YOLO
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> ultralytics <span class="k">import</span> YOLO
 
-model = YOLO("yolo11n.pt")
-results = model.predict("test.jpg", conf=0.25, imgsz=640, device=0)
+model = <span class="f">YOLO</span>(<span class="s">&quot;yolo11n.pt&quot;</span>)
+results = model.<span class="f">predict</span>(<span class="s">&quot;test.jpg&quot;</span>, conf=<span class="n">0.25</span>, imgsz=<span class="n">640</span>, device=<span class="n">0</span>)
 
-r = results[0]
-print(r.boxes.xyxy)      # tensor([[x1, y1, x2, y2], ...])  픽셀 좌표
-print(r.boxes.conf)      # tensor([0.87, 0.62, ...])
-print(r.boxes.cls)       # tensor([0., 56., ...])  클래스 번호
-print(model.names)       # {0: 'person', 56: 'chair', ...}
-print(r.speed)           # {'preprocess': .., 'inference': .., 'postprocess': ..} ms</code></pre>
+r = results[<span class="n">0</span>]
+<span class="f">print</span>(r.boxes.xyxy)      <span class="c"># tensor([[x1, y1, x2, y2], ...])  픽셀 좌표
+</span>
+<span class="f">print</span>(r.boxes.conf)      <span class="c"># tensor([0.87, 0.62, ...])
+</span>
+<span class="f">print</span>(r.boxes.cls)       <span class="c"># tensor([0., 56., ...])  클래스 번호
+</span>
+<span class="f">print</span>(model.names)       <span class="c"># {0: &#x27;person&#x27;, 56: &#x27;chair&#x27;, ...}
+</span>
+<span class="f">print</span>(r.speed)           <span class="c"># {&#x27;preprocess&#x27;: .., &#x27;inference&#x27;: .., &#x27;postprocess&#x27;: ..} ms</span></pre></div>
 <div class="anno">
 <div><code>YOLO("yolo11n.pt")</code><span>모델을 불러온다. <b>파일이 없으면 자동으로 내려받는다</b>(첫 실행이 느린 이유). <code>11</code>이 버전, <code>n</code>이 <a href="#C2-5">C2-5</a>의 크기다. 더 최신 계열이 깔려 있으면 <b>파일명만 바꾸면 되고 나머지 코드는 그대로</b>다.</span></div>
 <div><code>conf=0.25</code><span><a href="#C2-3">C2-3</a>의 신뢰도 문턱. 이보다 낮은 박스는 버린다.</span></div>
@@ -1026,29 +1046,29 @@ print(r.speed)           # {'preprocess': .., 'inference': .., 'postprocess': ..
 <h3 id="C3-3"><span class="step">C3-3</span>웹캠 실시간 탐지 · <a href="#C1-4">C1-4</a> 루프에 한 줄 끼우기</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>가장 짧은 길은 <code>source=0</code>이지만, <strong>결과를 직접 그려 보는 쪽</strong>을 택한다. <a href="#C4-5">C4-5</a>에서 ROS 2로 옮길 때 필요한 것이 정확히 이 손으로 그리는 코드이기 때문이다.</p>
-<pre><code>import cv2, time
-from ultralytics import YOLO
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">import</span> cv2, time
+<span class="k">from</span> ultralytics <span class="k">import</span> YOLO
 
-model = YOLO("yolo11n.pt")
-cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+model = <span class="f">YOLO</span>(<span class="s">&quot;yolo11n.pt&quot;</span>)
+cap = cv2.<span class="f">VideoCapture</span>(<span class="n">0</span>, cv2.CAP_DSHOW)
 
-while True:
-    ret, frame = cap.read()
-    if not ret: break
+<span class="k">while</span> <span class="k">True</span>:
+    ret, frame = cap.<span class="f">read</span>()
+    <span class="k">if</span> <span class="k">not</span> ret: <span class="k">break</span>
 
-    r = model.predict(frame, conf=0.25, imgsz=640, device=0, verbose=False)[0]
+    r = model.<span class="f">predict</span>(frame, conf=<span class="n">0.25</span>, imgsz=<span class="n">640</span>, device=<span class="n">0</span>, verbose=<span class="k">False</span>)[<span class="n">0</span>]
 
-    for box, conf, cls in zip(r.boxes.xyxy, r.boxes.conf, r.boxes.cls):
-        x1, y1, x2, y2 = map(int, box)
-        label = f"{model.names[int(cls)]} {float(conf):.2f}"
-        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(frame, label, (x1, y1 - 5),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+    <span class="k">for</span> box, conf, cls <span class="k">in</span> <span class="f">zip</span>(r.boxes.xyxy, r.boxes.conf, r.boxes.cls):
+        x1, y1, x2, y2 = <span class="f">map</span>(<span class="b">int</span>, box)
+        label = f<span class="s">&quot;{model.names[int(cls)]} {float(conf):.2f}&quot;</span>
+        cv2.<span class="f">rectangle</span>(frame, (x1, y1), (x2, y2), (<span class="n">0</span>, <span class="n">255</span>, <span class="n">0</span>), <span class="n">2</span>)
+        cv2.<span class="f">putText</span>(frame, label, (x1, y1 - <span class="n">5</span>),
+                    cv2.FONT_HERSHEY_SIMPLEX, <span class="n">0.6</span>, (<span class="n">0</span>, <span class="n">255</span>, <span class="n">0</span>), <span class="n">2</span>)
 
-    cv2.imshow("yolo", frame)
-    if cv2.waitKey(1) &amp; 0xFF == ord('q'): break
+    cv2.<span class="f">imshow</span>(<span class="s">&quot;yolo&quot;</span>, frame)
+    <span class="k">if</span> cv2.<span class="f">waitKey</span>(<span class="n">1</span>) &amp; 0xFF == <span class="f">ord</span>(<span class="s">&#x27;q&#x27;</span>): <span class="k">break</span>
 
-cap.release(); cv2.destroyAllWindows()</code></pre>
+cap.<span class="f">release</span>(); cv2.<span class="f">destroyAllWindows</span>()</pre></div>
 <div class="anno">
 <div><code>model.predict(frame, ...)</code><span>파일 경로 대신 <b>numpy 배열을 그대로 넣을 수 있다.</b> <a href="#C1-1">C1-1</a>에서 확인한 "웹캠 프레임 = 이미지 배열"이 여기서 값을 한다. <b>ROS 2에서도 <code>cv_bridge</code>가 돌려주는 것이 같은 배열</b>이라 이 줄은 그대로 재사용된다.</span></div>
 <div><code>verbose=False</code><span>매 프레임 콘솔에 찍히는 로그를 끈다. <b>안 끄면 터미널 출력만으로 FPS가 눈에 띄게 떨어진다</b> · 측정할 때는 반드시 끈다.</span></div>
@@ -1072,24 +1092,25 @@ cap.release(); cv2.destroyAllWindows()</code></pre>
 <h3 id="C3-5"><span class="step">C3-5</span>실측표 채우기 <span class="sub">← 08-29 산출물</span></h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span><strong>이 표가 이 절의 진짜 산출물이다.</strong> "YOLO 써 봤다"와 "3060 6GB에서 입력 해상도별 FPS·VRAM을 재고 근거를 대며 모델을 골랐다"는 이력서에서 완전히 다른 문장이다.</p>
-<pre><code>import time, torch
-from ultralytics import YOLO
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">import</span> time, torch
+<span class="k">from</span> ultralytics <span class="k">import</span> YOLO
 
-def bench(weights, imgsz, half, frames=100):
-    m = YOLO(weights)
-    torch.cuda.reset_peak_memory_stats()
-    for _ in range(10):                      # 워밍업 · 첫 추론은 항상 느리다
-        m.predict("test.jpg", imgsz=imgsz, half=half, device=0, verbose=False)
-    t0 = time.perf_counter()
-    for _ in range(frames):
-        m.predict("test.jpg", imgsz=imgsz, half=half, device=0, verbose=False)
-    dt = time.perf_counter() - t0
-    vram = torch.cuda.max_memory_allocated() / 1024**2
-    print(f"{weights} imgsz={imgsz} half={half} → {frames/dt:5.1f} FPS · {vram:6.0f} MB")
+<span class="k">def</span> <span class="f">bench</span>(weights, imgsz, half, frames=<span class="n">100</span>):
+    m = <span class="f">YOLO</span>(weights)
+    torch.cuda.<span class="f">reset_peak_memory_stats</span>()
+    <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(<span class="n">10</span>):                      <span class="c"># 워밍업 · 첫 추론은 항상 느리다
+</span>
+        m.<span class="f">predict</span>(<span class="s">&quot;test.jpg&quot;</span>, imgsz=imgsz, half=half, device=<span class="n">0</span>, verbose=<span class="k">False</span>)
+    t0 = time.<span class="f">perf_counter</span>()
+    <span class="k">for</span> _ <span class="k">in</span> <span class="f">range</span>(frames):
+        m.<span class="f">predict</span>(<span class="s">&quot;test.jpg&quot;</span>, imgsz=imgsz, half=half, device=<span class="n">0</span>, verbose=<span class="k">False</span>)
+    dt = time.<span class="f">perf_counter</span>() - t0
+    vram = torch.cuda.<span class="f">max_memory_allocated</span>() / <span class="n">1024</span>**<span class="n">2</span>
+    <span class="f">print</span>(f<span class="s">&quot;{weights} imgsz={imgsz} half={half} → {frames/dt:5.1f} FPS · {vram:6.0f} MB&quot;</span>)
 
-for w in ["yolo11n.pt", "yolo11s.pt"]:
-    for sz in [640, 416, 320]:
-        bench(w, sz, half=True)</code></pre>
+<span class="k">for</span> w <span class="k">in</span> [<span class="s">&quot;yolo11n.pt&quot;</span>, <span class="s">&quot;yolo11s.pt&quot;</span>]:
+    <span class="k">for</span> sz <span class="k">in</span> [<span class="n">640</span>, <span class="n">416</span>, <span class="n">320</span>]:
+        <span class="f">bench</span>(w, sz, half=<span class="k">True</span>)</pre></div>
 <div class="anno">
 <div><code>워밍업 10회</code><span>CUDA 커널 컴파일과 메모리 할당이 <b>첫 추론에 몰려 있다.</b> 이걸 빼고 재면 실제보다 훨씬 느린 값이 나온다. <a href="#C1-5">C1-5</a>에서 예고한 그 이야기다.</span></div>
 <div><code>reset_peak_memory_stats()</code><span>VRAM 최고치 기록을 0으로 되돌린다. <b>앞 모델이 쓴 값이 남아 있으면 다음 측정이 오염된다.</b></span></div>
@@ -1121,24 +1142,25 @@ for w in ["yolo11n.pt", "yolo11s.pt"]:
 <p class="sub"><span class="tag ch">학원 노트북 · 낮 고정</span> 목표: <strong>C3의 탐지 루프를 ROS 2 노드로 만들어, 입력 토픽을 launch 인자로 갈아 끼울 수 있게 한다.</strong> 그래야 웹캠으로 개발한 것이 나중에 Go2 카메라 토픽으로 <strong>코드 수정 없이</strong> 넘어간다.</p>
 
 <h3>전체 그림</h3>
-<pre><code>[카메라 드라이버]                 [내 탐지 노드]              [팀 · 시각화]
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>[카메라 드라이버]                 [내 탐지 노드]              [팀 · 시각화]
  usb_cam / go2 sdk                 detector_node
       │                                 │
       ├─ /image_raw ──────────────────▶ │ ──▶ /detections   (vision_msgs)
       │  sensor_msgs/Image              │ ──▶ /detections/image  (오버레이)
       └─ /camera_info ────────────────▶ │                          │
          sensor_msgs/CameraInfo         │                     rqt_image_view
-                                        └──▶ (C6) TF로 map 좌표 변환 ──▶ RViz2 Marker</code></pre>
+                                        └──▶ (C6) TF로 map 좌표 변환 ──▶ RViz2 Marker</pre></div>
 
 <h3 id="C4-1"><span class="step">C4-1</span><code>usb_cam</code>으로 웹캠을 토픽으로 <span class="sub">← 08-28 낮</span></h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span><span class="tag lx">LINUX</span>카메라를 직접 여는 코드를 쓰지 않는다. <strong>표준 드라이버가 내주는 <code>/image_raw</code>를 쓰면, 나중에 Go2 카메라로 바뀌어도 토픽 이름만 갈아 끼우면 된다.</strong></p>
-<pre><code>$ sudo apt install ros-jazzy-usb-cam ros-jazzy-image-view
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ sudo apt install ros-jazzy-usb-cam ros-jazzy-image-view
 $ ros2 run usb_cam usb_cam_node_exe
-# 새 터미널
-$ ros2 topic list -t
+<span class="c"># 새 터미널
+</span>
+$ ros2 topic list <span class="o">-t</span>
 $ ros2 topic hz /image_raw
-$ ros2 run rqt_image_view rqt_image_view</code></pre>
+$ ros2 run rqt_image_view rqt_image_view</pre></div>
 <div class="anno">
 <div><code>ros-jazzy-usb-cam</code><span>ROS 2 패키지의 apt 이름은 <b><code>ros-&lt;배포판&gt;-&lt;패키지명&gt;</code></b> 꼴이다. 우리는 Jazzy(Ubuntu 24.04)이므로 <code>ros-jazzy-</code>. 언더스코어가 아니라 <b>하이픈</b>인 것에 주의한다.</span></div>
 <div><code>usb_cam_node_exe</code><span>실행 파일 이름. <b><code>usb_cam</code>이 아니다</b> · 패키지 이름과 실행 파일 이름이 다른 흔한 경우다. 뭐가 있는지 모를 땐 <code>ros2 pkg executables usb_cam</code>으로 목록을 본다.</span></div>
@@ -1158,14 +1180,14 @@ $ ros2 run rqt_image_view rqt_image_view</code></pre>
   <div><dt><code>BEST_EFFORT</code></dt><dd>놓쳐도 넘어간다. 최신 것 우선. <b>카메라 드라이버 대부분의 기본값</b>이다 · 30fps 영상에서 3프레임 전 것을 재전송받아 봐야 쓸모가 없기 때문이다.</dd></div>
 </dl>
 <p><strong>사고는 여기서 난다</strong>: 발행자가 <code>BEST_EFFORT</code>인데 구독자가 기본값 <code>RELIABLE</code>이면 <strong>둘은 아예 연결되지 않는다.</strong> <code>ros2 topic list</code>에 토픽은 보이고 <code>ros2 topic hz</code>도 돌아가는데 <strong>내 노드만 조용하다.</strong></p>
-<pre><code>from rclpy.qos import qos_profile_sensor_data
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> rclpy.qos <span class="k">import</span> qos_profile_sensor_data
 
-self.create_subscription(Image, topic, self.on_image, qos_profile_sensor_data)</code></pre>
+<span class="k">self</span>.<span class="f">create_subscription</span>(Image, topic, <span class="k">self</span>.on_image, qos_profile_sensor_data)</pre></div>
 <div class="anno">
 <div><code>qos_profile_sensor_data</code><span>rclpy가 미리 만들어 둔 <b>센서용 프로파일</b>. <code>BEST_EFFORT</code> + 얕은 큐로 맞춰져 있다. <b>이미지·LiDAR·IMU를 구독할 때는 숫자(<code>10</code>) 대신 이걸 넣는 것을 기본으로 한다.</b></span></div>
 <div><code>10</code> (숫자를 넣을 때)<span>큐 깊이만 지정하고 나머지는 기본값(<code>RELIABLE</code>)이 된다. <b>일반 토픽에는 맞지만 카메라에는 이것이 함정</b>이다.</span></div>
 </div>
-<pre><code>$ ros2 topic info /image_raw --verbose</code></pre>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 topic info /image_raw <span class="o">--verbose</span></pre></div>
 <div class="anno">
 <div><code>--verbose</code><span>발행자·구독자의 <b>QoS를 나란히</b> 보여준다. 양쪽 <code>Reliability</code> 줄을 비교하는 것이 이 증상의 유일한 확진 방법이다.</span></div>
 </div>
@@ -1175,13 +1197,13 @@ self.create_subscription(Image, topic, self.on_image, qos_profile_sensor_data)</
 <h3 id="C4-3"><span class="step">C4-3</span><code>cv_bridge</code> · ROS 이미지와 OpenCV 배열 사이의 번역기</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span>ROS의 <code>sensor_msgs/Image</code>는 <strong>바이트 배열 + 메타데이터</strong>다. YOLO는 <a href="#C1-1">C1-1</a>의 numpy 배열을 먹는다. 그 사이를 이어 주는 것이 <code>cv_bridge</code>다.</p>
-<pre><code>$ sudo apt install ros-jazzy-cv-bridge ros-jazzy-vision-msgs</code></pre>
-<pre><code>from cv_bridge import CvBridge
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ sudo apt install ros-jazzy-cv-bridge ros-jazzy-vision-msgs</pre></div>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> cv_bridge <span class="k">import</span> CvBridge
 
-bridge = CvBridge()
-frame = bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')   # ROS → OpenCV
-out   = bridge.cv2_to_imgmsg(frame, encoding='bgr8')          # OpenCV → ROS
-out.header = msg.header      # ★ 시각과 프레임 이름을 반드시 물려준다</code></pre>
+bridge = <span class="f">CvBridge</span>()
+frame = bridge.<span class="f">imgmsg_to_cv2</span>(msg, desired_encoding=<span class="s">&#x27;bgr8&#x27;</span>)   # ROS → OpenCV
+out   = bridge.<span class="f">cv2_to_imgmsg</span>(frame, encoding=<span class="s">&#x27;bgr8&#x27;</span>)          # OpenCV → ROS
+out.header = msg.header      <span class="c"># ★ 시각과 프레임 이름을 반드시 물려준다</span></pre></div>
 <div class="anno">
 <div><code>imgmsg_to_cv2</code><span>메시지를 numpy 배열로. <b>여기서 나온 것이 <a href="#C3-3">C3-3</a>의 <code>frame</code>과 완전히 같은 물건</b>이다 · 그래서 탐지 코드를 그대로 옮길 수 있다.</span></div>
 <div><code>desired_encoding='bgr8'</code><span><b>원하는 색 순서를 명시</b>한다. 카메라가 <code>rgb8</code>로 발행해도 이렇게 적으면 알아서 변환해 준다. <b>생략하면 원본 그대로 나와 <a href="#C1-1">C1-1</a>의 BGR/RGB 함정이 재현된다.</b></span></div>
@@ -1202,45 +1224,46 @@ out.header = msg.header      # ★ 시각과 프레임 이름을 반드시 물�
 <h3 id="C4-4"><span class="step">C4-4</span>탐지 노드 골격</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span><a href="#C3-3">C3-3</a>의 <code>while</code> 루프가 <strong>콜백</strong>으로 바뀌는 것이 전부다. "프레임이 오면 처리한다"는 구조는 같고, <strong>루프를 내가 도는가 ROS가 돌려 주는가</strong>만 다르다.</p>
-<pre><code>import rclpy
-from rclpy.node import Node
-from rclpy.qos import qos_profile_sensor_data
-from sensor_msgs.msg import Image
-from cv_bridge import CvBridge
-from ultralytics import YOLO
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">import</span> rclpy
+<span class="k">from</span> rclpy.node <span class="k">import</span> Node
+<span class="k">from</span> rclpy.qos <span class="k">import</span> qos_profile_sensor_data
+<span class="k">from</span> sensor_msgs.msg <span class="k">import</span> Image
+<span class="k">from</span> cv_bridge <span class="k">import</span> CvBridge
+<span class="k">from</span> ultralytics <span class="k">import</span> YOLO
 
-class Detector(Node):
-    def __init__(self):
-        super().__init__('detector')
-        self.declare_parameter('image_topic', '/image_raw')
-        self.declare_parameter('weights', 'yolo11n.pt')
-        self.declare_parameter('conf', 0.25)
-        self.declare_parameter('imgsz', 640)
+<span class="k">class</span> <span class="f">Detector</span>(Node):
+    <span class="k">def</span> <span class="f">__init__</span>(<span class="k">self</span>):
+        <span class="f">super</span>().<span class="f">__init__</span>(<span class="s">&#x27;detector&#x27;</span>)
+        <span class="k">self</span>.<span class="f">declare_parameter</span>(<span class="s">&#x27;image_topic&#x27;</span>, <span class="s">&#x27;/image_raw&#x27;</span>)
+        <span class="k">self</span>.<span class="f">declare_parameter</span>(<span class="s">&#x27;weights&#x27;</span>, <span class="s">&#x27;yolo11n.pt&#x27;</span>)
+        <span class="k">self</span>.<span class="f">declare_parameter</span>(<span class="s">&#x27;conf&#x27;</span>, <span class="n">0.25</span>)
+        <span class="k">self</span>.<span class="f">declare_parameter</span>(<span class="s">&#x27;imgsz&#x27;</span>, <span class="n">640</span>)
 
-        topic = self.get_parameter('image_topic').value
-        self.model = YOLO(self.get_parameter('weights').value)
-        self.bridge = CvBridge()
+        topic = <span class="k">self</span>.<span class="f">get_parameter</span>(<span class="s">&#x27;image_topic&#x27;</span>).value
+        <span class="k">self</span>.model = <span class="f">YOLO</span>(<span class="k">self</span>.<span class="f">get_parameter</span>(<span class="s">&#x27;weights&#x27;</span>).value)
+        <span class="k">self</span>.bridge = <span class="f">CvBridge</span>()
 
-        self.sub = self.create_subscription(
-            Image, topic, self.on_image, qos_profile_sensor_data)
-        self.pub_img = self.create_publisher(Image, '~/image', 10)
-        self.get_logger().info(f'구독 시작: {topic}')
+        <span class="k">self</span>.sub = <span class="k">self</span>.<span class="f">create_subscription</span>(
+            Image, topic, <span class="k">self</span>.on_image, qos_profile_sensor_data)
+        <span class="k">self</span>.pub_img = <span class="k">self</span>.<span class="f">create_publisher</span>(Image, <span class="s">&#x27;~/image&#x27;</span>, <span class="n">10</span>)
+        <span class="k">self</span>.<span class="f">get_logger</span>().<span class="f">info</span>(f<span class="s">&#x27;구독 시작: {topic}&#x27;</span>)
 
-    def on_image(self, msg):
-        frame = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-        r = self.model.predict(frame,
-                               conf=self.get_parameter('conf').value,
-                               imgsz=self.get_parameter('imgsz').value,
-                               device=0, verbose=False)[0]
-        # ... 박스 그리기 (C3-3과 동일) ...
-        out = self.bridge.cv2_to_imgmsg(frame, encoding='bgr8')
+    <span class="k">def</span> <span class="f">on_image</span>(<span class="k">self</span>, msg):
+        frame = <span class="k">self</span>.bridge.<span class="f">imgmsg_to_cv2</span>(msg, desired_encoding=<span class="s">&#x27;bgr8&#x27;</span>)
+        r = <span class="k">self</span>.model.<span class="f">predict</span>(frame,
+                               conf=<span class="k">self</span>.<span class="f">get_parameter</span>(<span class="s">&#x27;conf&#x27;</span>).value,
+                               imgsz=<span class="k">self</span>.<span class="f">get_parameter</span>(<span class="s">&#x27;imgsz&#x27;</span>).value,
+                               device=<span class="n">0</span>, verbose=<span class="k">False</span>)[<span class="n">0</span>]
+        <span class="c"># ... 박스 그리기 (C3-3과 동일) ...
+</span>
+        out = <span class="k">self</span>.bridge.<span class="f">cv2_to_imgmsg</span>(frame, encoding=<span class="s">&#x27;bgr8&#x27;</span>)
         out.header = msg.header
-        self.pub_img.publish(out)
+        <span class="k">self</span>.pub_img.<span class="f">publish</span>(out)
 
-def main():
-    rclpy.init()
-    rclpy.spin(Detector())
-    rclpy.shutdown()</code></pre>
+<span class="k">def</span> <span class="f">main</span>():
+    rclpy.<span class="f">init</span>()
+    rclpy.<span class="f">spin</span>(<span class="f">Detector</span>())
+    rclpy.<span class="f">shutdown</span>()</pre></div>
 <div class="anno">
 <div><code>declare_parameter</code><span>파라미터를 <b>선언</b>한다. 선언하지 않은 파라미터는 읽을 수 없다. 두 번째 값이 기본값이다. <b>이 선언들이 <code>S2</code> 완료 기준(「런치 인자로 입력 토픽 교체 가능」)의 실체</b>다.</span></div>
 <div><code>image_topic</code>을 파라미터로<span><b>토픽 이름을 코드에 박지 않는 것이 이 노드 설계의 핵심</b>이다. 지금은 <code>/image_raw</code>(웹캠), 나중에는 Go2 카메라 토픽, rosbag 재생 때는 또 다른 이름 · <b>코드를 안 고치고 셋 다 붙는다.</b></span></div>
@@ -1254,26 +1277,28 @@ def main():
 <h3 id="C4-5"><span class="step">C4-5</span>탐지 결과를 표준 메시지로 · <code>vision_msgs</code></h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span>오버레이 이미지는 <b>사람이 보는 것</b>이고, 다른 노드가 쓰려면 <b>숫자</b>가 필요하다. <strong>직접 메시지 타입을 만들지 말고 표준을 쓴다</strong> · 팀의 Nav2 쪽과 붙일 때 협의가 필요 없어진다.</p>
-<pre><code>from vision_msgs.msg import Detection2D, Detection2DArray, ObjectHypothesisWithPose
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> vision_msgs.msg <span class="k">import</span> Detection2D, Detection2DArray, ObjectHypothesisWithPose
 
-arr = Detection2DArray()
-arr.header = msg.header                      # ★ 또 header
+arr = <span class="f">Detection2DArray</span>()
+arr.header = msg.header                      <span class="c"># ★ 또 header
+</span>
 
-for box, conf, cls in zip(r.boxes.xyxy, r.boxes.conf, r.boxes.cls):
-    x1, y1, x2, y2 = [float(v) for v in box]
-    d = Detection2D()
+<span class="k">for</span> box, conf, cls <span class="k">in</span> <span class="f">zip</span>(r.boxes.xyxy, r.boxes.conf, r.boxes.cls):
+    x1, y1, x2, y2 = [<span class="f">float</span>(v) <span class="k">for</span> v <span class="k">in</span> box]
+    d = <span class="f">Detection2D</span>()
     d.header = msg.header
-    d.bbox.center.position.x = (x1 + x2) / 2      # ← 중심 기준
-    d.bbox.center.position.y = (y1 + y2) / 2
+    d.bbox.center.position.x = (x1 + x2) / <span class="n">2</span>      <span class="c"># ← 중심 기준
+</span>
+    d.bbox.center.position.y = (y1 + y2) / <span class="n">2</span>
     d.bbox.size_x = x2 - x1
     d.bbox.size_y = y2 - y1
-    h = ObjectHypothesisWithPose()
-    h.hypothesis.class_id = self.model.names[int(cls)]
-    h.hypothesis.score = float(conf)
-    d.results.append(h)
-    arr.detections.append(d)
+    h = <span class="f">ObjectHypothesisWithPose</span>()
+    h.hypothesis.class_id = <span class="k">self</span>.model.names[<span class="f">int</span>(cls)]
+    h.hypothesis.score = <span class="f">float</span>(conf)
+    d.results.<span class="f">append</span>(h)
+    arr.detections.<span class="f">append</span>(d)
 
-self.pub_det.publish(arr)</code></pre>
+<span class="k">self</span>.pub_det.<span class="f">publish</span>(arr)</pre></div>
 <div class="anno">
 <div><code>Detection2DArray</code><span>탐지 <b>여러 개</b>를 한 메시지에. 한 프레임의 결과가 통째로 하나의 메시지가 되어야 <b>"이 시각에 이것들이 보였다"</b>가 성립한다.</span></div>
 <div><code>bbox.center</code><span><b><code>vision_msgs</code>는 중심 기준</b>이다(<a href="#C2-2">C2-2</a>). YOLO의 <code>xyxy</code>를 그대로 넣으면 박스가 어긋난다. <b>표기법 변환이 필요한 자리</b>이므로 여기에 주석을 남긴다.</span></div>
@@ -1286,11 +1311,11 @@ self.pub_det.publish(arr)</code></pre>
 <h3 id="C4-6"><span class="step">C4-6</span>느려서 밀릴 때 · 프레임을 버린다</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span>추론이 카메라보다 느리면 <strong>큐에 프레임이 쌓여 지연이 무한히 커진다.</strong> 화면이 몇 초 전 과거를 보여주기 시작하는데, <b>이건 느린 것보다 나쁘다</b> · 로봇이 과거를 보고 판단하게 된다.</p>
-<pre><code>from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> rclpy.qos <span class="k">import</span> QoSProfile, ReliabilityPolicy, HistoryPolicy
 
-qos = QoSProfile(depth=1,
+qos = <span class="f">QoSProfile</span>(depth=<span class="n">1</span>,
                  reliability=ReliabilityPolicy.BEST_EFFORT,
-                 history=HistoryPolicy.KEEP_LAST)</code></pre>
+                 history=HistoryPolicy.KEEP_LAST)</pre></div>
 <div class="anno">
 <div><code>depth=1</code><span>큐에 <b>한 장만</b> 둔다. 처리 중에 새 프레임이 오면 <b>이전 것을 버린다.</b> "최신 프레임만 처리한다"가 이렇게 구현된다.</span></div>
 <div><code>KEEP_LAST</code><span>최근 <code>depth</code>개만 유지. 반대는 <code>KEEP_ALL</code>(다 쌓기)로, <b>영상에 쓰면 안 된다.</b></span></div>
@@ -1301,13 +1326,19 @@ qos = QoSProfile(depth=1,
 <h3 id="C4-7"><span class="step">C4-7</span>진단 명령 묶음 · 안 보일 때 이 순서로</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span><strong>순서가 중요하다.</strong> 위에서부터 차례로 치면 문제가 카메라 쪽인지 내 노드 쪽인지가 <b>세 번째 줄쯤에서 갈린다.</b></p>
-<pre><code>$ ros2 topic list -t                       # ① 토픽이 존재하나 · 타입은 맞나
-$ ros2 topic hz /image_raw                 # ② 데이터가 실제로 흐르나
-$ ros2 topic info /image_raw --verbose     # ③ QoS가 맞나  ← 여기가 최다 원인
-$ ros2 run rqt_image_view rqt_image_view   # ④ 눈으로 확인
-$ ros2 node info /detector                 # ⑤ 내 노드가 진짜 구독 중인가
-$ ros2 param list /detector                # ⑥ 파라미터가 내가 준 값인가
-$ ros2 run tf2_tools view_frames           # ⑦ (C6) TF 트리를 PDF로</code></pre>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 topic list <span class="o">-t</span>                       <span class="c"># ① 토픽이 존재하나 · 타입은 맞나
+</span>
+$ ros2 topic hz /image_raw                 <span class="c"># ② 데이터가 실제로 흐르나
+</span>
+$ ros2 topic info /image_raw <span class="o">--verbose</span>     <span class="c"># ③ QoS가 맞나  ← 여기가 최다 원인
+</span>
+$ ros2 run rqt_image_view rqt_image_view   <span class="c"># ④ 눈으로 확인
+</span>
+$ ros2 node info /detector                 <span class="c"># ⑤ 내 노드가 진짜 구독 중인가
+</span>
+$ ros2 param list /detector                <span class="c"># ⑥ 파라미터가 내가 준 값인가
+</span>
+$ ros2 run tf2_tools view_frames           <span class="c"># ⑦ (C6) TF 트리를 PDF로</span></pre></div>
 <div class="anno">
 <div>① 이름은 있는데 <b>타입</b>이 다르면<span>구독은 성립하지 않는다. <code>-t</code>를 항상 붙이는 이유.</span></div>
 <div>② <code>hz</code>가 <b>안 찍히면</b><span>발행자 문제다. <b>내 코드를 보지 말고 카메라 드라이버를 본다.</b></span></div>
@@ -1320,21 +1351,21 @@ $ ros2 run tf2_tools view_frames           # ⑦ (C6) TF 트리를 PDF로</code>
 <h3 id="C4-8"><span class="step">C4-8</span>launch 파일 · <code>S2</code> 완료 기준</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span><strong>"런치 인자로 입력 토픽을 교체할 수 있다"가 <code>S2</code>의 완료 기준</strong>이다. 이게 되면 웹캠 → rosbag → Go2 실기가 <b>같은 노드로</b> 이어진다.</p>
-<pre><code>from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import Node
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> launch <span class="k">import</span> LaunchDescription
+<span class="k">from</span> launch.actions <span class="k">import</span> DeclareLaunchArgument
+<span class="k">from</span> launch.substitutions <span class="k">import</span> LaunchConfiguration
+<span class="k">from</span> launch_ros.actions <span class="k">import</span> Node
 
-def generate_launch_description():
-    topic = LaunchConfiguration('image_topic')
-    return LaunchDescription([
-        DeclareLaunchArgument('image_topic', default_value='/image_raw'),
-        Node(package='foothold_perception', executable='detector',
-             name='detector', output='screen',
-             parameters=[{'image_topic': topic, 'imgsz': 640}]),
-    ])</code></pre>
-<pre><code>$ ros2 launch foothold_perception detector.launch.py
-$ ros2 launch foothold_perception detector.launch.py image_topic:=/go2_camera/color/image</code></pre>
+<span class="k">def</span> <span class="f">generate_launch_description</span>():
+    topic = <span class="f">LaunchConfiguration</span>(<span class="s">&#x27;image_topic&#x27;</span>)
+    <span class="k">return</span> <span class="f">LaunchDescription</span>([
+        <span class="f">DeclareLaunchArgument</span>(<span class="s">&#x27;image_topic&#x27;</span>, default_value=<span class="s">&#x27;/image_raw&#x27;</span>),
+        <span class="f">Node</span>(package=<span class="s">&#x27;foothold_perception&#x27;</span>, executable=<span class="s">&#x27;detector&#x27;</span>,
+             name=<span class="s">&#x27;detector&#x27;</span>, output=<span class="s">&#x27;screen&#x27;</span>,
+             parameters=[{<span class="s">&#x27;image_topic&#x27;</span>: topic, <span class="s">&#x27;imgsz&#x27;</span>: <span class="n">640</span>}]),
+    ])</pre></div>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 launch foothold_perception detector.launch.py
+$ ros2 launch foothold_perception detector.launch.py image_topic:=/go2_camera/color/image</pre></div>
 <div class="anno">
 <div><code>DeclareLaunchArgument</code><span>launch 파일이 <b>바깥에서 받는 인자</b>를 선언한다. <code>default_value</code>가 있으니 안 주면 웹캠으로 뜬다.</span></div>
 <div><code>LaunchConfiguration</code><span>그 인자의 <b>값을 가리키는 자리표</b>. launch 파일이 실행될 때 실제 값으로 치환된다. 파이썬 변수가 아니라 <b>지연 평가되는 객체</b>라, 여기서 <code>if</code>로 비교하려 하면 뜻대로 안 된다.</span></div>
@@ -1348,8 +1379,8 @@ $ ros2 launch foothold_perception detector.launch.py image_topic:=/go2_camera/co
 
 <h3 id="C5-1"><span class="step">C5-1</span>핀홀 모델 · 3D가 2D가 되는 식</h3>
 <p>카메라는 3차원의 점을 2차원 평면에 <strong>투영</strong>한다. 그 관계는 놀랍도록 단순하다.</p>
-<pre><code>u = fx · (X / Z) + cx
-v = fy · (Y / Z) + cy</code></pre>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>u = fx · (X / Z) + cx
+v = fy · (Y / Z) + cy</pre></div>
 <dl class="defs">
   <div><dt><code>X, Y, Z</code></dt><dd>카메라 기준 3차원 좌표. <b><code>Z</code>가 카메라 앞쪽 거리</b>다(광학 프레임의 z, <a href="#C1-2">C1-2</a> 참조).</dd></div>
   <div><dt><code>u, v</code></dt><dd>이미지 위의 픽셀 좌표. <a href="#C1-2">C1-2</a>에서 본 그 <code>x</code>(가로), <code>y</code>(세로)다.</dd></div>
@@ -1363,13 +1394,13 @@ v = fy · (Y / Z) + cy</code></pre>
 <h3 id="C5-2"><span class="step">C5-2</span><code>CameraInfo</code>와 <code>K</code> 행렬</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span>위 네 숫자는 ROS에서 <code>sensor_msgs/CameraInfo</code>라는 <b>렌즈의 신원 메시지</b>로 흐른다. 카메라 드라이버가 <code>/image_raw</code> 옆에 <code>/camera_info</code>를 같이 발행한다.</p>
-<pre><code>$ ros2 topic echo /camera_info --once</code></pre>
-<pre><code>K = [ fx   0  cx ]        # 메시지에서는 길이 9의 1차원 배열로 온다
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 topic echo /camera_info <span class="o">--once</span></pre></div>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>K = [ fx   0  cx ]        # 메시지에서는 길이 9의 1차원 배열로 온다
     [  0  fy  cy ]        # k[0]=fx  k[2]=cx  k[4]=fy  k[5]=cy
     [  0   0   1 ]
 
 D = [k1, k2, p1, p2, k3]  # 왜곡 계수
-P = 3x4 투영행렬           # 스테레오 보정까지 반영된 것. 단안이면 K와 거의 같다</code></pre>
+P = 3x4 투영행렬           # 스테레오 보정까지 반영된 것. 단안이면 K와 거의 같다</pre></div>
 <div class="anno">
 <div><code>K</code><span><b>내부 파라미터</b>(intrinsic). 렌즈와 센서가 정해지면 고정되는 값이라, <b>한 번 재면 계속 쓴다.</b> 로봇이 움직여도 안 바뀐다.</span></div>
 <div><code>D</code><span><b>왜곡 계수</b>. <code>k*</code>는 방사 왜곡(중심에서 멀수록 휘는 것), <code>p*</code>는 접선 왜곡(렌즈가 센서와 평행하지 않아 생기는 것). <b>Go2 카메라는 광각이라 이 값이 클 가능성이 높다.</b></span></div>
@@ -1381,12 +1412,12 @@ P = 3x4 투영행렬           # 스테레오 보정까지 반영된 것. 단안
 <h3 id="C5-3"><span class="step">C5-3</span>왜곡 보정</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>광각 렌즈는 직선을 휘게 만든다. <strong>보정하지 않으면 <a href="#c6">C6</a>의 좌표 변환이 화면 가장자리에서 크게 틀어진다</strong> · 중앙은 멀쩡한데 구석만 틀리는 증상이 이것이다.</p>
-<pre><code>import cv2, numpy as np
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">import</span> cv2, numpy <span class="k">as</span> np
 
-K = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]], dtype=np.float64)
-D = np.array([k1, k2, p1, p2, k3], dtype=np.float64)
+K = np.<span class="f">array</span>([[fx, <span class="n">0</span>, cx], [<span class="n">0</span>, fy, cy], [<span class="n">0</span>, <span class="n">0</span>, <span class="n">1</span>]], dtype=np.float64)
+D = np.<span class="f">array</span>([k1, k2, p1, p2, k3], dtype=np.float64)
 
-undist = cv2.undistort(frame, K, D)</code></pre>
+undist = cv2.<span class="f">undistort</span>(frame, K, D)</pre></div>
 <div class="anno">
 <div><code>cv2.undistort</code><span>매 프레임 새로 계산하므로 <b>느리다.</b> 실시간에서는 <code>cv2.initUndistortRectifyMap</code>으로 <b>맵을 한 번만 만들어 두고</b> <code>cv2.remap</code>을 쓴다.</span></div>
 <div>ROS 쪽 대안<span><code>image_proc</code> 패키지가 <code>/image_raw</code> + <code>/camera_info</code>를 받아 <b><code>/image_rect</code>를 발행</b>해 준다. <b>내 노드에서 보정하지 말고 이 토픽을 구독하는 것이 더 깔끔하다</b> · <a href="#C4-8">C4-8</a>의 파라미터로 입력 토픽만 바꾸면 된다.</span></div>
@@ -1397,10 +1428,10 @@ undist = cv2.undistort(frame, K, D)</code></pre>
 <h3 id="C5-4"><span class="step">C5-4</span>캘리브레이션 · 체스보드로 <code>K</code> 구하기</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span><code>K</code>를 모르면 <a href="#c6">C6</a>이 시작되지 않는다. 체스보드 한 장을 여러 각도에서 찍어 역산하는 것이 표준 절차다.</p>
-<pre><code>$ sudo apt install ros-jazzy-camera-calibration
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ sudo apt install ros-jazzy-camera-calibration
 $ ros2 run camera_calibration cameracalibrator \
-    --size 8x6 --square 0.025 \
-    --ros-args -r image:=/image_raw -p camera:=/camera</code></pre>
+    <span class="o">--size</span> 8x6 <span class="o">--square</span> <span class="n">0.025</span> \
+    <span class="o">--ros-args</span> <span class="o">-r</span> image:=/image_raw <span class="o">-p</span> camera:=/camera</pre></div>
 <div class="anno">
 <div><code>--size 8x6</code><span><b>내부 교차점</b>의 개수다. 칸 수가 아니다 · 9×7칸 보드의 내부 교차점이 8×6이다. <b>여기를 틀리면 보드를 아예 인식하지 못한다.</b></span></div>
 <div><code>--square 0.025</code><span>한 칸의 <b>실제 크기(미터)</b>. 2.5cm면 <code>0.025</code>. <b>이 값이 틀리면 <code>K</code>는 맞게 나오지만 나중에 재는 거리가 전부 비례해서 틀린다.</b> 자로 직접 재서 넣는다.</span></div>
@@ -1427,7 +1458,7 @@ $ ros2 run camera_calibration cameracalibrator \
 <p class="sub"><span class="tag ch">학원 노트북</span> <strong>이 절이 CV 담당의 본체다.</strong> "화면 어디에 보인다"를 "지도 어디에 있다"로 바꾸는 것. 조선대 3회차 TF 수업이 이 절을 위한 수업이었다.</p>
 
 <h3 id="C6-1"><span class="step">C6-1</span>프레임 사슬 · 수업의 <code>world→moving→child</code>가 실전에서는</h3>
-<pre><code>map → odom → base_link → camera_link → camera_optical_frame</code></pre>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>map → odom → base_link → camera_link → camera_optical_frame</pre></div>
 <div class="tablewrap"><div class="tw"><table>
 <tr><th>프레임</th><th>뜻</th><th>누가 만드나</th></tr>
 <tr><td><code>map</code></td><td>세계 기준. <b>튀지만 누적 오차가 없다</b></td><td>SLAM (<code>slam_toolbox</code>)</td></tr>
@@ -1437,8 +1468,9 @@ $ ros2 run camera_calibration cameracalibrator \
 <tr><td><code>camera_optical_frame</code></td><td>실제 광학 좌표계</td><td>같음</td></tr>
 </table></div></div>
 <p><strong>왜 <code>map</code>과 <code>odom</code>이 둘 다 있나.</strong> 오도메트리는 부드럽지만 시간이 갈수록 밀린다. SLAM은 밀림을 고쳐 주지만 고칠 때 순간적으로 <strong>위치가 튄다.</strong> 제어에는 부드러운 것이, 지도 표시에는 정확한 것이 필요하므로 <strong>둘을 다 두고 상황에 따라 골라 쓴다.</strong> 탐지 결과를 지도에 남길 때는 <code>map</code> 기준이다.</p>
-<pre><code>$ ros2 run tf2_tools view_frames        # TF 트리를 PDF로 그려 준다
-$ ros2 run tf2_ros tf2_echo map camera_optical_frame</code></pre>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 run tf2_tools view_frames        <span class="c"># TF 트리를 PDF로 그려 준다
+</span>
+$ ros2 run tf2_ros tf2_echo map camera_optical_frame</pre></div>
 <div class="anno">
 <div><code>view_frames</code><span>현재 살아 있는 프레임과 <b>누가 누구를 발행하는지</b>를 PDF로 뽑는다. <b>카메라 프레임이 트리에 안 붙어 있을 때 이걸로 찾는다.</b></span></div>
 <div><code>tf2_echo A B</code><span>두 프레임 사이 변환을 <b>실시간으로 찍어 준다.</b> 코드를 쓰기 전에 이걸로 <b>변환이 존재하는지</b> 먼저 확인한다 · 없으면 코드는 예외를 던진다.</span></div>
@@ -1470,7 +1502,7 @@ $ ros2 run tf2_ros tf2_echo map camera_optical_frame</code></pre>
 <h3 id="C6-4"><span class="step">C6-4</span>역투영 · 픽셀에서 광선으로</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span><a href="#C5-1">C5-1</a>의 식을 뒤집으면 된다. <strong>거리는 몰라도 「방향」은 <code>K</code>만으로 정확히 안다.</strong></p>
-<pre><code># 박스 아랫변 중앙 = 물체가 지면에 닿는 점 (지면 가정에서 이 점을 쓴다)
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre># 박스 아랫변 중앙 = 물체가 지면에 닿는 점 (지면 가정에서 이 점을 쓴다)
 u = (x1 + x2) / 2
 v = y2
 
@@ -1480,7 +1512,7 @@ y_n = (v - cy) / fy
 # 광선 방향 벡터: (x_n, y_n, 1)  ← 길이는 아직 모른다
 
 # 깊이 Z를 알면 3D 점이 확정된다
-X, Y, Z = x_n * Z, y_n * Z, Z</code></pre>
+X, Y, Z = x_n * Z, y_n * Z, Z</pre></div>
 <div class="anno">
 <div><code>v = y2</code><span>박스의 <b>아래쪽 변</b>. 지면 평면 가정에서는 <b>물체가 바닥에 닿는 지점</b>이 계산의 기준이 되므로 중심이 아니라 아랫변을 쓴다. depth를 쓸 때는 <b>박스 중앙 부근의 depth 중앙값</b>을 쓰는 편이 낫다 · 가장자리는 배경 거리가 섞인다.</span></div>
 <div><code>(u - cx) / fx</code><span>주점을 원점으로 옮기고 초점거리로 나눈다. 결과는 <b>단위 없는 방향비</b>다. 이 값이 0이면 정면, 양수면 오른쪽.</span></div>
@@ -1492,12 +1524,12 @@ X, Y, Z = x_n * Z, y_n * Z, Z</code></pre>
 <h3 id="C6-5"><span class="step">C6-5</span>지면 평면 가정 · depth가 없을 때</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>"물체가 바닥에 닿아 있다"는 가정 하나를 넣으면 <strong>부족한 정보 하나가 채워진다.</strong> 카메라 높이는 TF에서 나온다.</p>
-<pre><code># 카메라가 지면에서 높이 h에 있고, 광선이 지면(z = 0)과 만나는 점을 찾는다
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre># 카메라가 지면에서 높이 h에 있고, 광선이 지면(z = 0)과 만나는 점을 찾는다
 # base_link 기준으로 바꾼 광선 방향을 (dx, dy, dz), 카메라 위치를 (0, 0, h)라 하면
 # h + t·dz = 0  →  t = -h / dz      (dz &lt; 0 이어야 한다 = 아래를 향한 광선)
 
 t = -h / dz
-X, Y = t * dx, t * dy</code></pre>
+X, Y = t * dx, t * dy</pre></div>
 <div class="anno">
 <div><code>h</code><span>카메라의 <b>지면 대비 높이</b>. <code>base_link</code>→<code>camera_link</code> TF와 로봇 몸통 높이에서 나온다. <b>4족보행은 걸으면서 몸통이 위아래로 흔들려 <code>h</code>가 계속 변한다</b> · 이게 이 방법의 최대 오차원이다.</span></div>
 <div><code>dz &lt; 0</code><span>광선이 아래를 향해야 지면과 만난다. <b><code>dz ≥ 0</code>이면 지면과 영원히 안 만난다</b>(수평선 위를 보고 있는 것). 이 경우를 <b>반드시 코드에서 걸러야</b> 하고, 안 거르면 0으로 나누거나 <b>로봇 뒤쪽에 엉뚱한 점</b>이 찍힌다.</span></div>
@@ -1509,23 +1541,26 @@ X, Y = t * dx, t * dy</code></pre>
 <h3 id="C6-6"><span class="step">C6-6</span>TF로 map까지 · 시각을 맞춘다</h3>
 <div class="cmd">
 <p class="why"><span class="tag ros">ROS 2</span>카메라 기준 3D 점을 <code>map</code> 기준으로 옮긴다. <strong>여기서 가장 흔한 실수는 시각을 안 맞추는 것</strong>이다.</p>
-<pre><code>from tf2_ros import Buffer, TransformListener
-from geometry_msgs.msg import PointStamped
-from tf2_geometry_msgs import do_transform_point
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> tf2_ros <span class="k">import</span> Buffer, TransformListener
+<span class="k">from</span> geometry_msgs.msg <span class="k">import</span> PointStamped
+<span class="k">from</span> tf2_geometry_msgs <span class="k">import</span> do_transform_point
 
-# __init__
-self.tf_buffer = Buffer()
-self.tf_listener = TransformListener(self.tf_buffer, self)
+<span class="c"># __init__
+</span>
+<span class="k">self</span>.tf_buffer = <span class="f">Buffer</span>()
+<span class="k">self</span>.tf_listener = <span class="f">TransformListener</span>(<span class="k">self</span>.tf_buffer, <span class="k">self</span>)
 
-# 콜백 안
-p = PointStamped()
-p.header = msg.header                      # ★ 이미지의 시각과 프레임을 그대로
+<span class="c"># 콜백 안
+</span>
+p = <span class="f">PointStamped</span>()
+p.header = msg.header                      <span class="c"># ★ 이미지의 시각과 프레임을 그대로
+</span>
 p.point.x, p.point.y, p.point.z = X, Y, Z
 
-t = self.tf_buffer.lookup_transform(
-        'map', msg.header.frame_id, msg.header.stamp,
-        timeout=rclpy.duration.Duration(seconds=0.1))
-p_map = do_transform_point(p, t)</code></pre>
+t = <span class="k">self</span>.tf_buffer.<span class="f">lookup_transform</span>(
+        <span class="s">&#x27;map&#x27;</span>, msg.header.frame_id, msg.header.stamp,
+        timeout=rclpy.duration.<span class="f">Duration</span>(seconds=<span class="n">0.1</span>))
+p_map = <span class="f">do_transform_point</span>(p, t)</pre></div>
 <div class="anno">
 <div><code>msg.header.stamp</code><span><b>이미지가 찍힌 시각.</b> <code>rclpy.time.Time()</code>을 넘기면 "가장 최신"이 되는데, <b>로봇이 움직이는 중이면 최신 변환과 촬영 시점 변환이 다르다.</b> 탐지 결과를 변환할 때는 <b>반드시 그 이미지의 시각</b>을 쓴다. 이 한 줄이 <a href="#C4-3">C4-3</a>에서 <code>header</code>를 물려준 이유의 전부다.</span></div>
 <div><code>timeout=0.1</code><span>TF가 아직 도착하지 않았으면 <b>잠깐 기다린다.</b> 없으면 즉시 예외를 던지는데, 이미지가 TF보다 <b>몇 ms 먼저</b> 도착하는 것이 흔해서 이 여유가 필요하다.</span></div>
@@ -1553,24 +1588,24 @@ p_map = do_transform_point(p, t)</code></pre>
 <p class="sub">채택이든 폐기든 결과는 <code>EXPERIMENTS.md</code>에 한 줄로 남긴다. <strong>폐기한 실험도 기록이 남으면 자산</strong>이다 · "이건 해 봤는데 안 됐다"가 다음 사람의 시간을 아낀다.</p></div>
 
 <h3 id="C7-2"><span class="step">C7-2</span>데이터셋 구조와 라벨 포맷</h3>
-<pre><code>dataset/
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>dataset/
 ├── data.yaml
 ├── images/
 │   ├── train/   img001.jpg  img002.jpg ...
 │   └── val/     img101.jpg ...
 └── labels/
     ├── train/   img001.txt  img002.txt ...   ← 이미지와 같은 이름, 확장자만 .txt
-    └── val/     img101.txt ...</code></pre>
-<pre><code># data.yaml
+    └── val/     img101.txt ...</pre></div>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre># data.yaml
 path: /abs/path/to/dataset
 train: images/train
 val: images/val
 names:
   0: obstacle
-  1: person</code></pre>
-<pre><code># img001.txt · 박스 하나가 한 줄, 값은 전부 0~1 정규화 (C2-2)
+  1: person</pre></div>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre># img001.txt · 박스 하나가 한 줄, 값은 전부 0~1 정규화 (C2-2)
 0 0.514 0.377 0.212 0.406
-1 0.221 0.640 0.098 0.180</code></pre>
+1 0.221 0.640 0.098 0.180</pre></div>
 <div class="anno">
 <div>이미지와 라벨의 <b>같은 이름</b><span>ultralytics는 <code>images/</code>를 <code>labels/</code>로 바꾼 경로에서 <b>같은 이름의 <code>.txt</code></b>를 찾는다. <b>폴더 이름이 정확히 <code>images</code>·<code>labels</code>여야</b> 한다 · 여기가 첫 실패 지점이다.</span></div>
 <div>물체가 없는 이미지<span><b>빈 <code>.txt</code> 파일</b>을 둔다. 파일 자체가 없어도 되지만 빈 파일을 두는 편이 의도가 분명하다. <b>배경만 있는 이미지를 10%쯤 섞으면 헛것(FP)이 줄어든다.</b></span></div>
@@ -1581,12 +1616,12 @@ names:
 <h3 id="C7-3"><span class="step">C7-3</span>학습 실행 · 6GB에서</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span>3060 6GB는 학습에는 빠듯하다. <strong><code>batch</code>와 <code>imgsz</code>가 VRAM을 지배</strong>하므로 이 둘부터 조절한다.</p>
-<pre><code>from ultralytics import YOLO
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="k">from</span> ultralytics <span class="k">import</span> YOLO
 
-model = YOLO("yolo11n.pt")
-model.train(data="dataset/data.yaml",
-            epochs=50, imgsz=640, batch=8,
-            device=0, patience=10, project="runs", name="ft01")</code></pre>
+model = <span class="f">YOLO</span>(<span class="s">&quot;yolo11n.pt&quot;</span>)
+model.<span class="f">train</span>(data=<span class="s">&quot;dataset/data.yaml&quot;</span>,
+            epochs=<span class="n">50</span>, imgsz=<span class="n">640</span>, batch=<span class="n">8</span>,
+            device=<span class="n">0</span>, patience=<span class="n">10</span>, project=<span class="s">&quot;runs&quot;</span>, name=<span class="s">&quot;ft01&quot;</span>)</pre></div>
 <div class="anno">
 <div><code>batch=8</code><span>한 번에 넣는 이미지 수. <b>VRAM 부족(<code>CUDA out of memory</code>) 시 가장 먼저 내린다</b> · 8 → 4 → 2. <code>batch=-1</code>을 주면 알아서 잡아 주지만 <b>다른 프로그램이 GPU를 쓰고 있으면 잘못 잡는다.</b></span></div>
 <div><code>epochs=50</code><span>전체 데이터를 몇 번 훑나. 소규모 파인튜닝은 <b>50~100</b>이면 충분하다. 많다고 좋은 게 아니라 <b>과적합</b>한다.</span></div>
@@ -1599,9 +1634,9 @@ model.train(data="dataset/data.yaml",
 <h3 id="C7-4"><span class="step">C7-4</span>평가 · 리포트</h3>
 <div class="cmd">
 <p class="why"><span class="tag">PY</span><strong>학습 자체가 아니라 이 표가 산출물</strong>이다.</p>
-<pre><code>m = YOLO("runs/ft01/weights/best.pt")
-r = m.val(data="dataset/data.yaml")
-print(r.box.map50, r.box.map)     # mAP50, mAP50-95</code></pre>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>m = YOLO(&quot;runs/ft01/weights/best.pt&quot;)
+r = m.val(data=&quot;dataset/data.yaml&quot;)
+print(r.box.map50, r.box.map)     # mAP50, mAP50-95</pre></div>
 <div class="tablewrap"><div class="tw"><table>
 <tr><th>모델</th><th>mAP50</th><th>mAP50-95</th><th>FPS</th><th>비고</th></tr>
 <tr><td>사전학습 (기준선)</td><td>(  )</td><td>(  )</td><td>(  )</td><td>우리 데이터로 그냥 평가</td></tr>
@@ -1636,12 +1671,12 @@ print(r.box.map50, r.box.map)     # mAP50, mAP50-95</code></pre>
 
 <h3 id="C8-3"><span class="step">C8-3</span>융합의 원리 · 한 문단</h3>
 <p>LiDAR 점군의 각 점을 <strong><a href="#C5-1">C5-1</a>의 핀홀 식으로 이미지에 투영</strong>하면 "이 점이 화면 어디에 찍히는가"가 나온다. 그 픽셀이 <strong>탐지 박스 안</strong>이면, 그 점의 거리가 <strong>그 물체의 거리</strong>다.</p>
-<pre><code>LiDAR 점 (map/lidar 프레임)
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>LiDAR 점 (map/lidar 프레임)
    → TF로 camera_optical_frame 으로 옮긴다        (C6-6)
    → K 행렬로 (u, v) 픽셀에 투영한다               (C5-1)
    → 그 (u,v)가 어느 탐지 박스 안인지 본다          (C4-5)
    → 박스 안 점들의 거리 중앙값 = 그 물체의 거리
-</code></pre>
+</pre></div>
 <p><strong>필요한 것이 전부 앞 절에 있다.</strong> C5의 <code>K</code>, C6의 TF, C4의 탐지 박스. <strong>C8은 새 기술이 아니라 앞의 셋을 잇는 절</strong>이라, 앞이 제대로 서 있으면 짧게 끝난다.</p>
 <p class="sub">가장 어려운 부분은 수학이 아니라 <strong>시간 동기화</strong>다 · LiDAR와 카메라는 다른 시각에 찍힌다. <code>message_filters</code>의 <code>ApproximateTimeSynchronizer</code>가 그 표준 도구다. <strong>필요해질 때 연다.</strong></p>
 
@@ -1649,10 +1684,10 @@ print(r.box.map50, r.box.map)     # mAP50, mAP50-95</code></pre>
 <div class="call"><div class="t">대여 장비 수칙 · 실기 블록마다 상단에 박는다</div>
 <p><strong>읽기 먼저 · 변경은 허락 후 · 설치·업데이트 금지.</strong></p>
 <p>그래서 현장에서 개발하지 않는다. <strong>녹화해 와서 오프라인으로 개발한다.</strong></p>
-<pre><code>$ ros2 bag record -o go2_run01 \
-    /image_raw /camera_info /tf /tf_static &lt;lidar_topic&gt;
-$ ros2 bag play go2_run01 --clock       # 집에서 재생
-</code></pre>
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre>$ ros2 bag record <span class="o">-o</span> go2_run01 \
+    /image_raw /camera_info /tf /tf_static &lt;<span class="f">lidar_topic</span>&gt;
+$ ros2 bag play go2_run01 <span class="o">--clock</span>       <span class="c"># 집에서 재생
+</span></pre></div>
 <div class="anno">
 <div><code>/tf</code>와 <code>/tf_static</code><span><b>반드시 같이 녹화한다.</b> 이게 없으면 <a href="#c6">C6</a>의 좌표 변환을 오프라인에서 재현할 수 없다. <b>가장 흔히 빠뜨리는 토픽</b>이다.</span></div>
 <div><code>/camera_info</code><span><code>K</code>가 여기 들어 있다(<a href="#C5-2">C5-2</a>). 이미지만 녹화하고 이걸 빠뜨리면 <b>거리 계산을 아예 못 한다.</b></span></div>
@@ -1661,6 +1696,38 @@ $ ros2 bag play go2_run01 --clock       # 집에서 재생
 <p class="sub"><strong>파일 한도는 100MB</strong>이므로 5분 녹화 정도는 그대로 git에 들어간다. 넘으면 NAS/클라우드 + 링크.</p></div>
 
 <h2 id="go2"><span class="n">＋</span>Go2 카메라 접근 · 배포 <span class="sub"><code>미확인</code> 다수</span></h2>
+
+<h3 id="cam-buy">어떤 카메라가 필요한가 <span class="sub">= 지금은 아무것도 사지 않는다</span></h3>
+<p class="why"><span class="tag">판단</span>"CV를 하려면 카메라부터 사야 하나"가 첫 질문이 되기 쉽다. <strong>아니다.</strong> 단계별로 요구가 완전히 다르고, <strong>구매가 필요해지는 지점은 딱 한 군데(<a href="#c6">C6</a>)</strong>이며, 그 한 군데조차 <strong>이미 로봇 등에 얹힌 라이다로 해결될 가능성이 높다.</strong></p>
+
+<div class="tablewrap"><div class="tw"><table>
+<tr><th>구간</th><th>필요한 카메라</th><th>지금 가진 것으로 되나</th></tr>
+<tr><td><a href="#c1">C1</a>~<a href="#c4">C4</a> <span class="sub">~10/10</span></td><td>아무 UVC 웹캠</td><td class="pos">된다. 노트북 내장 웹캠으로 충분하다. <b>탐지 정확도를 재는 구간이 아니라 파이프라인을 뚫는 구간</b>이다</td></tr>
+<tr><td><a href="#c5">C5</a> 캘리브레이션</td><td><b>초점을 고정할 수 있는</b> 카메라</td><td>된다. 단 <b>오토포커스를 꺼야 한다</b> · 초점이 움직이면 <code>fx</code>가 같이 변해 <code>K</code>가 무의미해진다</td></tr>
+<tr><td><a href="#c6">C6</a> 픽셀→map <span class="sub">11/07</span></td><td><b>거리를 줄 무언가</b></td><td class="neg">여기가 유일한 갈림길이다 ↓</td></tr>
+<tr><td><a href="#c8">C8</a> 융합</td><td>라이다</td><td class="pos">이미 로봇에 달려 있다</td></tr>
+</table></div></div>
+
+<h4>C6의 갈림길 · 거리를 어디서 가져오나</h4>
+<p><a href="#C5-2">C5-2</a>에서 본 대로 <strong>사진 한 장에는 거리 정보가 물리적으로 없다.</strong> 그 빠진 하나를 채우는 방법이 셋이고, 셋의 비용이 완전히 다르다.</p>
+<div class="tablewrap"><div class="tw"><table>
+<tr><th>방법</th><th>비용</th><th>정확도</th><th>깨지는 조건</th></tr>
+<tr><td><b>① 지면 평면 가정</b><br><span class="sub">mono 카메라만</span></td><td class="pos">0원. 코드 20줄</td><td>가까울수록 좋고 멀수록 급격히 나빠진다</td><td class="neg">물체가 지면에 닿아 있어야 하고, <b>카메라 pitch가 흔들리면 그대로 오차</b>가 된다. 4족보행은 걸을 때마다 pitch가 출렁인다</td></tr>
+<tr><td><b>② RGB-D 카메라</b><br><span class="sub">RealSense D435i · OAK-D</span></td><td class="neg">구매 + 드라이버 + USB3 대역 + 전원</td><td>실내 0.3~3m 우수</td><td class="neg">햇빛에서 급격히 나빠진다. 실기 시연이 실외면 위험</td></tr>
+<tr><td><b>③ 라이다 융합</b><br><span class="sub">탐지 박스 ↔ 점군</span></td><td class="pos">0원 · <b>이미 달려 있다</b></td><td class="pos">cm 단위. 먼 거리도 유지</td><td>라이다가 점군을 <b>실제로 발행해야</b> 한다 <span class="sub">(미확인)</span></td></tr>
+</table></div></div>
+
+<div class="call"><div class="t">결론 · 구매 판단은 라이다 확인 뒤로 미룬다</div>
+<p><strong>③이 성립하면 카메라는 살 필요가 없다.</strong> 그게 이 교재 맨 위에 적힌 <strong>「기하는 LiDAR, 의미는 카메라」</strong> 원칙 그대로이기도 하다 · 카메라에 거리까지 시키려 드는 순간 설계가 어긋난다.</p>
+<p>그래서 순서는 <strong>구매 검토가 아니라 확인</strong>이다. <code>docs/ROBOT-SPEC.md</code>에도 <strong>「라이다 토픽·좌표계 실측」이 미해결 항목으로 남아 있다.</strong> 실기 접근이 열리는 날 <a href="#C8-2">C8-2</a>의 확인 목록을 10초 안에 끝내면 이 갈림길이 닫힌다.</p>
+<ul>
+<li>라이다가 점군을 낸다 → <strong>③. 구매 없음.</strong> mono 카메라 + 융합으로 확정</li>
+<li>라이다가 MCF 안에 잠겨 있다 → <strong>①로 <code>S4</code> 최소선을 먼저 세운다.</strong> ②는 그 다음 판단</li>
+</ul>
+<p><strong>판단 시한은 10월 중순.</strong> <code>S4</code>가 11/07인데 새 센서는 주문·드라이버·캘리브레이션·좌표계 등록까지 <strong>최소 2주를 먹는다.</strong> 10월 말에 결정하면 늦는다.</p></div>
+
+<div class="call trap"><div class="t">지금 당장 손댈 수 있는 것</div>
+<p>위 판단이 무엇으로 끝나든 <strong><a href="#c1">C1</a>~<a href="#c5">C5</a>는 하나도 안 바뀐다.</strong> 웹캠으로 배운 <code>K</code> 행렬·왜곡 보정·역투영은 Go2 카메라에도 RGB-D에도 그대로 쓰인다. <strong>그래서 센서가 정해지기를 기다릴 이유가 없다</strong> · 기다리는 것이 이 프로젝트에서 가장 비싼 선택이다.</p></div>
 
 <h3>카메라 접근 경로 · 조사한 것</h3>
 <ul>
@@ -1709,12 +1776,12 @@ $ ros2 bag play go2_run01 --clock       # 집에서 재생
 </table></div></div>
 
 <div class="pagerow">
-  <a href="tech-slam-nav.html"><span class="dir">이전</span><br><span class="pt">← 09 SLAM · Nav2</span></a>
-  <a class="next" href="tech-ros2-ref.html"><span class="dir">다음</span><br><span class="pt">11 ROS 2 레퍼런스 →</span></a>
+  <a href="tech-slam-nav.html"><span class="dir">이전</span><br><span class="pt">← 10 SLAM · Nav2</span></a>
+  <a class="next" href="tech-ros2-ref.html"><span class="dir">다음</span><br><span class="pt">12 ROS 2 레퍼런스 →</span></a>
 </div>
 
 <footer><span>FOOTHOLD 팀 위키</span><span>CV 교재 · 2026-08-27 전면 개편</span></footer>
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 12:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

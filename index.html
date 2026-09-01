@@ -186,7 +186,13 @@ footer b{color:var(--ink-2);font-family:inherit}
 <script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script>
 <script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script>
 <script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script>
-<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--teamprofiles:v2--><style>
+<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script>
+<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script>
+<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script>
+<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script>
+<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script>
+
+<!--teamprofiles:v2--><style>
 .team .tm .n a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
 .team .tm .n a:hover{border-bottom-color:var(--dim);color:var(--dim)}
 .team .tm .more{margin-top:.5rem;font-size:.66rem;font-weight:800;letter-spacing:.02em;
@@ -228,6 +234,11 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
   margin-left:auto;margin-right:auto}
 @media print{.wrap{max-width:none!important}}
 .gnav .navctl script{display:none}
+/* ★ 9/1: 검색 버튼은 런타임에 JS 가 만든다. 그때 «그 페이지의 PDF 버튼
+   클래스» 를 복사해 페이지마다 크기가 달랐다 (팀장: 돋보기 크기가 변한다).
+   복사는 searchbox 에서 없앴고, 여기서 바의 규격으로 못박는다. */
+.gnav .fh-sbtn{font-size:.8rem!important;font-weight:600!important;letter-spacing:-.01em!important;line-height:1.5!important;padding:.34rem .55rem!important;height:1.85rem!important;gap:.28rem!important;border:0!important;background:transparent!important;position:static!important;box-sizing:border-box!important}
+.gnav .fh-sbtn svg{width:11px!important;height:11px!important;flex:none}
 .gnav{position:sticky;top:0;z-index:70;background:var(--paper);
   border-bottom:1px solid var(--rule);font-size:.82rem}
 /* ★ 바 높이가 44 / 48 / 50 세 가지였다 (실측). 바가 «페이지의 line-height» 를
@@ -244,8 +255,11 @@ body main:not(.wrap):not(#deck){max-width:1040px!important;
      굵기 650 / 600 두 종 · 색 두 종 · 높이 25 / 26 / 29px 세 종 ·
      세로 위치 9 / 10 / 11px 세 종 («다크» 버튼만 3px 낮고 1px 위로 밀림).
    상단바 «모든» 항목이 같은 상자로 선다. 하나라도 예외를 두면 또 어긋난다. */
+/* ★ 9/1 실측: 버튼 폭이 페이지마다 2px 달랐다. 원인은 «선언된 폰트 스택» 이
+   달라서다 (기획 Arial · 백과·커리큘럼 Pretendard). 같은 글자여도 폭이 다르다.
+   바는 자기 폰트를 갖는다. 그래야 페이지를 옮겨도 안 흔들린다. */
 .gnav a,.gnav button,.gnav .navctl>*{
-  font-size:.8rem!important;font-weight:600!important;letter-spacing:-.01em;
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo','Segoe UI',system-ui,sans-serif!important;letter-spacing:-.01em!important;  font-size:.8rem!important;font-weight:600!important;
   line-height:1.5!important;color:var(--ink-3)!important;
   padding:.34rem .55rem!important;border-radius:4px!important;
   border:0!important;background:transparent!important;
@@ -419,7 +433,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<script>try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
+<!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -467,7 +481,11 @@ document.addEventListener('DOMContentLoaded',function(){
   /* 검색 버튼: PDF 저장 버튼 왼쪽, 같은 스타일 (레이아웃을 새로 만들지 않는다) */
   var pb=document.getElementById('pdfBtn')||document.querySelector('.pdfbtn');
   var sb=document.createElement('button');sb.type='button';
-  sb.className=((pb?pb.className:'fh-sbtn-fix')+' fh-sbtn').replace(/ pdf /,' ').trim();
+  /* ★ 9/1 팀장 실측: 「돋보기 아이콘 크기가 달라지면서 위치가 변한다」.
+     여기가 그 원인이다. 검색 버튼이 «그 페이지의 PDF 버튼 클래스를 복사» 해서
+     페이지마다 패딩·글자·자간이 달랐고, 그만큼 오른쪽 묶음이 밀렸다.
+     전역바가 바를 소유한 지금은 복사할 이유가 없다. 자기 클래스만 쓴다. */
+  sb.className=(pb&&!pb.closest('.gnav')?'fh-sbtn-fix ':'')+'fh-sbtn';
   sb.setAttribute('aria-label','사이트 검색');
   sb.innerHTML='<svg viewBox="0 0 16 16" width="11" height="11" fill="none" '
     +'stroke="currentColor" stroke-width="1.6" aria-hidden="true">'
@@ -551,7 +569,7 @@ document.addEventListener('DOMContentLoaded',function(){
 a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
 a.is-new .ex3::after,a.is-new .pk3::after,
 a.band.is-new .bt::after,a.band.is-new strong::after,
-a.is-new .k::after{content:'NEW';display:inline-block;
+a.is-new .k::after,a.is-new .rt::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
   font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
 </style>
@@ -609,6 +627,7 @@ body>*{flex-shrink:0}
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+
 
 <button class="pdfbtn" id="pdfBtn" type="button"
         title="브라우저 인쇄 창이 열립니다. 대상에서 &quot;PDF로 저장&quot;을 선택하세요."
@@ -701,7 +720,7 @@ body>*{flex-shrink:0}
 </script>
 <div class="dday" aria-label="다음 관문까지 남은 기간과 제출물"><a class="dd-cell" href="deliverables.html"><span class="dd-name">기획발표</span><span class="dd-num"><span class="dd-live" data-due="2026-09-04">D-3</span></span><span class="dd-sub">09월 04일 · 제출 0/4</span><span class="dd-list">브레인스토밍 · 프로젝트 기획서 (요약) · 프로젝트 기획서 (발표용) 외 1</span></a><a class="dd-cell" href="deliverables.html"><span class="dd-name">MVP · 중간발표</span><span class="dd-num"><span class="dd-live" data-due="2026-09-30">D-29</span></span><span class="dd-sub">09월 30일 · 제출 0/2</span><span class="dd-list">일반화 평가표 · 디지털 트윈 · 렌더 시연물</span></a><a class="dd-cell" href="deliverables.html"><span class="dd-name">FINAL · 최종발표</span><span class="dd-num"><span class="dd-live dd-sec" data-due="2026-12-11">101일</span></span><span class="dd-sub">12월 11일 · 제출 0/1</span><span class="dd-list">최종 실증결과 보고서</span></a></div>
 <div class="bands3"><a class="band b-notice" data-added="2026-08-27" href="notice-latest.html"><div class="t">팀 공지</div><div class="d">지금 무엇이 바뀌었나</div></a><a class="band b-digest" href="digest-2026-W35.html"><span class="w">2026년 35주차</span><div class="t">주간 다이제스트</div><div class="d">이번 주에 알게 된 것</div></a><a class="band b-deliv" data-added="2026-08-27" href="deliverables.html"><div class="t">산출물 현황</div><div class="d">D-3 기획발표 · 4장</div></a></div>
-<div class="hubs"><a class="" data-added="2026-09-01" href="hub-proposal.html"><div class="k">기획</div><div class="e">Proposal</div><div class="d">밖으로 3 · 안으로 4 · 제출 초안 4</div></a><a class="hot" data-added="2026-08-28" href="hub-schedule.html"><div class="k">일정</div><div class="e">Schedule</div><div class="d">D-3 기획발표 · 걸린 4장 전부 초안</div></a><a class="" data-added="2026-08-27" href="hub-meeting.html"><div class="k">회의</div><div class="e">Meetings</div><div class="d">최근 08/26 · 오늘 멘토링은 취소. 운영이 프로젝트 피드백</div></a><a class="" data-added="2026-08-11" href="hub-research.html"><div class="k">연구</div><div class="e">Research</div><div class="d">실측 8 · 조사 12 · 출발선이 맨 위</div></a><a class="" data-added="2026-08-30" href="hub-tech.html"><div class="k">기술</div><div class="e">Tech</div><div class="d">경로 7편 · 기초 4 + 트랙 A·B</div></a><a class="" data-added="2026-08-29" href="hub-pipeline.html"><div class="k">파이프라인</div><div class="e">Pipeline</div><div class="d">규칙 8장 · 합류 · 매일 · 투고</div></a></div><!--/home:v1-->
+<div class="hubs"><a class="" data-added="2026-09-01" href="hub-proposal.html"><div class="k">기획</div><div class="e">Proposal</div><div class="d">밖으로 3 · 안으로 3 · 제출 초안 4</div></a><a class="hot" data-added="2026-08-28" href="hub-schedule.html"><div class="k">일정</div><div class="e">Schedule</div><div class="d">D-3 기획발표 · 걸린 4장 전부 초안</div></a><a class="" data-added="2026-08-27" href="hub-meeting.html"><div class="k">회의</div><div class="e">Meetings</div><div class="d">최근 08/26 · 오늘 멘토링은 취소. 운영이 프로젝트 피드백</div></a><a class="" data-added="2026-08-11" href="hub-research.html"><div class="k">연구</div><div class="e">Research</div><div class="d">실측 8 · 조사 12 · 출발선이 맨 위</div></a><a class="" data-added="2026-08-30" href="hub-tech.html"><div class="k">기술</div><div class="e">Tech</div><div class="d">경로 7편 · 기초 4 + 트랙 A·B</div></a><a class="" data-added="2026-08-29" href="hub-pipeline.html"><div class="k">파이프라인</div><div class="e">Pipeline</div><div class="d">규칙 9장 · 합류 · 매일 · 투고</div></a></div><!--/home:v1-->
 
 <h2 class="sec">현재 상태 <span class="en">Status</span></h2>
 <!--status:v1-->
@@ -715,7 +734,7 @@ body>*{flex-shrink:0}
 <!--recent:v1-->
 <h2 class="sec">최근 올라온 것 <span class="en">Recent</span></h2>
 <p class="lede" style="margin:-2px 0 12px;font-size:.82rem;color:var(--ink-3)">종류를 가리지 않고 최근 5개. 내가 올린 것이 반영됐는지 여기서 본다.</p>
-<div class="recent"><a href="team-oh.html"><span class="rd">09/01</span><span class="rk">기획</span><span class="rt">오현민</span><span class="rn">NEW</span></a><a href="team-lim.html"><span class="rd">09/01</span><span class="rk">기획</span><span class="rt">임석헌</span><span class="rn">NEW</span></a><a href="team-lee.html"><span class="rd">09/01</span><span class="rk">기획</span><span class="rt">이민우</span><span class="rn">NEW</span></a><a href="tech-slam-nav.html"><span class="rd">08/30</span><span class="rk">기술</span><span class="rt">SLAM · Nav2 자율주행</span></a><a href="tech-ros2-ref.html"><span class="rd">08/30</span><span class="rk">기술</span><span class="rt">ROS 2 기초</span></a></div>
+<div class="recent"><a class="rcard" data-added="2026-09-01" href="team-oh.html"><span class="rd">09/01</span><span class="rk">기획</span><span class="rt">오현민</span></a><a class="rcard" data-added="2026-09-01" href="team-lim.html"><span class="rd">09/01</span><span class="rk">기획</span><span class="rt">임석헌</span></a><a class="rcard" data-added="2026-09-01" href="team-lee.html"><span class="rd">09/01</span><span class="rk">기획</span><span class="rt">이민우</span></a><a class="rcard" data-added="2026-09-01" href="runpod-setup.html"><span class="rd">09/01</span><span class="rk">파이프라인</span><span class="rt">RunPod 에서 Isaac Lab 돌리기: 네트워크 볼륨 · 템플릿 · 첫 실행</span></a><a class="rcard" data-added="2026-08-30" href="tech-slam-nav.html"><span class="rd">08/30</span><span class="rk">기술</span><span class="rt">SLAM · Nav2 자율주행</span></a></div>
 <!--/recent:v1-->
 
 <h2 class="sec">팀 <span class="en">Team</span></h2>
@@ -788,10 +807,56 @@ body>*{flex-shrink:0}
 </style>
 <style>
 @media print{}
+</style>
+<style>
+@media print{}
+</style>
+
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
+</style>
+<style>
+@media print{}
 </style><style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:var(--brand);--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <style>
 @media print{}
 </style>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 12:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
