@@ -638,7 +638,8 @@ document.addEventListener('DOMContentLoaded',function(){
 <!--newbadge:v5--><style>
 a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
 a.is-new .ex3::after,a.is-new .pk3::after,
-a.band.is-new .bt::after,a.band.is-new strong::after{content:'NEW';display:inline-block;
+a.band.is-new .bt::after,a.band.is-new strong::after,
+a.is-new .k::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
   font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
 </style>
@@ -667,7 +668,17 @@ a.band.is-new .bt::after,a.band.is-new strong::after{content:'NEW';display:inlin
 <style id="stamp-css">
 /* ★ 실측 (팀장 8/31): 푸터 폭이 944 / 995 / 1100 / 1136 로 제각각이었다.
    페이지마다 다른 --w 를 따라갔기 때문. 본문과 같은 1040 한 값으로. */
-.bstamp{max-width:1040px;box-sizing:border-box;margin:40px auto 22px;
+/* ★ 9/1 팀장 지적 「페이지 넘어갈 때마다 위아래로 흔들리지 말고 고정하자」.
+   실측: 문서 높이가 678(기획) ~ 2514(연구) 로 제각각이라 짧은 허브에서는
+   푸터가 화면 «중간» 에 떴다. body 를 세로 flex 로 세우고 푸터에 margin-top:auto
+   를 주면, 내용이 짧아도 푸터가 늘 화면 바닥 같은 자리에 선다. */
+body{min-height:100vh;display:flex;flex-direction:column}
+body>.bstamp{margin-top:auto}
+/* ★ 9/1 두 번째 실측: body 를 flex 로 세우자 푸터가 «내용 크기» 로 줄었다
+   (1040 -> 605). flex 아이템에 margin:auto 를 주면 그렇게 된다.
+   width:100% 로 먼저 채우고 max-width 로 자른다. */
+.bstamp{width:100%;max-width:1040px!important;box-sizing:border-box;
+  margin:40px auto 22px;
   padding:12px 18px 0;
   border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
   align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
@@ -738,5 +749,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:05</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:47</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

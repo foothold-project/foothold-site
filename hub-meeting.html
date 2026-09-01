@@ -638,7 +638,8 @@ document.addEventListener('DOMContentLoaded',function(){
 <!--newbadge:v5--><style>
 a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
 a.is-new .ex3::after,a.is-new .pk3::after,
-a.band.is-new .bt::after,a.band.is-new strong::after{content:'NEW';display:inline-block;
+a.band.is-new .bt::after,a.band.is-new strong::after,
+a.is-new .k::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
   font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
 </style>
@@ -667,7 +668,17 @@ a.band.is-new .bt::after,a.band.is-new strong::after{content:'NEW';display:inlin
 <style id="stamp-css">
 /* ★ 실측 (팀장 8/31): 푸터 폭이 944 / 995 / 1100 / 1136 로 제각각이었다.
    페이지마다 다른 --w 를 따라갔기 때문. 본문과 같은 1040 한 값으로. */
-.bstamp{max-width:1040px;box-sizing:border-box;margin:40px auto 22px;
+/* ★ 9/1 팀장 지적 「페이지 넘어갈 때마다 위아래로 흔들리지 말고 고정하자」.
+   실측: 문서 높이가 678(기획) ~ 2514(연구) 로 제각각이라 짧은 허브에서는
+   푸터가 화면 «중간» 에 떴다. body 를 세로 flex 로 세우고 푸터에 margin-top:auto
+   를 주면, 내용이 짧아도 푸터가 늘 화면 바닥 같은 자리에 선다. */
+body{min-height:100vh;display:flex;flex-direction:column}
+body>.bstamp{margin-top:auto}
+/* ★ 9/1 두 번째 실측: body 를 flex 로 세우자 푸터가 «내용 크기» 로 줄었다
+   (1040 -> 605). flex 아이템에 margin:auto 를 주면 그렇게 된다.
+   width:100% 로 먼저 채우고 max-width 로 자른다. */
+.bstamp{width:100%;max-width:1040px!important;box-sizing:border-box;
+  margin:40px auto 22px;
   padding:12px 18px 0;
   border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
   align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
@@ -953,5 +964,5 @@ a.band.is-new .bt::after,a.band.is-new strong::after{content:'NEW';display:inlin
 }
 </style><a class="w3t" style="display:block;border:1px solid var(--rule);border-radius:8px;padding:.7rem 1rem;margin-bottom:1rem" href="decisions-log.html"><b>결정 로그</b><span style="display:block;font-size:.73rem;color:var(--ink-3)">무엇을 언제 왜 정했나. 뒤집은 것은 취소선으로 남는다 · 누적 기록이라 시간축 밖에 둔다</span></a><div class="mfs"><button class="mf on" data-seat="">전체 <i>11</i></button><button class="mf" data-seat="팀내부">팀내부 <i>3</i></button><button class="mf" data-seat="멘토링">멘토링 <i>2</i></button><button class="mf" data-seat="운영진">운영진 <i>2</i></button><button class="mf" data-seat="조선대">조선대 <i>1</i></button><button class="mf" data-seat="결정">결정 <i>1</i></button><button class="mf" data-seat="현장">현장 <i>2</i></button></div><div class="tlw3"><a class="tl3" data-seat="결정" href="decisions-20260827.html"><span class="tld3">08/27</span><span class="seat3 s-ops">결정</span><span class="tlb3"><span class="tlt3">8/26~27 에 확정한 것 전부</span><span class="tls3">설계 결정 기록</span></span></a><a class="tl3" data-seat="팀내부" href="meeting-20260826-mentor-sync.html"><span class="tld3">08/26</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">오늘 멘토링은 취소. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤.</span><span class="tls3">8/26 팀: 오늘 멘토링은 취소, 프로젝트 피드백으로 조율</span></span></a><a class="tl3" data-seat="멘토링" href="meeting-20260825-park-mentoring.html"><span class="tld3">08/25</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">2회차 멘토링. 프로젝트 화면을 보고, 실패 험지는 3점 지지로 읽는다.</span><span class="tls3">8/25 멘토링: 프로젝트 화면을 보고, 실패 험지는 3점 지지로</span></span></a><a class="tl3 old" data-seat="멘토링" href="meeting-20260824-park-mentoring.html"><span class="tld3">08/24</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">본 과제와 CAD 학습은 분리한다. 개별 취업 멘토링 첫 회차.</span></span></a><a class="tl3 old" data-seat="팀내부" href="meeting-20260821-team-meeting.html"><span class="tld3">08/21</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.</span></span></a><a class="tl3 old" data-seat="운영진" href="meeting-20260820-kickoff.html"><span class="tld3">08/20</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">전담 멘토 확정과 박철제 킥오프. 같은 날 두 자리를 한 장으로.</span></span></a><a class="tl3 old" data-seat="팀내부" href="meeting-20260819-team-lock.html"><span class="tld3">08/19</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">두 트랙으로 가기로 합의했다. C(미경험 지형 통과율)는 필수로 지킨다.</span></span></a><a class="tl3 old" data-seat="현장" href="field-check-go2-intake.html"><span class="tld3">08/14</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.</span></span></a><a class="tl3 old" data-seat="운영진" href="meeting-20260814-east-ops.html"><span class="tld3">08/14</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">원안이 확정됐다. 그리고 미팅 도중 조선대가 「Go2 저수준 제어 가능」으로 정정해 왔다. 전날의 최대 쟁점이 하루 만에 뒤집혔다.</span></span></a><a class="tl3 old" data-seat="현장" href="field-check-0813.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">8/13 조선대 방문 때 들고 가는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</span></span></a><a class="tl3 old" data-seat="조선대" href="meeting-20260813-ops-alignment.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">조선대</span><span class="tlb3"><span class="tlt3">「실시간 불가」 발언은 비전·항법 층 이야기였다. 진짜 쟁점은 Go2 저수준 개방 여부이고 아직 미확인이다.</span></span></a></div><script>document.querySelectorAll(".mf").forEach(function(b){b.onclick=function(){document.querySelectorAll(".mf").forEach(function(x){x.classList.remove("on")});b.classList.add("on");var s=b.dataset.seat;document.querySelectorAll("a[data-seat]").forEach(function(t){t.style.display=(!s||t.dataset.seat===s)?"":"none"});};});</script>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:05</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:47</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

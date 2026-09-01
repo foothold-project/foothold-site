@@ -638,7 +638,8 @@ document.addEventListener('DOMContentLoaded',function(){
 <!--newbadge:v5--><style>
 a.is-new .t::after,a.is-new .rt::after,a.is-new>b::after,
 a.is-new .ex3::after,a.is-new .pk3::after,
-a.band.is-new .bt::after,a.band.is-new strong::after{content:'NEW';display:inline-block;
+a.band.is-new .bt::after,a.band.is-new strong::after,
+a.is-new .k::after{content:'NEW';display:inline-block;
   margin-left:.45rem;vertical-align:.14em;background:var(--note);color:#fff;
   font-size:.55rem;font-weight:800;letter-spacing:.1em;padding:.13rem .4rem;border-radius:3px}
 </style>
@@ -667,7 +668,17 @@ a.band.is-new .bt::after,a.band.is-new strong::after{content:'NEW';display:inlin
 <style id="stamp-css">
 /* ★ 실측 (팀장 8/31): 푸터 폭이 944 / 995 / 1100 / 1136 로 제각각이었다.
    페이지마다 다른 --w 를 따라갔기 때문. 본문과 같은 1040 한 값으로. */
-.bstamp{max-width:1040px;box-sizing:border-box;margin:40px auto 22px;
+/* ★ 9/1 팀장 지적 「페이지 넘어갈 때마다 위아래로 흔들리지 말고 고정하자」.
+   실측: 문서 높이가 678(기획) ~ 2514(연구) 로 제각각이라 짧은 허브에서는
+   푸터가 화면 «중간» 에 떴다. body 를 세로 flex 로 세우고 푸터에 margin-top:auto
+   를 주면, 내용이 짧아도 푸터가 늘 화면 바닥 같은 자리에 선다. */
+body{min-height:100vh;display:flex;flex-direction:column}
+body>.bstamp{margin-top:auto}
+/* ★ 9/1 두 번째 실측: body 를 flex 로 세우자 푸터가 «내용 크기» 로 줄었다
+   (1040 -> 605). flex 아이템에 margin:auto 를 주면 그렇게 된다.
+   width:100% 로 먼저 채우고 max-width 로 자른다. */
+.bstamp{width:100%;max-width:1040px!important;box-sizing:border-box;
+  margin:40px auto 22px;
   padding:12px 18px 0;
   border-top:1px solid var(--line,#e5e2dc);display:flex;flex-wrap:wrap;gap:6px 14px;
   align-items:baseline;font-size:.74rem;color:var(--ink-3,#8a8580);line-height:1.7}
@@ -723,13 +734,13 @@ DECISIONS(결정의 «왜») · 이슈(작업 실행)와 겹치지 않는다. �
 <section id="s5"><h2>🔶 결정 대기</h2>
 <ul><li>lab 공개 전환 여부 (보류. 전제조건은 DECISIONS 08-12: 금액·외부실명·INFRA·LFS 정리)</li><li>허브를 몇 개로 갈지 (지금 5 -&gt; 기술 신설 시 6). 「파이프라인」 이름은 유지로 확정 (8/28)</li><li>연구 5갈래 이름 확정 여부</li><li><b>조선대 자료 미러를 어디에 둘지</b> (#88). 저작물이라 공개 저장소에 못 넣는다. 비공개 저장소를 하나 더 만들지 결정 필요</li></ul>
 </section>
-<section id="s6"><h2>📋 열린 이슈 전수 (2026-09-01 기준 34건)</h2>
+<section id="s6"><h2>📋 열린 이슈 전수 (2026-09-01 기준 36건)</h2>
 <blockquote><p><b>이 절이 원장의 뼈대다.</b> 열린 이슈가 여기 없으면 원장이 지금을 안 담고 있는 것이고,
 빌드 관문 <code>[3.8]</code> 이 그것을 잡는다. 닫힌 이슈는 지운다.</p></blockquote>
 <p><b>관문에 걸린 것</b></p>
-<div class="tw"><table><thead><tr><th>관문</th><th>이슈</th></tr></thead><tbody><tr><td>기획발표 9/4</td><td>#79 W36 팀 목표 · #93 PRD-WEB 정렬 패스 · #95 표지 타겟 재구성 · #96 멘토링 질문 취합</td></tr><tr><td>A-정책 9/12</td><td><b>8/31 박철제 멘토링에서 나온 셋</b>: #99 평지 직진 기준선 수립 + 10종 재측정 · #100 평가 지표 3종 적용 · #101 MuJoCo↔Isaac 차원 차이 조사 · #98 제로베이스 보행 기준선 (맹라현) · #90 레일즈 MuJoCo 사전 측정 (맹라현) · #94 RunPod 네트워크 볼륨 · #28 RoboGauge 붙이기 · #30 Vaultwarden·NAS</td></tr><tr><td>MVP 9/30</td><td>#6 도구 백과 · #29 에셋·HDRI · #31 DDP 재측정 · #65~#69 실패 5종 · #72 wiki 흡수 · #74 일정 시스템 · #75 NEW 배지 · #76 온톨로지 · #97 기술 허브 확장 3편</td></tr><tr><td>NAV 11/7</td><td>#55 CV 단계별 계획 (오현민)</td></tr><tr><td>관문 없음</td><td>#78 W35 · #80~#84 개인 목표</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>관문</th><th>이슈</th></tr></thead><tbody><tr><td>기획발표 9/4</td><td>#103 오늘 하루 진행 관리 (배포 · 기준선 · 산출물) · #79 W36 팀 목표 · #93 PRD-WEB 정렬 패스 · #95 표지 타겟 재구성 · #96 멘토링 질문 취합</td></tr><tr><td>A-정책 9/12</td><td><b>8/31 박철제 멘토링에서 나온 셋</b>: #99 평지 직진 기준선 수립 + 10종 재측정 · #100 평가 지표 3종 적용 · #101 MuJoCo↔Isaac 차원 차이 조사 · #98 제로베이스 보행 기준선 (맹라현) · #90 레일즈 MuJoCo 사전 측정 (맹라현) · #94 RunPod 네트워크 볼륨 · #28 RoboGauge 붙이기 · #30 Vaultwarden·NAS</td></tr><tr><td>MVP 9/30</td><td>#6 도구 백과 · #29 에셋·HDRI · #31 DDP 재측정 · #65~#69 실패 5종 · #72 wiki 흡수 · #74 일정 시스템 · #75 NEW 배지 · #76 온톨로지 · #97 기술 허브 확장 3편 · #102 일정 허브 대시보드화</td></tr><tr><td>NAV 11/7</td><td>#55 CV 단계별 계획 (오현민)</td></tr><tr><td>관문 없음</td><td>#78 W35 · #80~#84 개인 목표</td></tr></tbody></table></div>
 <p><b>사람별로 열린 것</b></p>
-<div class="tw"><table><thead><tr><th>사람</th><th>이슈</th></tr></thead><tbody><tr><td>오흥재</td><td>#6 #29 #30 #31 #69 #74 #75 #76 #93 #94 #95 #96 #97 #99 #100 #101 #88 #89 #80</td></tr><tr><td>맹라현</td><td>#66 #81 #90 #98</td></tr><tr><td>오현민</td><td>#55 #67 #72 #82</td></tr><tr><td>임석헌</td><td>#65 #83</td></tr><tr><td>이민우</td><td>#68 #84</td></tr><tr><td>팀 공동</td><td>#78 #79</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>사람</th><th>이슈</th></tr></thead><tbody><tr><td>오흥재</td><td>#6 #29 #30 #31 #69 #74 #75 #76 #93 #94 #95 #96 #97 #99 #100 #101 #102 #103 #88 #89 #80</td></tr><tr><td>맹라현</td><td>#66 #81 #90 #98</td></tr><tr><td>오현민</td><td>#55 #67 #72 #82</td></tr><tr><td>임석헌</td><td>#65 #83</td></tr><tr><td>이민우</td><td>#68 #84</td></tr><tr><td>팀 공동</td><td>#78 #79</td></tr></tbody></table></div>
 <p><b>손이 오래 안 간 것</b> (착수 흔적이 없다. 관문이 가까워지면 위험하다)</p>
 <div class="tw"><table><thead><tr><th>이슈</th><th>무엇</th><th>왜 남아 있나</th></tr></thead><tbody><tr><td>#29</td><td>에셋 팩 수령과 HDRI 렌더</td><td>에셋 수령이 선행. 대기 중</td></tr><tr><td>#30</td><td>Vaultwarden · NAS 폴더</td><td>인프라. A-정책 관문에 걸려 있다</td></tr><tr><td>#31</td><td>우분투 전환 후 DDP 재측정</td><td>우분투 이관이 선행</td></tr></tbody></table></div>
 </section>
@@ -762,5 +773,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:05</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:47</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
