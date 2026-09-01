@@ -715,7 +715,7 @@ body>*{flex-shrink:0}
 <div class="call"><div class="t">컴퓨트 환경 · 지금은 RunPod, <strong>최종 결정은 아니다</strong></div>
 <p><strong>RunPod에서 Isaac Lab이 headless로 구동되는 것을 확인했고, 2026-08-28에 FOOTHOLD 팀 계정으로 결제를 시작해 현재 실험은 RunPod에서 돌리고 있다</strong> <span class="sub">확인됨</span>.</p>
 <p class="neg"><strong>단, 학습 컴퓨팅의 최종 선택(WS · RunPod · A6000)은 팀 <code>docs/DECISIONS.md</code>의 <code>D6</code>에서 「판단 대기」 상태다</strong> · 판단 근거는 「실험 병렬 필요성」. <strong>「RunPod으로 확정」이라고 적었던 예전 서술은 팀 결정 문서와 어긋나 정정한다.</strong></p>
-<p>셋업이 심하게 막히면 MuJoCo Playground(CUDA만 필요)가 백업 경로. 운영 방법은 .</p></div>
+<p>셋업이 심하게 막히면 MuJoCo Playground(CUDA만 필요)가 백업 경로. 운영 방법은 05 RunPod 운영.</p></div>
 <div class="call trap"><div class="t">주의</div>
 <p>로컬 노트북(RTX 3060 6GB)은 Isaac 최소사양 미달 · 코드 편집·결과 확인용으로만 쓰고 학습은 RunPod 전용. VRAM이 작은 GPU를 고르면 험지 4096 env가 안 돌아가니 Pod 생성 시 VRAM 8GB+ 확인.</p></div>
 
@@ -754,12 +754,12 @@ body>*{flex-shrink:0}
 · RunPod 비용 · 학습 안 돌릴 땐 Pod 중지, 체크포인트는 network volume이나 외부 저장소에 백업(Pod 삭제 시 데이터 소실).</p></div>
 
 <div class="pagerow">
-  
+  <span class="dir">이전</span><br><span class="pt">← 08 에러 사전</span>
   <a class="next" href="tech-slam-nav.html"><span class="dir">다음</span><br><span class="pt">10 SLAM · Nav2 →</span></a>
 </div>
 
 <footer><span>FOOTHOLD 팀 위키</span><span>조사 기준일 2026-08</span></footer>
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:01</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 14:11</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
