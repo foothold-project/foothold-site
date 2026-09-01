@@ -65,8 +65,9 @@ button{font:inherit;cursor:pointer}
 
 /* ═════ 좌측 사이드바 목차 ═════ */
 .side{
-  position:sticky;top:48px;height:calc(100vh - 48px);z-index:60;
-  /* 바 아래에서 시작하고 바를 뺀 높이. 화면보다 크면 sticky 가 못 붙는다 */
+  position:fixed;top:48px;left:max(0px, calc(50% - 520px));
+  width:var(--nav);height:calc(100vh - 48px);z-index:60;
+  /* sticky 가 아니다. 이 페이지는 뷰어라 부모가 짧아 sticky 가 못 붙는다 */
   background:var(--paper-2);border-right:1px solid var(--rule);
   display:flex;flex-direction:column;
 }
@@ -3438,5 +3439,5 @@ body>*{flex-shrink:0}
 @media print{}
 </style>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 16:29</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 16:35</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
