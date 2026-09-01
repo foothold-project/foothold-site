@@ -648,6 +648,13 @@ a.is-new .k::after{content:'NEW';display:inline-block;
    를 주면, 내용이 짧아도 푸터가 늘 화면 바닥 같은 자리에 선다. */
 body{min-height:100vh;display:flex;flex-direction:column}
 body>.bstamp{margin-top:auto}
+/* ★ 9/1 두 번째 실측 · 팀장 지적 「brief 컨텐츠가 1040 으로 안 늘어난다」.
+   내가 만든 회귀다. body 를 flex 로 세우면 margin:0 auto 를 가진 자식은
+   «내용 크기» 로 줄어든다. 푸터에만 width:100% 를 줬고 본문 컨테이너는
+   안 쓸었다 (brief 938 · hub-tech 944 · 나머지는 내용이 넓어 우연히 1040).
+   flex 아이템이 되는 모든 블록 컨테이너에 같은 처방을 준다. */
+body>.wrap,body>main,body>.shell,body>section,body>article{width:100%}
+body>*{flex-shrink:0}
 /* ★ 9/1 두 번째 실측: body 를 flex 로 세우자 푸터가 «내용 크기» 로 줄었다
    (1040 -> 605). flex 아이템에 margin:auto 를 주면 그렇게 된다.
    width:100% 로 먼저 채우고 max-width 로 자른다. */
@@ -710,5 +717,5 @@ document.addEventListener('click', function(e){
 @media print{#themeBtn{display:none!important}}
 </style>
 
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:47</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v1.9</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 10:56</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
