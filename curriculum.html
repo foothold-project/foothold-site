@@ -218,11 +218,12 @@ td .no{color:var(--stop);font-weight:700}
 /* ═════ 하단 내비 ═════ */
 .navbar{
   position:fixed;left:var(--nav);right:0;bottom:0;z-index:50;
+  padding-left:0;
   background:var(--paper);border-top:1px solid var(--rule);
 }
 .navbar .row{
-  max-width:calc(var(--measure) + 4rem);margin:0 auto;padding:.7rem 1.5rem;
-  display:flex;align-items:stretch;gap:.7rem;
+  max-width:1040px;margin:0 auto;padding:.7rem clamp(24px,4vw,64px);
+  display:flex;align-items:stretch;gap:.7rem;box-sizing:border-box;
 }
 .nbtn{
   flex:1;min-width:0;background:var(--card);border:1px solid var(--rule);border-radius:5px;
