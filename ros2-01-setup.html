@@ -281,6 +281,20 @@ html[data-theme="light"]{
 </style>
 <link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2">
 <style id="ia-css">
+.cover-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(18px,2.6vw,38px)}
+@media(min-width:1000px){.cover-grid{grid-template-columns:minmax(0,1fr) 296px;align-items:start}}
+.proof{border:1px solid var(--rule);border-radius:9px;padding:14px 15px 8px;
+  background:var(--card);align-self:start}
+.proof .pk{font-size:.55rem;font-weight:800;letter-spacing:.15em;color:var(--ink-3);
+  text-transform:uppercase;margin-bottom:9px}
+.proof .pr{display:block;text-decoration:none;color:inherit;padding:9px 0;
+  border-top:1px solid var(--rule)}
+.proof .pr:first-of-type{border-top:0;padding-top:0}
+.proof .pl{display:block;font-size:.52rem;font-weight:800;letter-spacing:.16em;
+  color:var(--dim);margin-bottom:3px}
+.proof .pr b{display:block;font-size:.85rem;font-weight:750;line-height:1.3}
+.proof .pd{display:block;font-size:.65rem;color:var(--ink-3);line-height:1.5;margin-top:3px}
+.proof .pr:hover b{color:var(--dim)}
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
    ② 허브 본문 폭이 824, 표지가 1000 -> PRD §4-1 대로 1040 한 벌
@@ -935,5 +949,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 17:47</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-01 17:53</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
