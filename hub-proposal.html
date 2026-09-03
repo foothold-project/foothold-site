@@ -280,7 +280,7 @@ html[data-theme="light"]{
 }/*/themefix*/
 </style>
 <!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
-<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><style id="ia-css">
+<style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
    ② 허브 본문 폭이 824, 표지가 1000 -> PRD §4-1 대로 1040 한 벌
@@ -516,7 +516,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<!--search:v8--><style>
+<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -725,7 +725,6 @@ body>*{flex-shrink:0}
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="on" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
-
 <div class="wrap">
 <h1>기획 <span style="font-size:.6em;color:var(--ink-3);font-weight:600">Proposal</span></h1>
 <p class="lede">무엇을 왜 하는가. 밖에 보여주는 것</p>
@@ -1012,5 +1011,5 @@ body>*{flex-shrink:0}
 }
 </style><div class="ph3">대외 산출물</div><div class="pcs3"><a class="pc3" data-added="2026-08-19" href="project-report.html"><span class="pk3">읽는 문서</span><b>프로젝트 보고서</b><span>한 장으로 보는 전체 계획</span></a><a class="pc3" data-added="2026-08-20" href="pitch.html"><span class="pk3">띄우는 화면</span><b>프로젝트 소개 덱</b><span>전체화면 발표용</span></a><a class="pc3" data-added="2026-08-05" href="brief.html"><span class="pk3">건네는 한 장</span><b>프로젝트 브리핑</b><span>외부에 짧게 설명할 때</span></a></div><div class="ph3">내부 문서</div><div class="irs3"><a class="ir3" data-added="2026-08-11" href="flow.html"><b>프로젝트 전체 흐름</b><span>두 트랙으로 무엇을 어떤 순서로 하는가 (PRD §3)</span></a><a class="ir3" data-added="2026-08-28" href="roles.html"><b>역할 배치</b><span>작업 영역 8갈래와 주담당 · 덱이 여기서 생성된다</span></a><a class="ir3" data-added="2026-07-30" href="team-intro.html"><b>팀 소개 · 킥오프</b><span>팀과 역할</span></a></div><div class="ph3">팀 <span class="phn3">각자 맡은 축 · 함께 나눈 실패 지형 5종</span></div><div class="irs3"><a class="ir3 tmr3" data-added="2026-08-24" href="team-lead.html"><b>오흥재 <i>팀장</i></b><span class="tmw3" data-pos="1">Applied AI System Builder</span><span class="tma3">항법 · 운영</span><span class="tmg3">실패 지형 <b>floating_ring</b></span></a><a class="ir3 tmr3" data-added="2026-09-01" href="team-lim.html"><b>임석헌</b><span class="tmw3" data-pos="1">RL Policy Engineer</span><span class="tma3">정책학습</span><span class="tmg3">실패 지형 <b>gap</b></span></a><a class="ir3 tmr3" href="team-meang/index.html"><b>맹라현</b><span class="tmw3" data-pos="1">3D Environment &amp; Twin Artist</span><span class="tma3">지형씬제작 · 트윈렌더</span><span class="tmg3">실패 지형 <b>rails</b></span></a><a class="ir3 tmr3" data-added="2026-09-01" href="team-oh.html"><b>오현민</b><span class="tmw3" data-pos="1">Perception &amp; Evaluation Engineer</span><span class="tma3">평가 · 인지</span><span class="tmg3">실패 지형 <b>stepping_stones</b></span></a><a class="ir3 tmr3" data-added="2026-09-01" href="team-lee.html"><b>이민우</b><span class="tmw3" data-pos="1">Autonomous Navigation Engineer</span><span class="tma3">기록 · 항법</span><span class="tmg3">실패 지형 <b>pit</b></span></a></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-02 02:59</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 12:48</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

@@ -515,7 +515,6 @@ body>*{flex-shrink:0}
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q on" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
-
 <div class="wrap">
 <h1>예산안 · 프로젝트 지원금 사용 계획</h1>
 <p class="note">프로젝트 지원금 사용 계획입니다. <b>금액은 대외비</b>이며 자료실과 같은 비밀번호로 보호됩니다. 절차는 1차·2차·3차 승인을 받고 결제한 뒤 정산입니다.</p>
@@ -546,8 +545,19 @@ async function deriveKey(pw, saltHex, iters){
   return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:iters, hash:'SHA-256'},
     base, {name:'AES-GCM', length:256}, false, ['decrypt']);
 }
+// 캐시 버스터는 «파일마다» 다르다 (mai-os#22 묶음 6.6).
+//   전에는 salt 앞자리를 썼다. 그때는 빌드마다 salt 가 새로 나왔으니 그것이
+//   곧 «이 빌드의 판» 이었다. 이제 입력이 같으면 salt 를 이어쓰므로, 바뀐
+//   파일 하나가 옛 주소를 그대로 갖게 되어 브라우저가 옛 암호문을 붙잡는다.
+//   그래서 manifest 가 파일별 태그(v)를 싣고, 없으면 salt 로 물러선다.
+//   태그는 «암호문» 의 해시 앞자리다. 내려받으면 누구나 계산할 수 있는 값이라
+//   원문에 대해 아무것도 말하지 않는다.
+function _tag(url){
+  if(MAN.tags && MAN.tags[url]) return MAN.tags[url];
+  return MAN.salt.slice(0,8);
+}
 async function decryptFile(url){
-  const buf = new Uint8Array(await (await fetch(url+'?v='+MAN.salt.slice(0,8), {cache:'no-store'})).arrayBuffer());
+  const buf = new Uint8Array(await (await fetch(url+'?v='+_tag(url), {cache:'no-store'})).arrayBuffer());
   const nonce = buf.slice(0,12), ct = buf.slice(12);
   return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM', iv:nonce}, KEY, ct));
 }
@@ -673,5 +683,5 @@ document.getElementById('pw').addEventListener('keydown', e=>{
   if(e.key==='Enter') document.getElementById('go').click();
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-02 02:59</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 12:48</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
