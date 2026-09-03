@@ -779,10 +779,8 @@ body>*{flex-shrink:0}
 
 <div class="cmd">
 <p class="why">Chrome은 apt 목록에 없어서, 설치 파일(.deb)을 직접 내려받아 설치한다. "apt에 없는 프로그램 설치법"의 표준 패턴이므로 익혀두면 VSCode 설치에서 그대로 재사용된다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">wget</span> https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-<span class="o">
-$</span> <span class="f">sudo</span> dpkg <span class="o">-i</span> google-chrome*.deb
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">wget</span> https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb<span class="o">
+$</span> <span class="f">sudo</span> dpkg <span class="o">-i</span> google-chrome*.deb<span class="o">
 $</span> <span class="f">sudo</span> apt <span class="o">--fix-broken</span><span class="k"> install</span> <span class="o">-y</span></pre></div>
 <div class="anno">
 <div><code>wget &lt;URL&gt;</code><span>web get · 그 주소의 파일을 현재 폴더로 다운로드.</span></div>
@@ -808,8 +806,7 @@ $ mkdir dev_ws # dev_ws 폴더 생성</pre></div>
 <p>가상환경 = 프로젝트 전용 파이썬 패키지 방. Ubuntu 24.04는 시스템 파이썬에 직접 <code>pip install</code>하는 것을 아예 막아 놨다(PEP 668 정책 · 시스템 도구가 파이썬으로 만들어져 있어서, 잘못 건드리면 OS가 망가지기 때문). 실제로 시스템에서 pip install을 시도하면 <code>error: externally-managed-environment</code>가 뜬다. 그래서 가상환경이 선택이 아니라 필수다.</p>
 <div class="cmd">
 <p class="why">가상환경을 만들 도구(pip, venv)부터 설치한다. 최초 1회만.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> install</span> python3-pip <span class="o">-y</span>
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> install</span> python3-pip <span class="o">-y</span><span class="o">
 $</span> <span class="f">sudo</span> apt<span class="k"> install</span> python3.<span class="n">12</span>-venv <span class="o">-y</span></pre></div>
 <div class="anno">
 <div><code>python3-pip</code><span>pip = 파이썬 패키지 설치 도구(apt의 파이썬 버전이라고 생각하면 된다).</span></div>
@@ -818,8 +815,7 @@ $</span> <span class="f">sudo</span> apt<span class="k"> install</span> python3.
 
 <div class="cmd">
 <p class="why">실습 내내 쓸 가상환경 robot_venv를 만들고 켠다. 프롬프트 맨 앞에 <code>(robot_venv)</code>가 붙으면 켜진 것 · 이 상태에서의 pip install은 전부 이 방 안에만 설치된다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">python3</span> <span class="o">-m</span> venv ~/venv/robot_venv
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">python3</span> <span class="o">-m</span> venv ~/venv/robot_venv<span class="o">
 $</span> <span class="f">source</span> ~/venv/robot_venv/bin/activate
 (robot_venv) $ pip<span class="k"> install</span> <span class="o">--upgrade</span> pip
 (robot_venv) $ deactivate   <span class="c"># 가상환경 끄기 (다시 켤 땐 위의 source 명령)</span></pre></div>
@@ -849,10 +845,8 @@ $</span> <span class="f">source</span> ~/venv/robot_venv/bin/activate
 <h3>2-4. VSCode</h3>
 <div class="cmd">
 <p class="why">code.visualstudio.com에서 .deb를 내려받은 뒤, Chrome 때와 똑같은 패턴으로 설치한다. 설치 후 확장(Extensions)에서 Python과 Jupyter를 추가하면 .py도 .ipynb도 VSCode 한 창에서 실행된다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> dpkg <span class="o">-i</span> code_*.deb
-<span class="o">
-$</span> <span class="f">sudo</span> apt <span class="o">--fix-broken</span><span class="k"> install</span> <span class="o">-y</span>
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> dpkg <span class="o">-i</span> code_*.deb<span class="o">
+$</span> <span class="f">sudo</span> apt <span class="o">--fix-broken</span><span class="k"> install</span> <span class="o">-y</span><span class="o">
 $</span> <span class="f">cd</span> ~/dev_ws/robot <span class="o">&amp;&amp;</span> <span class="f">code</span> .</pre></div>
 <div class="anno">
 <div><code>code .</code><span>code는 VSCode 실행 명령, <code>.</code>은 "현재 폴더". 즉 "지금 이 폴더를 VSCode로 열어라". 프로젝트 폴더로 cd한 뒤 여는 게 습관이 되면 좋다.</span></div>
@@ -862,10 +856,8 @@ $</span> <span class="f">cd</span> ~/dev_ws/robot <span class="o">&amp;&amp;</sp
 <p>흐름을 먼저 이해하자. ROS 2는 Ubuntu 기본 앱 목록에 없으므로, <strong>① 문자 인코딩(로케일)을 국제 표준으로 맞추고 → ② ROS가 의존하는 패키지가 있는 universe 저장소를 켜고 → ③ "ROS 공식 저장소가 진짜인지" 검증할 서명 키를 등록하고 → ④ ROS 저장소 주소를 apt에 알려준 뒤 → ⑤ 설치</strong>하는 순서다. 낯선 명령이 많지만 전부 "apt에게 새 가게 하나를 등록하는 절차"일 뿐이다.</p>
 <div class="cmd">
 <p class="why">① 로케일 · ROS 2는 UTF-8 인코딩을 전제한다. 시스템 언어 설정이 다르면 빌드·실행에서 이상한 문자 에러가 나므로 미리 맞춘다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> install</span> locales software-properties-common <span class="o">-y</span>
-<span class="o">
-$</span> <span class="f">sudo</span> locale-gen en_US en_US.UTF-<span class="n">8</span>
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> install</span> locales software-properties-common <span class="o">-y</span><span class="o">
+$</span> <span class="f">sudo</span> locale-gen en_US en_US.UTF-<span class="n">8</span><span class="o">
 $</span> <span class="f">sudo</span> update-locale LC_ALL=en_US.UTF-<span class="n">8</span> LANG=en_US.UTF-<span class="n">8</span></pre></div>
 <div class="anno">
 <div><code>locales</code><span>언어·인코딩 설정을 다루는 패키지.</span></div>
@@ -884,8 +876,7 @@ $</span> <span class="f">sudo</span> update-locale LC_ALL=en_US.UTF-<span class=
 
 <div class="cmd">
 <p class="why">③ 서명 키(GPG 키) 등록 · apt는 "서명이 검증된 저장소"의 패키지만 설치한다. ROS 공식 키를 받아 두면, 이후 ROS 저장소에서 오는 패키지가 위조되지 않았음을 apt가 자동 검증한다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> install</span> curl <span class="o">-y</span>
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> update</span> <span class="o">&amp;&amp;</span> <span class="f">sudo</span> apt<span class="k"> install</span> curl <span class="o">-y</span><span class="o">
 $</span> <span class="f">sudo</span> curl <span class="o">-sSL</span> https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
     <span class="o">-o</span> /usr/share/keyrings/ros-archive-keyring.gpg</pre></div>
 <div class="anno">
@@ -916,10 +907,8 @@ $</span> <span class="f">sudo</span> curl <span class="o">-sSL</span> https://ra
 
 <div class="cmd">
 <p class="why">⑤ 설치 · 새 저장소를 등록했으니 update로 목록을 다시 받고, 개발 도구와 ROS 2 본체를 설치한다. 수 GB라서 시간이 걸린다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> update</span>
-<span class="o">
-$</span> <span class="f">sudo</span> apt<span class="k"> install</span> ros-dev-tools <span class="o">-y</span>
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> update</span><span class="o">
+$</span> <span class="f">sudo</span> apt<span class="k"> install</span> ros-dev-tools <span class="o">-y</span><span class="o">
 $</span> <span class="f">sudo</span> apt<span class="k"> install</span> ros-jazzy-desktop <span class="o">-y</span></pre></div>
 <div class="anno">
 <div><code>ros-dev-tools</code><span>colcon(빌드 도구) 등 ROS 2 개발에 필요한 도구 모음.</span></div>
@@ -990,10 +979,8 @@ $ ros2 node info /turtlesim</pre></div>
 <p><strong>토픽은 이름 붙은 방송 채널이다.</strong> 발행자(Publisher)가 채널에 메시지를 계속 흘려보내고, 그 채널을 구독(Subscribe)한 노드들이 받아 본다. 라디오처럼 발행자는 누가 듣는지 모르고, 답장도 없다(비동기). 여러 명이 발행하고 여러 명이 구독할 수 있다(다대다). 끊임없이 흐르는 데이터 · 센서값, 카메라 영상, 위치, 속도 명령 · 에 쓰며, <em>ROS 2 통신의 90%는 토픽이다.</em> Go2의 LiDAR 포인트클라우드도, Nav2의 속도 명령 <code>/cmd_vel</code>도 전부 토픽이다.</p>
 <div class="cmd">
 <p class="why">채널 목록을 보고 → 하나를 엿듣고 → 직접 발행해서 거북이를 움직여 본다. "구독자 입장 → 발행자 입장"을 순서대로 체험하는 흐름이다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> topic</span><span class="k"> list</span> <span class="o">-t</span>
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> topic</span><span class="k"> list</span> <span class="o">-t</span><span class="o">
 $</span> <span class="f">ros2</span><span class="k"> topic</span><span class="k"> echo</span> /turtle1/pose
-
 <span class="o">
 $</span> <span class="f">ros2</span><span class="k"> topic</span> pub <span class="o">--once</span> /turtle1/cmd_vel \
     <span class="f">geometry_msgs</span>/msg/Twist \
@@ -1012,16 +999,12 @@ $</span> <span class="f">ros2</span><span class="k"> topic</span> pub <span clas
 <p><strong>서비스는 1:1 전화 통화다.</strong> 클라이언트(요청하는 쪽)가 요청(Request)을 보내면 서버(응답하는 쪽)가 처리하고 응답(Response)을 돌려준다. 전화처럼 걸면 답이 올 때까지 기다린다(동기). "지도 저장해줘", "거북이 한 마리 더 만들어줘"처럼 단발성 부탁에 쓴다.</p>
 <div class="cmd">
 <p class="why">서비스 목록 확인 → 요청서 양식(interface) 확인 → 호출. "양식을 먼저 보고 그대로 채운다"가 서비스 사용의 정석 순서다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> service</span><span class="k"> list</span> <span class="o">-t</span>
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> service</span><span class="k"> list</span> <span class="o">-t</span><span class="o">
 $</span> <span class="f">ros2</span><span class="k"> interface</span><span class="k"> show</span> turtlesim/srv/TeleportAbsolute
-
 <span class="o">
 $</span> <span class="f">ros2</span><span class="k"> service</span><span class="k"> call</span> /turtle1/teleport_absolute \
-    <span class="f">turtlesim</span>/srv/TeleportAbsolute <span class="s">&quot;{x: 2.0, y: 2.0, theta: 1.57}&quot;</span>
-<span class="o">
-$</span> <span class="f">ros2</span><span class="k"> service</span><span class="k"> call</span> /reset std_srvs/srv/Empty <span class="s">&quot;{}&quot;</span>
-<span class="o">
+    <span class="f">turtlesim</span>/srv/TeleportAbsolute <span class="s">&quot;{x: 2.0, y: 2.0, theta: 1.57}&quot;</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> service</span><span class="k"> call</span> /reset std_srvs/srv/Empty <span class="s">&quot;{}&quot;</span><span class="o">
 $</span> <span class="f">ros2</span><span class="k"> service</span><span class="k"> call</span> /spawn turtlesim/srv/Spawn <span class="s">&quot;{x: 5.0, y: 5.0, name: &#x27;turtle2&#x27;}&quot;</span></pre></div>
 <div class="anno">
 <div><code>interface show &lt;타입&gt;</code><span>그 서비스의 요청/응답 양식을 출력. <code>---</code> 윗부분이 Request 필드, 아랫부분이 Response 필드다. 무엇을 채워야 할지 여기서 확인.</span></div>
@@ -1034,8 +1017,7 @@ $</span> <span class="f">ros2</span><span class="k"> service</span><span class="
 <h3>액션 (Action) · 배달 주문</h3>
 <p><strong>액션은 시간이 오래 걸리는 작업용 통신이다.</strong> 목표(Goal)를 보내면, 진행 상황(Feedback)이 계속 날아오다가, 끝나면 결과(Result)가 온다. 배달 앱의 주문 → "조리 중, 배달 중" → 도착과 같다. 서비스와 달리 기다리는 동안 다른 일을 할 수 있고 중간 취소도 된다. <strong>Nav2의 목표점 이동이 정확히 액션이다</strong> · RViz에서 Goal을 찍으면 액션 Goal이 날아가고, 이동 중 Feedback이 오고, 도착하면 Result가 온다.</p>
 <div class="cmd">
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> action</span><span class="k"> list</span>
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> action</span><span class="k"> list</span><span class="o">
 $</span> <span class="f">ros2</span><span class="k"> action</span><span class="k"> send_goal</span> /turtle1/rotate_absolute \
     <span class="f">turtlesim</span>/action/RotateAbsolute <span class="s">&quot;{theta: 3.14}&quot;</span> <span class="o">--feedback</span></pre></div>
 <div class="anno">
@@ -1048,14 +1030,10 @@ $</span> <span class="f">ros2</span><span class="k"> action</span><span class="k
 <p><strong>파라미터는 노드가 갖고 있는 이름 붙은 설정값이다.</strong> 통신이라기보다 "코드 수정·재빌드 없이 노드의 동작을 조정하는 손잡이"다.</p>
 <div class="cmd">
 <p class="why">조회(list/get) → 변경(set) → 파일로 저장/복원(dump/load) 순서. 튜닝이 끝난 설정을 yaml 파일로 보관하는 습관은 2단계 Nav2 튜닝에서 그대로 쓰인다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"> list</span>
-<span class="o">
-$</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"> get</span> /turtlesim background_g
-<span class="o">
-$</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"> set</span> /turtlesim background_r <span class="n">250</span>
-<span class="o">
-$</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"> dump</span> /turtlesim <span class="o">&gt;</span> ./turtlesim.yaml
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"> list</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"> get</span> /turtlesim background_g<span class="o">
+$</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"> set</span> /turtlesim background_r <span class="n">250</span><span class="o">
+$</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"> dump</span> /turtlesim <span class="o">&gt;</span> ./turtlesim.yaml<span class="o">
 $</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"> load</span> /turtlesim ./turtlesim.yaml</pre></div>
 <div class="anno">
 <div><code>param get /노드 이름</code><span>"이 노드의 이 파라미터 값"을 조회. background_r/g/b는 거북이 창 배경색(0~255).</span></div>
@@ -1092,20 +1070,16 @@ $</span> <span class="f">ros2</span><span class="k"> param</span><span class="k"
 <span class="k">class</span> <span class="f">MyNode</span>(Node):
     <span class="k">def</span> <span class="f">__init__</span>(<span class="k">self</span>):
         <span class="f">super</span>().<span class="f">__init__</span>(<span class="s">&#x27;my_node&#x27;</span>)                     # 노드 이름
-        <span class="c"># 구독: (메시지 타입, 토픽 이름, 콜백, 큐 크기)
-</span>
+        <span class="c"># 구독: (메시지 타입, 토픽 이름, 콜백, 큐 크기)</span>
         <span class="k">self</span>.<span class="f">create_subscription</span>(Pose, <span class="s">&#x27;/turtle1/pose&#x27;</span>, <span class="k">self</span>.on_pose, <span class="n">10</span>)
-        <span class="c"># 발행자 생성 + 0.5초마다 발행하는 타이머
-</span>
+        <span class="c"># 발행자 생성 + 0.5초마다 발행하는 타이머</span>
         <span class="k">self</span>.pub = <span class="k">self</span>.<span class="f">create_publisher</span>(Twist, <span class="s">&#x27;/turtle1/cmd_vel&#x27;</span>, <span class="n">10</span>)
         <span class="k">self</span>.<span class="f">create_timer</span>(<span class="n">0.5</span>, <span class="k">self</span>.on_timer)
 
-    <span class="k">def</span> <span class="f">on_pose</span>(<span class="k">self</span>, msg):                             <span class="c"># 콜백: 위치가 올 때마다 실행
-</span>
+    <span class="k">def</span> <span class="f">on_pose</span>(<span class="k">self</span>, msg):                             <span class="c"># 콜백: 위치가 올 때마다 실행</span>
         <span class="k">self</span>.<span class="f">get_logger</span>().<span class="f">info</span>(f<span class="s">&#x27;x={msg.x:.2f} y={msg.y:.2f}&#x27;</span>)
 
-    <span class="k">def</span> <span class="f">on_timer</span>(<span class="k">self</span>):                                 <span class="c"># 콜백: 0.5초마다 실행
-</span>
+    <span class="k">def</span> <span class="f">on_timer</span>(<span class="k">self</span>):                                 <span class="c"># 콜백: 0.5초마다 실행</span>
         cmd = <span class="f">Twist</span>()
         cmd.linear.x = <span class="n">1.0</span>
         <span class="k">self</span>.pub.<span class="f">publish</span>(cmd)
@@ -1125,23 +1099,16 @@ rclpy.<span class="f">spin</span>(node)                                        <
 </dl>
 <div class="cmd">
 <p class="why">전체 흐름: src로 이동 → 패키지 뼈대 생성 → (코드 작성 + setup.py의 entry_points에 노드 등록) → 워크스페이스 루트에서 빌드 → source → 실행. 이 6단계 루프가 앞으로 모든 ROS 2 개발의 기본 사이클이다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">mkdir</span> <span class="o">-p</span> ~/dev_ws/ros/src <span class="o">&amp;&amp;</span> <span class="f">cd</span> ~/dev_ws/ros/src
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">mkdir</span> <span class="o">-p</span> ~/dev_ws/ros/src <span class="o">&amp;&amp;</span> <span class="f">cd</span> ~/dev_ws/ros/src<span class="o">
 $</span> <span class="f">ros2</span><span class="k"> pkg</span><span class="k"> create</span> <span class="o">--build-type</span> ament_python \
     <span class="f">my_first_package</span> <span class="o">--dependencies</span> rclpy
 
-<span class="c"># ... my_first_package/my_first_package/ 안에 노드 .py 작성,
-</span>
-<span class="c">#     setup.py의 entry_points에 등록한 뒤 ...
-</span>
-
+<span class="c"># ... my_first_package/my_first_package/ 안에 노드 .py 작성,</span>
+<span class="c">#     setup.py의 entry_points에 등록한 뒤 ...</span>
 <span class="o">
-$</span> <span class="f">cd</span> ~/dev_ws/ros
-<span class="o">
-$</span> <span class="f">colcon</span><span class="k"> build</span>
-<span class="o">
-$</span> <span class="f">source</span><span class="k"> install</span>/setup.bash
-<span class="o">
+$</span> <span class="f">cd</span> ~/dev_ws/ros<span class="o">
+$</span> <span class="f">colcon</span><span class="k"> build</span><span class="o">
+$</span> <span class="f">source</span><span class="k"> install</span>/setup.bash<span class="o">
 $</span> <span class="f">ros2</span><span class="k"> run</span> my_first_package my_subscriber</pre></div>
 <div class="anno">
 <div><code>pkg create</code><span>패키지 폴더 뼈대(setup.py, package.xml 등)를 자동 생성.</span></div>
@@ -1154,14 +1121,11 @@ $</span> <span class="f">ros2</span><span class="k"> run</span> my_first_package
 </div></div>
 <div class="cmd">
 <p class="why">커스텀 메시지·서비스 정의 · 기본 제공 타입으로 부족할 때. 정의 전용 패키지는 ament_cmake로 <em>따로</em> 만들어야 한다(파이썬 패키지에는 못 넣는다). <code>.msg</code>는 필드 나열, <code>.srv</code>는 가운데 <code>---</code>로 Request/Response 구분. CMakeLists.txt에 등록 후 빌드하면 기본 메시지처럼 import해 쓴다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">cd</span> ~/dev_ws/ros/src
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">cd</span> ~/dev_ws/ros/src<span class="o">
 $</span> <span class="f">ros2</span><span class="k"> pkg</span><span class="k"> create</span> <span class="o">--build-type</span> ament_cmake my_first_package_msgs
 
-<span class="c"># msg/MyFirstMsg.msg, srv/MyFirstSrv.srv 작성 + CMakeLists.txt 등록 후
-</span><span class="o">
-$</span> <span class="f">cd</span> ~/dev_ws/ros <span class="o">&amp;&amp;</span> <span class="f">colcon</span><span class="k"> build</span> <span class="o">&amp;&amp;</span> <span class="f">source</span><span class="k"> install</span>/setup.bash
-<span class="o">
+<span class="c"># msg/MyFirstMsg.msg, srv/MyFirstSrv.srv 작성 + CMakeLists.txt 등록 후</span><span class="o">
+$</span> <span class="f">cd</span> ~/dev_ws/ros <span class="o">&amp;&amp;</span> <span class="f">colcon</span><span class="k"> build</span> <span class="o">&amp;&amp;</span> <span class="f">source</span><span class="k"> install</span>/setup.bash<span class="o">
 $</span> <span class="f">ros2</span><span class="k"> interface</span><span class="k"> show</span> my_first_package_msgs/msg/MyFirstMsg</pre></div>
 <div class="anno">
 <div><code>_msgs 접미사</code><span>인터페이스(메시지·서비스·액션 정의) 전용 패키지에 붙이는 관례적 이름.</span></div>
@@ -1172,10 +1136,8 @@ $</span> <span class="f">ros2</span><span class="k"> interface</span><span class
 <h2 id="tools"><span class="n">6</span>디버깅 도구와 launch</h2>
 <div class="cmd">
 <p class="why">rqt는 ROS 2의 GUI 도구 모음이다. 로그 콘솔·그래프·플롯·파라미터 슬라이더가 전부 이 안에 있다. 한 번에 전부 설치해 둔다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> install</span> ros-jazzy-rqt* <span class="o">-y</span>
-<span class="o">
-$</span> <span class="f">rqt</span>          <span class="c"># 도구 모음 창 (Plugins 메뉴에서 골라 쓴다)
-</span><span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">sudo</span> apt<span class="k"> install</span> ros-jazzy-rqt* <span class="o">-y</span><span class="o">
+$</span> <span class="f">rqt</span>          <span class="c"># 도구 모음 창 (Plugins 메뉴에서 골라 쓴다)</span><span class="o">
 $</span> <span class="f">rqt_graph</span>    <span class="c"># 노드·토픽 연결 지도만 바로 열기</span></pre></div>
 <div class="anno">
 <div><code>ros-jazzy-rqt*</code><span><code>*</code> 와일드카드 · "ros-jazzy-rqt로 시작하는 패키지 전부"를 한 번에 설치.</span></div>
@@ -1188,8 +1150,7 @@ $</span> <span class="f">rqt_graph</span>    <span class="c"># 노드·토픽 �
 </ul>
 <div class="cmd">
 <p class="why">rosbag · 토픽을 통째로 녹화/재생한다. 실기 Go2의 LiDAR를 한 번 녹화해 두면 로봇 없이도 SLAM을 무한 반복 실험할 수 있는, 2단계의 핵심 도구다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> bag</span><span class="k"> record</span> <span class="o">-o</span> turtle_test <span class="o">-a</span>
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> bag</span><span class="k"> record</span> <span class="o">-o</span> turtle_test <span class="o">-a</span><span class="o">
 $</span> <span class="f">ros2</span><span class="k"> bag</span><span class="k"> play</span> turtle_test</pre></div>
 <div class="anno">
 <div><code>bag record</code><span>지금 흐르는 토픽들을 파일로 녹화 시작. 중단은 Ctrl+C.</span></div>
@@ -1199,8 +1160,7 @@ $</span> <span class="f">ros2</span><span class="k"> bag</span><span class="k"> 
 </div></div>
 <div class="cmd">
 <p class="why">launch · 노드 여러 개를 한 번에 켜는 실행 대본(Python 파일). 노드가 5개면 터미널 5개를 여는 대신 이 한 줄. Nav2를 켜면 노드 수십 개가 launch 파일 하나로 올라온다. launch 파일도 setup.py의 data_files에 등록하고 빌드해야 인식된다.</p>
-<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">colcon</span><span class="k"> build</span> <span class="o">&amp;&amp;</span> <span class="f">source</span><span class="k"> install</span>/setup.bash
-<span class="o">
+<div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">colcon</span><span class="k"> build</span> <span class="o">&amp;&amp;</span> <span class="f">source</span><span class="k"> install</span>/setup.bash<span class="o">
 $</span> <span class="f">ros2</span><span class="k"> launch</span> my_first_package turtlesim_and_teleop.launch.py</pre></div>
 <div class="anno">
 <div><code>launch &lt;패키지&gt; &lt;launch파일&gt;</code><span>run이 "노드 하나"라면 launch는 "대본 하나(=노드 여러 개)". 파일명은 관례적으로 <code>이름.launch.py</code>.</span></div>
@@ -1228,5 +1188,5 @@ $</span> <span class="f">ros2</span><span class="k"> launch</span> my_first_pack
 <p>① 이 터미널에서 source 했나 (<code>ros2</code> 명령 자체가 안 되면 이것) → ② colcon build 후 <code>install/setup.bash</code>를 source 했나 → ③ <code>ROS_DOMAIN_ID</code>가 터미널끼리 같은가 → ④ 가상환경(robot_venv)이 켜져 있나 (rclpy import 에러면 이것)</p></div>
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 12:48</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 15:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

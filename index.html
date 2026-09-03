@@ -683,19 +683,29 @@ body>*{flex-shrink:0}
   // ★ 2026-08-28. 전에는 querySelector 로 «하나만» 잡아서 FINAL 만 살아 있었다.
   //   나머지 관문은 빌드 순간의 숫자가 그대로 굳어 있었고, 하루 지나면 틀렸다.
   var els=document.querySelectorAll('.dd-live'); if(!els.length) return;
+  // ★ 2026-09-03. 전에는 마감까지 남은 «밀리초»를 floor 해서 날을 셌다.
+  //   마감 기준시각이 그날 09:00 이라, 마감이 «내일» 이어도 남은 시간이 24시간
+  //   미만이면 d=0 이 되고 d>0 가드에 걸려 「오늘」로 떨어졌다. 9/3 13:18 에
+  //   기획발표(9/4)가 실제로 「오늘」로 떴다. dd-sec 도 같은 floor 탓에 달력
+  //   차이보다 하루 적었다 (FINAL 이 99일인데 98일). 시간이 아니라 KST 달력
+  //   «날짜»의 일련번호 차이를 센다. 값이 바뀌는 자리는 자정 하나뿐이다.
   function one(el){
-    var due=new Date(el.getAttribute('data-due')+'T09:00:00+09:00');
-    var ms=due-new Date();
-    if(ms<0){ el.textContent='지남'; return; }
-    var d=Math.floor(ms/86400000), r=ms-d*86400000;
+    var due=el.getAttribute('data-due')||'', p=due.split('-'), now=new Date();
+    var dueDay=Date.UTC(+p[0],+p[1]-1,+p[2])/86400000;
+    var nowDay=Math.floor((now.getTime()+9*3600000)/86400000);
+    var diff=dueDay-nowDay;
+    if(diff<0){ el.textContent='지남'; return; }
     if(el.classList.contains('dd-sec')){
+      // 일수는 달력 차이, 시:분:초는 지금처럼 마감시각까지 남은 시간이다.
+      var ms=new Date(due+'T09:00:00+09:00')-now; if(ms<0) ms=0;
+      var r=ms%86400000;
       var h=String(Math.floor(r/3600000)).padStart(2,'0');
       var m=String(Math.floor(r%3600000/60000)).padStart(2,'0');
       var s=String(Math.floor(r%60000/1000)).padStart(2,'0');
-      el.textContent=d+'일 '+h+':'+m+':'+s;
+      el.textContent=diff+'일 '+h+':'+m+':'+s;
     }else{
-      // 남은 «날»은 올림이다. 오늘이 D-7 이면 자정 전까지 계속 D-7 이어야 한다.
-      el.textContent = d>0 ? ('D-'+Math.ceil(ms/86400000)) : '오늘';
+      // 마감 날짜가 «오늘» 일 때만 오늘. 그 밖에는 자정에 한 칸씩 준다.
+      el.textContent = diff>0 ? ('D-'+diff) : '오늘';
     }
   }
   function tick(){ for(var i=0;i<els.length;i++) one(els[i]); }
@@ -746,5 +756,5 @@ body>*{flex-shrink:0}
 </div>
 <style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:var(--brand);--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 12:48</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 15:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
