@@ -712,44 +712,6 @@ body>*{flex-shrink:0}
 <p>주간 리포트(무엇을 <b>했나</b>)와 별개로, <b>무엇을 알게 됐나</b>를 3~6개 항목으로 요약한다. 각 항목 = 한 문장 + 증거 링크 하나. <code>docs/digest/</code> 에 쌓이고 웹의 연구 기록 페이지 상단에 걸린다. 초안은 문서들의 <code>요지:</code> 줄에서 자동으로 모으고, <b>확정은 사람이 한다</b> (자동 나열은 안 읽힌다).</p>
 </section>
 <section id="s5"><h2>4. 일의 흐름: 손으로 하는 건 두 가지뿐</h2>
-
-<figure class="fdia" style="margin:1.4rem 0;background:var(--card);border:1px solid var(--rule);padding:1rem 1.1rem">
-<svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto">
-  <defs><marker id="cah" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-    <path d="M0,0 L7,3.5 L0,7 z" fill="var(--ink-3)"/></marker></defs>
-  <text x="14" y="26" font-size="12" font-weight="800" fill="var(--ink)">사람이 하는 것 (딱 두 가지)</text>
-  <rect x="14" y="40" width="150" height="52" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
-  <text x="89" y="62" text-anchor="middle" font-size="12.5" font-weight="800" fill="var(--ink)">① 이슈 만들기</text>
-  <text x="89" y="79" text-anchor="middle" font-size="10" fill="var(--ink-2)">레포에서 · 템플릿 채우기</text>
-  <rect x="596" y="40" width="150" height="52" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
-  <text x="671" y="62" text-anchor="middle" font-size="12.5" font-weight="800" fill="var(--ink)">② Closes #번호</text>
-  <text x="671" y="79" text-anchor="middle" font-size="10" fill="var(--ink-2)">끝낼 때 커밋 메시지에</text>
-  <text x="380" y="72" text-anchor="middle" font-size="11" fill="var(--ink-3)">…… 작업 ……</text>
-  <line x1="164" y1="66" x2="330" y2="66" stroke="var(--ink-3)" stroke-width="1.6" marker-end="url(#cah)"/>
-  <line x1="430" y1="66" x2="592" y2="66" stroke="var(--ink-3)" stroke-width="1.6" marker-end="url(#cah)"/>
-  <text x="14" y="132" font-size="12" font-weight="800" fill="var(--dim)">자동으로 따라오는 것</text>
-  <line x1="89" y1="92" x2="89" y2="146" stroke="var(--dim)" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#cah)"/>
-  <line x1="671" y1="92" x2="671" y2="146" stroke="var(--dim)" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#cah)"/>
-  <g font-size="10.5" font-weight="700">
-    <rect x="14"  y="150" width="108" height="34" fill="var(--dim-soft)" stroke="var(--dim)"/>
-    <text x="68"  y="171" text-anchor="middle" fill="var(--dim-ink)">보드 자동 등록</text>
-    <rect x="132" y="150" width="108" height="34" fill="var(--dim-soft)" stroke="var(--dim)"/>
-    <text x="186" y="166" text-anchor="middle" fill="var(--dim-ink)">담당자 = 나</text>
-    <text x="186" y="179" text-anchor="middle" font-weight="400" font-size="9.5" fill="var(--dim-ink)">시작일 · 마감 +7일</text>
-    <rect x="250" y="150" width="108" height="34" fill="var(--dim-soft)" stroke="var(--dim)"/>
-    <text x="304" y="171" text-anchor="middle" fill="var(--dim-ink)">알림 "새 작업"</text>
-    <rect x="490" y="150" width="108" height="34" fill="var(--dim-soft)" stroke="var(--dim)"/>
-    <text x="544" y="171" text-anchor="middle" fill="var(--dim-ink)">이슈 닫힘 → Done</text>
-    <rect x="608" y="150" width="108" height="34" fill="var(--dim-soft)" stroke="var(--dim)"/>
-    <text x="662" y="171" text-anchor="middle" fill="var(--dim-ink)">알림 "완료"</text>
-  </g>
-  <text x="380" y="222" text-anchor="middle" font-size="10.5" fill="var(--note-ink)" font-weight="700">
-    + 매주 월요일 09:00: 지난주 요약이 디스코드로 (자동)</text>
-</svg>
-<figcaption style="font-size:.72rem;color:var(--ink-3);margin-top:.5rem">
-  실선 = 사람 · 점선 = 자동. 검증 완료(2026-08-08, 제로베이스 테스트 8경로).</figcaption>
-</figure>
-
 <p><b>① 시작 = 레포에서 이슈 만들기.</b> 문서·조사 → lab, 코드·실험 → rl. 템플릿 빈칸을 채운다(특히 &quot;끝났다는 기준&quot;). 자동으로 따라오는 것: 보드 등록 · <b>담당자 = 만든 사람</b> · 시작일 = 오늘 · 마감 = +7일 · 디스코드 &quot;새 작업&quot;.</p>
 <p><b>② 끝 = 커밋 메시지에 <code>Closes #번호</code>.</b> 자동으로 따라오는 것: 이슈 닫힘 · 보드 Done · 디스코드 &quot;완료&quot;.</p>
 <p>그리고 <b>매주 월요일 09:00</b> 지난주 요약이 디스코드로 온다(자동).</p>
@@ -775,47 +737,6 @@ body>*{flex-shrink:0}
 <p>무엇이 빠졌는지 문장으로 알려준다. PR 을 올리면 <b>이것이 자동으로 돌고 팀장 텔레그램으로 결과가 간다.</b> 따로 보고하지 않아도 된다.</p>
 </section>
 <section id="s7"><h2>5. 브랜치와 커밋</h2>
-
-<figure class="fdia" style="margin:1.4rem 0;background:var(--card);border:1px solid var(--rule);padding:1rem 1.1rem">
-<svg viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto">
-  <defs><marker id="bah" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-    <path d="M0,0 L7,3.5 L0,7 z" fill="var(--ink-2)"/></marker></defs>
-  <g font-size="11.5" font-weight="800">
-    <text x="16" y="46"  fill="var(--stop)">main</text>
-    <text x="16" y="106" fill="var(--note-ink)">dev</text>
-    <text x="16" y="166" fill="var(--dim-ink)">feature/*</text>
-  </g>
-  <line x1="70" y1="40"  x2="740" y2="40"  stroke="var(--stop)" stroke-width="2.5"/>
-  <line x1="70" y1="100" x2="740" y2="100" stroke="var(--note)" stroke-width="2.5"/>
-  <g stroke="var(--dim)" stroke-width="2.5">
-    <line x1="120" y1="160" x2="300" y2="160"/>
-    <line x1="340" y1="160" x2="560" y2="160"/>
-  </g>
-  <g font-size="9.5" fill="var(--ink-2)">
-    <text x="128" y="150">feature/obs-tuning</text>
-    <text x="348" y="150">feature/terrain</text>
-  </g>
-  <path d="M 120 100 L 120 160" stroke="var(--dim)" stroke-width="1.6" fill="none"/>
-  <path d="M 340 100 L 340 160" stroke="var(--dim)" stroke-width="1.6" fill="none"/>
-  <path d="M 300 160 C 320 160, 320 100, 336 100" stroke="var(--ink-2)" stroke-width="1.8" fill="none" marker-end="url(#bah)"/>
-  <path d="M 560 160 C 580 160, 580 100, 596 100" stroke="var(--ink-2)" stroke-width="1.8" fill="none" marker-end="url(#bah)"/>
-  <path d="M 640 100 C 660 100, 660 40, 676 40" stroke="var(--ink-2)" stroke-width="1.8" fill="none" marker-end="url(#bah)"/>
-  <g font-size="9.5" font-weight="800" fill="var(--ink)">
-    <text x="298" y="128">PR</text><text x="558" y="128">PR</text><text x="640" y="68">PR</text>
-  </g>
-  <circle cx="120" cy="160" r="4" fill="var(--dim)"/><circle cx="340" cy="160" r="4" fill="var(--dim)"/>
-  <circle cx="336" cy="100" r="4" fill="var(--note)"/><circle cx="596" cy="100" r="4" fill="var(--note)"/>
-  <circle cx="676" cy="40" r="4" fill="var(--stop)"/>
-  <g font-size="10" fill="var(--ink-3)">
-    <text x="70" y="26">배포·제출 가능한 상태만 · 직접 push 금지(룰셋)</text>
-    <text x="70" y="86">통합 브랜치. feature 들이 PR 로 모인다</text>
-    <text x="70" y="196">브랜치 = PR 로 합칠 코드 변경 단위. 이슈 연결은 커밋의 Closes #번호가 한다</text>
-  </g>
-</svg>
-<figcaption style="font-size:.72rem;color:var(--ink-3);margin-top:.5rem">
-  foothold-go2 의 흐름 (feature -> dev -> main). lab 은 브랜치에서 PR 로 올린다.</figcaption>
-</figure>
-
 <div class="tw"><table><thead><tr><th>레포</th><th>규칙</th></tr></thead><tbody><tr><td><b>rl</b></td><td>코드를 바꿀 때만 브랜치를 판다: <b><code>feature/작업명-이름</code></b>(예: <code>feature/terrain-lim</code>) → PR 로 <code>dev</code> → 검증된 상태만 PR 로 <code>main</code>. main 직접 push 금지(룰셋)</td></tr><tr><td><b>lab</b></td><td>main 직접 커밋은 <b>팀장만</b>(2026-08-13). 팀원은 브랜치 → PR. inbox 제출은 <b>최소 규칙만 맞으면 된다</b>: 기계가 읽고 부족한 곳을 짚어 «보완» 커밋을 따로 올리며, 팀장이 확인 후 머지한다 (2026-08-25 개정)</td></tr><tr><td>site · brand</td><td>파이프라인/담당(Codex)이 관리: 직접 커밋하지 않는다</td></tr></tbody></table></div>
 <ul><li><b>이슈마다 브랜치를 만들 필요는 없다.</b> 브랜치는 이슈가 아니라 <b>&quot;PR 로 합칠 코드 변경&quot; 단위</b>다 조사·회의·막힘 이슈는 브랜치가 아예 필요 없고, 작은 이슈 여럿을 브랜치 하나로 처리해도 된다 (<code>Closes #12 #13</code> 처럼 한 커밋으로 여러 개를 닫을 수 있다).</li><li><b>이슈 번호를 브랜치 이름에 넣지 않는다</b> (2026-08-27 통일). <code>feature/작업명-이름</code> 형식이다. 흐름의 정본은 <a href="workflow.html">작업 흐름</a>이다. 이슈 화면의 &quot;Create a branch&quot; 버튼을 쓰면 이름이 자동으로 지어진다. merge 된 브랜치는 지운다(브랜치는 소모품이다).</li><li>추적의 핵심은 브랜치 이름이 아니라 <b>커밋·PR 의 <code>Closes #번호</code></b> 다. 이것만은 반드시.</li></ul>
 </section>
@@ -888,5 +809,5 @@ document.addEventListener('click', function(e){
 </script>
 <style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7;--dim-ink:#0b6459;--grid:rgba(22,28,38,.04);--note-ink:#8a5600;}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 15:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 19:46</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

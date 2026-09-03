@@ -211,6 +211,8 @@ section .addr .big{font-size:1.2rem}
   .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
 }
 
+.mdsvg{margin:20px 0;padding:0;overflow-x:auto}
+.mdsvg svg{display:block;max-width:100%;height:auto}
 .ev{display:inline-block;padding:.05rem .4rem;border-radius:3px;font-size:.68rem;
   font-weight:800;letter-spacing:.04em;vertical-align:.06em;white-space:nowrap;
   border:1px solid transparent}
@@ -857,6 +859,9 @@ body>*{flex-shrink:0}
 
 .w3b{margin-left:auto;font-size:.68rem;font-weight:800;color:var(--dim);
  text-decoration:none;border:1px solid var(--dim);border-radius:99px;padding:.12rem .6rem}
+/* 매주 회차를 브라우저가 다시 세는 D-day (#155). 값이 바뀌는 자리라
+   폭이 흔들리지 않게 고정폭 숫자를 쓴다. 관문 dd-live 와 같은 처리다. */
+.mdd{font-variant-numeric:tabular-nums}
 .w3t{display:block;text-decoration:none;color:inherit;margin:.55rem 0 0}
 .w3t b{font-size:.85rem;font-weight:780;display:block}
 .w3t span{font-size:.73rem;color:var(--ink-3)}
@@ -904,6 +909,13 @@ body>*{flex-shrink:0}
 .fk3 i{font-style:normal;font-size:.62rem;color:var(--ink-3)}
 
 .fk3 span{font-size:.68rem;color:var(--cool,#539bf5);font-weight:700}
+/* 상한을 넘어 안 그린 것을 «말하는» 칩 (#156). 같은 줄에 서되 항목처럼
+   읽히면 안 되므로 테두리를 점선으로 두어 «여기 더 있다» 만 뜻하게 한다. */
+.fk3.more,.w3p a.more{border-style:dashed;color:var(--ink-3)}
+.fk3.more b,.w3p a.more b{font-weight:700}
+/* 겹침 안내는 다음 회차가 그 날일 때만 선다 (#155). 스크립트가 hidden 을
+   토글하므로 규칙을 명시해 둔다. 사용자 에이전트 기본값에 기대지 않는다. */
+.mclash[hidden]{display:none}
 .ht3 b{color:var(--dim);font-size:1.15em}
 .evs3{display:grid;gap:.3rem}
 .ev3{display:grid;grid-template-columns:5.4rem 1fr;gap:.9rem;align-items:baseline;
@@ -1011,5 +1023,5 @@ body>*{flex-shrink:0}
 }
 </style><div class="ph3">대외 산출물</div><div class="pcs3"><a class="pc3" data-added="2026-08-19" href="project-report.html"><span class="pk3">읽는 문서</span><b>프로젝트 보고서</b><span>한 장으로 보는 전체 계획</span></a><a class="pc3" data-added="2026-08-20" href="pitch.html"><span class="pk3">띄우는 화면</span><b>프로젝트 소개 덱</b><span>전체화면 발표용</span></a><a class="pc3" data-added="2026-08-05" href="brief.html"><span class="pk3">건네는 한 장</span><b>프로젝트 브리핑</b><span>외부에 짧게 설명할 때</span></a></div><div class="ph3">내부 문서</div><div class="irs3"><a class="ir3" data-added="2026-08-11" href="flow.html"><b>프로젝트 전체 흐름</b><span>두 트랙으로 무엇을 어떤 순서로 하는가 (PRD §3)</span></a><a class="ir3" data-added="2026-08-28" href="roles.html"><b>역할 배치</b><span>작업 영역 8갈래와 주담당 · 덱이 여기서 생성된다</span></a><a class="ir3" data-added="2026-07-30" href="team-intro.html"><b>팀 소개 · 킥오프</b><span>팀과 역할</span></a></div><div class="ph3">팀 <span class="phn3">각자 맡은 축 · 함께 나눈 실패 지형 5종</span></div><div class="irs3"><a class="ir3 tmr3" data-added="2026-08-24" href="team-lead.html"><b>오흥재 <i>팀장</i></b><span class="tmw3" data-pos="1">Applied AI System Builder</span><span class="tma3">항법 · 운영</span><span class="tmg3">실패 지형 <b>floating_ring</b></span></a><a class="ir3 tmr3" data-added="2026-09-01" href="team-lim.html"><b>임석헌</b><span class="tmw3" data-pos="1">RL Policy Engineer</span><span class="tma3">정책학습</span><span class="tmg3">실패 지형 <b>gap</b></span></a><a class="ir3 tmr3" href="team-meang/index.html"><b>맹라현</b><span class="tmw3" data-pos="1">3D Environment &amp; Twin Artist</span><span class="tma3">지형씬제작 · 트윈렌더</span><span class="tmg3">실패 지형 <b>rails</b></span></a><a class="ir3 tmr3" data-added="2026-09-01" href="team-oh.html"><b>오현민</b><span class="tmw3" data-pos="1">Perception &amp; Evaluation Engineer</span><span class="tma3">평가 · 인지</span><span class="tmg3">실패 지형 <b>stepping_stones</b></span></a><a class="ir3 tmr3" data-added="2026-09-01" href="team-lee.html"><b>이민우</b><span class="tmw3" data-pos="1">Autonomous Navigation Engineer</span><span class="tma3">기록 · 항법</span><span class="tmg3">실패 지형 <b>pit</b></span></a></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 15:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 19:46</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

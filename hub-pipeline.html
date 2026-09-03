@@ -211,6 +211,8 @@ section .addr .big{font-size:1.2rem}
   .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
 }
 
+.mdsvg{margin:20px 0;padding:0;overflow-x:auto}
+.mdsvg svg{display:block;max-width:100%;height:auto}
 .ev{display:inline-block;padding:.05rem .4rem;border-radius:3px;font-size:.68rem;
   font-weight:800;letter-spacing:.04em;vertical-align:.06em;white-space:nowrap;
   border:1px solid transparent}
@@ -857,6 +859,9 @@ body>*{flex-shrink:0}
 
 .w3b{margin-left:auto;font-size:.68rem;font-weight:800;color:var(--dim);
  text-decoration:none;border:1px solid var(--dim);border-radius:99px;padding:.12rem .6rem}
+/* 매주 회차를 브라우저가 다시 세는 D-day (#155). 값이 바뀌는 자리라
+   폭이 흔들리지 않게 고정폭 숫자를 쓴다. 관문 dd-live 와 같은 처리다. */
+.mdd{font-variant-numeric:tabular-nums}
 .w3t{display:block;text-decoration:none;color:inherit;margin:.55rem 0 0}
 .w3t b{font-size:.85rem;font-weight:780;display:block}
 .w3t span{font-size:.73rem;color:var(--ink-3)}
@@ -904,6 +909,13 @@ body>*{flex-shrink:0}
 .fk3 i{font-style:normal;font-size:.62rem;color:var(--ink-3)}
 
 .fk3 span{font-size:.68rem;color:var(--cool,#539bf5);font-weight:700}
+/* 상한을 넘어 안 그린 것을 «말하는» 칩 (#156). 같은 줄에 서되 항목처럼
+   읽히면 안 되므로 테두리를 점선으로 두어 «여기 더 있다» 만 뜻하게 한다. */
+.fk3.more,.w3p a.more{border-style:dashed;color:var(--ink-3)}
+.fk3.more b,.w3p a.more b{font-weight:700}
+/* 겹침 안내는 다음 회차가 그 날일 때만 선다 (#155). 스크립트가 hidden 을
+   토글하므로 규칙을 명시해 둔다. 사용자 에이전트 기본값에 기대지 않는다. */
+.mclash[hidden]{display:none}
 .ht3 b{color:var(--dim);font-size:1.15em}
 .evs3{display:grid;gap:.3rem}
 .ev3{display:grid;grid-template-columns:5.4rem 1fr;gap:.9rem;align-items:baseline;
@@ -1011,5 +1023,5 @@ body>*{flex-shrink:0}
 }
 </style><div class="wns3"><div class="ws3"><div class="wt3">합류 시</div><div class="wd3">오늘 합류했다. 손을 움직이려면 무엇부터.</div><a class="wr3" data-added="2026-08-05" href="setup.html"><b>개발환경 구축</b><span>팀 공통 세팅</span></a><a class="wr3" data-added="2026-08-05" href="team-access.html"><b>워크스테이션 접속</b><span>원격 접속과 운영</span></a><a class="wr3" data-added="2026-09-01" href="runpod-setup.html"><b>RunPod Isaac Lab 환경</b><span>볼륨 · 템플릿 · 첫 실행. 마운트는 /data</span></a></div><div class="ws3"><div class="wt3">상시 참조</div><div class="wd3">이슈를 열고 PR 을 올릴 때 펴 놓는 것.</div><a class="wr3" data-added="2026-08-27" href="workflow.html"><b>작업 흐름</b><span>이슈부터 머지까지 한 장</span></a><a class="wr3" data-added="2026-08-09" href="collab.html"><b>FOOTHOLD 협업 규칙</b><span>브랜치 · 보드 · 문서 규칙</span></a><a class="wr3" data-added="2026-08-25" href="automation.html"><b>자동화 지도</b><span>무엇이 자동이고 무엇이 사람인가</span></a></div><div class="ws3"><div class="wt3">문서 투고 시</div><div class="wd3">내 글이 어디로 가는가.</div><a class="wr3" data-added="2026-08-29" href="info-model.html"><b>정보 모델</b><span>내 글이 어디로 가나</span></a><a class="wr3" data-added="2026-08-28" href="doc-graph.html"><b>문서 관계표</b><span>무엇이 무엇의 상위인가</span></a><a class="wr3" data-added="2026-08-29" href="research-taxonomy.html"><b>연구 허브 분류 기준</b><span>검토중</span></a></div></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 15:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-03 19:46</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
