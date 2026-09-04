@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나 · FOOTHOLD</title>
-<meta name="description" content="NVIDIA 공식만 우리 스택에 그대로 로드된다. 이것이 우리 기준선이자 파인튜닝 출발점이다. 점수표 상위 정책은 관측 체급이 달라 참고선으로만 본다.">
+<title>WBS 설계 · FOOTHOLD</title>
+<meta name="description" content="WBS 를 네 층으로 둔다. 위 세 층은 사람이 정하고 세부 작업과 진척은 GitHub 이슈에서 생성한다. 이 문서에 완료율을 적지 않는다">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -168,7 +168,7 @@ section .addr .big{font-size:1.2rem}
 @media print{
   @page{size:A4 portrait;margin:14mm 12mm}
   html{font-size:10.5px}
-  body{background:var(--card)!important;background-image:none!important}
+  body{background:#fff!important;background-image:none!important}
   .top,.pdfbtn,.copy{display:none!important}
   .wrap{max-width:none;padding:0}
   section{break-inside:auto;margin-top:1.4rem}
@@ -178,7 +178,7 @@ section .addr .big{font-size:1.2rem}
   .tool,.pin>div{margin-bottom:.5rem}
   .cb{background:#f4f5f7!important;border:1px solid #ccc!important}
   .cb-h{background:#e9ecef!important;color:#555!important;border-color:#ccc!important}
-  .cb pre{color:var(--ink)!important;white-space:pre-wrap!important;word-break:break-all}
+  .cb pre{color:#161c26!important;white-space:pre-wrap!important;word-break:break-all}
   .cb pre .c{color:#666!important}
   a[href^="http"]::after{content:' (' attr(href) ')';font-size:.85em;color:#666;word-break:break-all}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -255,8 +255,33 @@ section .addr .big{font-size:1.2rem}
 .stand .sv a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
 .stand .sv a:hover{border-color:var(--dim);color:var(--dim)}
 .stand .sv i{font-style:normal;color:var(--ink-3)}
+/*themefix*/html[data-theme="dark"]{
+    --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+    --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+    --rule:#2b323d;--dim:#3ec7b4;--dim-soft:#11302c;
+    --note:#dc9a30;--note-soft:#332710;
+    --stop:#e56d5e;--stop-soft:#331c19;
+    --grid:rgba(233,231,225,.035);
+    /* 어두운 모드에서는 soft 배경이 어두우므로 원래 토큰이 이미 충분히 밝다 */
+    --dim-ink:#3ec7b4;
+    --note-ink:#dc9a30;
+  }
+html[data-theme="light"]{
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--dim:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+  --measure:760px;
+  /* ★ --dim / --note 를 연한 배경(--*-soft) 위 글자로 쓰면 대비가 모자란다.
+     실측 --dim on --dim-soft = 4.43 · --note on --note-soft = 3.93 (둘 다 4.5 미달).
+     그런 자리에는 아래 진한 짝을 쓴다. DESIGN.md §2 참조. */
+  --dim-ink:#0b6459;
+  --note-ink:#8a5600;
+}/*/themefix*/
 </style>
-<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
+<link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2">
 <style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
@@ -701,72 +726,100 @@ body>*{flex-shrink:0}
 </style>
 <style>a.ilink{color:var(--dim);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--dim) 35%,transparent);font-variant-numeric:tabular-nums;white-space:nowrap}a.ilink:hover{border-bottom-color:var(--dim)}</style></head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="on" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">Research · 근거 기록</div>
-  <h1>Go2 공개 사전학습 정책 전수 조사: 무엇을 가져다 쓸 수 있나</h1>
-  <p class="lede">NVIDIA 공식만 우리 스택에 그대로 로드된다. 이것이 우리 기준선이자 파인튜닝 출발점이다. 점수표 상위 정책은 관측 체급이 달라 참고선으로만 본다.</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v2.1</span></div><div><span class="k">이슈</span><span class="v"><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/28">#28</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/86">#86</a></span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-12 10:41</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / go2-pretrained-policies.md</span></div><div><span class="k">증거</span><span class="v">확인 14 · 추측 0 · 미측정 1</span></div></div>
+  <div class="eyebrow">산출물 · 기획발표 · 9월 4일</div>
+  <h1>WBS 설계</h1>
+  <p class="lede">WBS 를 네 층으로 둔다. 위 세 층은 사람이 정하고 세부 작업과 진척은 GitHub 이슈에서 생성한다. 이 문서에 완료율을 적지 않는다</p>
+  <div class="meta"><div><span class="k">관문</span><span class="v">기획발표 · 9월 4일</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-09-03 18:40</span></div><div><span class="k">상태</span><span class="v">초안</span></div><div><span class="k">원본</span><span class="v">foothold-lab / deliverables/plan/wbs-official.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>분류: 리서치
-작성: 오흥재 · 2026-08-12 10:41
-근거: 공식 문서
-요지: NVIDIA 공식만 우리 스택에 그대로 로드된다. 이것이 우리 기준선이자 파인튜닝 출발점이다. 점수표 상위 정책은 관측 체급이 달라 참고선으로만 본다.
-상태: 확정
-판: v2.1</p></blockquote>
-<blockquote><p>이슈: <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/28">#28</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/86">#86</a></p></blockquote>
-<blockquote><p>작성 2026-08-12 · 워크스테이션 세션 · 방법: S3 버킷 직접 리스팅 + 체크포인트 바이너리 파싱 + HuggingFace 실제 다운로드·로드 검증
-목적: 제로베이스 학습 대신 «잘 학습된 정책»에서 출발하거나 비교 기준으로 삼기 위해, 공개된 Go2 정책을 전부 찾아 <b>우리 스택(Isaac Lab 2.3.2 + rsl_rl 3.1.2)에 붙는지</b> 판정한다.</p></blockquote>
+<blockquote><p>분류: 계획
+작성: 오흥재 · 2026-09-03 18:40
+근거: <code>deliverables/plan/proposal.md</code> 8-1 부터 8-4 · <code>deliverables/plan/wbs.md</code> (2026-08-27 초안) · <code>tools/build_wbs.py</code> · <code>docs/ROLES.md</code> v1.2 · 이슈 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/122">#122</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/77">#77</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/104">#104</a> · 실패 지형 이슈 다섯 건
+요지: WBS 를 네 층으로 둔다. 위 세 층은 사람이 정하고 세부 작업과 진척은 GitHub 이슈에서 생성한다. 이 문서에 완료율을 적지 않는다
+상태: 초안
+판: v1.1</p></blockquote>
 </section>
-<section id="s1"><h2>결론 세 줄</h2>
-<ol><li><b>NVIDIA 공식 체크포인트가 유일하게 «그대로 로드»된다.</b> 태스크·관측·포맷이 우리와 동일하다. <span class="ev ev-ok">확인됨</span></li><li><b>RoboGauge 라는 Go2 정책 점수표가 존재한다.</b> 11종이 서열화되어 공개돼 있다. <b>NVIDIA 공식은 그 표에 없다</b>: 우리가 처음 올릴 수 있다. <span class="ev ev-ok">확인됨</span></li><li>점수표의 상위 정책들은 <b>입력 45차원(실물형 관측)</b> 이다. 워크스테이션에서 직접 받아 로드해 확인했다. 우리 정책은 <b>235차원(특권 관측 포함)</b> 이라 <b>체급이 다르다.</b> 나란히 놓을 때는 그 단서가 붙는다. <span class="ev ev-ok">확인됨</span></li></ol>
+<section id="s1"><h2>1. 이 문서가 답하는 것</h2>
+<p>WBS 는 「누가 · 언제까지 · 무엇을 · 어떤 순서로」 네 가지에 답해야 한다. 지금까지 앞의 셋은 답이 있었고 <b>순서가 없었다.</b> 이슈 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/122">#122</a> 가 그 빈칸을 지적한다.</p>
+<div class="tw"><table><thead><tr><th>질문</th><th>어느 층이 답하나</th><th>지금</th></tr></thead><tbody><tr><td>누가 어디를 맡나</td><td>1층 · 작업 영역 8갈래</td><td>있다</td></tr><tr><td>언제까지인가</td><td>2층 · 관문 다섯</td><td>있다</td></tr><tr><td><b>무엇을 어떤 순서로 하나</b></td><td><b>3층 · 구현 단계</b></td><td><b>이 문서에서 신설한다</b></td></tr><tr><td>지금 무엇을 하고 있나</td><td>4층 · 세부 작업</td><td>있다</td></tr><tr><td><b>나는 팀에서 어디를 얼마나 맡았나</b></td><td>4층을 담당자 축으로 다시 읽는다</td><td><b>이 문서에서 축을 정한다</b></td></tr></tbody></table></div>
+<p><b>관문은 기한과 다음 단계 착수 조건을, 구현 단계는 작업 순서와 선행 관계를 정의한다.</b> 지금은 「A-정책 09/12 안에 이슈 몇 건」만 있고 그 이슈들이 어떤 차례로 이어지는지가 없다. 8/31 멘토링이 정한 「평지 기준선을 먼저, 그다음 실패 지형」이 바로 그 차례인데 WBS 어디에도 적혀 있지 않았다.</p>
 </section>
-<section id="s2"><h2>1. NVIDIA 공식 체크포인트의 실체</h2>
-<p><code>--use_pretrained_checkpoint</code> 가 받아오는 파일을 바이너리로 뜯어 확인했다.</p>
-<div class="tw"><table><thead><tr><th>항목</th><th>값</th><th>신뢰도</th></tr></thead><tbody><tr><td>내려받는 곳</td><td><code>omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/{버전}/Isaac/IsaacLab/PretrainedCheckpoints/rsl_rl/{태스크}/checkpoint.pt</code></td><td><span class="ev ev-ok">확인됨</span> (S3 리스팅)</td></tr><tr><td>학습량</td><td>rough = <b>1,500 iteration</b> (<code>model_1499</code>) · flat = 300</td><td><span class="ev ev-ok">확인됨</span> (pickle 구조 파싱)</td></tr><tr><td>포맷</td><td><code>{model_state_dict, optimizer_state_dict, iter, infos}</code> : <b>rsl_rl 표준 저장 포맷</b></td><td><span class="ev ev-ok">확인됨</span></td></tr><tr><td>관측</td><td>rough <b>235차원</b> (base_lin_vel 3 + height_scan 187 포함) · flat 48</td><td><span class="ev ev-ok">확인됨</span></td></tr><tr><td>네트워크</td><td>rough 512·256·128 · ELU</td><td><span class="ev ev-ok">확인됨</span></td></tr><tr><td>공개 성능 수치</td><td><b>없다.</b> 문서에도 없다</td><td><span class="ev ev-ok">확인됨</span> (부재 확인)</td></tr><tr><td>실물 배포 검증</td><td>공개 사례 없음</td><td><span class="ev ev-ok">확인됨</span> (부재 확인)</td></tr><tr><td>자산 라이선스</td><td><b>문서를 찾지 못함.</b> 재배포·상업 조건 불명</td><td><span class="ev ev-todo">미확인</span></td></tr></tbody></table></div>
-<blockquote><p><b>rsl_rl 표준 포맷이란</b>: rsl_rl 의 <code>OnPolicyRunner.save()</code> 가 쓰는 딕셔너리 구조다.
-같은 포맷이면 <code>runner.load()</code> 한 줄로 이어서 학습(fine-tune)할 수 있다.</p></blockquote>
+<section id="s2"><h2>2. WBS 의 층 구조</h2>
+<p><figure class="mdimg"><img src="assets/wbs-layers.svg?v=adab2725" alt="" loading="lazy"></figure></p>
+<p>2026-08-27 설계(<code>deliverables/plan/wbs.md</code>)는 3층이었다. 위 두 층을 사람이 정하고 세부 작업을 GitHub 이슈에서 생성하는 구조다. <b>작업 순서를 나타내는 구현 단계 분류를 추가해 네 층으로 구성한다.</b></p>
+<div class="tw"><table><thead><tr><th>층</th><th>무엇</th><th>누가 정하나</th><th>개수</th><th>정본</th></tr></thead><tbody><tr><td>1</td><td>작업 영역</td><td>사람 · 고정</td><td>8</td><td><code>docs/ROLES.md</code></td></tr><tr><td>2</td><td>관문</td><td>사람 · 날짜</td><td>5</td><td><code>tools/build_wbs.py</code> 의 <code>GATES</code></td></tr><tr><td><b>3</b></td><td><b>구현 단계</b></td><td><b>사람 · 순서</b></td><td><b>트랙마다 셋 또는 넷</b></td><td><b>이 문서 5절 · 팀장 확정 전</b></td></tr><tr><td>4</td><td>세부 작업</td><td><b>이슈에서 자동</b></td><td>계속 늘어난다</td><td>GitHub 이슈</td></tr></tbody></table></div>
+<p><b>왜 층을 나누나.</b> 이슈 제목을 그대로 WBS 에 올리면 사람마다 쓰는 말이 달라 표가 흩어진다. 작업 영역·관문·구현 단계를 기준으로 분류하면 서로 다른 제목의 이슈도 같은 기준으로 집계할 수 있다. 위 세 층은 이슈가 하나도 없어도 그려지고, 4층은 진척을 채우는 데 쓴다.</p>
+<p><b>3층이 1층과 다른 점.</b> 1층은 「누가 담당하는가」라는 책임 구분이고 3층은 「무엇 다음에 무엇인가」라는 시간의 축이다. 한 작업 영역이 여러 단계에 걸치고, 한 단계에 여러 작업 영역이 함께 들어간다.</p>
 </section>
-<section id="s3"><h2>2. RoboGauge: 유일하게 확인된 Go2 정책 서열표</h2>
-<p><a href="https://github.com/wty-yy/RoboGauge" target="_blank" rel="noopener">RoboGauge</a> (MIT · RSS 2026 논문 부속) 는 보행 정책을 세 지표로 채점한다.</p>
-<div class="tw"><table><thead><tr><th>지표</th><th>무엇을 재나</th></tr></thead><tbody><tr><td><b>Tracking</b></td><td>가라는 대로 가나: 명령 속도와 실제 속도의 일치</td></tr><tr><td><b>Safety</b></td><td>안 넘어지나: 전복·몸통 접촉</td></tr><tr><td><b>Quality</b></td><td>보기 좋게 걷나: 떨림·부자연스러움</td></tr></tbody></table></div>
-<p>공개 서열 (모두 <a href="https://huggingface.co/wty-yy/go2_rl_gym_data" target="_blank" rel="noopener">wty-yy/go2_rl_gym_data</a>, MIT):</p>
-<div class="tw"><table><thead><tr><th>정책</th><th>Score</th><th>정체</th></tr></thead><tbody><tr><td><b>symmetry_v1_77k</b></td><td><b>0.7006</b></td><td>논문 저자들의 최고 성능 (77k 스텝 학습)</td></tr><tr><td>moe_cts 137k</td><td>0.6713</td><td>MoE 변형</td></tr><tr><td>CTS</td><td>0.5786</td><td>CTS 논문 재구현</td></tr><tr><td><b>HIMLoco 재구현</b></td><td>0.5379</td><td>ICLR&#x27;24 방법 (원저자 가중치 비공개)</td></tr><tr><td><b>DreamWaQ 재구현</b></td><td>0.5054</td><td>ICRA&#x27;23 방법 (원저자 코드 자체가 없음)</td></tr></tbody></table></div>
+<section id="s3"><h2>3. 1층 · 작업 영역 8갈래</h2>
+<p><code>docs/ROLES.md</code> 가 정본이다. 아래 표는 해당 문서의 담당 배치를 인용한다.</p>
+<div class="tw"><table><thead><tr><th>갈래</th><th>무엇을 하나</th><th>주담당</th><th>부담당</th></tr></thead><tbody><tr><td><code>A/정책학습</code></td><td>학습 · 보상 · 관측 · 파인튜닝</td><td>임석헌</td><td>이민우 · 오현민 · 맹라현 · 오흥재</td></tr><tr><td><code>A/지형씬제작</code></td><td>지형과 씬 에셋 제작</td><td>맹라현</td><td>오흥재 · 이민우</td></tr><tr><td><code>A/평가</code></td><td>일반화 벤치마크 · 지표</td><td>오현민</td><td>맹라현 · 이민우</td></tr><tr><td><code>A/트윈렌더</code></td><td>실공간 복원 · 3DGS · RTX 렌더 · 합성데이터</td><td>맹라현</td><td>오흥재 · 이민우</td></tr><tr><td><code>B/항법</code></td><td>ROS 2 · TF · SLAM · Nav2</td><td>오흥재</td><td>임석헌 · 이민우 · 오현민 · 맹라현</td></tr><tr><td><code>B/인지</code></td><td>LiDAR · 카메라 · 센서 융합</td><td>오현민</td><td>맹라현 · 이민우</td></tr><tr><td><code>C/기록</code></td><td>회의록 · 문서 · 백과 · 커리큘럼 · 발표 · 대외보고</td><td>이민우</td><td>맹라현 · 오흥재</td></tr><tr><td><code>C/운영</code></td><td>인프라 · 자동화 · 깃 · 웹 · 예산 · 일정</td><td>오흥재</td><td>전원</td></tr></tbody></table></div>
+<p><b>주담당은 해당 영역의 문제 해결과 결과 보고를 책임진다.</b> 부담당은 검토와 대체를 맡는다. 한 사람이 자리를 비워도 갈래가 멈추지 않도록 갈래마다 두 명 이상을 둔다.</p>
+<p>이 여덟 이름은 GitHub 라벨 이름과 글자까지 같다. <code>tools/build_wbs.py</code> 의 <code>AREAS</code> 가 라벨을 읽어 1층을 붙이므로, 라벨이 없는 이슈는 <code>(미분류)</code> 행이 된다.</p>
 </section>
-<section id="s4"><h2>3. ★ 워크스테이션 실측: 실제로 받아서 로드해 봤다 (2026-08-12)</h2>
-<p>조사 요약을 옮겨 적지 않고 직접 검증했다. <code>C:\isaac\checkpoints\robogauge\</code> 에 보관.</p>
-<div class="tw"><table><thead><tr><th>정책</th><th>로드</th><th><b>입력 차원</b></th><th>출력</th></tr></thead><tbody><tr><td>symmetry (moe_cts_symmetry v5.1, 0.6953)</td><td>✅ TorchScript</td><td><b>45</b></td><td>12 (관절)</td></tr><tr><td>HIMLoco 재구현 (0.5379)</td><td>✅ TorchScript</td><td><b>45</b></td><td>12</td></tr><tr><td>CTS vanilla (0.5786)</td><td>✅ 실행까지 성공 (2026-08-13 재검증)</td><td><b>45</b> (히스토리는 내부 버퍼)</td><td>12 + latent (튜플)</td></tr><tr><td>DreamWaQ 재구현 (0.5054)</td><td>✅ 실행까지 성공 (2026-08-13 발견·검증)</td><td><b>45</b></td><td>12</td></tr></tbody></table></div>
-<blockquote><p>2026-08-13 갱신: 네 모델 전부 실행 검증 완료. 45차원의 정확한 순서·스케일·CTS 구조·DreamWaQ 경로는
-<a href="research-robogauge-observation-mapping.html">RoboGauge 관측 매핑</a> 에 확정 기록했다. 이 표의 이전 판에 있던
-&quot;CTS 복합 입력 추정&quot;은 <b>틀린 추정</b>이었다 (실은 [1,45] 단일 관측 + 튜플 출력 + 배치 1 고정).</p></blockquote>
-<h3>이 실측이 바꾸는 것</h3>
-<blockquote><p><b>입력 45 = base_ang_vel 3 + gravity 3 + cmd 3 + q 12 + dq 12 + action 12.</b>
-<b>height_scan 이 없고 base_lin_vel 도 없다. 실물에서 그대로 돌 수 있는 관측이다.</b></p></blockquote>
-<p>따라서 역할이 정리된다.</p>
-<div class="tw"><table><thead><tr><th>역할</th><th>무엇</th><th>왜</th></tr></thead><tbody><tr><td><b>기준선이자 파인튜닝 출발점</b></td><td>NVIDIA 공식 rough (235차원)</td><td>우리 스택과 동일. 한 줄로 로드</td></tr><tr><td><s>Teacher (증류의 선생)</s></td><td><s>NVIDIA 공식 rough</s></td><td><b>폐기.</b> 증류는 실기에 정책을 올릴 때의 장치인데 8/19 에 그 목표를 뺐다</td></tr><tr><td><b>참고선</b></td><td>symmetry · HIM (45차원)</td><td>우리와 <b>관측 체급이 다르다.</b> 수치를 나란히 볼 수는 있으나 동일 조건 비교는 아니다</td></tr><tr><td>실기 배포 스택</td><td><a href="https://github.com/unitreerobotics/unitree_rl_lab" target="_blank" rel="noopener">unitree_rl_lab</a> (Apache-2.0, 가중치 없음)</td><td>Isaac Lab 기반 + 실기 C++ FSM</td></tr></tbody></table></div>
-<h3>남은 확인</h3>
-<ul><li><s>45차원의 정확한 항목 순서와 스케일</s> → <b>확정</b> (2026-08-13): <a href="research-robogauge-observation-mapping.html">매핑 표</a> <span class="ev ev-ok">확인됨</span></li><li><s>CTS 의 입력 구조</s> → <b>확정</b>: [1,45] 단일 관측, 히스토리 5프레임은 내부 버퍼 <span class="ev ev-ok">확인됨</span></li><li><s>DreamWaQ 파일의 실제 경로</s> → <b>확정</b>: HF 저장소 루트의 단일 파일 <span class="ev ev-ok">확인됨</span></li><li><s>우리 Isaac Lab env 의 관절 순서 실측</s> → <b>확정</b> (2026-08-13 실측): 관절종류별 묶음. 재배열 permutation 포함 전 규칙 완성 <span class="ev ev-ok">확인됨</span></li></ul>
+<section id="s4"><h2>4. 2층 · 관문 다섯</h2>
+<p>기획서 8-1 이 정본이고, 날짜는 <code>tools/build_wbs.py</code> 의 <code>GATES</code> 에서 읽는다. <b>관문 통과는 기한 도래가 아니라 다음 단계 착수 조건 충족으로 판정한다.</b> 조건을 채우지 못하면 다음 단계에 착수하지 않는다.</p>
+<div class="tw"><table><thead><tr><th>관문</th><th>일자</th><th>핵심 산출물</th><th>다음 단계 착수 조건</th><th>관문 문서</th></tr></thead><tbody><tr><td>기획 발표</td><td>09/04</td><td>문제 · 범위 · KPI · WBS · R&amp;R 합의</td><td>평가 용어와 담당 확정</td><td><code>plan/wbs.md</code></td></tr><tr><td>A-정책</td><td>09/12</td><td>평가 하네스 · 기준 정책 · 지표 세트 고정 · 지형별 난이도 경계 초기값</td><td>동일 조건 비교가 가능해짐</td><td><code>midterm/policy-metrics.md</code></td></tr><tr><td>MVP · 중간발표</td><td>09/30</td><td>일반화 평가표 · 경계 재측정 · 트윈과 렌더</td><td>재현 가능한 가상 검증 패키지</td><td><code>midterm/generalization-report.md</code></td></tr><tr><td>NAV · 실기 항법</td><td>11/07</td><td>SLAM 지도 · Nav2 실제 경로</td><td>실기 목표 지점 임무 검증 가능</td><td><code>final/nav-report.md</code></td></tr><tr><td>FINAL · 최종발표</td><td>12/11</td><td>자율 보행 시연 · 검증 보고서</td><td>공개 배포용 최종 검증 자료</td><td><code>final/final-report.md</code></td></tr></tbody></table></div>
+<p>「관문 문서」 열은 <code>GATES</code> 의 셋째 값이고 경로는 모두 <code>deliverables/</code> 아래다. 이슈에 마일스톤이 붙으면 생성기가 그 이슈의 산출물 칸에 이 경로를 넣는다. 그래서 <b>산출물 칸도 사람이 적지 않는다.</b></p>
 </section>
-<section id="s5"><h2>4. 다른 후보들 (요약)</h2>
-<div class="tw"><table><thead><tr><th>저장소</th><th>Go2 가중치</th><th>비고</th></tr></thead><tbody><tr><td>unitree_rl_gym (공식)</td><td><b>없음</b> (g1/h1 만)</td><td>BSD-3</td></tr><tr><td>unitree_rl_lab (공식)</td><td><b>없음</b> (코드만)</td><td>Apache-2.0 · 실기 배포 포함 · <b>코드 호환 최상</b></td></tr><tr><td>walk-these-ways-go2 (615★)</td><td>있음 (MIT)</td><td>커스텀 rsl_rl 포크 · 이식하려면 전면 재작성</td></tr><tr><td>HIMLoco 원본</td><td>없음</td><td>CC-BY-NC (상업 불가)</td></tr><tr><td>파쿠르 계열</td><td>Go1 만 / depth 카메라 필수</td><td>우리 범위 밖</td></tr></tbody></table></div>
+<section id="s5"><h2>5. 3층 · 구현 단계</h2>
+<p>이슈 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/122">#122</a> 의 첫째 요구다. <b>팀장 9/1 지시</b>가 「지금 마일스톤 외에도 실제 구현 단계를 쪼개고, 그 안에서 팀원이 각자의 역할로 할 수 있는 것을 쪼개라」였다.</p>
+<p><figure class="mdimg"><img src="assets/wbs-stages.svg?v=c54129bc" alt="" loading="lazy"></figure></p>
+<h3>5-1. 단계 초안</h3>
+<p><b>아래 단계 이름과 개수는 이슈 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/122">#122</a> 의 초안이고 팀장 확정 전이다.</b> 기획서의 두 트랙 축을 그대로 따랐다. 「관련 관문」 열은 기획서 8-2 의 각 작업 항목에 이미 붙어 있는 관문을 모은 것이고, 새로 만든 날짜가 아니다.</p>
+<div class="tw"><table><thead><tr><th>트랙</th><th>단계</th><th>무엇을 하나</th><th>관련 관문</th><th>기획서 8-2 의 해당 작업 항목</th></tr></thead><tbody><tr><td>Track A</td><td>1 · 기준선 확립</td><td>평지와 미경험 10종을 지형별로 정한 조건에 따라 재측정하고 하네스를 고정한다</td><td>A-정책</td><td>기본값 1,500 iter 학습 지형 결과 분석 · 평가 하네스 확장 7건 · 지표 3종 정본화</td></tr><tr><td>Track A</td><td>2 · 실패 지형 진단</td><td>실패 5종의 병목 축을 갈라 내고 난이도 격자로 경계를 잰다</td><td>A-정책 · MVP</td><td>난이도 격자 스윕과 경계 측정 · 재현성 결함 수정 · 난이도 스윕 설계</td></tr><tr><td>Track A</td><td>3 · 학습 조건 개선</td><td>보상 항을 다시 짜고 기존 지형 성능을 유지한 채 혼합 학습한다</td><td>MVP</td><td>보상 항 재설계와 재학습 · 기존 지형 성능 유지 혼합 학습</td></tr><tr><td>Track A</td><td>4 · 재학습과 재평가</td><td>확장 지형으로 학습하고 held-out 으로 일반화를 잰다</td><td>NAV</td><td>확장 지형 학습과 held-out 평가 · 절차적 확장 지형 생성</td></tr><tr><td>Bridge</td><td>1 · 환경 촬영</td><td>PoC 공간을 고르고 촬영과 점군을 남긴다</td><td>MVP</td><td>PoC 공간 선정과 스캔</td></tr><tr><td>Bridge</td><td>2 · 3DGS 복원</td><td>COLMAP 과 3DGS 로 복원하고 충돌 형상을 만든다</td><td>MVP</td><td>COLMAP · 3DGS 복원과 충돌 형상 구성</td></tr><tr><td>Bridge</td><td>3 · Isaac USD 변환</td><td>복원 결과를 학습과 평가가 쓰는 USD 씬으로 바꾼다</td><td>MVP</td><td>COLMAP · 3DGS 복원과 충돌 형상 구성 (산출물 USD 씬)</td></tr><tr><td>Track B</td><td>1 · ROS 2 연동</td><td>실행 환경을 세우고 센서와 TF 를 잇는다</td><td>A-정책 · MVP</td><td>ROS 2 환경 구축 · 센서와 TF 연결</td></tr><tr><td>Track B</td><td>2 · SLAM 지도</td><td>지도를 만들고 위치 추정 오차를 기록한다</td><td>NAV</td><td>SLAM 지도 생성과 위치 추정</td></tr><tr><td>Track B</td><td>3 · Nav2 주행</td><td>경로 계획과 재계획으로 목표 지점까지 간다</td><td>NAV</td><td>Nav2 경로 계획 · 재계획 · 장애물 회피</td></tr><tr><td>Track B</td><td>4 · 인지 결합</td><td>검출 결과를 항법과 합친다</td><td>MVP · NAV</td><td>CV 단계별 계획과 실행 환경 구축 · YOLO 파인튜닝과 LiDAR 융합</td></tr></tbody></table></div>
+<p><b>Bridge 에는 넷째 단계를 두지 않았다.</b> 기획서 8-2 의 「에셋 팩 수령과 HDRI 렌더 · 발표 자산」은 MVP 와 FINAL 두 관문에 걸린 산출물이고, 앞 세 단계처럼 다음 단계의 입력이 되지는 않는다. 단계로 세우려면 그 산출물을 무엇이 받아 쓰는지가 먼저 정해져야 한다.</p>
+<h3>5-2. 단계의 완료를 무엇으로 판정하나</h3>
+<p>이슈 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/122">#122</a> 의 둘째 물음이다. 기획서 7-1 의 KPI 를 단계에 붙인다. <b>기획서가 아직 목표값을 정하지 않은 항목은 여기서도 비워 둔다.</b></p>
+<div class="tw"><table><thead><tr><th>단계</th><th>완료 판정</th><th>값의 성격</th></tr></thead><tbody><tr><td>Track A 1 · 기준선 확립</td><td>평지 100판에서 낙상 없이 통과선 10 m 도달 100% 유지 · 통과선 지점 좌우 이탈 5 cm 이내를 90% 이상으로 올린다</td><td>우리 측정 위에 세운 목표</td></tr><tr><td>Track A 2 · 실패 지형 진단</td><td>실패 5종 각각 난이도 열 칸 · 칸당 100판을 돌려 경계를 낸다</td><td><b>목표 이동폭은 비어 있다.</b> 경계값 자체가 아직 없다</td></tr><tr><td>Track A 3 · 학습 조건 개선</td><td><code>rails(턱)</code> 속도 오차 중앙값을 0.25 m/s 이하로 · <code>pit(구덩이)</code> 와 <code>floating_ring(부유 고리)</code> 전진 중앙값을 통과선 3 m 로 · 이미 통과하는 5종의 통과율 97% 이상 유지</td><td>우리 측정 위에 세운 목표</td></tr><tr><td>Track A 4 · 재학습과 재평가</td><td>held-out 지형에서 경계가 얼마나 이동했는지</td><td><b>목표값은 비어 있다.</b> 단계 2 의 경계가 먼저 나와야 한다</td></tr><tr><td>Bridge 1 · 환경 촬영</td><td>촬영 기록과 점군 원자료가 재실행 가능한 형태로 남는다</td><td>산출물 유무 판정</td></tr><tr><td>Bridge 2 · 3DGS 복원</td><td>충돌 형상이 붙은 복원 결과</td><td>산출물 유무 판정</td></tr><tr><td>Bridge 3 · Isaac USD 변환</td><td>실공간과 같은 스케일의 USD 씬에서 평가가 돌아간다</td><td>산출물 유무 판정</td></tr><tr><td>Track B 1 · ROS 2 연동</td><td>토픽과 TF 트리가 연결되고 센서 입력이 좌표계에 붙는다</td><td>산출물 유무 판정</td></tr><tr><td>Track B 2 · SLAM 지도</td><td>Localization 유지율 90% 이상 · 위치 오차 30 cm 이하</td><td><b>도전 목표 · 일반 기준.</b> 우리 실측이 아니다</td></tr><tr><td>Track B 3 · Nav2 주행</td><td>20회 이상 반복 주행 · 목표 지점 도달률 80% 이상 · 무충돌 주행률 90% 이상 · 경로 재계획 성공률 80% 이상</td><td><b>도전 목표 · 일반 기준.</b> 우리 실측이 아니다</td></tr><tr><td>Track B 4 · 인지 결합</td><td>탐지 객체 3종 이상 · Precision 과 Recall 80% 이상 · mAP@0.5 75% 이상</td><td><b>도전 목표 · 일반 기준.</b> 우리 실측이 아니다</td></tr></tbody></table></div>
+<p><b>Track B 의 아홉 값은 실기 측정에서 나온 값이 아니다.</b> 출처가 기획서 초안이고 실기 측정은 아직 0건이다. 실기 환경과 대여 장비가 확정된 뒤 재검토한다. 기획서 7-1 이 같은 단서를 달고 있다.</p>
+<p><b>한 판을 통과로 세는 기준은 네 축을 모두 만족하는 것이다.</b> 생존 · 전진 · 속도 추종 · 직진성이며 하나라도 못 넘기면 실패다. 평가 CSV 는 종합 판정을 포함해 다섯 열이다. 축을 나눈 이유는 지형마다 부족한 지표가 다르기 때문이고, 단일 성공률로 합치면 학습 조건의 조정 방향을 구분할 수 없다.</p>
+<h3>5-3. 3층을 데이터로 어떻게 잇나</h3>
+<p>지금은 이 문서에만 있고 생성기에는 없다. <b>이슈 라벨 방식은 기존 조회 기능을 재사용할 수 있다.</b></p>
+<div class="tw"><table><thead><tr><th>방법</th><th>어떻게</th><th>장점</th><th>단점</th></tr></thead><tbody><tr><td><b>이슈 라벨</b></td><td><code>S/A1-기준선</code> 처럼 단계 라벨을 생성한다</td><td><code>tools/build_wbs.py</code> 가 이미 라벨을 읽는다. <code>AREAS</code> 옆에 <code>STAGES</code> 를 두고 같은 방식으로 찾으면 된다</td><td>라벨이 여덟 개 더 늘어난다. 붙이는 것을 잊으면 <code>(미분류)</code> 가 된다</td></tr><tr><td>프로젝트 보드 필드</td><td>보드에 단계 필드를 만든다</td><td>라벨 목록이 안 늘어난다</td><td>생성기가 지금 보드를 안 읽는다. 이슈 목록만 읽는다. 읽는 경로를 새로 만들어야 한다</td></tr></tbody></table></div>
+<p><b>기존 생성기를 활용할 수 있는 이슈 라벨 방식을 제안한다.</b> 단계 이름은 팀장 확정 후 라벨로 생성한다. 라벨은 한 번 붙으면 이슈 전체를 다시 손봐야 바뀐다.</p>
+<p>생성기 수정은 이슈 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/122">#122</a> 의 후속 작업이고 이 문서의 범위가 아니다. <b>이 문서는 무엇을 라벨로 만들지를 정하는 데까지다.</b></p>
 </section>
-<section id="s6"><h2>5. 이것이 프로젝트에 주는 것</h2>
-<ol><li><b>작업 3(평가)의 성공 기준을 발명할 필요가 없다</b>: RoboGauge 의 Tracking·Safety·Quality 방법론을 참조한다.</li><li><s>«NVIDIA 공식 체크포인트를 점수표에 처음 올린 팀» 이 된다</s> 는 접는다. RoboGauge 표는 45차원 체급이라 235차원인 NVIDIA 공식을 그대로 못 올린다. <b>대신 우리가 만드는 것이 다른 표다.</b> RoboGauge 는 <i>학습한</i> 지형 성능을 재고 우리는 <i>안 배운</i> 지형을 잰다. 겹치지 않는 축이고 그것이 우리 고유 기여다.</li><li><b>공개 4종을 우리 10종 지형에 태워 「대조군」으로 쓴다.</b> 이것이 이 조사의 새 쓰임이다.</li></ol>
-<p>   <s>우리 Student 가 완성되면 symmetry(0.7006)와 같은 체급에서 정면 비교한다</s> 는    8/19 에 증류를 뺐으므로 성립하지 않는다. 45차원 정책을 만들지 않기 때문이다.</p>
-<p>   대신 더 쓸모 있는 질문이 남는다. <b>우리가 실패한 5종에서 이들도 실패하는가.</b></p>
-<div class="tw"><table><thead><tr><th>결과</th><th>뜻</th><th>다음 행동</th></tr></thead><tbody><tr><td>이들도 같은 5종에서 실패</td><td>미경험 지형 일반화는 아직 아무도 못 푼 문제다</td><td>파인튜닝 5종이 그 공백을 겨눈 것이 된다</td></tr><tr><td>이들은 통과</td><td>우리 학습·관측 설계에 고칠 데가 있다</td><td>남의 레시피를 먼저 읽고 방향을 다시 잡는다</td></tr></tbody></table></div>
-<p>   <b>순위는 매기지 않는다.</b> 우리는 235차원(특권 관측을 본다), 이들은 45차원이라    같은 자로 잰 것이 아니다. <b>어느 지형에서 깨지는가의 패턴만</b> 본다. 그 비교는    관측 차원과 무관하게 성립한다. 산출물은 점수 순위표가 아니라 <b>실패 지형 지도</b>다.</p>
-<p>   실행은 이미 가능하다. <a href="research-robogauge-observation-mapping.html">관측 매핑</a> 이 확정이고    4종 전부 로드·실행 검증을 마쳤다. 담당 <code>A/평가</code> · 이슈 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/28">#28</a>.</p>
+<section id="s6"><h2>6. 4층 · 작업 분해 23건</h2>
+<p>기획서 8-2 가 정본이다. <b>주담당은 해당 영역의 결과와 인계를 책임지고, 부담당은 검토와 필요 시 업무 대체를 맡는다.</b></p>
+<div class="tw"><table><thead><tr><th>작업 영역</th><th>작업 항목</th><th>담당</th><th>관문</th><th>산출물</th></tr></thead><tbody><tr><td><code>A/정책학습</code></td><td>기본값 1,500 iter 학습 지형 결과 분석</td><td>임석헌</td><td>A-정책</td><td>정체 · 낙상 분리 분석표</td></tr><tr><td><code>A/정책학습</code></td><td>보상 항 재설계 · 발 높이 항 신설과 재학습</td><td>임석헌</td><td>MVP</td><td>학습 로그 · 정책 체크포인트</td></tr><tr><td><code>A/정책학습</code></td><td>기존 지형 성능 유지 혼합 학습 (rough 0.6 · 대상 0.4)</td><td>임석헌</td><td>MVP</td><td>성능 유지 검증표</td></tr><tr><td><code>A/정책학습</code></td><td>확장 지형 학습과 held-out 평가</td><td>임석헌</td><td>NAV</td><td>일반화 성능표</td></tr><tr><td><code>A/평가</code></td><td>평가 하네스 확장 7건 · 새 기준 측정 가능화</td><td>오현민</td><td>A-정책</td><td>하네스 · 시험 68건</td></tr><tr><td><code>A/평가</code></td><td>지표 3종과 판정 기준 정본화</td><td>오현민</td><td>A-정책</td><td>판정 함수 · 임계값 문서</td></tr><tr><td><code>A/평가</code></td><td>난이도 격자 스윕과 경계 측정</td><td>오현민</td><td>A-정책 · MVP</td><td>지형별 경계표</td></tr><tr><td><code>A/평가</code></td><td>재현성 결함 수정 (전역 난수 사용 4종)</td><td>오현민</td><td>A-정책</td><td>지형 생성 재현성 검증</td></tr><tr><td><code>A/지형씬제작</code></td><td>난이도 스윕 설계 · 지형 파라미터 재설계</td><td>맹라현</td><td>A-정책</td><td>스윕 설계서</td></tr><tr><td><code>A/지형씬제작</code></td><td>절차적 확장 지형 생성</td><td>맹라현</td><td>NAV</td><td>확장 지형 cfg</td></tr><tr><td><code>A/트윈렌더</code></td><td>PoC 공간 선정과 스캔 (촬영 · 점군)</td><td>맹라현</td><td>MVP</td><td>원자료 · 촬영 기록</td></tr><tr><td><code>A/트윈렌더</code></td><td>COLMAP · 3DGS 복원과 충돌 형상 구성</td><td>맹라현</td><td>MVP</td><td>USD 씬</td></tr><tr><td><code>A/트윈렌더</code></td><td>에셋 팩 수령과 HDRI 렌더 · 발표 자산</td><td>맹라현</td><td>MVP · FINAL</td><td>렌더 시연물</td></tr><tr><td><code>B/항법</code></td><td>ROS 2 환경 구축 · 센서와 TF 연결</td><td>오흥재</td><td>A-정책 · MVP</td><td>토픽 · TF 트리</td></tr><tr><td><code>B/항법</code></td><td>SLAM 지도 생성과 위치 추정</td><td>오흥재 · 이민우</td><td>NAV</td><td>지도 · 위치 오차 기록</td></tr><tr><td><code>B/항법</code></td><td>Nav2 경로 계획 · 재계획 · 장애물 회피</td><td>이민우 · 오흥재</td><td>NAV</td><td>주행 로그 (rosbag2)</td></tr><tr><td><code>B/인지</code></td><td>CV 단계별 계획과 실행 환경 구축</td><td>오현민</td><td>MVP</td><td>환경 문서 · 데이터셋</td></tr><tr><td><code>B/인지</code></td><td>YOLO 파인튜닝과 LiDAR 융합</td><td>오현민</td><td>NAV</td><td>검출 성능표</td></tr><tr><td><code>C/기록</code></td><td>회의록 · 문서 정본화 · 기술 허브 집필</td><td>이민우</td><td>전 관문</td><td>정본 문서</td></tr><tr><td><code>C/기록</code></td><td>발표 자료 제작과 대외 보고</td><td>이민우</td><td>전 관문</td><td>발표 산출물</td></tr><tr><td><code>C/운영</code></td><td>인프라 · RunPod 볼륨 · 팀 폴더 표준화</td><td>오흥재</td><td>A-정책</td><td>실행 환경</td></tr><tr><td><code>C/운영</code></td><td>빌드 · 배포 자동화 · 프로젝트 웹</td><td>오흥재</td><td>MVP</td><td>배포 파이프라인</td></tr><tr><td><code>C/운영</code></td><td>일정 · 예산 · 범위 관리 · 멘토 협의</td><td>오흥재</td><td>전 관문</td><td>일정 대시보드</td></tr></tbody></table></div>
+<p><b>이 23건은 계획의 단위이지 진척의 단위가 아니다.</b> 실제 진척은 이 23건에 매달린 GitHub 이슈에서 나오며, 이슈는 계속 늘어난다.</p>
 </section>
-<section id="s7"><h2>연결</h2>
-<ul><li>평가 기준선 (1,500회 86.7%) → <a href="research-training-benchmarks.html">training-benchmarks.md</a></li><li>관측 매핑과 실물 제약 → 볼트 go2-hardware.md §4</li><li>프로젝트 흐름에서의 위치 → <a href="flow.html">FLOW.md</a> §3 (트랙 A · 시뮬에서 학습)</li></ul>
+<section id="s7"><h2>7. 실패 지형 다섯의 담당</h2>
+<p>기획서 8-3 이 정본이고 이슈 다섯 건이 각각 걸려 있다. <b>전원이 하나씩 맡는다.</b> 문서와 발표를 맡은 사람도 실기 항법과 실패 지형을 함께 맡는다.</p>
+<div class="tw"><table><thead><tr><th>지형</th><th>현재 종합 통과율</th><th>병목 축</th><th>담당</th><th>이슈</th><th>갈래</th></tr></thead><tbody><tr><td><code>gap(틈)</code></td><td>0%</td><td>생존 21%</td><td>임석헌</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/65">#65</a></td><td><code>A/정책학습</code></td></tr><tr><td><code>rails(턱)</code></td><td>4%</td><td>속도 추종 8%</td><td>맹라현</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/66">#66</a></td><td><code>A/지형씬제작</code> · <code>A/트윈렌더</code></td></tr><tr><td><code>stepping_stones(디딤돌)</code></td><td>0%</td><td>생존 20%</td><td>오현민</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/67">#67</a></td><td><code>A/평가</code> · <code>B/인지</code></td></tr><tr><td><code>pit(구덩이)</code></td><td>3%</td><td>전진 15%</td><td>이민우</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/68">#68</a></td><td><code>B/항법</code> · <code>C/기록</code></td></tr><tr><td><code>floating_ring(부유 고리)</code></td><td>0%</td><td>전진 0%</td><td>오흥재</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/69">#69</a></td><td><code>B/항법</code> · <code>C/운영</code></td></tr></tbody></table></div>
+<p><b>담당자는 실패 분석 1장과 학습 설정안 1장을 함께 낸다.</b> 학습 설정안은 해당 지형의 통과율을 올리기 위해 조정할 보상과 학습 조건을 적은 문서다. 다섯 명이 병렬로 찾는 것은 지형별 조정안이고, <b>최종 정책은 지형별 다섯 개가 아니라 혼합 단일 정책 하나다.</b></p>
+<p>위 통과율은 난이도 0.5 한 점에서 6초 · 통과선 3 m · 1.0 m/s · 지형당 100판 · seed 42 · 시험 중 최대 좌우 이탈 임계 1.5 m 로 평가한 값이다. <b>같은 통과율이라도 관측된 실패 양상은 다르다.</b> <code>stepping_stones(디딤돌)</code> 과 <code>gap(틈)</code> 은 낙상이 주요 실패 양상이며, <code>floating_ring(부유 고리)</code> 은 전진 미달이다. 형상과 정책의 영향을 구분하기 위해 난이도 격자별 통과 여부를 먼저 측정한다.</p>
 </section>
-<section id="s8"><h2>판 이력</h2>
-<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.1</b></td><td>2026-08-28</td><td>45차원 4종의 쓰임을 정했다. 「우리 비교 상대」가 아니라 «미경험 지형에서 이들도 깨지는가»를 가리는 대조군이다. 순위 대신 실패 지형 지도로 낸다</td><td>팀장 지시 · <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/28">#28</a></td></tr><tr><td><b>v2.0</b></td><td>2026-08-28</td><td>Teacher/Student 틀을 걷어냈다. 증류는 실기 이전을 전제한 장치인데 8/19 에 그 목표가 빠졌다. 45차원 정책들은 «비교 상대» 가 아니라 «체급이 다른 참고선» 이다</td><td><code>DECISIONS</code> 08-19</td></tr><tr><td>v1.0</td><td>2026-08-12</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
+<section id="s8"><h2>8. 월별 진행</h2>
+<p>기획서 8-4 가 정본이다. <b>이 표는 관문별 배치를 보여 주는 것이고 진척률이 아니다.</b></p>
+<div class="tw"><table><thead><tr><th>시기</th><th>Track A</th><th>Digital Twin</th><th>Track B</th><th>공통</th></tr></thead><tbody><tr><td>09/12 까지</td><td>하네스 확장 · 기준선 확정 · 10종 재측정 · 난이도 경계 초기값</td><td>PoC 공간 선정</td><td>ROS 2 환경 구축</td><td>지표 · 판정 기준 정본화</td></tr><tr><td>09/30 까지</td><td>보상 재설계 · 파인튜닝 · 경계 재측정</td><td>스캔 · 트윈 구축 · 지형 특성 추출</td><td>Go2 센서와 TF 연결 · CV 환경</td><td>중간 산출물 · 실험 기록</td></tr><tr><td>11/07 까지</td><td>확장 지형 학습 · held-out 평가</td><td>절차적 확장</td><td>SLAM 지도 · Nav2 경로</td><td>실기 검증 기록</td></tr><tr><td>12/11 까지</td><td>최종 성능표 · 회귀 검증</td><td>발표 자산 렌더</td><td>목표 지점 자율 보행 시연</td><td>최종 보고서 · 공개 릴리스</td></tr></tbody></table></div>
+<p><b>세부 진척은 GitHub 프로젝트 보드의 실측값을 사용하며 임의 진척률을 기재하지 않는다.</b> 이 원칙은 기획서 8-4 가 이미 적었고 이 문서도 같이 지킨다.</p>
+</section>
+<section id="s9"><h2>9. 사람별 기여 축</h2>
+<p>이슈 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/122">#122</a> 의 둘째 요구다. 팀장 9/1 지시가 「각자 개인이 팀의 팀원으로서 얼마나 기여하고 앞으로 진행할 수 있는지가 한 눈에 보이는 WBS」였다. <b>기여를 한 줄로 합치지 않고 세 축으로 나눠 본다.</b></p>
+<div class="tw"><table><thead><tr><th>축</th><th>무엇을 보나</th><th>어디서 오나</th><th>성격</th></tr></thead><tbody><tr><td>1 · 영역 책임</td><td>여덟 갈래 중 어느 것의 주담당이고 어느 것의 부담당인가</td><td><code>docs/ROLES.md</code></td><td>사람이 정한다 · 거의 안 바뀐다</td></tr><tr><td>2 · 실패 지형 담당</td><td>실패 5종 중 어느 하나를 맡고 분석과 설정안을 냈는가</td><td>기획서 8-3 · 이슈 다섯 건</td><td>사람이 정한다 · 1인 1지형</td></tr><tr><td>3 · 작업 실적</td><td>담당자로 걸린 이슈가 어느 영역 · 어느 관문 · 어느 단계에 몇 건이고 그중 몇 건이 닫혔는가</td><td>GitHub 이슈의 <code>assignees</code> 와 <code>state</code></td><td><b>GitHub 이슈에서 자동 집계 · 매주 바뀐다</b></td></tr></tbody></table></div>
+<p><b>축 3 의 값은 이 문서에 적지 않는다.</b> <code>deliverables/plan/wbs.xlsx</code> 의 <code>담당자</code> 열을 <code>WBS</code> · <code>관문</code> 열과 교차 집계하면 그대로 나온다. 문서에 숫자를 옮겨 적는 순간 두 곳이 갈라지고, 어느 쪽이 맞는지 확인해 주는 것이 없어진다.</p>
+<p><b>세지 않는 것도 정해 둔다.</b> 커밋 수와 코드 줄 수는 기여 축으로 쓰지 않는다. 갈래마다 산출물의 단위가 다르기 때문이다. <code>C/기록</code> 의 산출물은 문서고 <code>A/트윈렌더</code> 의 산출물은 씬과 렌더며 <code>A/정책학습</code> 의 산출물은 학습 로그와 체크포인트다. 산출물 유형이 달라 커밋 수나 코드 줄 수를 단순 비교하면 기여도를 왜곡할 수 있다.</p>
+<p><b>축 3 이 제대로 나오려면 두 가지가 갖춰져야 한다.</b></p>
+<ul><li>모든 이슈에 작업 영역 라벨이 붙어 있어야 한다. 안 붙은 이슈는 <code>(미분류)</code> 행이 되어 갈래별 집계에서 빠진다. 미분류 건수는 <code>python tools/build_wbs.py</code> 를 돌리면 둘째 줄에 나온다</li><li>모든 이슈에 담당자가 지정돼 있어야 한다. 담당자 칸이 비면 그 이슈는 어느 사람 축에도 안 붙는다</li></ul>
+<p><b>3층 단계별 기여는 아직 볼 수 없다.</b> 단계 라벨이 아직 없기 때문이다. 5-3 의 라벨이 붙고 나면 같은 교차 집계에 단계 축이 하나 더 생긴다. <b>단계 라벨이 붙기 전에는 이 자리를 비워 둔다.</b></p>
+</section>
+<section id="s10"><h2>10. 진척과 완료율을 어디서 읽나</h2>
+<p><b>이 문서에는 완료율도 진척률도 없다.</b> 어디서 읽는지만 적는다.</p>
+<div class="tw"><table><thead><tr><th>무엇</th><th>어디서</th><th>어떻게</th></tr></thead><tbody><tr><td>계획율 · 완료율 · 담당자 · 산출물</td><td><code>deliverables/plan/wbs.xlsx</code></td><td><code>tools/build_wbs.py</code> 가 GitHub 이슈에서 만든다</td></tr><tr><td>그 파일이 언제 갱신되나</td><td><code>.github/workflows/weekly-report.yml</code></td><td>매주 월요일 주간 리포트와 함께 갱신한다. 바뀐 것이 있을 때만 커밋한다</td></tr><tr><td>급할 때</td><td>같은 워크플로</td><td>GitHub Actions 의 Run workflow 단추로 직접 돌린다</td></tr><tr><td>지금 당장 화면에서</td><td><code>python tools/build_wbs.py</code></td><td>인자 없이 돌리면 표를 화면에 찍는다. 파일을 안 건드린다</td></tr></tbody></table></div>
+<p>생성기는 두 저장소(<code>foothold-lab</code> · <code>foothold-go2</code>)의 이슈를 모두 읽는다. 열두 칸 중 여섯은 이슈에 이미 있는 값을 그대로 옮기고 나머지는 계산한다. <b>사람이 같은 숫자를 두 번 적는 자리를 만들지 않는 것이 이 구조의 목적이다.</b> 별도 스케줄을 두지 않은 이유는, 이슈가 바뀔 때마다 파일을 다시 만들면 커밋 이력만 길어지고 얻는 것이 없기 때문이다. 보는 시점에 최신이면 충분하다.</p>
+</section>
+<section id="s11"><h2>11. 아직 정하지 못한 것</h2>
+<p><b>미확정 항목과 확정에 필요한 조건·시점을 정리한다.</b></p>
+<div class="tw"><table><thead><tr><th>빈 자리</th><th>무엇이 있어야 채워지나</th><th>언제</th></tr></thead><tbody><tr><td>구현 단계의 이름과 개수</td><td>팀장 확정. 5-1 은 이슈 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/122">#122</a> 의 초안이다</td><td>기획발표 09/04 전후</td></tr><tr><td>단계 라벨</td><td>위 확정. 확정 전에 라벨을 생성하면 이슈 전체를 다시 손봐야 한다</td><td>단계 확정 직후</td></tr><tr><td>생성기의 3층 지원</td><td><code>tools/build_wbs.py</code> 에 <code>STAGES</code> 추가. 이슈 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/122">#122</a> 의 후속 작업</td><td>라벨 생성 뒤</td></tr><tr><td>단계별 기여 집계</td><td>위 셋이 모두 갖춰진 뒤</td><td>라벨이 이슈에 붙은 뒤</td></tr><tr><td>Track A 단계 2 · 4 의 목표값</td><td>실패 5종 각각 난이도 열 칸 · 칸당 100판. 지금까지의 1,000판은 난이도 0.5 한 점이라 경계를 만들지 못한다</td><td>A-정책 09/12</td></tr><tr><td>Track B 아홉 값의 확정</td><td>실기 환경과 대여 장비 확정. 지금 값은 도전 목표이고 우리 실측이 아니다</td><td>장비 확정 뒤</td></tr><tr><td>Bridge 넷째 단계</td><td>렌더 산출물을 무엇이 받아 쓰는지. 지금은 다음 단계의 입력이 아니다</td><td>발표 자산 범위 확정 뒤</td></tr></tbody></table></div>
+<p><b>부록 · 기존 문서와 생성기의 정비 항목</b></p>
+<ul><li>2026-08-27 설계 초안(<code>deliverables/plan/wbs.md</code>)의 2층 표에 <b>기획발표 09/04 관문이 빠져 있다.</b> 넷만 적혀 있다. <code>tools/build_wbs.py</code> 의 주석도 같은 누락을 지적한다. 이 문서는 다섯으로 적었고 초안 파일은 건드리지 않았다</li><li>같은 초안이 완료율을 「Todo 0 · In Progress 50 · Done 100」으로 적었는데 <b>생성기는 닫힘 100 · 나머지 0 두 값만 쓴다.</b> 문서와 코드가 어긋난다</li><li>같은 초안이 시작날짜를 「보드의 시작일」로 적었는데 <b>생성기는 이슈 생성일을 쓴다</b></li><li>관문 문서 열의 기획발표 칸이 <code>deliverables/plan/wbs.md</code> 를 가리킨다. <b>제출본은 이 파일(<code>wbs-official.md</code>)이다.</b> 생성기의 <code>GATES</code> 를 고칠지는 팀장 확인이 필요하다</li><li>실패 지형 이슈 다섯 건의 제목이 비유 표현을 쓴다. 표현 규칙과 어긋나지만 <b>이슈 제목은 고치지 않았다</b></li></ul>
 </section>
 
 </div>
@@ -790,7 +843,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7;--dim-ink:#0b6459;--grid:rgba(22,28,38,.04);--note-ink:#8a5600;}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
-<!--/dark:v1-->
 <!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-04 13:24</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
