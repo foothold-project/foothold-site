@@ -404,12 +404,19 @@ figure.fdia figcaption code{font-family:'Consolas','D2Coding',monospace;font-siz
 .topbar .tbtn.pdf{font-weight:700;letter-spacing:.04em}
 
 /* 하단 이전/다음. 2줄 스택이라 세로를 과하게 먹었다. 한 줄로 눕힌다. */
-.navbar .row{padding:.4rem 1.5rem;gap:.5rem}
-.nbtn{flex-direction:row!important;align-items:baseline;gap:.5rem;padding:.34rem .75rem}
+.navbar .row{padding:.4rem 1.5rem;gap:.5rem;align-items:stretch}
+/* 2026-09-05 팀장 지적 「아래 네비게이션 바 제대로 얼라인 맞추라」. 두 번째다.
+   .t 가 flex:1 1 auto 라 제목이 남는 폭을 다 먹었고, 첫 장에서는 이전 제목이
+   비어 그 빈 상자가 가운데를 벌렸다. 높이도 baseline 정렬이라 서로 달랐다.
+   두 버튼을 flex:1 1 0 으로 반반 나누고 높이를 stretch 로 맞춘다. */
+.nbtn{flex:1 1 0;min-width:0;flex-direction:row!important;align-items:center;
+  gap:.5rem;padding:.34rem .75rem}
 .nbtn.next{flex-direction:row-reverse!important;justify-content:flex-start}
 .nbtn .d{font-size:.6rem;flex:0 0 auto}
-.nbtn .t{font-size:.76rem;flex:1 1 auto;min-width:0}
+.nbtn .t{font-size:.76rem;flex:1 1 auto;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .nbtn.next .t{text-align:right}
+.nbtn:disabled,.nbtn[disabled]{opacity:.45}
 @media (max-width:700px){
   .navbar .row{padding:.34rem 1.1rem;gap:.4rem}
   .nbtn{padding:.3rem .6rem;gap:.35rem}
