@@ -5,6 +5,22 @@
 **4족 보행 로봇용 강화학습 기반 험지 적응 정책**
 인공지능사관학교 7기 · AI 도약과정 실증 프로젝트 (2026.08 – 12)
 
+## 공개 주소
+
+**https://foothold-project.vercel.app**
+
+이 저장소의 `main` 에 push 하면 Vercel 이 자동 배포한다. **이 저장소가 배포원이다.**
+
+| | |
+|---|---|
+| 배포원 | `foothold-project/foothold-site` (이 저장소) |
+| 생성기 | `vfxpedia/mai-universe` 의 `03_PROJECTS/doyak-final/05_deliverables/_build/` |
+| 만드는 법 | 볼트에서 `python _build/build.py --skip-secure` · 이 저장소로 복사된다 |
+
+**여기 있는 HTML 을 손으로 고치지 않는다.** 전부 생성물이라 다음 빌드에 되돌아간다. 고칠 것은 생성기나 `_src/*.base.html` 에 있다.
+
+> 주소가 어디에도 안 적혀 있었다 (2026-09-08). 다른 세션이 `foothold-site.vercel.app` 과 `foothold-lab.vercel.app` 을 찍어 보고 둘 다 404 를 받은 뒤에야 드러났다. 저장소 이름과 도메인이 다르면 아는 사람만 안다. 철칙 2: 기억이 아니라 구조로 남긴다.
+
 ---
 
 ## 이 프로젝트가 푸는 문제
