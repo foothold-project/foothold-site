@@ -393,7 +393,14 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .gnav .sp{display:none}
   .gnav a.home{margin-right:.35rem;flex:none}
   .gnav a{flex:none;padding:.3rem .45rem}
-  .gnav .navctl{margin-left:.3rem;flex:none}
+  /* ★ 2026-09-08 팀장 지적: 모바일에서 검색·테마가 화면 밖이다.
+     실측(390px · 같은 출처 iframe · 높이 30000): .navctl 오른쪽 끝이 x=860.
+     바가 가로로 스크롤되는 것은 8/31 팀장 확정이라 그대로 둔다. 다만 그 결정은
+     «허브 링크» 를 한 줄에 두려던 것이었고, 검색·테마까지 밀려날 이유는 없었다.
+     완비 관문 [3.46] 은 「토글이 있는가」만 보고 「닿는가」는 아무도 안 봤다.
+     스크롤 컨테이너 안에서 sticky 로 오른쪽에 붙여 언제나 닿게 한다. */
+  .gnav .navctl{margin-left:auto;flex:none;position:sticky;right:0;
+    background:var(--paper);padding-left:.35rem;z-index:1}
 }
 
 .band{display:block;text-decoration:none;color:inherit;background:var(--paper-2);
@@ -996,6 +1003,19 @@ body>*{flex-shrink:0}
 .tmr3 .tmg3 b{font-weight:750;color:var(--ink-2)}
 .tmr3 .tma3{font-size:.63rem;letter-spacing:.06em;color:var(--dim);
   white-space:nowrap;padding:0 .9rem;text-transform:uppercase}
+/* ★ 2026-09-08 팀장 지적: 모바일에서 이 줄이 잘린다.
+   실측(390px 뷰포트 · 같은 출처 iframe · 높이 30000 으로 스크롤바 제거):
+   다섯 줄 모두 609px · body scrollWidth 633. 네 번째 칸(담당 실패 지형)이
+   화면 밖으로 나가 아예 안 보였다. 원인은 nowrap 둘(.tmg3 · .tma3)과 b 의
+   min-width:9rem 이 겹쳐 접힐 자리가 없던 것이다.
+   좁은 화면에서만 줄바꿈을 허용하고 최소폭을 푼다. 넓은 화면은 그대로 둔다. */
+@media (max-width:560px){
+  .tmr3{flex-wrap:wrap;gap:.15rem .6rem}
+  .tmr3 b{min-width:0;flex:0 0 100%}
+  .tmr3>span:not(.tmg3){flex:1 1 auto;min-width:0}
+  .tmr3 .tmg3{margin-left:0;padding-left:0;white-space:normal}
+  .tmr3 .tma3{padding:0;white-space:normal}
+}
 .phn3{font-size:.62rem;font-weight:600;letter-spacing:0;color:var(--ink-3);
   text-transform:none;margin-left:.5rem}
 /* 예정 줄: 같은 자리에 서되 «아직 없다» 가 보이게. 번호는 비고, 글은 옅다 */
@@ -1114,5 +1134,5 @@ body>*{flex-shrink:0}
 }
 </style><div class="wns3"><div class="ws3"><div class="wt3">합류 시</div><div class="wd3">오늘 합류했다. 손을 움직이려면 무엇부터.</div><a class="wr3" data-added="2026-08-05" href="setup.html"><b>개발환경 구축</b><span>팀 공통 세팅</span></a><a class="wr3" data-added="2026-08-05" href="team-access.html"><b>워크스테이션 접속</b><span>원격 접속과 운영</span></a><a class="wr3" data-added="2026-09-01" href="runpod-setup.html"><b>RunPod Isaac Lab 환경</b><span>볼륨 · 템플릿 · 첫 실행. 마운트는 /data</span></a></div><div class="ws3"><div class="wt3">상시 참조</div><div class="wd3">이슈를 열고 PR 을 올릴 때 펴 놓는 것.</div><a class="wr3" data-added="2026-08-27" href="workflow.html"><b>작업 흐름</b><span>이슈부터 머지까지 한 장</span></a><a class="wr3" data-added="2026-08-09" href="collab.html"><b>FOOTHOLD 협업 규칙</b><span>브랜치 · 보드 · 문서 규칙</span></a><a class="wr3" data-added="2026-08-25" href="automation.html"><b>자동화 지도</b><span>무엇이 자동이고 무엇이 사람인가</span></a></div><div class="ws3"><div class="wt3">문서 투고 시</div><div class="wd3">내 글이 어디로 가는가.</div><a class="wr3" data-added="2026-08-29" href="info-model.html"><b>정보 모델</b><span>내 글이 어디로 가나</span></a><a class="wr3" data-added="2026-08-28" href="doc-graph.html"><b>문서 관계표</b><span>무엇이 무엇의 상위인가</span></a><a class="wr3" data-added="2026-08-29" href="research-taxonomy.html"><b>연구 허브 분류 기준</b><span>검토중</span></a></div></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-05 22:10</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-08 00:56</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

@@ -368,7 +368,14 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .gnav .sp{display:none}
   .gnav a.home{margin-right:.35rem;flex:none}
   .gnav a{flex:none;padding:.3rem .45rem}
-  .gnav .navctl{margin-left:.3rem;flex:none}
+  /* ★ 2026-09-08 팀장 지적: 모바일에서 검색·테마가 화면 밖이다.
+     실측(390px · 같은 출처 iframe · 높이 30000): .navctl 오른쪽 끝이 x=860.
+     바가 가로로 스크롤되는 것은 8/31 팀장 확정이라 그대로 둔다. 다만 그 결정은
+     «허브 링크» 를 한 줄에 두려던 것이었고, 검색·테마까지 밀려날 이유는 없었다.
+     완비 관문 [3.46] 은 「토글이 있는가」만 보고 「닿는가」는 아무도 안 봤다.
+     스크롤 컨테이너 안에서 sticky 로 오른쪽에 붙여 언제나 닿게 한다. */
+  .gnav .navctl{margin-left:auto;flex:none;position:sticky;right:0;
+    background:var(--paper);padding-left:.35rem;z-index:1}
 }
 
 .band{display:block;text-decoration:none;color:inherit;background:var(--paper-2);
@@ -768,5 +775,5 @@ document.addEventListener('click', function(e){
 </script>
 <style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7;--dim-ink:#0b6459;--grid:rgba(22,28,38,.04);--note-ink:#8a5600;}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-05 22:10</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-08 00:56</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

@@ -393,7 +393,14 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .gnav .sp{display:none}
   .gnav a.home{margin-right:.35rem;flex:none}
   .gnav a{flex:none;padding:.3rem .45rem}
-  .gnav .navctl{margin-left:.3rem;flex:none}
+  /* ★ 2026-09-08 팀장 지적: 모바일에서 검색·테마가 화면 밖이다.
+     실측(390px · 같은 출처 iframe · 높이 30000): .navctl 오른쪽 끝이 x=860.
+     바가 가로로 스크롤되는 것은 8/31 팀장 확정이라 그대로 둔다. 다만 그 결정은
+     «허브 링크» 를 한 줄에 두려던 것이었고, 검색·테마까지 밀려날 이유는 없었다.
+     완비 관문 [3.46] 은 「토글이 있는가」만 보고 「닿는가」는 아무도 안 봤다.
+     스크롤 컨테이너 안에서 sticky 로 오른쪽에 붙여 언제나 닿게 한다. */
+  .gnav .navctl{margin-left:auto;flex:none;position:sticky;right:0;
+    background:var(--paper);padding-left:.35rem;z-index:1}
 }
 
 .band{display:block;text-decoration:none;color:inherit;background:var(--paper-2);
@@ -996,6 +1003,19 @@ body>*{flex-shrink:0}
 .tmr3 .tmg3 b{font-weight:750;color:var(--ink-2)}
 .tmr3 .tma3{font-size:.63rem;letter-spacing:.06em;color:var(--dim);
   white-space:nowrap;padding:0 .9rem;text-transform:uppercase}
+/* ★ 2026-09-08 팀장 지적: 모바일에서 이 줄이 잘린다.
+   실측(390px 뷰포트 · 같은 출처 iframe · 높이 30000 으로 스크롤바 제거):
+   다섯 줄 모두 609px · body scrollWidth 633. 네 번째 칸(담당 실패 지형)이
+   화면 밖으로 나가 아예 안 보였다. 원인은 nowrap 둘(.tmg3 · .tma3)과 b 의
+   min-width:9rem 이 겹쳐 접힐 자리가 없던 것이다.
+   좁은 화면에서만 줄바꿈을 허용하고 최소폭을 푼다. 넓은 화면은 그대로 둔다. */
+@media (max-width:560px){
+  .tmr3{flex-wrap:wrap;gap:.15rem .6rem}
+  .tmr3 b{min-width:0;flex:0 0 100%}
+  .tmr3>span:not(.tmg3){flex:1 1 auto;min-width:0}
+  .tmr3 .tmg3{margin-left:0;padding-left:0;white-space:normal}
+  .tmr3 .tma3{padding:0;white-space:normal}
+}
 .phn3{font-size:.62rem;font-weight:600;letter-spacing:0;color:var(--ink-3);
   text-transform:none;margin-left:.5rem}
 /* 예정 줄: 같은 자리에 서되 «아직 없다» 가 보이게. 번호는 비고, 글은 옅다 */
@@ -1114,5 +1134,5 @@ body>*{flex-shrink:0}
 }
 </style><div class="eh3" style="margin-top:1.6rem">ROS 2 기초 <span>4편</span></div><div class="pt3"><div class="st3"><span class="sn3">01</span><a class="sb3" data-added="2026-08-27" href="ros2-01-setup.html"><b>ROS 2 개발환경 구축</b><span>Ubuntu 24.04 + Jazzy. 명령마다 토큰별 뜻까지 (오현민)</span></a></div><div class="jt3"></div><div class="st3"><span class="sn3">02</span><a class="sb3" data-added="2026-08-27" href="ros2-02-python.html"><b>ROS 2 Python 프로그래밍</b><span>rclpy 노드 · colcon 패키지 · 커스텀 인터페이스 (오현민)</span></a></div><div class="jt3"></div><div class="st3"><span class="sn3">03</span><a class="sb3" data-added="2026-08-27" href="ros2-03-tf-rviz2.html"><b>ROS 2 TF 좌표계와 RViz2</b><span>로봇이 자기 몸과 주변의 위치 관계를 아는 법 (오현민)</span></a></div><div class="jt3"></div><div class="st3"><span class="sn3">04</span><a class="sb3" data-added="2026-08-30" href="tech-ros2-ref.html"><b>ROS 2 레퍼런스</b><span>큰 그림 · 통신 4형제 · rclpy · 패키지 · 디버깅. 1~3편의 심화 레퍼런스</span></a></div></div><div class="eh3" style="margin-top:1.6rem">트랙 A · 시뮬 학습 <span>1편</span></div><div class="pt3"><div class="st3"><span class="sn3">01</span><a class="sb3" data-added="2026-08-30" href="tech-rl.html"><b>시뮬레이션 RL 레퍼런스</b><span>Isaac Lab 선택 근거 · 험지 RL 표준 레시피 · 핵심 논문 5편</span></a></div></div><div class="eh3" style="margin-top:1.6rem">트랙 B · 실기 항법 <span>2편</span></div><div class="pt3"><div class="st3"><span class="sn3">01</span><a class="sb3" data-added="2026-08-30" href="tech-slam-nav.html"><b>SLAM · Nav2 레퍼런스</b><span>Go2 와 ROS 2 연동 · SLAM 2D 메인 · Nav2 차동구동 설정</span></a></div><div class="jt3"></div><div class="st3"><span class="sn3">02</span><a class="sb3" data-added="2026-08-30" href="tech-cv.html"><b>컴퓨터 비전 교재</b><span>이미지의 정체부터 YOLO 실측 · ROS 2 이미지 파이프라인까지 12절</span></a></div></div><div class="eh3" style="margin-top:1.6rem">확장 예정 <span>3편 · 이슈로 채운다</span></div><div class="pt3"><div class="st3 soon"><span class="sn3">01</span><a class="sb3" href="https://github.com/foothold-project/foothold-lab/issues/97" target="_blank" rel="noopener"><b>Isaac Lab 실전</b><span>학습 루프를 직접 돌리는 편. 사전 측정 #90 · 추적 #97</span></a></div><div class="jt3"></div><div class="st3 soon"><span class="sn3">02</span><a class="sb3" href="https://github.com/foothold-project/foothold-lab/issues/97" target="_blank" rel="noopener"><b>MuJoCo</b><span>가벼운 사전 측정용. 레일즈 스윕 설계 #90 · 추적 #97</span></a></div><div class="jt3"></div><div class="st3 soon"><span class="sn3">03</span><a class="sb3" href="https://github.com/foothold-project/foothold-lab/issues/97" target="_blank" rel="noopener"><b>Omniverse</b><span>트윈·렌더 도구 계통. 도구 백과 #6 에서 기획 · 추적 #97</span></a></div></div><div class="soon3">lab 문서는 머리말 «차례»로, 볼트 페이지는 TECH_ORDER 로 경로에 선다. 학습자료·커리큘럼 병합은 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 2단계.</div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-05 22:10</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-08 00:56</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
