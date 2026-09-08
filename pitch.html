@@ -206,27 +206,52 @@ document.addEventListener('DOMContentLoaded',function(){
     if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
     else if(e.key==='Escape'&&ov.classList.contains('on'))close();
   });
+  /* ★ 2026-09-08 감사 F-06. 셋을 한 덩어리로 삼켜 «결과 없음» 하나로 보여줬다.
+     색인을 못 받은 것 · 받았는데 모양이 틀린 것 · 정말로 없는 것은 서로 다르다.
+     앞의 둘은 우리 잘못이고 사용자는 다시 시도해야 한다는 것을 알아야 한다.
+     경로도 루트 절대경로로 바꾼다. team-meang/ 처럼 한 단계 아래 페이지에서
+     상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
+  var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+    fetch('/assets/search-index.json').then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        return r.json();})
+      .then(function(j){
+        if(!Array.isArray(j)||(j.length&&typeof j[0].x!=='string'))
+          throw new Error('schema');
+        IDX=j;IDXERR=null;cb();})
+      .catch(function(err){
+        IDX=[];IDXERR=(err&&err.message==='schema')?'schema':'fetch';cb();});}
   function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function go(){
     var q=inp.value.trim().toLowerCase();sel=-1;
     if(q.length<2){res.innerHTML='';return;}
     load(function(){
+      /* ★ 2026-09-08 감사 F-02. 전에는 hits.length<40 인 동안만 훑고 그 40개를
+         정렬했다. 색인은 페이지 이름 순이라, 뒤쪽 페이지의 «제목 일치»(3점)가
+         앞쪽 페이지의 «본문 일치»(1점)보다 높아도 후보에 못 들었다.
+         실측: 프로젝트·보행·평가·문서·정책 다섯 낱말에서 화면 상위 12가
+         전역 상위 12와 달랐다. 전부 점수 매기고 정렬한 «뒤에» 자른다. */
       var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
+      for(var i=0;i<IDX.length;i++){
         var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
             pi=e.t.toLowerCase().indexOf(q);
         if(hi<0&&ti<0&&pi<0)continue;
         var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
         var snip='';
         if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
+        hits.push({e:e,s:score,i:i,snip:snip});
       }
-      hits.sort(function(a,b){return b.s-a.s});
+      /* 동점이면 색인 순서로 고정한다. 정렬이 흔들리면 같은 검색어가 매번 다른
+         차례를 준다 (재현 빌드에서 A1 과 A2 가 갈리던 것과 같은 부류다). */
+      hits.sort(function(a,b){return b.s-a.s||a.i-b.i});
+      var total=hits.length;
       hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      if(!hits.length){
+        var msg=IDXERR==='fetch'?'검색 색인을 불러오지 못했습니다. 새로고침해 주세요'
+               :IDXERR==='schema'?'검색 색인 형식이 올바르지 않습니다. 관리자에게 알려 주세요'
+               :'결과 없음: '+esc(q);
+        res.innerHTML='<div class="none">'+msg+'</div>';}
       else{res.innerHTML=hits.map(function(h){
         return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
           +'</div><div class="sp2">'+esc(h.e.h)+'</div>'

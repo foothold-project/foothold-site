@@ -72,9 +72,18 @@ h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem
   border-bottom:1px solid var(--rule);margin-bottom:1rem}
 h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
 h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
-p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+/* ★ 2026-09-08 감사 F-04. 모바일에서 페이지가 가로로 늘어났다.
+   원인은 keep-all 의 «짝» 이 빠진 것이다. word-break:keep-all 은 한국어를
+   낱말 중간에서 안 끊으려고 쓰는데, 그것만 두면 긴 URL 처럼 끊을 자리가
+   없는 토큰이 상자 밖으로 삐져나가 페이지 자체를 넓힌다.
+   p 에는 overflow-wrap 이 있었는데 li·td 에는 없었다. 실측에서 넘친 것이
+   정확히 li 였다 (research-cloud-gpu-options: li 안쪽 폭 729px · 화면 345px).
+   anywhere 는 «끊을 데가 없을 때만» 끊는다. 한국어 문장은 그대로 keep-all 이다.
+   표와 pre 는 자기 컨테이너(.tw)에서 스크롤하므로 여기서 건드리지 않는다. */
+p{margin:.6rem 0;overflow-wrap:anywhere;word-break:keep-all}
 ul,ol{margin:.6rem 0 .6rem 1.2rem}
-li{margin:.24rem 0;word-break:keep-all}
+li{margin:.24rem 0;word-break:keep-all;overflow-wrap:anywhere}
+dd,dt,figcaption,blockquote{overflow-wrap:anywhere}
 b{font-weight:800}
 a{color:var(--dim)}
 code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
@@ -91,7 +100,7 @@ blockquote b{color:var(--ink)}
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
 table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
 th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
-  word-break:keep-all}
+  word-break:keep-all;overflow-wrap:anywhere}
 th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
   letter-spacing:.04em;border-bottom:none}
 tbody tr:last-child td{border-bottom:none}
@@ -616,27 +625,52 @@ document.addEventListener('DOMContentLoaded',function(){
     if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
     else if(e.key==='Escape'&&ov.classList.contains('on'))close();
   });
+  /* ★ 2026-09-08 감사 F-06. 셋을 한 덩어리로 삼켜 «결과 없음» 하나로 보여줬다.
+     색인을 못 받은 것 · 받았는데 모양이 틀린 것 · 정말로 없는 것은 서로 다르다.
+     앞의 둘은 우리 잘못이고 사용자는 다시 시도해야 한다는 것을 알아야 한다.
+     경로도 루트 절대경로로 바꾼다. team-meang/ 처럼 한 단계 아래 페이지에서
+     상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
+  var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+    fetch('/assets/search-index.json').then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        return r.json();})
+      .then(function(j){
+        if(!Array.isArray(j)||(j.length&&typeof j[0].x!=='string'))
+          throw new Error('schema');
+        IDX=j;IDXERR=null;cb();})
+      .catch(function(err){
+        IDX=[];IDXERR=(err&&err.message==='schema')?'schema':'fetch';cb();});}
   function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function go(){
     var q=inp.value.trim().toLowerCase();sel=-1;
     if(q.length<2){res.innerHTML='';return;}
     load(function(){
+      /* ★ 2026-09-08 감사 F-02. 전에는 hits.length<40 인 동안만 훑고 그 40개를
+         정렬했다. 색인은 페이지 이름 순이라, 뒤쪽 페이지의 «제목 일치»(3점)가
+         앞쪽 페이지의 «본문 일치»(1점)보다 높아도 후보에 못 들었다.
+         실측: 프로젝트·보행·평가·문서·정책 다섯 낱말에서 화면 상위 12가
+         전역 상위 12와 달랐다. 전부 점수 매기고 정렬한 «뒤에» 자른다. */
       var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
+      for(var i=0;i<IDX.length;i++){
         var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
             pi=e.t.toLowerCase().indexOf(q);
         if(hi<0&&ti<0&&pi<0)continue;
         var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
         var snip='';
         if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
+        hits.push({e:e,s:score,i:i,snip:snip});
       }
-      hits.sort(function(a,b){return b.s-a.s});
+      /* 동점이면 색인 순서로 고정한다. 정렬이 흔들리면 같은 검색어가 매번 다른
+         차례를 준다 (재현 빌드에서 A1 과 A2 가 갈리던 것과 같은 부류다). */
+      hits.sort(function(a,b){return b.s-a.s||a.i-b.i});
+      var total=hits.length;
       hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      if(!hits.length){
+        var msg=IDXERR==='fetch'?'검색 색인을 불러오지 못했습니다. 새로고침해 주세요'
+               :IDXERR==='schema'?'검색 색인 형식이 올바르지 않습니다. 관리자에게 알려 주세요'
+               :'결과 없음: '+esc(q);
+        res.innerHTML='<div class="none">'+msg+'</div>';}
       else{res.innerHTML=hits.map(function(h){
         return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
           +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
@@ -755,7 +789,7 @@ body>*{flex-shrink:0}
 세션 안에서만 한 설명은 세션이 끝나면 사라진다. 그래서 여기 박는다.</p>
 <p>이 문서는 <b>결정만</b> 담는다. 왜 그렇게 정했는지의 근거는 각 항목에 한 줄로 붙인다.</p></blockquote>
 </section>
-<section id="s1"><h2>1. 이슈와 분류</h2>
+<section id="s1"><span id="1"></span><h2>1. 이슈와 분류</h2>
 <div class="tw"><table><thead><tr><th>#</th><th>결정</th><th>근거</th></tr></thead><tbody><tr><td>1-1</td><td>이슈 템플릿 <code>name</code> 을 <b>한 단어로 짓지 않는다</b></td><td><code>작업</code>·<code>실험</code> 은 GitHub 이 목록에서 오류 없이 숨긴다. 재현 6회. 원인 기전은 <span class="ev ev-todo">미확인</span></td></tr><tr><td>1-2</td><td>템플릿 이름: <b>작업 등록 · 실험 기록 · 리서치 · 막힘·오류</b></td><td>「작업 선언」은 하는 일과 어긋난다. 팀장 표현대로 「미리 등록」하는 곳</td></tr><tr><td>1-3</td><td>폼 문구를 <b>「작업 영역」</b> 으로 (「어느 갈래인가」 폐기)</td><td>공식 프로젝트 문서에 쓸 말이 아니다</td></tr><tr><td>1-4</td><td><b>작업 영역 8갈래</b>. 트랙 접두어를 붙인다</td><td>옛 5갈래는 8/19 두 트랙 전환 이전 것이라 「실기 전이」가 폐기된 목표 이름이었고 트랙 B 가 통째로 빠져 있었다</td></tr><tr><td>1-5</td><td>색은 <b>트랙</b>으로 묶는다. A 초록 · B 파랑 · 공통 회색</td><td>보드에서 색만 보고 트랙을 안다</td></tr><tr><td>1-6</td><td><b>마일스톤 5개</b>로 재정의</td><td>아래 표</td></tr><tr><td>1-7</td><td>폼의 답을 <b>라벨·마일스톤으로 자동 이관</b></td><td>폼은 이미 묻고 있었는데 답이 본문 글자로만 남아 보드에서 묶이지 않았다. 팀원이 안 적어서가 아니라 적은 것이 옮겨지지 않아서였다</td></tr><tr><td>1-8</td><td><b>이슈는 만든 사람이 닫는다</b></td><td>승격 검토(<code>[승격 검토]</code>)만 봇이 만들고 팀장이 닫는다</td></tr><tr><td>1-9</td><td>팀원 계획을 <b>팀장이 대신 이슈로 발행하지 않는다</b></td><td>본인이 만들지 않은 이슈는 본인이 닫지 않아 보드에 남는다</td></tr><tr><td>1-10</td><td><b>이슈를 만드는 것이 곧 계획이다.</b> 개인 계획 문서를 따로 쓰지 않는다</td><td>두 곳에 적으면 한쪽만 고쳐진다 (<code>DECISIONS 08-13</code>). 실제로 라현 계획이 문서엔 있고 일정엔 없었다</td></tr></tbody></table></div>
 <h3>작업 영역 8갈래</h3>
 <div class="tw"><table><thead><tr><th>코드</th><th>라벨</th><th>Main</th><th>폴더</th></tr></thead><tbody><tr><td>A1</td><td><code>A/정책학습</code></td><td>임석헌</td><td><code>sim/policy/</code></td></tr><tr><td>A2</td><td><code>A/지형씬제작</code></td><td>맹라현</td><td><code>sim/terrain/</code></td></tr><tr><td>A3</td><td><code>A/평가</code></td><td>오현민</td><td><code>sim/eval/</code></td></tr><tr><td>A4</td><td><code>A/트윈렌더</code></td><td><b>맹라현</b></td><td><code>sim/twin/</code></td></tr><tr><td>B1</td><td><code>B/항법</code></td><td>오흥재</td><td><code>nav/</code></td></tr><tr><td>B2</td><td><code>B/인지</code></td><td>오현민</td><td><code>nav/perception/</code></td></tr><tr><td>C1</td><td><code>C/기록</code></td><td>이민우</td><td><code>docs/</code></td></tr><tr><td>C2</td><td><code>C/운영</code></td><td>오흥재</td><td><code>.github/</code></td></tr></tbody></table></div>
@@ -764,7 +798,7 @@ body>*{flex-shrink:0}
 <div class="tw"><table><thead><tr><th>마일스톤</th><th>기한</th><th>끝났다는 뜻</th><th>근거</th></tr></thead><tbody><tr><td><code>A-정책</code></td><td>9/12</td><td>우리 지형으로 학습한 정책과 지표 세트</td><td>REPORT §3 ②③④ · 렌더 실측 역산</td></tr><tr><td><code>MVP · 중간발표</code></td><td>9/30</td><td><b>트랙 A 완결.</b> 일반화 평가표 + 트윈·렌더 시연물</td><td>팀장 확정. 「10월 초」 언급이 있었으나 9/30 기준으로 진행</td></tr><tr><td><code>NAV · 실기 항법</code></td><td>11/7</td><td>조선대 Go2 에서 SLAM 지도 + Nav2 경로가 한 번 돈다</td><td>자체 대여 시작(11/11) 직전에 조선대 단계를 닫는다</td></tr><tr><td><code>FINAL · 최종발표</code></td><td>12/11</td><td>지정 코스 자율주행 시연</td><td>팀장 확정</td></tr></tbody></table></div>
 <p><b>히든 트랙</b>: 트랙 A 가 중간발표에서 끝나지 않고 최종까지 더 발전할 수 있다. 약속이 아니라 여지이므로 마일스톤에 넣지 않는다. 살아나면 이슈에 <code>히든</code> 라벨로 단다.</p>
 </section>
-<section id="s2"><h2>2. 역할</h2>
+<section id="s2"><span id="2"></span><h2>2. 역할</h2>
 <p>8/21 팀 미팅 표가 원본이고, 아래는 <b>2026-08-27 팀장이 확장한 것</b>이다.</p>
 <div class="tw"><table><thead><tr><th>영역</th><th>Main</th><th>Sub</th></tr></thead><tbody><tr><td>RL 정책·학습</td><td>임석헌</td><td>이민우 · 오현민 · 맹라현 · 오흥재</td></tr><tr><td>디지털 트윈·씬</td><td>맹라현</td><td>오흥재 · 이민우</td></tr><tr><td>CV·인지·평가</td><td>오현민</td><td>맹라현 · <b>이민우</b></td></tr><tr><td>항법 (SLAM·Nav2)</td><td>오흥재</td><td>임석헌 · 이민우 · 오현민 · 맹라현</td></tr></tbody></table></div>
 <ul><li>팀장은 파트 배정과 별개로 전 영역에 관여한다. 표는 <b>파트를 끄는 사람</b>을 적은 것이다.</li><li>「전원」이라고 쓰지 않고 <b>이름으로 푼다.</b> 「전원」은 아무도 아니라는 뜻으로 읽힌다.</li><li><code>공통/기록</code> main 은 <b>이민우</b>다. 맹라현은 이미 두 갈래 main 이라 과부하이고, 이민우가 하던 「운영진 대상 문서화」가 이 갈래와 같은 일이다.</li></ul>
@@ -773,7 +807,7 @@ body>*{flex-shrink:0}
 <div class="tw"><table><thead><tr><th>지형</th><th>실패 모드</th><th>무엇이 문제인가</th></tr></thead><tbody><tr><td><code>stepping_stones</code> <code>pit</code> <code>floating_ring</code></td><td>전진 불능</td><td>관측이 위험(구멍·레일)을 실제로 보는가</td></tr><tr><td><code>gap</code> <code>rails</code></td><td>낙상</td><td>발 배치와 접촉 페널티</td></tr></tbody></table></div>
 <p>원인이 다르므로 처방도 달라야 하고, 한 사람이 순차로 다루면 시행착오가 직렬로 쌓인다. <b>병렬로 나누는 것은 학습이 아니라 「레시피 찾기」다.</b> 최종 학습은 혼합 단일 실행 하나다.</p>
 </section>
-<section id="s3"><h2>3. 저장소와 폴더</h2>
+<section id="s3"><span id="3"></span><h2>3. 저장소와 폴더</h2>
 <div class="tw"><table><thead><tr><th>#</th><th>결정</th><th>근거</th></tr></thead><tbody><tr><td>3-1</td><td><code>foothold-rl</code> → <b><code>foothold-go2</code></b></td><td>RL 이라는 이름이 트랙 B(ROS2·SLAM·Nav2)를 담을 수 없다</td></tr><tr><td>3-2</td><td>폴더는 <b><code>sim/</code> <code>nav/</code> <code>common/</code></b>. 트랙 이름을 폴더에 박지 않는다</td><td>히든 트랙이 현실이 되면 <code>track-a-</code> 가 거짓말이 된다</td></tr><tr><td>3-3</td><td><b>lab 과 go2 가 같은 트리</b>를 쓴다</td><td>lab 은 문서 창고가 아니라 개발 공간이기도 하다. 경로가 같으면 옮길 때 판단이 없다</td></tr><tr><td>3-4</td><td>go2 의 문서 폴더는 <b><code>guide/</code>(재현 절차) · <code>report/</code>(발표 후 공개본)</b></td><td><code>docs/</code> 를 쓰면 lab 의 <code>docs/</code>(정본)와 뜻이 겹쳐 사고가 난다</td></tr><tr><td>3-5</td><td><b>코드는 inbox 를 거치지 않는다.</b> 브랜치 → PR → <code>sim/</code>·<code>nav/</code> 직접</td><td>문서는 팀장이 옮겨도 뜻이 안 변하지만 코드는 옮기면 도는지 보장할 수 없다</td></tr><tr><td>3-6</td><td>inbox 는 <b>자유</b>다. 구조를 강요하지 않는다</td><td><code>inbox/&lt;이름&gt;/</code> 아래는 구조적으로 충돌이 불가능하다. 그게 inbox 의 값이다</td></tr><tr><td>3-7</td><td><code>inbox/jay/</code> 신설</td><td>팀장 제출함이 없었다</td></tr></tbody></table></div>
 <h3>브랜치</h3>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>feature/주제-이름      새로 만드는 것
@@ -785,10 +819,10 @@ docs/문서명-이름        문서만</pre></div>
 <div class="tw"><table><thead><tr><th>순서</th><th>무엇</th><th>보드</th></tr></thead><tbody><tr><td>1</td><td>이슈를 만든다. 본인 assign · 기간</td><td>Todo (자동)</td></tr><tr><td>2</td><td>폼에서 작업 영역·관문을 고른다</td><td>라벨·마일스톤 (자동)</td></tr><tr><td>3</td><td>브랜치를 판다</td><td></td></tr><tr><td>4</td><td><b>이슈를 In Progress 로 옮긴다</b></td><td>손으로. 이것 하나뿐</td></tr><tr><td>5</td><td>작업·커밋</td><td></td></tr><tr><td>6</td><td>PR 을 연다 (<code>Closes #29</code>)</td><td>In Progress (자동)</td></tr><tr><td>7</td><td>팀장 검토</td><td></td></tr><tr><td>8</td><td>머지 → 이슈 자동 닫힘</td><td>Done (자동)</td></tr></tbody></table></div>
 <p><b><code>Closes #29</code> 는 PR 을 열 때가 아니라 머지될 때 닫는다.</b> 그래서 PR 이 먼저다. <code>main</code> 에 안 들어간 작업은 아직 끝난 게 아니다.</p>
 </section>
-<section id="s4"><h2>4. 문서</h2>
+<section id="s4"><span id="4"></span><h2>4. 문서</h2>
 <div class="tw"><table><thead><tr><th>#</th><th>결정</th><th>근거</th></tr></thead><tbody><tr><td>4-1</td><td>머리 <b>다섯 줄</b>: 분류 · 작성 · 근거 · 요지 · 상태</td><td>네 줄이라 적힌 곳이 여러 곳이었다. 다섯으로 통일</td></tr><tr><td>4-2</td><td>작성은 <b><code>이름 · YYYY-MM-DD HH:MM</code></b></td><td>날짜만도 통과하나 시각까지 쓰면 같은 날 수정 순서가 보인다</td></tr><tr><td>4-3</td><td><b>파일 100MB 미만이면 git 에 올려도 된다</b></td><td>GitHub 이 거부하는 실제 경계가 100MB 다. 내가 임의로 10MB 로 좁혔던 것을 되돌렸다</td></tr><tr><td>4-4</td><td>회의록에 <b><code>&gt; 자리:</code></b> 한 줄 추가 (팀내부·멘토링·운영진·조선대)</td><td>멘토 조언과 팀이 스스로 정한 결정이 같은 줄에 있으면 「누가 정한 것인가」를 매번 되짚어야 한다</td></tr><tr><td>4-5</td><td><b>덧붙인 것은 덧붙였다고 날짜와 함께 표시한다</b></td><td>「증발 금지」를 지켜도 뜻은 바뀔 수 있다. 라현이 회의록에 해설 한 문단을 덧붙였는데 그것이 원래 표를 「뒤집힌 결정」처럼 읽히게 했다</td></tr><tr><td>4-6</td><td><code>AGENTS.md</code> 에 <b>공통 규칙만</b>. 개인 설정은 <code>inbox/&lt;이름&gt;/AGENTS.md</code> 또는 로컬</td><td>에이전트마다 도구가 달라, 공통 파일에 개인 설정이 섞이면 남의 에이전트가 그것을 규칙으로 읽는다</td></tr><tr><td>4-7</td><td>em dash 전면 금지</td><td><code>os/</code> 130 · lab 38 · go2 7 전부 제거. 다만 <b><code>·</code> 는 단어 단위 「그리고」라</b> 절 단위 dash 를 기계적으로 바꾸면 의미가 붕괴한다. 실제로 커널 6행이 깨졌다</td></tr><tr><td>4-8</td><td>산출물 <b>상태는 문서의 <code>&gt; 상태:</code> 줄이 정한다.</b> 하드코딩하지 않는다</td><td>문서를 고치면 다음 배포에 그대로 반영된다</td></tr><tr><td>4-9</td><td><b>문서만 남기는 것으로 끝내지 않는다. 웹에 반영한다</b></td><td>md 는 원고, 사람이 보는 것은 웹, 제출하는 것은 그 웹을 뽑은 PDF</td></tr></tbody></table></div>
 </section>
-<section id="s5"><h2>5. 산출물 (9월 4일 제출)</h2>
+<section id="s5"><span id="5"></span><h2>5. 산출물 (9월 4일 제출)</h2>
 <p>운영진 산출문서 안내에는 열한 개가 있지만 <b>실증 프로젝트가 내는 것은 셋</b>이다.</p>
 <div class="tw"><table><thead><tr><th>공식 번호</th><th>문서</th><th>우리 파일</th></tr></thead><tbody><tr><td>1.1</td><td>브레인 스토밍</td><td><code>deliverables/plan/brainstorming.md</code></td></tr><tr><td>1.2.1</td><td>프로젝트 기획서 (요약)</td><td><code>deliverables/plan/proposal-summary.md</code></td></tr><tr><td>1.2.2</td><td>프로젝트 기획서 (기획발표용)</td><td><code>deliverables/plan/proposal-deck.md</code></td></tr><tr><td>3.1</td><td>WBS</td><td><code>deliverables/plan/wbs.md</code> → <code>wbs.xlsx</code></td></tr></tbody></table></div>
 <p><b>내지 않는 것</b>: 1.3 요구사항 정의서 · 2.x 설계 3종 (팀장 확정). <b>제출은 아니나 계속 쌓는 것</b>: 3.2 진행일지 · 3.3 멘토링일지.</p>
@@ -798,17 +832,17 @@ docs/문서명-이름        문서만</pre></div>
 <p>1·2층이 「WBS 계획서」이고 이슈가 하나도 없어도 그려진다. 엑셀은 <b>주간 다이제스트에 편승</b> + Actions 수동 버튼. 즉시 반영이 아니다.</p>
 <p><b>이슈 제목에 동사 규칙을 강제하지 않는다</b> (팀장 철회). <code>gap 지형 파인튜닝</code> 으로 충분하다.</p>
 </section>
-<section id="s6"><h2>6. 웹</h2>
+<section id="s6"><span id="6"></span><h2>6. 웹</h2>
 <div class="tw"><table><thead><tr><th>#</th><th>결정</th><th>근거</th></tr></thead><tbody><tr><td>6-1</td><td>표지 D-day: <b>MVP 는 D-N, FINAL 은 초 단위.</b> 제출 서류를 같이 표시</td><td>팀장 확정 문구: 「MVP D-35, FINAL 107일 00:00:00 이런식으로」</td></tr><tr><td>6-2</td><td>그보다 임박한 관문이 있으면 <b>맨 앞에 하나 더</b></td><td>급한 것을 표지에서 빼지 않는다</td></tr><tr><td>6-3</td><td>D-day 띠는 <b>다이제스트 띠보다 위</b></td><td>「언제까지」가 「무엇을 했나」보다 급하다</td></tr><tr><td>6-4</td><td>허브 카드에 <b>넘버링 · 작성자 · 작성일</b></td><td>「이 글이 언제 등록되었는지 메타 정보도 없어 UX 적으로 좋지 않다」</td></tr><tr><td>6-5</td><td>회의 허브를 <b>자리별 섹션</b>으로</td><td>위 4-4</td></tr><tr><td>6-6</td><td>산출물 문서를 <b>웹 페이지로 게시</b>하고 현황 표에서 링크</td><td>위 4-9</td></tr><tr><td>6-7</td><td>홈페이지 구조화·네비·경로 정리는 <b>맨 마지막에 한 번에</b></td><td>폴더 정리 전에 하면 두 번 고친다</td></tr><tr><td>6-8</td><td>브랜드 정본은 <b><code>foothold-brand</code> 저장소</b>. Figma 는 거울</td><td>Figma 파일 자체가 「Brand 1.1.0 · Git is canonical」이라고 적고 있다</td></tr><tr><td>6-9</td><td>발표 덱은 <b><code>team-intro</code> 완성도 + <code>pitch#12</code> 엔딩 + brand 승인본</b></td><td><code>pitch</code> 판의 발자국 점선 도식은 팀장 반려</td></tr></tbody></table></div>
 </section>
-<section id="s7"><h2>7. 자동화</h2>
+<section id="s7"><span id="7"></span><h2>7. 자동화</h2>
 <div class="tw"><table><thead><tr><th>무엇</th><th>언제 도나</th><th>확인</th></tr></thead><tbody><tr><td>이슈 자동 분류 (<code>issue-triage.yml</code>)</td><td>이슈 열림·수정</td><td>시험 이슈 <code>#57</code>·<code>#59</code></td></tr><tr><td>PR 봇 머리 다섯 줄 코멘트</td><td>inbox PR</td><td>시험 PR <code>#58</code>·<code>#60</code></td></tr><tr><td>WBS 엑셀 생성</td><td>주간 리포트에 편승 + 수동</td><td>실행 확인</td></tr><tr><td>다이제스트 <b>재료</b> 수집</td><td>일요일 21시 KST</td><td>실행 확인</td></tr><tr><td>승격 검토 이슈</td><td><b>PR 머지 뒤</b> (원래 그랬음)</td><td>트리거 확인</td></tr></tbody></table></div>
 <p><b>다이제스트는 재료만 자동으로 모은다.</b> 「무엇을 알게 됐나」는 판단이라 기계가 못 쓴다. 커밋 목록에서 「보상이 높다고 걷는 것이 아니다」 같은 문장은 나오지 않는다.</p>
 </section>
-<section id="s8"><h2>8. 이 세션에서 배운 것 (재발 방지)</h2>
+<section id="s8"><span id="8"></span><h2>8. 이 세션에서 배운 것 (재발 방지)</h2>
 <div class="tw"><table><thead><tr><th>무엇</th><th>어떻게 막나</th></tr></thead><tbody><tr><td><b>초록불이 거짓말을 할 수 있다</b></td><td>폐기된 어휘로 매칭하던 워크플로가 <code>exit 0</code> 으로 계속 success 를 냈다. 빈 산출물이 성공이 되는 경로를 남기지 않는다</td></tr><tr><td><b>내 검사식이 내 코드에 걸린다</b></td><td><code>id: quest</code> 가 <code>id: question</code> 에, <code>. ./triage.env</code> 가 내가 쓴 주석에 걸렸다. 줄 전체 일치로 본다</td></tr><tr><td><b>UTC 로 날짜를 찍으면 한국 새벽에 어제가 된다</b></td><td>GitHub Actions 러너에서는 <code>TZ=Asia/Seoul</code> 을 쓴다. <b>단 이 워크스테이션의 Git Bash 에서는 쓰지 않는다</b> (시계가 이미 KST 라 9시간 어긋난다. 2026-08-27 실측: 11:43 -&gt; 02:43). 로컬에서는 <code>date</code> 를 그대로 쓰거나 PowerShell <code>(Get-Date)</code> 를 쓴다</td></tr><tr><td><b>heredoc 안 파이썬의 백슬래시가 먹힌다</b></td><td>파이썬 코드는 파일 도구로 쓴다. <code>chr(10)</code>·<code>chr(92)</code> 로 우회</td></tr><tr><td><b>대화가 압축되면 결정이 사라진다</b></td><td>이 문서가 그 대응이다</td></tr></tbody></table></div>
 </section>
-<section id="s9"><h2>9. 아직 안 정해진 것</h2>
+<section id="s9"><span id="9"></span><h2>9. 아직 안 정해진 것</h2>
 <blockquote><p><b>닫힌 것 (2026-08-27)</b>: 실패 5종 개인 배정. <code>gap</code> 임석헌 · <code>rails</code> 맹라현 ·
 <code>stepping_stones</code> 오현민 · <code>pit</code> 이민우 · <code>floating_ring</code> 오흥재.
 근거와 각자 만질 파라미터는 <a href="research-terrain-finetune-plan.html">실패 지형 파인튜닝 실행 계획</a> §1.</p></blockquote>
@@ -817,12 +851,27 @@ docs/문서명-이름        문서만</pre></div>
 
 </div>
 <script>
-document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
-addEventListener('scroll', function(){
-  var h = document.documentElement;
-  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
-  document.getElementById('prog').style.width = (p * 100) + '%';
-}, {passive:true});
+/* ★ 2026-09-08 감사 F-05. 이 블록은 98장에 실리는데 그 안의 두 요소는
+   페이지마다 있기도 없기도 하다. 없는 요소에 그냥 붙여서 예외가 났다.
+     pdfBtn  무방비 리스너 108장 · 버튼 8장 -> 100장에서 «로드 즉시» 예외
+     prog    참조 99장 · 요소 1장          -> 98장에서 «스크롤할 때» 예외
+   pdfBtn 쪽은 로드 순간 죽어 뒤따르는 스크립트가 통째로 멈춘다.
+   prog 쪽은 잠복이라 스크롤하기 전까지 멀쩡해 보였고, 그래서 감사가
+   런타임 예외를 1건만 관측했다. 정적으로는 98장이 안고 있었다.
+   둘 다 «있을 때만» 붙인다. */
+(function(){
+  var pdf = document.getElementById('pdfBtn');
+  if (pdf) pdf.addEventListener('click', function(){ window.print(); });
+})();
+(function(){
+  var bar = document.getElementById('prog');
+  if (!bar) return;
+  addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+    bar.style.width = (p * 100) + '%';
+  }, {passive:true});
+})();
 /* 복사 버튼: 코드 블록과 접속 주소 공용 */
 document.addEventListener('click', function(e){
   var b = e.target.closest && e.target.closest('.copy');
@@ -836,5 +885,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-08 01:16</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 07:36</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

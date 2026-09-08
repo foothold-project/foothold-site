@@ -25,7 +25,7 @@
 /* ---------- 레이아웃 ---------- */
 .shell{display:flex;max-width:1240px;margin:0 auto}
 main{flex:1;min-width:0;padding:36px 52px 120px}
-main h2[id],main h3[id],main h4[id]{scroll-margin-top:calc(var(--tb-h) + 18px)}
+main h2[id],main h3[id],main h4[id],main .vids figure[id]{scroll-margin-top:calc(var(--tb-h) + 18px)}
 
 /* ---------- 상단 고정바 (2단) ---------- */
 .topbar{position:sticky;top:0;z-index:60;background:var(--panel);
@@ -351,7 +351,7 @@ html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#
   .cb pre .n,.cb pre .v,.cb pre .o,.cb pre .b{color:#333!important}
 }
 
-main{max-width:1040px;margin:0 auto;padding:1.5rem 1.4rem 4rem}.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}.tw table{min-width:max-content}.fh-doc{font-size:15px;line-height:1.75;color:var(--ink)}.fh-doc p,.fh-doc li,.fh-doc .lede{font-size:15px;line-height:1.75}.fh-doc .why,.fh-doc .lede,.fh-doc .cmd .why{color:var(--ink-2)}.fh-doc h1,.fh-doc .hero h1{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.25}.fh-doc h2{font-size:20.48px;font-weight:800;line-height:1.75;margin:2.2rem 0 .7rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule)}.fh-doc h3{font-size:16px;font-weight:800;line-height:1.75;margin:1.4rem 0 .5rem}.fh-doc h4{font-size:15px;font-weight:700;margin:1.1rem 0 .4rem}.fh-doc h5{font-size:13.5px;font-weight:700;margin:1rem 0 .35rem}.fh-doc .hero,.fh-doc .card,.fh-doc .box,.fh-doc .panel,.fh-doc .call,.fh-doc .stamp{border-radius:8px;border:1px solid var(--rule);background:var(--card)}.fh-doc table{border-collapse:collapse;width:100%}.fh-doc th,.fh-doc td{font-size:13.12px;line-height:1.75;border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left}.fh-doc th{font-weight:700;color:var(--ink-2)}.fh-doc code,.fh-doc kbd{font-family:ui-monospace,Consolas,monospace;font-size:13.5px;background:var(--paper-2);border-radius:3px;padding:0 .25em}.fh-doc pre{font-size:12.16px;line-height:1.7;background:var(--paper-2);border:1px solid var(--rule);border-radius:8px;padding:.9rem 1rem;overflow-x:auto}.fh-doc pre code{font-size:inherit;background:none;padding:0}.fh-doc .hero{background:none;border:0;border-radius:0;padding:0;margin:0 0 2.2rem;overflow:visible}.fh-doc .hero .eyebrow{font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:.4rem}.fh-doc h2 .n{color:var(--ink-3);font-weight:700;margin-right:.42rem;font-size:1em;letter-spacing:0}.fh-doc h2 .n::after{content:"."}.fh-doc th{text-transform:none;letter-spacing:0;font-size:13.12px;color:var(--ink-2);border-bottom:1px solid var(--rule);white-space:normal;padding:.5rem .7rem;background:none}.fh-doc h2{border-top:0}.fh-doc a{color:var(--dim)}</style>
+main{max-width:1040px;margin:0 auto;padding:1.5rem 1.4rem 4rem}.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}.tw table{min-width:max-content}main p,main li,main td,main th,main dd,main dt,main .call,main .cmd,main blockquote{overflow-wrap:anywhere}.fh-doc{font-size:15px;line-height:1.75;color:var(--ink)}.fh-doc p,.fh-doc li,.fh-doc .lede{font-size:15px;line-height:1.75}.fh-doc .why,.fh-doc .lede,.fh-doc .cmd .why{color:var(--ink-2)}.fh-doc h1,.fh-doc .hero h1{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.25}.fh-doc h2{font-size:20.48px;font-weight:800;line-height:1.75;margin:2.2rem 0 .7rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule)}.fh-doc h3{font-size:16px;font-weight:800;line-height:1.75;margin:1.4rem 0 .5rem}.fh-doc h4{font-size:15px;font-weight:700;margin:1.1rem 0 .4rem}.fh-doc h5{font-size:13.5px;font-weight:700;margin:1rem 0 .35rem}.fh-doc .hero,.fh-doc .card,.fh-doc .box,.fh-doc .panel,.fh-doc .call,.fh-doc .stamp{border-radius:8px;border:1px solid var(--rule);background:var(--card)}.fh-doc table{border-collapse:collapse;width:100%}.fh-doc th,.fh-doc td{font-size:13.12px;line-height:1.75;border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left}.fh-doc th{font-weight:700;color:var(--ink-2)}.fh-doc code,.fh-doc kbd{font-family:ui-monospace,Consolas,monospace;font-size:13.5px;background:var(--paper-2);border-radius:3px;padding:0 .25em}.fh-doc pre{font-size:12.16px;line-height:1.7;background:var(--paper-2);border:1px solid var(--rule);border-radius:8px;padding:.9rem 1rem;overflow-x:auto}.fh-doc pre code{font-size:inherit;background:none;padding:0}.fh-doc .hero{background:none;border:0;border-radius:0;padding:0;margin:0 0 2.2rem;overflow:visible}.fh-doc .hero .eyebrow{font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:.4rem}.fh-doc h2 .n{color:var(--ink-3);font-weight:700;margin-right:.42rem;font-size:1em;letter-spacing:0}.fh-doc h2 .n::after{content:"."}.fh-doc th{text-transform:none;letter-spacing:0;font-size:13.12px;color:var(--ink-2);border-bottom:1px solid var(--rule);white-space:normal;padding:.5rem .7rem;background:none}.fh-doc h2{border-top:0}.fh-doc a{color:var(--dim)}</style>
 <style id="fh-cb">.cb{margin:1rem 0;border:1px solid var(--rule);background:#0f141b;border-radius:8px;overflow:hidden}.cb-h{display:flex;align-items:center;gap:.5rem;padding:.3rem .6rem;background:#1a212b;border-bottom:1px solid #2b323d;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7d8693}.cb-h .copy{margin-left:auto;background:#232b36;border:1px solid #39424f;color:#c8cfd8;font-family:inherit;font-size:.62rem;font-weight:800;letter-spacing:.06em;padding:.16rem .5rem;border-radius:3px;cursor:pointer;transition:.14s}.cb-h .copy:hover{background:var(--dim);border-color:var(--dim);color:#fff}.cb-h .copy.done{background:#1b6b4a;border-color:#1b6b4a;color:#fff}.fh-doc .cb pre{margin:0;padding:.75rem .85rem;overflow-x:auto;color:#dfe4ea;background:none;border:0;border-radius:0;font-family:'Consolas','D2Coding',ui-monospace,monospace;font-size:12.16px;line-height:1.7}.cb pre .c{color:#6f7a88}</style><script id="fh-cb-js">document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".copy");if(!b)return;var w=b.closest(".cb");var t=w&&w.querySelector("pre");if(!t)return;navigator.clipboard.writeText(t.innerText).then(function(){var o=b.textContent;b.textContent="복사됨";b.classList.add("done");setTimeout(function(){b.textContent=o;b.classList.remove("done")},1400)})});</script><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2">
 <style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
@@ -687,27 +687,52 @@ document.addEventListener('DOMContentLoaded',function(){
     if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
     else if(e.key==='Escape'&&ov.classList.contains('on'))close();
   });
+  /* ★ 2026-09-08 감사 F-06. 셋을 한 덩어리로 삼켜 «결과 없음» 하나로 보여줬다.
+     색인을 못 받은 것 · 받았는데 모양이 틀린 것 · 정말로 없는 것은 서로 다르다.
+     앞의 둘은 우리 잘못이고 사용자는 다시 시도해야 한다는 것을 알아야 한다.
+     경로도 루트 절대경로로 바꾼다. team-meang/ 처럼 한 단계 아래 페이지에서
+     상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
+  var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+    fetch('/assets/search-index.json').then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        return r.json();})
+      .then(function(j){
+        if(!Array.isArray(j)||(j.length&&typeof j[0].x!=='string'))
+          throw new Error('schema');
+        IDX=j;IDXERR=null;cb();})
+      .catch(function(err){
+        IDX=[];IDXERR=(err&&err.message==='schema')?'schema':'fetch';cb();});}
   function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function go(){
     var q=inp.value.trim().toLowerCase();sel=-1;
     if(q.length<2){res.innerHTML='';return;}
     load(function(){
+      /* ★ 2026-09-08 감사 F-02. 전에는 hits.length<40 인 동안만 훑고 그 40개를
+         정렬했다. 색인은 페이지 이름 순이라, 뒤쪽 페이지의 «제목 일치»(3점)가
+         앞쪽 페이지의 «본문 일치»(1점)보다 높아도 후보에 못 들었다.
+         실측: 프로젝트·보행·평가·문서·정책 다섯 낱말에서 화면 상위 12가
+         전역 상위 12와 달랐다. 전부 점수 매기고 정렬한 «뒤에» 자른다. */
       var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
+      for(var i=0;i<IDX.length;i++){
         var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
             pi=e.t.toLowerCase().indexOf(q);
         if(hi<0&&ti<0&&pi<0)continue;
         var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
         var snip='';
         if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
+        hits.push({e:e,s:score,i:i,snip:snip});
       }
-      hits.sort(function(a,b){return b.s-a.s});
+      /* 동점이면 색인 순서로 고정한다. 정렬이 흔들리면 같은 검색어가 매번 다른
+         차례를 준다 (재현 빌드에서 A1 과 A2 가 갈리던 것과 같은 부류다). */
+      hits.sort(function(a,b){return b.s-a.s||a.i-b.i});
+      var total=hits.length;
       hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      if(!hits.length){
+        var msg=IDXERR==='fetch'?'검색 색인을 불러오지 못했습니다. 새로고침해 주세요'
+               :IDXERR==='schema'?'검색 색인 형식이 올바르지 않습니다. 관리자에게 알려 주세요'
+               :'결과 없음: '+esc(q);
+        res.innerHTML='<div class="none">'+msg+'</div>';}
       else{res.innerHTML=hits.map(function(h){
         return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
           +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
@@ -806,7 +831,7 @@ body>*{flex-shrink:0}
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 <main class="fh-doc">
-<p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 1단계) · 이식 2026-09-08 01:15 · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
+<p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 1단계) · 이식 2026-09-09 07:35 · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
 
 <div class="hero">
   <div class="eyebrow">2단계 · 10월 중순 ~ 12/11</div>
@@ -858,5 +883,5 @@ body>*{flex-shrink:0}
 <p class="sub">단골 지연 구간: 1~2주차 네트워크/펌웨어, 5주차 costmap 바닥 노이즈. 3D LIO는 "되면 좋은 것"으로 분리하고 2D 경로를 메인으로 유지한다.</p>
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-08 01:16</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 07:36</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

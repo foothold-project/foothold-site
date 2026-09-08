@@ -72,9 +72,18 @@ h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem
   border-bottom:1px solid var(--rule);margin-bottom:1rem}
 h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
 h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
-p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+/* ★ 2026-09-08 감사 F-04. 모바일에서 페이지가 가로로 늘어났다.
+   원인은 keep-all 의 «짝» 이 빠진 것이다. word-break:keep-all 은 한국어를
+   낱말 중간에서 안 끊으려고 쓰는데, 그것만 두면 긴 URL 처럼 끊을 자리가
+   없는 토큰이 상자 밖으로 삐져나가 페이지 자체를 넓힌다.
+   p 에는 overflow-wrap 이 있었는데 li·td 에는 없었다. 실측에서 넘친 것이
+   정확히 li 였다 (research-cloud-gpu-options: li 안쪽 폭 729px · 화면 345px).
+   anywhere 는 «끊을 데가 없을 때만» 끊는다. 한국어 문장은 그대로 keep-all 이다.
+   표와 pre 는 자기 컨테이너(.tw)에서 스크롤하므로 여기서 건드리지 않는다. */
+p{margin:.6rem 0;overflow-wrap:anywhere;word-break:keep-all}
 ul,ol{margin:.6rem 0 .6rem 1.2rem}
-li{margin:.24rem 0;word-break:keep-all}
+li{margin:.24rem 0;word-break:keep-all;overflow-wrap:anywhere}
+dd,dt,figcaption,blockquote{overflow-wrap:anywhere}
 b{font-weight:800}
 a{color:var(--dim)}
 code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
@@ -91,7 +100,7 @@ blockquote b{color:var(--ink)}
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
 table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
 th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
-  word-break:keep-all}
+  word-break:keep-all;overflow-wrap:anywhere}
 th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
   letter-spacing:.04em;border-bottom:none}
 tbody tr:last-child td{border-bottom:none}
@@ -616,27 +625,52 @@ document.addEventListener('DOMContentLoaded',function(){
     if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
     else if(e.key==='Escape'&&ov.classList.contains('on'))close();
   });
+  /* ★ 2026-09-08 감사 F-06. 셋을 한 덩어리로 삼켜 «결과 없음» 하나로 보여줬다.
+     색인을 못 받은 것 · 받았는데 모양이 틀린 것 · 정말로 없는 것은 서로 다르다.
+     앞의 둘은 우리 잘못이고 사용자는 다시 시도해야 한다는 것을 알아야 한다.
+     경로도 루트 절대경로로 바꾼다. team-meang/ 처럼 한 단계 아래 페이지에서
+     상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
+  var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+    fetch('/assets/search-index.json').then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        return r.json();})
+      .then(function(j){
+        if(!Array.isArray(j)||(j.length&&typeof j[0].x!=='string'))
+          throw new Error('schema');
+        IDX=j;IDXERR=null;cb();})
+      .catch(function(err){
+        IDX=[];IDXERR=(err&&err.message==='schema')?'schema':'fetch';cb();});}
   function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function go(){
     var q=inp.value.trim().toLowerCase();sel=-1;
     if(q.length<2){res.innerHTML='';return;}
     load(function(){
+      /* ★ 2026-09-08 감사 F-02. 전에는 hits.length<40 인 동안만 훑고 그 40개를
+         정렬했다. 색인은 페이지 이름 순이라, 뒤쪽 페이지의 «제목 일치»(3점)가
+         앞쪽 페이지의 «본문 일치»(1점)보다 높아도 후보에 못 들었다.
+         실측: 프로젝트·보행·평가·문서·정책 다섯 낱말에서 화면 상위 12가
+         전역 상위 12와 달랐다. 전부 점수 매기고 정렬한 «뒤에» 자른다. */
       var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
+      for(var i=0;i<IDX.length;i++){
         var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
             pi=e.t.toLowerCase().indexOf(q);
         if(hi<0&&ti<0&&pi<0)continue;
         var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
         var snip='';
         if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
+        hits.push({e:e,s:score,i:i,snip:snip});
       }
-      hits.sort(function(a,b){return b.s-a.s});
+      /* 동점이면 색인 순서로 고정한다. 정렬이 흔들리면 같은 검색어가 매번 다른
+         차례를 준다 (재현 빌드에서 A1 과 A2 가 갈리던 것과 같은 부류다). */
+      hits.sort(function(a,b){return b.s-a.s||a.i-b.i});
+      var total=hits.length;
       hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      if(!hits.length){
+        var msg=IDXERR==='fetch'?'검색 색인을 불러오지 못했습니다. 새로고침해 주세요'
+               :IDXERR==='schema'?'검색 색인 형식이 올바르지 않습니다. 관리자에게 알려 주세요'
+               :'결과 없음: '+esc(q);
+        res.innerHTML='<div class="none">'+msg+'</div>';}
       else{res.innerHTML=hits.map(function(h){
         return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
           +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
@@ -757,7 +791,7 @@ body>*{flex-shrink:0}
 <p><b>팀원 및 역할</b></p>
 <div class="tw"><table><thead><tr><th>이름</th><th>포지션</th><th>담당 영역</th></tr></thead><tbody><tr><td>오흥재 (팀장)</td><td>Applied AI System Builder</td><td><code>B/항법</code> · <code>C/운영</code></td></tr><tr><td>임석헌</td><td>RL Policy Engineer</td><td><code>A/정책학습</code></td></tr><tr><td>맹라현</td><td>3D Environment &amp; Twin Artist</td><td><code>A/지형씬제작</code> · <code>A/트윈렌더</code></td></tr><tr><td>오현민</td><td>Perception &amp; Evaluation Engineer</td><td><code>A/평가</code> · <code>B/인지</code></td></tr><tr><td>이민우</td><td>Autonomous Navigation Engineer</td><td><code>B/항법</code> · <code>C/기록</code></td></tr></tbody></table></div>
 </section>
-<section id="s2"><h2>1. 프로젝트 개요</h2>
+<section id="s2"><span id="1"></span><h2>1. 프로젝트 개요</h2>
 <blockquote><p><b>사람이 들어가기 전에, 로봇이 먼저 길을 확인한다.</b></p></blockquote>
 <p>FOOTHOLD 는 실제 험지 환경을 Digital Twin 으로 복원하고, 지형 특성을 바탕으로 학습·평가용 변형 지형을 생성한다. <b>시뮬레이션에서는 보행 성능을 측정하고, 실제 환경에서는 목표 지점까지의 자율 보행을 검증한다.</b></p>
 <p><figure class="mdimg"><img src="assets/overview.svg?v=6fce81d1" alt="프로젝트 개요" loading="lazy"><figcaption>프로젝트 개요</figcaption></figure></p>
@@ -766,7 +800,7 @@ body>*{flex-shrink:0}
 <p><b>Digital Twin 은 두 트랙이 평가할 공간의 기준을 제공한다.</b> Track A 와 Track B 는 같은 실제 구간을 대상으로 각각의 평가 조건과 결과를 기록한다. 학습 정책을 실물에 이식하는 용도로는 사용하지 않는다.</p>
 <p><b>범위 밖.</b> 우리 학습 정책의 실기 저수준 이식은 안전 리깅 부재와 난이도를 고려해 목표에서 제외한다(2026-08-19 팀 전원 합의). Track B 는 순정 보행 위의 고수준 자율 보행을 검증한다.</p>
 </section>
-<section id="s3"><h2>2. 제안 배경과 필요성</h2>
+<section id="s3"><span id="2"></span><h2>2. 제안 배경과 필요성</h2>
 <p>산업시설·지하시설·터널·재난 현장에는 사람이 직접 접근하기 어렵거나 위험한 공간을 지속적으로 이동·순찰·점검해야 하는 업무가 있다. 사족보행 로봇은 작업 자체를 대체하지는 못하지만 작업자보다 먼저 현장에 진입해 영상·온도·가스·설비 상태를 확인하고 반복 점검을 수행함으로써 사람의 위험 노출을 줄이고 점검 빈도와 데이터 축적 수준을 높일 수 있다.</p>
 <p>실제 도입 사례가 있다. National Grid 는 로봇 도입 후 고위험 설비의 점검 주기를 연 1회에서 2주 단위로 단축했고, AB InBev 는 매주 약 1,800건의 점검을 수행하며 초기 6개월 동안 약 150건의 이상 상태를 발견했다.</p>
 <p>이러한 현장은 계단·경사·협소 통로·불규칙 지면이 혼재하므로 이동성과 지형 적응성이 중요하다. 최근 휴머노이드 로봇이 주목받고 있으나, 이 프로젝트와 같이 <b>이동·순찰·점검이 중심인 임무</b>에서는 네 다리로 다양한 지형에 대응하는 사족보행 구조가 적합하다.</p>
@@ -781,13 +815,13 @@ body>*{flex-shrink:0}
 <p><b>출처</b></p>
 <ul><li>[1] KCC 웹진, 「KCC건설 사족보행로봇 도입, 스마트 안전관리 강화」, 2026.07.02.</li><li>[2] 환경타임즈, 「한국수자원공사, 로봇 점검체계로 전환 추진」, 2026.05.22.</li><li>[3] 연합뉴스, 「[AI픽] 정부, 피지컬AI용 하이퍼-AI 네트워크 구축 착수」, 2026.07.14.</li><li>[4] KAIST, 「동물처럼 상황 판단해 걷고 뛰고 점프하는 로봇 구현」, 2026.07.16.</li></ul>
 </section>
-<section id="s4"><h2>3. 유사 제품 현황</h2>
+<section id="s4"><span id="3"></span><h2>3. 유사 제품 현황</h2>
 <div class="tw"><table><thead><tr><th>제품</th><th>주요 성능</th><th>주요 기능·활용</th><th>참고</th></tr></thead><tbody><tr><td><b>Boston Dynamics Spot</b></td><td>최대 1.6 m/s · 경사 ±30도 · 단차 300 mm · 운용 약 90분</td><td>Depth Camera 기반 장애물 회피 · Autowalk 반복 자율 임무</td><td>산업시설 점검. Locomotion 내부 구현은 상용 시스템으로 직접 수정 불가</td></tr><tr><td><b>ANYbotics ANYmal</b></td><td>최대 1.3 m/s · 경사 ±30도 · 단차 250 mm · 운용 약 90분</td><td>RL 기반 locomotion · LiDAR·Depth 기반 자율 보행 · 젖은 노면·요철 등 산업 환경 활용</td><td>화학·전력·광업 등 산업시설 점검</td></tr><tr><td><b>DEEP Robotics X30</b></td><td>최대 4 m/s · 경사 45도 · 단차 200 mm · 운용 약 3시간</td><td>높은 장애물·계단 주행 · 저조도 융합 인지</td><td>−20~55도 운용. 제조사 수치는 실험실 데이터</td></tr></tbody></table></div>
 <p><b>출처</b></p>
 <ul><li>Boston Dynamics Spot · <code>https://bostondynamics.com/products/spot/</code></li><li>ANYbotics ANYmal 기술 사양서 · <code>https://www.anybotics.com/anymal-technical-specifications.pdf</code></li><li>DEEP Robotics X30 · <code>https://www.deeprobotics.cn/en/index/product3.html</code></li></ul>
 <p><b>우리는 이들보다 높은 절대 성능을 목표하지 않는다.</b> 이 프로젝트의 핵심은 기존 보행 정책이 <b>미경험 지형에서 보이는 한계를 측정</b>하고, 학습 지형과 물리 조건의 변화가 일반화에 어떤 영향을 주는지 분석하는 것이다.</p>
 </section>
-<section id="s5"><h2>4. 시스템 아키텍처</h2>
+<section id="s5"><span id="4"></span><h2>4. 시스템 아키텍처</h2>
 <p>시뮬레이션 기반 보행 정책 학습과 실기 자율 보행·환경 인지를 <b>병렬로</b> 개발한다. 두 트랙의 제어기를 직접 연결하지 않고, <b>동일한 실제 구간을 기준으로</b> 각각의 성능을 검증한다.</p>
 <p><figure class="mdimg"><img src="assets/architecture.svg?v=cf7ca4c6" alt="시스템 아키텍처" loading="lazy"><figcaption>시스템 아키텍처</figcaption></figure></p>
 <p><b>Track A 의 흐름</b> · 지형 구성 → PPO 정책 학습 → 미경험 지형 평가 → 실패 원인 분석 → 학습 조건 개선 → 재학습 → 일반화 비교</p>
@@ -797,7 +831,7 @@ body>*{flex-shrink:0}
 <p>원본 구간은 Track A 의 학습에서 제외해 평가용으로 사용한다. Track B 는 해당 실제 구간에서 자율 보행 임무를 수행한다.</p>
 <blockquote><p><b>표기 주의.</b> 확장 지형의 최종 수량은 <b>계획</b>이며 확정 결과가 아니다.</p></blockquote>
 </section>
-<section id="s6"><h2>5. 핵심 기술과 적용 구성</h2>
+<section id="s6"><span id="5"></span><h2>5. 핵심 기술과 적용 구성</h2>
 <p>각 기술의 적용 목적과, 기성 구현체에서 수정하는 부분을 함께 적는다.</p>
 <h3>Track A · 시뮬레이션과 강화학습</h3>
 <div class="tw"><table><thead><tr><th>활용 환경 · 커스터마이징 요소</th><th>개발 내용</th></tr></thead><tbody><tr><td><b>NVIDIA Isaac Sim · Isaac Lab v2.3.2</b></td><td>Isaac Lab 이 제공하는 Unitree Go2 locomotion 환경과 학습 코드를 기반으로 시뮬레이션·강화학습 환경을 구성한다. 4,096 병렬 환경에서 21,248~21,385 steps/s 로 학습한다. 표준 1,500 iteration 은 <b>133분</b> 실측이다 (RTX 5080 1대 · <code>docs/guides/runpod-setup.md</code>). 30 iteration 외삽치 113분보다 18% 길다</td></tr><tr><td><b>Terrain Configuration</b></td><td>Terrain Generator 설정을 수정해 계단·요철·<code>gap(틈)</code>·<code>stepping_stones(디딤돌)</code> 등 학습·평가 지형을 구성한다. 8 m 타일 · <code>platform_width</code> 1.5 m · 난이도는 행 좌표로 준다</td></tr><tr><td><b>Physics Configuration</b></td><td>마찰계수·질량·무게중심·외력 등 물리 조건을 조정해 다양한 환경 조건을 만든다. 멘토 진단(무게중심과 압력중심의 어긋남)을 좌우 이탈 원인 후보로 두고 이 축에서 검증한다</td></tr><tr><td><b>Reward Function</b></td><td>속도 추종·자세 안정성·토크·action 변화량·발 접촉 등 Isaac Lab 이 제공하는 reward 의 가중치와 조건을 수정한다. 현재 보상 구성에는 발 높이를 직접 평가하는 항이 없고, <code>feet_air_time</code> 은 체공 시간을 기준으로 하며, <code>flat_orientation_l2</code> 가중치는 0 이다. 관절 가동 범위 대비 실제 발 들어올림 높이가 낮다는 팀 내 측정(맹라현, <code>#66</code>)이 있어, 보상 항 조정의 검토 대상으로 둔다</td></tr><tr><td><b>Domain Randomization</b></td><td>마찰계수·로봇 질량·무게중심·초기 상태의 랜덤화 범위를 설정해 특정 환경 과적합을 줄이고 정책의 강건성을 높인다</td></tr><tr><td><b>Unseen Terrain Generalization Evaluation</b></td><td>학습에 쓰지 않은 지형과 난이도 조건에서 동일 정책을 평가해 일반화 성능을 측정한다. 판정은 생존·전진·속도 추종·직진성 네 축을 모두 만족해야 통과다</td></tr><tr><td><b>파인튜닝과 성능 유지</b></td><td>특정 지형만 추가 학습하면 기존 지형의 성능이 저하될 수 있다. 기존 rough 지형 0.6 과 대상 지형 0.4 를 혼합해 학습하고, 기존 지형 성능의 유지 여부를 평가한다</td></tr><tr><td><b>MuJoCo</b></td><td>결과가 시뮬레이터 특유의 성질에서 온 것인지 확인하는 독립 2차 검증 환경 <code>계획</code></td></tr></tbody></table></div>
@@ -811,7 +845,7 @@ body>*{flex-shrink:0}
 <p><b>Track B 의 흐름</b> · LiDAR·Camera·Robot State → ROS 2 → SLAM·CV → Nav2 → 자율 보행. CV 는 Nav2 의 제어 입력으로만 쓰지 않고 <b>주변 환경의 의미 정보를 추가로 인지하는 모듈</b>로 구성한다.</p>
 <p>실내·지하 구간이라 위성 위치를 쓸 수 없으므로 <b>자기 위치는 LiDAR·IMU·오도메트리로 추정한다.</b></p>
 </section>
-<section id="s7"><h2>6. 현재까지의 측정 결과</h2>
+<section id="s7"><span id="6"></span><h2>6. 현재까지의 측정 결과</h2>
 <p><b>2026-09-03 실측.</b> 기준선 정책은 <b>NVIDIA 공식 Go2 rough 체크포인트</b>이며, 팀이 자체 학습한 1,500 iteration 정책은 별도 대조 실험으로 구분한다.</p>
 <h3>6-1. 평지 보행 기준선</h3>
 <p><b>조건</b> · 20초 · 통과선 10 m · 1.0 m/s · 100판 · seed 42</p>
@@ -828,7 +862,7 @@ body>*{flex-shrink:0}
 <div class="tw"><table><thead><tr><th>지형</th><th>주요 지표</th><th>관측된 실패 양상</th></tr></thead><tbody><tr><td><code>stepping_stones(디딤돌)</code> · <code>gap(틈)</code></td><td>생존 20~21%</td><td>발이 빠지며 <b>낙상</b></td></tr><tr><td><code>rails(턱)</code></td><td>속도 추종 8%</td><td>통과 중 <b>명령 속도 추종 부족</b></td></tr><tr><td><code>pit(구덩이)</code> · <code>floating_ring(부유 고리)</code></td><td>전진 0~15%</td><td><b>목표 전진 거리 미달</b></td></tr></tbody></table></div>
 <p><b>지형별로 낙상·속도 추종·전진 거리 중 부족한 지표가 다르다.</b> 원인을 구분해 보상과 학습 조건의 조정 방향을 검토한다.</p>
 </section>
-<section id="s8"><h2>7. 프로젝트 목표와 KPI</h2>
+<section id="s8"><span id="7"></span><h2>7. 프로젝트 목표와 KPI</h2>
 <h3>7-1. 핵심 성과 지표</h3>
 <p>KPI 를 <b>두 층</b>으로 나눈다. 지금 측정한 것과 아직 측정하지 않은 것을 한 표에 섞지 않기 위해서다. <b>층 1</b> 은 난이도 <b>0.5 고정점</b>에서의 학습 전후 비교이고 지금 확정한다. <b>층 2</b> 는 난이도 격자로 잰 경계의 이동폭이고 A-정책 관문(09/12)에 확정한다.</p>
 <p><b>층 2 의 경계값은 아직 없다.</b> 지금까지의 1,000판은 평가 설정이 <code>difficulty_range=(0.5, 0.5)</code> · <code>num_rows=1</code> 이라 <b>전부 난이도 0.5 한 점</b>에서 측정한 값이다. 난이도 격자를 아직 돌리지 않았으므로 <b>이동폭 목표를 지금 적지 않는다.</b> 격자 규격은 7-2 에 있다.</p>
@@ -875,7 +909,7 @@ body>*{flex-shrink:0}
 <p>모든 결과에 <b>조건 · 정책 체크포인트 · 지형 seed · 평가 인자 · 원자료 · 재실행 방법</b>을 함께 남긴다. 평가 근거에는 시연 영상과 함께 <b>동일 조건의 반복 평가 결과</b>를 포함한다.</p>
 <p><b>시뮬레이션 평가</b>는 같은 seed 로 재실행했을 때 원자료가 일치하는지를 확인하고, 일치하지 않은 결과는 근거로 쓰지 않는다. <b>실기 평가</b>는 원자료 일치를 요구할 수 없으므로 반복 주행 횟수와 조건 기록으로 재현성을 확인한다.</p>
 </section>
-<section id="s9"><h2>8. 개발 일정과 WBS</h2>
+<section id="s9"><span id="8"></span><h2>8. 개발 일정과 WBS</h2>
 <h3>8-1. 단계별 일정과 완료 조건</h3>
 <p>프로젝트는 <b>다섯 개 관문</b>으로 진행한다. 각 관문은 핵심 산출물과 다음 단계 착수 조건을 함께 갖는다. 조건을 충족하지 못하면 다음 단계에 착수하지 않는다.</p>
 <div class="tw"><table><thead><tr><th>관문</th><th>일자</th><th>핵심 산출물</th><th>다음 단계 착수 조건</th></tr></thead><tbody><tr><td><b>기획 발표</b></td><td>09/04</td><td>문제·범위·KPI·WBS·R&amp;R 합의</td><td>평가 용어와 담당 확정</td></tr><tr><td><b>A-정책</b></td><td>09/12</td><td>평가 하네스 · 기준 정책 · 지표 세트 고정 · 지형별 난이도 경계 초기값</td><td>동일 조건 비교가 가능해짐</td></tr><tr><td><b>MVP · 중간발표</b></td><td>09/30</td><td>일반화 평가표 · 경계 재측정 · 트윈과 렌더</td><td>재현 가능한 가상 검증 패키지</td></tr><tr><td><b>NAV · 실기 항법</b></td><td>11/07</td><td>SLAM 지도 · Nav2 실제 경로</td><td>실기 목표 지점 임무 검증 가능</td></tr><tr><td><b>FINAL · 최종발표</b></td><td>12/11</td><td>자율 보행 시연 · 검증 보고서</td><td>공개 배포용 최종 검증 자료</td></tr></tbody></table></div>
@@ -890,7 +924,7 @@ body>*{flex-shrink:0}
 <div class="tw"><table><thead><tr><th>시기</th><th>Track A</th><th>Digital Twin</th><th>Track B</th><th>공통</th></tr></thead><tbody><tr><td>~09/12</td><td>하네스 확장 · 기준선 확정 · 10종 재측정 · 난이도 경계 초기값</td><td>PoC 공간 선정</td><td>ROS 2 환경 구축</td><td>지표·판정 기준 정본화</td></tr><tr><td>~09/30</td><td>보상 재설계 · 파인튜닝 · 경계 재측정</td><td>스캔 · 트윈 구축 · 지형 특성 추출</td><td>Go2 센서·TF 연결 · CV 환경</td><td>중간 산출물 · 실험 기록</td></tr><tr><td>~11/07</td><td>확장 지형 학습 · held-out 평가</td><td>절차적 확장</td><td>SLAM 지도 · Nav2 경로</td><td>실기 검증 기록</td></tr><tr><td>~12/11</td><td>최종 성능표 · 회귀 검증</td><td>발표 자산 렌더</td><td>목표 지점 자율 보행 시연</td><td>최종 보고서 · 공개 릴리스</td></tr></tbody></table></div>
 <blockquote><p>세부 진척은 GitHub 프로젝트 보드의 실측값을 사용하며 <b>임의 진척률을 기재하지 않는다.</b> 위 표는 관문별 배치를 보여 주는 것이고, 완료율은 이슈 상태에서 생성한다.</p></blockquote>
 </section>
-<section id="s10"><h2>9. 수행 방법</h2>
+<section id="s10"><span id="9"></span><h2>9. 수행 방법</h2>
 <h3>9-1. 데이터 확보</h3>
 <div class="tw"><table><thead><tr><th>데이터</th><th>출처와 방법</th><th>형식</th><th>상태</th></tr></thead><tbody><tr><td>시뮬레이션 롤아웃 로그</td><td>Isaac Lab 평가 하네스 실행</td><td>CSV (에피소드별 판정 5열 = 종합 + 4축 · 거리 · 이탈 · 속도오차)</td><td><b>확보</b> · 1,100판</td></tr><tr><td>지형 설정</td><td>Isaac Lab Terrain Generator cfg</td><td>Python cfg + seed</td><td><b>확보</b></td></tr><tr><td>정책 체크포인트</td><td>NVIDIA 공식 배포 + 자체 학습 산출</td><td><code>.pt</code></td><td><b>확보</b></td></tr><tr><td>학습 로그</td><td>TensorBoard · 학습 스크립트 출력</td><td>스칼라 로그</td><td><b>확보</b></td></tr><tr><td>실제 공간 촬영</td><td>PoC 구간 다중 시점 촬영</td><td>이미지·영상</td><td>계획</td></tr><tr><td>실제 공간 점군</td><td>LiDAR 스캔</td><td>점군</td><td>계획</td></tr><tr><td>실기 주행 로그</td><td>ROS 2 기록</td><td>rosbag2 (LiDAR·카메라·IMU·오도메트리·TF)</td><td>계획</td></tr></tbody></table></div>
 <p>보행 정책 학습·평가 데이터는 <b>팀이 설정한 시뮬레이션 환경에서 생성한다.</b> 실제 공간 촬영·점군과 실기 주행 로그는 이후 확보할 계획이다.</p>
@@ -899,13 +933,13 @@ body>*{flex-shrink:0}
 <h3>9-3. 실험 관리</h3>
 <p><b>실험마다 한 요인씩 변경해 영향을 비교한다.</b> 실험 대장에 설정·커밋 해시·결과 원자료·판정을 남기며, <b>기준 곡선과의 비교 결과를 포함해야 성능 개선으로 판정한다.</b></p>
 </section>
-<section id="s11"><h2>10. 참여 인원과 역할</h2>
+<section id="s11"><span id="10"></span><h2>10. 참여 인원과 역할</h2>
 <p><b>주담당은 해당 영역의 결과 정리와 인계를 책임진다.</b> 부담당은 검토와 필요 시 업무 대체를 맡는다.</p>
 <div class="tw"><table><thead><tr><th>이름</th><th>담당 영역</th><th>책임</th><th>실패 지형</th></tr></thead><tbody><tr><td><b>오흥재</b></td><td><code>B/항법</code> · <code>C/운영</code></td><td>Track B 통합 · 인프라·자동화·일정·예산 · 전 Track 의존성 조정</td><td><code>floating_ring(부유 고리)</code></td></tr><tr><td><b>임석헌</b></td><td><code>A/정책학습</code></td><td>보행 정책 학습 · 보상 설계 · 실험 설계와 반복</td><td><code>gap(틈)</code></td></tr><tr><td><b>맹라현</b></td><td><code>A/지형씬제작</code> · <code>A/트윈렌더</code></td><td>시뮬 지형 제작 · 실공간 복원과 렌더 · 난이도 격자</td><td><code>rails(턱)</code></td></tr><tr><td><b>오현민</b></td><td><code>A/평가</code> · <code>B/인지</code></td><td>일반화 벤치마크와 판정 지표 · 실기 LiDAR·카메라 인지</td><td><code>stepping_stones(디딤돌)</code></td></tr><tr><td><b>이민우</b></td><td><code>B/항법</code> · <code>C/기록</code></td><td>SLAM·Nav2 실기 자율 보행 · 문서 정본화 · 웹·서버</td><td><code>pit(구덩이)</code></td></tr></tbody></table></div>
 <p><b>다섯 명이 실패 지형을 하나씩 담당한다.</b> 지형별 실패 양상과 담당 역할을 고려한 배정이다. 낙상과 전진 거리 부족이 함께 나타난 <code>stepping_stones(디딤돌)</code> 은 평가 주담당이 분석한다.</p>
 <p>각 담당은 자기 지형의 <b>실패 분석 1장과 학습 설정안 1장</b>을 작성한다. 최종 학습은 지형별 정책을 따로 만들지 않고 <b>혼합 단일 학습 1회</b>로 통합한다. 단일 지형 파인튜닝에 따른 기존 지형 성능 저하 위험을 줄이기 위한 계획이다.</p>
 </section>
-<section id="s12"><h2>11. 기대 효과와 활용</h2>
+<section id="s12"><span id="11"></span><h2>11. 기대 효과와 활용</h2>
 <h3>이번 PoC 의 검증 목표</h3>
 <p>공개된 기준 보행 정책의 <b>미경험 지형별 성능과 실패 조건</b>을 재현 가능한 프로토콜로 측정하고, 학습 조건에 따른 난이도 경계의 변화를 정량화한다. 같은 실제 공간에서는 <b>목표 지점까지의 자율 보행</b>을 검증한다.</p>
 <p><b>동일한 프로토콜로 측정한 지형별 성능표와 원자료, 재실행 방법을 정리한다.</b> 이를 통해 평가 조건과 결과를 다른 실험에서 확인·비교할 수 있도록 한다.</p>
@@ -913,18 +947,33 @@ body>*{flex-shrink:0}
 <p>측정 방법과 트윈 구축 절차를 다른 현장·로봇에 적용하는 방안을 검토할 수 있다. 지하 공동구·터널·산업 설비 점검처럼 <b>사람이 직접 접근하기 어려운 반복 점검 업무</b>가 적용 후보다.</p>
 <p><b>실제 산업 투입·재난 대응·방폭 환경 운용은 이번 프로젝트의 구현 범위에 포함하지 않는다.</b></p>
 </section>
-<section id="s13"><h2>12. 한계와 위험</h2>
+<section id="s13"><span id="12"></span><h2>12. 한계와 위험</h2>
 <div class="tw"><table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td><b>범위</b></td><td>학습 정책의 실기 저수준 이식은 범위 밖이다. 순정 보행 위의 고수준 자율 보행을 검증한다</td></tr><tr><td><b>안전</b></td><td>대여 장비이며 독립 안전 리깅이 없다. 실기에서 낙상 위험이 있는 실험을 하지 않는다</td></tr><tr><td><b>측정</b></td><td>난이도 경계 측정에 필요한 격자가 아직 없다. A-정책 관문의 선행 과제다</td></tr><tr><td><b>시뮬 격차</b></td><td>시뮬레이터 간 접촉·물리 차이가 있다. 교차 검증 결과를 단일 시뮬 결론으로 쓰지 않는다</td></tr><tr><td><b>장비</b></td><td>대여 Go2 의 옵션·펌웨어·접근 권한은 실측으로 확정한다. 제조사 사양만으로 단정하지 않는다</td></tr><tr><td><b>일정</b></td><td>실기 구간 선정이 트윈의 입력이므로 지연되면 Track A 확장과 Track B 검증이 함께 밀린다</td></tr></tbody></table></div>
 </section>
 
 </div>
 <script>
-document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
-addEventListener('scroll', function(){
-  var h = document.documentElement;
-  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
-  document.getElementById('prog').style.width = (p * 100) + '%';
-}, {passive:true});
+/* ★ 2026-09-08 감사 F-05. 이 블록은 98장에 실리는데 그 안의 두 요소는
+   페이지마다 있기도 없기도 하다. 없는 요소에 그냥 붙여서 예외가 났다.
+     pdfBtn  무방비 리스너 108장 · 버튼 8장 -> 100장에서 «로드 즉시» 예외
+     prog    참조 99장 · 요소 1장          -> 98장에서 «스크롤할 때» 예외
+   pdfBtn 쪽은 로드 순간 죽어 뒤따르는 스크립트가 통째로 멈춘다.
+   prog 쪽은 잠복이라 스크롤하기 전까지 멀쩡해 보였고, 그래서 감사가
+   런타임 예외를 1건만 관측했다. 정적으로는 98장이 안고 있었다.
+   둘 다 «있을 때만» 붙인다. */
+(function(){
+  var pdf = document.getElementById('pdfBtn');
+  if (pdf) pdf.addEventListener('click', function(){ window.print(); });
+})();
+(function(){
+  var bar = document.getElementById('prog');
+  if (!bar) return;
+  addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+    bar.style.width = (p * 100) + '%';
+  }, {passive:true});
+})();
 /* 복사 버튼: 코드 블록과 접속 주소 공용 */
 document.addEventListener('click', function(e){
   var b = e.target.closest && e.target.closest('.copy');
@@ -938,5 +987,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-08 01:16</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 07:36</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

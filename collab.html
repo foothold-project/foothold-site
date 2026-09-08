@@ -72,9 +72,18 @@ h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem
   border-bottom:1px solid var(--rule);margin-bottom:1rem}
 h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
 h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
-p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+/* ★ 2026-09-08 감사 F-04. 모바일에서 페이지가 가로로 늘어났다.
+   원인은 keep-all 의 «짝» 이 빠진 것이다. word-break:keep-all 은 한국어를
+   낱말 중간에서 안 끊으려고 쓰는데, 그것만 두면 긴 URL 처럼 끊을 자리가
+   없는 토큰이 상자 밖으로 삐져나가 페이지 자체를 넓힌다.
+   p 에는 overflow-wrap 이 있었는데 li·td 에는 없었다. 실측에서 넘친 것이
+   정확히 li 였다 (research-cloud-gpu-options: li 안쪽 폭 729px · 화면 345px).
+   anywhere 는 «끊을 데가 없을 때만» 끊는다. 한국어 문장은 그대로 keep-all 이다.
+   표와 pre 는 자기 컨테이너(.tw)에서 스크롤하므로 여기서 건드리지 않는다. */
+p{margin:.6rem 0;overflow-wrap:anywhere;word-break:keep-all}
 ul,ol{margin:.6rem 0 .6rem 1.2rem}
-li{margin:.24rem 0;word-break:keep-all}
+li{margin:.24rem 0;word-break:keep-all;overflow-wrap:anywhere}
+dd,dt,figcaption,blockquote{overflow-wrap:anywhere}
 b{font-weight:800}
 a{color:var(--dim)}
 code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
@@ -91,7 +100,7 @@ blockquote b{color:var(--ink)}
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
 table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
 th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
-  word-break:keep-all}
+  word-break:keep-all;overflow-wrap:anywhere}
 th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
   letter-spacing:.04em;border-bottom:none}
 tbody tr:last-child td{border-bottom:none}
@@ -547,27 +556,52 @@ document.addEventListener('DOMContentLoaded',function(){
     if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
     else if(e.key==='Escape'&&ov.classList.contains('on'))close();
   });
+  /* ★ 2026-09-08 감사 F-06. 셋을 한 덩어리로 삼켜 «결과 없음» 하나로 보여줬다.
+     색인을 못 받은 것 · 받았는데 모양이 틀린 것 · 정말로 없는 것은 서로 다르다.
+     앞의 둘은 우리 잘못이고 사용자는 다시 시도해야 한다는 것을 알아야 한다.
+     경로도 루트 절대경로로 바꾼다. team-meang/ 처럼 한 단계 아래 페이지에서
+     상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
+  var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+    fetch('/assets/search-index.json').then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        return r.json();})
+      .then(function(j){
+        if(!Array.isArray(j)||(j.length&&typeof j[0].x!=='string'))
+          throw new Error('schema');
+        IDX=j;IDXERR=null;cb();})
+      .catch(function(err){
+        IDX=[];IDXERR=(err&&err.message==='schema')?'schema':'fetch';cb();});}
   function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function go(){
     var q=inp.value.trim().toLowerCase();sel=-1;
     if(q.length<2){res.innerHTML='';return;}
     load(function(){
+      /* ★ 2026-09-08 감사 F-02. 전에는 hits.length<40 인 동안만 훑고 그 40개를
+         정렬했다. 색인은 페이지 이름 순이라, 뒤쪽 페이지의 «제목 일치»(3점)가
+         앞쪽 페이지의 «본문 일치»(1점)보다 높아도 후보에 못 들었다.
+         실측: 프로젝트·보행·평가·문서·정책 다섯 낱말에서 화면 상위 12가
+         전역 상위 12와 달랐다. 전부 점수 매기고 정렬한 «뒤에» 자른다. */
       var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
+      for(var i=0;i<IDX.length;i++){
         var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
             pi=e.t.toLowerCase().indexOf(q);
         if(hi<0&&ti<0&&pi<0)continue;
         var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
         var snip='';
         if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
+        hits.push({e:e,s:score,i:i,snip:snip});
       }
-      hits.sort(function(a,b){return b.s-a.s});
+      /* 동점이면 색인 순서로 고정한다. 정렬이 흔들리면 같은 검색어가 매번 다른
+         차례를 준다 (재현 빌드에서 A1 과 A2 가 갈리던 것과 같은 부류다). */
+      hits.sort(function(a,b){return b.s-a.s||a.i-b.i});
+      var total=hits.length;
       hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      if(!hits.length){
+        var msg=IDXERR==='fetch'?'검색 색인을 불러오지 못했습니다. 새로고침해 주세요'
+               :IDXERR==='schema'?'검색 색인 형식이 올바르지 않습니다. 관리자에게 알려 주세요'
+               :'결과 없음: '+esc(q);
+        res.innerHTML='<div class="none">'+msg+'</div>';}
       else{res.innerHTML=hits.map(function(h){
         return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
           +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
@@ -685,10 +719,10 @@ body>*{flex-shrink:0}
 <blockquote><p>v1.0 (2026-08-09 팀장 승인) · 이 문서는 전부 공개한다. 솔직함은 최대로, <b>남의 정보(금액·개인사·주소·토큰)만 뺀다.</b>
 웹 판: https://foothold-project.vercel.app/collab.html</p></blockquote>
 </section>
-<section id="s1"><h2>1. 왜 이렇게 일하는가: 원칙 셋</h2>
+<section id="s1"><span id="1"></span><h2>1. 왜 이렇게 일하는가: 원칙 셋</h2>
 <ol><li><b>기록이 우리를 증명한다.</b> 12월에 &quot;누가 뭘 했나&quot;를 기억으로 복원할 수 없다. 지금 남기지 않으면 그때는 없다.</li><li><b>측정 없이 판단하지 않는다.</b> &quot;잘 되는 것 같다&quot;는 인상이지 기록이 아니다. 숫자를 먼저 잰다.</li><li><b>침묵을 성공으로 착각하지 않는다.</b> 조용히 넘어간 것은 확인된 것이 아니다. 안 되는 것은 소리를 내게 만든다.</li></ol>
 </section>
-<section id="s2"><h2>2. 팀 역할 원칙: 파트를 소유하지 않는다</h2>
+<section id="s2"><span id="2"></span><h2>2. 팀 역할 원칙: 파트를 소유하지 않는다</h2>
 <p>이 프로젝트는 환경→학습→평가→이관이 직렬로 이어진 <b>한 파이프라인</b>이라, 파트를 쪼개 소유하면 이음새에서 무너진다. 멘토도 같은 말을 했다: <i>&quot;선 긋지 말고, 얘가 힘들 때 내가 대타 뛸 수 있는 수준이 돼야&quot;</i> (8/6 회의).</p>
 <ul><li><b>전원이 전체 흐름을 이해한다</b>. plan.html 의 7단계가 그 지도다.</li><li>각자는 관심 영역의 <b>리드</b>다. 소유가 아니라 <b>리드 + 상호 백업</b>.</li></ul>
 <blockquote><p><b>정본은 <a href="roles.html">역할 배치</a> 입니다.</b> 아래 표는 협업 규칙을 읽는 자리에서
@@ -697,7 +731,7 @@ body>*{flex-shrink:0}
 <div class="tw"><table><thead><tr><th>작업 영역</th><th>주담당</th><th>부담당</th><th>폴더</th></tr></thead><tbody><tr><td><code>A/정책학습</code></td><td>임석헌</td><td>이민우 · 오현민 · 맹라현 · 오흥재</td><td><code>sim/policy/</code></td></tr><tr><td><code>A/지형씬제작</code></td><td>맹라현</td><td>오흥재 · 이민우</td><td><code>sim/terrain/</code></td></tr><tr><td><code>A/평가</code></td><td>오현민</td><td>맹라현 · 이민우</td><td><code>sim/eval/</code></td></tr><tr><td><code>A/트윈렌더</code></td><td>맹라현</td><td>오흥재 · 이민우</td><td><code>sim/twin/</code></td></tr><tr><td><code>B/항법</code></td><td>오흥재</td><td>임석헌 · 이민우 · 오현민 · 맹라현</td><td><code>nav/</code></td></tr><tr><td><code>B/인지</code></td><td>오현민</td><td>맹라현 · 이민우</td><td><code>nav/perception/</code></td></tr><tr><td><code>C/기록</code></td><td>이민우</td><td>맹라현 · 오흥재</td><td><code>docs/</code></td></tr><tr><td><code>C/운영</code></td><td>오흥재</td><td>전원</td><td><code>.github/</code></td></tr></tbody></table></div>
 <p>팀장은 파트 배정과 별개로 전 영역에 관여한다. 표는 <b>파트를 끄는 사람</b>을 적은 것이다. (2026-08-27 개정. 8/21 팀 미팅 표를 8갈래로 다시 갈랐다.)</p>
 </section>
-<section id="s3"><h2>2.5 일감의 계층: 작업 영역이 부모, 시기는 마일스톤</h2>
+<section id="s3"><span id="2.5"></span><h2>2.5 일감의 계층: 작업 영역이 부모, 시기는 마일스톤</h2>
 <p>이슈를 만들 때 <b>「작업 영역」</b> 을 고르면 라벨과 마일스톤이 자동으로 붙는다. 폼의 답이 본문 글자로만 남지 않고 보드에서 묶인다 (2026-08-27 신설).</p>
 <p><b>작업 영역 8갈래</b>는 위 2절 표와 같다. 트랙 접두어가 붙어 있어서 보드에서 라벨로 묶으면 트랙별 그림이 저절로 나온다.</p>
 <blockquote><p>2026-08-27 이전에는 갈래가 다섯이었다 (평가 체계 · 험지 환경 · 정책 학습 ·
@@ -709,7 +743,7 @@ body>*{flex-shrink:0}
 <p>  9/4 은 오전에 발표하고 오후에 멘토링이다. <b>같은 날 둘 다 있다.</b> 발표 준비를   전날까지 끝내야 오후 멘토링에서 그 결과를 놓고 이야기할 수 있다.</p>
 <ul><li>폼에서 <b>「어느 관문까지」</b> 를 고르면 마일스톤이 자동으로 붙는다. 모르면 비워 둔다.</li><li>7단계(땅 보러 가기…)는 소통용 지도다. 관리 도구에는 등장하지 않는다.</li></ul>
 </section>
-<section id="s4"><h2>3. 공간 지도: 어디에 무엇이 있나</h2>
+<section id="s4"><span id="3"></span><h2>3. 공간 지도: 어디에 무엇이 있나</h2>
 <div class="tw"><table><thead><tr><th>공간</th><th>성격</th><th>무엇이 사나</th></tr></thead><tbody><tr><td><b>foothold-lab</b> <code>docs/</code></td><td>비공개 · 팀</td><td><b>정본만.</b> 리서치 정제본 · 회의록 · 결정 로그 · 기획</td></tr><tr><td><b>foothold-lab</b> <code>deliverables/</code></td><td>비공개 · 팀</td><td>운영진에 낼 산출물</td></tr><tr><td><b>foothold-lab</b> <code>inbox/</code></td><td>비공개 · 팀</td><td><b>팀원 제출함.</b> 다듬지 않은 것을 자기 폴더에 그냥 올린다</td></tr><tr><td><b>foothold-lab</b> <code>sim/</code> <code>nav/</code> <code>common/</code></td><td>비공개 · 팀</td><td>개발 공간. go2 와 같은 트리</td></tr><tr><td><b>foothold-go2</b></td><td>공개 · 개발</td><td>코드 · 재현 절차. <code>sim/</code> <code>nav/</code> <code>common/</code> <code>guide/</code> <code>report/</code></td></tr><tr><td><b>foothold-site</b></td><td>공개 · 산출물</td><td>빌드된 웹: <b>직접 수정 금지(미러)</b></td></tr><tr><td><b>foothold-brand</b></td><td>공개 · 디자인</td><td>토큰 원본 · 로고 정본 · 브랜드 규칙</td></tr><tr><td>보드 <b>FOOTHOLD</b></td><td>org Projects</td><td>모든 레포 이슈가 모이는 상황판</td></tr><tr><td>디스코드 #foothold-git</td><td>팀</td><td><b>자동 알림 전용</b> (새 작업·완료·문서·주간 리포트)</td></tr><tr><td>디스코드 #foothold-general</td><td>팀</td><td>일반 대화</td></tr><tr><td>디스코드 #foothold-notice</td><td>팀</td><td>공지. 주요 업데이트·전달사항</td></tr><tr><td>디스코드 #foothold-resource</td><td>비공개</td><td>팀 공용 계정 · NAS 경로. <b>토큰류 금지</b></td></tr><tr><td>NAS <code>foothold/meetings/</code></td><td>팀 스토리지</td><td>회의 녹음 원본</td></tr><tr><td>팀장 볼트</td><td>개인</td><td>타인 저작물 원문 등: 팀 자산은 위로 이관</td></tr></tbody></table></div>
 <h3>3-1. 팀원 제출함: <code>lab/inbox/&lt;이름&gt;/</code> (확정 2026-08-12)</h3>
 <p>일주일에 한 번 각자의 연구·리서치 결과를 공유하는 자리다. <b>자기 폴더에만 쓴다.</b> 남의 폴더를 건드리지 않으면 git 충돌이 원천적으로 없다.</p>
@@ -718,13 +752,13 @@ body>*{flex-shrink:0}
 <h3>3-2. 주간 다이제스트: «이번 주 알게 된 것» (확정 2026-08-12)</h3>
 <p>주간 리포트(무엇을 <b>했나</b>)와 별개로, <b>무엇을 알게 됐나</b>를 3~6개 항목으로 요약한다. 각 항목 = 한 문장 + 증거 링크 하나. <code>docs/digest/</code> 에 쌓이고 웹의 연구 기록 페이지 상단에 걸린다. 초안은 문서들의 <code>요지:</code> 줄에서 자동으로 모으고, <b>확정은 사람이 한다</b> (자동 나열은 안 읽힌다).</p>
 </section>
-<section id="s5"><h2>4. 일의 흐름: 손으로 하는 건 두 가지뿐</h2>
+<section id="s5"><span id="4"></span><h2>4. 일의 흐름: 손으로 하는 건 두 가지뿐</h2>
 <p><b>① 시작 = 레포에서 이슈 만들기.</b> 문서·조사 → lab, 코드·실험 → rl. 템플릿 빈칸을 채운다(특히 &quot;끝났다는 기준&quot;). 자동으로 따라오는 것: 보드 등록 · <b>담당자 = 만든 사람</b> · 시작일 = 오늘 · 마감 = +7일 · 디스코드 &quot;새 작업&quot;.</p>
 <p><b>② 끝 = 커밋 메시지에 <code>Closes #번호</code>.</b> 자동으로 따라오는 것: 이슈 닫힘 · 보드 Done · 디스코드 &quot;완료&quot;.</p>
 <p>그리고 <b>매주 월요일 09:00</b> 지난주 요약이 디스코드로 온다(자동).</p>
 <p><b>⚠️ 보드에서 <code>+ Add item</code> 타이핑 금지</b>. 레포에 없는 초안(draft)이 되어 자동화가 전부 죽는다. 보드 상단 &quot;Create new issue&quot; 버튼은 진짜 이슈를 만드니 괜찮다.</p>
 </section>
-<section id="s6"><h2>4-1. AI 로 작업할 때 (2026-08-26 신설)</h2>
+<section id="s6"><span id="4-1"></span><h2>4-1. AI 로 작업할 때 (2026-08-26 신설)</h2>
 <p>팀원 대부분이 Cursor · Claude Code · Codex 같은 도구로 작업한다. 그래서 사람 규칙과 별개로 <b>「AI 가 읽는 규칙」</b> 이 필요하다. 저장소 맨 위 <code>AGENTS.md</code> 가 그것이다.</p>
 <div class="tw"><table><thead><tr><th>도구</th><th>자동으로 읽는 파일</th></tr></thead><tbody><tr><td>Cursor · Codex</td><td><code>AGENTS.md</code></td></tr><tr><td>Claude Code</td><td><code>CLAUDE.md</code> (내용은 <code>AGENTS.md</code> 를 가리킨다)</td></tr></tbody></table></div>
 <p>규칙은 <code>AGENTS.md</code> <b>한 곳에만</b> 쓴다. 두 곳에 나눠 적으면 반드시 갈라진다. <code>AGENTS.md</code> 에는 <b>공통 규칙만</b> 둔다. 각자 작업 방식은 <code>inbox/&lt;이름&gt;/AGENTS.md</code> 를 만들거나 로컬 설정(gitignore 대상)으로 둔다. 에이전트마다 쓰는 도구가 달라, 공통 파일에 개인 설정이 섞이면 다른 사람의 에이전트가 그것을 규칙으로 읽는다 (2026-08-27 개정).</p>
@@ -743,15 +777,15 @@ body>*{flex-shrink:0}
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="f">python3</span> .github/scripts/review_inbox.py inbox/내이름/*.md</pre></div>
 <p>무엇이 빠졌는지 문장으로 알려준다. PR 을 올리면 <b>이것이 자동으로 돌고 팀장 텔레그램으로 결과가 간다.</b> 따로 보고하지 않아도 된다.</p>
 </section>
-<section id="s7"><h2>5. 브랜치와 커밋</h2>
+<section id="s7"><span id="5"></span><h2>5. 브랜치와 커밋</h2>
 <div class="tw"><table><thead><tr><th>레포</th><th>규칙</th></tr></thead><tbody><tr><td><b>rl</b></td><td>코드를 바꿀 때만 브랜치를 판다: <b><code>feature/작업명-이름</code></b>(예: <code>feature/terrain-lim</code>) → PR 로 <code>dev</code> → 검증된 상태만 PR 로 <code>main</code>. main 직접 push 금지(룰셋)</td></tr><tr><td><b>lab</b></td><td>main 직접 커밋은 <b>팀장만</b>(2026-08-13). 팀원은 브랜치 → PR. inbox 제출은 <b>최소 규칙만 맞으면 된다</b>: 기계가 읽고 부족한 곳을 짚어 «보완» 커밋을 따로 올리며, 팀장이 확인 후 머지한다 (2026-08-25 개정)</td></tr><tr><td>site · brand</td><td>파이프라인/담당(Codex)이 관리: 직접 커밋하지 않는다</td></tr></tbody></table></div>
 <ul><li><b>이슈마다 브랜치를 만들 필요는 없다.</b> 브랜치는 이슈가 아니라 <b>&quot;PR 로 합칠 코드 변경&quot; 단위</b>다 조사·회의·막힘 이슈는 브랜치가 아예 필요 없고, 작은 이슈 여럿을 브랜치 하나로 처리해도 된다 (<code>Closes #12 #13</code> 처럼 한 커밋으로 여러 개를 닫을 수 있다).</li><li><b>이슈 번호를 브랜치 이름에 넣지 않는다</b> (2026-08-27 통일). <code>feature/작업명-이름</code> 형식이다. 흐름의 정본은 <a href="workflow.html">작업 흐름</a>이다. 이슈 화면의 &quot;Create a branch&quot; 버튼을 쓰면 이름이 자동으로 지어진다. merge 된 브랜치는 지운다(브랜치는 소모품이다).</li><li>추적의 핵심은 브랜치 이름이 아니라 <b>커밋·PR 의 <code>Closes #번호</code></b> 다. 이것만은 반드시.</li></ul>
 </section>
-<section id="s8"><h2>6. 보드와 일정: 계획과 실적을 둘 다 남긴다</h2>
+<section id="s8"><span id="6"></span><h2>6. 보드와 일정: 계획과 실적을 둘 다 남긴다</h2>
 <div class="tw"><table><thead><tr><th>필드</th><th>의미</th><th>누가</th></tr></thead><tbody><tr><td>start date / end date</td><td><b>계획.</b> 자동값(오늘/+7일)은 초기값일 뿐: <b>고치는 것이 정상 행위</b></td><td>사람</td></tr><tr><td>done date</td><td><b>실적.</b> 이슈 닫힐 때 자동 기입 (구축 중)</td><td>자동</td></tr></tbody></table></div>
 <ul><li>미리 등록(9월 계획을 8월에)하면 start 를 9월로 고친다. 밀리면 또 고친다. 계획이니까.</li><li>계획 변경의 이력은 <b>주간 리포트 아카이브</b>가 자동으로 남긴다.</li><li><b>계층</b>: 큰 단계(부모 이슈) 아래 실제 작업(자식 이슈). 템플릿의 &quot;단계&quot; 드롭다운으로 자동 연결(구축 중).</li><li>마감 초과 시 디스코드 알림(구축 중).</li></ul>
 </section>
-<section id="s9"><h2>6-1. inbox 제출: 어디까지 맞춰 오면 되나 (2026-08-25 개정)</h2>
+<section id="s9"><span id="6-1"></span><h2>6-1. inbox 제출: 어디까지 맞춰 오면 되나 (2026-08-25 개정)</h2>
 <p><b>최소 규칙만 맞으면 된다.</b> 잘 만들어 왔으면 그대로 올라간다. 완벽하게 다듬느라 안 올리는 것이 가장 나쁘다.</p>
 <div class="tw"><table><thead><tr><th>최소 규칙</th><th>왜</th></tr></thead><tbody><tr><td>본인 폴더 <code>inbox/본인폴더/</code></td><td>누가 낸 것인지 경로로 안다</td></tr><tr><td>개인정보 없음</td><td>공개 사이트로 나간다</td></tr><tr><td>em dash · 글자 도식 없음</td><td>빌드가 멈춘다</td></tr><tr><td>확인한 것과 추측을 구분</td><td>안 하면 어디까지 믿을지 알 수 없다</td></tr></tbody></table></div>
 <p><b>부족한 것이 있어도 남의 글을 고치지 않는다.</b></p>
@@ -762,31 +796,31 @@ body>*{flex-shrink:0}
 돈다. 팀장 PC 가 꺼져 있으면 판정·알림까지만 오고 보완은 멈춘다.
 기계 쪽으로 옮기는 작업은 <code>mai-os</code> 이슈로 진행 중이다.</p></blockquote>
 </section>
-<section id="s10"><h2>7. 문서 규칙</h2>
+<section id="s10"><span id="7"></span><h2>7. 문서 규칙</h2>
 <ul><li><code>docs/research/</code> 조사 · <code>docs/meetings/</code> 회의록 · <code>docs/ops/</code> 운영 · 루트 = 기획/규칙</li><li>파일명은 소문자-하이픈. 회의록은 <code>YYYYMMDD-slug.md</code> 날짜당 하나. HTML·PDF는 새로 만들지 않는다.</li><li><b>출처 등급</b>: 공식 문서 &gt; 교재 &gt; 논문 &gt; 해설 블로그 &gt; 백과. <b>숫자 인용은 논문·공식만.</b></li><li>확인 못 한 것은 <b><code>미확인</code></b> 이라 쓴다. 미확인을 근거로 판단하지 않는다.</li><li>웹에 올라가는 구조도는 <b>ASCII 금지</b>. SVG·이미지·표로.</li></ul>
 </section>
-<section id="s11"><h2>8. 하지 말 것. 전부 실제 겪었거나 겪을 뻔한 것</h2>
+<section id="s11"><span id="8"></span><h2>8. 하지 말 것. 전부 실제 겪었거나 겪을 뻔한 것</h2>
 <ol><li><b>체크포인트(.pt)·대용량을 git 에 커밋하지 않는다</b>. 한 번 들어가면 히스토리에서 못 지운다.</li><li><b>타인 저작물 원문을 올리지 않는다</b>. 비공개 레포여도. 링크로 대신한다.</li><li><b>토큰·웹후크 URL 을 채팅·문서에 붙이지 않는다</b>. 실제로 한 번 유출돼 재발급했다. 유출 시 즉시 재발급.</li><li><b>site 를 직접 수정하지 않는다</b>. 다음 빌드에 덮어써진다.</li><li><b>결과를 보고 판정 기준을 바꾸지 않는다</b>. 통과선은 실험 전에 적는다.</li><li><b>추측을 결론 자리에 앉히지 않는다</b>. 물어볼 수 있는 것은 먼저 묻는다. (RunPod GPU 건에서 실제로 틀렸다)</li></ol>
 </section>
-<section id="s12"><h2>9. 새 레포가 필요할 때: 기준 셋</h2>
+<section id="s12"><span id="9"></span><h2>9. 새 레포가 필요할 때: 기준 셋</h2>
 <p>별도 빌드 체계(예: ROS2 워크스페이스) / 별도 실행 환경(예: 3DGS 도구) / 단독 공개물. <b>그 외는 전부 폴더로.</b> 역할·파트는 레포가 아니라 폴더 + 담당자로 표현한다.</p>
 </section>
-<section id="s13"><h2>10. 막혔을 때: 30분 룰</h2>
+<section id="s13"><span id="10"></span><h2>10. 막혔을 때: 30분 룰</h2>
 <p>30분 막히면 <b>[막힘 이슈]</b> 를 만든다(기대 vs 실제 · 재현 · 환경 · 로그 · 해본 것). 혼자 3시간 파는 것이 팀에는 더 비싸다. 같은 에러를 두 번 겪으면 그건 문서감이다. <code>docs/ops/</code> 에 남긴다.</p>
 </section>
-<section id="s14"><h2>11. 회의 규칙</h2>
+<section id="s14"><span id="11"></span><h2>11. 회의 규칙</h2>
 <ol><li><b>회의는 무조건 녹음한다.</b> 시작할 때 한 마디로 고지한다.</li><li>파일은 NAS <code>foothold/meetings/</code> 에 <code>YYMMDD_제목.m4a</code>.</li><li>전사→보고서는 파이프라인이 만든다 (반자동 → WS+MOSS 화자분리로 자동화 예정).</li><li>보고서의 모든 인용에 <b>타임코드</b>: 원문 대조가 가능해야 한다.</li><li>금액·개인정보가 든 회의록은 <b>lab(비공개)까지만.</b> 공개 사이트에 내보내지 않는다.</li></ol>
 </section>
-<section id="s15"><h2>12. 결정 기록</h2>
+<section id="s15"><span id="12"></span><h2>12. 결정 기록</h2>
 <p>결정이 나는 순간 <b><code>docs/DECISIONS.md</code></b> 에 한 줄(무엇 · 왜 · 출처). 채팅은 휘발이다. 뒤집을 때 지우지 않는다. 취소선 + 새 행. 미결은 D번호로 관리하며 그것이 곧 회의 안건이다.</p>
 </section>
-<section id="s16"><h2>13. 실험 규율: 팀 공통 규칙이다</h2>
+<section id="s16"><span id="13"></span><h2>13. 실험 규율: 팀 공통 규칙이다</h2>
 <p><b>한 번에 하나만 바꾼다</b> · <b>기준선과 대조한다</b> · <b>통과선을 먼저 적는다</b> · 결과는 채택이든 폐기든 <b>EXPERIMENTS.md 에 한 줄</b>. 실험 1회 ≈ <b>2시간 15분</b>(1,500 iter <b>실측 133분</b>: 2026-08-12)임을 알고 계획한다.</p>
 </section>
-<section id="s17"><h2>14. 온보딩: 0분에서 첫 작업까지 30분</h2>
+<section id="s17"><span id="14"></span><h2>14. 온보딩: 0분에서 첫 작업까지 30분</h2>
 <ol><li>(5분) https://foothold-project.vercel.app: 한 바퀴</li><li>(10분) plan.html: 7단계 지도와 지금 위치</li><li>(5분) 이 문서 §4(일의 흐름)</li><li>(5분) 보드에서 내 이름 탭 확인</li><li>(5분) 첫 이슈 하나 만들기: 그게 온보딩 완료</li></ol>
 </section>
-<section id="s18"><h2>15. 용어: 같은 말을 같은 뜻으로</h2>
+<section id="s18"><span id="15"></span><h2>15. 용어: 같은 말을 같은 뜻으로</h2>
 <div class="tw"><table><thead><tr><th>용어</th><th>뜻</th></tr></thead><tbody><tr><td>퀘스트</td><td>완료 조건이 숫자·산출물로 명확한 작업 단위</td></tr><tr><td>게이트</td><td>통과 못 하면 다음으로 못 가는 관문 (PoC · MVP · sim2sim)</td></tr><tr><td>기준선</td><td>비교의 0점: 기성 체크포인트의 첫 측정값</td></tr><tr><td>증류</td><td>잘하는 큰 모델의 행동을 작은 모델이 흉내 내게 하는 학습</td></tr><tr><td>sim2sim / sim2real</td><td>다른 시뮬레이터에서 재검증 / 시뮬→실기 이전</td></tr><tr><td>통과율</td><td>성공 에피소드 ÷ 시도. &quot;성공&quot;의 정의를 먼저 계약한다</td></tr><tr><td>프리미티브 지형</td><td>기본 도형 조합의 학습용 지형: 물리만 정확하면 된다</td></tr><tr><td>draft(초안)</td><td>보드에만 있는 가짜 이슈: 자동화가 안 도는 함정</td></tr></tbody></table></div>
 </section>
 <section id="s19"><h2>판 이력</h2>
@@ -795,12 +829,27 @@ body>*{flex-shrink:0}
 
 </div>
 <script>
-document.getElementById('pdfBtn').addEventListener('click', function(){ window.print(); });
-addEventListener('scroll', function(){
-  var h = document.documentElement;
-  var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
-  document.getElementById('prog').style.width = (p * 100) + '%';
-}, {passive:true});
+/* ★ 2026-09-08 감사 F-05. 이 블록은 98장에 실리는데 그 안의 두 요소는
+   페이지마다 있기도 없기도 하다. 없는 요소에 그냥 붙여서 예외가 났다.
+     pdfBtn  무방비 리스너 108장 · 버튼 8장 -> 100장에서 «로드 즉시» 예외
+     prog    참조 99장 · 요소 1장          -> 98장에서 «스크롤할 때» 예외
+   pdfBtn 쪽은 로드 순간 죽어 뒤따르는 스크립트가 통째로 멈춘다.
+   prog 쪽은 잠복이라 스크롤하기 전까지 멀쩡해 보였고, 그래서 감사가
+   런타임 예외를 1건만 관측했다. 정적으로는 98장이 안고 있었다.
+   둘 다 «있을 때만» 붙인다. */
+(function(){
+  var pdf = document.getElementById('pdfBtn');
+  if (pdf) pdf.addEventListener('click', function(){ window.print(); });
+})();
+(function(){
+  var bar = document.getElementById('prog');
+  if (!bar) return;
+  addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+    bar.style.width = (p * 100) + '%';
+  }, {passive:true});
+})();
 /* 복사 버튼: 코드 블록과 접속 주소 공용 */
 document.addEventListener('click', function(e){
   var b = e.target.closest && e.target.closest('.copy');
@@ -816,5 +865,5 @@ document.addEventListener('click', function(e){
 </script>
 <style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7;--dim-ink:#0b6459;--grid:rgba(22,28,38,.04);--note-ink:#8a5600;}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-08 01:16</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 07:36</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

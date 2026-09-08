@@ -72,9 +72,18 @@ h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem
   border-bottom:1px solid var(--rule);margin-bottom:1rem}
 h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
 h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
-p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+/* ★ 2026-09-08 감사 F-04. 모바일에서 페이지가 가로로 늘어났다.
+   원인은 keep-all 의 «짝» 이 빠진 것이다. word-break:keep-all 은 한국어를
+   낱말 중간에서 안 끊으려고 쓰는데, 그것만 두면 긴 URL 처럼 끊을 자리가
+   없는 토큰이 상자 밖으로 삐져나가 페이지 자체를 넓힌다.
+   p 에는 overflow-wrap 이 있었는데 li·td 에는 없었다. 실측에서 넘친 것이
+   정확히 li 였다 (research-cloud-gpu-options: li 안쪽 폭 729px · 화면 345px).
+   anywhere 는 «끊을 데가 없을 때만» 끊는다. 한국어 문장은 그대로 keep-all 이다.
+   표와 pre 는 자기 컨테이너(.tw)에서 스크롤하므로 여기서 건드리지 않는다. */
+p{margin:.6rem 0;overflow-wrap:anywhere;word-break:keep-all}
 ul,ol{margin:.6rem 0 .6rem 1.2rem}
-li{margin:.24rem 0;word-break:keep-all}
+li{margin:.24rem 0;word-break:keep-all;overflow-wrap:anywhere}
+dd,dt,figcaption,blockquote{overflow-wrap:anywhere}
 b{font-weight:800}
 a{color:var(--dim)}
 code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
@@ -91,7 +100,7 @@ blockquote b{color:var(--ink)}
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
 table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
 th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
-  word-break:keep-all}
+  word-break:keep-all;overflow-wrap:anywhere}
 th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
   letter-spacing:.04em;border-bottom:none}
 tbody tr:last-child td{border-bottom:none}
@@ -616,27 +625,52 @@ document.addEventListener('DOMContentLoaded',function(){
     if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
     else if(e.key==='Escape'&&ov.classList.contains('on'))close();
   });
+  /* ★ 2026-09-08 감사 F-06. 셋을 한 덩어리로 삼켜 «결과 없음» 하나로 보여줬다.
+     색인을 못 받은 것 · 받았는데 모양이 틀린 것 · 정말로 없는 것은 서로 다르다.
+     앞의 둘은 우리 잘못이고 사용자는 다시 시도해야 한다는 것을 알아야 한다.
+     경로도 루트 절대경로로 바꾼다. team-meang/ 처럼 한 단계 아래 페이지에서
+     상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
+  var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+    fetch('/assets/search-index.json').then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        return r.json();})
+      .then(function(j){
+        if(!Array.isArray(j)||(j.length&&typeof j[0].x!=='string'))
+          throw new Error('schema');
+        IDX=j;IDXERR=null;cb();})
+      .catch(function(err){
+        IDX=[];IDXERR=(err&&err.message==='schema')?'schema':'fetch';cb();});}
   function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function go(){
     var q=inp.value.trim().toLowerCase();sel=-1;
     if(q.length<2){res.innerHTML='';return;}
     load(function(){
+      /* ★ 2026-09-08 감사 F-02. 전에는 hits.length<40 인 동안만 훑고 그 40개를
+         정렬했다. 색인은 페이지 이름 순이라, 뒤쪽 페이지의 «제목 일치»(3점)가
+         앞쪽 페이지의 «본문 일치»(1점)보다 높아도 후보에 못 들었다.
+         실측: 프로젝트·보행·평가·문서·정책 다섯 낱말에서 화면 상위 12가
+         전역 상위 12와 달랐다. 전부 점수 매기고 정렬한 «뒤에» 자른다. */
       var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
+      for(var i=0;i<IDX.length;i++){
         var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
             pi=e.t.toLowerCase().indexOf(q);
         if(hi<0&&ti<0&&pi<0)continue;
         var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
         var snip='';
         if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
+        hits.push({e:e,s:score,i:i,snip:snip});
       }
-      hits.sort(function(a,b){return b.s-a.s});
+      /* 동점이면 색인 순서로 고정한다. 정렬이 흔들리면 같은 검색어가 매번 다른
+         차례를 준다 (재현 빌드에서 A1 과 A2 가 갈리던 것과 같은 부류다). */
+      hits.sort(function(a,b){return b.s-a.s||a.i-b.i});
+      var total=hits.length;
       hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      if(!hits.length){
+        var msg=IDXERR==='fetch'?'검색 색인을 불러오지 못했습니다. 새로고침해 주세요'
+               :IDXERR==='schema'?'검색 색인 형식이 올바르지 않습니다. 관리자에게 알려 주세요'
+               :'결과 없음: '+esc(q);
+        res.innerHTML='<div class="none">'+msg+'</div>';}
       else{res.innerHTML=hits.map(function(h){
         return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
           +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
@@ -768,33 +802,33 @@ body>*{flex-shrink:0}
 <p class="sub" style="margin:4px 0 0">운영진 제출 3종. 기획서 · 브레인스토밍 · WBS</p>
 <div class="tw"><table class="dl-tbl"><thead><tr><th style="width:28%">산출물</th><th style="width:11%">상태</th><th style="width:11%">제출본</th><th>완료 기준</th></tr></thead><tbody>
 <tr><td><a href="deliverable-proposal.html"><b>프로젝트 기획서</b></a></td><td><span class="st-done">완료</span></td><td><a href="assets/deliverables/proposal.pdf?v=bb3e1d5c" target="_blank" rel="noopener">PDF</a></td><td><span style="color:var(--ink-3)">아직 없음</span></td></tr>
-<tr><td><a href="deliverable-proposal-summary.html"><b>기획서 요약</b></a></td><td><span class="st-done">완료</span></td><td><span style="color:var(--ink-3)">없음</span></td><td>팀 전원이 사실관계를 확인하고, 이 한 장만으로 「무엇을 왜 어떻게 언제까지」가 전달되면 상태를 확정으로 바꾼다.</td></tr>
+<tr><td><a href="deliverable-proposal-summary.html"><b>기획서 요약</b></a></td><td><span class="st-done">완료</span></td><td><a href="assets/deliverables/proposal-summary.pdf?v=f6340d1b" target="_blank" rel="noopener">PDF</a></td><td><span style="color:var(--ink-3)">아직 없음</span></td></tr>
 <tr><td><a href="deliverable-brainstorming.html"><b>브레인스토밍</b></a></td><td><span class="st-done">완료</span></td><td><a href="assets/deliverables/brainstorming.pdf?v=5f43ed64" target="_blank" rel="noopener">PDF</a></td><td><span style="color:var(--ink-3)">아직 없음</span></td></tr>
 <tr><td><a href="deliverable-wbs-official.html"><b>WBS</b></a></td><td><span class="st-done">완료</span></td><td><a href="assets/deliverables/wbs-official.pdf?v=c362b52e" target="_blank" rel="noopener">PDF</a></td><td><span style="color:var(--ink-3)">아직 없음</span></td></tr>
 <tr><td><a href="deliverable-roles-responsibilities.html"><b>역할과 책임</b></a></td><td><span class="st-done">완료</span></td><td><a href="assets/deliverables/roles-responsibilities.pdf?v=ab43818a" target="_blank" rel="noopener">PDF</a></td><td><span style="color:var(--ink-3)">아직 없음</span></td></tr>
 <tr><td><a href="deliverable-proposal-deck.html"><b>발표 자료</b></a></td><td><span class="st-done">완료</span></td><td><a href="assets/deliverables/proposal-deck.pdf?v=9ebc40c9" target="_blank" rel="noopener">PDF</a> · <a href="assets/deliverables/proposal-deck-presented.html?v=d35caf18" target="_blank" rel="noopener">HTML</a></td><td>슬라이드가 실제로 만들어지고 리허설을 한 번 돌고, 각 장의 숫자가 실측 문서와 일치하면 확정으로 바꾼다.</td></tr>
 </tbody></table></div>
-<div class="gate-h"><h2 style="margin:0">A-정책</h2><span class="g-left">2026년 09월 12일 · <span class="dd-live" data-due="2026-09-12">D-4</span> · 산출물 0/1</span></div>
+<div class="gate-h"><h2 style="margin:0">A-정책</h2><span class="g-left">2026년 09월 12일 · <span class="dd-live" data-due="2026-09-12">D-3</span> · 산출물 0/1</span></div>
 <p class="sub" style="margin:4px 0 0">우리 지형으로 학습한 정책과 지표 세트</p>
 <div class="tw"><table class="dl-tbl"><thead><tr><th style="width:28%">산출물</th><th style="width:11%">상태</th><th style="width:11%">제출본</th><th>완료 기준</th></tr></thead><tbody>
 <tr><td><a href="deliverable-policy-metrics.html"><b>기준 정책 · 지표 세트</b></a></td><td><span class="st-wait">대기</span></td><td><span style="color:var(--ink-3)">없음</span></td><td>아래 §2 표의 여섯 지표가 모두 숫자로 채워지고, §3 학습 조건이 재현 가능하게 적히고, 체크포인트 경로가 남으면 상태를 `확정` 으로 바꾼다. 관문: `A-정책` (2026-09-12)</td></tr>
 </tbody></table></div>
-<div class="gate-h"><h2 style="margin:0">MVP · 중간발표</h2><span class="g-left">2026년 09월 30일 · <span class="dd-live" data-due="2026-09-30">D-22</span> · 산출물 0/2</span></div>
+<div class="gate-h"><h2 style="margin:0">MVP · 중간발표</h2><span class="g-left">2026년 09월 30일 · <span class="dd-live" data-due="2026-09-30">D-21</span> · 산출물 0/2</span></div>
 <p class="sub" style="margin:4px 0 0">트랙 A 완결</p>
 <div class="tw"><table class="dl-tbl"><thead><tr><th style="width:28%">산출물</th><th style="width:11%">상태</th><th style="width:11%">제출본</th><th>완료 기준</th></tr></thead><tbody>
 <tr><td><a href="deliverable-generalization-report.html"><b>일반화 평가표</b></a></td><td><span class="st-wait">대기</span></td><td><span style="color:var(--ink-3)">없음</span></td><td>§3 비교표의 세 비교군이 모두 채워지고, §2 지형 분리가 명시되고, §4 핵심 질문에 숫자로 답이 되면 상태를 `확정` 으로 바꾼다. 관문: `MVP · 중간발표` (2026-09-30)</td></tr>
 <tr><td><a href="deliverable-twin-render.html"><b>디지털 트윈 · 렌더 시연물</b></a></td><td><span class="st-wait">대기</span></td><td><span style="color:var(--ink-3)">없음</span></td><td>§2 영상 목록이 실제 파일로 존재하고, §3 렌더 조건이 기록되고, 중간발표에서 상영 가능한 길이로 편집되면 상태를 `확정` 으로 바꾼다. 관문: `MVP · 중간발표` (2026-09-30)</td></tr>
 </tbody></table></div>
-<div class="gate-h"><h2 style="margin:0">NAV · 실기 항법</h2><span class="g-left">2026년 11월 07일 · <span class="dd-live" data-due="2026-11-07">D-60</span> · 산출물 0/1</span></div>
+<div class="gate-h"><h2 style="margin:0">NAV · 실기 항법</h2><span class="g-left">2026년 11월 07일 · <span class="dd-live" data-due="2026-11-07">D-59</span> · 산출물 0/1</span></div>
 <p class="sub" style="margin:4px 0 0">조선대 단계 종료</p>
 <div class="tw"><table class="dl-tbl"><thead><tr><th style="width:28%">산출물</th><th style="width:11%">상태</th><th style="width:11%">제출본</th><th>완료 기준</th></tr></thead><tbody>
 <tr><td><a href="deliverable-nav-report.html"><b>실기 항법 검증 리포트</b></a></td><td><span class="st-wait">대기</span></td><td><span style="color:var(--ink-3)">없음</span></td><td>§3 완주 기록이 영상·지도 파일·설정과 함께 남고, §4 실패 사례가 정리되면 상태를 `확정` 으로 바꾼다. 관문: `NAV · 실기 항법` (2026-11-07)</td></tr>
 </tbody></table></div>
-<div class="gate-h"><h2 style="margin:0">FINAL · 최종발표</h2><span class="g-left">2026년 12월 11일 · <span class="dd-live" data-due="2026-12-11">D-94</span> · 산출물 0/1</span></div>
+<div class="gate-h"><h2 style="margin:0">FINAL · 최종발표</h2><span class="g-left">2026년 12월 11일 · <span class="dd-live" data-due="2026-12-11">D-93</span> · 산출물 0/1</span></div>
 <p class="sub" style="margin:4px 0 0">지정 코스 자율주행 시연</p>
 <div class="tw"><table class="dl-tbl"><thead><tr><th style="width:28%">산출물</th><th style="width:11%">상태</th><th style="width:11%">제출본</th><th>완료 기준</th></tr></thead><tbody>
 <tr><td><a href="deliverable-final-report.html"><b>최종 실증결과 보고서</b></a></td><td><span class="st-wait">대기</span></td><td><span style="color:var(--ink-3)">없음</span></td><td>§2~§5 가 모두 숫자로 채워지고, 시연 영상과 시스템 구성도가 붙고, 발표 리허설을 1회 이상 마치면 상태를 `확정` 으로 바꾼다. 관문: `FINAL · 최종발표` (2026-12-11)</td></tr>
 </tbody></table></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-08 01:16</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 07:36</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

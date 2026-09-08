@@ -72,9 +72,18 @@ h2{font-size:1.28rem;font-weight:800;letter-spacing:-.01em;padding-bottom:.45rem
   border-bottom:1px solid var(--rule);margin-bottom:1rem}
 h3{font-size:1rem;font-weight:800;margin:1.5rem 0 .55rem;color:var(--ink)}
 h4{font-size:.88rem;font-weight:800;margin:1.1rem 0 .4rem;color:var(--ink-2)}
-p{margin:.6rem 0;overflow-wrap:break-word;word-break:keep-all}
+/* ★ 2026-09-08 감사 F-04. 모바일에서 페이지가 가로로 늘어났다.
+   원인은 keep-all 의 «짝» 이 빠진 것이다. word-break:keep-all 은 한국어를
+   낱말 중간에서 안 끊으려고 쓰는데, 그것만 두면 긴 URL 처럼 끊을 자리가
+   없는 토큰이 상자 밖으로 삐져나가 페이지 자체를 넓힌다.
+   p 에는 overflow-wrap 이 있었는데 li·td 에는 없었다. 실측에서 넘친 것이
+   정확히 li 였다 (research-cloud-gpu-options: li 안쪽 폭 729px · 화면 345px).
+   anywhere 는 «끊을 데가 없을 때만» 끊는다. 한국어 문장은 그대로 keep-all 이다.
+   표와 pre 는 자기 컨테이너(.tw)에서 스크롤하므로 여기서 건드리지 않는다. */
+p{margin:.6rem 0;overflow-wrap:anywhere;word-break:keep-all}
 ul,ol{margin:.6rem 0 .6rem 1.2rem}
-li{margin:.24rem 0;word-break:keep-all}
+li{margin:.24rem 0;word-break:keep-all;overflow-wrap:anywhere}
+dd,dt,figcaption,blockquote{overflow-wrap:anywhere}
 b{font-weight:800}
 a{color:var(--dim)}
 code{font-family:'Consolas','D2Coding',monospace;font-size:.9em;background:var(--paper-2);
@@ -91,7 +100,7 @@ blockquote b{color:var(--ink)}
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;border:1px solid var(--rule)}
 table{border-collapse:collapse;width:100%;min-width:420px;font-size:.82rem;background:var(--card)}
 th,td{border-bottom:1px solid var(--rule);padding:.5rem .7rem;text-align:left;vertical-align:top;
-  word-break:keep-all}
+  word-break:keep-all;overflow-wrap:anywhere}
 th{background:var(--ink);color:var(--paper);font-weight:800;font-size:.72rem;
   letter-spacing:.04em;border-bottom:none}
 tbody tr:last-child td{border-bottom:none}
@@ -616,27 +625,52 @@ document.addEventListener('DOMContentLoaded',function(){
     if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
     else if(e.key==='Escape'&&ov.classList.contains('on'))close();
   });
+  /* ★ 2026-09-08 감사 F-06. 셋을 한 덩어리로 삼켜 «결과 없음» 하나로 보여줬다.
+     색인을 못 받은 것 · 받았는데 모양이 틀린 것 · 정말로 없는 것은 서로 다르다.
+     앞의 둘은 우리 잘못이고 사용자는 다시 시도해야 한다는 것을 알아야 한다.
+     경로도 루트 절대경로로 바꾼다. team-meang/ 처럼 한 단계 아래 페이지에서
+     상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
+  var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('assets/search-index.json').then(function(r){return r.json()})
-      .then(function(j){IDX=j;cb()}).catch(function(){IDX=[];cb()});}
+    fetch('/assets/search-index.json').then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        return r.json();})
+      .then(function(j){
+        if(!Array.isArray(j)||(j.length&&typeof j[0].x!=='string'))
+          throw new Error('schema');
+        IDX=j;IDXERR=null;cb();})
+      .catch(function(err){
+        IDX=[];IDXERR=(err&&err.message==='schema')?'schema':'fetch';cb();});}
   function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function go(){
     var q=inp.value.trim().toLowerCase();sel=-1;
     if(q.length<2){res.innerHTML='';return;}
     load(function(){
+      /* ★ 2026-09-08 감사 F-02. 전에는 hits.length<40 인 동안만 훑고 그 40개를
+         정렬했다. 색인은 페이지 이름 순이라, 뒤쪽 페이지의 «제목 일치»(3점)가
+         앞쪽 페이지의 «본문 일치»(1점)보다 높아도 후보에 못 들었다.
+         실측: 프로젝트·보행·평가·문서·정책 다섯 낱말에서 화면 상위 12가
+         전역 상위 12와 달랐다. 전부 점수 매기고 정렬한 «뒤에» 자른다. */
       var hits=[];
-      for(var i=0;i<IDX.length&&hits.length<40;i++){
+      for(var i=0;i<IDX.length;i++){
         var e=IDX[i],hi=e.h.toLowerCase().indexOf(q),ti=e.x.toLowerCase().indexOf(q),
             pi=e.t.toLowerCase().indexOf(q);
         if(hi<0&&ti<0&&pi<0)continue;
         var score=(hi>=0?3:0)+(pi>=0?2:0)+(ti>=0?1:0);
         var snip='';
         if(ti>=0){var s=Math.max(0,ti-34);snip=(s>0?'…':'')+e.x.substr(s,95)+'…';}
-        hits.push({e:e,s:score,snip:snip});
+        hits.push({e:e,s:score,i:i,snip:snip});
       }
-      hits.sort(function(a,b){return b.s-a.s});
+      /* 동점이면 색인 순서로 고정한다. 정렬이 흔들리면 같은 검색어가 매번 다른
+         차례를 준다 (재현 빌드에서 A1 과 A2 가 갈리던 것과 같은 부류다). */
+      hits.sort(function(a,b){return b.s-a.s||a.i-b.i});
+      var total=hits.length;
       hits=hits.slice(0,12);
-      if(!hits.length){res.innerHTML='<div class="none">결과 없음: '+esc(q)+'</div>';}
+      if(!hits.length){
+        var msg=IDXERR==='fetch'?'검색 색인을 불러오지 못했습니다. 새로고침해 주세요'
+               :IDXERR==='schema'?'검색 색인 형식이 올바르지 않습니다. 관리자에게 알려 주세요'
+               :'결과 없음: '+esc(q);
+        res.innerHTML='<div class="none">'+msg+'</div>';}
       else{res.innerHTML=hits.map(function(h){
         return '<a href="'+h.e.p+(h.e.a?'#'+h.e.a:'')+'"><div class="sp1">'+esc(h.e.t)
           +'</div><div class="sp2">'+esc(h.e.h)+'</div>'
@@ -1134,5 +1168,5 @@ body>*{flex-shrink:0}
 }
 </style><a class="w3t" style="display:block;border:1px solid var(--rule);border-radius:8px;padding:.7rem 1rem;margin-bottom:1rem" data-added="2026-08-27" href="decisions-log.html"><b>결정 로그</b><span style="display:block;font-size:.73rem;color:var(--ink-3)">무엇을 언제 왜 정했나. 뒤집은 것은 취소선으로 남는다 · 누적 기록이라 시간축 밖에 둔다</span></a><div class="mfs"><button class="mf on" data-seat="">전체 <i>26</i></button><button class="mf" data-seat="팀내부">팀내부 <i>17</i></button><button class="mf" data-seat="멘토링">멘토링 <i>3</i></button><button class="mf" data-seat="운영진">운영진 <i>2</i></button><button class="mf" data-seat="조선대">조선대 <i>1</i></button><button class="mf" data-seat="결정">결정 <i>1</i></button><button class="mf" data-seat="현장">현장 <i>2</i></button></div><div class="tlw3"><a class="tl3" data-seat="팀내부" data-added="2026-09-02" href="notice-20260902.html"><span class="tld3">09/02</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">프로젝트 웹이 v2.0.0 으로 다시 만들어졌다. 무엇이 어떻게 바뀌었나.</span><span class="tls3">2026-09-02 공지</span></span></a><a class="tl3" data-seat="멘토링" data-added="2026-08-31" href="meeting-20260831-park-mentoring.html"><span class="tld3">08/31</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">기준선을 3 m 가 아니라 평지 10 m 직진 좌우 5 cm 로 다시 잡는다.</span><span class="tls3">8/31 멘토링: 3 m 는 짧다, 10 m 를 곧게 가라</span></span></a><a class="tl3" data-seat="결정" data-added="2026-08-27" href="decisions-20260827.html"><span class="tld3">08/27</span><span class="seat3 s-ops">결정</span><span class="tlb3"><span class="tlt3">8/26~27 에 확정한 것 전부</span><span class="tls3">설계 결정 기록</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260827.html"><span class="tld3">08/27</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">8/26~27 에 바뀐 작업 방식 전부. 팀에 보내는 공지.</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-08-26" href="meeting-20260826-mentor-sync.html"><span class="tld3">08/26</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">오늘 멘토링은 취소. 운영이 프로젝트 피드백 중심으로 조율하고, 금요일 재개 여부는 그 뒤.</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260826.html"><span class="tld3">08/26</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">팀 공통 규율 · AI 로 작업할 때 반드시 지킬 것</span></span></a><a class="tl3 old" data-seat="멘토링" data-added="2026-08-25" href="meeting-20260825-park-mentoring.html"><span class="tld3">08/25</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">2회차 멘토링. 프로젝트 화면을 보고, 실패 험지는 3점 지지로 읽는다.</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260825.html"><span class="tld3">08/25</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">📢 자동화 지도 · 프로젝트 웹에 올렸습니다 (2026-08-25)</span></span></a><a class="tl3 old" data-seat="멘토링" data-added="2026-08-24" href="meeting-20260824-park-mentoring.html"><span class="tld3">08/24</span><span class="seat3 s-mentor">멘토</span><span class="tlb3"><span class="tlt3">본 과제와 CAD 학습은 분리한다. 개별 취업 멘토링 첫 회차.</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260824.html"><span class="tld3">08/24</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">📢 자기소개, 각자 원하는 방식으로 (오늘 오후 3시 박철제 멘토님 미팅 전)</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260823.html"><span class="tld3">08/23</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">📢 조선대 3주차 자료 «ROS2 Python 프로그래밍» 자료실 업로드 (2026-08-23)</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260822.html"><span class="tld3">08/22</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">📢 인프라 가이드 2편 게시 + 월요일 준비물 (2026-08-22)</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-08-21" href="meeting-20260821-team-meeting.html"><span class="tld3">08/21</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">역할을 main/sub 로 그룹핑하고 클라우드 운용을 시작했다.</span></span></a><a class="tl3 old" data-seat="운영진" data-added="2026-08-20" href="meeting-20260820-kickoff.html"><span class="tld3">08/20</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">전담 멘토 확정과 박철제 킥오프. 같은 날 두 자리를 한 장으로.</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260820.html"><span class="tld3">08/20</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">📢 전담 현직자 멘토(제6의 멤버) 킥오프: 오늘 8/20(목) 16:00 줌 (2026-08-20</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-08-19" href="meeting-20260819-team-lock.html"><span class="tld3">08/19</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">두 트랙으로 가기로 합의했다. C(미경험 지형 통과율)는 필수로 지킨다.</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260818.html"><span class="tld3">08/18</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">📢 GPU 서버 계정 발급 (보충): 웹에도 정리했습니다 (2026-08-14)</span></span></a><a class="tl3 old" data-seat="현장" data-added="2026-08-14" href="field-check-go2-intake.html"><span class="tld3">08/14</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">Go2 신규 개체를 받을 때 확인할 것. 하드웨어 · 펌웨어 · 접근 권한.</span></span></a><a class="tl3 old" data-seat="운영진" data-added="2026-08-14" href="meeting-20260814-east-ops.html"><span class="tld3">08/14</span><span class="seat3 s-ops">운영</span><span class="tlb3"><span class="tlt3">원안이 확정됐다. 그리고 미팅 도중 조선대가 「Go2 저수준 제어 가능」으로 정정해 왔다. 전날의 최대 쟁점이 하루 만에 뒤집혔다.</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260814.html"><span class="tld3">08/14</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">📢 현장 확인: 저수준 제어가 이 프로젝트의 관문입니다 (2026-08-14)</span></span></a><a class="tl3 old" data-seat="현장" data-added="2026-08-12" href="field-check-0813.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">현장</span><span class="tlb3"><span class="tlt3">8/13 조선대 방문 때 들고 가는 확인 목록. 답을 채우면 미결정 안건이 닫힌다.</span></span></a><a class="tl3 old" data-seat="조선대" data-added="2026-08-13" href="meeting-20260813-ops-alignment.html"><span class="tld3">08/13</span><span class="seat3 s-chosun">조선대</span><span class="tlb3"><span class="tlt3">「실시간 불가」 발언은 비전·항법 층 이야기였다. 진짜 쟁점은 Go2 저수준 개방 여부이고 아직 미확인이다.</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260813.html"><span class="tld3">08/13</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">📢 이제 진짜로 올릴 수 있습니다: 시작 가이드 (2026-08-13)</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260812.html"><span class="tld3">08/12</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">📢 자료 제출함(inbox)이 열렸습니다 (2026-08-12)</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260811.html"><span class="tld3">08/11</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">📢 FOOTHOLD 공지 · 협업 시스템 오픈 + 첫 실측 결과 (2026-08-11)</span></span></a><a class="tl3 old" data-seat="팀내부" data-added="2026-09-02" href="notice-20260809.html"><span class="tld3">08/09</span><span class="seat3 s-team">팀</span><span class="tlb3"><span class="tlt3">FOOTHOLD 협업 시스템 오픈</span></span></a></div><script>document.querySelectorAll(".mf").forEach(function(b){b.onclick=function(){document.querySelectorAll(".mf").forEach(function(x){x.classList.remove("on")});b.classList.add("on");var s=b.dataset.seat;document.querySelectorAll("a[data-seat]").forEach(function(t){t.style.display=(!s||t.dataset.seat===s)?"":"none"});};});</script>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-08 01:16</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 07:36</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
