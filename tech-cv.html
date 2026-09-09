@@ -862,7 +862,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=b978f635').then(function(r){
+    fetch('/assets/search-index.json?v=78ed1986').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -949,7 +949,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 <main class="fh-doc">
-<p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 1단계) · 이식 2026-09-09 12:49 · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
+<p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 1단계) · 이식 2026-09-09 12:54 · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
 
 <div class="hero">
   <div class="eyebrow">내 담당 파트 · <code>B/인지</code> 주담당 · <code>nav/perception/</code></div>
@@ -960,13 +960,13 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <div class="call"><div class="t">지금 여기 · 2026-08-27 기준</div>
 <p><strong>이번 주 CV 결승선은 <a href="#C3-5">C3-5</a>다</strong> · 개인 노트북에서 웹캠 YOLO를 띄우고 <strong>FPS·VRAM을 숫자로 적는 것</strong>. 그게 08-29(토) Must이자 <code>S1</code> 완료 기준의 뒷부분이고, 동시에 B축(취업) 포트폴리오의 첫 정량 증거다.</p>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>순서</th><th>어디</th><th>무엇</th><th>언제</th><th>상태</th></tr>
 <tr><td>1</td><td><a href="#C3-1">C3-1</a></td><td><code>ultralytics</code> 설치 + <code>torch.cuda.is_available()</code> 확인 (15분)</td><td>08-27 저녁</td><td>대기</td></tr>
 <tr><td>2</td><td><a href="#C1-1">C1-1</a>~<a href="#C1-5">C1-5</a></td><td>OpenCV로 웹캠 열기 · 이미지가 숫자 배열이라는 것 확인</td><td>08-29</td><td>대기</td></tr>
 <tr><td>3</td><td><a href="#C3-3">C3-3</a>~<a href="#C3-5">C3-5</a></td><td><b>웹캠 실시간 탐지 + 실측표</b></td><td>08-29 (4h)</td><td class="neg">Must</td></tr>
 <tr><td>4</td><td><a href="#C4-1">C4-1</a></td><td><code>usb_cam</code> → <code>/image_raw</code> (학원 노트북 · 낮 고정)</td><td>08-28 낮</td><td>대기</td></tr>
-</table></div>
+</table></div></div>
 <p class="sub"><strong>2회 이월된 항목이 여기 둘 있다</strong>(GPU 점검 · <code>ultralytics</code> 설치). 3회 이월 전에 쪼개라는 규칙에 따라 <a href="#C3-1">C3-1</a>(설치 확인 15분)과 <a href="#C3-5">C3-5</a>(추론 성공)로 이미 분해해 두었다.</p></div>
 
 <h2 id="howto"><span class="n">0</span>이 교재 쓰는 법 · 진도표</h2>
@@ -974,17 +974,17 @@ document.addEventListener('DOMContentLoaded',function(){
 <h3>왜 이 순서인가</h3>
 <p>CV 강의는 보통 <strong>딥러닝 이론 → CNN → 탐지 → 배포</strong> 순으로 간다. 그 순서는 좋지만 <strong>우리 일정에 맞지 않는다.</strong> 우리가 9월 첫 주에 필요한 것은 CNN의 역전파가 아니라 <strong>"웹캠 영상에 박스가 그려지고 그 속도가 몇 FPS인지"</strong>이기 때문이다.</p>
 <p>그래서 이 교재는 <strong>파이프라인을 먼저 끝에서 끝까지 뚫고, 이론은 그 파이프라인을 못 고칠 때만 되돌아가서 채운다.</strong> 순서는 이렇게 된다.</p>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>큰 흐름</th><th>무엇을 얻나</th><th>왜 이 자리인가</th></tr>
 <tr><td><b>C1 → C2 → C3</b><br>영상 → 박스</td><td>웹캠 영상에 탐지 박스가 뜨고, 그 성능이 숫자로 나온다</td><td>ROS 2 없이 개인 노트북만으로 된다. <b>밤에 할 수 있는 유일한 CV 작업</b></td></tr>
 <tr><td><b>C4</b><br>박스 → 토픽</td><td>탐지가 ROS 2 노드가 되어 팀 시스템에 붙는다</td><td>학원 노트북(웹캠·GUI)이 필요하다. <b>낮 고정</b></td></tr>
 <tr><td><b>C5 → C6</b><br>토픽 → 좌표</td><td>탐지된 픽셀이 지도 위의 점이 된다 = <code>S4</code></td><td>여기서 처음으로 수학이 필요하다. 앞이 안 돌면 여기는 검증할 방법이 없다</td></tr>
 <tr><td><b>C7</b><br>정확도</td><td>우리 대상에 맞춘 모델 + mAP 수치</td><td>파이프라인이 돌고 나서 정확도를 올리는 게 순서다. 반대로 하면 뭘 고쳤는지 모른다</td></tr>
 <tr><td><b>C8</b><br>LiDAR</td><td><code>B/인지</code>의 나머지 절반</td><td>실기 접근 전에는 확인할 값이 없다. <b>지금은 지도만 그린다</b></td></tr>
-</table></div>
+</table></div></div>
 
 <h3>진도표 · 각 스텝이 어느 관문에 매여 있나</h3>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>구간</th><th>다루는 것</th><th>스텝</th><th>어느 장비</th><th>매인 단계</th><th>상태</th></tr>
 <tr><td><b>C1</b></td><td>이미지 = 숫자 배열 · OpenCV · 웹캠 열기</td><td>C1-1 ~ C1-6</td><td><span class="tag nb">개인</span></td><td><code>S1</code></td><td class="neg">← 지금 여기</td></tr>
 <tr><td><b>C2</b></td><td>분류/탐지/분할 · bbox · IoU · NMS · mAP</td><td>C2-1 ~ C2-5</td><td>읽기만</td><td><code>S1</code></td><td>대기</td></tr>
@@ -994,7 +994,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <tr><td><b>C6</b></td><td>역투영 · optical frame · TF · 지면 평면 가정</td><td>C6-1 ~ C6-6</td><td><span class="tag ch">학원</span></td><td><b><code>S4</code> (11-07)</b></td><td>대기</td></tr>
 <tr><td><b>C7</b></td><td>데이터셋 · 라벨링 · 학습 · mAP 리포트</td><td>C7-1 ~ C7-5</td><td><span class="tag nb">개인</span></td><td>포트폴리오 (9월)</td><td>대기</td></tr>
 <tr><td><b>C8</b></td><td>LiDAR 점군 · 카메라-LiDAR 융합</td><td>C8-1 ~ C8-4</td><td>실기</td><td><code>S6</code> (12-11)</td><td>지도만</td></tr>
-</table></div>
+</table></div></div>
 <div class="wherebar"><b>장비가 스텝을 가른다.</b><span class="tag nb">개인 노트북 · RTX 3060 6GB · Windows</span><span class="tag ch">학원 노트북 · 네이티브 Ubuntu 24.04 · ROS 2 Jazzy</span><b>C1·C2·C3·C7은 밤에 된다. C4 이후는 낮에만 된다.</b></div>
 <p class="sub"><strong>왜 갈리나.</strong> ROS 2는 학원 노트북에만 깔려 있고, 웹캠은 그 노트북에 물리적으로 꽂혀야 한다. 원격 접속으로는 <code>rqt_image_view</code> 같은 GUI와 카메라 장치가 안 넘어온다. 그래서 <strong>C3까지를 개인 노트북에서 끝내 두는 것이 저녁 시간을 살리는 유일한 방법</strong>이다.</p>
 
@@ -1015,12 +1015,12 @@ document.addEventListener('DOMContentLoaded',function(){
 <p>왜 이렇게 나누나. 카메라는 색과 무늬를 보므로 <strong>사람·표지·문 같은 의미</strong>를 알아본다. 하지만 사진 한 장은 거리를 모른다. LiDAR는 반대다 · 그것이 사람인지 벽인지는 모르지만 <strong>몇 미터 앞인지는 센티미터 단위로</strong> 안다. 둘을 합치면 "3.2m 앞에 사람"이 된다. 그 합치는 작업이 <a href="#c6">C6</a>과 <a href="#c8">C8</a>이다.</p>
 
 <h3>내가 맡은 범위 · "CV 담당"보다 넓다</h3>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>영역</th><th>내 역할</th><th>폴더</th><th>관문</th></tr>
 <tr><td><code>A/평가</code> · 일반화 벤치마크·지표</td><td><b>주담당</b></td><td><code>sim/eval/</code></td><td>9/12 · 9/30</td></tr>
 <tr><td><code>B/인지</code> · <b>LiDAR · 카메라 · 센서 융합</b></td><td><b>주담당</b></td><td><code>nav/perception/</code></td><td>11/7 · 12/11</td></tr>
 <tr><td><code>B/항법</code> · ROS 2 · TF · SLAM · Nav2</td><td>부담당 (주담당: 팀장)</td><td><code>nav/</code></td><td>11/7 · 12/11</td></tr>
-</table></div>
+</table></div></div>
 <div class="call trap"><div class="t">9월의 함정 · CV가 아니라 평가가 주력이다</div>
 <p>9/30 중간발표 제출물은 <strong>일반화 평가표 + 트윈 렌더</strong>이고, 거기에 <strong>트랙 B(CV·ROS 2·Nav2)는 걸려 있지 않다.</strong> 9월 자율 시간의 60%는 <code>A/평가</code>로 간다. 이 교재의 C1~C3을 이번 주에 밀어 두는 이유가 그것이다 · <strong>9월에 CV를 붙들 시간이 없으므로, 8월 안에 "돌아가는 증거" 한 장을 확보해 둔다.</strong></p>
 <p>대신 <strong>파인튜닝 mAP(<a href="#c7">C7</a>)는 9월에도 죽이지 않는다.</strong> RunPod 실험 1회가 2h15m이라 그 대기시간에 개인 노트북에서 굴릴 수 있다. 이게 죽으면 이력서에 "모델 학습 경험 0"이 된다.</p></div>
@@ -1161,13 +1161,13 @@ cap.<span class="f">release</span>()</pre></div>
 
 <h3 id="C1-6"><span class="step">C1-6</span>여기서 멈출 것 · 안 배우는 것들</h3>
 <p>OpenCV 교재는 보통 여기서 <strong>필터·엣지 검출·허프 변환·특징점 매칭</strong>으로 넘어간다. <strong>우리는 지금 안 한다.</strong></p>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>주제</th><th>왜 지금 안 하나</th><th>언제 필요해지나</th></tr>
 <tr><td>블러 · 엣지(Canny) · 이진화</td><td>딥러닝 탐지가 그 일을 대신한다. 전처리로 넣으면 오히려 정확도가 떨어진다</td><td>영상 품질이 나빠 전처리가 필요할 때만</td></tr>
 <tr><td>특징점(SIFT·ORB) 매칭</td><td>SLAM 내부에서 쓰이지만 <b>우리는 SLAM을 만들지 않고 <code>slam_toolbox</code>를 쓴다</b></td><td>Visual SLAM으로 갈 때 (계획에 없음)</td></tr>
 <tr><td>광학 흐름(Optical Flow)</td><td>추적이 필요해지면 그때. YOLO에 딸린 <code>track()</code>이 먼저다</td><td>객체 추종 데모를 만들 때</td></tr>
 <tr><td>왜곡 보정 · 캘리브레이션</td><td>필요는 한데 <b>순서가 뒤</b>다. 지금 배워도 쓸 <code>K</code> 행렬이 없다</td><td><a href="#c5">C5</a> · <code>S2</code> (10-10)</td></tr>
-</table></div>
+</table></div></div>
 <p class="sub">폐기가 아니라 <strong>순서 이동</strong>이다. 필요해지는 스텝에 각각 적어 두었다.</p>
 
 <h2 id="c2"><span class="n">C2</span>탐지의 언어 · 용어부터 정리</h2>
@@ -1184,12 +1184,12 @@ cap.<span class="f">release</span>()</pre></div>
 <p><strong>세 가지가 동시에 맞아떨어진다.</strong> ① 출력이 작아서(박스 몇 개) ROS 2 토픽으로 보내기 쉽다 ② 라벨링 비용이 분할의 1/10쯤이다 ③ <code>vision_msgs/Detection2DArray</code>라는 <strong>표준 메시지 타입이 이미 있어</strong> 팀의 Nav2 쪽과 붙일 때 협의 없이 연결된다.</p></div>
 
 <h3 id="C2-2"><span class="step">C2-2</span>바운딩 박스 표기법 세 가지 · 섞이면 박스가 엉뚱한 데 뜬다</h3>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>표기</th><th>값 네 개의 뜻</th><th>단위</th><th>어디서 쓰나</th></tr>
 <tr><td><code>xyxy</code></td><td>왼쪽위 x, 왼쪽위 y, 오른쪽아래 x, 오른쪽아래 y</td><td>픽셀</td><td><b>OpenCV로 그릴 때</b> · YOLO 결과 <code>r.boxes.xyxy</code></td></tr>
 <tr><td><code>xywh</code></td><td>왼쪽위 x, 왼쪽위 y, 너비, 높이</td><td>픽셀</td><td>COCO 데이터셋 · <code>vision_msgs</code>는 <b>중심</b> 기준이라 또 다름</td></tr>
 <tr><td><code>YOLO 포맷</code></td><td><b>중심</b> x, <b>중심</b> y, 너비, 높이</td><td><b>0~1 정규화</b></td><td><b>라벨 파일(<code>.txt</code>)</b> · <a href="#c7">C7</a> 파인튜닝</td></tr>
-</table></div>
+</table></div></div>
 <p><strong>정규화가 왜 있나.</strong> 학습 중에 이미지 크기가 계속 바뀌기 때문이다. 640×480으로 찍은 사진을 416×416으로 줄여 학습에 넣어도 <strong>비율로 적어 두면 라벨을 고칠 필요가 없다.</strong></p>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre># 픽셀 xyxy → YOLO 포맷 (라벨 파일에 적을 때)
 cx = ((x1 + x2) / 2) / W
@@ -1221,13 +1221,13 @@ h  = (y2 - y1) / H
 <p>이 습관이 그대로 <code>A/평가</code>의 「일반화 평가표」와 같은 형식이라, <strong>두 축이 한 이력서 안에서 같은 이야기를 한다</strong> · "지표를 설계하고 기준선과 대조해 정량 비교했다."</p></div>
 
 <h3 id="C2-5"><span class="step">C2-5</span>모델 크기 고르기 · 6GB VRAM에서의 현실</h3>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>접미어</th><th>크기</th><th>개인 노트북(3060 6GB)</th><th>Jetson Orin NX 16GB</th><th>쓸 자리</th></tr>
 <tr><td><code>n</code> (nano)</td><td>가장 작음</td><td class="pos">여유롭게 실시간</td><td class="pos">TensorRT로 30FPS+</td><td><b>실기 탑재 기본선</b></td></tr>
 <tr><td><code>s</code> (small)</td><td>작음</td><td class="pos">실시간 가능</td><td class="pos">가능</td><td>정확도가 부족할 때 한 단계</td></tr>
 <tr><td><code>m</code> (medium)</td><td>중간</td><td>해상도를 낮추면</td><td>여유 있음</td><td>오프라인 분석 · rosbag 후처리</td></tr>
 <tr><td><code>l</code> · <code>x</code></td><td>큼</td><td class="neg">VRAM 부족 위험</td><td>느림</td><td>안 쓴다</td></tr>
-</table></div>
+</table></div></div>
 <p><strong>고르는 순서는 정확도가 아니라 속도부터다.</strong> <code>n</code>으로 파이프라인을 먼저 뚫고, mAP가 부족한 게 <strong>측정으로 확인되면</strong> 한 단계 올린다. 처음부터 큰 모델로 시작하면 <strong>느린 이유가 모델인지 코드인지 구분이 안 된다.</strong></p>
 <p class="sub">숫자를 여기 적지 않은 이유 · <strong>남의 벤치마크는 내 노트북에서 재현되지 않는다.</strong> <a href="#C3-5">C3-5</a>에서 직접 잰 값이 이 표를 대체한다.</p>
 
@@ -1325,13 +1325,13 @@ cap.<span class="f">release</span>(); cv2.<span class="f">destroyAllWindows</spa
 </div>
 
 <h3 id="C3-4"><span class="step">C3-4</span>느릴 때 만지는 손잡이 네 개</h3>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>손잡이</th><th>어떻게</th><th>얻는 것</th><th>잃는 것</th></tr>
 <tr><td><code>imgsz</code></td><td><code>640</code> → <code>416</code> → <code>320</code></td><td><b>가장 크게 빨라진다</b> (대략 픽셀 수에 비례)</td><td>작은 물체를 놓치기 시작한다</td></tr>
 <tr><td><code>half=True</code></td><td>FP16 반정밀도 추론</td><td>속도 ↑ · <b>VRAM 절반</b></td><td>정확도 변화는 대체로 무시할 수준</td></tr>
 <tr><td>모델 크기</td><td><code>s</code> → <code>n</code></td><td>확실히 빨라진다</td><td>mAP가 눈에 띄게 떨어진다</td></tr>
 <tr><td>프레임 건너뛰기</td><td>2~3장에 1번만 추론</td><td>체감 FPS 유지</td><td>반응이 늦다. <b>추적과 같이 쓰면 완화된다</b></td></tr>
-</table></div>
+</table></div></div>
 <div class="call trap"><div class="t">순서를 지킨다 · 한 번에 하나만</div>
 <p><code>imgsz</code>를 내리면서 동시에 <code>half</code>를 켜면 <strong>무엇이 얼마나 기여했는지 알 수 없다.</strong> 팀 실험 규율 그대로 <strong>한 번에 하나만 바꾸고 기준선과 대조한다.</strong> 그래서 다음 스텝이 표다.</p></div>
 
@@ -1364,23 +1364,23 @@ cap.<span class="f">release</span>(); cv2.<span class="f">destroyAllWindows</spa
 </div>
 <div class="chk"><b>성공 판정</b>아래 표가 숫자로 채워진다.</div>
 </div>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>모델</th><th>imgsz</th><th>half</th><th>FPS</th><th>VRAM(MB)</th><th>추론(ms)</th><th>메모</th></tr>
 <tr><td><code>yolo11n</code></td><td>640</td><td>✓</td><td>(  )</td><td>(  )</td><td>(  )</td><td>기준선</td></tr>
 <tr><td><code>yolo11n</code></td><td>416</td><td>✓</td><td>(  )</td><td>(  )</td><td>(  )</td><td>해상도만 바꿈</td></tr>
 <tr><td><code>yolo11n</code></td><td>320</td><td>✓</td><td>(  )</td><td>(  )</td><td>(  )</td><td>작은 물체 확인 필요</td></tr>
 <tr><td><code>yolo11s</code></td><td>640</td><td>✓</td><td>(  )</td><td>(  )</td><td>(  )</td><td>모델만 바꿈</td></tr>
 <tr><td><code>yolo11n</code></td><td>640</td><td>✗</td><td>(  )</td><td>(  )</td><td>(  )</td><td>half 효과 확인</td></tr>
-</table></div>
+</table></div></div>
 <p class="sub"><strong>표를 채운 뒤 한 문장을 적는다</strong> · <em>"우리 실기 기본선은 <code>(  )</code>으로 간다. 근거는 <code>(  )</code>."</em> 표는 근거이고, <strong>결정이 산출물</strong>이다. 이 문장이 없으면 표는 숫자 더미로 남는다.</p>
 
 <h3 id="C3-6"><span class="step">C3-6</span>TensorRT 변환은 지금 하지 않는다</h3>
 <p>Jetson에 올릴 때는 <code>model.export(format="engine", half=True)</code>로 TensorRT 엔진을 만들어야 속도가 제대로 나온다. <strong>지금은 안 한다.</strong></p>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>왜 미루나</th><th>언제 하나</th></tr>
 <tr><td>엔진 파일은 <b>변환한 그 장비에서만</b> 돈다. 내 노트북에서 만든 엔진은 Jetson에서 안 열린다</td><td><b>실기 데모 2~3주 전</b>, Jetson 위에서 직접</td></tr>
 <tr><td>Go2 온보드에서 돌릴지 노트북으로 받아 돌릴지가 <b>아직 미확정</b>이다</td><td>배포 위치가 정해진 뒤 (<a href="#go2">아래 §Go2</a>)</td></tr>
-</table></div>
+</table></div></div>
 <p class="sub">지금 필요한 것은 <strong>"내 노트북에서 몇 FPS"</strong>라는 기준선 하나다. 변환은 그 기준선이 있어야 <strong>얼마나 빨라졌는지</strong> 말할 수 있다.</p>
 
 <h2 id="c4"><span class="n">C4</span>ROS 2 이미지 파이프라인 <span class="sub">= <code>S2</code> (10-10)</span></h2>
@@ -1458,11 +1458,11 @@ out.header = msg.header      <span class="c"># ★ 시각과 프레임 이름을
 
 <div class="call trap"><div class="t">함정 · Ubuntu 24.04에서 <code>pip install ultralytics</code>가 거부된다</div>
 <p>Ubuntu 24.04는 시스템 파이썬에 <code>pip</code>로 설치하는 것을 막는다(PEP 668). <code>externally-managed-environment</code> 에러가 그것이다. 그런데 <strong>ROS 2 노드는 시스템 파이썬으로 실행되므로</strong>, 보통 venv를 만들면 이번엔 <code>rclpy</code>를 못 찾는다. 둘 중 하나를 고른다.</p>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>방법</th><th>명령</th><th>대가</th></tr>
 <tr><td><b>venv에 시스템 패키지 상속</b></td><td><code>python3 -m venv --system-site-packages ~/cvenv</code> → 활성화 후 <code>pip install ultralytics</code></td><td>노드 실행 전 매번 <code>source ~/cvenv/bin/activate</code>가 필요하다</td></tr>
 <tr><td>시스템에 직접</td><td><code>pip install ultralytics --break-system-packages</code></td><td>시스템 파이썬을 오염시킨다. <b>학원 공용 노트북이면 피한다</b></td></tr>
-</table></div>
+</table></div></div>
 <p><strong>venv 쪽을 권한다.</strong> <code>--system-site-packages</code>가 핵심이다 · 이게 있어야 venv 안에서 <code>rclpy</code>·<code>cv_bridge</code>가 그대로 보인다. 이 결정은 <a href="#C4-8">C4-8</a>의 launch 파일에도 영향을 주니 <strong>어느 쪽을 골랐는지 적어 둔다</strong>: <code>(  )</code></p></div>
 
 <h3 id="C4-4"><span class="step">C4-4</span>탐지 노드 골격</h3>
@@ -1679,13 +1679,13 @@ $</span> <span class="f">ros2</span><span class="k"> run</span> camera_calibrati
 <p class="sub">체스보드는 A4에 인쇄해 <strong>딱딱한 판에 붙인다.</strong> 종이가 휘면 값이 조용히 틀어진다.</p></div>
 
 <h3 id="C5-5"><span class="step">C5-5</span>이 절의 산출물</h3>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>값</th><th>어디서</th><th>내 값</th></tr>
 <tr><td><code>fx</code> · <code>fy</code></td><td>캘리브레이션 또는 <code>/camera_info</code></td><td>(  ) · (  )</td></tr>
 <tr><td><code>cx</code> · <code>cy</code></td><td>같음</td><td>(  ) · (  )</td></tr>
 <tr><td><code>D</code> 계수 5개</td><td>같음</td><td>(  )</td></tr>
 <tr><td>해상도</td><td><code>/camera_info</code>의 <code>width</code>·<code>height</code></td><td>(  ) × (  )</td></tr>
-</table></div>
+</table></div></div>
 <div class="call trap"><div class="t">해상도를 바꾸면 <code>K</code>도 바꿔야 한다</div>
 <p><code>fx</code>·<code>cx</code>는 <strong>픽셀 단위</strong>다. 이미지를 절반으로 줄이면 <strong>네 값 모두 절반이 된다.</strong> <a href="#C3-4">C3-4</a>에서 <code>imgsz</code>를 낮춰 속도를 벌었다면, <strong>그 축소 비율을 좌표 변환에 반영해야 한다.</strong> 안 하면 탐지 결과가 지도에서 <b>일정 비율로 어긋나는데</b> 원인 찾기가 몹시 어렵다. 가장 안전한 방법은 <strong>추론은 축소본으로 하되 박스 좌표는 원본 해상도로 되돌린 뒤 변환에 넣는 것</strong>이다(ultralytics는 기본적으로 원본 기준으로 돌려준다 · 직접 <code>resize</code>했을 때만 문제가 된다).</p></div>
 
@@ -1694,14 +1694,14 @@ $</span> <span class="f">ros2</span><span class="k"> run</span> camera_calibrati
 
 <h3 id="C6-1"><span class="step">C6-1</span>프레임 사슬 · 수업의 <code>world→moving→child</code>가 실전에서는</h3>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>map → odom → base_link → camera_link → camera_optical_frame</pre></div>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>프레임</th><th>뜻</th><th>누가 만드나</th></tr>
 <tr><td><code>map</code></td><td>세계 기준. <b>튀지만 누적 오차가 없다</b></td><td>SLAM (<code>slam_toolbox</code>)</td></tr>
 <tr><td><code>odom</code></td><td>주행거리 기준. <b>부드럽지만 서서히 밀린다</b></td><td>로봇 오도메트리</td></tr>
 <tr><td><code>base_link</code></td><td>로봇 몸통 중심</td><td>로봇 드라이버</td></tr>
 <tr><td><code>camera_link</code></td><td>카메라가 몸통 <b>어디에</b> 붙어 있나</td><td><b>URDF 또는 <code>static_transform_publisher</code></b> ← 내가 해야 할 수도</td></tr>
 <tr><td><code>camera_optical_frame</code></td><td>실제 광학 좌표계</td><td>같음</td></tr>
-</table></div>
+</table></div></div>
 <p><strong>왜 <code>map</code>과 <code>odom</code>이 둘 다 있나.</strong> 오도메트리는 부드럽지만 시간이 갈수록 밀린다. SLAM은 밀림을 고쳐 주지만 고칠 때 순간적으로 <strong>위치가 튄다.</strong> 제어에는 부드러운 것이, 지도 표시에는 정확한 것이 필요하므로 <strong>둘을 다 두고 상황에 따라 골라 쓴다.</strong> 탐지 결과를 지도에 남길 때는 <code>map</code> 기준이다.</p>
 <div class="cb"><div class="cb-h">Bash / 우분투<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="o">$</span> <span class="f">ros2</span><span class="k"> run</span> tf2_tools view_frames        <span class="c"># TF 트리를 PDF로 그려 준다</span><span class="o">
 $</span> <span class="f">ros2</span><span class="k"> run</span> tf2_ros tf2_echo map camera_optical_frame</pre></div>
@@ -1712,23 +1712,23 @@ $</span> <span class="f">ros2</span><span class="k"> run</span> tf2_ros tf2_echo
 
 <h3 id="C6-2"><span class="step">C6-2</span>광학 프레임 함정 · 90도가 조용히 두 번 돈다</h3>
 <div class="call trap"><div class="t">에러 없이 결과만 90도 돌아간다</div>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>프레임</th><th>x</th><th>y</th><th>z</th></tr>
 <tr><td><code>camera_link</code> (로봇 관례 · REP-103)</td><td>앞</td><td>왼쪽</td><td>위</td></tr>
 <tr><td><code>camera_optical_frame</code> (영상 관례)</td><td>오른쪽</td><td>아래</td><td><b>앞</b></td></tr>
-</table></div>
+</table></div></div>
 <p>두 프레임 사이에는 <strong>90도 회전이 두 번</strong> 들어간다. 이걸 모르고 변환하면 결과가 돌아간 채로 나오는데 <strong>코드는 아무 에러도 내지 않는다.</strong> 값이 이상하면 여기부터 의심한다.</p>
 <p><strong>기억하는 법</strong>: <a href="#C1-2">C1-2</a>에서 확인한 <strong>OpenCV 이미지 좌표(x 오른쪽, y 아래)에 z(깊이)를 앞으로 붙인 것</strong>이 광학 프레임이다. 그러니 <strong><code>K</code> 행렬로 계산한 결과는 언제나 <code>camera_optical_frame</code> 기준</strong>이지 <code>camera_link</code> 기준이 아니다.</p></div>
 
 <h3 id="C6-3"><span class="step">C6-3</span>깊이를 어디서 가져오나 · 세 갈래</h3>
 <p><a href="#C5-1">C5-1</a>에서 확인했듯 사진에는 거리 정보가 없다. 부족한 하나를 밖에서 가져와야 한다.</p>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>방법</th><th>성립 조건</th><th>정확도</th><th>우리 상황</th></tr>
 <tr><td><b>depth 카메라</b></td><td>카메라가 거리를 함께 준다</td><td class="pos">가장 정확</td><td class="neg"><b>미확인</b> · 교수님께 확인 필요</td></tr>
 <tr><td><b>LiDAR 융합</b></td><td>점군을 이미지에 투영해 박스 안 점의 거리를 읽는다</td><td class="pos">정확</td><td>등에 별도 LiDAR 모듈이 있다 → <a href="#c8">C8</a></td></tr>
 <tr><td><b>지면 평면 가정</b></td><td>대상이 <b>바닥에 닿아 있다</b>고 가정</td><td>평지에서만</td><td class="neg"><b>험지 프로젝트라 한계가 크다</b></td></tr>
 <tr><td>물체 크기 기지</td><td>대상의 실제 크기를 안다</td><td>대상이 정해져 있을 때만</td><td>보조 수단</td></tr>
-</table></div>
+</table></div></div>
 <div class="call"><div class="t">이 표의 첫 줄이 CV 설계를 통째로 가른다</div>
 <p>Go2 카메라가 거리를 함께 주는지 여부에 따라 <strong>C6이 반나절짜리가 되거나 2주짜리가 된다.</strong> 그래서 이것이 교수님께 물을 질문 목록의 가장 위에 있다.</p>
 <p class="sub">물을 때 <strong>"RGB-D인가요"보다 "거리 정보가 같이 나오나요"</strong>로 묻는 편이 오해가 없다.</p></div>
@@ -1809,13 +1809,13 @@ p_map = <span class="f">do_transform_point</span>(p, t)</pre></div>
 <h3 id="C7-1"><span class="step">C7-1</span>먼저 통과선을 적는다</h3>
 <div class="call"><div class="t">숫자를 보기 전에 적는다</div>
 <p>팀 실험 규율 그대로다 · <strong>"한 번에 하나만 바꾼다 · 기준선과 대조한다 · 통과선을 먼저 적는다."</strong></p>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>항목</th><th>내가 정한 값</th></tr>
 <tr><td>대상 클래스</td><td>(  )</td></tr>
 <tr><td>기준선 = 사전학습 모델의 mAP50</td><td>(  )</td></tr>
 <tr><td><b>통과선</b> = 파인튜닝 후 mAP50이 이 이상이면 채택</td><td>(  )</td></tr>
 <tr><td>속도 하한 = FPS가 이 아래로 떨어지면 반려</td><td>(  )</td></tr>
-</table></div>
+</table></div></div>
 <p class="sub">채택이든 폐기든 결과는 <code>EXPERIMENTS.md</code>에 한 줄로 남긴다. <strong>폐기한 실험도 기록이 남으면 자산</strong>이다 · "이건 해 봤는데 안 됐다"가 다음 사람의 시간을 아낀다.</p></div>
 
 <h3 id="C7-2"><span class="step">C7-2</span>데이터셋 구조와 라벨 포맷</h3>
@@ -1868,12 +1868,12 @@ model.<span class="f">train</span>(data=<span class="s">&quot;dataset/data.yaml&
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>m = YOLO(&quot;runs/ft01/weights/best.pt&quot;)
 r = m.val(data=&quot;dataset/data.yaml&quot;)
 print(r.box.map50, r.box.map)     # mAP50, mAP50-95</pre></div>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>모델</th><th>mAP50</th><th>mAP50-95</th><th>FPS</th><th>비고</th></tr>
 <tr><td>사전학습 (기준선)</td><td>(  )</td><td>(  )</td><td>(  )</td><td>우리 데이터로 그냥 평가</td></tr>
 <tr><td>파인튜닝 <code>ft01</code></td><td>(  )</td><td>(  )</td><td>(  )</td><td>바꾼 것: (  )</td></tr>
 <tr><td>파인튜닝 <code>ft02</code></td><td>(  )</td><td>(  )</td><td>(  )</td><td>바꾼 것: (  )</td></tr>
-</table></div>
+</table></div></div>
 <div class="chk"><b>성공 판정</b>표가 채워지고 <strong>「통과선을 넘었나」에 예/아니오</strong>가 적히면 끝. <code>runs/ft01/</code>의 <code>confusion_matrix.png</code>도 같이 본다 · <strong>어느 클래스에서 틀리는지</strong>가 다음 라벨링의 방향이다.</div>
 </div>
 
@@ -1891,13 +1891,13 @@ print(r.box.map50, r.box.map)     # mAP50, mAP50-95</pre></div>
 <p>그리고 <a href="#C6-3">C6-3</a>에서 봤듯 <strong>깊이 문제의 가장 현실적인 답이 LiDAR</strong>다. 험지에서 지면 평면 가정이 깨지는 프로젝트라 더욱 그렇다.</p>
 
 <h3 id="C8-2"><span class="step">C8-2</span>확인해야 하는 것들 <span class="sub">전부 <code>미확인</code></span></h3>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>무엇</th><th>어떻게 10초에 확정하나</th><th>왜 필요한가</th></tr>
 <tr><td>등에 얹힌 LiDAR 모델명</td><td>모듈 옆면·베이스 <b>라벨 사진</b> 한 장</td><td>드라이버 패키지가 정해진다</td></tr>
 <tr><td>점군 토픽 이름</td><td><code>ros2 topic list</code> · <code>/livox/lidar</code>·<code>/rslidar_points</code>·<code>/velodyne_points</code> 등</td><td>이게 있어야 <b>순정 컨트롤러와 무관하게</b> 점군을 받는다</td></tr>
 <tr><td>Go2 카메라가 거리를 주나</td><td>토픽 목록에 <code>depth</code>가 있나</td><td><b><a href="#C6-3">C6-3</a>의 갈림길</b></td></tr>
 <tr><td>카메라 장착 위치·각도</td><td>스펙 문서 또는 직접 측정</td><td><code>base_link</code>→<code>camera_link</code> TF 값</td></tr>
-</table></div>
+</table></div></div>
 <p class="sub">영상으로 확인된 것: <strong>기계식 회전 puck 형태의 360° LiDAR가 별도 브래킷으로 등에 얹혀 있고 자체 케이블이 있다.</strong> 모델명은 각인이 안 보여 특정되지 않는다. <strong>추측을 결론 자리에 앉히지 않는다.</strong></p>
 
 <h3 id="C8-3"><span class="step">C8-3</span>융합의 원리 · 한 문단</h3>
@@ -1929,22 +1929,22 @@ $</span> <span class="f">ros2</span><span class="k"> bag</span><span class="k"> 
 <h3 id="cam-buy">어떤 카메라가 필요한가 <span class="sub">= 지금은 아무것도 사지 않는다</span></h3>
 <p class="why"><span class="tag">판단</span>"CV를 하려면 카메라부터 사야 하나"가 첫 질문이 되기 쉽다. <strong>아니다.</strong> 단계별로 요구가 완전히 다르고, <strong>구매가 필요해지는 지점은 딱 한 군데(<a href="#c6">C6</a>)</strong>이며, 그 한 군데조차 <strong>이미 로봇 등에 얹힌 라이다로 해결될 가능성이 높다.</strong></p>
 
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>구간</th><th>필요한 카메라</th><th>지금 가진 것으로 되나</th></tr>
 <tr><td><a href="#c1">C1</a>~<a href="#c4">C4</a> <span class="sub">~10/10</span></td><td>아무 UVC 웹캠</td><td class="pos">된다. 노트북 내장 웹캠으로 충분하다. <b>탐지 정확도를 재는 구간이 아니라 파이프라인을 뚫는 구간</b>이다</td></tr>
 <tr><td><a href="#c5">C5</a> 캘리브레이션</td><td><b>초점을 고정할 수 있는</b> 카메라</td><td>된다. 단 <b>오토포커스를 꺼야 한다</b> · 초점이 움직이면 <code>fx</code>가 같이 변해 <code>K</code>가 무의미해진다</td></tr>
 <tr><td><a href="#c6">C6</a> 픽셀→map <span class="sub">11/07</span></td><td><b>거리를 줄 무언가</b></td><td class="neg">여기가 유일한 갈림길이다 ↓</td></tr>
 <tr><td><a href="#c8">C8</a> 융합</td><td>라이다</td><td class="pos">이미 로봇에 달려 있다</td></tr>
-</table></div>
+</table></div></div>
 
 <h4>C6의 갈림길 · 거리를 어디서 가져오나</h4>
 <p><a href="#C5-2">C5-2</a>에서 본 대로 <strong>사진 한 장에는 거리 정보가 물리적으로 없다.</strong> 그 빠진 하나를 채우는 방법이 셋이고, 셋의 비용이 완전히 다르다.</p>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>방법</th><th>비용</th><th>정확도</th><th>깨지는 조건</th></tr>
 <tr><td><b>① 지면 평면 가정</b><br><span class="sub">mono 카메라만</span></td><td class="pos">0원. 코드 20줄</td><td>가까울수록 좋고 멀수록 급격히 나빠진다</td><td class="neg">물체가 지면에 닿아 있어야 하고, <b>카메라 pitch가 흔들리면 그대로 오차</b>가 된다. 4족보행은 걸을 때마다 pitch가 출렁인다</td></tr>
 <tr><td><b>② RGB-D 카메라</b><br><span class="sub">RealSense D435i · OAK-D</span></td><td class="neg">구매 + 드라이버 + USB3 대역 + 전원</td><td>실내 0.3~3m 우수</td><td class="neg">햇빛에서 급격히 나빠진다. 실기 시연이 실외면 위험</td></tr>
 <tr><td><b>③ 라이다 융합</b><br><span class="sub">탐지 박스 ↔ 점군</span></td><td class="pos">0원 · <b>이미 달려 있다</b></td><td class="pos">cm 단위. 먼 거리도 유지</td><td>라이다가 점군을 <b>실제로 발행해야</b> 한다 <span class="sub">(미확인)</span></td></tr>
-</table></div>
+</table></div></div>
 
 <div class="call"><div class="t">결론 · 구매 판단은 라이다 확인 뒤로 미룬다</div>
 <p><strong>③이 성립하면 카메라는 살 필요가 없다.</strong> 그게 이 교재 맨 위에 적힌 <strong>「기하는 LiDAR, 의미는 카메라」</strong> 원칙 그대로이기도 하다 · 카메라에 거리까지 시키려 드는 순간 설계가 어긋난다.</p>
@@ -1968,19 +1968,19 @@ $</span> <span class="f">ros2</span><span class="k"> bag</span><span class="k"> 
 <p class="sub">위 넷은 <strong>공개 자료 기준 조사</strong>다. <strong>우리 개체에서 확인된 것이 아니다</strong> · 확인 목록은 <a href="#C8-2">C8-2</a>.</p>
 
 <h3>배포 위치 · Jetson인가 노트북인가</h3>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th></th><th>Jetson Orin NX 16GB (온보드)</th><th>노트북 RTX 3060 (스트리밍)</th></tr>
 <tr><td>지연</td><td class="pos">낮음</td><td class="neg">Wi-Fi 지연·드랍</td></tr>
 <tr><td>성능</td><td>n급 TensorRT FP16으로 실용 30FPS+</td><td class="pos">더 큰 모델 가능</td></tr>
 <tr><td>개발 편의</td><td class="neg">플래싱·의존성</td><td class="pos">개발·디버깅 쉬움</td></tr>
 <tr><td>데모 신뢰성</td><td class="pos">로봇 단독 동작</td><td class="neg">네트워크가 죽으면 데모가 죽는다</td></tr>
-</table></div>
+</table></div></div>
 <div class="call"><div class="t">전략</div>
 <p><strong>노트북 스트리밍으로 개발하고, 데모 2~3주 전에 Jetson으로 옮긴다.</strong> 온보드 컴퓨팅이 Orin NX 16GB로 확정되어 있어 <strong>경량화 증류는 필요 없다</strong> · 우리 정책이 파라미터 17만 개, 6.9MB라 Orin NX에는 과분하다. YOLO도 마찬가지다.</p>
 <p>Jetson이 안 열려도 <strong>노트북 스트리밍만으로 데모가 성립</strong>한다. <a href="#c3">C3</a>에서 TensorRT 변환을 미룬 이유가 이것이다.</p></div>
 
 <h2 id="errors"><span class="n">?</span>에러 사전 · 증상에서 원인으로</h2>
-<div class="tablewrap"><table>
+<div class="tablewrap"><div class="tw"><table>
 <tr><th>증상</th><th>가장 흔한 원인</th><th>어디</th></tr>
 <tr><td><code>NoneType has no attribute 'shape'</code></td><td><code>imread</code>가 파일을 못 찾아 <code>None</code>을 반환. 경로·한글 폴더명</td><td><a href="#C1-1">C1-1</a></td></tr>
 <tr><td>창이 떴다 즉시 사라진다</td><td><code>cv2.waitKey</code>가 없다</td><td><a href="#C1-2">C1-2</a></td></tr>
@@ -2002,8 +2002,8 @@ $</span> <span class="f">ros2</span><span class="k"> bag</span><span class="k"> 
 <tr><td><code>LookupException</code> / <code>ExtrapolationException</code></td><td>TF가 아직 없거나 잠깐 비었다. <code>timeout</code> + <code>try/except</code>로 그 프레임만 건너뛴다</td><td><a href="#C6-6">C6-6</a></td></tr>
 <tr><td>rosbag 재생 시 TF가 없다</td><td>녹화 때 <code>/tf</code>·<code>/tf_static</code>을 빠뜨렸다. <b>되돌릴 수 없다</b></td><td><a href="#C8-4">C8-4</a></td></tr>
 <tr><td>학습이 시작은 되는데 mAP가 0이다</td><td>라벨 경로 규칙(<code>images/</code>→<code>labels/</code>) 또는 정규화 안 된 라벨</td><td><a href="#C7-2">C7-2</a></td></tr>
-</table></div>
+</table></div></div>
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 12:49</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 12:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
