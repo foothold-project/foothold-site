@@ -573,6 +573,15 @@ html[data-theme="light"] .gnav .lgr{display:none}
 .fh-sr .sp2{font-size:.8rem;font-weight:700;margin:.1rem 0}
 .fh-sr .sp3{font-size:.7rem;color:var(--ink-3);line-height:1.45}
 .fh-sr .none{padding:.7rem .95rem;font-size:.76rem;color:var(--ink-3)}
+/* ★ 2026-09-08 감사 F-06. 검색 버튼 실측 58x30. 손가락 목표 44x44 에 못 미친다.
+   그렇다고 버튼을 키우면 팀장이 맞춰 둔 상단바 높이(1.85rem)가 통째로 틀어진다.
+   보이는 크기는 그대로 두고 «닿는 영역» 만 넓힌다. 가상 요소라 레이아웃을
+   건드리지 않는다. 손가락으로 쓰는 화면에서만 건다. */
+@media (hover:none),(pointer:coarse){
+  .fh-sbtn{position:relative}
+  .fh-sbtn::after{content:"";position:absolute;left:50%;top:50%;
+    width:44px;height:44px;transform:translate(-50%,-50%)}
+}
 </style>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
@@ -611,18 +620,60 @@ document.addEventListener('DOMContentLoaded',function(){
       sb.style.right=(window.innerWidth-r.left+8)+'px';sb.style.zIndex=cs.zIndex;
     }else{sb.style.position='';sb.style.top='';sb.style.right='';}}
   offset();window.addEventListener('resize',offset);
-  /* 오버레이 */
+  /* 오버레이
+     ★ 2026-09-08 감사 F-06. 화면에는 대화상자로 보이는데 «기계에게는» 그냥 div 였다.
+       role·aria-modal 이 없어 보조 기술이 대화상자로 읽지 못하고, 결과가 바뀌어도
+       aria-live 가 없어 알리지 않았다. 탭이 뒤 페이지로 새어 나갔고, 닫은 뒤에는
+       포커스가 숨은 입력에 남아 키보드 사용자가 어디에 있는지 잃었다.
+       보이는 것과 읽히는 것이 다르면 그것은 만들다 만 것이다. */
   var ov=document.createElement('div');ov.className='fh-so';
+  ov.setAttribute('role','dialog');
+  ov.setAttribute('aria-modal','true');
+  ov.setAttribute('aria-label','사이트 검색');
   ov.innerHTML='<div class="fh-sp"><input type="search" placeholder="검색 (제목 · 절 · 본문)" '
-    +'aria-label="사이트 검색"><div class="fh-sr"></div></div>';
+    +'aria-label="사이트 검색"><div class="fh-sr" role="listbox" aria-live="polite" '
+    +'aria-label="검색 결과"></div></div>';
   document.body.appendChild(ov);
   var inp=ov.querySelector('input'),res=ov.querySelector('.fh-sr'),IDX=null,sel=-1;
-  function open(){ov.classList.add('on');inp.focus();inp.select();}
-  function close(){ov.classList.remove('on');}
+  sb.setAttribute('aria-haspopup','dialog');
+  sb.setAttribute('aria-expanded','false');
+  function open(){
+    ov.classList.add('on');
+    sb.setAttribute('aria-expanded','true');
+    inp.focus();inp.select();
+  }
+  function close(){
+    ov.classList.remove('on');
+    sb.setAttribute('aria-expanded','false');
+    /* 닫으면 «열었던 그 버튼» 으로 돌아간다. 안 그러면 키보드 사용자는
+       숨은 입력에 포커스가 남아 화면 어디에 있는지 알 수 없다. */
+    try{ sb.focus(); }catch(e){}
+  }
   sb.addEventListener('click',open);
   ov.addEventListener('mousedown',function(e){if(e.target===ov)close();});
+  /* 포커스 가두기. 열려 있는 동안 탭이 뒤 페이지로 새지 않게 한다.
+     가둘 것은 입력과 결과 링크뿐이라 목록을 그때그때 다시 센다. */
+  ov.addEventListener('keydown',function(e){
+    if(e.key!=='Tab')return;
+    var f=[inp].concat([].slice.call(res.querySelectorAll('a')));
+    if(!f.length)return;
+    var first=f[0],last=f[f.length-1],cur=document.activeElement;
+    if(e.shiftKey&&(cur===first||!ov.contains(cur))){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&cur===last){e.preventDefault();first.focus();}
+  });
   document.addEventListener('keydown',function(e){
     if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();open();}
+    /* ★ 2026-09-08 감사 F-06. Ctrl/Cmd+K 는 브라우저가 주소창 검색으로 먼저
+       가져갈 수 있다. 감사도 「실제 키로는 안 열렸다」고 적었고, 내 환경에서는
+       키 자체가 페이지에 도달하지 않아 어느 쪽인지 «확인하지 못했다».
+       확인 못 한 것을 고쳤다고 할 수 없으므로 Ctrl+K 는 그대로 두고,
+       브라우저가 안 가져가는 «/» 를 함께 연다. 위키·깃허브가 쓰는 그 키다.
+       글자를 치는 중일 때는 열지 않는다. 그러면 검색어에 / 를 못 넣는다. */
+    else if(e.key==='/'&&!ov.classList.contains('on')){
+      var a=document.activeElement, tag=(a&&a.tagName||'').toLowerCase();
+      if(tag==='input'||tag==='textarea'||tag==='select'||(a&&a.isContentEditable))return;
+      e.preventDefault();open();
+    }
     else if(e.key==='Escape'&&ov.classList.contains('on'))close();
   });
   /* ★ 2026-09-08 감사 F-06. 셋을 한 덩어리로 삼켜 «결과 없음» 하나로 보여줬다.
@@ -632,7 +683,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=2a9f3e0e').then(function(r){
+    fetch('/assets/search-index.json?v=c3c4ae51').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -838,5 +889,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 08:25</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 09:07</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
