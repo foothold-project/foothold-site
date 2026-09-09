@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Unitree Go2 미경험 험지 적응 시뮬레이션 및 실기 자율주행 프로젝트 · FOOTHOLD</title>
-<meta name="description" content="두 트랙으로 간다. 트랙 A(9/30 MVP) = 시뮬레이션 강화학습과 디지털 트윈의 완결. 트랙 B(12/11 최종) = 순정 Go2 보행 위에 SLAM·Nav2 실기 자율주행.">
+<title>Go2 관절 한계 실측: 30 cm 를 들 수 있는데 3.25 cm 를 든다 · FOOTHOLD</title>
+<meta name="description" content="아이작 USD 의 관절 한계에서 계산한 최대 발 높이가 앞다리 31.0 cm · 뒷다리 30.1 cm 다. 맹라현의 무조코 값 33.5 cm 와 7% 안에서 일치한다. 실제 보행에서 드는 3.25 cm 는 하드웨어 한계가 아니라 보상 설계의 결과다.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -265,24 +265,7 @@ section .addr .big{font-size:1.2rem}
 .stand .sv a:hover{border-color:var(--dim);color:var(--dim)}
 .stand .sv i{font-style:normal;color:var(--ink-3)}
 </style>
-<style>
-.wrap section{margin:34px 0;padding-top:22px;border-top:1px solid var(--rule)}
-.rpt-eyebrow{font-size:.7rem;font-weight:800;letter-spacing:.22em;color:var(--ink-3);
-  text-transform:uppercase;margin-bottom:6px}
-.wrap section>h2{margin:0 0 14px;padding:0;border:none;font-size:1.35rem;font-weight:800}
-.wrap section h3{margin:1.4rem 0 .5rem;font-size:1.02rem;font-weight:800}
-.wrap section blockquote{background:var(--paper-2);border-left:4px solid var(--ink);
-  padding:13px 18px;margin:16px 0;font-style:normal;border-radius:0}
-.wrap section blockquote h3{margin:.1rem 0 .4rem;font-size:.72rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--dim)}
-.wrap section ol{counter-reset:agd;list-style:none;padding-left:0}
-.wrap section ol>li{counter-increment:agd;margin:.7rem 0;padding-left:2.5rem;position:relative}
-.wrap section ol>li::before{content:counter(agd,decimal-leading-zero);position:absolute;
-  left:0;top:.1rem;background:var(--ink);color:var(--paper);font-size:.68rem;font-weight:800;
-  padding:.18rem .42rem;border-radius:3px;letter-spacing:.06em}
-.wrap section code{background:var(--paper);border:1px solid var(--rule);border-radius:4px;
-  padding:.14rem .55rem;font-size:.78rem;font-weight:700;white-space:nowrap}
-</style><!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
+<!--brand:v1--><link rel="icon" type="image/svg+xml" href="assets/brand/foothold-favicon.svg?v=08e237b2"><link rel="mask-icon" href="assets/brand/foothold-symbol-brand.svg?v=1712f418" color="#0e7a6e">
 <style id="ia-css">
 /* ★ 허브 이동 때 «흔들림» 실측 원인 셋 (2026-08-31 팀장 지적)
    ① 문서가 짧은 페이지엔 스크롤바가 없어 좌우가 15px 튄다 -> 항상 자리를 잡는다
@@ -838,87 +821,76 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="on" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="on" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">Report · 프로젝트 보고서</div>
-  <h1>Unitree Go2 미경험 험지 적응 시뮬레이션 및 실기 자율주행 프로젝트</h1>
-  <p class="lede">두 트랙으로 간다. 트랙 A(9/30 MVP) = 시뮬레이션 강화학습과 디지털 트윈의 완결. 트랙 B(12/11 최종) = 순정 Go2 보행 위에 SLAM·Nav2 실기 자율주행.</p>
-  <div class="meta"><div><span class="k">원자료</span><span class="v">임석헌(부팀장) 정리 보고서 2026-08-18</span></div><div><span class="k">일정</span><span class="v">중간 9/30 · 최종 12/11</span></div></div>
+  <div class="eyebrow">Research · 근거 기록</div>
+  <h1>Go2 관절 한계 실측: 30 cm 를 들 수 있는데 3.25 cm 를 든다</h1>
+  <p class="lede">아이작 USD 의 관절 한계에서 계산한 최대 발 높이가 앞다리 31.0 cm · 뒷다리 30.1 cm 다. 맹라현의 무조코 값 33.5 cm 와 7% 안에서 일치한다. 실제 보행에서 드는 3.25 cm 는 하드웨어 한계가 아니라 보상 설계의 결과다.</p>
+  <div class="meta"><div><span class="k">판</span><span class="v">v1.1</span></div><div><span class="k">이슈</span><span class="v"><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/285">#285</a></span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-09-07 16:12</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / 20260907-go2-joint-limits.md</span></div><div><span class="k">증거</span><span class="v">확인 2 · 추측 0 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>분류: 계획
-작성: 오흥재 · 2026-08-19 08:34
-근거: 팀 합의
-요지: 두 트랙으로 간다. 트랙 A(9/30 MVP) = 시뮬레이션 강화학습과 디지털 트윈의 완결. 트랙 B(12/11 최종) = 순정 Go2 보행 위에 SLAM·Nav2 실기 자율주행.
+<blockquote><p>분류: 실험
+작성: 오흥재 · 2026-09-07 16:12
+근거: 실측 (Isaac Sim 5.1 · Go2 USD 직접 판독 · 정기구학 계산)
+요지: 아이작 USD 의 관절 한계에서 계산한 최대 발 높이가 앞다리 31.0 cm · 뒷다리 30.1 cm 다. 맹라현의 무조코 값 33.5 cm 와 7% 안에서 일치한다. 실제 보행에서 드는 3.25 cm 는 하드웨어 한계가 아니라 보상 설계의 결과다.
 상태: 확정
-판: v1.0
-이슈: <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/116">#116</a></p></blockquote>
-<blockquote><p>작성 2026-08-20 · v2 (방향 전환 반영, 팀 전원 합의 8/19) · <b>원자료: 임석헌(부팀장) 정리 보고서 양식</b> · 용도: 팀 공유 · 멘토 설명
-이전 판(실기 저수준 이전 목표)은 lab git 이력에 보존.</p></blockquote>
+판: v1.1
+이슈: <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/285">#285</a></p></blockquote>
+<p>맹라현의 <code>20260903-rails-diagnosis</code> 가 무조코에서 33.5 cm 를 냈다. 그 값이 아이작에서도 서는지 확인했다. <b>선다.</b> 두 시뮬이 같은 로봇을 쓰고 있다는 뜻이고, 그래서 그 문서의 결론을 우리 평가 환경에 그대로 가져다 쓸 수 있다.</p>
 </section>
-<section id="s1"><div class="rpt-eyebrow">01 · EXECUTIVE SUMMARY</div><h2>프로젝트 한눈에 보기</h2>
-<div style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin:6px 0 18px"><div style="border:1px solid var(--rule);padding:12px 14px;background:var(--dim-soft)"><div style="font-size:.66rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase">문서 용도</div><div style="font-weight:800;margin-top:4px">팀 공유 · 미팅 의사결정</div></div><div style="border:1px solid var(--rule);padding:12px 14px;background:var(--dim-soft)"><div style="font-size:.66rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase">중간 목표</div><div style="font-weight:800;margin-top:4px">시뮬 RL + 디지털 트윈</div></div><div style="border:1px solid var(--rule);padding:12px 14px;background:var(--dim-soft)"><div style="font-size:.66rem;font-weight:800;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase">최종 목표</div><div style="font-weight:800;margin-top:4px">순정 Go2 실기 자율주행</div></div></div>
-<p>본 프로젝트는 두 개의 트랙으로 구성된다.</p>
-<p><b>트랙 A · 시뮬레이션 강화학습 + 디지털 트윈 (중간발표 9/30)</b>: Isaac Lab의 Unitree Go2 험지 환경을 기반으로, 우리가 정한 험지에서 보행 정책을 학습하고 <b>학습에 쓰지 않은 지형에서 일반화 성능을 정량 검증</b>한다. 결과를 디지털 트윈과 Gaussian Splatting, NVIDIA Omniverse RTX 렌더, Blender 애드온으로 시각화해 시뮬레이션 안에서 유의미한 결과를 완결적으로 보인다.</p>
-<p><b>트랙 B · 실기 자율주행 (최종발표 12/11)</b>: 검증된 순정 Go2 보행 위에서 ROS2 · SLAM · Nav2 스택으로 <b>실제 자율주행</b>을 구현한다. 실제 센서 데이터와 Observation을 다루는 고수준 시스템 작업이며, 조선대학교 협력 커리큘럼(<b>매주 금</b> 14~18, 9월 개강으로 9/1 재확정)과 함께 진행한다.</p>
-<p>우리 학습 정책의 실기 이전(저수준 제어)은 안전 장치(와이어 리깅 등) 부재와 구현 난이도를 고려해 목표에서 제외했다 (8/19 팀 전원 합의). 하나의 흐름(시뮬 정책 → 실기)은 가져가지 못하지만, 시뮬 완결과 실기 자율주행 각각이 독립적으로 완성도 있는 이야기다.</p>
+<section id="s1"><span id="1"></span><h2>1. 관절 한계 (아이작 USD 실측)</h2>
+<div class="tw"><table><thead><tr><th>다리</th><th>hip</th><th>thigh</th><th>calf</th></tr></thead><tbody><tr><td>앞 FL · FR</td><td>-60 ~ 60</td><td><b>-90 ~ 200</b></td><td>-156 ~ -48</td></tr><tr><td>뒤 RL · RR</td><td>-60 ~ 60</td><td><b>-30 ~ 260</b></td><td>-156 ~ -48</td></tr></tbody></table></div>
+<p>단위는 도.</p>
+<p><b>아이작 USD 에서 앞다리와 뒷다리의 thigh 범위가 다르다</b> <span class="ev ev-ok">확인됨</span>.</p>
+<p><b>다만 그것이 하드웨어 비대칭이라는 뜻은 아니다</b> (2026-09-08 정정).</p>
+<p>처음 이 절을 쓸 때 「실제 Go2 하드웨어의 비대칭이고 버그가 아니다」라고 적었다. <b>근거가 없었다.</b> 제원 조사(<code>#311</code>)에서 잡혔다.</p>
+<div class="tw"><table><thead><tr><th>출처</th><th>thigh 범위</th></tr></thead><tbody><tr><td>유니트리 공식 사양표</td><td>네 다리에 <b>단일 범위</b></td></tr><tr><td>공식 URDF <code>leg.xacro</code></td><td>네 다리에 <b>단일 범위</b> (앞뒤 분기는 메시와 관성에만)</td></tr><tr><td>아이작 USD</td><td>뒤만 <code>-30 ~ 260</code></td></tr></tbody></table></div>
+<p><b>산술이 결정적이다.</b></p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>앞  200 - (-90) = 290
+뒤  260 - (-30) = 290      폭이 «같다»
+하한과 상한이 모두 정확히 +60 도</pre></div>
+<p>하드웨어가 실제로 비대칭이면 <b>폭도 달라야 자연스럽다.</b> 폭이 같은 채 통째로 밀린 것은 <b>영점 표기 차이</b>에 가깝다. URDF 마디 길이와 기본 관절각으로 정기구학을 다시 풀면 발 깊이 0.3113 / 0.3020 m 가 그대로 재현된다.</p>
+<p><b>렌더에서 뒷다리 자세가 달라 보이는 관찰 자체는 유효하다.</b> 아이작이 그 값으로 돌리기 때문이다. 원인 설명만 「하드웨어가 그렇다」에서 「아이작 자산이 그렇다」로 바뀐다. <b>실기가 그런지는 미확인이고, 공식 자료는 오히려 아니라고 한다.</b></p>
+<p>같은 정정이 <code>docs/research/rails-diagnosis.md</code> 11절에도 있다(<code>#313</code>). 그때 그쪽 한 자리만 고치고 이 문서를 놓쳤다. <b>철칙 4 그대로다.</b></p>
 </section>
-<section id="s2"><div class="rpt-eyebrow">02 · WHY THIS PROJECT</div><h2>왜 이 프로젝트인가</h2>
-<p><b>위험한 곳에 사람 대신 로봇을 보낸다</b>는 문제의식은 실재하는 국가 연구 수요다. 정부 연구개발 과제 «현장 지휘 지원 및 대원 안전 확보를 위한 사족보행 로봇» (<a href="https://app.rndcircle.io/gov-grant/83900139-118d-461b-b5d1-d1393ccf0d40" target="_blank" rel="noopener">RND Circle 공고</a>)은 소방·재난 현장에서 사족보행 로봇으로 대원 안전을 확보하는 과제로, 우리 프로젝트와 방향성이 사실상 동일하다.</p>
-<ul><li>트랙 A는 그 로봇이 <b>가보지 않은 험지에서도 걷도록 배우는 방법</b>(강화학습·일반화)과 <b>위험 지형을 가상으로 복제해 안전하게 실험하는 방법</b>(디지털 트윈)을 다룬다.</li><li>트랙 B는 그 로봇이 <b>현장에서 스스로 길을 찾는 방법</b>(SLAM·Nav2 자율주행)을 실물로 다룬다.</li><li>실증 근거: 순정 보행의 검증된 상한은 경사·계단·사선 수준이다(조선대 BITE 팀 대회 실증). 그 위의 비정형 지형이 트랙 A의 무대가 된다.</li></ul>
+<section id="s2"><span id="2"></span><h2>2. 링크 길이 (링크 원점 좌표에서 실측)</h2>
+<div class="tw"><table><thead><tr><th>구간</th><th>길이</th></tr></thead><tbody><tr><td>thigh</td><td>0.213 m</td></tr><tr><td>calf</td><td>0.213 m</td></tr><tr><td>기본 자세의 발 (hip 기준)</td><td>0.311 m 아래 (앞) · 0.302 m 아래 (뒤)</td></tr></tbody></table></div>
+<p>기본 자세는 <code>unitree.py</code> 의 <code>UNITREE_GO2_CFG.init_state.joint_pos</code> 다. 앞 thigh 0.8 rad · 뒤 thigh 1.0 rad · calf 전부 -1.5 rad.</p>
 </section>
-<section id="s3"><div class="rpt-eyebrow">03 · MILESTONES</div><h2>단계별 추진 계획</h2>
-<h3>트랙 A · 중간발표 (9/30)</h3>
-<svg class="rptflow" viewBox="0 0 974 66" role="img" style="width:100%;height:auto;display:block;margin:14px 0" font-family="inherit"><rect x="6" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="72" y="37" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">험지 설계</text><path d="M142 33 L164 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M168 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="172" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="238" y="37" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">강화학습</text><path d="M308 33 L330 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M334 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="338" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="404" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">미학습 지형</text><text x="404" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">평가</text><path d="M474 33 L496 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M500 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="504" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="570" y="37" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">개선·재학습</text><path d="M640 33 L662 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M666 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="670" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="736" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">디지털 트윈</text><text x="736" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">구축</text><path d="M806 33 L828 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M832 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="836" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="902" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">렌더·시연</text><text x="902" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">영상</text></svg>
-<ol><li>Go2 Rough Terrain Baseline 재현 (완료: 1,500 iter, 통과율 86.7%)</li><li>프로젝트용 Custom Terrain 구성 (우리가 정한 험지)</li><li>RL Training 수행 및 정책 수정</li><li>Training / Test Terrain 분리</li><li>미학습 Terrain Generalization 평가 (Baseline · Our Policy · +DR 비교)</li><li>디지털 트윈 · Gaussian Splatting · RTX 렌더 · Blender 애드온으로 결과 시각화</li></ol>
-<p><b>중간발표 제시</b>: 학습·평가 과정, 학습/미학습 지형 정량 비교표, 시뮬레이션 험지 보행 영상(실사급 렌더 포함).</p>
-<h3>트랙 B · 최종발표 (12/11)</h3>
-<svg class="rptflow" viewBox="0 0 808 66" role="img" style="width:100%;height:auto;display:block;margin:14px 0" font-family="inherit"><rect x="6" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="72" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">ROS2 기초</text><text x="72" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">Ubuntu 24.04</text><path d="M142 33 L164 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M168 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="172" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="238" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">Go2 연결</text><text x="238" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">SDK·TF</text><path d="M308 33 L330 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M334 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="338" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="404" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">SLAM</text><text x="404" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">맵핑·위치추정</text><path d="M474 33 L496 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M500 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="504" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="570" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">Nav2</text><text x="570" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">자율주행</text><path d="M640 33 L662 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M666 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="670" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="736" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">험지 코스</text><text x="736" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">실기 시연</text></svg>
-<ul><li>조선대 협력 커리큘럼(<b>매주 금</b> 14~18 · 9월 개강으로 2026-09-01 재확정. 8/26~8/31 만 목요일이었다)을 따라 ROS2부터 시작한다. 팀 전원 Ubuntu 24.04 멀티부트 구축 완료</li><li>첫 자료 수령: OT 오리엔테이션 · ROS2 개발환경 구축 (팀 자료실에 게시)</li><li><b>최종발표 제시</b>: 실물 Go2가 지정 코스(험지 포함)를 SLAM 지도 기반으로 자율주행하는 시연과 그 시스템 구성</li></ul>
+<section id="s3"><span id="3"></span><h2>3. 최대 발 높이</h2>
+<p>「발이 몸통 아래에 있는 자세」로 한정해 관절 범위 전체를 훑었다. 발이 몸통 위로 넘어간 자세는 관절이 허용해도 보행에 못 쓰기 때문이다. 이 조건은 맹라현의 무조코 계산과 같다.</p>
+<div class="tw"><table><thead><tr><th>출처</th><th>기본자세보다 더 드는 높이</th></tr></thead><tbody><tr><td>아이작 USD · 앞다리</td><td><b>31.0 cm</b></td></tr><tr><td>아이작 USD · 뒷다리</td><td><b>30.1 cm</b></td></tr><tr><td>무조코 (맹라현)</td><td><b>33.5 cm</b></td></tr><tr><td>걸을 때 실제</td><td><b>3.25 cm</b></td></tr></tbody></table></div>
+<p><b>두 시뮬이 7% 안에서 일치한다.</b> 2.5 cm 차이는 어느 지점을 기준으로 재는지(hip 관절인지 몸통 중심인지)의 차이로 설명되는 크기다. <b>sim2sim 격차라 부를 만한 것이 아니다.</b></p>
+<p>목표 단차 14 cm 의 두 배가 넘는다.</p>
 </section>
-<section id="s4"><div class="rpt-eyebrow">04 · TRACK A · SIMULATION</div><h2>트랙 A 상세: 학습·평가 체계</h2>
-<h3>반복형 학습 파이프라인</h3>
-<svg class="rptflow" viewBox="0 0 974 96" role="img" style="width:100%;height:auto;display:block;margin:14px 0" font-family="inherit"><rect x="6" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="72" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">기준 정책</text><text x="72" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">분석</text><path d="M142 33 L164 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M168 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="172" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="238" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">학습 지형</text><text x="238" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">구성</text><path d="M308 33 L330 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M334 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="338" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="404" y="37" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">강화학습</text><path d="M474 33 L496 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M500 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="504" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="570" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">학습·미학습</text><text x="570" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">지형 평가</text><path d="M640 33 L662 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M666 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="670" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="736" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">실패 원인</text><text x="736" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">분석</text><path d="M806 33 L828 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M832 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="836" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="902" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">지형·보상·물리</text><text x="902" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">조정</text><path d="M902 58 V74 H72 V64" fill="none" stroke="var(--note)" stroke-width="1.5" stroke-dasharray="5 4"/><path d="M72 60 l-4 7 h8 z" fill="var(--note)"/><text x="487" y="69" text-anchor="middle" font-size="11" fill="var(--note)" font-weight="700">재학습 반복</text></svg>
-<p>핵심 루프는 위 순환이다. 초기에는 기본 Reward와 Observation 구조를 유지하고, 평가에서 문제가 확인된 항목만 단계적으로 바꾼다.</p>
-<h3>Custom Terrain 구축 순서</h3>
-<div class="tw"><table><thead><tr><th>구축 순서</th><th>내용</th></tr></thead><tbody><tr><td>① 기본 Terrain 활용</td><td><code>Random Rough</code> <code>Slope</code> <code>Stairs</code> <code>Discrete Obstacles</code> <code>Boxes</code> 등</td></tr><tr><td>② Parameter 변경</td><td><code>계단 높이</code> <code>경사도</code> <code>장애물 크기</code> <code>표면 거칠기</code> (지형 간격·배치·밀도 등 함께 검토)</td></tr><tr><td>③ Terrain 조합</td><td>기존 지형과 조건의 조합</td></tr><tr><td>④ 신규 Terrain 구현</td><td>조합으로 표현하기 어려운 경우에만 직접 구현</td></tr></tbody></table></div>
-<h3>Domain Randomization과 Unseen 평가</h3>
-<svg class="rptflow" viewBox="0 0 642 66" role="img" style="width:100%;height:auto;display:block;margin:14px 0" font-family="inherit"><rect x="6" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="72" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">기본 Policy</text><text x="72" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">평가</text><path d="M142 33 L164 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M168 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="172" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="238" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">취약점</text><text x="238" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">확인</text><path d="M308 33 L330 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M334 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="338" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="404" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">필요 Randomization</text><text x="404" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">추가</text><path d="M474 33 L496 33" stroke="var(--dim)" stroke-width="1.6"/><path d="M500 33 l-7 -4 v8 z" fill="var(--dim)"/><rect x="504" y="10" width="132" height="46" rx="6" fill="var(--card)" stroke="var(--dim)" stroke-width="1.4"/><text x="570" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">동일 환경에서</text><text x="570" y="44" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">효과 검증</text></svg>
-<div class="tw"><table><thead><tr><th>Unseen 유형</th><th>의미</th><th>예시</th></tr></thead><tbody><tr><td>Parameter Unseen</td><td>학습 범위를 벗어난 난이도</td><td>더 높은 계단, 더 큰 경사</td></tr><tr><td>Combination Unseen</td><td>학습 Terrain의 새로운 조합</td><td>Slope + Rough + Obstacle</td></tr><tr><td>Structure Unseen</td><td>학습에 없던 새로운 구조</td><td>Gap, Stepping Stones</td></tr><tr><td>Physics Unseen</td><td>유사 형상에서 물리 조건 변경</td><td>낮은 마찰력, 질량 변화</td></tr></tbody></table></div>
-<blockquote><p>### 확정 방침 (8/19 · 팀장)
-학습 보장선 = <b>Parameter + Combination</b>. <b>Structure는 학습 없이 평가에 처음부터 포함</b>해 «현재의 벽»을 측정한다 (중간발표: 벽 확인 → 최종: 벽 개선의 서사). Structure 학습 편입은 도전선.</p></blockquote>
-<p>평가 지표: <code>Success Rate</code> <code>Fall Rate</code> <code>Velocity Tracking Error</code> <code>이동 거리</code> <code>Episode Survival Time</code> · 비교군: <b>Baseline vs Our Policy vs Our Policy + DR</b> (+ 공개 최상위 정책과의 비교 확장 가능).</p>
-<blockquote><p>### 핵심 검증 질문
-우리가 학습한 Policy가 Isaac Lab Baseline보다 <b>미학습 환경에서 더 높은 Generalization 성능</b>을 보이는가?</p></blockquote>
+<section id="s4"><span id="4"></span><h2>4. <code>soft_joint_pos_limit_factor</code> 는 발 높이의 제약이 아니다</h2>
+<p><code>UNITREE_GO2_CFG</code> 에 <code>soft_joint_pos_limit_factor=0.9</code> 가 있어 아이작랩은 관절 범위의 90% 만 쓴다. 이것이 발 높이를 막고 있는지 확인했다. <b>아니다</b> <span class="ev ev-ok">확인됨</span>.</p>
+<div class="tw"><table><thead><tr><th>조건</th><th>앞다리</th><th>뒷다리</th></tr></thead><tbody><tr><td>factor 0.9 (실제 사용 범위)</td><td>31.0 cm</td><td>30.1 cm</td></tr><tr><td>factor 없음 (하드웨어 한계)</td><td>31.0 cm</td><td>30.1 cm</td></tr></tbody></table></div>
+<p>최대 발 높이를 내는 자세가 범위 한가운데에 있어서 90% 로 좁혀도 안 걸린다. <b>이 값을 풀어도 아무것도 좋아지지 않는다.</b></p>
 </section>
-<section id="s5"><div class="rpt-eyebrow">05 · TRACK B · AUTONOMY</div><h2>트랙 B 상세: 실기 자율주행</h2>
-<div style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:16px 0"><div style="border:1px solid var(--rule);background:var(--paper-2);padding:14px 16px;background:var(--paper)"><div style="font-weight:800;margin-bottom:8px;font-size:.95rem">Nav2 · 어디로 이동할 것인가</div><p style="margin:.3rem 0;font-size:.85rem">SLAM 으로 구성된 지도와 센서 정보를 바탕으로 경로 및 이동 명령을 생성한다. 출력인 <b>cmd_vel</b> 이 RL Policy 의 command 로 전달된다.</p></div><div style="border:1px solid var(--rule);background:var(--paper-2);padding:14px 16px;background:var(--paper)"><div style="font-weight:800;margin-bottom:8px;font-size:.95rem">RL Policy · 어떻게 걸을 것인가</div><p style="margin:.3rem 0;font-size:.85rem">Nav2 의 이동 명령을 받아 실제 관절 제어를 수행하며, 지형 조건에 적응해 험지 보행을 담당한다.</p></div></div>
-<p>트랙 B는 &quot;보행&quot;이 아니라 <b>&quot;주행&quot;의 문제</b>를 푼다. 실제 LiDAR·카메라 센서 데이터를 받아 지도를 만들고(SLAM), 자기 위치를 추정하고, 경로를 계획해(Nav2) 검증된 순정 보행으로 이동한다. 실세계 Observation·TF·센서 동기화를 직접 다루는 고수준 시스템 통합 작업이다.</p>
-<ul><li>학습 경로: 조선대 커리큘럼 (ROS2 기초 → Go2 연결 → SLAM → Nav2 → 심화)</li><li>환경: Ubuntu 24.04 (ROS2 Jazzy) · 실습 개체: 조선대 Go2 EDU (+ XT16 외장 라이다 활용 협의)</li><li>8/19 첫 멘토링: 팀원별 장비 환경 차이로 셋업 미완 → <b>각자 개발환경 구축을 완료해 다음 주 지참</b></li></ul>
+<section id="s5"><span id="5"></span><h2>5. 그럼 왜 안 드나</h2>
+<p>맹라현의 <code>발보상-시간아니고높이아님</code> 이 「발 높이 항이 없다」를 이미 확인했다. 그 위에 두 가지를 더 봤다.</p>
+<div class="tw"><table><thead><tr><th>보상 항</th><th>기본값</th><th>Go2 험지 설정</th><th>뜻</th></tr></thead><tbody><tr><td><code>lin_vel_z_l2</code></td><td>-2.0</td><td>그대로</td><td>몸통 수직 속도 벌점. 보상 항 중 가장 큰 음수</td></tr><tr><td><code>feet_air_time</code></td><td>0.125</td><td><b>0.01</b></td><td>체공 시간 보상을 12.5배 낮춤</td></tr><tr><td><code>track_lin_vel_xy_exp</code></td><td>1.0</td><td><b>1.5</b></td><td>속도 추종을 1.5배 중시</td></tr></tbody></table></div>
+<p>출처는 <code>velocity_env_cfg.py</code> 와 <code>config/go2/rough_env_cfg.py</code> 다.</p>
+<p><b>Go2 험지 설정의 성향이 한 문장으로 나온다. 빠르고 낮게 걸어라.</b></p>
+<p>평지와 완만한 험지에서는 이것이 옳다. 에너지 효율이 좋고 안정적이다. <b>우리 과제(미경험 험지 적응)에서만 병목이다.</b></p>
 </section>
-<section id="s6"><div class="rpt-eyebrow">06 · BRIDGE</div><h2>두 트랙의 연결</h2>
-<p>두 트랙은 별개가 아니라 같은 무대의 앞뒤다.</p>
-<ol><li><b>트윈에서 먼저, 실물로 나중에</b>: 트랙 B의 자율주행 코스를 트랙 A의 디지털 트윈으로 먼저 복제해 시뮬레이션에서 리허설할 수 있다. &quot;가보지 않고 배운다&quot;는 주제가 두 트랙을 관통한다.</li><li><b>같은 험지, 두 개의 답</b>: 같은 험지를 시뮬에서는 우리 RL 정책이 배우고(트랙 A), 실물에서는 순정+항법이 건넌다(트랙 B). 두 접근의 비교 자체가 발표의 이야기가 된다.</li><li><b>관측의 연속성</b>: 트랙 A에서 다루는 시뮬 관측(높이맵·IMU·관절)과 트랙 B에서 다루는 실측 센서(LiDAR·IMU·오도메트리)는 같은 문제의 가상·실물 버전이다.</li></ol>
+<section id="s6"><span id="6"></span><h2>6. 재현</h2>
+<p><code>sim/eval/probe_go2_joint_limits.py</code> 로 다시 잰다.</p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>export KMP_DUPLICATE_LIB_OK=TRUE
+export OMNI_KIT_ACCEPT_EULA=YES
+&lt;isaac311 python&gt; sim/eval/probe_go2_joint_limits.py out.json</pre></div>
+<p><code>conda activate isaac311</code> 만으로는 안 된다. <code>isaaclab.bat</code> 은 base 파이썬을 써서 <code>tensordict</code> 가 없다고 죽는다. isaac311 의 python 을 직접 부르고 환경변수 둘을 붙여야 한다. KMP 를 빼면 <code>libiomp5md.dll</code> 중복 초기화로 죽고, EULA 를 빼면 동의 프롬프트에서 멈춘다. 이 절차는 임석헌이 확인해 알려준 것이다.</p>
+<p><b>한 번 조용히 실패했다.</b> <code>ISAACLAB_NUCLEUS_DIR</code> 이 <code>None</code> 이라 경로가 <code>None/Isaac/...</code> 이 됐는데 <b>종료코드는 0</b> 이었고 결과 파일도 생겼다. 관절 0개가 담긴 채로. 스크립트가 관절 수를 찍게 해서 잡았다. <code>get_assets_root_path()</code> 를 쓰면 해결된다.</p>
 </section>
-<section id="s7"><div class="rpt-eyebrow">07 · OPERATIONS</div><h2>운영 체계</h2>
-<div class="tw"><table><thead><tr><th>축</th><th>내용</th></tr></thead><tbody><tr><td>창구</td><td><b>김현우 PM</b> (이스트소프트, 1층 2사무실) · 적극 활용</td></tr><tr><td>조선대 협력</td><td>유성현 교수 · 이수혁 팀장(BITE) · <b>매주 금</b> 14~18 수업/멘토링 (9월 개강으로 9/1 재확정)</td></tr><tr><td><b>전담 멘토</b></td><td>현직자 전담 멘토 (이스트소프트 직접 섭외) · <b>오후 15~18시</b> (8/21 팀 미팅에서 오후안 채택. 8/20 의 «매일 오전 9~12시» 는 하루 만에 바뀐 안이다) · <b>주기 재조정 중</b>: 매일에서 화요일 1회로 논의 <code>미확정</code> (8/26)</td></tr><tr><td>외부 전문가</td><td>로보틱스·휴머노이드 CTO · 방향 전환 자문 + 트랙 A(RL MVP) 멘토링 · 전담 멘토와 별개로 <b>정기 병행</b> (8/20 약속)</td></tr><tr><td>컴퓨팅</td><td>WS RTX 5080×2 (학습·렌더) · GIST GPU 샌드박스 · 이스트 물리서버(RTX 2000×2)</td></tr><tr><td>기록</td><td>프로젝트 웹(연구 기록·보고서·자료실) + lab 저장소</td></tr></tbody></table></div>
+<section id="s7"><span id="7"></span><h2>7. 남는 것</h2>
+<ul><li>이 값은 <b>자세만</b> 본 것이다. 그 자세를 실제로 낼 토크가 되는지는 안 봤다. <code>effort_limit=23.5</code> 가 있고 무게를 이겨야 하니 정적으로 가능한 높이가 더 낮을 수 있다</li><li>33.5 와 31.0 의 2.5 cm 차이를 기준점 차이로 «추정» 했다. 맹라현의 계산 기준점을 확인하면 확정된다. <b>미확인</b></li></ul>
 </section>
-<section id="s8"><div class="rpt-eyebrow">08 · DECISIONS REQUIRED</div><h2>남은 결정 안건</h2>
-<ol><li><b>트랙 A 험지 세트 확정</b>: &quot;우리가 정한 험지&quot;의 구체 스펙 (순정 상한 위의 비정형 지형 후보 중)</li><li><b>트랙 B 실기 코스·무대 선정</b>: 자율주행 시연 장소 (조선대 교내 후보 + 발표 반출 협의)</li><li><b>역할 매트릭스</b>: 5인의 메인+겹침 배치 (RL/Terrain·트윈/렌더·SLAM/Nav2·통합)</li><li><b>외부 전문가(CTO) 정기 멘토링 주기</b>: 전담 멘토 체계(8/20)와의 병행 조건 이행 · 김현우 PM과 협의</li><li><b>중간발표 일자 확인</b>: 8/20 이사 언급 &quot;아마 10월 초&quot; · 공식 공지 대기 (현행 가정 9/30, 확정 시 로드맵 역산 갱신)</li></ol>
-</section>
-<section id="s9"><div class="rpt-eyebrow">09 · FINAL DEFINITION</div><h2>최종 정의와 산출물</h2>
-<blockquote><p><b>프로젝트의 최종 결과 정의 (v2)</b>
-&quot;Isaac Lab에서 우리가 정의한 험지로 Unitree Go2의 보행 정책을 학습하고 미학습 험지에서 일반화 성능을 검증하며, 그 과정을 디지털 트윈과 실사급 렌더로 완결한다(트랙 A). 그리고 실물 Unitree Go2로 SLAM·Nav2 기반 자율주행을 구현해 지정 코스 주행을 시연한다(트랙 B).&quot;</p></blockquote>
-<div class="tw"><table><thead><tr><th>발표</th><th>Deliverable</th></tr></thead><tbody><tr><td>중간 (9/30)</td><td>재현 가능한 학습·평가 파이프라인 · Train/Test 분리 지형 세트 · 정량 성능표(Baseline 비교) · 시뮬 험지 보행 영상(트윈·렌더 포함)</td></tr><tr><td>최종 (12/11)</td><td>실물 Go2 자율주행 시연(SLAM 지도·Nav2 경로) · 시스템 구성도 · 트랙 A 완결 산출물</td></tr></tbody></table></div>
-</section>
-<section id="s10"><div class="rpt-eyebrow">10 · EVIDENCE LINKS</div><h2>우리 실측과의 연결 (웹판)</h2>
-<div class="tw"><table><thead><tr><th>항목</th><th>현재 상태</th></tr></thead><tbody><tr><td>Baseline 재현</td><td>완료: 1,500 iter 실측, 통과율 86.7% → <a href="research-training-benchmarks.html">학습 실측</a></td></tr><tr><td>평가 파이프라인</td><td>v1 가동 중 → <a href="research-training-benchmarks.html">학습 실측 §5</a></td></tr><tr><td>Terrain 이해</td><td><a href="research-terrain-guide-isaaclab.html">Isaac Lab 지형 가이드</a> (작성 임석헌)</td></tr><tr><td>Go2 rough cfg 읽기</td><td><a href="research-go2-rough-training.html">험지 학습 커리큘럼</a> (요약 다음 상세)</td></tr><tr><td>렌더·트윈 역량</td><td>PT 1080p 1.75초/프레임 실측 → <a href="research-render-benchmarks.html">렌더 실측</a> · vMaterials·Sample Scenes 수령 완료</td></tr><tr><td>공개 정책 비교군</td><td>4종 로드·실행 검증 → <a href="research-robogauge-observation-mapping.html">관측 매핑</a></td></tr><tr><td>조선대 수업 자료</td><td><a href="chosun-materials.html">팀 자료실</a> (팀 전용, 비밀번호)</td></tr></tbody></table></div>
-</section>
-<section id="s11"><div class="rpt-eyebrow">11 · SECTION</div><h2>판 이력</h2>
-<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td>v1.0</td><td>2026-08-19</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
+<section id="s8"><h2>판 이력</h2>
+<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td>v1.1</td><td>2026-09-08</td><td>1절의 「뒷다리 비대칭은 실제 하드웨어」를 정정했다. 공식 사양표와 URDF 는 네 다리에 단일 범위를 쓰고 아이작 USD 만 폭이 같은 채 60도 밀려 있다. 영점 표기 차이로 보인다</td><td>제원 조사 <code>#311</code> · 정정 <code>#339</code></td></tr><tr><td>v1.0</td><td>2026-09-07</td><td>처음 씀. 아이작 USD 를 headless 로 열어 관절 12개의 상하한을 읽고 정기구학으로 최대 발 높이를 계산했다</td><td>실측 <code>#280</code></td></tr></tbody></table></div>
 </section>
 
 </div>
