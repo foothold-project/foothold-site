@@ -606,7 +606,11 @@ body>*{flex-shrink:0}
 .bstamp b{color:var(--ink-2,#57534e);font-weight:600}
 .bstamp .sv{font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .bstamp .gap{flex:1}
-@media (max-width:640px){.bstamp{margin:28px 14px 18px}}
+/* ★ 2026-09-09 실측. width:100% 에 좀은 화면용 좌우 마진 14px 을 더하니
+   띄가 본문보다 28px 커졌다. tech-* 네 장이 390px 에서 가로로 30px 밀렸다.
+   (다른 페이지는 .wrap 안이라 드러나지 않았다. 생김새가 가린 결함이다.)
+   좀은 화면에서는 width 를 다시 auto 로 돌려 마진이 폭을 «빼가게» 한다. */
+@media (max-width:640px){.bstamp{width:auto;margin:28px 14px 18px}}
 </style>
 <!--search:v8--><style>
 @media (max-width:640px){
@@ -757,7 +761,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=382fb957').then(function(r){
+    fetch('/assets/search-index.json?v=7e74d747').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -914,5 +918,5 @@ document.addEventListener('click', function(e){
   });
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 12:04</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 12:29</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
