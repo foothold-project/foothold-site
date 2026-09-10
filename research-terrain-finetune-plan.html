@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>실패 지형 파인튜닝 실행 계획: 레시피 병렬, 혼합 단일 런 · FOOTHOLD</title>
-<meta name="description" content="일반화 벤치마크 실패 5종을 5인이 하나씩 맡아 레시피를 찾고, 최종은 혼합 단일 런 1개로 합친다.">
+<meta name="description" content="일반화 벤치마크 실패 5종을 5인이 하나씩 맡아 레시피를 찾고, 최종은 혼합 단일 런 1개로 합친다. rails 는 2026-09-03 에 낙상형에서 전진불능형으로 재분류됐고 처방도 함께 바뀌었다 (§1).">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -736,7 +736,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=3b89a4c1').then(function(r){
+    fetch('/assets/search-index.json?v=f8baa9a1').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -827,18 +827,18 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="hero">
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>실패 지형 파인튜닝 실행 계획: 레시피 병렬, 혼합 단일 런</h1>
-  <p class="lede">일반화 벤치마크 실패 5종을 5인이 하나씩 맡아 레시피를 찾고, 최종은 혼합 단일 런 1개로 합친다.</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v2.0</span></div><div><span class="k">이슈</span><span class="v"><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/59">#59</a></span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-27 12:10</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / terrain-finetune-plan.md</span></div><div><span class="k">증거</span><span class="v">확인 3 · 추측 2 · 미측정 1</span></div></div>
+  <p class="lede">일반화 벤치마크 실패 5종을 5인이 하나씩 맡아 레시피를 찾고, 최종은 혼합 단일 런 1개로 합친다. rails 는 2026-09-03 에 낙상형에서 전진불능형으로 재분류됐고 처방도 함께 바뀌었다 (§1).</p>
+  <div class="meta"><div><span class="k">판</span><span class="v">v2.1</span></div><div><span class="k">이슈</span><span class="v"><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/59">#59</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/66">#66</a></span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-27 12:10</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / terrain-finetune-plan.md</span></div><div><span class="k">증거</span><span class="v">확인 3 · 추측 2 · 미측정 1</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
 <blockquote><p>분류: 계획
 작성: 오흥재 · 2026-08-27 12:10
 근거: 실측
-요지: 일반화 벤치마크 실패 5종을 5인이 하나씩 맡아 레시피를 찾고, 최종은 혼합 단일 런 1개로 합친다.
+요지: 일반화 벤치마크 실패 5종을 5인이 하나씩 맡아 레시피를 찾고, 최종은 혼합 단일 런 1개로 합친다. <code>rails</code> 는 2026-09-03 에 낙상형에서 전진불능형으로 재분류됐고 처방도 함께 바뀌었다 (§1).
 상태: 확정
-판: v2.0
-이슈: <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/59">#59</a></p></blockquote>
+판: v2.1
+이슈: <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/59">#59</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/66">#66</a></p></blockquote>
 <blockquote><p>입력: <a href="research-generalization-benchmark-10-terrains.html">일반화 벤치마크 v2</a> (실패 5종·모드 지도, 지형당 50에피소드 <span class="ev ev-ok">실측</span>) + <a href="research-benchmark-setup-lim.html">벤치마크 하네스 설정</a> (10종 cfg 원문) + 문헌 조사 (하단 출처)
 답하는 질문 (팀장 8/22): &quot;팀원별로 지형을 나눠 병렬 강화학습하는 게 의미가 있는가? RL은 순차로 쌓아야 하지 않나?&quot;
 공식 Go2 rough cfg를 먼저 읽는 장은 <a href="research-go2-rough-training.html">험지 학습 커리큘럼</a>.</p></blockquote>
@@ -851,8 +851,15 @@ document.addEventListener('DOMContentLoaded',function(){
 </section>
 <section id="s2"><span id="1"></span><h2>1. 지형 배정 (2026-08-27 확정)</h2>
 <p>실패는 5종이고 팀은 5인이라 <b>한 사람이 한 지형을 온전히 소유한다.</b> 소유한다는 것은 그 지형의 진단·레시피·최종 성능표에 대해 그 사람이 답한다는 뜻이다.</p>
-<div class="tw"><table><thead><tr><th>지형</th><th>담당</th><th>v2 실측 (성공 / 생존 / 전진)</th><th>실패 모드</th><th>손대야 할 곳</th></tr></thead><tbody><tr><td><code>gap</code></td><td><b>임석헌</b></td><td>0% / 42% / 0.86 ± 0.11 m</td><td>낙상 우세 (평균 3.2초에 몸통 접촉)</td><td>관측 · 지형 커리큘럼</td></tr><tr><td><code>rails</code></td><td><b>맹라현</b></td><td>2% (1/50) / <b>36%</b> / 0.93 ± 0.32 m</td><td>낙상 우세 (평균 2.1초) · <b>가장 빨리 넘어진다</b></td><td>관측 · 발 배치 보상</td></tr><tr><td><code>stepping_stones</code></td><td><b>오현민</b></td><td>0% / 42% / 0.97 ± 0.24 m</td><td><b>혼합</b> (v1 전진불능 → v2에서 58% 낙상으로 재분류)</td><td>두 처방을 다 시험해야 하는 유일한 지형</td></tr><tr><td><code>pit</code></td><td><b>이민우</b></td><td>2% (1/50) / <b>100%</b> / 1.07 ± 0.18 m</td><td>순수 전진 불능 (한 번도 안 넘어짐)</td><td>보상 · 명령 커리큘럼</td></tr><tr><td><code>floating_ring</code></td><td><b>오흥재</b></td><td>0% / 86% / 0.94 ± 0.20 m</td><td>대체로 전진 불능</td><td>보상 커리큘럼</td></tr></tbody></table></div>
-<p><b>배정의 근거</b>: 실패 모드가 두 종류라 처방이 갈린다. 낙상형 둘(<code>gap</code>·<code>rails</code>)은 관측과 발 배치, 전진불능형 둘(<code>pit</code>·<code>floating_ring</code>)은 보상 균형이다. <code>stepping_stones</code> 는 v2에서 둘 다 나타난 유일한 지형이라 <b>두 처방의 비교 실험대</b>가 된다. 이 자리는 A/평가 주담당(오현민)이 맡는 것이 맞다. 판정 기준을 만든 사람이 두 처방을 같은 자로 재야 하기 때문이다.</p>
+<div class="tw"><table><thead><tr><th>지형</th><th>담당</th><th>v2 실측 (성공 / 생존 / 전진)</th><th>실패 모드</th><th>손대야 할 곳</th></tr></thead><tbody><tr><td><code>gap</code></td><td><b>임석헌</b></td><td>0% / 42% / 0.86 ± 0.11 m</td><td>낙상 우세 (평균 3.2초에 몸통 접촉)</td><td>관측 · 지형 커리큘럼</td></tr><tr><td><code>rails</code></td><td><b>맹라현</b></td><td>0.5 m/s · 50판: 2% (1/50) / <b>36%</b> / 0.93 ± 0.32 m<br><b>1.0 m/s · 100판: 4% / 85% / 2.64 m</b> (09-03 재측정)</td><td><s>낙상 우세 (평균 2.1초) · 가장 빨리 넘어진다</s><br>-&gt; <b>전진불능형</b> (09-03 재분류 · 아래 상자)</td><td><s>관측 · 발 배치 보상</s><br>-&gt; <b>보상 · 명령 커리큘럼</b></td></tr><tr><td><code>stepping_stones</code></td><td><b>오현민</b></td><td>0% / 42% / 0.97 ± 0.24 m</td><td><b>혼합</b> (v1 전진불능 → v2에서 58% 낙상으로 재분류)</td><td>두 처방을 다 시험해야 하는 유일한 지형</td></tr><tr><td><code>pit</code></td><td><b>이민우</b></td><td>2% (1/50) / <b>100%</b> / 1.07 ± 0.18 m</td><td>순수 전진 불능 (한 번도 안 넘어짐)</td><td>보상 · 명령 커리큘럼</td></tr><tr><td><code>floating_ring</code></td><td><b>오흥재</b></td><td>0% / 86% / 0.94 ± 0.20 m</td><td>대체로 전진 불능</td><td>보상 커리큘럼</td></tr></tbody></table></div>
+<p><b>배정의 근거</b>: 실패 모드가 두 종류라 처방이 갈린다. <s>낙상형 둘(<code>gap</code>·<code>rails</code>)</s> <b>낙상형(<code>gap</code>)</b> 은 관측과 발 배치, <s>전진불능형 둘(<code>pit</code>·<code>floating_ring</code>)</s> <b>전진불능형(<code>rails</code>·<code>pit</code>·<code>floating_ring</code>)</b> 은 보상 균형이다 (<b><code>rails</code> 는 09-03 에 옮겨왔다 · 바로 아래 상자</b>). <code>stepping_stones</code> 는 v2에서 둘 다 나타난 유일한 지형이라 <b>두 처방의 비교 실험대</b>가 된다. 이 자리는 A/평가 주담당(오현민)이 맡는 것이 맞다. 판정 기준을 만든 사람이 두 처방을 같은 자로 재야 하기 때문이다.</p>
+<blockquote><p><b>2026-09-03 재분류: <code>rails</code> 는 낙상형이 아니다</b> (팀장 확정 · <a href="https://github.com/foothold-project/foothold-lab/issues/66" target="_blank" rel="noopener"><code>#66</code></a> 코멘트)</p>
+<p>위 배정의 근거는 <b>0.5 m/s · 50판</b> 위에 서 있었다. 같은 정책을 <b>1.0 m/s · 100판 · seed 42</b> 로 다시 돌리자 <code>rails</code> 만 성질이 바뀌었다.</p>
+<div class="tw"><table><thead><tr><th>항목</th><th>0.5 m/s · 50판</th><th><b>1.0 m/s · 100판</b></th></tr></thead><tbody><tr><td>생존율</td><td>36%</td><td><b>85%</b></td></tr><tr><td>전진 평균</td><td>0.93 m</td><td><b>2.64 m</b></td></tr><tr><td>종료 사유</td><td>낙상 우세</td><td><b>timeout 85 · base_contact 15</b></td></tr><tr><td>2 m 초과 판</td><td>옛 표에 없음</td><td><b>67 / 100</b></td></tr><tr><td>종합 통과</td><td>2%</td><td>4%</td></tr></tbody></table></div>
+<p><b>속도를 올리니 안 넘어지고 앞으로 간다.</b> 100판 중 85판이 시간초과로 끝났고 67판이 2 m 를 넘겼다. 넘어져서 지는 것이 아니라 못 가서 진다.</p>
+<div class="tw"><table><thead><tr><th>실패 모드</th><th>처방</th></tr></thead><tbody><tr><td>낙상형</td><td>관측 · 발 배치 보상</td></tr><tr><td><b>전진불능형</b></td><td><b>보상 · 명령 커리큘럼</b></td></tr></tbody></table></div>
+<p><b>그래서 맹라현의 처방이 §3 의 「낙상형」 줄에서 「전진불능형」 줄로 옮겨간다.</b> 전진 2.64 m 이고 통과선이 3 m 라 <b>0.36 m</b> 남았다. 실패 5종 중 통과선에 가장 가깝다 (<code>pit</code> 1.57 · <code>floating_ring</code> 1.06 · <code>stepping_stones</code> 1.05 · <code>gap</code> 0.92 m).</p>
+<p>원자료 <code>sim/eval/results/20260903-rough10-1.0mps/</code>. 후속 진단은 <a href="research-20260906-rails-speed-tracking-diagnosis.html">레일즈 진단</a> 이고, 그 문서 §7 이 <b>구간별로 관문이 갈린다</b>는 것까지 밀고 나갔다.</p></blockquote>
 <p><b>시작 절차</b>: 각자 이슈를 하나 만들고 작업 영역은 <code>A/정책학습</code>, 마일스톤은 <code>MVP · 중간발표 9/30</code> 을 고른다. 제목은 <code>[지형이름] 진단 → 레시피</code> 로 통일한다.</p>
 <h3>1-1. 각자 만질 파라미터 (하네스 cfg 원문 기준 <span class="ev ev-ok">확인됨</span>)</h3>
 <p>난이도 지도를 그릴 때 <b>무엇을 몇 단계로 나눌지</b>가 사람마다 달라지면 나중에 합칠 수 없다. 각자 아래 값을 기준으로 3~4단계를 만든다.</p>
@@ -870,7 +877,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p><b>산출물</b>: 지형 진단 1장 (실패 모드 + 난이도 경계 + 관측 판정). 다섯 장의 형식이 같아야 3주차에 합칠 수 있다.</p>
 </section>
 <section id="s4"><span id="3"></span><h2>3. 2주차: 레시피 탐색 (5인 병렬)</h2>
-<ol><li>학습 cfg: <b>기존 rough 혼합 0.6 + 자기 지형 0.4</b> (신규 지형 단독 금지: 혼합이 곧 망각 방지 rehearsal)</li><li>기준선 체크포인트에서 <b>resume</b> 파인튜닝, 학습률 하향 (1e-3 → 1e-4 급), 커리큘럼은 §1-1에서 찾은 <b>가장 쉬운 단계부터</b></li><li>바꿔볼 것 (<b>한 번에 하나</b>):</li><ul><li>지형 비율 (0.2 / 0.4 / 0.6)</li><li>난이도 범위 (진단에서 찾은 경계 전후)</li><li>보상 가중치. <b>낙상형(임석헌·맹라현)은 발 배치·접촉 페널티 쪽, 전진불능형(이민우·오흥재)은 전진 보상 쪽.</b> 오현민은 두 방향을 각각 돌려 비교한다</li><li>에피소드 길이</li></ul></ul><li><b>모든 런에서 rough 회귀 지표 필수 계측.</b> 기존 지형 성공률이 떨어지면 즉시 표시한다 (forgetting 감시). 이 열이 비어 있는 런은 결과로 인정하지 않는다.</li><ul><li>실험 대장에 기록: cfg · 커밋 해시 · 결과 CSV · 텐서보드 링크</li></ol>
+<ol><li>학습 cfg: <b>기존 rough 혼합 0.6 + 자기 지형 0.4</b> (신규 지형 단독 금지: 혼합이 곧 망각 방지 rehearsal)</li><li>기준선 체크포인트에서 <b>resume</b> 파인튜닝, 학습률 하향 (1e-3 → 1e-4 급), 커리큘럼은 §1-1에서 찾은 <b>가장 쉬운 단계부터</b></li><li>바꿔볼 것 (<b>한 번에 하나</b>):</li><ul><li>지형 비율 (0.2 / 0.4 / 0.6)</li><li>난이도 범위 (진단에서 찾은 경계 전후)</li><li>보상 가중치. <s>낙상형(임석헌·맹라현)은 발 배치·접촉 페널티 쪽, 전진불능형(이민우·오흥재)은 전진 보상 쪽.</s> <b>09-03 재분류 반영: 낙상형(임석헌)은 발 배치·접촉 페널티 쪽, 전진불능형(맹라현·이민우·오흥재)은 전진 보상·명령 커리큘럼 쪽.</b> 오현민은 두 방향을 각각 돌려 비교한다</li><li>에피소드 길이</li></ul></ul><li><b>모든 런에서 rough 회귀 지표 필수 계측.</b> 기존 지형 성공률이 떨어지면 즉시 표시한다 (forgetting 감시). 이 열이 비어 있는 런은 결과로 인정하지 않는다.</li><ul><li>실험 대장에 기록: cfg · 커밋 해시 · 결과 CSV · 텐서보드 링크</li></ol>
 <p><b>산출물</b>: 지형별 <b>레시피 1장</b> × 5 (작동한 비율 · 난이도 시작점 · 보상 변경 · 하이퍼파라미터 · rough 회귀 폭)</p>
 </section>
 <section id="s5"><span id="4"></span><h2>4. 3주차: 통합 (단일 런)</h2>
@@ -893,7 +900,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p><a href="https://arxiv.org/abs/2109.11978" target="_blank" rel="noopener">Rudin et al., Learning to Walk in Minutes</a> (혼합 지형 커리큘럼 원조) · <a href="https://github.com/leggedrobotics/legged_gym" target="_blank" rel="noopener">legged_gym terrain_proportions</a> · <a href="https://isaac-sim.github.io/IsaacLab/main/source/api/lab/isaaclab.terrains.html" target="_blank" rel="noopener">Isaac Lab terrains API</a> (실패 5종 cfg 전부 내장) · <a href="https://arxiv.org/abs/2402.02868" target="_blank" rel="noopener">Wołczyk et al., ICML 2024</a> (RL 파인튜닝 망각) · <a href="https://arxiv.org/abs/2309.05665" target="_blank" rel="noopener">Robot Parkour Learning</a> (specialist 병렬→증류, 스트레치 옵션) · <a href="https://www.science.org/doi/10.1126/scirobotics.abc5986" target="_blank" rel="noopener">Lee et al., Science Robotics 2020</a> (특권 관측)</p>
 </section>
 <section id="s9"><h2>판 이력</h2>
-<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.0</b></td><td>2026-08-28</td><td>병렬 갈래 4 -&gt; 5 (floating_ring 누락 정정) · 담당 5인 배정 · 물리 관문 반영</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/65">#65</a>~69</td></tr><tr><td>v1.0</td><td>2026-08-22</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v2.1</b></td><td>2026-09-09</td><td><b><code>rails</code> 를 낙상형에서 전진불능형으로 재분류</b>하고 §1 표·§3 보상 줄의 처방을 「보상 · 명령 커리큘럼」으로 바꿨다. 09-03 결정이 이슈 코멘트에만 있어 이 계획서를 먼저 읽는 담당자가 반대 처방을 실행하게 돼 있었다</td><td>팀장 09-03 확정 · <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/66">#66</a></td></tr><tr><td><b>v2.0</b></td><td>2026-08-28</td><td>병렬 갈래 4 -&gt; 5 (floating_ring 누락 정정) · 담당 5인 배정 · 물리 관문 반영</td><td><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/65">#65</a>~69</td></tr><tr><td>v1.0</td><td>2026-08-22</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
 </section>
 
 </div>
@@ -934,5 +941,5 @@ document.addEventListener('click', function(e){
 </script>
 <style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7;--dim-ink:#0b6459;--grid:rgba(22,28,38,.04);--note-ink:#8a5600;}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 14:39</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-10 14:02</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

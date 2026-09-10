@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>다이제스트 재료: 2026-W36 · FOOTHOLD</title>
-<meta name="description" content="2026-08-31 ~ 2026-09-06 의 활동 목록. 다이제스트를 쓰기 위한 재료다.">
+<title>평가 하네스 도해 · 무엇을 어떤 기준으로 재나 · FOOTHOLD</title>
+<meta name="description" content="평가 하네스의 판정 구조를 SVG 넷으로 옮긴다. 네 축의 AND · 실패 사유 둘 · 방향 판정이 끝점에서 통과선으로 옮겨간 것 · 지형 10종과 평지를 뺀 자리.">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -587,7 +587,7 @@ body>*{flex-shrink:0}
    좀은 화면에서는 width 를 다시 auto 로 돌려 마진이 폭을 «빼가게» 한다. */
 @media (max-width:640px){.bstamp{width:auto;margin:28px 14px 18px}}
 </style>
-<style>a.ilink{color:var(--dim);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--dim) 35%,transparent);font-variant-numeric:tabular-nums;white-space:nowrap}a.ilink:hover{border-bottom-color:var(--dim)}</style><!--search:v8--><style>
+<!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -821,101 +821,141 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">Digest · 이번 주 알게 된 것</div>
-  <h1>다이제스트 재료: 2026-W36</h1>
-  <p class="lede">2026-08-31 ~ 2026-09-06 의 활동 목록. 다이제스트를 쓰기 위한 재료다.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">자동 수집 · 2026-09-06 23:43</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / digest / 2026-W36-material.md</span></div></div>
+  <div class="eyebrow">Research · 근거 기록</div>
+  <h1>평가 하네스 도해 · 무엇을 어떤 기준으로 재나</h1>
+  <p class="lede">평가 하네스의 판정 구조를 SVG 넷으로 옮긴다. 네 축의 AND · 실패 사유 둘 · 방향 판정이 끝점에서 통과선으로 옮겨간 것 · 지형 10종과 평지를 뺀 자리.</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">오흥재 · 2026-09-09 16:40</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / 20260909-eval-harness-diagram.md</span></div><div><span class="k">증거</span><span class="v">확인 6 · 추측 0 · 미측정 5</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>분류: 운영
-작성: 자동 수집 · 2026-09-06 23:43
-근거: 깃 이력
-요지: 2026-08-31 ~ 2026-09-06 의 활동 목록. 다이제스트를 쓰기 위한 재료다.
+<blockquote><p>분류: 가이드
+작성: 오흥재 · 2026-09-09 16:40
+근거: 실측 (<code>sim/eval/</code> 코드 원문을 직접 읽음) · 원장 <code>docs/DECISIONS.md</code> · 기존 문서 <code>20260908-success-criteria-anatomy.md</code>
+요지: 평가 하네스의 판정 구조를 SVG 넷으로 옮긴다. 네 축의 AND · 실패 사유 둘 · 방향 판정이 끝점에서 통과선으로 옮겨간 것 · 지형 10종과 평지를 뺀 자리.
 상태: 초안</p></blockquote>
-<p><b>이 파일은 다이제스트가 아니다.</b> 「무엇을 알게 됐나」는 사람이 쓴다. 아래에서 골라 <code>2026-W36.md</code> 를 쓴 뒤 이 파일은 지운다.</p>
 </section>
-<section id="s1"><h2>머지된 PR (79건)</h2>
-<ul><li><code>#274</code> [운영] 외부 표준 절 참조의 출처 명시  (vfxpedia)</li><li><code>#273</code> [운영] 표 셀 안 파이프 이스케이프  (vfxpedia)</li><li><code>#272</code> [운영] 승격 문서의 판 이력 표 추가  (vfxpedia)</li><li><code>#271</code> [운영] 승격 문서의 판 표기 추가  (vfxpedia)</li><li><code>#270</code> [운영] 승격 문서 분류의 단일화  (vfxpedia)</li><li><code>#269</code> [운영] 원장 72건 재동기화  (vfxpedia)</li><li><code>#262</code> [기록] 9/4 발표 시점 덱의 발표본 고정  (vfxpedia)</li><li><code>#260</code> [기록] 멘토 재선정과 강화학습 멘토 첫 미팅  (vfxpedia)</li><li><code>#259</code> [운영] 폐기 문서를 가리키던 연계 링크 정리  (vfxpedia)</li><li><code>#258</code> [운영] 원장의 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/257">#257</a> 반영  (vfxpedia)</li><li><code>#256</code> [운영] 원장의 73건 재동기화  (vfxpedia)</li><li><code>#255</code> [운영] 승격 검토 이슈의 md 한정과 중복 방지  (vfxpedia)</li><li><code>#254</code> [운영] 다이제스트 재료 머리말의 시각 표기  (vfxpedia)</li><li><code>#252</code> [운영] 자동화 실패 감시 신설과 inbox 검수의 broken pipe 수정  (vfxpedia)</li><li><code>#251</code> [운영] 기획발표 산출물 상태의 확정 반영  (vfxpedia)</li><li><code>#249</code> 조선대 커리큘럼 요일 정정과 금요일 확정 결정 기록  (vfxpedia)</li><li><code>#246</code> inbox(jay): 우쉬 창 문구를 한 갈래로 못 박는다  (vfxpedia)</li><li><code>#244</code> inbox(jay): 오프닝 색을 본편에 붙인다 · 44.5도에서 19.3도로  (vfxpedia)</li><li><code>#242</code> inbox(jay): A 판 완성 · 23.06초 · 사운드 아홉 항목 통과  (vfxpedia)</li><li><code>#240</code> inbox(jay): -ac 1 다운믹스 설명에 출력 형식 조건을 넣는다 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/239">#239</a>)  (vfxpedia)</li><li><code>#237</code> inbox(jay): 사운드 잰 자 정정(-ac 1)과 A 최종 조립 스크립트 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/236">#236</a>)  (vfxpedia)</li><li><code>#234</code> inbox(jay): 오프닝 · 엔딩 타이틀 재굽기 · 사운드 기준 기록 · Unitree 각인 정정 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/233">#233</a>)  (vfxpedia)</li><li><code>#232</code> [운영] 정정된 사운드로 덱 html · pdf 재빌드  (vfxpedia)</li><li><code>#231</code> [운영] 덱 영상을 정정된 사운드로 다시 뽑는다  (vfxpedia)</li><li><code>#229</code> [운영] 원장의 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/227">#227</a> 반영  (vfxpedia)</li><li><code>#228</code> inbox(jay): B 사운드 재교정(정정된 자로 9/9)과 A 키비주얼 여덟 장 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/227">#227</a>)  (vfxpedia)</li><li><code>#226</code> [운영] 원장 전수 절의 76건 재동기화  (vfxpedia)</li><li><code>#225</code> [작업] 발표 덱 영상의 런칭 B 판 교체  (vfxpedia)</li><li><code>#224</code> [운영] 발표 덱 영상을 B 판으로 갱신  (vfxpedia)</li><li><code>#222</code> inbox(jay): 런칭 영상 B 판 · 사운드 아홉 항목 통과 · dolly 재변환 · 경계 유출 제거 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/221">#221</a>)  (vfxpedia)</li><li><code>#220</code> 9/4 운영진 중간발표 심사 피드백 회의록  (maengu86)</li><li><code>#218</code> NVIDIA 체크포인트의 추후 학습 방향성 분석  (IQ152)</li><li><code>#215</code> [작업] 덱 갱신·검증 일괄 스크립트  (vfxpedia)</li><li><code>#214</code> [운영] inbox 검사가 잘 갖춰진 PR 에서 실패하던 것을 고친다  (vfxpedia)</li><li><code>#213</code> [작업] 발표 덱 영상의 런칭본 교체  (vfxpedia)</li><li><code>#212</code> [운영] 발표 덱용 런칭 영상 720p 사본  (vfxpedia)</li><li><code>#210</code> [작업] 영상 장 캡션 제거  (vfxpedia)</li><li><code>#209</code> [작업] 발표 덱 생성기의 저장소 편입  (vfxpedia)</li><li><code>#208</code> inbox(jay): 런칭 영상 완성본 · 험지 질감 · 실측 격자 사운드 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/118">#118</a>)  (vfxpedia)</li><li><code>#207</code> [작업] 발표 덱 영상의 러프컷 v8 교체  (vfxpedia)</li><li><code>#205</code> [운영] 러프컷 v8 · orbit 이즈 아웃 제거  (vfxpedia)</li><li><code>#204</code> [작업] 발표 덱 영상의 러프컷 v7 교체  (vfxpedia)</li><li><code>#203</code> [작업] 덱 프레임 대응과 상단 안내 갱신  (vfxpedia)</li><li><code>#202</code> [작업] 발표 덱 v6 반영과 단독 실행 결함 세 건 수정  (vfxpedia)</li><li><code>#200</code> [운영] 러프컷 v7 · 20.54초 · rise 를 꼬리 구간으로  (vfxpedia)</li><li><code>#198</code> [운영] 러프컷 v6 · 19.71초 · formation 축소  (vfxpedia)</li><li><code>#197</code> [작업] 발표 덱 영상을 러프컷 v5 로 교체  (vfxpedia)</li><li><code>#196</code> 학습 보상에 발 높이 항이 없다는 확인: feet_air_time 은 체공 시간을 상 준다  (maengu86)</li><li><code>#193</code> [운영] 러프컷 v5 · 20.33초 · 8분음표 격자  (vfxpedia)</li><li><code>#192</code> [작업] 발표 덱에 러프컷 영상 장 추가 · 19장  (vfxpedia)</li><li><code>#191</code> [작업] 9/4 기획 발표 덱 1차 · proposal-deck HTML 과 PDF 추가  (vfxpedia)</li><li><code>#189</code> [실험] FOOTHOLD 워드마크 대군 부감 촬영  (vfxpedia)</li><li><code>#186</code> [운영] 러프컷 v4 · 22.83초 · 대형에서 타이틀로 디졸브  (vfxpedia)</li><li><code>#185</code> 직진 5 cm 의 외부 근거 조사: ISO 18646 계열과 Go2 논문 대조  (maengu86)</li><li><code>#182</code> [작업] 원장 전수 절 재동기화 · 신규 이슈 등재로 배포 관문 해제  (vfxpedia)</li><li><code>#180</code> [운영] 기획발표 엔딩 타이틀 HTML·MP4  (vfxpedia)</li><li><code>#178</code> [촬영] 평지 대군 영화적 카메라 4종  (vfxpedia)</li><li><code>#176</code> [실험] 평지 대군 4096마리·1024마리 본 촬영  (vfxpedia)</li><li><code>#172</code> docs: 공식 제출 문서 4종 표현·근거 정정 및 PDF 갱신  (vfxpedia)</li><li><code>#170</code> [작업] 원장 전수 절과 실제 이슈 상태 동기화 · 닫힌 <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/125">#125</a> 임계경로 표기 제거  (vfxpedia)</li><li><code>#169</code> [작업] 평지 10 m 정본 실측과 대표 3판 주행 영상 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/99">#99</a>)  (vfxpedia)</li><li><code>#167</code> [작업] 제출 문서 넷의 판 표기 통일  (vfxpedia)</li><li><code>#166</code> WBS 설계 공식 제출본 신설과 인계 PDF 검수 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/122">#122</a>)  (vfxpedia)</li><li><code>#165</code> deliverables: 팀 역할·책임 정의서 공식 PDF (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/163">#163</a>)  (vfxpedia)</li><li><code>#164</code> 평지 직진 기준선: 재는 자리와 초기화 요인 분리 (MuJoCo 568판)  (maengu86)</li><li><code>#159</code> [작업] 09-03 결정 3건 원장 등재 · 좌우 이탈 판정 지점 확인 대기  (vfxpedia)</li><li><code>#158</code> [계획] 기획서 7-1 KPI 실측 근거 재작성 · 근거 없는 목표치 6건 정리  (vfxpedia)</li><li><code>#153</code> [계획] 브레인스토밍 정본 교체와 9/4 제출 PDF  (vfxpedia)</li><li><code>#150</code> [계획] 기획서 v1.2 · v1.1 에서 되돌아온 표현 9건 정리  (vfxpedia)</li><li><code>#141</code> docs: 원장 전수 51건 반영 · 판 원장 갱신  (vfxpedia)</li><li><code>#140</code> inbox(meang): 레일즈 진단 1장 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/66">#66</a> · 레시피는 다음)  (maengu86)</li><li><code>#139</code> inbox(meang): 레일즈 Isaac 스윕 설계  (maengu86)</li><li><code>#136</code> docs: 기본값 1500iter 학습지형 결과 분석 추가  (IQ152)</li><li><code>#135</code> inbox(meang): 9/2 박철제 멘토링 회의록  (maengu86)</li><li><code>#132</code> [계획] 9/4 기획발표 정본 2건 · REPORT v2.0 개정안과 기획서 본문  (vfxpedia)</li><li><code>#130</code> 평가 하네스 Candidate 복원과 확장 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/125">#125</a> · 진행 중)  (vfxpedia)</li><li><code>#127</code> inbox(lee): 브레인스토밍 초안과 hwp 입력본  (lmw0207)</li><li><code>#113</code> inbox(meang): 8/31 박철제 멘토링 회의록  (maengu86)</li><li><code>#106</code> RunPod Isaac Lab 환경 구축 기록 v2.0 (inbox/oh)  (less82)</li></ul>
+<section id="s1"><h2>왜 이 문서가 따로 있나</h2>
+<p><b>성공 기준의 숫자와 논증은 이미 있다.</b> <code>20260908-success-criteria-anatomy.md</code> 가 네 축을 해부하고 1,000판을 축별로 재집계해 두었다. 이 문서는 그것을 대체하지 않는다.</p>
+<p>없던 것은 <b>그림</b>이다. 그 문서에 SVG·이미지·mermaid 가 <b>0건</b>이다 <span class="ev ev-ok">확인됨</span> (전수 검색). 표와 코드펜스로만 되어 있어서, 처음 보는 사람이 「네 축이 어떻게 합쳐지는가」를 잡으려면 열두 개 절을 순서대로 읽어야 한다.</p>
+<p>팀장 요청은 「평가 하네스가 무엇을 어떻게 재는지 <b>그림으로</b> 설명하라」였다. 그래서 도해 넷을 만들고, 각 그림 아래에 <b>그 숫자를 어느 파일 몇 행에서 읽었는지</b>를 붙인다. 숫자의 정본은 여전히 해부 문서다.</p>
+<blockquote><p><b>줄 번호 주의.</b> 해부 문서(09-08)가 인용한 <code>metrics.py</code> · <code>eval_generalization.py</code>
+행 번호는 <b>지금 <code>main</code> 과 안 맞는다.</b> 09-09 에 머리 접촉 열이 들어가면서
+파일이 밀렸다. 이 문서의 행 번호는 오늘 <code>main</code>(<code>77f1770</code>)에서 직접 다시 읽은
+것이다.</p></blockquote>
 </section>
-<section id="s2"><h2>닫힌 이슈 (54건)</h2>
-<ul><li><code>#266</code> [승격 검토] inbox/meang/20260904-발보상-시간아니고높이아님.md</li><li><code>#265</code> [승격 검토] inbox/meang/20260903-직진성-외부표준.md</li><li><code>#264</code> [승격 검토] inbox/meang/20260902-flat-straight-baseline-10m.md</li><li><code>#263</code> [승격 검토] inbox/lim/20260904_NVIDIA공식체크포인트_속도단차교차평가분석.md</li><li><code>#248</code> [작업] 조선대 협력 커리큘럼 요일 정정과 금요일 확정 결정 기록 신설 · C/기록</li><li><code>#243</code> [승격 검토] inbox/jay/20260904-launch/CONVERSION.md</li><li><code>#239</code> -ac 1 다운믹스 설명에 출력 형식 조건을 넣는다</li><li><code>#238</code> [승격 검토] inbox/jay/20260904-launch/.gitignore</li><li><code>#236</code> 사운드 잰 자 정정(-ac 1)과 A 최종 조립 스크립트</li><li><code>#235</code> [승격 검토] inbox/jay/20260904-launch/.gitignore</li><li><code>#233</code> A 후속 · 오프닝 · 엔딩 타이틀 재굽기 · 사운드 기준 기록</li><li><code>#230</code> [승격 검토] inbox/jay/20260904-launch/.gitignore</li><li><code>#227</code> 런칭 영상 B 사운드 재교정과 A 키비주얼 여덟 장</li><li><code>#223</code> [승격 검토] inbox/jay/20260904-launch/.gitignore</li><li><code>#221</code> 런칭 영상 재작업 · B 판 보정과 A 판 듄 2 재구성</li><li><code>#219</code> [작업] 9/4 운영진 중간발표 심사 피드백 전사와 정리본 · C/기록</li><li><code>#211</code> [승격 검토] inbox/jay/20260904-launch/.gitignore</li><li><code>#206</code> [승격 검토] inbox/jay/20260904-roughcut/foothold-roughcut.mp4</li><li><code>#201</code> [승격 검토] inbox/jay/20260904-roughcut/foothold-roughcut.mp4</li><li><code>#199</code> [승격 검토] inbox/jay/20260904-roughcut/foothold-roughcut.mp4</li><li><code>#195</code> [승격 검토] inbox/jay/20260904-roughcut/foothold-roughcut.mp4</li><li><code>#194</code> [리서치] 학습 보상에 발 높이 항이 없다는 확인 · A/정책학습</li><li><code>#190</code> [승격 검토] inbox/jay/20260904-roughcut/foothold-roughcut.mp4</li><li><code>#184</code> [리서치] 평지 직진 「10 m · 좌우 5 cm」에 견줄 외부 근거가 있나 · A/평가</li><li><code>#181</code> [승격 검토] inbox/jay/20260903-ending-title/foothold-ending-title.html</li><li><code>#179</code> [작업] 연구 허브 Track A 실패 험지 5종 카드 절 신설 · C/운영</li><li><code>#171</code> [작업] 제출 문서 4종 문체·근거 정정과 무판표기 PDF 갱신 · C/기록</li><li><code>#154</code> [작업] 기획서 7-1 KPI 실측 근거 재작성 + 근거 없는 목표치 6건 정리 · A/평가</li><li><code>#146</code> [승격 검토] inbox/lee/20260902-브레인스토밍-입력본.txt</li><li><code>#134</code> [작업] 9/2 박철제 멘토링 음성 전사와 정리본 · C/기록</li><li><code>#129</code> terrain-finetune-plan §4-2 번호 제목 부재로 절 참조 관문 [3.62] 실패 · C/기록</li><li><code>#125</code> 평가 하네스 확장 5건 · 새 기준으로 잴 수 있게 (A-정책 임계경로) · A/평가</li><li><code>#121</code> [승격 검토] inbox/lim/20260901-프로젝트기획서-초안.hwp · C/기록</li><li><code>#117</code> 10 m 기준과 「멈춰서 한 발씩」 적용 범위 결정 · A/평가</li><li><code>#116</code> 프로젝트 기획서 본문 작성 (9/4 제출) · C/기록</li><li><code>#114</code> [승격 검토] inbox/meang/20260901-park-mentoring.md · C/기록</li><li><code>#112</code> 판 번호 자동 갱신 · C/운영</li><li><code>#110</code> [작업] 맹 개인 규정 v2.5: 이슈를 열면 바로 In Progress 로 잡는다 · C/운영</li><li><code>#109</code> [작업] 맹 개인 규정 v2.4: 작업 자리를 저장소 밖으로 옮긴다 · C/운영</li><li><code>#107</code> [승격 검토] inbox/oh/20260831-runpod-환경구축.md · C/운영</li><li><code>#105</code> [작업] 8/31 박철제 멘토링 음성 전사와 정리본 · C/기록</li><li><code>#104</code> [작업] WBS 웹 시각화: 98행 표를 «지금 어디까지 왔나»가 보이는 화면으로 · C/기록</li><li><code>#99</code> [작업] 평지 직진 기준선 수립 + 미경험 10종 동일 조건 재측정 · A/정책학습</li><li><code>#98</code> [작업] 제로베이스 보행 기준선: 직진 20 m 를 좌우 5 cm 안에서 걷는가 · A/평가</li><li><code>#92</code> [작업] 험지 지형 종류 확장 및 난이도 파라미터화 · A/정책학습</li><li><code>#91</code> [작업] RunPod에서 Isaac 험지 지형 headless 생성·확인 환경 확보 · A/정책학습</li><li><code>#90</code> [작업] 레일즈 MuJoCo 사전 측정과 Isaac 스윕 설계 · A/정책학습</li><li><code>#85</code> [작업] 브랜드·테마 일관성: 전역바 로고가 정본이 아니다 · C/운영</li><li><code>#75</code> [작업] NEW 배지가 허브에서는 안 뜬다 (설계 재정비) · C/운영</li><li><code>#73</code> [작업] 허브 안 표현 재설계 · 위에서 아래로 흐르는 목록을 바꾼다 · C/기록</li><li><code>#72</code> [작업] foothold-wiki 흡수 · 한 곳으로 모은다 · C/기록</li><li><code>#71</code> [작업] 기술 레퍼런스 허브 신설 (허브 6번째) · C/기록</li><li><code>#70</code> [작업] 노션 프로젝트 기획 정리 · C/기록</li><li><code>#51</code> [승격 검토] inbox/meang/20260825-park-mentoring.md · C/기록</li></ul>
+<section id="s2"><span id="1"></span><h2>1. 종합 성공은 네 축의 AND</h2>
+<p><figure class="mdimg"><img src="assets/visual/eval-harness-four-axes.svg?v=a36cda4e" alt="네 축 AND 판정 구조" loading="lazy"><figcaption>네 축 AND 판정 구조</figcaption></figure></p>
+<p>성공은 <b>하나의 점수가 아니라 네 개의 통과·탈락</b>이고, 넷을 AND 로 묶는다.</p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># sim/eval/metrics.py:344</span>
+<span class="k">def</span> <span class="f">overall_success</span>(survival, progress, tracking, direction):
+    <span class="s">&quot;&quot;&quot;네 축을 모두 통과했나. 스냅샷 520~525행.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="f">bool</span>(survival <span class="k">and</span> progress <span class="k">and</span> tracking <span class="k">and</span> direction)</pre></div>
+<p><b>인자가 넷이다.</b> 이것이 「축이 넷뿐」이라는 것의 코드상 보증이고, <code>sim/eval/tests/test_metrics.py</code> 가 시험으로 못 박는다.</p>
+<div class="tw"><table><thead><tr><th>#</th><th>축</th><th>무엇을 재나</th><th>기본값</th><th>험지 10종 정본</th><th>정의</th></tr></thead><tbody><tr><td>1</td><td>생존 <code>survival_success</code></td><td>제한 시간을 다 채우고 몸통 접촉 없음</td><td>20.0 s</td><td>6.0 s</td><td><code>metrics.py:315</code></td></tr><tr><td>2</td><td>전진 <code>progress_success</code></td><td>끝점의 전방축 전진거리가 최소 전진 이상</td><td>10.0 m</td><td>3.0 m</td><td><code>metrics.py:320</code></td></tr><tr><td>3</td><td>속도추종 <code>tracking_success</code></td><td>스텝당 평균 속도오차가 문턱 이하</td><td>0.25 m/s</td><td>0.25 m/s</td><td><code>metrics.py:325</code></td></tr><tr><td>4</td><td>방향 <code>direction_success</code></td><td>통과선 위의 좌우 이탈이 문턱 이하</td><td>0.05 m</td><td>1.5 m</td><td><code>metrics.py:330</code> <code>:267</code></td></tr></tbody></table></div>
+<p><b>기본값 열은 argparse 기본값이다</b> (<code>eval_generalization.py:95~103</code>). 그 값은 <b>평지 기준선 규격</b>이고, 평가 대상인 험지 10종은 원장 09-03 두 행이 정한 다른 값으로 돌린다. 기본값이 아니므로 <b>명령줄로 명시해야 걸린다.</b></p>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>--eval_duration 6.0 --min_progress_m 3.0 --max_lateral_drift 1.5 \
+--max_velocity_mae 0.25 --command_vx 1.0</pre></div>
+<h3>여기서 읽히는 것 셋</h3>
+<p><b>첫째, AND 는 곱이라 축이 늘수록 급히 깎인다.</b> 각 축이 독립이고 통과율이 각각 90 %라면 넷을 묶은 값은 0.9⁴ = 65.6 %다. 다섯째 축을 더하면 59 %가 된다. 09-09 에 머리 접촉을 판정이 아니라 <b>관측 열</b>로 넣은 이유가 이것이다.</p>
+<p><b>둘째, 문턱 하나가 축 둘을 움직인다.</b> <code>--min_progress_m</code> 은 전진 통과선이면서 동시에 방향을 재는 지점이다.</p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># sim/eval/eval_generalization.py:741</span>
+gate_progress_m=min_progress,</pre></div>
+<p>「전진 기준만 낮추자」가 코드 수정 없이는 안 된다. 낮추면 방향도 더 가까운 지점에서 재게 된다.</p>
+<p><b>셋째, 관측 열은 AND 밖이다.</b> <code>peak_lateral_drift_m</code>(경로 전체의 최대 좌우 이탈) · <code>lateral_drift_m</code>(끝점 이탈) · 머리 접촉 셋은 CSV 에 남지만 판정에 안 들어간다. 통과선 판정으로 옮긴 뒤로 <b>끝점 이탈은 판정에서 관측으로 내려왔다.</b></p>
 </section>
-<section id="s3"><h2>새 문서 (21개)</h2>
-<ul><li><code>&quot;docs/research/NVIDIA\352\263\265\354\213\235\354\262\264\355\201\254\355\217\254\354\235\270\355\212\270_\354\206\215\353\217\204\353\213\250\354\260\250\352\265\220\354\260\250\355\217\211\352\260\200\353\266\204\354\204\235.md&quot;</code></li><li><code>&quot;docs/research/\353\260\234\353\263\264\354\203\201-\354\213\234\352\260\204\354\225\204\353\213\210\352\263\240\353\206\222\354\235\264\354\225\204\353\213\230.md&quot;</code></li><li><code>&quot;docs/research/\354\247\201\354\247\204\354\204\261-\354\231\270\353\266\200\355\221\234\354\244\200.md&quot;</code></li><li><code>docs/digest/2026-W36-material.md</code></li><li><code>docs/guides/runpod-setup.md</code></li><li><code>docs/meetings/20260831-park-mentoring.md</code></li><li><code>docs/notices/2026-08-09.md</code></li><li><code>docs/notices/2026-08-11.md</code></li><li><code>docs/notices/2026-08-12.md</code></li><li><code>docs/notices/2026-08-13.md</code></li><li><code>docs/notices/2026-08-14.md</code></li><li><code>docs/notices/2026-08-18.md</code></li><li><code>docs/notices/2026-08-20.md</code></li><li><code>docs/notices/2026-08-22.md</code></li><li><code>docs/notices/2026-08-23.md</code></li><li><code>docs/notices/2026-08-24.md</code></li><li><code>docs/notices/2026-08-25.md</code></li><li><code>docs/notices/2026-08-26.md</code></li><li><code>docs/notices/2026-08-27.md</code></li><li><code>docs/ops/versions.json</code></li><li><code>docs/research/flat-straight-baseline-10m.md</code></li></ul>
+<section id="s3"><span id="2"></span><h2>2. 실패 사유는 둘뿐이다</h2>
+<p><figure class="mdimg"><img src="assets/visual/eval-harness-termination.svg?v=8f5f6802" alt="실패 사유 열이 둘뿐인 구조" loading="lazy"><figcaption>실패 사유 열이 둘뿐인 구조</figcaption></figure></p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># sim/eval/metrics.py:349</span>
+<span class="k">def</span> <span class="f">termination_reason</span>(timed_out):
+    <span class="s">&quot;&quot;&quot;종료 사유. 스냅샷 537~541행.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s">&quot;timeout&quot;</span> <span class="k">if</span> timed_out <span class="k">else</span> <span class="s">&quot;base_contact&quot;</span></pre></div>
+<h3>왜 둘뿐인가</h3>
+<p><b>플래그를 하나만 받기 때문이다.</b> 이 함수는 접촉을 읽지 않는다. <code>timed_out</code> 이 아니면 무조건 <code>&quot;base_contact&quot;</code> 라고 적는 <b>추론</b>이다.</p>
+<p>그리고 지금은 그 추론이 맞다. <b>종료 조건이 실제로 하나뿐</b>이기 때문이다.</p>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre>base_contact = <span class="f">DoneTerm</span>(func=mdp.illegal_contact,
+    params={<span class="s">&quot;sensor_cfg&quot;</span>: <span class="f">SceneEntityCfg</span>(<span class="s">&quot;contact_forces&quot;</span>, body_names=<span class="s">&quot;base&quot;</span>),
+            <span class="s">&quot;threshold&quot;</span>: <span class="n">1.0</span>})</pre></div>
+<blockquote><p><b>이 조각의 출처를 밝혀 둔다</b> <span class="ev ev-todo">미확인</span>. 위 코드는 <b>이 저장소 파일이 아니다.</b>
+원본은 Isaac Lab 트리에 있고, 팀 문서 둘(<code>20260908-pit-diagnosis.md:596~598</code> ·
+<code>20260909-head-contact-observation.md:24~26</code>)이 같은 세 줄을 전사해 둔 것을
+옮겼다. <b>원본을 직접 열어 대조하지는 않았다.</b> 이 문서에서 원문을 직접 읽은
+것은 <code>sim/eval/</code> 아래 넷뿐이다.</p></blockquote>
+<p>이 종료 조건은 <b>환경 설정이라 명령줄로 못 바꾼다.</b> 임계 1 N 은 머리 접촉 관측 열이 세는 문턱과 같은 값이고 (<code>--head_contact_threshold_n</code> 기본 1.0, <code>eval_generalization.py:105</code>), 같은 기준으로 재야 「몸통은 종료시켰는데 머리는 몇 번 닿았나」가 비교된다.</p>
+<h3>그것이 무엇을 못 보게 하나</h3>
+<div class="tw"><table><thead><tr><th>못 보는 것</th><th>왜</th></tr></thead><tbody><tr><td>어느 링크가 닿았는지</td><td>함수가 접촉 자체를 안 읽는다</td></tr><tr><td>정말 접촉 때문에 끝났는지</td><td><code>timed_out</code> 의 부정을 접촉으로 단정한다</td></tr><tr><td>다리가 접혀 주저앉은 판</td><td>몸통이 안 닿으면 <b>종료조차 안 된다</b></td></tr><tr><td>머리를 세게 박은 판</td><td>같은 이유로 종료되지 않는다</td></tr></tbody></table></div>
+<p><b>「낙상」이라는 말도 정확히는 「몸통이 1 N 이상 닿았다」다.</b></p>
+<p>그리고 이것이 <b>앞으로 터질 자리</b>다. 종료 조건을 하나라도 더하는 순간 새 사유로 끝난 판이 전부 <code>&quot;base_contact&quot;</code> 로 기록되고 <b>오류는 나지 않는다.</b> 커널 철칙의 「조용한 실패」 그대로다. 라이다 접촉을 종료 조건으로 올리자는 제안을 검토할 때 <code>termination_reason</code> 을 함께 고치는 비용이 계산에 들어가야 한다.</p>
 </section>
-<section id="s4"><h2>고쳐진 문서 (39개)</h2>
-<ul><li><code>docs/AUTOMATION.md</code></li><li><code>docs/COLLAB.md</code></li><li><code>docs/DECISIONS.md</code></li><li><code>docs/FIELD-CHECK-0813.md</code></li><li><code>docs/LEDGER.md</code></li><li><code>docs/PRD-WEB.md</code></li><li><code>docs/REPORT.md</code></li><li><code>docs/ROBOT-SPEC.md</code></li><li><code>docs/ROLES.md</code></li><li><code>docs/decisions/20260828-doc-graph.md</code></li><li><code>docs/decisions/20260829-v2-scope.md</code></li><li><code>docs/guides/ros2-01-setup.md</code></li><li><code>docs/guides/ros2-02-python.md</code></li><li><code>docs/guides/ros2-03-tf-rviz2.md</code></li><li><code>docs/meetings/20260813-ops-alignment.md</code></li><li><code>docs/meetings/20260814-east-ops.md</code></li><li><code>docs/meetings/20260819-team-lock.md</code></li><li><code>docs/meetings/20260824-park-mentoring.md</code></li><li><code>docs/meetings/20260825-park-mentoring.md</code></li><li><code>docs/meetings/20260826-mentor-sync.md</code></li><li><code>docs/notices/latest.md</code></li><li><code>docs/ops/GPU-SANDBOX.md</code></li><li><code>docs/ops/INFRA-TODO.md</code></li><li><code>docs/ops/SESSION-HANDOFF.md</code></li><li><code>docs/ops/VERIFIED.md</code></li><li><code>docs/ops/doc-graph.json</code></li><li><code>docs/ops/screen-review-log.md</code></li><li><code>docs/research/architecture-decision.md</code></li><li><code>docs/research/benchmark-repro-protocol.md</code></li><li><code>docs/research/benchmark-setup-lim.md</code></li><li><code>docs/research/compute-resources.md</code></li><li><code>docs/research/generalization-benchmark-10-terrains.md</code></li><li><code>docs/research/go2-pretrained-policies.md</code></li><li><code>docs/research/go2-rough-training.md</code></li><li><code>docs/research/omniverse-stack.md</code></li><li><code>docs/research/robogauge-observation-mapping.md</code></li><li><code>docs/research/runpod-team-ops.md</code></li><li><code>docs/research/terrain-finetune-plan.md</code></li><li><code>docs/research/training-benchmarks.md</code></li></ul>
+<section id="s4"><span id="3"></span><h2>3. 방향 판정이 「끝점」에서 「통과선」으로 바뀌었다</h2>
+<p><figure class="mdimg"><img src="assets/visual/eval-harness-direction-gate.svg?v=e9792c83" alt="방향 판정을 끝점에서 통과선으로 옮긴 구조" loading="lazy"><figcaption>방향 판정을 끝점에서 통과선으로 옮긴 구조</figcaption></figure></p>
+<p>원장 09-09 행이 정본이다.</p>
+<blockquote><p><b>좌우 이탈은 «통과선»에서 판정한다.</b> 09-02 의 「끝점 판정」을 대체한다.
+멘토 기준 「목표점 도달 시 좌우 5 cm」는 <b>평지 전제</b>다. 험지에서는 통과선을
+못 넘은 판이 섞이는데 끝점만 보면 그것이 0 으로 나와 통과처럼 보인다.</p></blockquote>
+<h3>왜 끝점이 안 맞았나</h3>
+<p><b>끝점이 목표점이 아니기 때문이다.</b> 20초 × 1.0 m/s 면 끝점은 20 m 근처인데 목표점은 10 m 다. 끝점으로 재면 <b>목표점이 아니라 그 두 배 지점</b>을 재게 된다.</p>
+<p>같은 100판을 두 기준으로 재면 값이 이렇게 갈린다.</p>
+<div class="tw"><table><thead><tr><th>무엇으로 재나</th><th>평균 좌우 이탈</th><th>직진성</th></tr></thead><tbody><tr><td>통과선 10 m</td><td>0.085 m</td><td>33 / 100</td></tr><tr><td>끝점 20 m</td><td>2.143 m</td><td>0 / 100</td></tr></tbody></table></div>
+<p>기획서가 인용한 직진성 33/100 은 <b>통과선 기준</b>이고, 끝점으로 재면 0/100 이다.</p>
+<h3>백분율로 보면 층위가 다르다</h3>
+<p>이것이 핵심이다. <b>5 cm 라는 숫자는 통과선이 얼마인지를 말하지 않으면 뜻이 정해지지 않는다.</b></p>
+<div class="tw"><table><thead><tr><th>규격</th><th>통과선</th><th>이탈 문턱</th><th>통과선 대비</th></tr></thead><tbody><tr><td>평지 기준선</td><td>10 m</td><td>0.05 m</td><td>0.5 %</td></tr><tr><td>험지 10종 정본</td><td>3 m</td><td>1.5 m</td><td>50 %</td></tr></tbody></table></div>
+<p>두 규격은 절대값도 비율도 다르다. <b>문턱 하나만 떼어 「5 cm 기준」이라고 옮겨 적으면 어느 규격의 이야기인지가 사라진다.</b> 통과선과 문턱은 늘 붙여서 적어야 한다.</p>
+<blockquote><p><b>여기 한 가지를 적어 둔다</b> <span class="ev ev-todo">미확인</span>. 원장 09-03 행은 1.5 m 의 근거를
+「통과선 대비 같은 비율을 유지하도록」이라고 적었다. 그 말을 산술로 따라가면
+3 m × 0.5 % = <b>0.015 m</b> 가 나오고, 정본 값 1.5 m 는 그 <b>100배</b>다.
+값 자체는 정본 <code>summary-thr1.5.csv</code> 로 확정돼 있으니 바뀌는 것은 없다.
+<b>적힌 근거가 그 값을 재현하지 못한다</b>는 것만 남긴다. 어느 쪽이 뜻이었는지는
+이 문서가 판단하지 않는다.</p></blockquote>
+<h3>못 넘긴 판을 어떻게 처리하나</h3>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># sim/eval/metrics.py:267</span>
+<span class="k">def</span> <span class="f">gate_direction_success</span>(gate_lateral, max_lateral_drift):
+    <span class="k">if</span> gate_lateral <span class="k">is</span> <span class="k">None</span>:
+        <span class="k">return</span> <span class="k">False</span>
+    <span class="k">return</span> <span class="f">bool</span>(gate_lateral &lt;= max_lateral_drift)</pre></div>
+<p>통과선을 한 번도 못 넘겼으면 <code>gate_lateral_drift_m</code> 이 <b><code>None</code></b> 이고, 그것은 곧 실패다. <b><code>0.0</code> 이 아니다</b> (<code>metrics.py:179~180</code>). 0.0 으로 돌려주면 「도달했고 완벽하게 곧았다」와 구별이 안 된다. 통과선 기준이면 <b>「도달하지 않았으면 실패」가 코드로 강제된다.</b></p>
+<p>전진이 통과선을 처음 넘는 자리를 찾아 앞뒤 표본 사이를 <b>선형보간</b>해 정확히 통과선 위의 이탈을 낸다. 표본 간격은 스텝 하나(1.0 m/s 에서 약 2 cm)다.</p>
+<blockquote><p><b>정본 1,000판은 재측정이 필요하다.</b> 그 기록은 20열이라 끝점으로 채점됐다
+(원장 09-09 행).</p></blockquote>
 </section>
-<section id="s5"><h2>커밋 (180건)</h2>
-<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>aba3d4c VFXPEDIA docs: 외부 표준 절 참조에 출처를 명시한다 (#274)
-3215746 VFXPEDIA docs: 표 셀 안 파이프를 이스케이프한다 (내용 잘림 방지) (#273)
-50d5f2d VFXPEDIA docs: 승격 문서에 판 이력 표 추가 (#272)
-901faac VFXPEDIA docs: 승격 문서에 판 표기 추가 (v1.0) (#271)
-eddbc5c VFXPEDIA docs: 승격된 문서의 분류를 하나로 · 작성 시각 보강 (#270)
-d32df90 VFXPEDIA ops: 원장 72건 재동기화 (PR 7건 머지와 연구 4건 승격 반영) (#269)
-6173754 github-actions[bot] 승격: 20260904-발보상-시간아니고높이아님.md → docs/research/발보상-시간아니고높이아님.md (컨펌 #266)
-50de4b9 github-actions[bot] 승격: 20260903-직진성-외부표준.md → docs/research/직진성-외부표준.md (컨펌 #265)
-07d5213 github-actions[bot] 승격: 20260902-flat-straight-baseline-10m.md → docs/research/flat-straight-baseline-10m.md (컨펌 #264)
-9ab8260 github-actions[bot] 승격: 20260904_NVIDIA공식체크포인트_속도단차교차평가분석.md → docs/research/NVIDIA공식체크포인트_속도단차교차평가분석.md (컨펌 #263)
-dee86bd VFXPEDIA inbox(jay): 멘토 재선정과 강화학습 멘토 첫 미팅 (#260)
-f6e3618 VFXPEDIA [작업] 09-03 결정 3건 원장 등재 · 좌우 이탈 판정 지점 확인 대기 (#159)
-920f529 VFXPEDIA docs: 조선대 커리큘럼 요일을 금으로 정정하고 결정을 기록한다 (#249)
-8d6775d maengu86 9/4 운영진 중간발표 심사 피드백 회의록 (#220)
-2cd40b0 maengu86 학습 보상에 발 높이 항이 없다는 확인: feet_air_time 은 체공 시간을 상 준다 (#196)
-d63b1cd maengu86 inbox/meang: 직진 5 cm 의 외부 근거 조사 (#185)
-843ee03 maengu86 평지 직진 기준선: 재는 자리와 초기화 요인 분리 (MuJoCo 568판) (#164)
-ae8c945 IQ152 NVIDIA 체크포인트의 추후 학습 방향성 분석 (#218)
-b26578b VFXPEDIA plan: 9/4 발표 시점 덱을 발표본으로 고정한다 (#262)
-627adf8 VFXPEDIA docs: 폐기된 계획을 살아 있는 연계 자료로 가리키던 것을 고친다 (#259)
-a19bbc7 VFXPEDIA ops: 원장에 #257 추가 (74건) (#258)
-ef7fe67 VFXPEDIA ops: 원장을 73건으로 재동기화 (봇 이슈 정리 반영) (#256)
-56a7fe9 VFXPEDIA ops: 승격 검토 이슈를 md 만 대상으로 하고 중복을 막는다 (#255)
-1a36cd8 VFXPEDIA ops: 다이제스트 재료의 작성 시각을 분까지 찍는다 (#254)
-92caad8 VFXPEDIA ops: 자동화 실패 감시를 세우고 inbox 검수의 broken pipe 를 고친다 (#252)
-3db04c0 VFXPEDIA docs: 기획발표 산출물 넷의 상태를 확정으로 (#251)
-05f54c0 github-actions[bot] chore: 다이제스트 재료 수집 (2026-09-05)
-e94c0a7 VFXPEDIA Merge pull request #246 from foothold-project/feature/hf-launch2-jay
-32ea5b9 vfxpedia inbox(jay): 우쉬 창 문구를 한 갈래로 못 박는다
-ad263c1 VFXPEDIA Merge pull request #244 from foothold-project/feature/hf-launch2-jay
-093173a vfxpedia inbox(jay): 오프닝 색을 본편에 붙인다 · 44.5도에서 19.3도로
-99e9720 VFXPEDIA Merge pull request #242 from foothold-project/feature/hf-launch2-jay
-668ca46 vfxpedia inbox(jay): A 판 완성 · 23.06초 · 사운드 아홉 항목 통과
-d526e83 VFXPEDIA Merge pull request #240 from foothold-project/feature/hf-launch2-jay
-bb5c22f vfxpedia inbox(jay): -ac 1 설명에 빠진 조건을 넣는다 · 출력 형식에 따라 달라진다
-5d3236b VFXPEDIA Merge pull request #237 from foothold-project/feature/hf-launch2-jay
-8b64f60 vfxpedia inbox(jay): 잰 자를 고치고(-ac 1) A 최종 조립 스크립트를 넣는다
-d5e5ef5 VFXPEDIA Merge pull request #214 from foothold-project/fix/inbox-alert-exit9-jay
-4da3339 VFXPEDIA Merge pull request #234 from foothold-project/feature/hf-launch2-jay
-34953b0 vfxpedia inbox(jay): 오프닝 2.5초 · 사운드 기준 기록 · A 판도 아홉 항목 통과
-394acf3 vfxpedia inbox(jay): 사운드 기준 1·2 를 구간별로 재게 고치고 엔딩 타이틀 재굽기 도구를 넣는다
-bf103f9 vfxpedia inbox(jay): 정정 · Unitree 각인은 시뮬 원본에 있다 · aisle 글자 제거판 세 장
-0e5fc9f VFXPEDIA Merge pull request #232 from foothold-project/feature/deck-rebake-jay
-6fffc63 vfxpedia plan: 정정된 사운드로 덱 html · pdf 재빌드
-2975f8f VFXPEDIA Merge pull request #231 from foothold-project/feature/deck-b720-fix-jay
-e6b0d70 vfxpedia plan: 덱 영상을 정정된 사운드로 다시 뽑는다
-527a0f9 VFXPEDIA Merge pull request #228 from foothold-project/feature/hf-launch2-jay
-cdedeac VFXPEDIA ops: 원장에 #227 추가 (A-정책 · 77건) (#229)
-cf9440c vfxpedia inbox(jay): A 키비주얼 여덟 장 · 이미지로 뽑아 18배 싸게 · 밝기 여덟 장 다 통과
-0bf41b2 vfxpedia inbox(jay): 사운드 기준 두 개를 고친 자로 다시 맞춘다 · B 아홉 항목 통과
-71a5795 vfxpedia inbox(jay): B 사운드 초저역을 32.34 퍼센트로 올리고 A 판도 아홉 항목 통과시킨다
-35d0b45 VFXPEDIA ops: 원장 전수 절을 76건으로 재동기화 (#226)
-f7287b2 VFXPEDIA plan: 발표 덱 영상을 런칭 B 판으로 교체 (#225)
-f1a8fb9 VFXPEDIA Merge pull request #224 from foothold-project/feature/deck-b720-jay
-e3a9a37 vfxpedia plan: 발표 덱 영상을 B 판으로 갱신
-501e19c VFXPEDIA Merge pull request #222 from foothold-project/feature/hf-launch2-jay
-405d226 vfxpedia inbox(jay): 런칭 영상 B 판 · 사운드 아홉 항목 통과 · dolly 재변환 · 경계 유출 제거
-c513182 VFXPEDIA plan: 덱 갱신과 검증을 한 번에 도는 refresh.py (#215)
-581fc97 vfxpedia ci: inbox 검사가 잘 갖춰진 PR 에서 실패하던 것을 고친다
-968f8d2 VFXPEDIA plan: 발표 덱 영상을 런칭본으로 교체 (#213)
-... 외 120건</pre></div>
+<section id="s5"><span id="4"></span><h2>4. 지형 10종과, 평지를 뺀 자리</h2>
+<p><figure class="mdimg"><img src="assets/visual/eval-harness-terrains.svg?v=0341eee0" alt="평가 지형 10종의 구성과 평지 제외" loading="lazy"><figcaption>평가 지형 10종의 구성과 평지 제외</figcaption></figure></p>
+<p>이름과 순서는 <code>sim/eval/terrains.py:15~26</code>, 값은 <code>sim/eval/generalization_env_cfg.py:57~164</code> 에서 읽었다.</p>
+<div class="tw"><table><thead><tr><th>#</th><th>이름</th><th>무엇을 흔드나</th></tr></thead><tbody><tr><td>0</td><td><code>discrete_obstacles</code></td><td>장애물 35개 · 높이 0.05~0.16 m · 폭 0.4~1.0 m</td></tr><tr><td>1</td><td><code>wave</code></td><td>파형 4개 · 진폭 0.03~0.12 m</td></tr><tr><td>2</td><td><code>stepping_stones</code></td><td>돌 폭 0.35~0.65 m · 간격 0.08~0.20 m · 최대 높이 0.12 m</td></tr><tr><td>3</td><td><code>gap</code></td><td>틈 폭 0.15~0.40 m</td></tr><tr><td>4</td><td><code>pit</code></td><td>깊이 0.10~0.30 m · <code>double_pit</code> 없음</td></tr><tr><td>5</td><td><code>rails</code></td><td>두께 0.08~0.18 m · 높이 0.05~0.18 m</td></tr><tr><td>6</td><td><code>star</code></td><td>막대 5개 · 폭 0.30~0.70 m · 높이 0.05~0.16 m</td></tr><tr><td>7</td><td><code>floating_ring</code></td><td>고리 폭 0.25~0.60 m · 높이 0.05~0.16 m · 두께 0.12 m</td></tr><tr><td>8</td><td><code>repeated_boxes</code></td><td>25에서 45개 · 높이 0.08~0.16 m · 크기 0.35~0.50 m</td></tr><tr><td>9</td><td><code>repeated_cylinders</code></td><td>25에서 45개 · 높이 0.08~0.16 m · 반지름 0.12~0.20 m</td></tr></tbody></table></div>
+<p><b>열 지형이 공유하는 것</b>: 타일 8.0 × 8.0 m · 격자 1행 × 10열 · 테두리 20.0 m · 난이도 고정 0.5 · 씨앗 42 · <code>platform_width</code> 전부 1.5 m · 비중 각 0.1.</p>
+<p><b>인덱스가 곧 순서다.</b> Isaac Lab 이 <code>sub_terrains</code> 등록 순서대로 열을 배정하고 하네스가 <code>TERRAIN_NAMES[terrain_type]</code> 로 이름을 되찾는다. 앞에 무언가를 끼우면 기존 500판 기록의 지형 인덱스가 전부 밀린다. 새 지형은 <b>맨 뒤에</b> 붙인다.</p>
+<h3>평지를 왜 뺐나</h3>
+<div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># sim/eval/terrains.py:44</span>
+ADDED_TERRAIN_NAMES = ()
+
+<span class="c"># sim/eval/terrains.py:50</span>
+FLAT_TERRAIN_NAMES = (<span class="s">&quot;flat&quot;</span>,)</pre></div>
+<p><b>평지는 「미경험 험지」가 아니다.</b> 한 표에 섞이면 험지 평균이 부풀려진다. 험지 10종 평균 0.394 에 평지 0.98 이 끼면 11종 평균이 0.447 이 되어 <b>5.3 퍼센트포인트가 그냥 오른다.</b> 성공률을 올리는 실험 중에 이 정도면 결론이 바뀐다.</p>
+<h3>그런데 왜 <code>FLAT_TERRAIN_NAMES</code> 는 이름을 남겨 두었나</h3>
+<p><b>다시 넣을 때 가르는 자리를 잊지 않기 위해서다.</b> 그리고 이 자리는 한 번 무너진 적이 있다.</p>
+<p><code>#125</code> 2번이 「평지 10 m 직진을 재려면 평지 설정이 필요하다」로 <code>flat</code> 을 더했다. 목적은 맞았는데 <b>가르는 코드가 없었다.</b> <code>ROUGH_TERRAIN_NAMES</code> 와 <code>is_flat()</code> 을 만들어 놓고 <b>어느 파일도 부르지 않았다.</b> 이름만 있고 강제하는 자리가 없으니 집계에서 그냥 섞였다.</p>
+<p>그래서 지금 형태가 이렇다.</p>
+<ul><li><code>ADDED_TERRAIN_NAMES = ()</code> · 평가 목록에서 <b>뺐다</b></li><li><code>FLAT_TERRAIN_NAMES = (&quot;flat&quot;,)</code> · 이름은 <b>남겼다</b></li><li><code>ROUGH_TERRAIN_NAMES</code> · 뺀 뒤로 <code>TERRAIN_NAMES</code> 와 같은 값이다</li></ul>
+<p>다시 넣으려면 <code>terrains.py</code> 에 <code>&quot;flat&quot;</code> 을 넣고 <code>generalization_env_cfg.py</code> 의 설정을 살린 뒤, <b>집계에서 가르는 코드까지 만들고 나서</b> 쓴다. <code>sim/eval/tests/test_terrains.py</code> 가 지금 상태를 시험으로 고정하고 있어서, 넣으면 그 시험이 먼저 깨진다. 이번에는 강제하는 자리가 있다.</p>
+<p>평지 기준선의 정본은 <code>docs/research/flat-straight-baseline-10m.md</code> 다.</p>
 </section>
-<section id="s6"><h2>다이제스트를 쓸 때</h2>
-<div class="tw"><table><thead><tr><th>규칙</th><th></th></tr></thead><tbody><tr><td>담는 것</td><td><b>무엇을 알게 됐나.</b> 무엇을 했나가 아니다</td></tr><tr><td>한 항목</td><td>한 문장 + 증거 링크 하나</td></tr><tr><td>분량</td><td>5분이면 이번 주 발견을 다 알 수 있게</td></tr><tr><td>안 담는 것</td><td>숫자 없는 진행 보고. 「열심히 했다」</td></tr></tbody></table></div>
+<section id="s6"><span id="5"></span><h2>5. 이 도해가 재보지 않은 것</h2>
+<p><b>원칙 4대로 추론과 실측을 가른다.</b></p>
+<div class="tw"><table><thead><tr><th>항목</th><th>상태</th></tr></thead><tbody><tr><td>네 축의 함수·임계값·행 번호</td><td><span class="ev ev-ok">확인됨</span> · 오늘 <code>main</code> 에서 코드 원문을 직접 읽음</td></tr><tr><td>지형 10종의 이름·순서·설정값</td><td><span class="ev ev-ok">확인됨</span> · <code>terrains.py</code> · <code>generalization_env_cfg.py</code> 원문</td></tr><tr><td>SVG 넷이 파싱되고 글자가 상자 안에 있는가</td><td><span class="ev ev-ok">확인됨</span> · 아래 검증 참조</td></tr><tr><td>SVG 가 실제 브라우저에서 어떻게 보이는가</td><td><span class="ev ev-todo">미확인</span> · 렌더링은 안 해 봤다</td></tr><tr><td>종료 조건 <code>base_contact</code> 의 임계 1 N</td><td><span class="ev ev-todo">미확인</span> · <b>Isaac Lab 원본이 이 저장소 밖</b>이라 팀 문서의 전사만 옮겼다</td></tr><tr><td>통과선·끝점 이탈 평균(0.085 / 2.143)</td><td><span class="ev ev-todo">미확인</span> · 원장 표에서 <b>인용</b>했고 원자료를 다시 세지 않았다</td></tr><tr><td>험지 평균 0.394 · 11종 0.447 · 5.3 pp</td><td>산술은 <span class="ev ev-ok">확인됨</span>((0.394×10+0.98)/11 = 0.447) · <b>0.394 와 0.98 자체는 원장 인용이고 다시 안 셌다</b></td></tr><tr><td><code>sim/eval/tests</code> 131개 시험</td><td><span class="ev ev-ok">확인됨</span> · 이 문서를 쓰면서 돌려 전부 통과</td></tr><tr><td>1.5 m 의 근거 산술</td><td><b>어긋난다</b> · 3절 주석 참조</td></tr><tr><td>이 문서의 이슈 번호</td><td>없다. 승격할 때 붙여야 한다</td></tr></tbody></table></div>
+<h3>SVG 를 브라우저 없이 어떻게 검증했나</h3>
+<p>브라우저를 안 띄웠으므로 <b>「보인다」고 쓰지 않는다.</b> 대신 기계로 확인할 수 있는 것만 확인했다.</p>
+<ol><li><code>xml.etree</code> 로 넷 다 파싱된다</li><li>도형(<code>rect</code> · <code>circle</code> · <code>polyline</code> · <code>path</code>) <b>70개 전부에 <code>fill</code> 이 명시</b>돼 있다</li><li>글자 <b>178개</b>의 추정 상자가 <code>viewBox</code> 안에 있다</li><li>그중 <b>157개</b>는 자기를 담는 카드 상자 안에도 있다</li><li>박스 문자 0건 · em dash 0건</li></ol>
+<p>글자 너비는 <b>추정이다</b>(한글·전각 1.0배 · 그 외 0.55배). 실측이 아니므로 1~2 px 차이는 못 잡는다. 검사기 자체는 일부러 깨뜨린 SVG 로 먼저 시험해 네 결함을 다 잡는 것을 보고 썼다(커널 원칙 1).</p>
+<p><b>검사기가 못 보는 것</b>: 카드 <i>아래로</i> 삐져나간 글자는 그 점이 이미 카드 밖이라 카드에 귀속되지 않아 안 잡힌다. 세로는 <code>viewBox</code> 기준으로만 본다.</p>
+<h3>색을 CSS 변수로 안 쓴 이유</h3>
+<p><code>DESIGN-GUIDE</code> §3 은 SVG 색에 CSS 변수를 권한다. 여기서는 <b>literal 색과 불투명한 바탕</b>을 썼다. 이 파일들은 GitHub 마크다운에서 이미지로 읽히는데, 그 경로에서는 바깥 CSS 변수가 닿지 않아 해석 못 하는 렌더러에서 검정으로 떨어질 수 있다. 바탕을 직접 칠하면 밝은 테마·어두운 테마 어느 쪽에서 열어도 같은 대비로 읽힌다. 저장소에 이미 있는 <code>docs/assets/visual/20260908-go2-spec-diagram.svg</code> 도 같은 방식이다.</p>
+</section>
+<section id="s7"><h2>참고한 것</h2>
+<ul><li>코드 정본: <code>sim/eval/metrics.py</code> · <code>sim/eval/terrains.py</code> · <code>sim/eval/eval_generalization.py</code> · <code>sim/eval/generalization_env_cfg.py</code></li><li>시험: <code>sim/eval/tests/test_metrics.py</code> · <code>sim/eval/tests/test_terrains.py</code></li><li>원장: <code>docs/DECISIONS.md</code> 09-02 · 09-03 · 09-09 행</li><li>성공 기준 해부: <code>docs/research/20260908-success-criteria-anatomy.md</code></li><li>머리 접촉 관측: <code>docs/research/20260909-head-contact-observation.md</code></li><li>평지 기준선: <code>docs/research/flat-straight-baseline-10m.md</code></li></ul>
 </section>
 
 </div>

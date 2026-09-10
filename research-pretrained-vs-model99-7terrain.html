@@ -736,7 +736,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=3b89a4c1').then(function(r){
+    fetch('/assets/search-index.json?v=f8baa9a1').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -828,7 +828,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>NVIDIA Pretrained vs Model99: 난이도 0.50~0.70 7종 지형 성능 비교 보고서</h1>
   <p class="lede">NVIDIA pretrained에서 Gap 10%를 포함해 100 iterations 추가학습한 model99의 7종 지형 성능 비교</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v1.0</span></div><div><span class="k">이슈</span><span class="v"><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/284">#284</a></span></div><div><span class="k">작성</span><span class="v">임석헌 · 2026-09-07 12:32</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / pretrained-vs-model99-7terrain.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 0</span></div></div>
+  <div class="meta"><div><span class="k">판</span><span class="v">v1.0</span></div><div><span class="k">이슈</span><span class="v"><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/284">#284</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/65">#65</a></span></div><div><span class="k">작성</span><span class="v">임석헌 · 2026-09-07 12:32</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / pretrained-vs-model99-7terrain.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -838,7 +838,8 @@ document.addEventListener('DOMContentLoaded',function(){
 요지: NVIDIA pretrained에서 Gap 10%를 포함해 100 iterations 추가학습한 model99의 7종 지형 성능 비교  
 상태: 확정
 판: v1.0
-이슈: <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/284">#284</a></p></blockquote>
+이슈: <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/284">#284</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/65">#65</a>
+단계: 진단</p></blockquote>
 <!--H1:NVIDIA Pretrained vs Model99: 난이도 0.50~0.70 7종 지형 성능 비교 보고서-->
 <blockquote><p>Baseline: <code>nvidia_pretrained.pt</code>  
 비교 모델: <code>0905_nvidia_gap_v1_seed42_iter100/model_99.pt</code></p></blockquote>
@@ -933,5 +934,5 @@ document.addEventListener('click', function(e){
 </script>
 <style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7;--dim-ink:#0b6459;--grid:rgba(22,28,38,.04);--note-ink:#8a5600;}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 14:39</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-10 14:02</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

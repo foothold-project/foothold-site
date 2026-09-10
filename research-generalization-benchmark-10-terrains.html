@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>일반화 벤치마크: 미학습 지형 10종 실측 (5종 통과 · 5종 실패) · FOOTHOLD</title>
-<meta name="description" content="미경험 지형 10종 일반화 벤치마크. 실패 5종과 모드 지도.">
+<meta name="description" content="미경험 지형 10종 일반화 벤치마크. 실패 5종과 모드 지도. 이 표의 rails 분류는 2026-09-03 재측정으로 낙상형에서 전진불능형으로 바뀌었다 (§2-2).">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -736,7 +736,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=3b89a4c1').then(function(r){
+    fetch('/assets/search-index.json?v=f8baa9a1').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -827,19 +827,19 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="hero">
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>일반화 벤치마크: 미학습 지형 10종 실측 (5종 통과 · 5종 실패)</h1>
-  <p class="lede">미경험 지형 10종 일반화 벤치마크. 실패 5종과 모드 지도.</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v1.0</span></div><div><span class="k">이슈</span><span class="v"><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/59">#59</a></span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-21 08:24</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / generalization-benchmark-10-terrains.md</span></div><div><span class="k">증거</span><span class="v">확인 6 · 추측 1 · 미측정 4</span></div></div>
+  <p class="lede">미경험 지형 10종 일반화 벤치마크. 실패 5종과 모드 지도. 이 표의 rails 분류는 2026-09-03 재측정으로 낙상형에서 전진불능형으로 바뀌었다 (§2-2).</p>
+  <div class="meta"><div><span class="k">판</span><span class="v">v1.1</span></div><div><span class="k">이슈</span><span class="v"><a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/59">#59</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/66">#66</a></span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-21 08:24</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / generalization-benchmark-10-terrains.md</span></div><div><span class="k">증거</span><span class="v">확인 6 · 추측 1 · 미측정 4</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
 <blockquote><p>분류: 실험
 작성: 오흥재 · 2026-08-21 08:24
 근거: 실측 (원자료 임석헌 · Runpod 헤드리스)
-요지: 미경험 지형 10종 일반화 벤치마크. 실패 5종과 모드 지도.
+요지: 미경험 지형 10종 일반화 벤치마크. 실패 5종과 모드 지도. 이 표의 <code>rails</code> 분류는 2026-09-03 재측정으로 낙상형에서 전진불능형으로 바뀌었다 (§2-2).
 결론: 기준 정책은 미학습 지형 10종 중 5종에서 실패한다
 상태: 확정
-판: v1.0
-이슈: <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/59">#59</a></p></blockquote>
+판: v1.1
+이슈: <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/59">#59</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/66">#66</a></p></blockquote>
 <blockquote><p><b>실험·기록: 임석헌</b> (2026-08-20, Runpod 헤드리스 실행) · 분석 정리: WS (8/21)
 원자료: v1 <code>go2_generalization_benchmark.zip</code> + <b>v2 <code>go2_generalization_results_v2.zip</code> (변동 주입 재검, 8/22 수령)</b> · 내부 볼트 99_inbox
 작성 2026-08-20 · 실행: 임석헌 (Runpod)</p></blockquote>
@@ -853,31 +853,39 @@ document.addEventListener('DOMContentLoaded',function(){
 </section>
 <section id="s3"><span id="2-1"></span><h2>2-1. v2 재검 (변동 주입): 판정 유지, 통계적 의미 획득 (8/22)</h2>
 <p>v1의 결정론 문제(§6 의 2번)를 해소한 재실행이다. <b>지형당 고유 행 50/50</b> <span class="ev ev-ok">실측</span>: 에피소드마다 조건이 실제로 달라졌고, 이제 50회가 독립 시행에 가깝다.</p>
-<div class="tw"><table><thead><tr><th>지형</th><th>v2 성공률</th><th>v2 생존율</th><th>전진 평균±표준편차</th><th>v1 대비</th></tr></thead><tbody><tr><td>discrete_obstacles</td><td><b>100%</b> (50/50)</td><td>100%</td><td>2.70 ± 0.22 m</td><td>유지</td></tr><tr><td>wave</td><td><b>100%</b></td><td>100%</td><td>2.77 ± 0.04 m</td><td>유지</td></tr><tr><td>star</td><td><b>100%</b></td><td>100%</td><td>2.65 ± 0.06 m</td><td>유지</td></tr><tr><td>repeated_boxes</td><td><b>100%</b></td><td>100%</td><td>2.76 ± 0.03 m</td><td>유지</td></tr><tr><td>repeated_cylinders</td><td><b>100%</b></td><td>100%</td><td>2.76 ± 0.02 m</td><td>유지</td></tr><tr><td>pit</td><td>2% (1/50)</td><td><b>100%</b></td><td>1.07 ± 0.18 m</td><td>순수 전진불능 유지</td></tr><tr><td>floating_ring</td><td>0%</td><td>86%</td><td>0.94 ± 0.20 m</td><td>대체로 전진불능</td></tr><tr><td>stepping_stones</td><td>0%</td><td><b>42%</b></td><td>0.97 ± 0.24 m</td><td><b>재분류: 낙상 58% 발생</b></td></tr><tr><td>gap</td><td>0%</td><td><b>42%</b></td><td>0.86 ± 0.11 m</td><td>낙상형 유지(생존 42%)</td></tr><tr><td>rails</td><td>2% (1/50)</td><td><b>36%</b></td><td>0.93 ± 0.32 m</td><td>낙상형 유지</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>지형</th><th>v2 성공률</th><th>v2 생존율</th><th>전진 평균±표준편차</th><th>v1 대비</th></tr></thead><tbody><tr><td>discrete_obstacles</td><td><b>100%</b> (50/50)</td><td>100%</td><td>2.70 ± 0.22 m</td><td>유지</td></tr><tr><td>wave</td><td><b>100%</b></td><td>100%</td><td>2.77 ± 0.04 m</td><td>유지</td></tr><tr><td>star</td><td><b>100%</b></td><td>100%</td><td>2.65 ± 0.06 m</td><td>유지</td></tr><tr><td>repeated_boxes</td><td><b>100%</b></td><td>100%</td><td>2.76 ± 0.03 m</td><td>유지</td></tr><tr><td>repeated_cylinders</td><td><b>100%</b></td><td>100%</td><td>2.76 ± 0.02 m</td><td>유지</td></tr><tr><td>pit</td><td>2% (1/50)</td><td><b>100%</b></td><td>1.07 ± 0.18 m</td><td>순수 전진불능 유지</td></tr><tr><td>floating_ring</td><td>0%</td><td>86%</td><td>0.94 ± 0.20 m</td><td>대체로 전진불능</td></tr><tr><td>stepping_stones</td><td>0%</td><td><b>42%</b></td><td>0.97 ± 0.24 m</td><td><b>재분류: 낙상 58% 발생</b></td></tr><tr><td>gap</td><td>0%</td><td><b>42%</b></td><td>0.86 ± 0.11 m</td><td>낙상형 유지(생존 42%)</td></tr><tr><td>rails</td><td>2% (1/50)</td><td><b>36%</b></td><td>0.93 ± 0.32 m</td><td><s>낙상형 유지</s> -&gt; <b>09-03 재분류: 전진불능형</b> (§2-2)</td></tr></tbody></table></div>
 <p>읽는 법:</p>
 <ol><li><b>종합 판정 5/10은 흔들리지 않았고, 이제 통계적 진술이 됐다.</b> 통과 5종은 50/50 (95% 신뢰 하한 약 94%), 실패 5종은 0~2% (0/50의 상한 약 5.8%). v1의 &quot;전부 아니면 전무&quot;가 조건 변동에도 유지된다는 것은 실패가 특정 초기조건의 우연이 아니라 <b>지형 자체의 특성</b>이라는 강한 증거다.</li><li><b>실패 모드 지도가 갱신됐다</b>: v1에서 &quot;전진불능형&quot;으로 분류했던 stepping_stones가 변동을 주니 <b>58%는 낙상</b>했다. 현재 지도: 순수 전진불능 = pit(생존 100%) · 대체로 전진불능 = floating_ring(86%) · 낙상 우세 혼합 = stepping_stones·gap(42%)·rails(36%). 커리큘럼 처방을 이 v2 지도 기준으로 설계한다.</li><li><b>pit·rails에서 1/50 성공이 나왔다</b>: 조건이 맞으면 넘어갈 수 있다는 신호로, 파인튜닝 학습 가능성의 근거가 된다.</li><li>무엇을 랜덤화했는지(초기 자세·명령·시드)는 실행 스크립트 확인 대기 <span class="ev ev-todo">미확인</span>.</li></ol>
 </section>
-<section id="s4"><span id="3"></span><h2>3. 실패의 두 모드: 처방이 다르다</h2>
-<blockquote><p>⚠️ 아래 v1 분류는 v2 재검으로 일부 갱신됐다 (§2-1): stepping_stones는 변동 조건에서 낙상 우세로 재분류.</p></blockquote>
-<ol><li><b>낙상형 (gap · rails)</b>: 몇 초 못 버티고 몸통이 지면에 닿아 종료. 발 디딜 곳의 인지와 발 배치의 문제다. 지형 인식(height scan)이 보는 만큼만 걷는다는 것을 보여준다.</li><li><b>전진불능형 (stepping_stones · pit · floating_ring)</b>: 6초를 <b>생존은 하는데 전진을 못 한다</b> (0.7~1.0 m, 속도 추종 오차 0.34~0.41 m/s). 넘어지지 않으려고 보수적으로 멈칫거리는 모드다. 낙상 페널티와 전진 보상 사이의 균형, 즉 <b>보상 설계의 문제</b>로 이어진다.</li></ol>
+<section id="s4"><span id="2-2"></span><h2>2-2. 09-03 재분류: <code>rails</code> 는 낙상형이 아니다 (팀장 확정)</h2>
+<p><b>이 문서의 두 표는 명령 속도 0.5 m/s 에서 나왔다.</b> 같은 정책을 <b>1.0 m/s · 100판 · seed 42</b> 로 다시 돌린 09-03 실측에서 <code>rails</code> 만 성질이 바뀌었다. 팀장이 <a href="https://github.com/foothold-project/foothold-lab/issues/66" target="_blank" rel="noopener"><code>#66</code></a> 코멘트에서 재분류를 확정했다.</p>
+<div class="tw"><table><thead><tr><th>항목</th><th>0.5 m/s · 50판 (이 문서)</th><th><b>1.0 m/s · 100판 (09-03)</b></th></tr></thead><tbody><tr><td>생존율</td><td>36%</td><td><b>85%</b></td></tr><tr><td>전진 평균</td><td>0.93 m</td><td><b>2.64 m</b></td></tr><tr><td>종료 사유</td><td>낙상 우세</td><td><b>timeout 85 · base_contact 15</b></td></tr><tr><td>2 m 초과 판</td><td>옛 표에 없음</td><td><b>67 / 100</b></td></tr><tr><td>종합 통과</td><td>2%</td><td>4%</td></tr></tbody></table></div>
+<p><b>속도를 올리니 안 넘어지고 앞으로 간다.</b> 넘어져서 지는 것이 아니라 못 가서 진다. 그래서 처방이 「관측 · 발 배치 보상」에서 <b>「보상 · 명령 커리큘럼」</b>으로 바뀌었다. 아래 §3 의 낙상형 묶음에서 <code>rails</code> 를 빼고 읽어야 한다.</p>
+<p><b>이 문서의 0.5 m/s 숫자를 지우지는 않는다.</b> 같은 정책이 명령 속도에 따라 실패 모드를 바꾼다는 것 자체가 결과이고, <code>rails</code> 에서는 <b>속도가 통과 여부를 가르는 축</b>이라는 뜻이다. 후속 진단은 <a href="research-20260906-rails-speed-tracking-diagnosis.html">레일즈 진단</a> 이고 계획서 반영은 <a href="research-terrain-finetune-plan.html">파인튜닝 실행 계획</a> §1 이다.</p>
+<p>원자료 <code>sim/eval/results/20260903-rough10-1.0mps/</code>.</p>
+</section>
+<section id="s5"><span id="3"></span><h2>3. 실패의 두 모드: 처방이 다르다</h2>
+<blockquote><p>⚠️ 아래 v1 분류는 v2 재검으로 일부 갱신됐다 (§2-1): stepping_stones는 변동 조건에서 낙상 우세로 재분류.
+<b>그리고 <code>rails</code> 는 09-03 에 전진불능형으로 재분류됐다 (§2-2).</b> 아래 1번 묶음에서 빼고 읽는다.</p></blockquote>
+<ol><li><b>낙상형 (gap · <s>rails</s>)</b>: 몇 초 못 버티고 몸통이 지면에 닿아 종료. 발 디딜 곳의 인지와 발 배치의 문제다. 지형 인식(height scan)이 보는 만큼만 걷는다는 것을 보여준다. <b><code>rails</code> 는 09-03 재측정으로 이 묶음에서 빠졌다 (§2-2).</b></li><li><b>전진불능형 (stepping_stones · pit · floating_ring)</b>: 6초를 <b>생존은 하는데 전진을 못 한다</b> (0.7~1.0 m, 속도 추종 오차 0.34~0.41 m/s). 넘어지지 않으려고 보수적으로 멈칫거리는 모드다. 낙상 페널티와 전진 보상 사이의 균형, 즉 <b>보상 설계의 문제</b>로 이어진다.</li></ol>
 <p>같은 &quot;실패&quot;라도 커리큘럼 학습에서 손대야 할 곳이 다르다: 낙상형은 관측·지형 커리큘럼, 전진불능형은 보상·명령 커리큘럼.</p>
 </section>
-<section id="s5"><span id="4"></span><h2>4. 주행 영상 (10종 전부)</h2>
+<section id="s6"><span id="4"></span><h2>4. 주행 영상 (10종 전부)</h2>
 <p>각 지형의 대표 에피소드. 재생 버튼으로 바로 본다.</p>
 <p><figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/discrete_obstacles-step-0.mp4?v=4773a14f"></video><figcaption>discrete_obstacles · 통과</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/wave-step-0.mp4?v=d33f8743"></video><figcaption>wave · 통과</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/star-step-0.mp4?v=84b1d3a5"></video><figcaption>star · 통과</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/repeated_boxes-step-0.mp4?v=03c985ff"></video><figcaption>repeated_boxes · 통과</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/repeated_cylinders-step-0.mp4?v=a2a512c7"></video><figcaption>repeated_cylinders · 통과</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/stepping_stones-step-0.mp4?v=d987437b"></video><figcaption>stepping_stones · 실패 · 전진불능</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/pit-step-0.mp4?v=39a485b9"></video><figcaption>pit · 실패 · 전진불능</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/floating_ring-step-0.mp4?v=0e7d5eb4"></video><figcaption>floating_ring · 실패 · 전진불능</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/gap-step-0.mp4?v=f836fa93"></video><figcaption>gap · 실패 · 낙상</figcaption></figure> <figure class="mdimg mdvid"><video controls muted playsinline preload="metadata" src="assets/video/genbench/rails-step-0.mp4?v=4af1f4d7"></video><figcaption>rails · 실패 · 낙상</figcaption></figure></p>
 </section>
-<section id="s6"><span id="5"></span><h2>5. 8월 초 평가와 무엇이 다른가 (상보 관계)</h2>
+<section id="s7"><span id="5"></span><h2>5. 8월 초 평가와 무엇이 다른가 (상보 관계)</h2>
 <div class="tw"><table><thead><tr><th></th><th>8월 초 평가 (WS)</th><th>이번 벤치마크 (임석헌)</th></tr></thead><tbody><tr><td>질문</td><td>학습 분포 <b>안</b>에서 얼마나 잘 걷나</td><td>학습 분포 <b>밖</b>에서 어디까지 통하나</td></tr><tr><td>지형</td><td>rough 계열 난이도 격자 (lvl 0~9)</td><td>신규 유형 10종</td></tr><tr><td>규모</td><td>정책당 6,000회+ (전수 격자)</td><td>지형당 50회 (총 500회)</td></tr><tr><td>결과</td><td>기준선 86.7% (1,500 iter)</td><td>5/10 통과 · 실패 2모드 발견</td></tr><tr><td>역할</td><td>기준선의 «성능» 확립</td><td>일반화의 «경계» 지도</td></tr></tbody></table></div>
 <p>두 실측을 합치면: 기준선 정책은 rough 계열 안에서는 강하고, 분포 밖에서는 <b>지형 유형에 따라 전부 아니면 전무</b>로 갈린다. 이 경계선이 곧 우리 연구의 출발선이다.</p>
 </section>
-<section id="s7"><span id="6"></span><h2>6. 확인 현황</h2>
+<section id="s8"><span id="6"></span><h2>6. 확인 현황</h2>
 <ol><li><s>정책 체크포인트</s> <b>해소</b>: 기준선 1,500 iter에서 시작 <span class="ev ev-ok">확인됨</span> (팀장 확인 8/21)</li><li><s>속도 명령·시드</s> <b>v2로 해소</b> (8/22): v1은 결정론 재생(유효 n=1)이었고, v2 재검은 지형당 고유 행 50/50으로 변동이 실제 주입됨 <span class="ev ev-ok">실측</span>. 판정 5/10 유지 → §2-1. 남은 것: 무엇을 랜덤화했는지 스크립트 확인 <span class="ev ev-todo">미확인</span></li><li>에피소드 6초·3 m 기준의 근거 (기존 평가와 기준 통일 여부) <span class="ev ev-todo">미확인</span></li><li>각 지형의 난이도 파라미터 (같은 유형도 파라미터에 따라 난이도가 크게 다름) <span class="ev ev-todo">미확인</span></li><li><s>Runpod 실행 정보</s> <b>해소</b>: 청구 대시보드 실측 (팀장 캡처 8/21) <span class="ev ev-ok">실측</span> · 템플릿 IsaacLab-2.3.2-Go2 (nvcr.io isaac-lab:2.3.2) · <b>$0.74/hr</b> · 8/20 일일 청구 $4.95 (GPU $4.915) → 약 6.6시간 가동 역산 <span class="ev ev-guess">추측</span>(환경 구축 포함 추정, 작업 횟수는 미확인). 이것이 «Isaac Lab 클라우드 작업 1일 = 약 $5»라는 첫 실측 단가다</li></ol>
 </section>
-<section id="s8"><span id="7"></span><h2>7. 다음 단계</h2>
+<section id="s9"><span id="7"></span><h2>7. 다음 단계</h2>
 <ul><li>실패 5종을 <b>트랙 A 험지 세트 후보</b>로 상정하고 팀 논의 (결정 안건 1)</li><li>실패 모드별 커리큘럼·보상 설계 분기</li><li>명령·시드 다양화 재검으로 &quot;전부-아니면-전무&quot; 패턴 해체</li><li>기존 평가 파이프라인과 판정 기준 통일 (진행 성공률 계열 지표 정렬)</li></ul>
 </section>
-<section id="s9"><h2>판 이력</h2>
-<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td>v1.0</td><td>2026-08-21</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
+<section id="s10"><h2>판 이력</h2>
+<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td><b>v1.1</b></td><td>2026-09-09</td><td><b>§2-2 신설.</b> <code>rails</code> 의 09-03 재분류(낙상형 -&gt; 전진불능형)를 표와 §3 묶음에 반영했다. 결정이 이슈 코멘트에만 있어 이 문서를 읽는 사람이 옛 분류를 그대로 쓰게 돼 있었다</td><td>팀장 09-03 확정 · <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/66">#66</a></td></tr><tr><td>v1.0</td><td>2026-08-21</td><td>처음 씀</td><td>이전 이력은 git 에</td></tr></tbody></table></div>
 </section>
 
 </div>
@@ -918,5 +926,5 @@ document.addEventListener('click', function(e){
 </script>
 <style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7;--dim-ink:#0b6459;--grid:rgba(22,28,38,.04);--note-ink:#8a5600;}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-09 14:39</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-10 14:02</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
