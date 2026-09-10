@@ -761,7 +761,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=f8baa9a1').then(function(r){
+    fetch('/assets/search-index.json?v=1c2008ae').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -1199,6 +1199,7 @@ document.addEventListener('DOMContentLoaded',function(){
 .tkm3 span{display:inline-flex;align-items:baseline;gap:.15rem;white-space:nowrap}
 .tkm3 b{font-size:.76rem;font-weight:850;font-variant-numeric:tabular-nums}
 .tkm3 i{font-style:normal;font-size:.57rem;color:var(--ink-3)}
+.tkq3{margin-top:.25rem;font-size:.58rem;line-height:1.45;color:var(--ink-3);max-width:22rem}
 /* 빈 칸은 지우지 않는다. 옅은 점선으로 자리를 지켜야 「여기가 비었다」 가 보인다 */
 .tkc3{border:1px dashed var(--rule);border-radius:var(--p-radius-tag);padding:.35rem .45rem;
  min-height:2.4rem;display:flex;flex-direction:column;gap:.25rem;min-width:0;opacity:.8}
@@ -1247,5 +1248,5 @@ document.addEventListener('DOMContentLoaded',function(){
 }
 </style><div class="wns3"><div class="ws3"><div class="wt3">합류 시</div><div class="wd3">오늘 합류했다. 손을 움직이려면 무엇부터.</div><a class="wr3" data-added="2026-08-05" href="setup.html"><b>개발환경 구축</b><span>팀 공통 세팅</span></a><a class="wr3" data-added="2026-08-05" href="team-access.html"><b>워크스테이션 접속</b><span>원격 접속과 운영</span></a><a class="wr3" data-added="2026-09-01" href="runpod-setup.html"><b>RunPod Isaac Lab 환경</b><span>볼륨 · 템플릿 · 첫 실행. 마운트는 /data</span></a></div><div class="ws3"><div class="wt3">상시 참조</div><div class="wd3">이슈를 열고 PR 을 올릴 때 펴 놓는 것.</div><a class="wr3" data-added="2026-08-27" href="workflow.html"><b>작업 흐름</b><span>이슈부터 머지까지 한 장</span></a><a class="wr3" data-added="2026-08-09" href="collab.html"><b>FOOTHOLD 협업 규칙</b><span>브랜치 · 보드 · 문서 규칙</span></a><a class="wr3" data-added="2026-08-25" href="automation.html"><b>자동화 지도</b><span>무엇이 자동이고 무엇이 사람인가</span></a></div><div class="ws3"><div class="wt3">문서 투고 시</div><div class="wd3">내 글이 어디로 가는가.</div><a class="wr3" data-added="2026-08-29" href="info-model.html"><b>정보 모델</b><span>내 글이 어디로 가나</span></a><a class="wr3" data-added="2026-08-28" href="doc-graph.html"><b>문서 관계표</b><span>무엇이 무엇의 상위인가</span></a><a class="wr3" data-added="2026-08-29" href="research-taxonomy.html"><b>연구 허브 분류 기준</b><span>검토중</span></a></div></div>
 </div>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-10 14:02</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-10 14:19</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
