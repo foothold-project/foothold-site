@@ -1,0 +1,27 @@
+{
+  "schema": "foothold-gallery-index/1",
+  "latest": "v1",
+  "count": 1,
+  "versions": [
+    {
+      "version": "v1",
+      "folder": "v1",
+      "manifest": "v1/manifest.json",
+      "evaluated_at": "2026-09-11T14:24:10+00:00",
+      "built_at": "2026-09-12T04:31:12",
+      "main_model": "foothold-v1",
+      "difficulty": 0.5,
+      "models": {
+        "A": "54064c779eda52b6f35ebe9d016388031e9d1e7fda9cc6b3aea386f9c5024f5c",
+        "baseline": "f2aa77bf0349c10ec2a00071162e37123d0cf80f3447c3989c17a618e1b24ad2",
+        "foothold-v1": "c7612aef0b3c49b876c610d6d1c4f507eba666a4ffa03797760ad4a896ee7aca"
+      },
+      "clips": 84,
+      "evaluations": 144,
+      "terrains": 16,
+      "headline": "난이도 0.5 · 1.0 m/s 에서 기준선 NVIDIA 가 못 넘던 자리를 넘는다. gap 1 % -> 100 % · floating_ring 0 % -> 99 % (지형마다 100판)",
+      "report": "/report-v1.html",
+      "note": "성적표는 난이도 0.5 · 지형마다 100판. 영상은 그 자리의 시연 1회다."
+    }
+  ]
+}

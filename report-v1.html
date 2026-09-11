@@ -1,0 +1,395 @@
+<title>FOOTHOLD 종합보고서 1차</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  /* porcelain · lieflat-charts color-presets.js · 차트와 같은 체계 */
+  --ink:#081F5C; --ink-2:#2a3f74; --ink-3:#41527e; --line:#d6dced;
+  --bg:#f7f2eb; --card:#ffffff; --accent:#1d6b58; --warn:#8a5b12; --bad:#a8341f;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#e6edfa; --ink-2:#b3c2de; --ink-3:#93a4c4; --line:#243254;
+  --bg:#0b1020; --card:#141c30; --accent:#5fd0ae; --warn:#e0b55c; --bad:#f0836a;
+}}
+:root[data-theme="dark"]{
+  --ink:#e6edfa; --ink-2:#b3c2de; --ink-3:#93a4c4; --line:#243254;
+  --bg:#0b1020; --card:#141c30; --accent:#5fd0ae; --warn:#e0b55c; --bad:#f0836a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans KR",system-ui,-apple-system,"Malgun Gothic",sans-serif;
+  line-height:1.72;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:56px 24px 110px}
+.head{border-left:3px solid var(--ink);padding-left:16px;margin-bottom:34px}
+.head p{margin:2px 0;font-size:12.5px;color:var(--ink-3);font-family:var(--mono)}
+h1{font-size:32px;font-weight:700;letter-spacing:-.025em;margin:0 0 12px;text-wrap:balance}
+.lead{font-size:16.5px;color:var(--ink-2);margin:0 0 8px}
+h2{font-size:20px;font-weight:700;margin:58px 0 8px;letter-spacing:-.01em;
+  display:flex;align-items:baseline;gap:11px}
+h2 .n{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-weight:500}
+h3{font-size:15.5px;font-weight:600;margin:32px 0 10px}
+p{margin:0 0 14px}
+.tw{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:12px;
+  background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:11.5px;color:var(--ink-3);font-weight:600;letter-spacing:.03em}
+thead tr:last-child th{border-bottom:1.5px solid var(--line)}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+td.mono{font-family:var(--mono);font-size:12px}
+.grp{border-left:1px solid var(--line)}
+.up{color:var(--accent);font-weight:600}
+.down{color:var(--bad);font-weight:600}
+.flat{color:var(--ink-3)}
+figure{margin:24px 0;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:20px 20px 14px;overflow:hidden}
+figure svg{display:block;width:100%;height:auto}
+figcaption{margin-top:12px;font-size:12.5px;color:var(--ink-3);
+  padding-top:11px;border-top:1px solid var(--line)}
+.note{border:1px solid var(--line);border-left:3px solid var(--ink-3);
+  border-radius:10px;padding:15px 18px;margin:20px 0;background:var(--card);
+  font-size:14px;color:var(--ink-2)}
+.note.bad{border-left-color:var(--bad)}
+.note.ok{border-left-color:var(--accent)}
+.note p{margin:0 0 8px} .note p:last-child{margin:0}
+.note strong{color:var(--ink)}
+.mono{font-family:var(--mono);font-size:.93em}
+.vid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0}
+@media (max-width:880px){.vid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.vid{grid-template-columns:1fr}}
+.vid figure{margin:0;padding:0;border-radius:12px;overflow:hidden;display:flex;
+  flex-direction:column}
+.vid video{display:block;width:100%;background:#0b1020}
+.vid figcaption{margin:0;padding:11px 13px 13px;font-size:12.5px;border-top:none;
+  color:var(--ink-2)}
+.vid .who{display:block;font-family:var(--mono);font-size:11px;color:var(--ink-3);
+  margin-bottom:3px}
+.rate{display:flex;gap:4px;margin-top:7px}
+.rate button{font-family:var(--mono);font-size:10.5px;padding:2px 7px;cursor:pointer;
+  border:1px solid var(--line);border-radius:5px;background:transparent;color:var(--ink-2)}
+.rate button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.rate button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+pre{background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:15px 17px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink-2);margin:16px 0;line-height:1.6}
+ul{margin:0 0 14px;padding-left:20px}
+li{margin:5px 0}
+</style>
+<div class="wrap">
+<div class="head"><p>분류: 보고</p><p>작성: 오흥재 · 2026-09-11</p><p>근거: 지형 16종 x 모델 3 x 속도 3 · 14,400 판 · 측정 규격 2</p><p>요지: foothold-v1 은 기존 험지를 유지하면서 미경험 험지 gap 을 1 %에서 100 %로 올렸다</p><p>상태: 검토중</p></div>
+<h1>FOOTHOLD 종합보고서 1차</h1>
+<p class="lead">Unitree Go2 사족보행 정책을 미경험 험지에서 평가한 결과입니다. 기준선(NVIDIA 공식 체크포인트), 중간 판 A, 그리고 이번 배포 대상인 foothold-v1 을 같은 조건에서 비교합니다.</p>
+<h2><span class="n">01</span>한 줄</h2>
+<p><strong>foothold-v1 은 기존 험지 6종의 성적을 유지하거나 끌어올리면서, 미경험 험지 <span class="mono">gap</span> 의 성공률을 (난이도 0.5 · 1.0 m/s · 100 판 기준) 1 %에서 100 %로 올렸습니다.</strong> 다만 <span class="mono">stepping_stones</span> 는 세 모델 모두 0 % 이고, <span class="mono">rails</span> 는 48 % 에 머뭅니다.</p>
+<p>아래는 그 주장의 근거입니다. 같은 지형, 같은 속도, 같은 난수에서 세 모델이 무엇을 하는지 보십시오.</p>
+<div class="vid"><figure><video src="/gallery/v1/clips/gap-v1-baseline.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">기준선 NVIDIA</span>이 자리 성공 1/100. <strong>이 시연 한 판에서는</strong> 앞다리가 틈에 빠지고 몸통이 가장자리에 걸립니다. 100 판이 모두 그렇다는 뜻은 아닙니다<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure><figure><video src="/gallery/v1/clips/gap-v1-A.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">A · 연습 틈 0.05~0.20 m</span>이 자리 성공 28/100. 시험 틈은 0.275 m 로 연습 범위 밖입니다. 그것이 원인인지는 아직 안 갈라냈습니다(미확인)<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure><figure><video src="/gallery/v1/clips/gap-v1.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">foothold-v1</span>이 자리 성공 100/100. 이 시연에서는 뒷발이 가장자리를 딛고 앞발이 먼저 건넙니다<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure></div>
+<h2><span class="n">02</span>비교 대상</h2>
+<div class="tw"><table><thead><tr><th>이름</th><th>무엇인가</th><th>연습한 틈 폭</th><th>출처</th></tr></thead><tbody><tr><td class="mono">기준선 NVIDIA</td><td>Isaac Lab 공식 Go2 험지 체크포인트</td><td class="mono">없음</td><td class="mono">.pretrained_checkpoints</td></tr><tr><td class="mono">A</td><td>기존 험지 6종 재학습 · 틈 연습 추가</td><td class="mono">0.05 ~ 0.20 m</td><td class="mono">model_1500.pt</td></tr><tr><td class="mono">foothold-v1</td><td>틈 폭을 넓혀 재학습</td><td class="mono">0.15 ~ 0.40 m</td><td class="mono">models/foothold-v1.pt</td></tr></tbody></table></div>
+<p>세 모델 모두 같은 평가 하네스, 같은 난수(seed 42), 같은 난이도(0.5)로 측정했습니다. 지형마다 100 판입니다.</p>
+<h2><span class="n">03</span>성적표</h2>
+<p>난이도 0.5, 명령 속도 1.0 m/s, 지형마다 100 판에서의 성공률입니다. 성공은 네 축(생존 · 전진 · 속도추종 · 방향)의 AND 입니다.</p>
+<figure><svg viewBox="0 0 533 517" width="100%" role="img" aria-label="지형별 성공률"><rect width="100%" height="100%" fill="#F7F2EB"/><text x="238" y="39" font-size="10" font-weight="700" fill="#0E2E6E" text-anchor="middle">기준선 NVIDIA</text><text x="345" y="39" font-size="10" font-weight="700" fill="#0E2E6E" text-anchor="middle">A</text><text x="452" y="39" font-size="10" font-weight="700" fill="#0E2E6E" text-anchor="middle">foothold-v1</text><text x="173" y="67" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">boxes</text><rect x="186" y="52" width="104" height="21" rx="3" fill="#BAD6EB"/><text x="238" y="67" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">34</text><rect x="293" y="52" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="67" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="52" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="67" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="91" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">hf_pyramid_slope</text><rect x="186" y="76" width="104" height="21" rx="3" fill="#081F5C"/><text x="238" y="91" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="293" y="76" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="91" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="76" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="91" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="115" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">hf_pyramid_slope_inv</text><rect x="186" y="100" width="104" height="21" rx="3" fill="#081F5C"/><text x="238" y="115" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="293" y="100" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="115" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="100" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="115" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="139" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">pyramid_stairs</text><rect x="186" y="124" width="104" height="21" rx="3" fill="#081F5C"/><text x="238" y="139" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="293" y="124" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="139" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="124" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="139" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="163" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">pyramid_stairs_inv</text><rect x="186" y="148" width="104" height="21" rx="3" fill="#E3EDF8"/><text x="238" y="163" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">0</text><rect x="293" y="148" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="163" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="148" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="163" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="187" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">random_rough</text><rect x="186" y="172" width="104" height="21" rx="3" fill="#334EAC"/><text x="238" y="187" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">80</text><rect x="293" y="172" width="104" height="21" rx="3" fill="#334EAC"/><text x="345" y="187" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">92</text><rect x="400" y="172" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="187" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="237" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">discrete_obstacles</text><rect x="186" y="222" width="104" height="21" rx="3" fill="#334EAC"/><text x="238" y="237" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">94</text><rect x="293" y="222" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="237" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="222" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="237" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="261" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">floating_ring</text><rect x="186" y="246" width="104" height="21" rx="3" fill="#E3EDF8"/><text x="238" y="261" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">0</text><rect x="293" y="246" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="261" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">96</text><rect x="400" y="246" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="261" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">99</text><text x="173" y="285" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">gap</text><rect x="186" y="270" width="104" height="21" rx="3" fill="#E3EDF8"/><text x="238" y="285" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">1</text><rect x="293" y="270" width="104" height="21" rx="3" fill="#BAD6EB"/><text x="345" y="285" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">28</text><rect x="400" y="270" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="285" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="309" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">pit</text><rect x="186" y="294" width="104" height="21" rx="3" fill="#E3EDF8"/><text x="238" y="309" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">2</text><rect x="293" y="294" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="309" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="294" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="309" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="333" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">rails</text><rect x="186" y="318" width="104" height="21" rx="3" fill="#E3EDF8"/><text x="238" y="333" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">8</text><rect x="293" y="318" width="104" height="21" rx="3" fill="#BAD6EB"/><text x="345" y="333" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">42</text><rect x="400" y="318" width="104" height="21" rx="3" fill="#BAD6EB"/><text x="452" y="333" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">48</text><text x="173" y="357" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">repeated_boxes</text><rect x="186" y="342" width="104" height="21" rx="3" fill="#081F5C"/><text x="238" y="357" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="293" y="342" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="357" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="342" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="357" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="381" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">repeated_cylinders</text><rect x="186" y="366" width="104" height="21" rx="3" fill="#081F5C"/><text x="238" y="381" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="293" y="366" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="381" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="366" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="381" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="405" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">star</text><rect x="186" y="390" width="104" height="21" rx="3" fill="#081F5C"/><text x="238" y="405" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="293" y="390" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="405" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="390" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="405" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><text x="173" y="429" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">stepping_stones</text><rect x="186" y="414" width="104" height="21" rx="3" fill="#E3EDF8"/><text x="238" y="429" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">0</text><rect x="293" y="414" width="104" height="21" rx="3" fill="#E3EDF8"/><text x="345" y="429" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">0</text><rect x="400" y="414" width="104" height="21" rx="3" fill="#E3EDF8"/><text x="452" y="429" font-size="11" font-weight="700" fill="#081F5C" text-anchor="middle">0</text><text x="173" y="453" font-size="10.5" font-weight="600" fill="#0E2E6E" text-anchor="end">wave</text><rect x="186" y="438" width="104" height="21" rx="3" fill="#081F5C"/><text x="238" y="453" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="293" y="438" width="104" height="21" rx="3" fill="#081F5C"/><text x="345" y="453" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><rect x="400" y="438" width="104" height="21" rx="3" fill="#081F5C"/><text x="452" y="453" font-size="11" font-weight="700" fill="#F7F2EB" text-anchor="middle">100</text><line x1="36" y1="207.5" x2="507" y2="207.5" stroke="rgba(8,31,92,.24)" stroke-width="1.2" stroke-dasharray="5 4"/><text x="36" y="200.5" font-size="10" font-weight="700" fill="#0E2E6E">아래 10종이 미경험 험지</text><rect x="26" y="491" width="11" height="11" rx="2" fill="#E3EDF8" stroke="rgba(8,31,92,.24)" stroke-width=".6"/><text x="42" y="501" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)">0~19%</text><rect x="106" y="491" width="11" height="11" rx="2" fill="#BAD6EB" stroke="rgba(8,31,92,.24)" stroke-width=".6"/><text x="122" y="501" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)">20~49%</text><rect x="186" y="491" width="11" height="11" rx="2" fill="#7096D1" stroke="rgba(8,31,92,.24)" stroke-width=".6"/><text x="202" y="501" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)">50~79%</text><rect x="266" y="491" width="11" height="11" rx="2" fill="#334EAC" stroke="rgba(8,31,92,.24)" stroke-width=".6"/><text x="282" y="501" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)">80~94%</text><rect x="346" y="491" width="11" height="11" rx="2" fill="#081F5C" stroke="rgba(8,31,92,.24)" stroke-width=".6"/><text x="362" y="501" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)">95~100%</text><text x="430" y="501" font-size="9.5" font-weight="700" fill="#0E2E6E">진하기 = 성공률</text></svg><figcaption>지형 16종 x 모델 3 · 난이도 0.5 · 1.0 m/s · 지형마다 100 판. 칸 안의 수가 성공률이고 진할수록 높습니다.</figcaption></figure>
+<h3>속도별 전수</h3>
+<div class="tw"><table><thead><tr><th rowspan="2">지형</th>
+<th class="num grp" colspan="3">기준선 NVIDIA</th>
+<th class="num grp" colspan="3">A</th>
+<th class="num grp" colspan="3">foothold-v1</th>
+</tr><tr>
+<th class="num grp">0.5</th>
+<th class="num">1</th>
+<th class="num">1.5</th>
+<th class="num grp">0.5</th>
+<th class="num">1</th>
+<th class="num">1.5</th>
+<th class="num grp">0.5</th>
+<th class="num">1</th>
+<th class="num">1.5</th>
+</tr></thead><tbody>
+<tr><td colspan="10" style="background:var(--bg);font-size:11.5px;color:var(--ink-3);font-weight:600">기존 험지 6종</td></tr>
+<tr><td class="mono">boxes</td>
+<td class="num grp">76</td>
+<td class="num">34</td>
+<td class="num">0</td>
+<td class="num grp">98</td>
+<td class="num">100</td>
+<td class="num">98</td>
+<td class="num grp">99</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+<tr><td class="mono">hf_pyramid_slope</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">0</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+<tr><td class="mono">hf_pyramid_slope_inv</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">24</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+<tr><td class="mono">pyramid_stairs</td>
+<td class="num grp">10</td>
+<td class="num">100</td>
+<td class="num">81</td>
+<td class="num grp">99</td>
+<td class="num">100</td>
+<td class="num">100</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+<tr><td class="mono">pyramid_stairs_inv</td>
+<td class="num grp">24</td>
+<td class="num">0</td>
+<td class="num">0</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">99</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+<tr><td class="mono">random_rough</td>
+<td class="num grp">85</td>
+<td class="num">80</td>
+<td class="num">0</td>
+<td class="num grp">87</td>
+<td class="num">92</td>
+<td class="num">72</td>
+<td class="num grp">99</td>
+<td class="num">100</td>
+<td class="num">90</td>
+</tr>
+<tr><td colspan="10" style="background:var(--bg);font-size:11.5px;color:var(--ink-3);font-weight:600">미경험 험지 10종</td></tr>
+<tr><td class="mono">discrete_obstacles</td>
+<td class="num grp">94</td>
+<td class="num">94</td>
+<td class="num">0</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+<tr><td class="mono">floating_ring</td>
+<td class="num grp">1</td>
+<td class="num">0</td>
+<td class="num">0</td>
+<td class="num grp">78</td>
+<td class="num">96</td>
+<td class="num">63</td>
+<td class="num grp">95</td>
+<td class="num">99</td>
+<td class="num">87</td>
+</tr>
+<tr><td class="mono">gap</td>
+<td class="num grp">0</td>
+<td class="num">1</td>
+<td class="num">0</td>
+<td class="num grp">0</td>
+<td class="num">28</td>
+<td class="num">72</td>
+<td class="num grp">90</td>
+<td class="num">100</td>
+<td class="num">68</td>
+</tr>
+<tr><td class="mono">pit</td>
+<td class="num grp">7</td>
+<td class="num">2</td>
+<td class="num">0</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">99</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+<tr><td class="mono">rails</td>
+<td class="num grp">0</td>
+<td class="num">8</td>
+<td class="num">0</td>
+<td class="num grp">16</td>
+<td class="num">42</td>
+<td class="num">3</td>
+<td class="num grp">70</td>
+<td class="num">48</td>
+<td class="num">21</td>
+</tr>
+<tr><td class="mono">repeated_boxes</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">1</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+<tr><td class="mono">repeated_cylinders</td>
+<td class="num grp">99</td>
+<td class="num">100</td>
+<td class="num">7</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+<tr><td class="mono">star</td>
+<td class="num grp">86</td>
+<td class="num">100</td>
+<td class="num">62</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+<tr><td class="mono">stepping_stones</td>
+<td class="num grp">0</td>
+<td class="num">0</td>
+<td class="num">0</td>
+<td class="num grp">0</td>
+<td class="num">0</td>
+<td class="num">0</td>
+<td class="num grp">0</td>
+<td class="num">0</td>
+<td class="num">0</td>
+</tr>
+<tr><td class="mono">wave</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">0</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+<td class="num grp">100</td>
+<td class="num">100</td>
+<td class="num">100</td>
+</tr>
+</tbody></table></div>
+<h2><span class="n">04</span>무엇이 달라졌나</h2>
+<h3>기존 험지는 무너지지 않았습니다</h3>
+<div class="tw"><table><thead><tr><th>집합</th><th>속도</th><th class="num">기준선</th><th class="num">A</th><th class="num">foothold-v1</th><th class="num">기준선 대비</th></tr></thead><tbody>
+<tr><td>기존 험지 6종</td><td class="num">0.5</td><td class="num">65.8</td><td class="num">97.3</td><td class="num">99.7</td><td class="num up">+33.8</td></tr>
+<tr><td>기존 험지 6종</td><td class="num">1</td><td class="num">69.0</td><td class="num">98.7</td><td class="num">100.0</td><td class="num up">+31.0</td></tr>
+<tr><td>기존 험지 6종</td><td class="num">1.5</td><td class="num">17.5</td><td class="num">94.8</td><td class="num">98.3</td><td class="num up">+80.8</td></tr>
+<tr><td>미경험 험지 10종</td><td class="num">0.5</td><td class="num">48.7</td><td class="num">69.4</td><td class="num">85.5</td><td class="num up">+36.8</td></tr>
+<tr><td>미경험 험지 10종</td><td class="num">1</td><td class="num">50.5</td><td class="num">76.6</td><td class="num">84.7</td><td class="num up">+34.2</td></tr>
+<tr><td>미경험 험지 10종</td><td class="num">1.5</td><td class="num">7.0</td><td class="num">73.7</td><td class="num">77.6</td><td class="num up">+70.6</td></tr>
+</tbody></table></div>
+<p>집합별 지형 평균입니다. 기존 험지 6종에서 foothold-v1 은 세 속도 모두 기준선을 웃돕니다. 특히 1.5 m/s 에서 기준선은 평균 17.5 % 인데 foothold-v1 은 98.3 % 입니다.</p>
+<h3>기준선은 1.5 m/s 를 따라가지 못합니다</h3>
+<p>1.5 m/s 에서 기준선이 실패한 판을 <strong>판마다</strong> 갈랐습니다. 축별 합계로는 어느 판이 어느 축에서 떨어졌는지 알 수 없어, 각 판의 네 축을 모두 보고 분류했습니다.</p>
+<div class="tw"><table><thead><tr><th>지형</th><th class="num">실패 판</th><th class="num">속도추종만</th><th class="num">속도추종+1축</th><th class="num">속도추종+2축 이상</th><th class="num">속도추종 무관</th><th class="num">foothold-v1 성공률</th></tr></thead><tbody>
+<tr><td class="mono">hf_pyramid_slope</td><td class="num">100</td><td class="num">100</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">repeated_boxes</td><td class="num">99</td><td class="num">99</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">wave</td><td class="num">100</td><td class="num">99</td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">boxes</td><td class="num">100</td><td class="num">96</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">repeated_cylinders</td><td class="num">93</td><td class="num">93</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">random_rough</td><td class="num">100</td><td class="num">90</td><td class="num">8</td><td class="num">2</td><td class="num">0</td><td class="num up">90</td></tr>
+<tr><td class="mono">hf_pyramid_slope_inv</td><td class="num">76</td><td class="num">76</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">discrete_obstacles</td><td class="num">100</td><td class="num">71</td><td class="num">24</td><td class="num">5</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">rails</td><td class="num">100</td><td class="num">70</td><td class="num">6</td><td class="num">24</td><td class="num">0</td><td class="num up">21</td></tr>
+<tr><td class="mono">star</td><td class="num">38</td><td class="num">38</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">pit</td><td class="num">100</td><td class="num">34</td><td class="num">21</td><td class="num">45</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">pyramid_stairs</td><td class="num">19</td><td class="num">19</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">gap</td><td class="num">100</td><td class="num">5</td><td class="num">0</td><td class="num">95</td><td class="num">0</td><td class="num up">68</td></tr>
+<tr><td class="mono">pyramid_stairs_inv</td><td class="num">100</td><td class="num">4</td><td class="num">1</td><td class="num">95</td><td class="num">0</td><td class="num up">100</td></tr>
+<tr><td class="mono">floating_ring</td><td class="num">100</td><td class="num">0</td><td class="num">0</td><td class="num">100</td><td class="num">0</td><td class="num up">87</td></tr>
+<tr><td class="mono">stepping_stones</td><td class="num">100</td><td class="num">0</td><td class="num">0</td><td class="num">100</td><td class="num">0</td><td class="num up">0</td></tr>
+<tr><td><strong>합계</strong></td><td class="num"><strong>1425</strong></td><td class="num"><strong>894</strong></td><td class="num"><strong>65</strong></td><td class="num"><strong>466</strong></td><td class="num"><strong>0</strong></td><td class="num"></td></tr>
+</tbody></table></div>
+<p>난이도 0.5, 지형마다 100 판입니다. 실패한 1425 판 가운데 <strong>894 판(63 %)은 속도추종 축에서만 떨어졌습니다.</strong> 나머지 세 축은 통과했다는 뜻이고, 그 판에서 로봇은 넘어지지 않고 통과선도 넘었습니다. 명령 1.5 m/s 를 주었는데 그보다 느리게 간 것입니다.</p>
+<p>나머지 531 판은 이렇게 갈립니다. 속도추종 <strong>말고 한 축이 더</strong> 떨어진 판이 65, <strong>두 축 이상이 더</strong> 떨어진 판이 466 입니다. 속도추종이 통과했는데 실패한 판은 0 입니다. 넷을 더하면 1425 로 실패 판 수와 같습니다.</p>
+<p>두 축 이상이 더 떨어진 466 판은 <span class="mono">floating_ring</span> · <span class="mono">stepping_stones</span> · <span class="mono">gap</span> · <span class="mono">pyramid_stairs_inv</span> 에 몰려 있고, 그 지형에서는 실제로 넘어지거나 통과선까지 못 갔습니다.</p>
+<div class="note"><p><strong>이 표를 「기준선이 고속 험지에서 무너진다」로 읽으면 과장입니다.</strong> 대부분은 넘어지지 않고 더 느리게 걸을 뿐입니다. 자료가 말하는 것은 <strong>기준선에 1.5 m/s 를 시켜도 그 속도가 안 나온다</strong>는 것입니다. foothold-v1 도 <strong>모든 지형에서 그 속도를 내는 것은 아닙니다.</strong> 같은 조건에서 속도추종 축을 통과한 판이 1,369 / 1,600 이고, <span class="mono">stepping_stones</span> 는 0/100, <span class="mono">rails</span> 는 24/100 입니다.</p><p>이 관측은 시뮬레이션 안의 것입니다. 실기에서 같은 일이 일어나는지는 재보지 않았습니다(미확인).</p></div>
+<p>같은 지형(<span class="mono">wave</span>)을 1.5 m/s 명령으로 걷는 장면입니다. <strong>셋 다 넘어지지 않습니다.</strong> 기준선은 그 속도가 안 나와서 속도추종 축에서 떨어집니다.</p>
+<div class="note"><p><strong>영상은 평가 판 자체가 아닙니다.</strong> 같은 체크포인트·지형·난이도·난수로 <strong>따로 촬영한 한 판</strong>이고, 성적표의 100 판 중 하나를 꺼낸 것이 아닙니다. 옆의 성공률은 그 자리의 100 판 집계이고, 영상은 같은 조건에서 로봇이 무엇을 하는지 보여 줍니다.</p><p><strong>HUD 의 추종 표시는 평가의 속도추종 판정과 다른 계산입니다.</strong> HUD 는 그 시점까지의 <strong>전후 방향</strong> 오차 <span class="mono">abs(vx - 명령속도)</span> 의 누적 평균을 보여 줍니다. 평가는 전후와 좌우를 합친 <strong>평면</strong> 오차를 누적합니다. 판정 한계 0.25 m/s 를 사이에 두고 갈리기도 합니다. 기준선 1.5 m/s 시연 세 편의 trace 를 다시 재 보면 전후 오차는 0.18~0.24 로 한계 안이고 같은 표본의 평면 오차는 0.25~0.30 으로 한계 밖입니다 (<span class="mono">repeated_boxes</span> · <span class="mono">repeated_cylinders</span> · <span class="mono">wave</span>). <strong>HUD 를 보고 판정을 역산하지 마십시오.</strong></p><p>영상은 1920 x 1080 초당 50장이고, 지형이 끝나는 자리까지만 잘랐습니다. 초당 장수는 임의값이 아니라 <strong>정책이 결정을 내리는 주기</strong>입니다 (물리 200 Hz · 4스텝에 결정 1번 · 결정 1번에 프레임 1장).</p></div>
+<div class="vid"><figure><video src="/gallery/v1/clips/wave-v1.5-baseline.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">기준선 NVIDIA · 1.5 m/s 명령</span>종합 0 %. 생존 100 · 전진 100 · <strong>속도추종 0</strong>. 넘어진 것이 아니라 느립니다<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure><figure><video src="/gallery/v1/clips/wave-v1.5-A.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">A · 1.5 m/s 명령</span>종합 100 %<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure><figure><video src="/gallery/v1/clips/wave-v1.5.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">foothold-v1 · 1.5 m/s 명령</span>종합 성공 100/100. 속도추종 기준인 평면 평균 오차 0.25 m/s 이내를 100 판 모두 통과했습니다. 명령 속도를 정확히 낸다는 뜻은 아닙니다<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure></div>
+<h2><span class="n">05</span>성공률만으로는 안 보이는 것</h2>
+<p>성공 조건은 네 축(생존 · 전진 · 속도추종 · 방향)의 AND입니다. 그런데 장애물을 <strong>비켜 가도</strong> 그 조건은 채워집니다. 그래서 이번 판에 <strong>몸통 아래 광선이 어느 높이 폭을 지났는가</strong>를 재는 열 셋을 더했습니다.</p>
+<figure><svg viewBox="0 0 780 500" width="100%" role="img" aria-label="참여도 대 성공률"><rect width="100%" height="100%" fill="#F7F2EB"/><line x1="78.0" y1="412" x2="78.0" y2="404" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="109.9" y1="412" x2="109.9" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="141.8" y1="412" x2="141.8" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="173.7" y1="412" x2="173.7" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="205.6" y1="412" x2="205.6" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="237.5" y1="412" x2="237.5" y2="404" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="269.4" y1="412" x2="269.4" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="301.3" y1="412" x2="301.3" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="333.2" y1="412" x2="333.2" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="365.1" y1="412" x2="365.1" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="397.0" y1="412" x2="397.0" y2="404" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="428.9" y1="412" x2="428.9" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="460.8" y1="412" x2="460.8" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="492.7" y1="412" x2="492.7" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="524.6" y1="412" x2="524.6" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="556.5" y1="412" x2="556.5" y2="404" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="588.4" y1="412" x2="588.4" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="620.3" y1="412" x2="620.3" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="652.2" y1="412" x2="652.2" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="684.1" y1="412" x2="684.1" y2="408" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="716.0" y1="412" x2="716.0" y2="404" stroke="rgba(8,31,92,.24)" stroke-width=".7"/><line x1="72" y1="412" x2="722" y2="412" stroke="rgba(8,31,92,.38)" stroke-width="1"/><line x1="78" y1="412.0" x2="716" y2="412.0" stroke="rgba(8,31,92,.24)" stroke-width=".6" stroke-dasharray="2 5"/><text x="67" y="415.0" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)" text-anchor="end">0%</text><line x1="78" y1="282.0" x2="716" y2="282.0" stroke="rgba(8,31,92,.24)" stroke-width=".6" stroke-dasharray="2 5"/><text x="67" y="285.0" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)" text-anchor="end">50%</text><line x1="78" y1="152.0" x2="716" y2="152.0" stroke="rgba(8,31,92,.24)" stroke-width=".6" stroke-dasharray="2 5"/><text x="67" y="155.0" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)" text-anchor="end">100%</text><text x="78" y="431" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)">0 · 중앙 광선 기복 작음</text><text x="716" y="431" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)" text-anchor="end">1 · 스캔 기복과 같음</text><line x1="180.1" y1="412" x2="180.1" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="180.1" cy="152.0" r="5.6" fill="#081F5C"/><line x1="180.1" y1="145.0" x2="180.1" y2="144.0" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="180.1" y="140.0" font-size="11" font-weight="800" fill="#081F5C" text-anchor="middle">star</text><line x1="278.3" y1="412" x2="278.3" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="278.3" cy="152.0" r="5.6" fill="#081F5C"/><line x1="278.3" y1="145.0" x2="278.3" y2="144.0" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="278.3" y="140.0" font-size="11" font-weight="800" fill="#081F5C" text-anchor="middle">discrete_obstacles</text><line x1="465.8" y1="412" x2="465.8" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="465.8" cy="152.0" r="3.6" fill="#334EAC"/><line x1="465.8" y1="145.0" x2="465.8" y2="144.0" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="465.8" y="140.0" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">wave</text><line x1="588.8" y1="412" x2="588.8" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="588.8" cy="152.0" r="3.6" fill="#334EAC"/><line x1="588.8" y1="145.0" x2="588.8" y2="144.0" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="588.8" y="140.0" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">repeated_boxes</text><line x1="667.9" y1="412" x2="667.9" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="667.9" cy="152.0" r="3.6" fill="#334EAC"/><line x1="667.9" y1="145.0" x2="667.9" y2="129.5" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="667.9" y="125.5" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">repeated_cylinders</text><line x1="699.6" y1="412" x2="699.6" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="699.6" cy="152.0" r="3.6" fill="#334EAC"/><line x1="699.6" y1="145.0" x2="699.6" y2="144.0" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="699.6" y="140.0" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">boxes</text><line x1="713.4" y1="412" x2="713.4" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="713.4" cy="152.0" r="3.6" fill="#334EAC"/><line x1="713.4" y1="145.0" x2="713.4" y2="115.0" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="713.4" y="111.0" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">random_rough</text><line x1="716.0" y1="412" x2="716.0" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="716.0" cy="152.0" r="3.6" fill="#334EAC"/><line x1="716.0" y1="145.0" x2="716.0" y2="100.5" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="716.0" y="96.5" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">hf_pyramid_slope</text><line x1="716.0" y1="412" x2="716.0" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="716.0" cy="152.0" r="3.6" fill="#334EAC"/><line x1="716.0" y1="145.0" x2="716.0" y2="86.0" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="716.0" y="82.0" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">hf_pyramid_slope_inv</text><line x1="716.0" y1="412" x2="716.0" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="716.0" cy="152.0" r="3.6" fill="#334EAC"/><line x1="716.0" y1="145.0" x2="716.0" y2="71.5" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="716.0" y="67.5" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">pyramid_stairs</text><line x1="716.0" y1="412" x2="716.0" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="716.0" cy="152.0" r="3.6" fill="#334EAC"/><line x1="716.0" y1="145.0" x2="716.0" y2="57.0" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="716.0" y="53.0" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">pyramid_stairs_inv</text><line x1="716.0" y1="412" x2="716.0" y2="152.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="716.0" cy="152.0" r="3.6" fill="#334EAC"/><line x1="716.0" y1="145.0" x2="716.0" y2="42.5" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="716.0" y="38.5" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">pit</text><line x1="716.0" y1="412" x2="716.0" y2="154.6" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="716.0" cy="154.6" r="3.6" fill="#334EAC"/><line x1="716.0" y1="147.6" x2="716.0" y2="28.0" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="716.0" y="24.0" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">floating_ring</text><line x1="716.0" y1="412" x2="716.0" y2="287.2" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="716.0" cy="287.2" r="5.6" fill="#081F5C"/><line x1="716.0" y1="280.2" x2="716.0" y2="13.5" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="716.0" y="9.5" font-size="11" font-weight="800" fill="#081F5C" text-anchor="middle">rails</text><line x1="573.0" y1="412" x2="573.0" y2="412.0" stroke="rgba(8,31,92,.38)" stroke-width=".8" opacity=".5"/><circle cx="573.0" cy="412.0" r="3.6" fill="#334EAC"/><line x1="573.0" y1="405.0" x2="573.0" y2="115.0" stroke="rgba(8,31,92,.38)" stroke-width=".7" opacity=".45"/><text x="573.0" y="111.0" font-size="10" font-weight="600" fill="#0E2E6E" text-anchor="middle">stepping_stones</text><text x="22" y="282" font-size="9.5" font-weight="700" fill="#0E2E6E" transform="rotate(-90 22 282)" text-anchor="middle">성공률</text><text x="390" y="486" font-size="9.5" font-weight="600" fill="rgba(8,31,92,.76)" text-anchor="middle">가로 = 참여도 · 세로 = 성공률 · 점마다 바닥까지 실선</text></svg><figcaption>가로가 참여도, 세로가 성공률입니다. 오른쪽 위는 중앙 광선이 지난 높이 폭이 스캔 전체와 비슷하면서 성공률도 높은 자리, 왼쪽 위는 그 폭이 작은데 성공률은 높은 자리입니다. 이 비율은 발이 닿았는지나 어느 길로 갔는지를 재지 않습니다.</figcaption></figure>
+<div class="tw"><table><thead><tr><th>지형</th><th class="num">성공률</th><th class="num">스캔 전체 기복 (m)</th><th class="num">중앙 광선 기복 (m)</th><th class="num">참여도 평균</th><th class="num">중앙값</th><th class="num">10~90분위</th><th>관측</th></tr></thead><tbody>
+<div class="note"><p><strong>참여도가 무엇인가.</strong> 한 판 동안 몸통 아래 <strong>중앙 광선 하나</strong>가 지나간 높이 폭을, <strong>스캔 전체</strong>가 본 높이 폭으로 나눈 값입니다. 0 과 1 사이로 자릅니다.</p><p class="mono" style="font-size:.86rem">참여도 = min(1, max(0, 중앙 광선 높이 범위 / 스캔 전체 높이 범위))</p><p>높이 범위의 단위는 m 이고 비율은 단위가 없습니다. 스캔 전체 기복이 0.02 m 미만이면 나눗셈이 뜻을 잃으므로 <strong>비웁니다.</strong> 난이도 0.5 · 1.0 m/s · foothold-v1 에서 비는 것은 <span class="mono">gap</span> 뿐입니다.</p><p><strong>이 값이 답하지 않는 것.</strong> 발이 장애물에 닿았는지, 어느 길로 우회했는지, 장애물 구간을 끝까지 갔는지는 이 비율만으로 알 수 없습니다. 광선 하나가 지나간 높이 폭일 뿐입니다.</p></div>
+<tr><td class="mono">star</td><td class="num">100</td><td class="num">0.105</td><td class="num">0.017</td><td class="num down">0.16</td><td class="num">0.00</td><td class="num">0.00 ~ 1.00</td><td>성공률 높음 · 중앙 광선 기복 작음</td></tr>
+<tr><td class="mono">discrete_obstacles</td><td class="num">100</td><td class="num">0.180</td><td class="num">0.055</td><td class="num down">0.31</td><td class="num">0.32</td><td class="num">0.24 ~ 0.32</td><td>성공률 높음 · 중앙 광선 기복 작음</td></tr>
+<tr><td class="mono">wave</td><td class="num">100</td><td class="num">0.131</td><td class="num">0.080</td><td class="num ">0.61</td><td class="num">0.59</td><td class="num">0.56 ~ 0.69</td><td>중간</td></tr>
+<tr><td class="mono">stepping_stones</td><td class="num">0</td><td class="num">1.108</td><td class="num">0.860</td><td class="num ">0.78</td><td class="num">0.90</td><td class="num">0.35 ~ 0.91</td><td>중간</td></tr>
+<tr><td class="mono">repeated_boxes</td><td class="num">100</td><td class="num">0.081</td><td class="num">0.064</td><td class="num up">0.80</td><td class="num">0.77</td><td class="num">0.72 ~ 0.91</td><td>중앙 광선 기복 큼 · 성공률 높음</td></tr>
+<tr><td class="mono">repeated_cylinders</td><td class="num">100</td><td class="num">0.067</td><td class="num">0.062</td><td class="num up">0.92</td><td class="num">0.91</td><td class="num">0.89 ~ 0.99</td><td>중앙 광선 기복 큼 · 성공률 높음</td></tr>
+<tr><td class="mono">boxes</td><td class="num">100</td><td class="num">0.244</td><td class="num">0.238</td><td class="num up">0.97</td><td class="num">0.97</td><td class="num">0.97 ~ 1.00</td><td>중앙 광선 기복 큼 · 성공률 높음</td></tr>
+<tr><td class="mono">random_rough</td><td class="num">100</td><td class="num">0.100</td><td class="num">0.100</td><td class="num up">1.00</td><td class="num">1.00</td><td class="num">0.99 ~ 1.00</td><td>중앙 광선 기복 큼 · 성공률 높음</td></tr>
+<tr><td class="mono">hf_pyramid_slope</td><td class="num">100</td><td class="num">0.400</td><td class="num">0.400</td><td class="num up">1.00</td><td class="num">1.00</td><td class="num">1.00 ~ 1.00</td><td>중앙 광선 기복 큼 · 성공률 높음</td></tr>
+<tr><td class="mono">hf_pyramid_slope_inv</td><td class="num">100</td><td class="num">0.400</td><td class="num">0.400</td><td class="num up">1.00</td><td class="num">1.00</td><td class="num">1.00 ~ 1.00</td><td>중앙 광선 기복 큼 · 성공률 높음</td></tr>
+<tr><td class="mono">pyramid_stairs</td><td class="num">100</td><td class="num">0.980</td><td class="num">0.980</td><td class="num up">1.00</td><td class="num">1.00</td><td class="num">1.00 ~ 1.00</td><td>중앙 광선 기복 큼 · 성공률 높음</td></tr>
+<tr><td class="mono">pyramid_stairs_inv</td><td class="num">100</td><td class="num">0.980</td><td class="num">0.980</td><td class="num up">1.00</td><td class="num">1.00</td><td class="num">1.00 ~ 1.00</td><td>중앙 광선 기복 큼 · 성공률 높음</td></tr>
+<tr><td class="mono">floating_ring</td><td class="num">99</td><td class="num">0.225</td><td class="num">0.225</td><td class="num up">1.00</td><td class="num">1.00</td><td class="num">1.00 ~ 1.00</td><td>중앙 광선 기복 큼 · 성공률 높음</td></tr>
+<tr><td class="mono">pit</td><td class="num">100</td><td class="num">0.200</td><td class="num">0.200</td><td class="num up">1.00</td><td class="num">1.00</td><td class="num">1.00 ~ 1.00</td><td>중앙 광선 기복 큼 · 성공률 높음</td></tr>
+<tr><td class="mono">rails</td><td class="num">48</td><td class="num">0.115</td><td class="num">0.115</td><td class="num ">1.00</td><td class="num">1.00</td><td class="num">1.00 ~ 1.00</td><td>중앙 광선 기복 큼 · 성공률 낮음</td></tr>
+</tbody></table></div>
+<div class="note bad"><p><strong><span class="mono">star</span> 의 100 %는 막대를 넘어서 받은 점수가 아닐 소지가 큽니다.</strong> 난이도 0.5 에서 star 의 막대 높이는 0.105 m 인데, 몸통 아래 광선이 지나간 높이 폭은 평균 0.017 m 입니다.</p><p><strong>평균보다 분포가 분명합니다.</strong> 참여도 중앙값이 0.00 이고 10~90 분위가 0.00 ~ 1.00 입니다. 절반 넘는 판에서 그 폭이 거의 0 이었고, 16 판에서는 비율이 1 이었습니다. 평균 0.16 은 그 둘을 섞은 값입니다.</p><p>Isaac 의 star 지형은 막대가 중심에서 바깥으로 뻗습니다. 중심에서 방사 방향으로 걸으면 막대를 가로지를 일이 구조적으로 없습니다. 다만 그 경로를 실제로 확인한 것은 영상 한 판뿐입니다(미확인).</p><p>반대로 <span class="mono">rails</span> 와 <span class="mono">stepping_stones</span> 는 참여도 중앙값이 1.00 와 0.90 인데 성공률이 48 % 와 0 % 입니다. 비율이 높은데 성공률이 낮은 자리입니다. 이 비율만으로 실패 원인을 말할 수는 없습니다.</p></div>
+<p>참여도가 높다고 실패하는 것도, 낮다고 성공하는 것도 아닙니다. 아래 셋은 난이도 0.5 · 1.0 m/s 에서 <strong>따로 촬영한 시연 한 판씩</strong>이고, 옆의 수치는 같은 조건 100 판의 집계입니다.</p>
+<div class="vid"><figure><video src="/gallery/v1/clips/star-v1.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">star · 참여도 중앙값 0.00</span>성공 100/100. 몸통 아래 광선이 지난 높이 폭이 대체로 작았습니다<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure><figure><video src="/gallery/v1/clips/rails-v1.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">rails · 참여도 중앙값 1.00</span>성공 48/100. 실패 52판 가운데 27판은 <strong>방향 축만</strong> 떨어졌습니다<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure><figure><video src="/gallery/v1/clips/stepping_stones-v1.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">stepping_stones · 참여도 중앙값 0.90</span>성공 0/100. 실패는 전부 세 축 이상이 함께 떨어졌습니다<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure></div>
+<div class="note"><p><strong>참여도는 발이 닿았는지를 재지 않습니다.</strong> 몸통 아래 중앙 광선이 지난 높이 폭을, 스캔 전체가 본 높이 폭으로 나눈 값입니다. 어느 길로 우회했는지, 장애물을 끝까지 갔는지는 이 비율만으로 알 수 없습니다. <span class="mono">rails</span> 는 100 판 모두 참여도 1.00 인데 그중 27판은 방향 축만 떨어졌습니다.</p></div>
+<p><span class="mono">gap</span> 은 <strong>이 조건에서</strong> 잴 수 없습니다. 난이도 0.5 · 1.0 m/s · foothold-v1 의 100 판 모두 스캔 전체 기복이 0.02 m 에 못 미쳐 비어 있습니다. 구멍은 광선이 아무것도 못 맞히기 때문입니다. 다른 모델·속도에서는 유효값이 몇 판 잡히기도 하므로, 「gap 은 언제나 못 잰다」로 넓히지 마십시오. 안 딛고 넘는 것이 정답인 지형은 네 축이 이미 답하고 있습니다.</p>
+<h2><span class="n">06</span>아직 안 되는 것</h2>
+<ul>
+<li><strong><span class="mono">stepping_stones</span> 0 %.</strong> 난이도 0.5 · 세 속도 전부에서 세 모델 모두 0 % 입니다. 더 낮은 난이도에서도 못 건너는지는 곡선 자료로 따로 확인해야 합니다. 2차의 첫 과제입니다.</li>
+<li><strong><span class="mono">rails</span> 48 %.</strong> 100 판 모두 참여도 1.00 이지만 그것으로 실패 원인을 말할 수 없습니다. 실패 52 판 가운데 가장 많은 세 조합은 방향 27판 · 생존 + 전진 + 방향 9판 · 속도추종 4판 이고, 나머지 12 판은 다른 조합입니다. 속도를 1.5 m/s 로 올리면 21 % 까지 떨어집니다.</li>
+<li><strong>장애물 구간은 지형마다 다릅니다.</strong> 난이도 0.5 의 실행 기록이 적어 둔 구간은 시작 0.00~1.50 m, 끝 1.02~4.00 m 입니다. 가장 좁은 것은 <span class="mono">gap</span> (0.75~1.02 m) 와 <span class="mono">floating_ring</span> (0.75~1.18 m) 입니다. 발판이 0.75 m 인 지형에서는 통과선 3.0 m 까지 2.25 m 가 남지만, <strong>그 뺄셈을 모든 지형에 그대로 쓰면 안 됩니다.</strong> 「넘었다」와 「운이 좋았다」를 가르기에 짧습니다. corridor 방식 재설계가 2차 검토 대상입니다.</li>
+<li><strong>머리 접촉 세 열은 검증 전까지 인용하지 않습니다.</strong> 첫 표본이 앞 판의 접촉력을 물려받을 수 있고, 그 비율을 아직 갈라내지 못했습니다.</li>
+</ul>
+<p><span class="mono">stepping_stones</span> 에서 세 모델이 어떻게 실패하는지입니다. 2차는 이 자리를 기준으로 개선을 주장하게 됩니다.</p>
+<div class="vid"><figure><video src="/gallery/v1/clips/stepping_stones-v1-baseline.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">기준선 NVIDIA</span>성공률 0 %<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure><figure><video src="/gallery/v1/clips/stepping_stones-v1-A.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">A</span>성공률 0 %<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure><figure><video src="/gallery/v1/clips/stepping_stones-v1.mp4" controls preload="metadata" playsinline muted loop></video><figcaption><span class="who">foothold-v1</span>성공률 0 %<span class="rate"><button type="button" data-rate="0.25" aria-pressed="false">0.25x</button><button type="button" data-rate="0.5" aria-pressed="false">0.5x</button><button type="button" data-rate="1" aria-pressed="true">1x</button><button type="button" data-rate="2" aria-pressed="false">2x</button></span></figcaption></figure></div>
+<h2><span class="n">07</span>재현</h2>
+<pre>git pull origin main
+pip install av        # Isaac 이 도는 파이썬에 한 번만
+
+# 이 보고서의 데이터 전부
+python sim/eval/run_matrix.py \
+    --model baseline=&lt;pt&gt; --model A=&lt;pt&gt; \
+    --model foothold-v1=models/foothold-v1.pt \
+    --out_dir sim/eval/results/maindata-v1
+
+# 근거 영상 전부
+python sim/eval/render_gallery.py \
+    --checkpoint models/foothold-v1.pt \
+    --raw_csv sim/eval/results/maindata-v1</pre>
+<h2><span class="n">08</span>근거 영상 전체</h2>
+<p>이 보고서에 실린 것은 주장마다 한두 장씩 고른 것입니다. 지형 16종 x 속도 3종 48컷과 모델 대조 36컷, 모두 84컷이 <strong>gallery-v1</strong> 에 있습니다. 보고서 1차와 gallery-v1 이 한 세트입니다.</p>
+<p>영상은 전진 5.0 m 에서 잘렸습니다. 난이도 0.5 에서 장애물 구간이 가장 멀리 가는 지형도 4.00 m 에서 끝나고 그 뒤는 평평한 테두리라 볼 것이 없기 때문입니다. 지형마다 구간이 달라 어떤 영상은 앞쪽에서 이미 볼 것이 끝납니다. 넘어져서 그만큼 못 간 판은 그대로 다 남아 있습니다. 배속 단추는 재생기의 <span class="mono">playbackRate</span> 를 바꿉니다. 다만 느리게 틀어도 새 프레임이 생기지는 않아, 원본 초당 50장이 0.25배에서는 12.5장으로 보입니다.</p>
+<p>있어야 할 칸은 <span class="mono">sim/eval/matrix.py</span> 가 선언합니다. 한 칸이라도 비면 실행기가 0 이 아닌 코드로 끝나고, 보고서 생성기도 거부합니다. 측정 규격과 판정 정의는 <span class="mono">docs/research/20260911-eval-protocol-v2.md</span> 가 정본입니다.</p>
+<table><thead><tr><th>무리</th><th class="num">칸</th><th class="num">선언한 판</th><th class="num">있는 판</th></tr></thead><tbody><tr><td>성적표 (난이도 0.5)</td><td class="num">18</td><td class="num">14,400</td><td class="num">14,400</td></tr><tr><td>난이도 곡선</td><td class="num">36</td><td class="num">28,800</td><td class="num">28,800</td></tr><tr><td><strong>합</strong></td><td class="num"><strong>54</strong></td><td class="num"><strong>43,200</strong></td><td class="num"><strong>43,200</strong></td></tr></tbody></table>
+<p>선언한 54칸이 모두 찼습니다. 본문의 성적표는 난이도 0.5 의 14,400 판이 분모이고, 난이도 곡선까지 합한 전체 원자료는 43,200 판입니다.</p>
+<script>
+document.querySelectorAll('.rate').forEach(function(bar){
+  var v = bar.closest('figure').querySelector('video');
+  bar.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click', function(){
+      v.playbackRate = parseFloat(b.dataset.rate);
+      bar.querySelectorAll('button').forEach(function(o){
+        o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+      });
+    });
+  });
+});
+</script>
+</div>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FOOTHOLD · 판 3열 비교</title>
+<meta name="description" content="같은 지형·같은 속도에서 세 (판, 모델)을 나란히 견준다">
+<link rel="stylesheet" href="/gallery/gallery.css">
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="crumb"><a href="/">FOOTHOLD</a> · <a href="/gallery/">갤러리</a> · 3열 비교</div>
+  <div class="eyebrow">Side by Side</div>
+  <h1>같은 자리를 세 열로 견준다</h1>
+  <p class="lede">지형과 속도를 하나로 고정하고, 열마다 <b>(판, 모델)</b>을 고른다.
+     기준선 NVIDIA · foothold-v1 · foothold-v2 처럼 세대를 가로질러 놓을 수 있다.</p>
+</header>
+
+<div id="body"></div>
+
+<footer>
+  <div>재생은 <b>녹화 시작 후 경과 시간</b> 하나를 기준으로 묶는다. 길이가 다른 열은 짧은 쪽이 마지막 장면에서 멈추고 「영상 종료」를 단다. 되돌아 감기(loop)는 쓰지 않는다. 같은 경과 시간이 같은 장애물 위치를 뜻하지는 않는다.</div>
+  <div>열 옆의 성공률은 그 자리 평가 100판의 결과이고, 아래 영상은 시연 1회다.</div>
+</footer>
+
+</div>
+<script src="/gallery/gallery.js"></script>
+<script>
+(async function () {
+  const body = document.getElementById('body');
+  const SLOTS = ['left', 'mid', 'right'];
+
+  let index;
+  try {
+    index = G.checkSchema(await G.loadJSON(G.at('versions.json')), 'foothold-gallery-index/');
+  } catch (err) {
+    body.appendChild(G.warn('판 목록을 읽지 못했습니다. ' + err.message, true));
+    return;
+  }
+
+  /* 판 색인을 전부 읽는다. 판이 열 개여도 색인 합이 수백 KB 라 문제가 없다. */
+  const mans = {};
+  for (const v of index.versions) {
+    try {
+      mans[v.version] = G.checkSchema(await G.loadJSON(G.at(v.manifest)), 'foothold-gallery/');
+      mans[v.version]._folder = v.folder;
+    } catch (err) {
+      body.appendChild(G.warn(v.version + ' 색인을 읽지 못했습니다. ' + err.message, true));
+    }
+  }
+
+  /* 고를 수 있는 열은 (판, 모델) 쌍 전부다. */
+  const pairs = [];
+  Object.values(mans).forEach(m => {
+    Object.keys(m.models).forEach(model => {
+      pairs.push({ id: m.version + ':' + model, version: m.version, model: model,
+                   label: m.version + ' · ' + model });
+    });
+  });
+
+  /* 지형·속도는 **선택된 판들의 합집합**이다. 목록을 각각 합쳐 곱하면
+     어느 판에도 없는 가짜 조합이 생긴다. */
+  function cellsOf(versions) {
+    const seen = new Map();
+    versions.forEach(v => {
+      const m = mans[v];
+      if (!m) return;
+      m.evaluations.forEach(e => {
+        seen.set(e.terrain + '|' + e.speed_mps, { terrain: e.terrain, speed: e.speed_mps });
+      });
+    });
+    return [...seen.values()].sort((a, b) =>
+      a.terrain.localeCompare(b.terrain) || a.speed - b.speed);
+  }
+
+  const state = {};
+  const q = new URLSearchParams(location.search);
+  const rejected = [];
+
+  /* **링크가 요청한 것을 바꿔치기하지 않는다.**
+   *
+   * 값이 «없는» 것과 «틀린» 것은 다르다. 없으면 우리가 고르고, 틀리면 그
+   * 사실을 말하고 빈 상태로 둔다. 예전에는 `speed=9` 를 조용히 0.5 로 바꾸고
+   * URL 까지 덮어써서, 요청하지 않은 속도의 성적을 보여 줬다 `확인됨`
+   * (2026-09-12 검증 2회차 7번 · 브라우저에서 재현됐다). */
+  let guessed = false;
+
+  SLOTS.forEach((slot, i) => {
+    const raw = q.get(slot);
+
+    if (raw !== null && raw !== '') {
+      const hit = pairs.find(p => p.id === raw);
+      if (hit) state[slot] = hit.id;
+      else rejected.push(slot + '=' + raw);   // 빈 열로 둔다. 대신 채우지 않는다
+      return;
+    }
+
+    // 아예 «안 준» 자리만 우리가 고른다
+    const latest = mans[index.latest];
+    const guess = [latest && latest.version + ':baseline',
+                   latest && latest.version + ':A',
+                   latest && latest.version + ':' + latest.main_model][i];
+    if (guess && pairs.find(p => p.id === guess)) { state[slot] = guess; guessed = true; }
+  });
+
+  const chosenVersions = () => [...new Set(SLOTS.map(s => state[s]).filter(Boolean)
+                                             .map(id => id.split(':')[0]))];
+
+  let cells = cellsOf(chosenVersions());
+  const rawTerrain = q.get('terrain');
+  const rawSpeed = q.get('speed');
+  const askedTerrain = rawTerrain !== null && rawTerrain !== '';
+  const askedSpeed = rawSpeed !== null && rawSpeed !== '';
+  let cell = null;
+
+  if (askedTerrain && askedSpeed) {
+    cell = cells.find(c => c.terrain === rawTerrain && G.sameNumber(c.speed, rawSpeed)) || null;
+    if (!cell) rejected.push('terrain=' + rawTerrain + ' & speed=' + rawSpeed);
+  } else if (askedTerrain) {
+    cell = cells.find(c => c.terrain === rawTerrain) || null;
+    if (!cell) rejected.push('terrain=' + rawTerrain);
+  } else if (askedSpeed) {
+    // **속도만 준 링크는 그 속도를 지킨다.** 지형만 우리가 고른다.
+    cell = cells.find(c => G.sameNumber(c.speed, rawSpeed)) || null;
+    if (!cell) rejected.push('speed=' + rawSpeed);
+  } else {
+    cell = cells[0];
+    guessed = true;
+  }
+
+  /* ── 재생 묶기 ────────────────────────────────────────── */
+  const players = {};   // slot -> {video, ended}
+  let base = 0;         // 기준 시각 (초)
+  let running = false;
+  let raf = 0;
+
+  function everyVideo() {
+    return SLOTS.map(s => players[s]).filter(p => p && p.video.getAttribute('src'));
+  }
+
+  function longest() {
+    return Math.max(0, ...everyVideo().map(p => p.duration || 0));
+  }
+
+  function tick() {
+    if (!running) return;
+    const now = Math.max(0, ...everyVideo().map(p => p.video.currentTime));
+    base = now;
+    say('clock', G.fmtSeconds(base) + ' / ' + G.fmtSeconds(longest()));
+
+    everyVideo().forEach(p => {
+      const done = p.duration && base >= p.duration - 0.04;
+      p.tagEnded.hidden = !done;
+    });
+
+    if (base >= longest() - 0.04) { stop(); return; }
+    raf = requestAnimationFrame(tick);
+  }
+
+  async function playAll() {
+    running = true;
+    const results = await Promise.all(everyVideo().map(async p => {
+      if (p.duration && p.video.currentTime >= p.duration - 0.04) return null;
+      const r = await G.play(p.video);
+      return r && r.error ? p.slot : null;
+    }));
+    const failed = results.filter(Boolean);
+    say('playnote', failed.length
+        ? failed.join(' · ') + ' 열이 재생을 시작하지 못했습니다' : '');
+    say('playbtn', '멈춤');
+    raf = requestAnimationFrame(tick);
+  }
+
+  /* `draw()` 첫 줄이 이것을 부른다. 그때는 조종간이 아직 없다. */
+  function say(id, text) {
+    const node = document.getElementById(id);
+    if (node) node.textContent = text;
+  }
+
+  function stop() {
+    running = false;
+    cancelAnimationFrame(raf);
+    everyVideo().forEach(p => p.video.pause());
+    say('playbtn', '함께 재생');
+  }
+
+  function seekAll(t) {
+    base = t;
+    everyVideo().forEach(p => {
+      p.video.currentTime = Math.min(t, Math.max(0, (p.duration || t) - 0.01));
+    });
+    say('clock', G.fmtSeconds(base) + ' / ' + G.fmtSeconds(longest()));
+  }
+
+  function rateAll(x) {
+    everyVideo().forEach(p => { p.video.playbackRate = x; });
+  }
+
+  /* ── 그리기 ───────────────────────────────────────────── */
+  function push(replace) {
+    G.writeParams({
+      terrain: cell ? cell.terrain : null,
+      speed: cell ? cell.speed : null,
+      left: state.left, mid: state.mid, right: state.right
+    }, replace);
+  }
+
+  function draw() {
+    stop();
+    SLOTS.forEach(s => delete players[s]);
+    body.textContent = '';
+
+    if (rejected.length) {
+      body.appendChild(G.warn('링크의 ' + rejected.join(' · ') +
+        ' 은 지금 색인에 없는 값입니다. 그 자리는 비워 두었고, 다른 값의 성적을 '
+        + '대신 그리지 않았습니다.', true));
+    }
+
+    cells = cellsOf(chosenVersions());
+    if (!cells.length) {
+      body.appendChild(G.emptyBox('고른 판에 평가 칸이 없습니다', '열을 다시 골라 주세요.'));
+      return;
+    }
+    if (!cell) {
+      body.appendChild(G.emptyBox(
+        '링크가 요청한 자리가 이 판들에 없습니다',
+        '요청한 조건을 다른 값으로 바꾸지 않았습니다. 아래에서 열을 다시 고르거나 '
+        + '갤러리 목록으로 돌아가 주세요.'));
+      body.appendChild(G.el('div', { class: 'vlinks' }, [
+        G.el('a', { class: 'btn go', href: G.at(''), text: '갤러리 목록' })
+      ]));
+      return;
+    }
+
+    if (!cells.find(c => c.terrain === cell.terrain && c.speed === cell.speed)) {
+      cell = cells[0];
+    }
+
+    /* 조건 줄 */
+    const cond = G.el('div', { class: 'cmpcond' });
+    cond.appendChild(G.el('span', { class: 'flabel', text: '지형' }));
+    const tsel = G.el('select');
+    [...new Set(cells.map(c => c.terrain))].forEach(t => {
+      const o = G.el('option', { value: t, text: t });
+      if (t === cell.terrain) o.selected = true;
+      tsel.appendChild(o);
+    });
+    tsel.addEventListener('change', () => {
+      const speeds = cells.filter(c => c.terrain === tsel.value);
+      cell = speeds.find(c => G.sameNumber(c.speed, cell.speed)) || speeds[0];
+      push(); draw();
+    });
+    cond.appendChild(tsel);
+
+    cond.appendChild(G.el('span', { class: 'flabel', text: '속도 m/s' }));
+    const ssel = G.el('select');
+    cells.filter(c => c.terrain === cell.terrain).forEach(c => {
+      const o = G.el('option', { value: String(c.speed), text: c.speed.toFixed(1) });
+      if (G.sameNumber(c.speed, cell.speed)) o.selected = true;
+      ssel.appendChild(o);
+    });
+    ssel.addEventListener('change', () => {
+      cell = cells.find(c => c.terrain === cell.terrain && G.sameNumber(c.speed, ssel.value));
+      push(); draw();
+    });
+    cond.appendChild(ssel);
+    cond.appendChild(G.el('a', { href: G.at('view/') + '?v=' + index.latest +
+                                 '&terrain=' + encodeURIComponent(cell.terrain),
+                                 class: 'btn', text: '이 지형 전부 보기' }));
+    body.appendChild(cond);
+
+    /* 조건이 서로 다른 판을 섞고 있지 않은가 */
+    const diffs = [];
+    const picked = chosenVersions().map(v => mans[v]).filter(Boolean);
+    ['difficulty'].forEach(key => {
+      const seen = [...new Set(picked.map(m => JSON.stringify(m[key])))];
+      if (seen.length > 1) diffs.push(key + ' ' + seen.join(' vs '));
+    });
+    ['eval_spec_version', 'eval_duration_s', 'min_progress_m', 'seed'].forEach(key => {
+      const seen = [...new Set(picked.map(m => JSON.stringify(m.protocol[key])))];
+      if (seen.length > 1) diffs.push(key + ' ' + seen.join(' vs '));
+    });
+    if (diffs.length) {
+      body.appendChild(G.warn('고른 판들의 평가 조건이 다릅니다: ' + diffs.join(' · ') +
+        '. 같은 시험이 아니므로 수치를 그대로 빼면 시험 조건 변화를 모델 개선으로 오해합니다.', true));
+    }
+
+    /* 조종간 */
+    const transport = G.el('div', { class: 'transport' }, [
+      G.el('button', { class: 'chip', type: 'button', id: 'playbtn', text: '함께 재생' }),
+      G.el('button', { class: 'chip', type: 'button', id: 'rewind', text: '처음으로' }),
+      G.el('span', { class: 'clock', id: 'clock', text: '0:00.0 / 0:00.0' }),
+      G.el('span', { class: 'flabel', text: '배속' })
+    ]);
+    [0.25, 0.5, 1, 2].forEach(x => {
+      const b = G.el('button', { class: 'chip', type: 'button',
+                                 'aria-pressed': x === 1 ? 'true' : 'false',
+                                 text: x + '×' });
+      b.addEventListener('click', () => {
+        transport.querySelectorAll('.chip[aria-pressed]').forEach(o => o.setAttribute('aria-pressed', 'false'));
+        b.setAttribute('aria-pressed', 'true');
+        rateAll(x);
+      });
+      transport.appendChild(b);
+    });
+    transport.appendChild(G.el('span', { id: 'playnote', class: 'tag warn' }));
+    body.appendChild(transport);
+
+    transport.querySelector('#playbtn').addEventListener('click', () => {
+      if (running) stop(); else playAll();
+    });
+    transport.querySelector('#rewind').addEventListener('click', () => { stop(); seekAll(0); });
+
+    /* 세 열 */
+    const cmp = G.el('div', { class: 'cmp' });
+    SLOTS.forEach(slot => cmp.appendChild(column(slot)));
+    body.appendChild(cmp);
+
+    body.appendChild(G.el('div', { class: 'note' }, [
+      G.el('span', { text: '「영상 없음」은 그 자리를 평가는 했지만 대표 영상을 뜨지 않았다는 뜻이고, ' +
+        '「미평가」는 그 판이 그 자리를 아예 돌리지 않았다는 뜻입니다. 둘은 다릅니다.' })
+    ]));
+  }
+
+  function column(slot) {
+    const col = G.el('div', { class: 'col' });
+    const head = G.el('div', { class: 'colhead' });
+
+    const sel = G.el('select');
+    sel.appendChild(G.el('option', { value: '', text: '(비움)' }));
+    pairs.forEach(p => {
+      const o = G.el('option', { value: p.id, text: p.label });
+      if (p.id === state[slot]) o.selected = true;
+      sel.appendChild(o);
+    });
+    sel.addEventListener('change', () => {
+      if (sel.value) state[slot] = sel.value; else delete state[slot];
+      push(); draw();
+    });
+    head.appendChild(sel);
+
+    const pair = pairs.find(p => p.id === state[slot]);
+    const man = pair && mans[pair.version];
+    const ev = man && man.evaluations.find(e =>
+      e.terrain === cell.terrain && G.sameNumber(e.speed_mps, cell.speed) &&
+      e.model === pair.model);
+
+    const score = G.el('div', { class: 'colscore' });
+    if (ev) {
+      score.appendChild(G.el('span', { class: 'big ' + G.rateClass(ev.success_rate),
+                                       text: ev.success_rate.toFixed(1) + ' %' }));
+      score.appendChild(G.el('span', { class: 'sub',
+        text: ev.episodes + '판 중 ' + ev.successes + '판 · 참여도 ' +
+              (ev.engagement === null ? '측정값 없음' : ev.engagement.toFixed(2)) }));
+    } else if (pair) {
+      score.appendChild(G.el('span', { class: 'tag stop', text: '미평가' }));
+      score.appendChild(G.el('span', { class: 'sub',
+        text: pair.version + ' 은 이 자리를 돌리지 않았습니다' }));
+    } else {
+      score.appendChild(G.el('span', { class: 'sub', text: '열을 고르세요' }));
+    }
+    head.appendChild(score);
+    col.appendChild(head);
+
+    const slotBox = G.el('div', { class: 'slot' });
+    const clip = ev && ev.clips.length
+      ? man.clips.find(c => c.id === ev.clips[0]) : null;
+
+    if (clip) {
+      // 열이 셋뿐이라 통째로 받아도 된다. 멈춰 있을 때 **첫 장면이 보여야**
+      // 무엇을 견주는지 알 수 있다. `metadata` 만 받으면 검은 칸이 남는다.
+      const video = G.el('video', { preload: 'auto', playsinline: true, muted: true });
+      video.src = G.at(man._folder + '/' + clip.file);
+      const ended = G.el('span', { class: 'ended', text: '영상 종료', hidden: true });
+      slotBox.appendChild(video);
+      slotBox.appendChild(ended);
+      players[slot] = { slot: slot, video: video, duration: clip.seconds, tagEnded: ended };
+      video.addEventListener('loadedmetadata', () => {
+        players[slot].duration = video.duration || clip.seconds;
+        if (video.currentTime === 0) video.currentTime = 0.04;
+      });
+      video.addEventListener('click', () => { if (running) stop(); else playAll(); });
+    } else {
+      slotBox.appendChild(G.el('div', { class: 'state' }, [
+        G.el('b', { text: ev ? '영상 없음' : (pair ? '미평가' : '비어 있음') }),
+        G.el('span', { text: ev
+          ? '이 자리는 ' + ev.episodes + '판을 평가했지만 대표 영상을 뜨지 않았습니다'
+          : (pair ? '이 판의 평가 범위에 이 자리가 없습니다' : '위에서 (판, 모델)을 고르세요') })
+      ]));
+    }
+    col.appendChild(slotBox);
+
+    col.appendChild(G.el('div', { class: 'cut' }, [
+      G.el('figcaption', {}, [
+        G.el('div', { class: 'meta' }, [
+          G.el('span', { class: 'mono', text: cell.terrain }),
+          G.el('span', { text: cell.speed.toFixed(1) + ' m/s' }),
+          clip ? G.el('span', { text: clip.width + '×' + clip.height }) : null,
+          clip ? G.el('span', { text: clip.seconds.toFixed(2) + '초' }) : null
+        ])
+      ])
+    ]));
+    return col;
+  }
+
+  window.addEventListener('popstate', () => location.reload());
+
+  // 사용자가 고르기 전에는 URL 을 건드리지 않는다. 우리가 채운 기본값을
+  // 링크에 박아 넣으면, 저장한 링크가 요청하지도 않은 조건을 뜻하게 된다.
+  if (!guessed && !rejected.length) push(true);
+
+  draw();
+})();
+</script>
+</body>
+</html>

@@ -641,7 +641,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=0d3aaaa6').then(function(r){
+    fetch('/assets/search-index.json?v=3e818358').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -843,7 +843,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <!--recent:v1-->
 <h2 class="sec">최근 올라온 것 <span class="en">Recent</span></h2>
 <p class="lede" style="margin:-2px 0 12px;font-size:.82rem;color:var(--ink-3)">종류를 가리지 않고 최근 5개. 내가 올린 것이 반영됐는지 여기서 본다.</p>
-<div class="recent"><a class="rcard" data-added="2026-09-10" href="research-20260909-eval-harness-diagram.html"><span class="rd">09/10</span><span class="rk">파이프라인</span><span class="rt">평가 하네스 도해 · 무엇을 어떤 기준으로 재나</span></a><a class="rcard" data-added="2026-09-09" href="research-pretrained-vs-model99-7terrain.html"><span class="rd">09/09</span><span class="rk">연구</span><span class="rt">NVIDIA Pretrained vs Model99: 난이도 0.50~0.70 7종 지형 성능 비교 보고서</span></a><a class="rcard" data-added="2026-09-09" href="research-20260909-head-contact-observation.html"><span class="rd">09/09</span><span class="rk">연구</span><span class="rt">머리 접촉을 CSV 에 남긴다 · 판정이 아니라 경고등으로</span></a><a class="rcard" data-added="2026-09-09" href="research-20260908-success-criteria-anatomy.html"><span class="rd">09/09</span><span class="rk">연구</span><span class="rt">평가 성공 기준 해부: 무엇을 성공이라 부르고 있나</span></a><a class="rcard" data-added="2026-09-09" href="research-20260908-pit-diagnosis.html"><span class="rd">09/09</span><span class="rk">연구</span><span class="rt">pit 진단: 못 나오는 게 아니라 뒷발 빼느라 느리다</span></a></div>
+<div class="recent"><a class="rcard" data-added="2026-09-12" href="/gallery/"><span class="rd">09/12</span><span class="rk">갤러리</span><span class="rt">평가 영상 갤러리 · gallery-v1 84컷 · 지형·속도·모델로 거르고 3열로 견준다</span></a><a class="rcard" data-added="2026-09-12" href="/report-v1.html"><span class="rd">09/12</span><span class="rk">보고서</span><span class="rt">종합보고서 1차 · 기준선 NVIDIA vs A vs foothold-v1 · 난이도 0.5 · 14,400 판</span></a><a class="rcard" data-added="2026-09-10" href="research-20260909-eval-harness-diagram.html"><span class="rd">09/10</span><span class="rk">파이프라인</span><span class="rt">평가 하네스 도해 · 무엇을 어떤 기준으로 재나</span></a><a class="rcard" data-added="2026-09-09" href="research-pretrained-vs-model99-7terrain.html"><span class="rd">09/09</span><span class="rk">연구</span><span class="rt">NVIDIA Pretrained vs Model99: 난이도 0.50~0.70 7종 지형 성능 비교 보고서</span></a><a class="rcard" data-added="2026-09-09" href="research-20260909-head-contact-observation.html"><span class="rd">09/09</span><span class="rk">연구</span><span class="rt">머리 접촉을 CSV 에 남긴다 · 판정이 아니라 경고등으로</span></a></div>
 <!--/recent:v1-->
 
 <!-- ★ 2026-09-08 감사 F-07. 팀원 개인 페이지의 «← 표지로» 가 index.html#team 을

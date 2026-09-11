@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FOOTHOLD · 갤러리 한 판</title>
+<meta name="description" content="한 판의 평가 영상 전부. 지형·속도·모델·성공률·참여도로 거른다">
+<link rel="stylesheet" href="/gallery/gallery.css">
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="crumb"><a href="/">FOOTHOLD</a> · <a href="/gallery/">갤러리</a> · <span id="crumbv">…</span></div>
+  <div class="eyebrow">Evaluation Gallery</div>
+  <h1 id="title">갤러리</h1>
+  <p class="lede" id="lede"></p>
+</header>
+
+<div id="body"></div>
+
+<footer>
+  <div>영상은 <b>시연 1회</b>이고, 옆에 적힌 성공률은 그 자리에서 돌린 평가 100판의 결과다. 한 판의 성패와 100판의 비율은 다른 것이다.</div>
+  <div id="foot2"></div>
+</footer>
+
+</div>
+<script src="/gallery/gallery.js"></script>
+<script>
+(async function () {
+  const body = document.getElementById('body');
+
+  /* 어느 판을 보는가. 판 목록에 있는 이름만 받는다. */
+  let index;
+  try {
+    index = G.checkSchema(await G.loadJSON(G.at('versions.json')), 'foothold-gallery-index/');
+  } catch (err) {
+    body.appendChild(G.warn('판 목록을 읽지 못했습니다. ' + err.message, true));
+    return;
+  }
+
+  const names = index.versions.map(v => v.version);
+  const asked = new URLSearchParams(location.search).get('v');
+  let picked = index.versions.find(v => v.version === asked);
+  const notices = [];
+
+  if (asked && !picked) {
+    notices.push('링크가 가리키는 판 ' + asked + ' 이 목록에 없습니다. 최신 판을 대신 열지 않았습니다.');
+    body.appendChild(G.warn(notices[0] + ' 있는 판: ' + names.join(' · '), true));
+    return;
+  }
+  if (!picked) picked = index.versions[0];
+
+  let man;
+  try {
+    man = G.checkSchema(await G.loadJSON(G.at(picked.manifest)), 'foothold-gallery/');
+  } catch (err) {
+    body.appendChild(G.warn('색인을 읽지 못했습니다. ' + err.message, true));
+    return;
+  }
+
+  const base = G.at(picked.folder + '/');
+  document.getElementById('crumbv').textContent = 'gallery-' + man.version;
+  document.getElementById('title').textContent = 'gallery-' + man.version;
+  document.getElementById('lede').textContent =
+    '주 모델 ' + man.main_model + ' · 난이도 ' + man.difficulty +
+    ' · 영상 ' + man.counts.clips + '컷 · 평가 칸 ' + man.counts.evaluations +
+    '개 (그중 ' + man.counts.evaluations_without_clip + '칸은 성적만 있고 영상이 없습니다)';
+  document.getElementById('foot2').textContent =
+    '평가 규격 ' + (man.protocol.eval_spec_version || '미기록') +
+    ' · Random Seed ' + (man.protocol.seed || '미기록') +
+    ' · 한 칸 ' + (man.protocol.episodes_per_terrain || '?') + '판' +
+    ' · 통과선 ' + (man.protocol.min_progress_m || '?') + ' m';
+
+  /* ── 상태 ─────────────────────────────────────────────── */
+  const F = man.facets;
+  const allowed = {
+    terrain: F.terrain,
+    set: F.terrain_set,
+    speed: F.speed_mps,
+    model: F.model,
+    rate: F.success_rate_band.map(b => b.id),
+    eng: F.engagement_band.map(b => b.id),
+    clips: ['with', 'without']
+  };
+  const read = G.readParams(allowed);
+  const state = read.value;
+
+  /* **거절한 조건이 있으면 성적을 그리지 않는다.**
+   *
+   * 예전에는 잘못된 조건을 버리고 남은 것으로 144칸을 다 보여 준 뒤 URL 까지
+   * 정규화했다 `확인됨` (2026-09-12 검증 3회차 4번 · `?speed=9` 가 경고를 띄운
+   * 채 전체 목록을 그렸다). 요청하지 않은 성적으로 대체하는 것은 같다. */
+  const rejected = read.rejected;
+
+  /* 평가 칸이 바탕이다. 영상은 그 칸에 달린다. */
+  const clipById = new Map(man.clips.map(c => [c.id, c]));
+  const rows = man.evaluations.map(e => ({
+    ev: e,
+    clips: e.clips.map(id => clipById.get(id)).filter(Boolean)
+  }));
+
+  const match = (r, skip) => {
+    const s = state;
+    if (skip !== 'terrain' && s.terrain && r.ev.terrain !== s.terrain) return false;
+    if (skip !== 'set' && s.set && r.ev.terrain_set !== s.set) return false;
+    if (skip !== 'speed' && s.speed !== undefined && s.speed !== null &&
+        !G.sameNumber(r.ev.speed_mps, s.speed)) return false;
+    if (skip !== 'model' && s.model && r.ev.model !== s.model) return false;
+    if (skip !== 'rate' && s.rate) {
+      const band = F.success_rate_band.find(b => b.id === s.rate);
+      if (!G.inBand(r.ev.success_rate, band)) return false;
+    }
+    if (skip !== 'eng' && s.eng) {
+      const band = F.engagement_band.find(b => b.id === s.eng);
+      if (!G.inBand(r.ev.engagement, band)) return false;
+    }
+    if (skip !== 'clips' && s.clips) {
+      if (s.clips === 'with' && !r.clips.length) return false;
+      if (s.clips === 'without' && r.clips.length) return false;
+    }
+    return true;
+  };
+
+  const countIf = (axis, value) => rows.filter(r => {
+    if (!match(r, axis)) return false;
+    if (value === '') return true;
+    if (axis === 'terrain') return r.ev.terrain === value;
+    if (axis === 'set') return r.ev.terrain_set === value;
+    if (axis === 'speed') return G.sameNumber(r.ev.speed_mps, value);
+    if (axis === 'model') return r.ev.model === value;
+    if (axis === 'rate') return G.inBand(r.ev.success_rate, F.success_rate_band.find(b => b.id === value));
+    if (axis === 'eng') return G.inBand(r.ev.engagement, F.engagement_band.find(b => b.id === value));
+    if (axis === 'clips') return value === 'with' ? r.clips.length > 0 : r.clips.length === 0;
+    return true;
+  }).length;
+
+  const set = (axis, value) => {
+    if (value === null || value === '') delete state[axis];
+    else state[axis] = value;
+    G.writeParams(Object.assign({ v: man.version }, state));
+    draw();
+  };
+
+  /* ── 그리기 ───────────────────────────────────────────── */
+  function draw() {
+    body.textContent = '';
+    notices.forEach(text => body.appendChild(G.warn(text, true)));
+
+    if (rejected.length) {
+      body.appendChild(G.warn('링크의 조건 ' + rejected.join(' · ') +
+        ' 은 이 판에 없는 값입니다. 다른 조건의 성적을 대신 그리지 않았고, '
+        + 'URL 도 그대로 두었습니다.', true));
+      body.appendChild(G.emptyBox('요청한 조건으로는 보여 드릴 것이 없습니다',
+        '조건을 풀면 이 판의 전체 목록을 봅니다.',
+        () => {
+          rejected.length = 0;
+          Object.keys(state).forEach(k => delete state[k]);
+          G.writeParams({ v: man.version });
+          draw();
+        }));
+      return;
+    }
+
+    const filters = G.el('div', { class: 'filters' });
+    const bandLabel = (bands) => (id) => (bands.find(b => b.id === id) || {}).label || id;
+
+    filters.appendChild(G.chipRow('지형', F.terrain, state.terrain || '',
+      v => countIf('terrain', v), v => set('terrain', v)));
+    filters.appendChild(G.chipRow('지형 집합', F.terrain_set, state.set || '',
+      v => countIf('set', v), v => set('set', v)));
+    filters.appendChild(G.chipRow('속도 m/s', F.speed_mps,
+      state.speed === undefined ? '' : state.speed,
+      v => countIf('speed', v), v => set('speed', v)));
+    filters.appendChild(G.chipRow('모델', F.model, state.model || '',
+      v => countIf('model', v), v => set('model', v)));
+
+    const rateRow = G.chipRow('성공률', F.success_rate_band.map(b => b.id), state.rate || '',
+      v => countIf('rate', v), v => set('rate', v));
+    rateRow.querySelectorAll('.chip').forEach((chip, i) => {
+      if (i === 0) return;
+      chip.firstChild.textContent = bandLabel(F.success_rate_band)(F.success_rate_band[i - 1].id);
+    });
+    filters.appendChild(rateRow);
+
+    const engRow = G.chipRow('험지 참여도', F.engagement_band.map(b => b.id), state.eng || '',
+      v => countIf('eng', v), v => set('eng', v));
+    engRow.querySelectorAll('.chip').forEach((chip, i) => {
+      if (i === 0) return;
+      chip.firstChild.textContent = bandLabel(F.engagement_band)(F.engagement_band[i - 1].id);
+    });
+    filters.appendChild(engRow);
+
+    const clipRow = G.chipRow('영상', ['with', 'without'], state.clips || '',
+      v => countIf('clips', v), v => set('clips', v));
+    clipRow.querySelectorAll('.chip')[1].firstChild.textContent = '영상 있음';
+    clipRow.querySelectorAll('.chip')[2].firstChild.textContent = '성적만 있음';
+    filters.appendChild(clipRow);
+
+    const hits = rows.filter(r => match(r));
+    const shown = hits.reduce((n, r) => n + Math.max(r.clips.length, 1), 0);
+
+    filters.appendChild(G.el('div', { class: 'tally' }, [
+      G.el('span', {}, [G.el('strong', { text: String(hits.length) }),
+                        G.el('span', { text: ' 평가 칸' })]),
+      G.el('span', {}, [G.el('strong', { text: String(hits.reduce((n, r) => n + r.clips.length, 0)) }),
+                        G.el('span', { text: ' 컷' })]),
+      G.el('a', { href: G.at('compare/') + '?terrain=' + encodeURIComponent(state.terrain || F.terrain[0]) +
+                        '&speed=' + (state.speed !== undefined ? state.speed : 1) +
+                        '&left=' + man.version + ':baseline' +
+                        '&mid=' + man.version + ':' + man.main_model,
+                  class: 'btn', text: '이 조건으로 3열 비교' })
+    ]));
+    body.appendChild(filters);
+
+    if (!hits.length) {
+      body.appendChild(G.emptyBox('조건에 맞는 것이 없습니다',
+        '위 조건을 함께 걸면 남는 칸이 없습니다. 건수가 0 인 단추는 눌리지 않게 해 두었습니다.',
+        () => { Object.keys(state).forEach(k => delete state[k]);
+                G.writeParams({ v: man.version }); draw(); }));
+      return;
+    }
+
+    const grid = G.el('div', { class: 'grid' });
+    hits.sort((a, b) => a.ev.terrain.localeCompare(b.ev.terrain) ||
+                        a.ev.speed_mps - b.ev.speed_mps ||
+                        a.ev.model.localeCompare(b.ev.model));
+
+    hits.forEach(r => {
+      if (r.clips.length) r.clips.forEach(c => grid.appendChild(cutCard(r.ev, c)));
+      else grid.appendChild(cutCard(r.ev, null));
+    });
+    body.appendChild(grid);
+  }
+
+  function cutCard(ev, clip) {
+    const card = G.el('div', { class: 'cut' });
+    const fig = G.el('figure');
+
+    if (clip) {
+      const video = G.el('video', {
+        preload: 'none', controls: true, playsinline: true, muted: true
+      });
+      const poster = G.el('button', { class: 'poster', type: 'button' }, [
+        G.el('span', { class: 'play', text: '▶' }),
+        G.el('span', { text: clip.width + '×' + clip.height + ' · ' + clip.seconds.toFixed(1) + '초' })
+      ]);
+      poster.addEventListener('click', () => {
+        G.attach(video, base + clip.file);
+        poster.remove();
+        G.play(video);
+      });
+      fig.appendChild(video);
+      fig.appendChild(poster);
+    } else {
+      fig.appendChild(G.el('div', { class: 'state' }, [
+        G.el('b', { text: '영상 없음' }),
+        G.el('span', { text: '이 자리는 ' + ev.episodes + '판을 평가했지만 대표 영상을 뜨지 않았습니다' })
+      ]));
+      fig.style.position = 'relative';
+    }
+    card.appendChild(fig);
+
+    const rate = ev.success_rate;
+    const cap = G.el('figcaption', {}, [
+      G.el('div', { class: 'name' }, [
+        G.el('span', { class: 'mono', text: ev.terrain }),
+        G.el('span', { class: 'rate ' + G.rateClass(rate), text: rate.toFixed(1) + ' %' })
+      ]),
+      G.el('div', { class: 'meta' }, [
+        G.el('span', { text: ev.speed_mps.toFixed(1) + ' m/s' }),
+        G.el('span', { text: ev.model }),
+        G.el('span', { class: 'tag ' + (clip && clip.role === 'compare' ? 'compare' : 'main'),
+                       text: ev.terrain_set === 'rough6' ? '기존 험지 6종' : '미경험 험지 10종' })
+      ]),
+      G.el('div', { class: 'meta' }, [
+        G.el('span', { text: ev.episodes + '판 중 ' + ev.successes + '판 성공' }),
+        G.el('span', { text: '참여도 ' + (ev.engagement === null ? '측정값 없음'
+                       : ev.engagement.toFixed(2) + ' (' + ev.engagement_n + '판)') })
+      ])
+    ]);
+    card.appendChild(cap);
+    return card;
+  }
+
+  window.addEventListener('popstate', () => {
+    const again = G.readParams(allowed);
+    Object.keys(state).forEach(k => delete state[k]);
+    Object.assign(state, again.value);
+    rejected.length = 0;
+    again.rejected.forEach(r => rejected.push(r));
+    draw();
+  });
+
+  // 거절한 조건이 있으면 URL 을 건드리지 않는다. 저장한 링크가 요청하지도
+  // 않은 조건을 뜻하게 되는 것을 막는다.
+  if (!rejected.length) G.writeParams(Object.assign({ v: man.version }, state), true);
+
+  draw();
+})();
+</script>
+</body>
+</html>
