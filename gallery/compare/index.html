@@ -136,7 +136,7 @@
 <script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script>
 </head>
 <body class="wide">
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="/index.html"><img class="lgi" src="/assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="/assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="/hub-proposal.html">기획</a><a class="" href="/hub-schedule.html">일정</a><a class="" href="/hub-meeting.html">회의</a><a class="" href="/hub-research.html">연구</a><a class="" class="on" href="/gallery/">갤러리</a><a class="" href="/hub-tech.html">기술</a><a class="" href="/hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="/chosun-materials.html">팀 자료실</a><a class="q" href="/encyclopedia.html">도메인 백과</a><a class="q" href="/curriculum.html">학습 커리큘럼</a><a class="q" href="/budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="/index.html"><img class="lgi" src="/assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="/assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="/hub-proposal.html">기획</a><a class="" href="/hub-schedule.html">일정</a><a class="" href="/hub-meeting.html">회의</a><a class="" href="/hub-research.html">연구</a><a class="on" href="/gallery/">갤러리</a><a class="" href="/hub-tech.html">기술</a><a class="" href="/hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="/chosun-materials.html">팀 자료실</a><a class="q" href="/encyclopedia.html">도메인 백과</a><a class="q" href="/curriculum.html">학습 커리큘럼</a><a class="q" href="/budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 <div class="wrap">
 
 <header>
@@ -184,6 +184,10 @@
   const pairs = [];
   Object.values(mans).forEach(m => {
     Object.keys(m.models).forEach(model => {
+      /* 주소에는 판을 남긴다 (`v1:baseline`). 판을 넘나드는 비교가 이
+       * 페이지의 목적이라 그것이 열의 «주소» 다. 다만 화면 이름은 아래에서
+       * 셋이 같은 판일 때 판을 뗀다 `확인됨` (2026-09-12 팀장: 「앞에 v1 은
+       * 왜 들어가?」). 주소와 이름은 다른 것이다. */
       pairs.push({ id: m.version + ':' + model, version: m.version, model: model,
                    label: m.version + ' · ' + model });
     });
@@ -234,6 +238,14 @@
     if (guess && pairs.find(p => p.id === guess)) { state[slot] = guess; guessed = true; }
   });
 
+  /** 화면에 보일 열 이름. 셋이 같은 판이면 판을 뗀다. */
+  function columnLabel(pair) {
+    if (!pair) return '';
+    const versions = new Set(SLOTS.map(s => state[s]).filter(Boolean)
+                                  .map(id => id.split(':')[0]));
+    return versions.size <= 1 ? pair.model : pair.label;
+  }
+
   const chosenVersions = () => [...new Set(SLOTS.map(s => state[s]).filter(Boolean)
                                              .map(id => id.split(':')[0]))];
 
@@ -255,7 +267,12 @@
     cell = cells.find(c => G.sameNumber(c.speed, rawSpeed)) || null;
     if (!cell) rejected.push('speed=' + rawSpeed);
   } else {
-    cell = cells[0];
+    /* **기본은 gap 0.5 다** (팀장 확정 2026-09-12). 전에는 `cells[0]` 이라
+     * 알파벳 첫 지형이 잡혔다. gap 은 기준선 1 % 에서 foothold-v1 100 % 로
+     * 가장 크게 벌어지는 자리라 세 열을 견주기에 제일 잘 보인다. */
+    cell = cells.find(c => c.terrain === 'gap' && G.sameNumber(c.speed, 0.5))
+        || cells.find(c => c.terrain === 'gap')
+        || cells[0];
     guessed = true;
   }
 
@@ -460,7 +477,7 @@
     const sel = G.el('select');
     sel.appendChild(G.el('option', { value: '', text: '(비움)' }));
     pairs.forEach(p => {
-      const o = G.el('option', { value: p.id, text: p.label });
+      const o = G.el('option', { value: p.id, text: columnLabel(p) });
       if (p.id === state[slot]) o.selected = true;
       sel.appendChild(o);
     });

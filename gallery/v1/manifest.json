@@ -1,7 +1,7 @@
 {
   "schema": "foothold-gallery/2",
   "version": "v1",
-  "built_at": "2026-09-12T14:59:05",
+  "built_at": "2026-09-12T18:54:16",
   "evaluated_at": "2026-09-11T14:24:10+00:00",
   "main_model": "foothold-v1",
   "difficulty": 0.5,
@@ -82,9 +82,9 @@
     ]
   },
   "counts": {
-    "clips": 112,
+    "clips": 144,
     "evaluations": 144,
-    "evaluations_without_clip": 32,
+    "evaluations_without_clip": 0,
     "terrains": 16,
     "speeds": [
       0.5,
@@ -96,8 +96,8 @@
       "baseline",
       "foothold-v1"
     ],
-    "comparison_clips": 64,
-    "with_poster": 112
+    "comparison_clips": 96,
+    "with_poster": 144
   },
   "facets": {
     "terrain": [
@@ -258,7 +258,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "boxes-v0.5-baseline"
+      ]
     },
     {
       "id": "boxes|baseline|1",
@@ -274,7 +276,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "boxes-v1-baseline"
+      ]
     },
     {
       "id": "boxes|baseline|1.5",
@@ -290,7 +294,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "boxes-v1.5-baseline"
+      ]
     },
     {
       "id": "boxes|foothold-v1|0.5",
@@ -414,7 +420,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "discrete_obstacles-v0.5-baseline"
+      ]
     },
     {
       "id": "discrete_obstacles|baseline|1",
@@ -430,7 +438,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "discrete_obstacles-v1-baseline"
+      ]
     },
     {
       "id": "discrete_obstacles|baseline|1.5",
@@ -896,7 +906,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v0.5-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope|baseline|1",
@@ -912,7 +924,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v1-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope|baseline|1.5",
@@ -928,7 +942,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v1.5-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope|foothold-v1|0.5",
@@ -1052,7 +1068,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v0.5-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|baseline|1",
@@ -1068,7 +1086,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v1-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|baseline|1.5",
@@ -1084,7 +1104,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v1.5-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|foothold-v1|0.5",
@@ -1370,7 +1392,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v0.5-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs|baseline|1",
@@ -1386,7 +1410,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v1-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs|baseline|1.5",
@@ -1402,7 +1428,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v1.5-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs|foothold-v1|0.5",
@@ -1526,7 +1554,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v0.5-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|baseline|1",
@@ -1542,7 +1572,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v1-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|baseline|1.5",
@@ -1558,7 +1590,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v1.5-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|foothold-v1|0.5",
@@ -1844,7 +1878,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "random_rough-v0.5-baseline"
+      ]
     },
     {
       "id": "random_rough|baseline|1",
@@ -1860,7 +1896,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "random_rough-v1-baseline"
+      ]
     },
     {
       "id": "random_rough|baseline|1.5",
@@ -1876,7 +1914,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "random_rough-v1.5-baseline"
+      ]
     },
     {
       "id": "random_rough|foothold-v1|0.5",
@@ -2000,7 +2040,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "repeated_boxes-v0.5-baseline"
+      ]
     },
     {
       "id": "repeated_boxes|baseline|1",
@@ -2016,7 +2058,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "repeated_boxes-v1-baseline"
+      ]
     },
     {
       "id": "repeated_boxes|baseline|1.5",
@@ -2158,7 +2202,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "repeated_cylinders-v0.5-baseline"
+      ]
     },
     {
       "id": "repeated_cylinders|baseline|1",
@@ -2174,7 +2220,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "repeated_cylinders-v1-baseline"
+      ]
     },
     {
       "id": "repeated_cylinders|baseline|1.5",
@@ -2316,7 +2364,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "star-v0.5-baseline"
+      ]
     },
     {
       "id": "star|baseline|1",
@@ -2332,7 +2382,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "star-v1-baseline"
+      ]
     },
     {
       "id": "star|baseline|1.5",
@@ -2456,7 +2508,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "stepping_stones-v1.5-A"
+      ]
     },
     {
       "id": "stepping_stones|baseline|0.5",
@@ -2472,7 +2526,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "stepping_stones-v0.5-baseline"
+      ]
     },
     {
       "id": "stepping_stones|baseline|1",
@@ -2506,7 +2562,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "stepping_stones-v1.5-baseline"
+      ]
     },
     {
       "id": "stepping_stones|foothold-v1|0.5",
@@ -2594,7 +2652,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "wave-v1-A"
+      ]
     },
     {
       "id": "wave|A|1.5",
@@ -2628,7 +2688,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "wave-v0.5-baseline"
+      ]
     },
     {
       "id": "wave|baseline|1",
@@ -2644,7 +2706,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "wave-v1-baseline"
+      ]
     },
     {
       "id": "wave|baseline|1.5",
@@ -2743,6 +2807,28 @@
       "episodes": 100
     },
     {
+      "id": "boxes-v0.5-baseline",
+      "file": "clips/boxes-v0.5-baseline.mp4",
+      "evaluation_id": "boxes|baseline|0.5",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 4256223,
+      "poster": "posters/boxes-v0.5-baseline.jpg",
+      "sha256": "b635000a24242c005714d6f514d5dcdc3975d34e19e47a4578285f21d3b4c1a7",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 76.0,
+      "engagement": 0.969,
+      "episodes": 100
+    },
+    {
       "id": "boxes-v0.5",
       "file": "clips/boxes-v0.5.mp4",
       "evaluation_id": "boxes|foothold-v1|0.5",
@@ -2787,6 +2873,28 @@
       "episodes": 100
     },
     {
+      "id": "boxes-v1-baseline",
+      "file": "clips/boxes-v1-baseline.mp4",
+      "evaluation_id": "boxes|baseline|1",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2484800,
+      "poster": "posters/boxes-v1-baseline.jpg",
+      "sha256": "560a93f6bbf0160114bf32a31502f6ce9a694c52c5a52ec176753409c85718b6",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 34.0,
+      "engagement": 0.949,
+      "episodes": 100
+    },
+    {
       "id": "boxes-v1.5-A",
       "file": "clips/boxes-v1.5-A.mp4",
       "evaluation_id": "boxes|A|1.5",
@@ -2806,6 +2914,28 @@
       "codec": "h264",
       "success_rate": 98.0,
       "engagement": 0.96,
+      "episodes": 100
+    },
+    {
+      "id": "boxes-v1.5-baseline",
+      "file": "clips/boxes-v1.5-baseline.mp4",
+      "evaluation_id": "boxes|baseline|1.5",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1835791,
+      "poster": "posters/boxes-v1.5-baseline.jpg",
+      "sha256": "addf25ebc1b48ea5049d0ae68606ce776532d92c7b983b9e829435f48b5f5694",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.929,
       "episodes": 100
     },
     {
@@ -2875,6 +3005,28 @@
       "episodes": 100
     },
     {
+      "id": "discrete_obstacles-v0.5-baseline",
+      "file": "clips/discrete_obstacles-v0.5-baseline.mp4",
+      "evaluation_id": "discrete_obstacles|baseline|0.5",
+      "terrain": "discrete_obstacles",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2652714,
+      "poster": "posters/discrete_obstacles-v0.5-baseline.jpg",
+      "sha256": "4c139c7b3c8f66b76f0d5a296ccce59205200cfe3ac3129fc63c4275bb29752a",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 94.0,
+      "engagement": 0.631,
+      "episodes": 100
+    },
+    {
       "id": "discrete_obstacles-v0.5",
       "file": "clips/discrete_obstacles-v0.5.mp4",
       "evaluation_id": "discrete_obstacles|foothold-v1|0.5",
@@ -2916,6 +3068,28 @@
       "codec": "h264",
       "success_rate": 100.0,
       "engagement": 0.375,
+      "episodes": 100
+    },
+    {
+      "id": "discrete_obstacles-v1-baseline",
+      "file": "clips/discrete_obstacles-v1-baseline.mp4",
+      "evaluation_id": "discrete_obstacles|baseline|1",
+      "terrain": "discrete_obstacles",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1952260,
+      "poster": "posters/discrete_obstacles-v1-baseline.jpg",
+      "sha256": "cf63e47c5e4f28dce3c120641ac8f96d47e33d3e48d3f89014c3cf452817a60e",
+      "frames": 278,
+      "seconds": 5.56,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 94.0,
+      "engagement": 0.658,
       "episodes": 100
     },
     {
@@ -3425,6 +3599,28 @@
       "episodes": 100
     },
     {
+      "id": "hf_pyramid_slope-v0.5-baseline",
+      "file": "clips/hf_pyramid_slope-v0.5-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope|baseline|0.5",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2454395,
+      "poster": "posters/hf_pyramid_slope-v0.5-baseline.jpg",
+      "sha256": "89d8f47c1f0f35cc98ae4cc5dc1260eec933745f6f9192f0331f384e903a6470",
+      "frames": 585,
+      "seconds": 11.7,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
       "id": "hf_pyramid_slope-v0.5",
       "file": "clips/hf_pyramid_slope-v0.5.mp4",
       "evaluation_id": "hf_pyramid_slope|foothold-v1|0.5",
@@ -3469,6 +3665,28 @@
       "episodes": 100
     },
     {
+      "id": "hf_pyramid_slope-v1-baseline",
+      "file": "clips/hf_pyramid_slope-v1-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope|baseline|1",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1364318,
+      "poster": "posters/hf_pyramid_slope-v1-baseline.jpg",
+      "sha256": "d0a7e1ee032ca2444e3a501b54ebddfdf4a00f6e6c438ad0475176307610450e",
+      "frames": 271,
+      "seconds": 5.42,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
       "id": "hf_pyramid_slope-v1.5-A",
       "file": "clips/hf_pyramid_slope-v1.5-A.mp4",
       "evaluation_id": "hf_pyramid_slope|A|1.5",
@@ -3487,6 +3705,28 @@
       "height": 1080,
       "codec": "h264",
       "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "hf_pyramid_slope-v1.5-baseline",
+      "file": "clips/hf_pyramid_slope-v1.5-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope|baseline|1.5",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1072004,
+      "poster": "posters/hf_pyramid_slope-v1.5-baseline.jpg",
+      "sha256": "d3394b7ab86a16f215c250b5fce771d26f320d0bc509a38c7470f80bd3413200",
+      "frames": 191,
+      "seconds": 3.82,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
       "engagement": 1.0,
       "episodes": 100
     },
@@ -3557,6 +3797,28 @@
       "episodes": 100
     },
     {
+      "id": "hf_pyramid_slope_inv-v0.5-baseline",
+      "file": "clips/hf_pyramid_slope_inv-v0.5-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|baseline|0.5",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2786633,
+      "poster": "posters/hf_pyramid_slope_inv-v0.5-baseline.jpg",
+      "sha256": "75d6f8221cf274b1dd7829f893f528d945705507860dd062932676a8c17c07b9",
+      "frames": 523,
+      "seconds": 10.46,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
       "id": "hf_pyramid_slope_inv-v0.5",
       "file": "clips/hf_pyramid_slope_inv-v0.5.mp4",
       "evaluation_id": "hf_pyramid_slope_inv|foothold-v1|0.5",
@@ -3601,6 +3863,28 @@
       "episodes": 100
     },
     {
+      "id": "hf_pyramid_slope_inv-v1-baseline",
+      "file": "clips/hf_pyramid_slope_inv-v1-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|baseline|1",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1821111,
+      "poster": "posters/hf_pyramid_slope_inv-v1-baseline.jpg",
+      "sha256": "a1b80a6876294fc2c6b85d84a89721bd7fc955309606689c79898b565191a79f",
+      "frames": 275,
+      "seconds": 5.5,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
       "id": "hf_pyramid_slope_inv-v1.5-A",
       "file": "clips/hf_pyramid_slope_inv-v1.5-A.mp4",
       "evaluation_id": "hf_pyramid_slope_inv|A|1.5",
@@ -3619,6 +3903,28 @@
       "height": 1080,
       "codec": "h264",
       "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "hf_pyramid_slope_inv-v1.5-baseline",
+      "file": "clips/hf_pyramid_slope_inv-v1.5-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|baseline|1.5",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1446641,
+      "poster": "posters/hf_pyramid_slope_inv-v1.5-baseline.jpg",
+      "sha256": "211a227a461dc44817c265d5f408e07b959e6b5ab55bc9f0d3bbd4b43f4eb803",
+      "frames": 199,
+      "seconds": 3.98,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 24.0,
       "engagement": 1.0,
       "episodes": 100
     },
@@ -3887,6 +4193,28 @@
       "episodes": 100
     },
     {
+      "id": "pyramid_stairs-v0.5-baseline",
+      "file": "clips/pyramid_stairs-v0.5-baseline.mp4",
+      "evaluation_id": "pyramid_stairs|baseline|0.5",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2832138,
+      "poster": "posters/pyramid_stairs-v0.5-baseline.jpg",
+      "sha256": "ab110503c9c535b8b6822be00d58ecd0a29cb588b47b58bcee0c46b73abed2fa",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 10.0,
+      "engagement": 0.835,
+      "episodes": 100
+    },
+    {
       "id": "pyramid_stairs-v0.5",
       "file": "clips/pyramid_stairs-v0.5.mp4",
       "evaluation_id": "pyramid_stairs|foothold-v1|0.5",
@@ -3931,6 +4259,28 @@
       "episodes": 100
     },
     {
+      "id": "pyramid_stairs-v1-baseline",
+      "file": "clips/pyramid_stairs-v1-baseline.mp4",
+      "evaluation_id": "pyramid_stairs|baseline|1",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1761075,
+      "poster": "posters/pyramid_stairs-v1-baseline.jpg",
+      "sha256": "ddfe0b7e76a487547c2283a208bd1cfd5d64716968e349f7554708570da127d8",
+      "frames": 294,
+      "seconds": 5.88,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
       "id": "pyramid_stairs-v1.5-A",
       "file": "clips/pyramid_stairs-v1.5-A.mp4",
       "evaluation_id": "pyramid_stairs|A|1.5",
@@ -3949,6 +4299,28 @@
       "height": 1080,
       "codec": "h264",
       "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "pyramid_stairs-v1.5-baseline",
+      "file": "clips/pyramid_stairs-v1.5-baseline.mp4",
+      "evaluation_id": "pyramid_stairs|baseline|1.5",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1314956,
+      "poster": "posters/pyramid_stairs-v1.5-baseline.jpg",
+      "sha256": "777a845ab641b3cc3ea907348265a1249871c5e82793011824f88fbb1c8665e6",
+      "frames": 196,
+      "seconds": 3.92,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 81.0,
       "engagement": 1.0,
       "episodes": 100
     },
@@ -4019,6 +4391,28 @@
       "episodes": 100
     },
     {
+      "id": "pyramid_stairs_inv-v0.5-baseline",
+      "file": "clips/pyramid_stairs_inv-v0.5-baseline.mp4",
+      "evaluation_id": "pyramid_stairs_inv|baseline|0.5",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2541234,
+      "poster": "posters/pyramid_stairs_inv-v0.5-baseline.jpg",
+      "sha256": "06fe8873c845e18b9619c25763ffa7950f1c8e02d3e1622f5ec51fe41f8e2ab3",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 24.0,
+      "engagement": 0.62,
+      "episodes": 100
+    },
+    {
       "id": "pyramid_stairs_inv-v0.5",
       "file": "clips/pyramid_stairs_inv-v0.5.mp4",
       "evaluation_id": "pyramid_stairs_inv|foothold-v1|0.5",
@@ -4063,6 +4457,28 @@
       "episodes": 100
     },
     {
+      "id": "pyramid_stairs_inv-v1-baseline",
+      "file": "clips/pyramid_stairs_inv-v1-baseline.mp4",
+      "evaluation_id": "pyramid_stairs_inv|baseline|1",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2238723,
+      "poster": "posters/pyramid_stairs_inv-v1-baseline.jpg",
+      "sha256": "ff3ce83a3537c3e49cd4aaba42e8dc3598d33f11ee060498f520852c211aee3e",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.838,
+      "episodes": 100
+    },
+    {
       "id": "pyramid_stairs_inv-v1.5-A",
       "file": "clips/pyramid_stairs_inv-v1.5-A.mp4",
       "evaluation_id": "pyramid_stairs_inv|A|1.5",
@@ -4082,6 +4498,28 @@
       "codec": "h264",
       "success_rate": 99.0,
       "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "pyramid_stairs_inv-v1.5-baseline",
+      "file": "clips/pyramid_stairs_inv-v1.5-baseline.mp4",
+      "evaluation_id": "pyramid_stairs_inv|baseline|1.5",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1620241,
+      "poster": "posters/pyramid_stairs_inv-v1.5-baseline.jpg",
+      "sha256": "6634cc610367d845354ba88719037d6b6e1ed3f73b639892bda0afb4503a0645",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.706,
       "episodes": 100
     },
     {
@@ -4349,6 +4787,28 @@
       "episodes": 100
     },
     {
+      "id": "random_rough-v0.5-baseline",
+      "file": "clips/random_rough-v0.5-baseline.mp4",
+      "evaluation_id": "random_rough|baseline|0.5",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 3509684,
+      "poster": "posters/random_rough-v0.5-baseline.jpg",
+      "sha256": "ba35ed49db3335e11c43d77144773f9b15e2347ac0669a0c539241b0401a3724",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 85.0,
+      "engagement": 0.985,
+      "episodes": 100
+    },
+    {
       "id": "random_rough-v0.5",
       "file": "clips/random_rough-v0.5.mp4",
       "evaluation_id": "random_rough|foothold-v1|0.5",
@@ -4393,6 +4853,28 @@
       "episodes": 100
     },
     {
+      "id": "random_rough-v1-baseline",
+      "file": "clips/random_rough-v1-baseline.mp4",
+      "evaluation_id": "random_rough|baseline|1",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2034152,
+      "poster": "posters/random_rough-v1-baseline.jpg",
+      "sha256": "7152c2c9679ee9c7d9721bc71020bcdd7a21cc8f23c707265999801345f1d52f",
+      "frames": 295,
+      "seconds": 5.9,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 80.0,
+      "engagement": 0.994,
+      "episodes": 100
+    },
+    {
       "id": "random_rough-v1.5-A",
       "file": "clips/random_rough-v1.5-A.mp4",
       "evaluation_id": "random_rough|A|1.5",
@@ -4412,6 +4894,28 @@
       "codec": "h264",
       "success_rate": 72.0,
       "engagement": 0.994,
+      "episodes": 100
+    },
+    {
+      "id": "random_rough-v1.5-baseline",
+      "file": "clips/random_rough-v1.5-baseline.mp4",
+      "evaluation_id": "random_rough|baseline|1.5",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1514248,
+      "poster": "posters/random_rough-v1.5-baseline.jpg",
+      "sha256": "df6cb899546609f03518746e70216acbb01223db36bdbc4fd965aee1e9614f05",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.99,
       "episodes": 100
     },
     {
@@ -4481,6 +4985,28 @@
       "episodes": 100
     },
     {
+      "id": "repeated_boxes-v0.5-baseline",
+      "file": "clips/repeated_boxes-v0.5-baseline.mp4",
+      "evaluation_id": "repeated_boxes|baseline|0.5",
+      "terrain": "repeated_boxes",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2497693,
+      "poster": "posters/repeated_boxes-v0.5-baseline.jpg",
+      "sha256": "99760f56075403c22513b70441d29d969dff3ab0e3eb8d9ce57fe6abcad551b7",
+      "frames": 559,
+      "seconds": 11.18,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.774,
+      "episodes": 100
+    },
+    {
       "id": "repeated_boxes-v0.5",
       "file": "clips/repeated_boxes-v0.5.mp4",
       "evaluation_id": "repeated_boxes|foothold-v1|0.5",
@@ -4522,6 +5048,28 @@
       "codec": "h264",
       "success_rate": 100.0,
       "engagement": 0.745,
+      "episodes": 100
+    },
+    {
+      "id": "repeated_boxes-v1-baseline",
+      "file": "clips/repeated_boxes-v1-baseline.mp4",
+      "evaluation_id": "repeated_boxes|baseline|1",
+      "terrain": "repeated_boxes",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1390271,
+      "poster": "posters/repeated_boxes-v1-baseline.jpg",
+      "sha256": "952db183b05815cb98b7c993ac23326a962d4156dce28a5c1ab0f75f3bd4adf9",
+      "frames": 270,
+      "seconds": 5.4,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.725,
       "episodes": 100
     },
     {
@@ -4635,6 +5183,28 @@
       "episodes": 100
     },
     {
+      "id": "repeated_cylinders-v0.5-baseline",
+      "file": "clips/repeated_cylinders-v0.5-baseline.mp4",
+      "evaluation_id": "repeated_cylinders|baseline|0.5",
+      "terrain": "repeated_cylinders",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2385995,
+      "poster": "posters/repeated_cylinders-v0.5-baseline.jpg",
+      "sha256": "e6e2cebea9afe006abb72f6dfc1983abb0c1e6762643084c463289a2d0e9b428",
+      "frames": 543,
+      "seconds": 10.86,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 99.0,
+      "engagement": 0.92,
+      "episodes": 100
+    },
+    {
       "id": "repeated_cylinders-v0.5",
       "file": "clips/repeated_cylinders-v0.5.mp4",
       "evaluation_id": "repeated_cylinders|foothold-v1|0.5",
@@ -4676,6 +5246,28 @@
       "codec": "h264",
       "success_rate": 100.0,
       "engagement": 0.895,
+      "episodes": 100
+    },
+    {
+      "id": "repeated_cylinders-v1-baseline",
+      "file": "clips/repeated_cylinders-v1-baseline.mp4",
+      "evaluation_id": "repeated_cylinders|baseline|1",
+      "terrain": "repeated_cylinders",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1371304,
+      "poster": "posters/repeated_cylinders-v1-baseline.jpg",
+      "sha256": "460b2e63b94d326eebbb353ea7fdb4fef9e5b5aa80310c2f5a8ee9414414432f",
+      "frames": 269,
+      "seconds": 5.38,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.883,
       "episodes": 100
     },
     {
@@ -4789,6 +5381,28 @@
       "episodes": 100
     },
     {
+      "id": "star-v0.5-baseline",
+      "file": "clips/star-v0.5-baseline.mp4",
+      "evaluation_id": "star|baseline|0.5",
+      "terrain": "star",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 3541818,
+      "poster": "posters/star-v0.5-baseline.jpg",
+      "sha256": "cf9b1136860f8d40900f3b08a8fcc96c0826da4c709dbe215c40de79133246f5",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 86.0,
+      "engagement": 0.96,
+      "episodes": 100
+    },
+    {
       "id": "star-v0.5",
       "file": "clips/star-v0.5.mp4",
       "evaluation_id": "star|foothold-v1|0.5",
@@ -4830,6 +5444,28 @@
       "codec": "h264",
       "success_rate": 100.0,
       "engagement": 0.16,
+      "episodes": 100
+    },
+    {
+      "id": "star-v1-baseline",
+      "file": "clips/star-v1-baseline.mp4",
+      "evaluation_id": "star|baseline|1",
+      "terrain": "star",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1903857,
+      "poster": "posters/star-v1-baseline.jpg",
+      "sha256": "cb4687e51e3213e7058fe44f0a769aa3457ee2dc050a0cb66c27e1e25fb3d649",
+      "frames": 268,
+      "seconds": 5.36,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.2,
       "episodes": 100
     },
     {
@@ -4943,6 +5579,28 @@
       "episodes": 100
     },
     {
+      "id": "stepping_stones-v0.5-baseline",
+      "file": "clips/stepping_stones-v0.5-baseline.mp4",
+      "evaluation_id": "stepping_stones|baseline|0.5",
+      "terrain": "stepping_stones",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 4734916,
+      "poster": "posters/stepping_stones-v0.5-baseline.jpg",
+      "sha256": "c6cc49c69fe0e5a72cb814f4949b78e5d98a8f4f66a206214c770901601af407",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.286,
+      "episodes": 100
+    },
+    {
       "id": "stepping_stones-v0.5",
       "file": "clips/stepping_stones-v0.5.mp4",
       "evaluation_id": "stepping_stones|foothold-v1|0.5",
@@ -5006,6 +5664,50 @@
       "codec": "h264",
       "success_rate": 0.0,
       "engagement": 0.656,
+      "episodes": 100
+    },
+    {
+      "id": "stepping_stones-v1.5-A",
+      "file": "clips/stepping_stones-v1.5-A.mp4",
+      "evaluation_id": "stepping_stones|A|1.5",
+      "terrain": "stepping_stones",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1101709,
+      "poster": "posters/stepping_stones-v1.5-A.jpg",
+      "sha256": "6b971eb469e8838395e8ed5148b976c3712889675e58fe9819c63f4cf77d92c2",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.897,
+      "episodes": 100
+    },
+    {
+      "id": "stepping_stones-v1.5-baseline",
+      "file": "clips/stepping_stones-v1.5-baseline.mp4",
+      "evaluation_id": "stepping_stones|baseline|1.5",
+      "terrain": "stepping_stones",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1082011,
+      "poster": "posters/stepping_stones-v1.5-baseline.jpg",
+      "sha256": "9f34f7905314930720cf7e8a902c7d54cf6eb5be383b3f71bb414339a0ccb731",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.881,
       "episodes": 100
     },
     {
@@ -5075,6 +5777,28 @@
       "episodes": 100
     },
     {
+      "id": "wave-v0.5-baseline",
+      "file": "clips/wave-v0.5-baseline.mp4",
+      "evaluation_id": "wave|baseline|0.5",
+      "terrain": "wave",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2340360,
+      "poster": "posters/wave-v0.5-baseline.jpg",
+      "sha256": "96af53c5c6a690d64ac70aef35b8abf0914a7e98300b7013d89f5f5a2ca560e0",
+      "frames": 538,
+      "seconds": 10.76,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.681,
+      "episodes": 100
+    },
+    {
       "id": "wave-v0.5",
       "file": "clips/wave-v0.5.mp4",
       "evaluation_id": "wave|foothold-v1|0.5",
@@ -5094,6 +5818,50 @@
       "codec": "h264",
       "success_rate": 100.0,
       "engagement": 0.599,
+      "episodes": 100
+    },
+    {
+      "id": "wave-v1-A",
+      "file": "clips/wave-v1-A.mp4",
+      "evaluation_id": "wave|A|1",
+      "terrain": "wave",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1328033,
+      "poster": "posters/wave-v1-A.jpg",
+      "sha256": "23d01e21af537919d9f460f52b259bce2a14b17e4aa3b3a4e91e78620a81ce07",
+      "frames": 268,
+      "seconds": 5.36,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.652,
+      "episodes": 100
+    },
+    {
+      "id": "wave-v1-baseline",
+      "file": "clips/wave-v1-baseline.mp4",
+      "evaluation_id": "wave|baseline|1",
+      "terrain": "wave",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1436435,
+      "poster": "posters/wave-v1-baseline.jpg",
+      "sha256": "8401a7d63e0b81b391d64a1939f81b2005703697f58dfcf718483a8c6e4aa6d4",
+      "frames": 279,
+      "seconds": 5.58,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.731,
       "episodes": 100
     },
     {

@@ -844,6 +844,21 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
+<style id="fig-svg">/* ASCII 도식을 걷어낸 자리 (2026-09-12 · DESIGN-GUIDE §3) */
+.figsvg{margin:18px 0;background:var(--card);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 10px;overflow-x:auto}
+.figsvg svg{width:100%;height:auto;display:block;min-width:520px}
+.figsvg figcaption{font-size:.78rem;color:var(--ink-3);margin-top:9px;
+  padding-top:9px;border-top:1px solid var(--rule)}
+.ftree{list-style:none;margin:14px 0;padding-left:0;font-family:ui-monospace,
+  Consolas,monospace;font-size:.84rem;line-height:1.8}
+.ftree ul{list-style:none;margin:0;padding-left:1.35rem;
+  border-left:1px solid var(--rule)}
+.ftree li{position:relative;padding-left:.5rem}
+.ftree .dir{font-weight:700;color:var(--ink)}
+.ftree .note{font-family:inherit;color:var(--ink-3);font-size:.92em;
+  margin-left:.5rem}
+</style>
 </head>
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="on" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="/gallery/">갤러리</a><a class="" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
@@ -877,15 +892,18 @@ document.addEventListener('DOMContentLoaded',function(){
 <p><b>git 이 충돌을 내서 막았습니다. 충돌이 안 났으면 조용히 덮였습니다.</b> 아무도 모르게 사라졌을 겁니다. <b>그래서 규칙이 필요합니다.</b></p>
 </section>
 <section id="s2"><h2>왜 이런 일이 나나</h2>
-<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>     8/23  여러분이 브랜치를 땄다
-             │
-             │   ← 이 사이 main 에 12개 커밋이 쌓였다
-             │      (회의록 복원 · 문서 표준 · 자동화 수정)
-             │
-     8/26  PR 을 올렸다
-             │
-             └─► AI 는 «8/23 의 저장소» 만 보고 작업했다
-                 그래서 그 뒤에 생긴 것을 모르고 덮으려 했다</pre></div>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><figure class="figsvg"><svg viewBox="0 0 760 200" role="img"
+  aria-label="8월 23일에 가지를 딴 뒤 main 에 커밋 12개가 쌓였고, 8월 26일 PR 은 그 이전 저장소만 보고 있었다">
+  <line x1="96" y1="34" x2="96" y2="166" stroke="var(--rule)" stroke-width="2"/>
+  <circle cx="96" cy="40" r="6" fill="var(--brand)"/>
+  <circle cx="96" cy="160" r="6" fill="var(--stop)"/>
+  <text x="118" y="45" font-size="14" font-weight="700" fill="var(--ink)">8/23 · 가지를 땄다</text>
+  <text x="118" y="90" font-size="13" fill="var(--ink-2)">이 사이 main 에 커밋 12개가 쌓였다</text>
+  <text x="118" y="110" font-size="12" fill="var(--ink-3)">회의록 복원 · 문서 표준 · 자동화 수정</text>
+  <text x="118" y="165" font-size="14" font-weight="700" fill="var(--ink)">8/26 · PR 을 올렸다</text>
+  <path d="M96 160 h 40" stroke="var(--stop)" stroke-width="2" fill="none"/>
+  <text x="146" y="188" font-size="13" fill="var(--stop)">AI 는 «8/23 의 저장소» 만 보고 작업했다</text>
+</svg><figcaption>가지를 딴 시점과 PR 시점 사이에 쌓인 것을 AI 가 못 본다</figcaption></figure></div>
 <p><b>AI 잘못이 아닙니다.</b> AI 는 여러분이 준 저장소 상태만 봅니다. <b>오래된 상태를 주면 오래된 답을 냅니다.</b></p>
 </section>
 <section id="s3"><h2>그래서 이 한 줄</h2>
