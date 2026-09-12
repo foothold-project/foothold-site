@@ -1236,16 +1236,16 @@ sim/eval/generalization_env_cfg.py:53</code></pre>
 <div class="tw"><table><thead><tr><th></th><th>평지 기준선</th><th>미경험 험지 10종</th><th>인자</th></tr></thead><tbody><tr><td>제한 시간</td><td>20 초</td><td><strong>6 초</strong></td><td>--eval_duration</td></tr><tr><td>통과선</td><td>10 m</td><td><strong>3 m</strong></td><td>--min_progress_m</td></tr><tr><td>명령 속도</td><td>1.0 m/s</td><td>1.0 m/s</td><td>--command_vx</td></tr><tr><td>좌우 이탈 임계</td><td>5 cm</td><td><strong>0.75 m</strong></td><td>--max_lateral_drift</td></tr><tr><td>속도 오차 임계</td><td>0.25 m/s</td><td>0.25 m/s</td><td>--max_velocity_mae</td></tr><tr><td>지형당 에피소드 수</td><td>100</td><td>100</td><td>--episodes</td></tr></tbody></table></div>
 <h4>왜 험지는 6 초 · 3 m 인가</h4>
 <p>지형이 놓인 방식 때문입니다. 로봇은 <strong>타일 한가운데</strong>에서 출발하고 장애물은 바로 앞에 있습니다.</p>
-<div class="tw"><table><thead><tr><th>거리 (출발점 기준)</th><th>거기 무엇이 있나</th></tr></thead><tbody><tr><td>0 m</td><td>로봇 출발 위치 · 타일 중앙 좌표 <code>(0, 0)</code></td></tr><tr><td>0.75 m</td><td>여기까지 평평한 발판 · <strong>모든 지형이 같다</strong> (<code>platform_width = 1.5 m</code> 의 절반)</td></tr><tr><td>0.75 m 부터</td><td><strong>장애물이 시작된다</strong></td></tr><tr><td><strong>3 m</strong></td><td><strong>통과선</strong> · 여기를 넘으면 성공</td></tr><tr><td>4 m</td><td>타일 끝 (타일은 8 m × 8 m)</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>거리 (출발점 기준)</th><th>거기 무엇이 있나</th></tr></thead><tbody><tr><td>0 m</td><td>로봇 출발 위치 · 타일 중앙 좌표 <code>(0, 0)</code></td></tr><tr><td>0.75 m</td><td>여기까지 평평한 발판 · <strong>모든 지형이 같다</strong> (<code>platform_width = 1.5 m</code> 의 절반)</td></tr><tr><td>0.75 m 부터</td><td><strong>장애물이 시작된다</strong></td></tr><tr><td><strong>3 m</strong></td><td><strong>통과선</strong> · 전진 축을 채우는 자리. 성공은 네 축 AND 다</td></tr><tr><td>4 m</td><td>타일 끝 (타일은 8 m × 8 m)</td></tr></tbody></table></div>
 <h4>장애물이 끝나는 자리는 지형마다 다릅니다</h4>
 <p>코드에서 계산한 값입니다. 난이도 0.5 기준이고 중심에서 잰 거리입니다.</p>
 <div class="tw"><table><thead><tr><th>지형</th><th>장애물 끝</th><th>통과선까지</th><th>근거 · Isaac Lab 0.54.2</th></tr></thead><tbody><tr><td>gap</td><td>1.02 m</td><td>1.98 m 가 평지</td><td>0.75 + (0.15 + 0.5×0.25)</td></tr><tr><td>rails</td><td>2.88 m</td><td>0.12 m 뿐</td><td>바깥 레일 바깥 모서리</td></tr><tr><td>pit</td><td>4.0 m</td><td>통과선이 구덩이 안</td><td>double_pit=False · 타일 절반</td></tr></tbody></table></div>
 <p><strong>지형마다 크게 다릅니다.</strong></p>
 <p><strong><code>rails</code> 는 통과선 3 m 까지 12 cm 밖에 안 남습니다.</strong> 바깥 레일을 넘자마자 통과선입니다. <strong>이 지형에서 「통과선을 못 넘었다」는 「레일을 못 넘었다」와 사실상 같은 말입니다.</strong></p>
 <p><strong><code>pit</code> 은 통과선이 구덩이 안에 있습니다.</strong> 로봇이 구덩이 바닥에서 출발하고 장애물은 발판 가장자리 턱 하나뿐인데, 구덩이 자체가 타일 절반까지 이어집니다.</p>
-<p><strong>그래도 3 m 가 기준으로 성립하는 이유는 이것입니다.</strong> <code>rails</code> 의 가장 먼 레일이 2.88 m 이므로 <strong>3 m 를 넘으면 넘어야 할 것을 다 넘은 것</strong>입니다. 그보다 멀리 가라고 하면 남는 것은 지형 밖 평지뿐입니다.</p>
+<p><strong><code>rails</code> 에서 3 m 가 기준으로 성립하는 이유는 이것입니다.</strong> 가장 먼 레일이 2.88 m 이므로 <strong>3 m 를 넘으면 그 지형에서 넘어야 할 것을 다 넘은 것</strong>입니다. <strong>다른 지형은 다릅니다</strong> · <code>repeated_boxes</code> 와 <code>wave</code> 등은 4 m 부근까지 구조가 있습니다 (1부 「지형이 어디까지 있나」). 그보다 멀리 가라고 하면 남는 것은 지형 밖 평지뿐입니다.</p>
 <p><strong>이 거리는 코드를 읽어 계산한 것이고 렌더해서 눈으로 재보지는 않았습니다.</strong> <code>미확인</code> 으로 둡니다.</p>
-<p><strong>6 초는 3 m 를 가는 데 필요한 시간의 두 배입니다.</strong> 3 m 를 1.0 m/s 로 가면 3초입니다. 헤매서 두 배로 걸려도 3 m 만 넘으면 성공하도록 여유를 둔 것입니다.</p>
+<p><strong>6 초는 3 m 를 가는 데 필요한 시간의 두 배입니다.</strong> 3 m 를 1.0 m/s 로 가면 3초입니다. 헤매서 두 배로 걸려도 <strong>전진 축은 채우도록</strong> 여유를 둔 것입니다. 다만 전진만으로 성공이 되지는 않습니다. 성공은 생존 · 전진 · 속도추종 · 방향 <strong>네 축의 AND</strong> 입니다 (1부 「판정은 네 축의 AND」).</p>
 <p><strong>통과선 3 m 는 출발점에서 잰 거리입니다.</strong> 타일 가장자리나 장애물 끝이 아니라 <strong>로봇이 처음 서 있던 자리</strong>가 0 입니다.</p>
 <p><strong>정정 · 2026-09-11.</strong> 「6초」는 <strong>1.0 m/s 일 때만</strong>입니다. 스윕은 <strong>거리 예산 6 m 를 고정</strong>하고 시간을 속도로 나눠 씁니다 ( sweep_run.ps1:102 ).</p>
 <div class="tw"><table><thead><tr><th>명령 속도</th><th>제한 시간</th><th>거리 예산</th><th>통과선</th></tr></thead><tbody><tr><td>0.5 m/s</td><td><strong>12초</strong></td><td>6 m</td><td>3 m</td></tr><tr><td>1.0 m/s</td><td><strong>6초</strong></td><td>6 m</td><td>3 m</td></tr><tr><td>1.5 m/s</td><td><strong>4초</strong></td><td>6 m</td><td>3 m</td></tr></tbody></table></div>
@@ -1622,7 +1622,7 @@ sim/eval/generalization_env_cfg.py:53</code></pre>
 <p>IsaacLab 기본 함수는 <strong>바닥 없는 지형을 상정하고 만든 것이 아닙니다.</strong> 험지에는 구멍이 없으니 ∞ 가 들어올 일이 없습니다. 임석헌은 갭을 학습시키려고 그 구멍을 눈치채고 height_scan_with_gap 을 새로 만들었습니다. <strong>우리 평가만 그 함수를 안 쓰고 있었습니다.</strong></p>
 <p>고친 것은 <strong>팔 하나</strong>입니다.</p>
 <div class="tw"><table><thead><tr><th>자리</th><th>넣은 것</th></tr></thead><tbody><tr><td>generalization_env_cfg.py</td><td>apply_gap_aware_scan()</td></tr><tr><td>eval_generalization.py</td><td>--gap_aware_scan</td></tr><tr><td>run_manifest.json</td><td>gap_aware_scan · height_scan_miss_value</td></tr></tbody></table></div>
-<p><strong>기본값은 안 바꿨습니다.</strong> 팔을 안 주면 지금까지의 모든 실행과 같은 값으로 돕니다. 바꿔 버리면 쌓아 둔 41,800 에피소드와 새 숫자를 나중에 구별할 수 없습니다. 대신 <strong>각 실행이 어느 규격으로 쟀는지 스스로 적게</strong> 했습니다.</p>
+<p><strong>그때는 기본값을 안 바꿨습니다.</strong> (지금은 규격 2 인 <strong>+1 이 기본</strong>입니다. 1부 「측정 규격 둘」 참조.) 팔을 안 주면 지금까지의 모든 실행과 같은 값으로 돕니다. 바꿔 버리면 쌓아 둔 41,800 에피소드와 새 숫자를 나중에 구별할 수 없습니다. 대신 <strong>각 실행이 어느 규격으로 쟀는지 스스로 적게</strong> 했습니다.</p>
 <h4>3.7 고치면 왜 지금까지 잰 것을 다시 재야 하나</h4>
 <p>이 한 줄을 고치면 <strong>로봇이 받는 입력이 달라집니다.</strong> 정책을 바꾸는 게 아니라 <strong>시험지를 바꾸는 것</strong>입니다.</p>
 <p>학생을 그대로 두고 <strong>시험 문제를 바꿔 놓고</strong>, 새 점수를 옛 점수 옆에 나란히 적으면 안 됩니다. 실력이 오른 것인지 문제가 쉬워진 것인지 구별할 수 없습니다.</p>
@@ -1632,7 +1632,7 @@ sim/eval/generalization_env_cfg.py:53</code></pre>
 <p>이렇게 해야 <strong>「폭을 넓혀서 오른 것」과 「입력을 맞춰서 오른 것」을 갈라서</strong> 말할 수 있습니다.</p>
 <h4>3.8 연습한 지형과 시험 보는 지형</h4>
 <p>부호 말고 기하도 다릅니다. 둘 다 난이도 0.5 에서 계산한 값입니다.</p>
-<figure class="fig"><svg viewBox="0 0 820 360" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block" role="img" aria-label="학습 지형과 평가 지형의 달릴 거리와 틈 폭 비교">
+<figure class="fig"><svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block" role="img" aria-label="학습 지형과 평가 지형의 달릴 거리와 틈 폭 비교">
 <defs><marker id="a2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="var(--ink-2)"/></marker></defs>
 <text x="0.0" y="15.0" font-size="13" fill="var(--ink)" text-anchor="start" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">연습한 지형과 시험 보는 지형이 이만큼 다르다</text>
 <text x="0.0" y="33.0" font-size="11" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">둘 다 난이도 0.5 · 옆에서 본 그림 · 가로 축척 같음</text>
@@ -1652,9 +1652,9 @@ sim/eval/generalization_env_cfg.py:53</code></pre>
 <polyline points="206.2,251.1 198.5,266.7 212.6,286.0" fill="none" stroke="var(--ink-2)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.42"/><circle cx="212.6" cy="286.0" r="1.8" fill="var(--ink-2)" opacity="0.42"/><polyline points="158.3,251.1 166.1,266.7 151.9,286.0" fill="none" stroke="var(--ink-2)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.42"/><circle cx="151.9" cy="286.0" r="1.8" fill="var(--ink-2)" opacity="0.42"/><polyline points="201.2,251.1 193.5,266.7 207.6,286.0" fill="none" stroke="var(--ink-2)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" opacity="1.00"/><circle cx="207.6" cy="286.0" r="1.8" fill="var(--ink-2)" opacity="1.00"/><polyline points="153.3,251.1 161.1,266.7 147.0,286.0" fill="none" stroke="var(--ink-2)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" opacity="1.00"/><circle cx="147.0" cy="286.0" r="1.8" fill="var(--ink-2)" opacity="1.00"/><rect x="142.4" y="236.1" width="69.8" height="16.0" rx="4.5" fill="var(--accent)" stroke="var(--accent)" stroke-width="1"/><rect x="210.2" y="237.6" width="10.0" height="8.5" rx="2.0" fill="var(--accent)"/><circle cx="217.7" cy="239.6" r="1.6" fill="var(--card)"/>
 <line x1="168.0" y1="278.0" x2="255.0" y2="278.0" stroke="var(--bad)" stroke-width="2" marker-end="url(#a2)"/>
 <text x="211.5" y="273.0" font-size="10.5" fill="var(--bad)" text-anchor="middle" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">달릴 거리 0.75 m</text>
-<rect x="0" y="306" width="780" height="48" rx="6" fill="var(--warn-soft)" stroke="var(--warn)"/><text x="270.9" y="319.0" font-size="10.5" fill="var(--bad)" text-anchor="middle" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">틈 0.275 m</text>
+<text x="270.9" y="319.0" font-size="10.5" fill="var(--bad)" text-anchor="middle" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">틈 0.275 m</text>
 <text x="296.9" y="319.0" font-size="10" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">착지면 2.98 m</text>
-
+<rect x="0" y="306" width="780" height="48" rx="6" fill="var(--warn-soft)" stroke="var(--warn)"/>
 <text x="12.0" y="325.0" font-size="11" fill="var(--warn)" text-anchor="start" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">같은 난이도인데</text>
 <text x="12.0" y="343.0" font-size="10.5" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">달릴 거리는 절반 (1.50 → 0.75 m) · 틈은 2.2 배 (0.125 → 0.275 m) · 그리고 광선이 주는 값의 부호가 반대</text>
 </svg><figcaption>학습 지형과 평가 지형의 달릴 거리와 틈 폭 비교</figcaption></figure>
@@ -1673,7 +1673,7 @@ sim/eval/generalization_env_cfg.py:53</code></pre>
 <p>예전에는 <strong>끝점</strong>에서 좌우 이탈을 쟀습니다(<code>direction_success</code> · <code>metrics.py:330</code>). 지금은 <strong>통과선을 지나는 순간</strong>에 잽니다(<code>gate_direction_success</code> · <code>metrics.py:267</code>).</p>
 <p><strong>끝점 방식의 구멍.</strong> 로봇이 0.5 m 에서 넘어져 멈추면 옆으로 갈 시간도 없었으니 끝점 좌우 이탈이 거의 0 입니다. <strong>못 간 에피소드가 「똑바로 갔다」로 채점됩니다.</strong></p>
 <p>통과선 방식이면 3 m 를 지나간 적이 없으므로 그 자리에서 실패입니다.</p>
-<h4>실패 사유는 둘뿐입니다</h4>
+<h4>종료 사유 열에는 값이 둘뿐입니다</h4>
 <p><code>termination_reason</code>(<code>metrics.py:349</code>)에 들어갈 수 있는 값은 <code>timeout</code> 과 <code>base_contact</code> 뿐입니다.</p>
 <p><strong>새 종료 조건을 더하면 이 열이 조용히 틀린 값을 적습니다.</strong> 그 에피소드은 새 이유로 끝났는데 열에는 여전히 둘 중 하나가 적힙니다. 오류도 안 나고 값도 비어 있지 않아 아무도 눈치채지 못합니다.</p>
 <h3>05 기준선 성적 · 실패 5종</h3>
@@ -2190,7 +2190,7 @@ sim/eval/generalization_env_cfg.py:53</code></pre>
   start_x_offset_m · start_y_offset_m · start_yaw_deg
 
 그 100 에피소드 중 네 축을 모두 통과한 비율이 그 칸의 성공률이다</code></pre>
-<p><strong>100에피소드가라 성공률의 오차가 대략 ±10 %p 입니다.</strong> 두 칸이 5 %p 차이면 같다고 봐야 하고, 30 %p 차이면 다르다고 볼 수 있습니다. <strong>표의 작은 오르내림을 추세로 읽으면 안 됩니다.</strong></p>
+<p><strong>100판짜리 성공률의 오차가 대략 ±10 %p 입니다.</strong> 두 칸이 5 %p 차이면 같다고 봐야 하고, 30 %p 차이면 다르다고 볼 수 있습니다. <strong>표의 작은 오르내림을 추세로 읽으면 안 됩니다.</strong></p>
 <h4>실측 · 난이도별 성공률 (1.0 m/s · 칸마다 100 에피소드)</h4>
 <p>처음 10칸으로 재고, 낮은 쪽이 궁금해 <strong>0.02 씩 여덟 칸을 더 채웠습니다.</strong></p>
 <div class="tw"><table><thead><tr><th>지형</th><th class="num">0.02</th><th class="num">0.08</th><th class="num">0.1</th><th class="num">0.16</th><th class="num">0.18</th><th class="num">0.2</th><th class="num">0.3</th><th class="num">0.4</th><th class="num">0.5 기준선</th></tr></thead><tbody><tr><td>rails</td><td class="num">81</td><td class="num">96</td><td class="num">88</td><td class="num">80</td><td class="num">85</td><td class="num">72</td><td class="num">37</td><td class="num">16</td><td class="num">5</td></tr><tr><td>pit</td><td class="num">88</td><td class="num">83</td><td class="num">82</td><td class="num">69</td><td class="num">62</td><td class="num">56</td><td class="num">26</td><td class="num">7</td><td class="num">3</td></tr><tr><td>stepping_stones</td><td class="num">62</td><td class="num">62</td><td class="num">54</td><td class="num">56</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr><tr><td>gap</td><td class="num">22</td><td class="num">12</td><td class="num">5</td><td class="num">3</td><td class="num">10</td><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr><tr><td>floating_ring</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr></tbody></table></div>
@@ -2206,7 +2206,7 @@ sim/eval/generalization_env_cfg.py:53</code></pre>
 
 0.0992  -&gt;  int  0 픽셀   구멍이 없다 · 그냥 울퉁불퉁한 바닥
 0.1016  -&gt;  int  1 픽셀   10 cm 구멍 · 깊이 1 m</code></pre>
-<p><strong>난이도 0.1667 아래의 <code>stepping_stones</code> 는 발판 지형이 아닙니다.</strong> 그 구간의 62% 를 「발에피소드를 밟았다」로 읽으면 안 됩니다.</p>
+<p><strong>난이도 0.1667 아래의 <code>stepping_stones</code> 는 발판 지형이 아닙니다.</strong> 그 구간의 62% 를 「발판을 밟았다」로 읽으면 안 됩니다.</p>
 <p><strong>커리큘럼에 「쉬운 발판」 단계를 난이도로는 만들 수 없습니다.</strong> <code>horizontal_scale</code> 이나 <code>stone_distance_range</code> 를 손대야 합니다.</p>
 <h4>셋 · <code>gap</code> 에 곡선이 없던 것은 «측정» 탓이었습니다</h4>
 <p><strong>2026-09-10 에는 이렇게 적었습니다.</strong> 「서른 칸 어디서도 5% 이하다. 난이도를 낮춰도 안 된다. <code>gap</code> 은 어디까지 되는가라는 물음 자체가 성립하지 않는다.」</p>
@@ -2524,9 +2524,9 @@ foothold-v1.json      이 모델이 어떻게 만들어졌는지</code></pre>
 <h4>학습 중에는 평가 영상을 찍지 않습니다</h4>
 <p>Isaac Lab 에 <code>--video</code> 인자가 있지만 그것은 <strong>학습이 어떻게 되어 가는지 엿보는 용도</strong>입니다. 학습 중 지형은 커리큘럼으로 계속 바뀌고 판정도 안 붙습니다. <strong>그리고 카메라를 켜면 학습이 느려집니다.</strong></p>
 <p><strong>순서는 이렇습니다.</strong></p>
-<p>1. 학습을 끝까지 돌린다 카메라 없이. 가장 빠른 상태로 둡니다. 2. 평가로 전 지형 CSV 를 뽑는다 영상 없이 숫자만. 여기서 <strong>어느 에피소드가 잘했고 어느 에피소드가 어떻게 실패했는지</strong>가 나옵니다. 3. CSV 를 보고 찍을 에피소드를 고른다 전부 찍지 않습니다. 아래 기준으로 <strong>지형당 서너 판</strong>이면 충분합니다. 4. 고른 판만 렌더한다 Random Seed과 환경 번호가 CSV 에 있으므로 <strong>그 에피소드을 그대로 다시 만들 수 있습니다.</strong></p>
+<p>1. 학습을 끝까지 돌린다 카메라 없이. 가장 빠른 상태로 둡니다. 2. 평가로 전 지형 CSV 를 뽑는다 영상 없이 숫자만. 여기서 <strong>어느 에피소드가 잘했고 어느 에피소드가 어떻게 실패했는지</strong>가 나옵니다. 3. CSV 를 보고 찍을 에피소드를 고른다 전부 찍지 않습니다. 아래 기준으로 <strong>지형당 서너 판</strong>이면 충분합니다. 4. 고른 판만 렌더한다 Random Seed과 환경 번호가 CSV 에 있으므로 <strong>그 판을 그대로 다시 만들 수 있습니다.</strong></p>
 <h4>어느 에피소드를 찍나</h4>
-<div class="tw"><table><thead><tr><th>고를 것</th><th>왜</th></tr></thead><tbody><tr><td><strong>가장 잘에피소드 하나</strong></td><td>같은 조건에서 <strong>되는 모습</strong>이 어떤 것인지. 전진 거리가 가장 긴 성공 판</td></tr><tr><td><strong>실패 유형별 대표</strong></td><td><code>base_contact</code> 로 끝난 에피소드 하나 · <code>timeout</code> 으로 끝난 에피소드 하나. <strong>넘어진 것과 못 간 것은 다른 그림</strong>입니다</td></tr><tr><td><strong>경계에 걸친 에피소드</strong></td><td>통과선을 <strong>겨우 넘은 에피소드</strong>와 <strong>겨우 못 넘은 에피소드</strong>. 무엇이 갈랐는지가 여기 보입니다</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>고를 것</th><th>왜</th></tr></thead><tbody><tr><td><strong>가장 잘한 판 하나</strong></td><td>같은 조건에서 <strong>되는 모습</strong>이 어떤 것인지. 전진 거리가 가장 긴 성공 판</td></tr><tr><td><strong>실패 유형별 대표</strong></td><td><code>base_contact</code> 로 끝난 에피소드 하나 · <code>timeout</code> 으로 끝난 에피소드 하나. <strong>넘어진 것과 못 간 것은 다른 그림</strong>입니다</td></tr><tr><td><strong>경계에 걸친 에피소드</strong></td><td>통과선을 <strong>겨우 넘은 에피소드</strong>와 <strong>겨우 못 넘은 에피소드</strong>. 무엇이 갈랐는지가 여기 보입니다</td></tr></tbody></table></div>
 <p><strong>실패도 지점이 다릅니다.</strong> 같은 <code>timeout</code> 이라도 장애물 앞에서 멈춘 에피소드와 장애물 위에서 멈춘 에피소드는 원인이 다릅니다. CSV 의 <code>forward_progress_m</code> 로 갈라서 각각 하나씩 고릅니다.</p>
 <h4>관절 값이 있으면 재렌더가 빨라집니다</h4>
 <p>지금 렌더는 <strong>정책에게 매 순간 다시 물어보면서</strong> 그립니다. 그래서 시뮬레이션을 처음부터 다시 돕니다.</p>
@@ -2536,7 +2536,7 @@ foothold-v1.json      이 모델이 어떻게 만들어졌는지</code></pre>
 <p>에피소드마다 한 줄입니다. 지금 <strong>27열</strong>이고, <strong>61열로 늘리는 설계</strong>가 나와 있습니다.</p>
 <h4>지금 있는 27열</h4>
 <div class="tw"><table><thead><tr><th>묶음</th><th>열</th><th>뜻</th></tr></thead><tbody><tr><td>어디서</td><td>terrain · env_id · episode</td><td>지형 · 환경 · 몇 번째 에피소드</td></tr><tr><td></td><td>start_x_offset_m · start_y_offset_m · start_yaw_deg</td><td>출발 흔들기</td></tr><tr><td>판정</td><td>overall_success</td><td>네 축이 모두 참인가</td></tr><tr><td></td><td>survival_success · progress_success · tracking_success · direction_success</td><td>생존 · 전진 · 속도 추종 · 방향</td></tr><tr><td></td><td>traversal_success</td><td>속도 추종을 뺀 셋의 AND</td></tr><tr><td>얼마나</td><td>termination_reason · duration_s</td><td>왜 끝났나 · 몇 초</td></tr><tr><td></td><td>forward_progress_m · ideal_distance_m · progress_ratio</td><td>몇 m · 이론 거리 · 비율</td></tr><tr><td></td><td>lateral_drift_m · peak_lateral_drift_m · gate_lateral_drift_m</td><td>끝점 · 최대 · 통과선에서의 좌우 이탈</td></tr><tr><td></td><td>velocity_mae_mps · mean_reward_per_step · gate_speed_mps · speed_drop_ratio</td><td>속도 오차 · 보상 · 통과 순간 속도 · 최저 속도 비</td></tr><tr><td>접촉</td><td>head_contact_count · head_contact_peak_n · head_contact_first_s</td><td>머리 접촉 횟수 · 최대 힘 · 첫 접촉 시각</td></tr></tbody></table></div>
-<p>head_contact_first_s <strong>를 인용하지 마십시오.</strong> 앞 에피소드가 머리가 닿은 채 끝나면 다음 에피소드 첫 표본이 그 힘을 물려받아 <strong>18.7%(2,241/12,000)가 거짓 0.0</strong> 입니다. head_contact_count · head_contact_peak_n 과 판정 네 축은 영향이 없습니다.</p>
+<p>head_contact_first_s <strong>를 인용하지 마십시오.</strong> 앞 에피소드가 머리가 닿은 채 끝나면 다음 에피소드 첫 표본이 그 힘을 물려받아 거짓 0.0 이 섞입니다 (<strong>그 비율은 철회했습니다.</strong> 어느 실행에서 나온 값인지 특정하지 못했습니다. 1부 「철회한 것」 참조). head_contact_count · head_contact_peak_n 과 판정 네 축은 영향이 없습니다.</p>
 <h4>규격은 어디에 적히나</h4>
 <p>CSV 에는 없고 run_manifest.json 에 있습니다.</p>
 <div class="tw"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>eval_spec_version</td><td><strong>1</strong> = 빗나간 광선을 -1 로 읽던 결함 규격 · <strong>2</strong> = 학습과 같은 +1</td></tr><tr><td>gap_aware_scan</td><td>규격 2 인가</td></tr><tr><td>height_scan_miss_value</td><td>실제로 박힌 값. 규격 2 면 1.0</td></tr></tbody></table></div>
@@ -2577,16 +2577,16 @@ foothold-v1.json      이 모델이 어떻게 만들어졌는지</code></pre>
 <p>2026-09-11 11:00 기준입니다. <strong>오늘 측정 규격이 바뀌었습니다.</strong></p>
 <p><strong>규격 1 로 잰 것과 규격 2 로 잰 것을 섞어 인용하면 안 됩니다.</strong> 결과 폴더마다 _결함규격_읽어주세요.md 를 넣어 두었고, 실행마다 run_manifest.json 에 eval_spec_version 이 박혀 있습니다.</p>
 <h4>실측</h4>
-<div class="tw"><table><thead><tr><th>규격</th><th>에피소드</th><th>무엇</th></tr></thead><tbody><tr><td><strong>1</strong> 결함</td><td>146,800</td><td>기준선 10종 · 난이도 스윕 · 기존 6종 스윕 · A · B</td></tr><tr><td><strong>2</strong> 지금</td><td>64,400 누적 중</td><td>세 모델 정본 한 점 완료 · B 곡선 완료 · 기준선·A 곡선 진행 중</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>규격</th><th class="num">에피소드</th><th>무엇</th></tr></thead><tbody><tr><td><strong>규격 미기록</strong></td><td class="num">146,800</td><td>2026-09-10 스윕 등. manifest 에 규격 필드가 없어 <strong>성적으로 인용하지 않는다</strong></td></tr><tr><td><strong>2</strong> 지금</td><td class="num">138,600</td><td>성적표 43,200 (<code>maindata-v1</code>) + 난이도 곡선 95,400 (<code>20260911-v3-fixedscan</code>). <strong>세 모델 곡선 모두 완료</strong></td></tr></tbody></table></div>
 <h4>모델</h4>
-<div class="tw"><table><thead><tr><th>이름</th><th>연습한 틈</th><th>상태</th><th>SHA-256 앞자리</th></tr></thead><tbody><tr><td>기준선 NVIDIA 사전학습</td><td>없음</td><td>있음</td><td>f2aa77bf</td></tr><tr><td><strong>A</strong> 2026-09-10</td><td>0.05 ~ 0.20 m</td><td><strong>완료</strong> · 1,500 iter · 94분 32초</td><td>54064c77</td></tr><tr><td><strong>B</strong> 2026-09-11</td><td>0.15 ~ 0.40 m</td><td><strong>완료</strong> · 같은 조건 · 폭 두 줄만 다름</td><td>c7612aef</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>이름</th><th>연습한 틈</th><th>상태</th><th>SHA-256 앞자리</th></tr></thead><tbody><tr><td>기준선 NVIDIA 사전학습</td><td>없음</td><td>있음</td><td>f2aa77bf</td></tr><tr><td><strong>A</strong> 2026-09-10</td><td>0.05 ~ 0.20 m</td><td><strong>완료</strong> · 1,500 iter · 94분 32초</td><td>54064c77</td></tr><tr><td><strong>B</strong> = foothold-v1 · 2026-09-11</td><td>0.15 ~ 0.40 m</td><td><strong>배포본.</strong> 학습 설정은 A 와 폭 두 줄만 다르다. 에피소드 초기 위치까지 같지는 않다</td><td>c7612aef</td></tr></tbody></table></div>
 <p><strong>B 가 1차 배포 후보입니다.</strong> 규격 2 에서 gap 이 난이도 1.0 까지 100% 이고, 기존 험지 6종에서 내려간 것이 없습니다.</p>
 <h4>하네스 · 오늘 들어간 것</h4>
 <div class="tw"><table><thead><tr><th>무엇</th><th>상태</th></tr></thead><tbody><tr><td><strong>규격 2 를 기본값으로</strong> · --legacy_miss_scan 으로만 옛 동작</td><td>들어감</td></tr><tr><td>eval_spec_version 을 manifest 에 기록</td><td>들어감</td></tr><tr><td>렌더러가 --trace_csv 로 자기 계측을 함께 씀</td><td>들어감</td></tr><tr><td>렌더러 --difficulty · 난이도를 못 박음</td><td>들어감</td></tr><tr><td>HUD 대비 개선 · 패널 불투명도 · 네 칸 이름 흰색</td><td>들어감</td></tr><tr><td>렌더 환경 복구 h5py 3.14 로 HDF5 1.14.6 맞춤</td><td>고침</td></tr></tbody></table></div>
 <h4>하네스 · 이전에 들어간 것</h4>
-<div class="tw"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>--difficulty 인자</td><td>들어감</td></tr><tr><td>통과선 기준 방향 판정</td><td>들어감</td></tr><tr><td>머리 접촉 세 열</td><td>들어감</td></tr><tr><td>traversal_success · gate_speed_mps · speed_drop_ratio</td><td>들어감 #394 머지</td></tr><tr><td>시계열 parquet 92열</td><td>들어감 #394 머지</td></tr><tr><td>난이도 스윕 · 기존 6종 스윕</td><td>들어감 #388 · #391 머지</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>--difficulty 인자</td><td>들어감</td></tr><tr><td>통과선 기준 방향 판정</td><td>들어감</td></tr><tr><td>머리 접촉 세 열</td><td>들어감</td></tr><tr><td>traversal_success · gate_speed_mps · speed_drop_ratio</td><td>들어감 #394 머지</td></tr><tr><td>시계열 parquet <strong>93열</strong></td><td>들어감 #394 머지</td></tr><tr><td>난이도 스윕 · 기존 6종 스윕</td><td>들어감 #388 · #391 머지</td></tr></tbody></table></div>
 <h4>아직 안 한 것</h4>
-<div class="tw"><table><thead><tr><th>무엇</th><th>왜 필요한가</th></tr></thead><tbody><tr><td><strong>CSV 61열 통합</strong></td><td>설계는 나왔다. 허벅지·종아리 접촉 센서를 붙이려면 한 번 다시 돌려야 한다</td></tr><tr><td><strong>본 데이터 한 번에</strong></td><td>180칸 = 18,000 에피소드. CSV 를 확정한 뒤에 돌려야 두 번 안 돈다</td></tr><tr><td>~~대표 영상 10종~~</td><td><strong>했다.</strong> 규격 2 로 112컷 · gallery-v1</td></tr><tr><td>stepping_stones 가 안 풀린다</td><td>관측을 고쳐도 셋 다 난이도 0.2 에서 0 이다. 뛰어야 넘는 지형인데 lin_vel_z_l2 벌점이 -2.00 으로 가장 크다. 보상 구조가 다음 용의자다</td></tr><tr><td>stepping_stones 커리큘럼</td><td>난이도 0.1667 아래는 발판 지형이 아니다. horizontal_scale 을 손대야 한다</td></tr><tr><td>head_contact_first_s 오염</td><td>거짓 0.0 이 섞인다. <strong>비율은 철회했다</strong> (위 「철회한 것」 참조). 다시 돌릴 때 같이 고친다</td></tr><tr><td>rails 통과선 위치</td><td>바깥 레일 2.88 m 에서 통과선 3 m 까지 12 cm 뿐이다</td></tr><tr><td>기존 6종 그림</td><td>표만 있고 그림이 없다</td></tr><tr><td>위쪽 광선 채널</td><td>굴다리·책상 밑처럼 «머리 위»가 있는 지형은 지금 눈으로 표현이 안 된다 (3.4)</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>무엇</th><th>왜 필요한가</th></tr></thead><tbody><tr><td>~~CSV 61열 통합~~</td><td><strong>했다.</strong> 지금 <strong>59열</strong>이고 <code>maindata-v1</code> 43,200행이 전부 그 규격이다. 허벅지·종아리 접촉 센서는 아직 안 붙었다</td></tr><tr><td>~~본 데이터 한 번에~~</td><td><strong>했다.</strong> 432칸 · 43,200 에피소드 (<code>maindata-v1</code>)</td></tr><tr><td>~~대표 영상 10종~~</td><td><strong>했다.</strong> 규격 2 로 <strong>144컷</strong> · 평가 칸 144개가 전부 영상을 갖는다</td></tr><tr><td>stepping_stones 가 안 풀린다</td><td>관측을 고쳐도 셋 다 난이도 0.2 에서 0 이다. 뛰어야 넘는 지형인데 lin_vel_z_l2 벌점이 -2.00 으로 가장 크다. 보상 구조가 다음 용의자다</td></tr><tr><td>stepping_stones 커리큘럼</td><td>난이도 0.1667 아래는 발판 지형이 아니다. horizontal_scale 을 손대야 한다</td></tr><tr><td>head_contact_first_s 오염</td><td>거짓 0.0 이 섞인다. <strong>비율은 철회했다</strong> (위 「철회한 것」 참조). 다시 돌릴 때 같이 고친다</td></tr><tr><td>rails 통과선 위치</td><td>바깥 레일 2.88 m 에서 통과선 3 m 까지 12 cm 뿐이다</td></tr><tr><td>~~기존 6종 그림~~</td><td><strong>있다.</strong> 정본 2부와 종합보고서에 들어갔다</td></tr><tr><td>위쪽 광선 채널</td><td>굴다리·책상 밑처럼 «머리 위»가 있는 지형은 지금 눈으로 표현이 안 된다 (3.4)</td></tr></tbody></table></div>
 <p><strong>여기서 뺀 것이 있습니다.</strong> 2026-09-10 판에는 「1.5 m/s 를 학습 범위에 넣을지」가 할 일로 적혀 있었습니다. <strong>이미 들어 있습니다.</strong> 학습 설정의 lin_vel_x 가 (0.5, 1.5) 입니다.</p>
 <p><strong>이 문서는 이슈 #363 이고 프로젝트 페이지에 게시됩니다.</strong> 평가에 관한 물음은 여기를 가리킵니다. 여기 적힌 것과 다르게 잰 숫자는 비교에 쓸 수 없습니다.</p>
 <p>모든 수치는 코드와 실행 기록에서 읽은 것입니다. 추론한 곳은 문장에 적었습니다 · 2026-09-11</p>
