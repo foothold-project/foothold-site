@@ -102,8 +102,17 @@ G.writeParams = function (state, replace) {
 /* 고르기 전에는 src 를 걸지 않는다. 84개를 한꺼번에 걸면 미리 읽기가 돈다. */
 G.attach = function (video, src) {
   if (video.getAttribute('src') === src) return video;
+  /* **배속을 지킨다.** `load()` 가 `playbackRate` 를 1 로 되돌린다.
+   * 개열하기 전에 0.25x 를 고르면 단추는 0.25x 로 남고 실제는
+   * 1배로 돌았다 `확인됨` (2026-09-12 codex 7회차). */
+  const rate = video.playbackRate;
   video.setAttribute('src', src);
   video.load();
+  if (rate && rate !== 1) {
+    video.playbackRate = rate;
+    video.addEventListener('loadedmetadata', () => { video.playbackRate = rate; },
+                           { once: true });
+  }
   return video;
 };
 

@@ -1,7 +1,7 @@
 {
   "schema": "foothold-gallery/2",
   "version": "v1",
-  "built_at": "2026-09-12T04:31:12",
+  "built_at": "2026-09-12T14:59:05",
   "evaluated_at": "2026-09-11T14:24:10+00:00",
   "main_model": "foothold-v1",
   "difficulty": 0.5,
@@ -82,9 +82,9 @@
     ]
   },
   "counts": {
-    "clips": 84,
+    "clips": 112,
     "evaluations": 144,
-    "evaluations_without_clip": 60,
+    "evaluations_without_clip": 32,
     "terrains": 16,
     "speeds": [
       0.5,
@@ -96,7 +96,8 @@
       "baseline",
       "foothold-v1"
     ],
-    "comparison_clips": 36
+    "comparison_clips": 64,
+    "with_poster": 112
   },
   "facets": {
     "terrain": [
@@ -203,7 +204,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "boxes-v0.5-A"
+      ]
     },
     {
       "id": "boxes|A|1",
@@ -219,7 +222,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "boxes-v1-A"
+      ]
     },
     {
       "id": "boxes|A|1.5",
@@ -235,7 +240,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "boxes-v1.5-A"
+      ]
     },
     {
       "id": "boxes|baseline|0.5",
@@ -353,7 +360,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "discrete_obstacles-v0.5-A"
+      ]
     },
     {
       "id": "discrete_obstacles|A|1",
@@ -369,7 +378,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "discrete_obstacles-v1-A"
+      ]
     },
     {
       "id": "discrete_obstacles|A|1.5",
@@ -831,7 +842,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v0.5-A"
+      ]
     },
     {
       "id": "hf_pyramid_slope|A|1",
@@ -847,7 +860,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v1-A"
+      ]
     },
     {
       "id": "hf_pyramid_slope|A|1.5",
@@ -863,7 +878,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v1.5-A"
+      ]
     },
     {
       "id": "hf_pyramid_slope|baseline|0.5",
@@ -981,7 +998,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v0.5-A"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|A|1",
@@ -997,7 +1016,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v1-A"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|A|1.5",
@@ -1013,7 +1034,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v1.5-A"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|baseline|0.5",
@@ -1293,7 +1316,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v0.5-A"
+      ]
     },
     {
       "id": "pyramid_stairs|A|1",
@@ -1309,7 +1334,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v1-A"
+      ]
     },
     {
       "id": "pyramid_stairs|A|1.5",
@@ -1325,7 +1352,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v1.5-A"
+      ]
     },
     {
       "id": "pyramid_stairs|baseline|0.5",
@@ -1443,7 +1472,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v0.5-A"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|A|1",
@@ -1459,7 +1490,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v1-A"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|A|1.5",
@@ -1475,7 +1508,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v1.5-A"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|baseline|0.5",
@@ -1755,7 +1790,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "random_rough-v0.5-A"
+      ]
     },
     {
       "id": "random_rough|A|1",
@@ -1771,7 +1808,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "random_rough-v1-A"
+      ]
     },
     {
       "id": "random_rough|A|1.5",
@@ -1787,7 +1826,9 @@
       "engagement_n": 100,
       "run_id": "A/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "random_rough-v1.5-A"
+      ]
     },
     {
       "id": "random_rough|baseline|0.5",
@@ -1905,7 +1946,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "repeated_boxes-v0.5-A"
+      ]
     },
     {
       "id": "repeated_boxes|A|1",
@@ -1921,7 +1964,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "repeated_boxes-v1-A"
+      ]
     },
     {
       "id": "repeated_boxes|A|1.5",
@@ -2059,7 +2104,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "repeated_cylinders-v0.5-A"
+      ]
     },
     {
       "id": "repeated_cylinders|A|1",
@@ -2075,7 +2122,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "repeated_cylinders-v1-A"
+      ]
     },
     {
       "id": "repeated_cylinders|A|1.5",
@@ -2213,7 +2262,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "star-v0.5-A"
+      ]
     },
     {
       "id": "star|A|1",
@@ -2229,7 +2280,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "star-v1-A"
+      ]
     },
     {
       "id": "star|A|1.5",
@@ -2367,7 +2420,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "stepping_stones-v0.5-A"
+      ]
     },
     {
       "id": "stepping_stones|A|1",
@@ -2521,7 +2576,9 @@
       "engagement_n": 100,
       "run_id": "A/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "wave-v0.5-A"
+      ]
     },
     {
       "id": "wave|A|1",
@@ -2664,6 +2721,28 @@
   ],
   "clips": [
     {
+      "id": "boxes-v0.5-A",
+      "file": "clips/boxes-v0.5-A.mp4",
+      "evaluation_id": "boxes|A|0.5",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 3813910,
+      "poster": "posters/boxes-v0.5-A.jpg",
+      "sha256": "a3dd5b3180d92e0779c6e6c3ebe848b143328c1a10bcb7161814ec8e6907e835",
+      "frames": 562,
+      "seconds": 11.24,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 98.0,
+      "engagement": 0.951,
+      "episodes": 100
+    },
+    {
       "id": "boxes-v0.5",
       "file": "clips/boxes-v0.5.mp4",
       "evaluation_id": "boxes|foothold-v1|0.5",
@@ -2673,6 +2752,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 3503549,
+      "poster": "posters/boxes-v0.5.jpg",
       "sha256": "4fb0e8bd7364c537ec470cb23e95cb090c941d3d6e9b8a3212506feb438357d8",
       "frames": 541,
       "seconds": 10.82,
@@ -2685,6 +2765,50 @@
       "episodes": 100
     },
     {
+      "id": "boxes-v1-A",
+      "file": "clips/boxes-v1-A.mp4",
+      "evaluation_id": "boxes|A|1",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 2265612,
+      "poster": "posters/boxes-v1-A.jpg",
+      "sha256": "d47474f089a096f771ed42336914f793b10485700b45058659d4557e4982fde3",
+      "frames": 274,
+      "seconds": 5.48,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.953,
+      "episodes": 100
+    },
+    {
+      "id": "boxes-v1.5-A",
+      "file": "clips/boxes-v1.5-A.mp4",
+      "evaluation_id": "boxes|A|1.5",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1766867,
+      "poster": "posters/boxes-v1.5-A.jpg",
+      "sha256": "f2377f365515941082af3ca1efd11446fa42231c6de6260c3c874a1f803dcfef",
+      "frames": 195,
+      "seconds": 3.9,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 98.0,
+      "engagement": 0.96,
+      "episodes": 100
+    },
+    {
       "id": "boxes-v1.5",
       "file": "clips/boxes-v1.5.mp4",
       "evaluation_id": "boxes|foothold-v1|1.5",
@@ -2694,6 +2818,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1630511,
+      "poster": "posters/boxes-v1.5.jpg",
       "sha256": "b88bbc93072994201e518b1e37933abc67652ab27dd4684360f3829a2ac49865",
       "frames": 188,
       "seconds": 3.76,
@@ -2715,6 +2840,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2177258,
+      "poster": "posters/boxes-v1.jpg",
       "sha256": "3f77fdd969b6f647defe4699bb65185eb61e19e516ae57ed609502b93b52e63a",
       "frames": 274,
       "seconds": 5.48,
@@ -2727,6 +2853,28 @@
       "episodes": 100
     },
     {
+      "id": "discrete_obstacles-v0.5-A",
+      "file": "clips/discrete_obstacles-v0.5-A.mp4",
+      "evaluation_id": "discrete_obstacles|A|0.5",
+      "terrain": "discrete_obstacles",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 3086988,
+      "poster": "posters/discrete_obstacles-v0.5-A.jpg",
+      "sha256": "46bfab3af67bde5b91e6d524eefac1b9f6ad1618b20eb466034798dddeec9aae",
+      "frames": 551,
+      "seconds": 11.02,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.567,
+      "episodes": 100
+    },
+    {
       "id": "discrete_obstacles-v0.5",
       "file": "clips/discrete_obstacles-v0.5.mp4",
       "evaluation_id": "discrete_obstacles|foothold-v1|0.5",
@@ -2736,6 +2884,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2856296,
+      "poster": "posters/discrete_obstacles-v0.5.jpg",
       "sha256": "99b259dc4d4ebcf4b0314d5618b1e94e29e08175df8e582fb72915696a034aae",
       "frames": 548,
       "seconds": 10.96,
@@ -2748,6 +2897,28 @@
       "episodes": 100
     },
     {
+      "id": "discrete_obstacles-v1-A",
+      "file": "clips/discrete_obstacles-v1-A.mp4",
+      "evaluation_id": "discrete_obstacles|A|1",
+      "terrain": "discrete_obstacles",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1805621,
+      "poster": "posters/discrete_obstacles-v1-A.jpg",
+      "sha256": "24086f08ab0be4127de3615f91e1980de6a4df13db2863aa13450bc5d5127559",
+      "frames": 269,
+      "seconds": 5.38,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.375,
+      "episodes": 100
+    },
+    {
       "id": "discrete_obstacles-v1.5-A",
       "file": "clips/discrete_obstacles-v1.5-A.mp4",
       "evaluation_id": "discrete_obstacles|A|1.5",
@@ -2757,6 +2928,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 1377188,
+      "poster": "posters/discrete_obstacles-v1.5-A.jpg",
       "sha256": "1fdbbd00bd11d0b42def7f4d345cf75cdd7bf7d6364959980c4e2b5c0bec6665",
       "frames": 192,
       "seconds": 3.84,
@@ -2778,6 +2950,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 1441410,
+      "poster": "posters/discrete_obstacles-v1.5-baseline.jpg",
       "sha256": "ff3db3a735dc5707525dc23958f0e7556d4908d5dabf4646ab8a8125a53588c8",
       "frames": 200,
       "seconds": 4.0,
@@ -2799,6 +2972,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1338586,
+      "poster": "posters/discrete_obstacles-v1.5.jpg",
       "sha256": "983b14ba53f7fbef19bc7bdb88f2ec697bfe76e456e953b00751e1863410c699",
       "frames": 189,
       "seconds": 3.78,
@@ -2820,6 +2994,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1753059,
+      "poster": "posters/discrete_obstacles-v1.jpg",
       "sha256": "c44950c81af982a51bcdadc0fdb3515a0e41ad3c9c4d5b54278c2ded5b64d5cf",
       "frames": 269,
       "seconds": 5.38,
@@ -2841,6 +3016,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 2212587,
+      "poster": "posters/floating_ring-v0.5-A.jpg",
       "sha256": "f46ce3b8636204b18f9c91bd1bb3bb9a66da9a5ec174c71aab9c9e67b817b422",
       "frames": 580,
       "seconds": 11.6,
@@ -2862,6 +3038,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 1516633,
+      "poster": "posters/floating_ring-v0.5-baseline.jpg",
       "sha256": "aa35a362ce3e40cf59c29e6e3082d04821ff4b1326604f432217b8477142bbab",
       "frames": 600,
       "seconds": 12.0,
@@ -2883,6 +3060,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2123285,
+      "poster": "posters/floating_ring-v0.5.jpg",
       "sha256": "0e71a895649b7fe98c3ae8789ac62636cbbc7a26bf7703ce22b54f529de32d3d",
       "frames": 556,
       "seconds": 11.12,
@@ -2904,6 +3082,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 1301493,
+      "poster": "posters/floating_ring-v1-A.jpg",
       "sha256": "d3105084824c7d4f27478f4b2e322c15d7393a7cc0084323663c3cc7aba801cd",
       "frames": 277,
       "seconds": 5.54,
@@ -2925,6 +3104,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 871223,
+      "poster": "posters/floating_ring-v1-baseline.jpg",
       "sha256": "7fc0fdb46f7fd352e7e153bdfa2036d6c5bcfa45d15b92a7cdba86c283aaa58a",
       "frames": 300,
       "seconds": 6.0,
@@ -2946,6 +3126,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 1017306,
+      "poster": "posters/floating_ring-v1.5-A.jpg",
       "sha256": "7552d5665055477b7da1b6a51b9c79e1b030f548a4e38f62f5ef3a89f412fb12",
       "frames": 199,
       "seconds": 3.98,
@@ -2967,6 +3148,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 911636,
+      "poster": "posters/floating_ring-v1.5-baseline.jpg",
       "sha256": "fd63c2f8536c227fa8aede7e1f636f85b0a3165574dd46d0e287c3571306e22b",
       "frames": 200,
       "seconds": 4.0,
@@ -2988,6 +3170,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 989280,
+      "poster": "posters/floating_ring-v1.5.jpg",
       "sha256": "94ad3a698daf35499ee753fec8fcdeec4878bc01923b2b5c44cb917b7f9a4327",
       "frames": 190,
       "seconds": 3.8,
@@ -3009,6 +3192,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1302701,
+      "poster": "posters/floating_ring-v1.jpg",
       "sha256": "51f51fb2b6fcf3291cbb7977f303185b1bf1db13e76df08ab43d1eaae90977a8",
       "frames": 285,
       "seconds": 5.7,
@@ -3030,6 +3214,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 2496914,
+      "poster": "posters/gap-v0.5-A.jpg",
       "sha256": "fbecbce17f7cc98ffd179f866440f15f55bdb9df53a0d12305ce261a642abebf",
       "frames": 600,
       "seconds": 12.0,
@@ -3051,6 +3236,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 1838024,
+      "poster": "posters/gap-v0.5-baseline.jpg",
       "sha256": "10786f45f2d7ebe78b703082bb178fa19204e37439965ef7c7412f1a37dac4b8",
       "frames": 600,
       "seconds": 12.0,
@@ -3072,6 +3258,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2037453,
+      "poster": "posters/gap-v0.5.jpg",
       "sha256": "bf889f880d7edb471476a320c6c70ba31908f276b47d6714f4b4de47b03faea2",
       "frames": 538,
       "seconds": 10.76,
@@ -3093,6 +3280,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 1506882,
+      "poster": "posters/gap-v1-A.jpg",
       "sha256": "f4763780db8943d1287b26aa21a3cd285b4fcc55d8ccfefa8749ea9f6340a20f",
       "frames": 300,
       "seconds": 6.0,
@@ -3114,6 +3302,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 1455441,
+      "poster": "posters/gap-v1-baseline.jpg",
       "sha256": "0fb87084680dc7457648b5e4b2ff2bbe796849c9ce46165904e7ea719433f07c",
       "frames": 300,
       "seconds": 6.0,
@@ -3135,6 +3324,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 997714,
+      "poster": "posters/gap-v1.5-A.jpg",
       "sha256": "e55b07f9dd9b1a08e984734258e61d1fe9149d341a06c86907160cb9ef9cdc17",
       "frames": 199,
       "seconds": 3.98,
@@ -3156,6 +3346,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 1091844,
+      "poster": "posters/gap-v1.5-baseline.jpg",
       "sha256": "b7f8bf718e92fae7a7e0621096a3b6c9a048362d1d310101e2992ca32500940c",
       "frames": 200,
       "seconds": 4.0,
@@ -3177,6 +3368,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 942799,
+      "poster": "posters/gap-v1.5.jpg",
       "sha256": "168023ff37e0002b05cd606d6285ee2ab7c080c1bf26914205c92f11718ad043",
       "frames": 190,
       "seconds": 3.8,
@@ -3198,6 +3390,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1212058,
+      "poster": "posters/gap-v1.jpg",
       "sha256": "7ebd8a77a613483e7b28ed3e1666a2e718d3434ced800c8e5b34a3032d0060c2",
       "frames": 266,
       "seconds": 5.32,
@@ -3210,6 +3403,28 @@
       "episodes": 100
     },
     {
+      "id": "hf_pyramid_slope-v0.5-A",
+      "file": "clips/hf_pyramid_slope-v0.5-A.mp4",
+      "evaluation_id": "hf_pyramid_slope|A|0.5",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 2237785,
+      "poster": "posters/hf_pyramid_slope-v0.5-A.jpg",
+      "sha256": "a35fa5e9fa0e70a320e0bedec369fe3300490dab05782bdd23836bfda53f11a0",
+      "frames": 552,
+      "seconds": 11.04,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
       "id": "hf_pyramid_slope-v0.5",
       "file": "clips/hf_pyramid_slope-v0.5.mp4",
       "evaluation_id": "hf_pyramid_slope|foothold-v1|0.5",
@@ -3219,9 +3434,54 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2050230,
+      "poster": "posters/hf_pyramid_slope-v0.5.jpg",
       "sha256": "e98a4ffd646c4b5eca6961ee40484ba4ca9e329f026769e9ae32e68f7d86a246",
       "frames": 549,
       "seconds": 10.98,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "hf_pyramid_slope-v1-A",
+      "file": "clips/hf_pyramid_slope-v1-A.mp4",
+      "evaluation_id": "hf_pyramid_slope|A|1",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1306531,
+      "poster": "posters/hf_pyramid_slope-v1-A.jpg",
+      "sha256": "54ac1ad2427135e86413d2c3a7eb6efd0f912c839be10614209f273b5c20b31b",
+      "frames": 267,
+      "seconds": 5.34,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "hf_pyramid_slope-v1.5-A",
+      "file": "clips/hf_pyramid_slope-v1.5-A.mp4",
+      "evaluation_id": "hf_pyramid_slope|A|1.5",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 995645,
+      "poster": "posters/hf_pyramid_slope-v1.5-A.jpg",
+      "sha256": "656bd3e0bdfceb6da7926dbcd24a18f01146bf4e167bdb04854b547e5db9a128",
+      "frames": 187,
+      "seconds": 3.74,
       "fps": 50.0,
       "width": 1920,
       "height": 1080,
@@ -3240,6 +3500,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 920837,
+      "poster": "posters/hf_pyramid_slope-v1.5.jpg",
       "sha256": "55747ae615516ad7dd63c55f6f257a92451da1e76f99023be7db8656e1205529",
       "frames": 186,
       "seconds": 3.72,
@@ -3261,9 +3522,32 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1197455,
+      "poster": "posters/hf_pyramid_slope-v1.jpg",
       "sha256": "38f8b15c64f55b649cf6508803a358ce9e0aedf33f5e012284a6fc00698b24e8",
       "frames": 267,
       "seconds": 5.34,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "hf_pyramid_slope_inv-v0.5-A",
+      "file": "clips/hf_pyramid_slope_inv-v0.5-A.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|A|0.5",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 2301622,
+      "poster": "posters/hf_pyramid_slope_inv-v0.5-A.jpg",
+      "sha256": "35df9b670c123d9f4bd5dc5fa7bc431327845345738932cafad0ac285ded0f21",
+      "frames": 545,
+      "seconds": 10.9,
       "fps": 50.0,
       "width": 1920,
       "height": 1080,
@@ -3281,10 +3565,55 @@
       "speed_mps": 0.5,
       "model": "foothold-v1",
       "role": "main",
-      "bytes": 2105791,
-      "sha256": "4b5c6f94bcccfc538587ff7b61308425f7179d4652164aa4f5a16677d8383dd1",
+      "bytes": 2852396,
+      "poster": "posters/hf_pyramid_slope_inv-v0.5.jpg",
+      "sha256": "417dae74ffdca84358cd5e70d129cd573c6a8ec2be505b309ddf8d8aa2ecfda3",
       "frames": 545,
       "seconds": 10.9,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "hf_pyramid_slope_inv-v1-A",
+      "file": "clips/hf_pyramid_slope_inv-v1-A.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|A|1",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1378044,
+      "poster": "posters/hf_pyramid_slope_inv-v1-A.jpg",
+      "sha256": "843738605d95a65f396c242b88d97a1c619c9a79b09acccb93d4c3b218bd309f",
+      "frames": 272,
+      "seconds": 5.44,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "hf_pyramid_slope_inv-v1.5-A",
+      "file": "clips/hf_pyramid_slope_inv-v1.5-A.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|A|1.5",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1062772,
+      "poster": "posters/hf_pyramid_slope_inv-v1.5-A.jpg",
+      "sha256": "862c042176398c06f930879a31b08b4b7b0f087595e09aaab08bdcf371884071",
+      "frames": 193,
+      "seconds": 3.86,
       "fps": 50.0,
       "width": 1920,
       "height": 1080,
@@ -3302,8 +3631,9 @@
       "speed_mps": 1.5,
       "model": "foothold-v1",
       "role": "main",
-      "bytes": 973258,
-      "sha256": "837f3ac6d5c6bd743611af37053a27633f9f6d9974ca1ecf29afa8fc7ba28188",
+      "bytes": 1349202,
+      "poster": "posters/hf_pyramid_slope_inv-v1.5.jpg",
+      "sha256": "bef2da5d0b95ef434d639cc89a3277d0a80de0a64590fd313f993d85db3f2f7f",
       "frames": 189,
       "seconds": 3.78,
       "fps": 50.0,
@@ -3323,8 +3653,9 @@
       "speed_mps": 1.0,
       "model": "foothold-v1",
       "role": "main",
-      "bytes": 1256814,
-      "sha256": "938c7df0b4c35bb457ba72c1f0ced38099be485eb71aef15f37591892a46c789",
+      "bytes": 1744371,
+      "poster": "posters/hf_pyramid_slope_inv-v1.jpg",
+      "sha256": "f504042ded329b00fdee1f7cab7c094ca0fdf8bcb8c6376e9e2df770a7ea8c1a",
       "frames": 269,
       "seconds": 5.38,
       "fps": 50.0,
@@ -3345,6 +3676,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 2041611,
+      "poster": "posters/pit-v0.5-A.jpg",
       "sha256": "8164f3a2d3b02e9f18da08e8b778d918849feaa9bd4107135f0b0415f39a6d95",
       "frames": 547,
       "seconds": 10.94,
@@ -3366,6 +3698,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 1433629,
+      "poster": "posters/pit-v0.5-baseline.jpg",
       "sha256": "70811c2f961fca7315dc1b12ea0570488c8ba456fbcebd977831a1cf9adee3af",
       "frames": 600,
       "seconds": 12.0,
@@ -3387,6 +3720,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2108860,
+      "poster": "posters/pit-v0.5.jpg",
       "sha256": "6d4687bfb5e1aebb2292620182983f7f2604827bf2a57efcc89d1d808afbb796",
       "frames": 535,
       "seconds": 10.7,
@@ -3408,6 +3742,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 1215130,
+      "poster": "posters/pit-v1-A.jpg",
       "sha256": "4afc2e0431c12a68df4fb4e995dda82a276a6717db1a2ec6d6d5945904b7de26",
       "frames": 268,
       "seconds": 5.36,
@@ -3429,6 +3764,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 966937,
+      "poster": "posters/pit-v1-baseline.jpg",
       "sha256": "807f09004bb4b5e247d088be14509e570de221de261cbbc13cf9f13631af0b9c",
       "frames": 300,
       "seconds": 6.0,
@@ -3450,6 +3786,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 959068,
+      "poster": "posters/pit-v1.5-A.jpg",
       "sha256": "a5b2bc9436d6998ebd3a993be9a2128db6c5987415c3f95452e3e47f973a3db0",
       "frames": 193,
       "seconds": 3.86,
@@ -3471,6 +3808,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 715597,
+      "poster": "posters/pit-v1.5-baseline.jpg",
       "sha256": "3ebb0b2fda17e6126c61cfc37b9ba3567fd6bf189680bd8cf34ac282f6efb62f",
       "frames": 200,
       "seconds": 4.0,
@@ -3492,6 +3830,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 928277,
+      "poster": "posters/pit-v1.5.jpg",
       "sha256": "15946651030fdd1ee42dde3687ed2f2046ff59953b3694ea7af5c3d80f357f4e",
       "frames": 187,
       "seconds": 3.74,
@@ -3513,6 +3852,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1185700,
+      "poster": "posters/pit-v1.jpg",
       "sha256": "61d6c2d69027bb6ea37b04380479f86a53d75d70d01b29437bc2723e3c137bff",
       "frames": 266,
       "seconds": 5.32,
@@ -3521,6 +3861,28 @@
       "height": 1080,
       "codec": "h264",
       "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "pyramid_stairs-v0.5-A",
+      "file": "clips/pyramid_stairs-v0.5-A.mp4",
+      "evaluation_id": "pyramid_stairs|A|0.5",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 2768594,
+      "poster": "posters/pyramid_stairs-v0.5-A.jpg",
+      "sha256": "4b70e94534543e2f1dff06dee4be6808289037092b94277b89c8fb22a0e4dbf1",
+      "frames": 575,
+      "seconds": 11.5,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 99.0,
       "engagement": 1.0,
       "episodes": 100
     },
@@ -3534,9 +3896,54 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2534209,
+      "poster": "posters/pyramid_stairs-v0.5.jpg",
       "sha256": "ffde43c56de763cb2d0277bf5731206b4902992f3dcc447c8ef51453a98588da",
       "frames": 578,
       "seconds": 11.56,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "pyramid_stairs-v1-A",
+      "file": "clips/pyramid_stairs-v1-A.mp4",
+      "evaluation_id": "pyramid_stairs|A|1",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1639500,
+      "poster": "posters/pyramid_stairs-v1-A.jpg",
+      "sha256": "8010d2b40e69eb5d537ee736fe8806b65b7930b844b7866acb421fbb7bb45681",
+      "frames": 281,
+      "seconds": 5.62,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "pyramid_stairs-v1.5-A",
+      "file": "clips/pyramid_stairs-v1.5-A.mp4",
+      "evaluation_id": "pyramid_stairs|A|1.5",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1276652,
+      "poster": "posters/pyramid_stairs-v1.5-A.jpg",
+      "sha256": "e1c8d317b2c4adde4022535d9ed0744390b20d2a0e7dc0ed0020bafe929bbd8f",
+      "frames": 197,
+      "seconds": 3.94,
       "fps": 50.0,
       "width": 1920,
       "height": 1080,
@@ -3555,6 +3962,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1157472,
+      "poster": "posters/pyramid_stairs-v1.5.jpg",
       "sha256": "e9ccc31c52e5d5a53bd8a6d6dd01bf4f51cdb0ec78c359168162b63f24c96b44",
       "frames": 195,
       "seconds": 3.9,
@@ -3576,9 +3984,32 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1506492,
+      "poster": "posters/pyramid_stairs-v1.jpg",
       "sha256": "52f41fd5f62408230dc0c954ec454b912f5fa8791809e1de5b1ea36ed690db66",
       "frames": 285,
       "seconds": 5.7,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "pyramid_stairs_inv-v0.5-A",
+      "file": "clips/pyramid_stairs_inv-v0.5-A.mp4",
+      "evaluation_id": "pyramid_stairs_inv|A|0.5",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 2677698,
+      "poster": "posters/pyramid_stairs_inv-v0.5-A.jpg",
+      "sha256": "0787dd83d6170b9c70932f96e887de993527740afbb2e9683acdb51cd60bb305",
+      "frames": 526,
+      "seconds": 10.52,
       "fps": 50.0,
       "width": 1920,
       "height": 1080,
@@ -3596,8 +4027,9 @@
       "speed_mps": 0.5,
       "model": "foothold-v1",
       "role": "main",
-      "bytes": 2191148,
-      "sha256": "ef6ae6a57143ce57d9de54f399da53d1963fca19ad0a10c0031f59b48f0787b5",
+      "bytes": 3310932,
+      "poster": "posters/pyramid_stairs_inv-v0.5.jpg",
+      "sha256": "82116035af2db87d59b59015c17a27fe09fa618fcdfc077f172128f2ec24bd2b",
       "frames": 524,
       "seconds": 10.48,
       "fps": 50.0,
@@ -3605,6 +4037,50 @@
       "height": 1080,
       "codec": "h264",
       "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "pyramid_stairs_inv-v1-A",
+      "file": "clips/pyramid_stairs_inv-v1-A.mp4",
+      "evaluation_id": "pyramid_stairs_inv|A|1",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1607858,
+      "poster": "posters/pyramid_stairs_inv-v1-A.jpg",
+      "sha256": "7abf77f184107ed667160ba0d1c53a7d873998a60d288e4f38b02df111c7587a",
+      "frames": 282,
+      "seconds": 5.64,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100
+    },
+    {
+      "id": "pyramid_stairs_inv-v1.5-A",
+      "file": "clips/pyramid_stairs_inv-v1.5-A.mp4",
+      "evaluation_id": "pyramid_stairs_inv|A|1.5",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1169694,
+      "poster": "posters/pyramid_stairs_inv-v1.5-A.jpg",
+      "sha256": "ccd4d8d7c6b02db92c6a9ed65d903696f06a0742d7fdbd595a4dadc0ac190b28",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 99.0,
       "engagement": 1.0,
       "episodes": 100
     },
@@ -3617,8 +4093,9 @@
       "speed_mps": 1.5,
       "model": "foothold-v1",
       "role": "main",
-      "bytes": 1001532,
-      "sha256": "ca46cef4c2517ce07158408e4b45af266b040b2fd61f78f59cd890a75d02399e",
+      "bytes": 1647764,
+      "poster": "posters/pyramid_stairs_inv-v1.5.jpg",
+      "sha256": "630576c53128efa2504bcce4c41d010d222d6b87338b9049f7ad810e0642875c",
       "frames": 194,
       "seconds": 3.88,
       "fps": 50.0,
@@ -3638,8 +4115,9 @@
       "speed_mps": 1.0,
       "model": "foothold-v1",
       "role": "main",
-      "bytes": 1348561,
-      "sha256": "964faf1fe764bc0a525a7f07e56af9629c30f27cd2a268f9db9190d22d4a025e",
+      "bytes": 2103176,
+      "poster": "posters/pyramid_stairs_inv-v1.jpg",
+      "sha256": "5f51526791d6d76a71c753b1e1daf1e9b19029fe72ff15fc2abe94c454339572",
       "frames": 271,
       "seconds": 5.42,
       "fps": 50.0,
@@ -3660,6 +4138,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 2497996,
+      "poster": "posters/rails-v0.5-A.jpg",
       "sha256": "d4b2234fff2926f013943053a4507bc7baabf6637d7b20a32871ae9180db9168",
       "frames": 600,
       "seconds": 12.0,
@@ -3681,6 +4160,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 1375086,
+      "poster": "posters/rails-v0.5-baseline.jpg",
       "sha256": "b6d761ddf9ec0d145eb976b3b83e099fcd7f1e8e76b5dd606bf9577dabe70b1f",
       "frames": 600,
       "seconds": 12.0,
@@ -3702,6 +4182,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2443961,
+      "poster": "posters/rails-v0.5.jpg",
       "sha256": "bc140babdcc94ea1dd2c2db30e51bed8271b8384b99ace4b66f09f9704e48604",
       "frames": 600,
       "seconds": 12.0,
@@ -3723,6 +4204,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 1505143,
+      "poster": "posters/rails-v1-A.jpg",
       "sha256": "fffc04bc4c98b3a8510877a9fec9a7f2e0baf52db142daf22c6ca778fe287b1d",
       "frames": 300,
       "seconds": 6.0,
@@ -3744,6 +4226,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 1471667,
+      "poster": "posters/rails-v1-baseline.jpg",
       "sha256": "43455fc0d8a0607d42633dca990648c35640eafe631f65e6d3eaec7e30120ad6",
       "frames": 300,
       "seconds": 6.0,
@@ -3765,6 +4248,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 1115025,
+      "poster": "posters/rails-v1.5-A.jpg",
       "sha256": "3dcce9617cce4fcde4c8af6ccd5c640f4a0698e7ed6a0c00e217f4f75ae49d1c",
       "frames": 200,
       "seconds": 4.0,
@@ -3786,6 +4270,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 900554,
+      "poster": "posters/rails-v1.5-baseline.jpg",
       "sha256": "53b491322773a0953d0adf73e676168eb5be9d57d863a5992cff5d89c350f6bc",
       "frames": 200,
       "seconds": 4.0,
@@ -3807,6 +4292,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1083429,
+      "poster": "posters/rails-v1.5.jpg",
       "sha256": "3f3244b891ba55dfaf0d0665ff39cff45672050ae55dc048c836c8d12cd77ec3",
       "frames": 200,
       "seconds": 4.0,
@@ -3828,6 +4314,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1523589,
+      "poster": "posters/rails-v1.jpg",
       "sha256": "284e7bc3287d1000e66864be038854b7792bda44f7d5ffc7a9cee116ac2e1e93",
       "frames": 300,
       "seconds": 6.0,
@@ -3840,6 +4327,28 @@
       "episodes": 100
     },
     {
+      "id": "random_rough-v0.5-A",
+      "file": "clips/random_rough-v0.5-A.mp4",
+      "evaluation_id": "random_rough|A|0.5",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 3262087,
+      "poster": "posters/random_rough-v0.5-A.jpg",
+      "sha256": "6c38ab25024ca6b232a069d79e4929b36cb2ad18f93642adf0a02b6671c477cc",
+      "frames": 573,
+      "seconds": 11.46,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 87.0,
+      "engagement": 0.998,
+      "episodes": 100
+    },
+    {
       "id": "random_rough-v0.5",
       "file": "clips/random_rough-v0.5.mp4",
       "evaluation_id": "random_rough|foothold-v1|0.5",
@@ -3849,6 +4358,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 3391017,
+      "poster": "posters/random_rough-v0.5.jpg",
       "sha256": "c0a9de239bdde2fdcf18502964a3130a12b8fff0a7aef7a2c4fe31bf85238055",
       "frames": 600,
       "seconds": 12.0,
@@ -3861,6 +4371,50 @@
       "episodes": 100
     },
     {
+      "id": "random_rough-v1-A",
+      "file": "clips/random_rough-v1-A.mp4",
+      "evaluation_id": "random_rough|A|1",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1951725,
+      "poster": "posters/random_rough-v1-A.jpg",
+      "sha256": "ed654e20c933388514b9f544ab4e663c80d09dfd6bc249069e71b226e3d43c3f",
+      "frames": 285,
+      "seconds": 5.7,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 92.0,
+      "engagement": 0.994,
+      "episodes": 100
+    },
+    {
+      "id": "random_rough-v1.5-A",
+      "file": "clips/random_rough-v1.5-A.mp4",
+      "evaluation_id": "random_rough|A|1.5",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1443917,
+      "poster": "posters/random_rough-v1.5-A.jpg",
+      "sha256": "1f3ad902e9c3df7ba0a7a0a41e6efcf664958affe4136e897183971c704b4f29",
+      "frames": 195,
+      "seconds": 3.9,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 72.0,
+      "engagement": 0.994,
+      "episodes": 100
+    },
+    {
       "id": "random_rough-v1.5",
       "file": "clips/random_rough-v1.5.mp4",
       "evaluation_id": "random_rough|foothold-v1|1.5",
@@ -3870,6 +4424,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1364840,
+      "poster": "posters/random_rough-v1.5.jpg",
       "sha256": "b94d4fc3b60ce3d10d936e000072226f88839aa5a1662930148a946942f98236",
       "frames": 192,
       "seconds": 3.84,
@@ -3891,6 +4446,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1825925,
+      "poster": "posters/random_rough-v1.jpg",
       "sha256": "9f5fbdcd885ae9a76e56a5efd620b9f7a8c57db67a4fd8fd541375a884bb5e85",
       "frames": 277,
       "seconds": 5.54,
@@ -3903,6 +4459,28 @@
       "episodes": 100
     },
     {
+      "id": "repeated_boxes-v0.5-A",
+      "file": "clips/repeated_boxes-v0.5-A.mp4",
+      "evaluation_id": "repeated_boxes|A|0.5",
+      "terrain": "repeated_boxes",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 2230831,
+      "poster": "posters/repeated_boxes-v0.5-A.jpg",
+      "sha256": "61bbd4786ac4f9fbb9c91933c3665c777486b29e68d64fffb962c500dd52b968",
+      "frames": 540,
+      "seconds": 10.8,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.728,
+      "episodes": 100
+    },
+    {
       "id": "repeated_boxes-v0.5",
       "file": "clips/repeated_boxes-v0.5.mp4",
       "evaluation_id": "repeated_boxes|foothold-v1|0.5",
@@ -3912,6 +4490,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2049543,
+      "poster": "posters/repeated_boxes-v0.5.jpg",
       "sha256": "ac91748d64927bbc2aceefc2a8a05cd578dce8a20fd8984ef2952553cf707d23",
       "frames": 538,
       "seconds": 10.76,
@@ -3924,6 +4503,28 @@
       "episodes": 100
     },
     {
+      "id": "repeated_boxes-v1-A",
+      "file": "clips/repeated_boxes-v1-A.mp4",
+      "evaluation_id": "repeated_boxes|A|1",
+      "terrain": "repeated_boxes",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1322646,
+      "poster": "posters/repeated_boxes-v1-A.jpg",
+      "sha256": "078b51ded602679c3a203ae3a5685b05dd264ff4c3fbe82871023a49c7573d33",
+      "frames": 265,
+      "seconds": 5.3,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.745,
+      "episodes": 100
+    },
+    {
       "id": "repeated_boxes-v1.5-A",
       "file": "clips/repeated_boxes-v1.5-A.mp4",
       "evaluation_id": "repeated_boxes|A|1.5",
@@ -3933,6 +4534,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 912106,
+      "poster": "posters/repeated_boxes-v1.5-A.jpg",
       "sha256": "8faf81d0d9c5a28965403463f1510b7e16aad534be5645d6eecc1be5d66210e5",
       "frames": 185,
       "seconds": 3.7,
@@ -3954,6 +4556,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 991705,
+      "poster": "posters/repeated_boxes-v1.5-baseline.jpg",
       "sha256": "f8ca0347664793797e29b6e76a42b6dbb1045fddec186a4e3de071642ed94bbb",
       "frames": 191,
       "seconds": 3.82,
@@ -3975,6 +4578,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 909293,
+      "poster": "posters/repeated_boxes-v1.5.jpg",
       "sha256": "de6a2fafe060d738b6e1e1d963a15ba5a1746cc3a2d45f7eaef0287ec92d13f2",
       "frames": 185,
       "seconds": 3.7,
@@ -3996,6 +4600,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1197582,
+      "poster": "posters/repeated_boxes-v1.jpg",
       "sha256": "4cd223a2703af21db6201f927a78989b3dd197d49af1daaa2a82a4ed571dd7fd",
       "frames": 265,
       "seconds": 5.3,
@@ -4008,6 +4613,28 @@
       "episodes": 100
     },
     {
+      "id": "repeated_cylinders-v0.5-A",
+      "file": "clips/repeated_cylinders-v0.5-A.mp4",
+      "evaluation_id": "repeated_cylinders|A|0.5",
+      "terrain": "repeated_cylinders",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 2247889,
+      "poster": "posters/repeated_cylinders-v0.5-A.jpg",
+      "sha256": "13386ef00ea9a03d65b9a3f740b225da7c299eb6adf484bb7aefcfe1d3a473a1",
+      "frames": 548,
+      "seconds": 10.96,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.873,
+      "episodes": 100
+    },
+    {
       "id": "repeated_cylinders-v0.5",
       "file": "clips/repeated_cylinders-v0.5.mp4",
       "evaluation_id": "repeated_cylinders|foothold-v1|0.5",
@@ -4017,6 +4644,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2053614,
+      "poster": "posters/repeated_cylinders-v0.5.jpg",
       "sha256": "d5d0865c7aa9930259354682b44ae9df1a91ca227addbbe086dd5655b4fd4630",
       "frames": 546,
       "seconds": 10.92,
@@ -4029,6 +4657,28 @@
       "episodes": 100
     },
     {
+      "id": "repeated_cylinders-v1-A",
+      "file": "clips/repeated_cylinders-v1-A.mp4",
+      "evaluation_id": "repeated_cylinders|A|1",
+      "terrain": "repeated_cylinders",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1295701,
+      "poster": "posters/repeated_cylinders-v1-A.jpg",
+      "sha256": "186a4e5ca6f5d6cbeecd173c57b526533543d37eb64951c4515ea9ab4efb2728",
+      "frames": 264,
+      "seconds": 5.28,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.895,
+      "episodes": 100
+    },
+    {
       "id": "repeated_cylinders-v1.5-A",
       "file": "clips/repeated_cylinders-v1.5-A.mp4",
       "evaluation_id": "repeated_cylinders|A|1.5",
@@ -4038,6 +4688,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 903949,
+      "poster": "posters/repeated_cylinders-v1.5-A.jpg",
       "sha256": "f692bcb39fd4d3057c29ce4d9aa5eb3483bf2615930bee676363d031e6eed909",
       "frames": 185,
       "seconds": 3.7,
@@ -4059,6 +4710,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 966975,
+      "poster": "posters/repeated_cylinders-v1.5-baseline.jpg",
       "sha256": "c16bac7b8001e8b1a804e5792a7a5eb669e46a4409fbf6273bd337e5184acc1c",
       "frames": 191,
       "seconds": 3.82,
@@ -4080,6 +4732,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 892271,
+      "poster": "posters/repeated_cylinders-v1.5.jpg",
       "sha256": "cbce0179a37396432c6b24f43be3e84356e239c4d6a540b0e9e52a81f13dd63a",
       "frames": 183,
       "seconds": 3.66,
@@ -4101,6 +4754,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1187742,
+      "poster": "posters/repeated_cylinders-v1.jpg",
       "sha256": "cb0d6cdb6281620e6721396083508c442b41ae0d1b06092509212d60ca001adc",
       "frames": 267,
       "seconds": 5.34,
@@ -4113,6 +4767,28 @@
       "episodes": 100
     },
     {
+      "id": "star-v0.5-A",
+      "file": "clips/star-v0.5-A.mp4",
+      "evaluation_id": "star|A|0.5",
+      "terrain": "star",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 3196846,
+      "poster": "posters/star-v0.5-A.jpg",
+      "sha256": "33049a7ed257b0723a5dacf8621b60e924f596e3b5008ae26469e88d03170bd7",
+      "frames": 559,
+      "seconds": 11.18,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.47,
+      "episodes": 100
+    },
+    {
       "id": "star-v0.5",
       "file": "clips/star-v0.5.mp4",
       "evaluation_id": "star|foothold-v1|0.5",
@@ -4122,6 +4798,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2850821,
+      "poster": "posters/star-v0.5.jpg",
       "sha256": "a43fd537373904188cd3a3a63b222d21c3fe235a9a0341bbb9c1abb6e4c465af",
       "frames": 551,
       "seconds": 11.02,
@@ -4134,6 +4811,28 @@
       "episodes": 100
     },
     {
+      "id": "star-v1-A",
+      "file": "clips/star-v1-A.mp4",
+      "evaluation_id": "star|A|1",
+      "terrain": "star",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "A",
+      "role": "compare",
+      "bytes": 1810672,
+      "poster": "posters/star-v1-A.jpg",
+      "sha256": "c25870f35ac179789291a98d907a1417cf1b6042c8d49e32ee1a753d5c5e2c0d",
+      "frames": 264,
+      "seconds": 5.28,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.16,
+      "episodes": 100
+    },
+    {
       "id": "star-v1.5-A",
       "file": "clips/star-v1.5-A.mp4",
       "evaluation_id": "star|A|1.5",
@@ -4143,6 +4842,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 1303937,
+      "poster": "posters/star-v1.5-A.jpg",
       "sha256": "c265a9626f5397076d2bc919d96fdaf5e8ded1dcd6616621ff7f80ec6e482574",
       "frames": 184,
       "seconds": 3.68,
@@ -4164,6 +4864,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 1396640,
+      "poster": "posters/star-v1.5-baseline.jpg",
       "sha256": "cabfe5e65a9e8bdb8a891dc738e345b99d948ea08a92d5f0a2c7f06044c23b1a",
       "frames": 191,
       "seconds": 3.82,
@@ -4185,6 +4886,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1287670,
+      "poster": "posters/star-v1.5.jpg",
       "sha256": "e89dad4090ec88513c150576c64a27326d527f8f96e8c8e074869789ab428faf",
       "frames": 181,
       "seconds": 3.62,
@@ -4206,6 +4908,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1680833,
+      "poster": "posters/star-v1.jpg",
       "sha256": "2f3b0c668e805873187183dd170a1ed0eeb4728b6b44b9858914a5644d5593d7",
       "frames": 261,
       "seconds": 5.22,
@@ -4218,6 +4921,28 @@
       "episodes": 100
     },
     {
+      "id": "stepping_stones-v0.5-A",
+      "file": "clips/stepping_stones-v0.5-A.mp4",
+      "evaluation_id": "stepping_stones|A|0.5",
+      "terrain": "stepping_stones",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 2444923,
+      "poster": "posters/stepping_stones-v0.5-A.jpg",
+      "sha256": "117f3b4cb59502802b74414df22d17c74d572eb20cc4db8c9d359dce977e190a",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.696,
+      "episodes": 100
+    },
+    {
       "id": "stepping_stones-v0.5",
       "file": "clips/stepping_stones-v0.5.mp4",
       "evaluation_id": "stepping_stones|foothold-v1|0.5",
@@ -4227,6 +4952,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2099024,
+      "poster": "posters/stepping_stones-v0.5.jpg",
       "sha256": "6df88462528ac54bc7419381e729852df08c4cc34c35a41cb60a0f985a41f0ce",
       "frames": 600,
       "seconds": 12.0,
@@ -4248,6 +4974,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 1414587,
+      "poster": "posters/stepping_stones-v1-A.jpg",
       "sha256": "9f7ce87918dd0cdf510fc70de33bb2efca2af5b93306dd79fff6fe623cdbaa15",
       "frames": 300,
       "seconds": 6.0,
@@ -4269,6 +4996,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 2181897,
+      "poster": "posters/stepping_stones-v1-baseline.jpg",
       "sha256": "765d66ed60fd1b98f0012f69b0d2f5ebb9cadce67742c020f52c65ecdc1cf0b1",
       "frames": 300,
       "seconds": 6.0,
@@ -4290,6 +5018,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1109778,
+      "poster": "posters/stepping_stones-v1.5.jpg",
       "sha256": "2d4872a08c1a17787b21f0696b47254e2aea9c8dc2cfc9609e0ed60b406ed9ac",
       "frames": 200,
       "seconds": 4.0,
@@ -4311,6 +5040,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1728928,
+      "poster": "posters/stepping_stones-v1.jpg",
       "sha256": "0ef27c1ac3d0801b0ac1ef6c41a10293bb32563172f9daf6778cec665cffd738",
       "frames": 300,
       "seconds": 6.0,
@@ -4323,6 +5053,28 @@
       "episodes": 100
     },
     {
+      "id": "wave-v0.5-A",
+      "file": "clips/wave-v0.5-A.mp4",
+      "evaluation_id": "wave|A|0.5",
+      "terrain": "wave",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "A",
+      "role": "compare",
+      "bytes": 2235586,
+      "poster": "posters/wave-v0.5-A.jpg",
+      "sha256": "4d59baf9f2911650ba11b28d0157e43b349a670881897fc9cb7f86cb14d008e0",
+      "frames": 541,
+      "seconds": 10.82,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.627,
+      "episodes": 100
+    },
+    {
       "id": "wave-v0.5",
       "file": "clips/wave-v0.5.mp4",
       "evaluation_id": "wave|foothold-v1|0.5",
@@ -4332,6 +5084,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 2056441,
+      "poster": "posters/wave-v0.5.jpg",
       "sha256": "2d35abeca4dacaa8f2253b8b1f53c77fb89ecf1a42d2718a5028da2c8b3d8028",
       "frames": 547,
       "seconds": 10.94,
@@ -4353,6 +5106,7 @@
       "model": "A",
       "role": "compare",
       "bytes": 928818,
+      "poster": "posters/wave-v1.5-A.jpg",
       "sha256": "68da0ea107f0c89dfdb327097311e5dd5d9a94f51c74a215834da62d325ff6e0",
       "frames": 190,
       "seconds": 3.8,
@@ -4374,6 +5128,7 @@
       "model": "baseline",
       "role": "compare",
       "bytes": 1018709,
+      "poster": "posters/wave-v1.5-baseline.jpg",
       "sha256": "e8c06c72b69c80281700be0e2472102c0d72d43cdeab7035937e9f3b454aaf23",
       "frames": 200,
       "seconds": 4.0,
@@ -4395,6 +5150,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 936680,
+      "poster": "posters/wave-v1.5.jpg",
       "sha256": "2ad2a39f809bfc329ab0229f2359371bd23b4ff92834f9f90544f6f79ae271cd",
       "frames": 189,
       "seconds": 3.78,
@@ -4416,6 +5172,7 @@
       "model": "foothold-v1",
       "role": "main",
       "bytes": 1201528,
+      "poster": "posters/wave-v1.jpg",
       "sha256": "e72fdcd124e1c5fe78c00c733b8520e41cec0f03d1d2be278ea07be320db5ec9",
       "frames": 266,
       "seconds": 5.32,

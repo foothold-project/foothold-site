@@ -2,6 +2,7 @@
    판이 늘어도 손댈 것이 없게 하려면 화면마다 CSS 를 복제하지 않아야 한다. */
 
 :root{
+  --gnav-width:1440px;--gnav-pad:clamp(18px,3vw,40px);  /* 전역바가 이 폭을 따라온다 (본문 .wrap 과 같다) */
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
   --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
   --rule:#d9d6cd;--brand:#0e7a6e;--dim-soft:#e0f0ed;
@@ -9,6 +10,27 @@
   --stop:#a3342a;--stop-soft:#fbe9e7;
   --grid:rgba(22,28,38,.04);
 }
+/* **어두운 화면.** 이 블록이 없으면 site 의 어두운 토큰을 못 받아 본문은
+   밝은 채로 있는데 전역바만 «흰 로고» 로 바뀐다. 밝은 바에 흰 글씨라
+   로고가 사라진다 `확인됨` (2026-09-12 로컬 실측 · 예산안 때와 같은 부류).
+   값은 index.html 의 어두운 토큰과 같다. */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+  --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+  --rule:#2b323d;--brand:#3ec7b4;--dim-soft:#11302c;
+  --note:#dc9a30;--note-soft:#332710;
+  --stop:#e56d5e;--stop-soft:#331c19;
+  --grid:rgba(233,231,225,.04);
+}}
+:root[data-theme="dark"]{
+  --paper:#12161d;--paper-2:#191e27;--card:#181d26;
+  --ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;
+  --rule:#2b323d;--brand:#3ec7b4;--dim-soft:#11302c;
+  --note:#dc9a30;--note-soft:#332710;
+  --stop:#e56d5e;--stop-soft:#331c19;
+  --grid:rgba(233,231,225,.04);
+}
+
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;
@@ -61,7 +83,13 @@ h1{font-size:clamp(1.5rem,3.2vw,2.3rem);font-weight:800;letter-spacing:-.03em;
 .cut video{width:100%;height:100%;display:block;object-fit:contain}
 .poster{position:absolute;inset:0;display:flex;flex-direction:column;gap:8px;
   align-items:center;justify-content:center;background:#0d0f12;color:#e8e6e0;
-  border:0;cursor:pointer;font:inherit;font-size:.8rem;width:100%}
+  border:0;cursor:pointer;font:inherit;font-size:.8rem;width:100%;
+  background-size:cover;background-position:center}
+/* 대표 한 장이 깔리면 글씨가 묻히지 않게 어둡게 덮는다 */
+.poster.has-shot{text-shadow:0 1px 3px rgba(0,0,0,.9)}
+.poster.has-shot::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(13,15,18,.15),rgba(13,15,18,.55))}
+.poster.has-shot>*{position:relative}
 .poster .play{width:42px;height:42px;border-radius:50%;border:2px solid currentColor;
   display:grid;place-items:center;font-size:.9rem}
 .cut figcaption{padding:11px 13px;display:grid;gap:5px}
@@ -144,3 +172,69 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--rule);
   font-size:.78rem;color:var(--ink-3);display:grid;gap:4px}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ══ 보고서 느낌 (팀장 확정 2026-09-12) ═══════════════════════════════
+   「gallery-v1 골자는 기존 아티팩트에서 정리해준게 보고서 느낌으로 확인할
+   수 있어서 좋은 것 같아.」
+
+   지형으로 묶고, 그 지형의 성적을 머리에 적고, 속도 셋을 세 열로 놓는다.
+   평평한 격자는 「무엇이 있나」만 말하고 「빠를수록 어떻게 되나」를 안 말한다.
+   격자 보기는 「보기」 단추로 남겨 둔다. */
+
+.viewsw{display:flex;align-items:center;gap:.4rem;margin:0 0 20px}
+.viewsw .lab{font-size:.7rem;font-weight:800;letter-spacing:.1em;
+  color:var(--ink-3);margin-right:.3rem}
+
+.terr{margin:0 0 40px;border-top:2px solid var(--ink);padding-top:14px}
+.terr .thead{display:flex;flex-wrap:wrap;align-items:baseline;
+  justify-content:space-between;gap:10px 18px;margin-bottom:14px}
+.terr .thead h2{margin:0;font-size:1.18rem;font-weight:800;letter-spacing:-.02em;
+  display:flex;align-items:baseline;gap:10px}
+.terr .kind{font-size:.62rem;font-weight:700;letter-spacing:.06em;
+  padding:2px 7px;border-radius:4px;white-space:nowrap}
+.terr .kind.k6{background:var(--dim-soft,#e0f0ed);color:var(--brand,#0e7a6e)}
+.terr .kind.k10{background:var(--note-soft,#fbf0dc);color:var(--note,#a86a08)}
+
+/* 성적 세 쪽. 「성공률 100 % · 험지 참여도 0.94 · 300판」 한 줄로 읽힌다. */
+.tstat{display:flex;gap:20px;flex-wrap:wrap;font-size:.78rem}
+.tstat span{display:flex;align-items:baseline;gap:6px}
+.tstat i{font-style:normal;color:var(--ink-3);font-size:.72rem}
+.tstat b{font-weight:800;font-variant-numeric:tabular-nums;font-size:.92rem}
+
+/* 속도 세 열. 좁아지면 흘러내린다. */
+.speeds{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+@media(max-width:1000px){.speeds{grid-template-columns:1fr}}
+.scol{display:grid;gap:10px;align-content:start}
+.shead{display:flex;align-items:baseline;gap:5px;padding-bottom:5px;
+  border-bottom:1px solid var(--rule);margin-bottom:2px}
+.shead b{font-size:1.02rem;font-weight:800;font-variant-numeric:tabular-nums}
+.shead span{font-size:.7rem;color:var(--ink-3)}
+
+.cut.tight figcaption{padding:8px 10px}
+.cut.tight .meta{font-size:.7rem}
+
+/* 배속. 파일은 한 벌이고 재생기만 바꾼다 (정본 10절). */
+.rates{display:flex;align-items:center;gap:4px;padding:6px 10px 0}
+.rates .lab{font-size:.62rem;font-weight:700;letter-spacing:.08em;
+  color:var(--ink-3);margin-right:2px}
+.rb{font:inherit;font-size:.68rem;font-weight:700;font-variant-numeric:tabular-nums;
+  padding:2px 7px;border:1px solid var(--rule);border-radius:4px;
+  background:transparent;color:var(--ink-3);cursor:pointer}
+.rb:hover{color:var(--ink);border-color:var(--ink-3)}
+.rb.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* 비교 한 줄. 「영상 없음」 큰 상자로 열을 채우지 않는다. */
+.cmpstrip{border:1px solid var(--rule);border-radius:8px;background:var(--card);
+  padding:8px 10px;display:grid;gap:5px}
+.cmpstrip .clab{font-size:.62rem;font-weight:800;letter-spacing:.1em;
+  color:var(--ink-3)}
+.cline{display:grid;gap:6px}
+.chead{font:inherit;font-size:.76rem;display:flex;align-items:baseline;gap:8px;
+  width:100%;text-align:left;background:transparent;border:0;padding:3px 2px;
+  border-radius:4px;cursor:pointer;color:var(--ink)}
+.chead:hover:not(:disabled){background:var(--paper-2)}
+.chead:disabled{cursor:default;color:var(--ink-3)}
+.chead .rate{font-weight:800;font-variant-numeric:tabular-nums}
+.chead .open{margin-left:auto;font-size:.68rem;font-weight:700;color:var(--brand)}
+.chead .none{margin-left:auto;font-size:.68rem;color:var(--ink-3)}
+.cvid video{width:100%;display:block;border-radius:6px;background:#0d0f12}
