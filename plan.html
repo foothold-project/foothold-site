@@ -471,7 +471,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--newbadge:v7--><style>
+<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--newbadge:v8--><style>
 span.fh-new{display:inline-block!important;margin-left:.45rem;vertical-align:.14em;
   background:var(--note)!important;color:#fff!important;font-size:.55rem!important;
   font-weight:800!important;letter-spacing:.1em!important;line-height:1.5!important;
@@ -482,8 +482,16 @@ span.fh-new{display:inline-block!important;margin-left:.45rem;vertical-align:.14
 (function(){
   var W=7*86400000,KEY='fh_seen';
   var TITLE='.t,.rt,.bt,.tlt3,.ex3,.pk3,.k,.hb3,b,strong,h2,h3';
-  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
-    .replace(/\.html$/,'');return s||'index'}
+  function norm(s){
+    /* 2026-09-12. split('/').pop() 이 끝의 빈 조각을 집어
+       /gallery/ · /index.html · /team-meang/index.html 이 전부 'index' 로
+       뭉개졌다. 표지를 여는 순간 갤러리가 「봤음」이 돼 NEW 가 안 떴다. */
+    s=(s||'').split('#')[0].split('?')[0].replace(/\.html$/,'').replace(/\/+$/,'');
+    var p=s.split('/').filter(Boolean);
+    var last=p.pop()||'index';
+    if(last==='index'&&p.length)last=p.pop()+'/index';
+    return last;
+  }
   function host(a){
     var h=a.querySelector(TITLE);
     if(h)return h;
