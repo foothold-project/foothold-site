@@ -57,6 +57,11 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 pre{background:#161c26;color:#e8e6e0;border-radius:10px;padding:16px 18px;
   overflow-x:auto;margin:16px 0;font-size:.84rem;line-height:1.6}
 pre code{background:none;color:inherit;padding:0}
+.fig{margin:24px 0;background:var(--card);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px 12px}
+.fig img{width:100%;height:auto;display:block}
+.fig figcaption{font-size:.8rem;color:var(--ink-3);margin-top:10px;
+  padding-top:10px;border-top:1px solid var(--rule)}
 .said{background:var(--dim-soft);color:var(--brand);font-size:.7rem;
   font-weight:700;padding:1px 7px;border-radius:4px;white-space:nowrap}
 blockquote{border-left:3px solid var(--brand);background:var(--card);
@@ -80,7 +85,8 @@ footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--ink);
 <div><b>요지</b> 측정 규격이 둘이다. 빗나간 광선을 +1(구멍)로 읽는 규격 2 가 기본이고, -1(벽)로 읽던 규격 1 숫자는 성적으로 인용하지 않는다. 규격은 날짜가 아니라 manifest 의 eval_spec_version 과 height_scan_miss_value 로 가른다.</div>
 <div><b>상태</b> 확정</div>
 </div>
-<p><strong>읽는 판은 아티팩트입니다.</strong> 도면과 설명이 다 들어 있습니다. 이 문서는 <strong>인용하는 판</strong>입니다. 숫자와 규격의 정본입니다.</p>
+<p><strong>웹판</strong>: &lt;https://foothold-project.vercel.app/research-20260911-eval-protocol-v2.html&gt; 도면 다섯 장과 표가 다 들어 있습니다. 이 markdown 이 정본이고 웹판은 그것을 옮긴 것입니다.</p>
+<p>숫자와 규격을 인용할 때는 이 문서를 근거로 답니다.</p>
 <hr>
 <h2><span class="n">0.</span>한 줄</h2>
 <p><strong>구멍 위에서 광선이 빗나갈 때 학습은 <code>+1</code>, 평가는 <code>-1</code> 을 넣고 있었습니다.</strong> <code>-1</code> 은 「내 몸통보다 0.5 m 넘게 솟은 것」, 곧 벽입니다. <strong>구멍을 장애물이라고 알려 주고 재고 있었습니다.</strong></p>
@@ -99,12 +105,12 @@ footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--ink);
 <p><strong>규격 1 숫자를 성적으로 인용하지 않습니다.</strong> 지우지도 않습니다. 결함이 있었다는 증거이자 고쳤을 때 무엇이 달라졌는지의 대조군입니다.</p>
 <h3>어디에 영향이 있나</h3>
 <p>평가 10종 중 <strong><code>gap</code> 하나뿐</strong>입니다. 광선이 빗나가려면 바닥이 아예 없어야 하는데, 나머지 아홉은 바닥이 있습니다.</p>
-<p>!<a href="../assets/visual/eval-v2-scan-grid.svg">gap 지형 위 광선 187개와 빗나간 22개</a></p>
+<figure class="fig"><img src="/assets/visual/eval-v2-scan-grid.svg" alt="gap 지형 위 광선 187개와 빗나간 22개" loading="lazy"><figcaption>gap 지형 위 광선 187개와 빗나간 22개</figcaption></figure>
 <p>발판이 1.5 m 라 가장자리가 ±0.75 m 인데 격자는 ±0.80 m 까지 뻗습니다. <strong>맨 앞줄과 맨 뒷줄 11개씩, 모두 22개</strong>가 틈 위에 걸칩니다.</p>
 <div class="tw"><table><thead><tr><th>지형</th><th>빗나간 광선 (187 중)</th><th>낸 값</th></tr></thead><tbody><tr><td><strong><code>gap</code></strong></td><td><strong>22</strong></td><td><code>-1.00</code> ~ <code>-0.10</code></td></tr><tr><td><code>floating_ring</code></td><td>0</td><td><code>-0.33</code> ~ <code>-0.10</code></td></tr><tr><td><code>pit</code></td><td>0</td><td><code>-0.30</code> ~ <code>-0.10</code></td></tr><tr><td><code>rails</code></td><td>0</td><td><code>-0.22</code> ~ <code>-0.10</code></td></tr><tr><td><code>stepping_stones</code></td><td>0</td><td><code>-0.10</code> ~ <code>+0.97</code></td></tr><tr><td>나머지 다섯</td><td>0</td><td><code>-0.10</code> ~ <code>+0.11</code></td></tr></tbody></table></div>
 <p>재현은 <code>sim/eval/probe_height_scan.py</code> 입니다.</p>
 <h3>값이 무엇을 뜻하나</h3>
-<p>!<a href="../assets/visual/eval-v2-scan-meaning.svg">높이 스캔 값의 뜻</a></p>
+<figure class="fig"><img src="/assets/visual/eval-v2-scan-meaning.svg" alt="높이 스캔 값의 뜻" loading="lazy"><figcaption>높이 스캔 값의 뜻</figcaption></figure>
 <p><code>값 = 몸통 높이 - 광선이 닿은 높이 - 0.5</code></p>
 <p>양수는 「바닥이 아래로 멀다」, 음수는 「위로 솟았다」입니다. 자르는 범위가 <code>(-1, 1)</code> 이라 <code>-1</code> 의 경계는 <code>닿은높이 = 몸통높이 + 0.5</code> 입니다.</p>
 <hr>
@@ -126,17 +132,17 @@ footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--ink);
 <div class="tw"><table><thead><tr><th>지형</th><th class="num">0.5 m/s</th><th class="num">1.0 m/s</th><th class="num">1.5 m/s</th></tr></thead><tbody><tr><td><code>boxes</code></td><td class="num">99</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>hf_pyramid_slope</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>hf_pyramid_slope_inv</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>pyramid_stairs</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>pyramid_stairs_inv</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>random_rough</code></td><td class="num">99</td><td class="num">100</td><td class="num">90</td></tr></tbody></table></div>
 <hr>
 <h2><span class="n">4.</span>난이도 곡선 · 세 모델</h2>
-<p>!<a href="../assets/visual/eval-v2-curves.svg">규격 2 난이도별 성공률 세 모델</a></p>
+<figure class="fig"><img src="/assets/visual/eval-v2-curves.svg" alt="규격 2 난이도별 성공률 세 모델" loading="lazy"><figcaption>규격 2 난이도별 성공률 세 모델</figcaption></figure>
 <p><strong><code>gap</code> · 1.0 m/s</strong></p>
 <div class="tw"><table><thead><tr><th>난이도</th><th>0.1</th><th>0.2</th><th>0.3</th><th>0.4</th><th>0.5</th><th>0.6</th><th>0.7</th><th>0.8</th><th>0.9</th><th>1.0</th></tr></thead><tbody><tr><td>기준선</td><td>25</td><td>7</td><td>5</td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>A</td><td>100</td><td>100</td><td>100</td><td>79</td><td>28</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td><strong>B</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td></tr></tbody></table></div>
 <p>A 는 연습한 폭(0.20 m)을 <strong>조금 넘어서까지</strong> 버팁니다. 난이도 0.3 이 평가 틈 0.225 m 이고 거기까지 100%, 0.4(0.25 m)에서 79%, 0.5(0.275 m)에서 28% 입니다. 연습 상한에서 딱 끊기는 것이 아니라 그 위로 서서히 떨어집니다. <strong>B 는 난이도 1.0(0.40 m)까지 전부 100%</strong> 입니다.</p>
 <hr>
 <h2><span class="n">5.</span>연습한 지형과 시험 보는 지형</h2>
-<p>!<a href="../assets/visual/eval-v2-gap-geometry.svg">학습 지형과 평가 지형의 거리 비교</a></p>
+<figure class="fig"><img src="/assets/visual/eval-v2-gap-geometry.svg" alt="학습 지형과 평가 지형의 거리 비교" loading="lazy"><figcaption>학습 지형과 평가 지형의 거리 비교</figcaption></figure>
 <div class="tw"><table><thead><tr><th></th><th>학습 <code>forward_gap</code></th><th>평가 <code>gap</code></th></tr></thead><tbody><tr><td>틈 모양</td><td>앞을 가로지르는 도랑 하나</td><td>발판 사방을 두른 고리</td></tr><tr><td>출발점에서 틈까지</td><td>1.50 m</td><td>0.75 m</td></tr><tr><td>틈 폭 (난이도 0.5) · A</td><td>0.125 m</td><td>0.275 m</td></tr><tr><td>틈 폭 (난이도 0.5) · <strong>B</strong></td><td><strong>0.275 m</strong></td><td>0.275 m</td></tr><tr><td>넘은 뒤 착지면 · A</td><td>3.94 m</td><td>2.98 m</td></tr><tr><td>넘은 뒤 착지면 · <strong>B</strong></td><td><strong>3.86 m</strong></td><td>2.98 m</td></tr></tbody></table></div>
 <hr>
 <h2><span class="n">6.</span>보상이 몸의 어디에 걸리나</h2>
-<p>!<a href="../assets/visual/eval-v2-reward-map.svg">보상 지도</a></p>
+<figure class="fig"><img src="/assets/visual/eval-v2-reward-map.svg" alt="보상 지도" loading="lazy"><figcaption>보상 지도</figcaption></figure>
 <p>가장 큰 벌점이 <code>lin_vel_z_l2</code> 의 <strong>-2.00</strong> 입니다. 「위아래로 출렁이지 마라」가 「명령 속도를 맞춰라(+1.50)」보다 무겁습니다.</p>
 <p><strong>이것이 뛰어넘는 동작과 부딪칩니다.</strong> <code>stepping_stones</code> 가 관측을 고쳐도 안 풀리는 이유로 이 값을 의심하고 있습니다.</p>
 <hr>

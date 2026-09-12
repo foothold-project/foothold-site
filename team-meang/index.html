@@ -476,7 +476,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=3e818358').then(function(r){
+    fetch('/assets/search-index.json?v=de5a23c7').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -561,7 +561,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="../hub-proposal.html">기획</a><a class="" href="../hub-schedule.html">일정</a><a class="" href="../hub-meeting.html">회의</a><a class="" href="../hub-research.html">연구</a><a class="" href="../hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="../chosun-materials.html">팀 자료실</a><a class="q" href="../encyclopedia.html">도메인 백과</a><a class="q" href="../curriculum.html">학습 커리큘럼</a><a class="q" href="../budget.html">예산안</a></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html">FOOTHOLD</a><a class="" href="../hub-proposal.html">기획</a><a class="" href="../hub-schedule.html">일정</a><a class="" href="../hub-meeting.html">회의</a><a class="" href="../hub-research.html">연구</a><a class="" href="/gallery/">갤러리</a><a class="" href="../hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="../chosun-materials.html">팀 자료실</a><a class="q" href="../encyclopedia.html">도메인 백과</a><a class="q" href="../curriculum.html">학습 커리큘럼</a><a class="q" href="../budget.html">예산안</a></div></div><!--/gnav:v1-->
 
 <div class="top"><div class="row"><a class="home" href="../index.html#team">← 표지로</a><span class="doc">Team · 맹라현</span><span class="sp"></span><button class="pdfbtn" id="pdfBtn" type="button">PDF 저장</button></div><div id="prog"></div></div>
 
