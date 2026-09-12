@@ -123,13 +123,13 @@ footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--ink);
 <div><b>근거</b> 실측 (<code>sim/eval/results/maindata-v1</code> 43,200 에피소드 · <code>20260911-v3-fixedscan</code> 원자료) · 코드 원문 · codex 검증 7회차</div>
 <div><b>요지</b> 우리가 무엇을 어떻게 재는지 한 문서에 못 박는다. 규격 2(빗나간 광선 +1)가 기본이고 규격 1 숫자는 성적으로 인용하지 않는다</div>
 <div><b>상태</b> 확정</div>
+<div><b>판</b> v2.0</div>
 </div>
-<blockquote>판: v2.0</blockquote>
 <p><strong>웹판</strong>: <a href="https://foothold-project.vercel.app/research-20260911-eval-protocol-v2.html">https://foothold-project.vercel.app/research-20260911-eval-protocol-v2.html</a> 도해 여덟 장 · 실측 사진 여섯 장 · 표 예순여덟 개가 다 들어 있습니다. 이 markdown 이 정본이고 웹판은 그것을 옮긴 것입니다.</p>
 <p>숫자와 규격을 인용할 때는 이 문서를 근거로 답니다.</p>
 <blockquote><strong>이 판에서 합쳐진 것.</strong> 배포용 정본과 규격 2 갱신본이 따로 있었고, 웹에는 갱신본만 올라가 <strong>난이도 스윕 곡선과 높이 스캔 해설이 빠져</strong> 있었습니다 <span class="said">확인됨</span> (2026-09-12 팀장 지적). 둘을 합쳐 이 문서 하나로 둡니다. 읽는 차례는 <strong>1부 지금 규격 · 2부 그 규격이 왜 그렇게 됐나</strong> 입니다.</blockquote>
 <hr>
-<h2><span class="n">1</span>부 · 지금 무엇으로 재는가</h2>
+<h2>1부 · 지금 무엇으로 재는가</h2>
 <p>지금 성적을 낼 때 쓰는 규격입니다. 숫자를 인용하려면 여기까지만 읽어도 됩니다.</p>
 <h3>0. 한 줄</h3>
 <p><strong>구멍 위에서 광선이 빗나갈 때 학습은 <code>+1</code>, 평가는 <code>-1</code> 을 넣고 있었습니다.</strong> <code>-1</code> 은 「내 몸통보다 0.5 m 넘게 솟은 것」, 곧 벽입니다. <strong>구멍을 장애물이라고 알려 주고 재고 있었습니다.</strong></p>
@@ -1161,7 +1161,7 @@ render_interval = 4  렌더  50 Hz   (결정 1번에 프레임 1장)</code></pre
 <div class="tw"><table><thead><tr><th>차수</th><th>모델</th><th>무엇을 잡았나</th></tr></thead><tbody><tr><td>1차</td><td><code>gpt-6-astra</code></td><td>관측 부호 불일치를 처음 지적</td></tr><tr><td>2차</td><td><code>gpt-6-astra</code></td><td>S3 원본으로 임석헌 평가도 <code>+1</code> 이었음을 확인 · 속도별 제한 시간 오류</td></tr><tr><td>3차</td><td><code>gpt-6-astra</code></td><td>문서 수치 오류 16건 · 격자 순서 · 대조 실험의 초기 상태 차이</td></tr><tr><td>4차</td><td><code>gpt-6-astra</code></td><td>manifest 가 규격을 안 남기던 것 · 영상 계측이 한 프레임 밀리던 것</td></tr><tr><td>5차</td><td><code>gpt-6-astra</code></td><td>공개를 막는 8건. 저장소 밖 의존성 · argv 로 규격을 가른다는 잘못된 안내 · 장수 관문이 예정치를 보던 것 · 날짜로 규격을 가르던 문장 · 미리보기 자리가 범위를 넘던 것</td></tr><tr><td>팀장</td><td>오흥재</td><td><code>stepping_stones</code> 영상에서 카메라가 z 축으로 도는 것을 지적 (2026-09-11)</td></tr></tbody></table></div>
 <p>세 차수 모두 <code>Claude/검증결과*.md</code> 에 남아 있습니다.</p>
 <hr>
-<h2><span class="n">2</span>부 · 그 규격이 왜 그렇게 됐나</h2>
+<h2>2부 · 그 규격이 왜 그렇게 됐나</h2>
 <p>배경과 실측입니다. 난이도 스윕 곡선 · 높이 스캔이 무엇을 보는가 · 지형마다 난이도 축이 어떻게 다른가가 여기 있습니다.</p>
 <blockquote><strong>규격 1 시절 숫자가 섞여 있을 수 있습니다.</strong> 이 부의 표 가운데 <code>eval_spec_version</code> 이 1 인 것으로 잰 값은 <strong>성적으로 인용하지 않습니다.</strong> 규격 2 로 다시 잰 값은 1부와 3절에 있습니다.</blockquote>
 <h3>01 기준선은 난이도 0.5 입니다</h3>
@@ -1237,13 +1237,7 @@ sim/eval/generalization_env_cfg.py:53`</code></pre>
 <text x="639.0" y="274.0" font-size="10" fill="var(--ink-2)" text-anchor="middle" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">광선이 아무것도 못 맞힘</text>
 <text x="0.0" y="302.0" font-size="11" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">양수는 «바닥이 아래로 멀다» · 음수는 «위로 솟았다» · 닿지 않으면 학습은 +1, 평가는 -1 을 넣는다</text>
 </svg><figcaption>높이 스캔 값이 뜻하는 세 가지</figcaption></figure>
-<p>광선 한 줄기가 내는 값 값 = 몸통 높이 − 광선이 닿은 높이 − 0.5</p>
-<p>평지</p>
-<p>-0.10 바닥이 발밑에 있다</p>
-<p>턱이 솟음</p>
-<p>-0.30 값이 더 음수로</p>
-<p>바닥이 꺼짐</p>
-<p>? +1 광선이 아무것도 못 맞힘 양수는 «바닥이 아래로 멀다» · 음수는 «위로 솟았다» · 닿지 않으면 학습은 +1, 평가는 -1 을 넣는다 그림 3-1 · 값 하나가 뜻하는 것. 양수는 바닥이 아래로 멀어진 것, 음수는 위로 솟은 것입니다</p>
+<p>그림 3-1 · 값 하나가 뜻하는 것. 양수는 바닥이 아래로 멀어진 것, 음수는 위로 솟은 것입니다</p>
 <h4>3.2 gap 지형에서 광선이 어디를 비추나</h4>
 <p>난이도 0.5 에서 실제로 재 본 그림입니다. 재현은 sim/eval/probe_height_scan.py 입니다.</p>
 <figure class="fig"><svg viewBox="0 0 780 470" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block" role="img" aria-label="gap 지형 위 광선 187개와 빗나간 22개">
@@ -1504,16 +1498,7 @@ sim/eval/generalization_env_cfg.py:53`</code></pre>
 <text x="472.0" y="428.0" font-size="11" fill="var(--card)" text-anchor="middle" font-weight="700" font-family="IBM Plex Mono, monospace">-1</text>
 <text x="494.0" y="428.0" font-size="10.5" fill="var(--bad)" text-anchor="start" font-weight="600" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">아주 높이 솟음 · 장애물</text>
 </svg><figcaption>gap 지형 위 광선 187개와 빗나간 22개</figcaption></figure>
-<p>gap 지형 · 광선 187개가 어디를 비추나 난이도 0.5 · 출발 직후 · 위에서 내려다본 그림</p>
-<p>발판 1.5 m x 1.5 m 틈 0.275 m 바닥이 없다</p>
-<p>진행 격자 1.6 m x 1.0 m · 0.1 m 간격 17 x 11 = 187 개 몸통 20 m 위에서 아래로만</p>
-<p>빗나간 광선 22 개 (11.8%)</p>
-<p>맞은 광선 165 개 왜 딱 두 줄인가 발판 가장자리가 ±0.75 m 격자는 ±0.80 m 까지 뻗는다 그래서 맨 앞줄과 맨 뒷줄만 0.05 m 만큼 틈 위로 나간다</p>
-<p>같은 광선 22개가 학습과 평가에서 정반대 값이 된다 학습이 준 값</p>
-<p>+1</p>
-<p>+1 바닥이 아주 멀리 아래 · 구멍 평가가 주는 값</p>
-<p>-1</p>
-<p>-1 아주 높이 솟음 · 장애물 그림 3-2 · 위에서 내려다본 gap 지형과 광선 187개. 빨간 점 22개가 틈 위로 나가 아무것도 못 맞힙니다</p>
+<p>그림 3-2 · 위에서 내려다본 gap 지형과 광선 187개. 빨간 점 22개가 틈 위로 나가 아무것도 못 맞힙니다</p>
 <p>발판이 1.5 m 라 가장자리가 ±0.75 m 인데 격자는 ±0.80 m 까지 뻗습니다. 그래서 <strong>맨 앞줄과 맨 뒷줄 11개씩, 모두 22개</strong>가 틈 위에 걸칩니다.</p>
 <p><strong>학습이 고른 +1 은 옳은 선택입니다.</strong> 이 눈금에서 양수는 「바닥이 아래로 멀다」는 뜻이고, 바닥 없는 구멍이 바로 그것입니다. 학습 코드 주석도 그렇게 적고 있습니다.</p>
 <p>평가가 넣는 -1 은 <strong>눈금의 정반대 끝</strong>입니다. 뜻으로 옮기면 <strong>「내 몸통보다 0.5 m 넘게 솟은 무언가가 있다」</strong> 입니다. 몸통높이 - 닿은높이 - 0.5 = -1 이 되는 경계가 닿은높이 = 몸통높이 + 0.5 이기 때문입니다.</p>
@@ -1559,15 +1544,7 @@ sim/eval/generalization_env_cfg.py:53`</code></pre>
 <text x="12.0" y="323.0" font-size="11" fill="var(--bad)" text-anchor="start" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">로봇이 못 아는 것 둘</text>
 <text x="12.0" y="341.0" font-size="10.5" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">① 고리 «아래» 에 바닥이 있다는 것    ② 고리가 얼마나 «두꺼운» 지. 윗면 높이 하나만 잰다</text>
 </svg><figcaption>floating_ring 단면에서 광선이 고리 윗면만 본다</figcaption></figure>
-<p>floating_ring · 광선은 고리 «윗면» 에서 멈춘다 난이도 0.5 단면 · 오른쪽이 진행 방향 · 가로세로 같은 축척</p>
-<p>바닥 · 타일 전체에 깔려 있다</p>
-<p>고리 단면</p>
-<p>고리 윗면 0.225 m</p>
-<p>고리 아랫면 0.105 m</p>
-<p>바닥 0 m</p>
-<p>10.5 cm</p>
-<p>몸통 0.42 m</p>
-<p>로봇이 못 아는 것 둘 ① 고리 «아래» 에 바닥이 있다는 것 ② 고리가 얼마나 «두꺼운» 지. 윗면 높이 하나만 잰다 그림 3-3 · 고리가 있는 자리에서 광선은 고리 윗면에서 멈춥니다. 그 아래 바닥은 값에 안 들어옵니다</p>
+<p>그림 3-3 · 고리가 있는 자리에서 광선은 고리 윗면에서 멈춥니다. 그 아래 바닥은 값에 안 들어옵니다</p>
 <div class="tw"><table><thead><tr><th>난이도 0.5 에서</th><th>높이</th><th>광선이 보는가</th></tr></thead><tbody><tr><td>고리 윗면</td><td>0.225 m</td><td>본다 값 -0.33</td></tr><tr><td>고리 아랫면</td><td>0.105 m</td><td>못 본다</td></tr><tr><td>고리 아래 바닥</td><td>0 m</td><td>못 본다</td></tr><tr><td>고리 없는 자리 바닥</td><td>0 m</td><td>본다 값 -0.10</td></tr><tr><td>Go2 몸통</td><td>0.42 m</td><td>기준점. 20환경 평균 0.421 m · floating_ring 초기값은 0.40 m</td></tr></tbody></table></div>
 <p><strong>로봇은 고리를 「바닥에서 0.225 m 솟은 덩어리」로 봅니다.</strong> 아래에 틈이 있다는 것도, 고리가 얼마나 두꺼운지도 모릅니다. <strong>높이 스캔은 한 자리에 숫자 하나</strong>라서 「위에 천장, 아래에 바닥」을 담을 수 없습니다.</p>
 <p><strong>이번 지형에서는 그게 문제가 안 됩니다.</strong> 고리 아래 틈이 10.5 cm 라 Go2(몸통 0.42 m )가 기어들어갈 수 없습니다. <strong>넘어가는 턱</strong>이고, 넘으려면 윗면 높이만 알면 됩니다. 그래서 지금 눈으로도 98~99% 를 냅니다.</p>
@@ -1628,10 +1605,7 @@ sim/eval/generalization_env_cfg.py:53`</code></pre>
 <text x="12.0" y="325.0" font-size="11" fill="var(--warn)" text-anchor="start" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">같은 난이도인데</text>
 <text x="12.0" y="343.0" font-size="10.5" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">달릴 거리는 절반 (1.50 → 0.75 m) · 틈은 2.2 배 (0.125 → 0.275 m) · 그리고 광선이 주는 값의 부호가 반대</text>
 </svg><figcaption>학습 지형과 평가 지형의 달릴 거리와 틈 폭 비교</figcaption></figure>
-<p>연습한 지형과 시험 보는 지형이 이만큼 다르다 둘 다 난이도 0.5 · 옆에서 본 그림 · 가로 축척 같음 학습 · forward_gap</p>
-<p>달릴 거리 1.50 m 틈 0.125 m 착지면 3.94 m 평가 · gap</p>
-<p>달릴 거리 0.75 m 틈 0.275 m 착지면 2.98 m</p>
-<p>같은 난이도인데 달릴 거리는 절반 (1.50 → 0.75 m) · 틈은 2.2 배 (0.125 → 0.275 m) · 그리고 광선이 주는 값의 부호가 반대 그림 3-4 · 같은 난이도에서 달릴 거리는 절반, 틈은 2.2 배입니다</p>
+<p>그림 3-4 · 같은 난이도에서 달릴 거리는 절반, 틈은 2.2 배입니다</p>
 <div class="tw"><table><thead><tr><th></th><th>학습 forward_gap</th><th>평가 gap</th></tr></thead><tbody><tr><td>틈 모양</td><td>앞을 가로지르는 도랑 하나</td><td>발판 사방을 두른 고리</td></tr><tr><td>출발점에서 틈까지</td><td>1.50 m</td><td>0.75 m</td></tr><tr><td>틈 폭 (난이도 0.5)</td><td>0.125 m</td><td>0.275 m</td></tr><tr><td>넘은 뒤 착지면</td><td>3.94 m</td><td>2.98 m</td></tr><tr><td>빗나간 광선의 값</td><td><strong>+1</strong></td><td><strong>-1</strong></td></tr></tbody></table></div>
 <p><strong>임석헌의 영상과 우리 성적이 다른 이유는 하나가 아닙니다.</strong> 2026-09-11 에 그의 S3 원자료를 내려받아 대조했습니다.</p>
 <div class="tw"><table><thead><tr><th></th><th>임석헌 gap_stop_10</th><th>우리 1.0 m/s</th></tr></thead><tbody><tr><td><strong>빗나간 광선</strong></td><td><strong>+1</strong> · 구멍으로 보임</td><td><strong>-1</strong> · 장애물로 보임</td></tr><tr><td>틈 폭</td><td>0.16 m</td><td>0.275 m</td></tr><tr><td>제한 시간</td><td>20초</td><td>6초</td></tr><tr><td>성공 기준</td><td>gap_only</td><td>네 축 AND</td></tr><tr><td>체크포인트</td><td>model_899.pt</td><td>model_1500.pt</td></tr><tr><td><strong>준비 구간</strong></td><td><strong>정책을 끄고</strong> 기본 관절 자세</td><td>없음</td></tr></tbody></table></div>
@@ -1660,7 +1634,7 @@ sim/eval/generalization_env_cfg.py:53`</code></pre>
 <div class="tw"><table><thead><tr><th>분류</th><th>무엇이 일어나나</th><th>지형</th><th>처방</th></tr></thead><tbody><tr><td><strong>낙상형</strong></td><td>몸통이 바닥에 닿는다 · 생존 0.2 수준</td><td>gap · stepping_stones</td><td>관측 · 발 배치 보상</td></tr><tr><td><strong>전진불능형</strong></td><td>한 번도 안 넘어지고 그냥 못 넘는다 · 생존 0.85 이상</td><td>pit · rails · floating_ring</td><td>보상 · 명령 커리큘럼</td></tr></tbody></table></div>
 <p><code>rails</code> 는 2026-09-03 에 낙상형에서 <strong>전진불능형으로 재분류</strong>됐습니다(팀장 확정 · <code>#66</code>). 근거는 1.0 m/s 재측정에서 생존이 36%에서 85%로 오른 것입니다.</p>
 <h3>06 난이도 스윕 · 곡선을 얻는다</h3>
-<p><strong>이 절의 표와 곡선은 규격이 섞여 있습니다.</strong> 2026-09-10 에 잰 기준선 분석은 <strong>규격이 기록돼 있지 않습니다</strong> 그 폴더의 manifest 38개에 <code>eval_spec_version</code> 도 <code>height_scan_miss_value</code> 도 없습니다 <span class="said">확인됨</span> (2026-09-12 codex 8회차). 폴더의 주의문은 규격 1 이라 부르지만 <strong>판별 규칙(1부 「규격은 무엇으로 가르나」)으로는 미확정</strong>입니다. 위 세 모델 곡선은 규격 2 입니다. <strong>섞어서 인용하지 마십시오.</strong></p>
+<p><strong>이 절의 표와 곡선은 규격이 섞여 있습니다.</strong> 2026-09-10 에 잰 기준선 분석은 <strong>규격이 기록돼 있지 않습니다</strong>. 그 폴더의 manifest 38개에 <code>eval_spec_version</code> 도 <code>height_scan_miss_value</code> 도 없습니다 <span class="said">확인됨</span> (2026-09-12 codex 8회차). 폴더의 주의문은 규격 1 이라 부르지만 <strong>판별 규칙(1부 「규격은 무엇으로 가르나」)으로는 미확정</strong>입니다. 위 세 모델 곡선은 규격 2 입니다. <strong>섞어서 인용하지 마십시오.</strong></p>
 <p><strong>두 규격의 값이 gap 말고도 다릅니다.</strong> 예전에는 「빗나가는 광선이 0개라 나머지 아홉은 같다」고 적었는데, 공통 150칸을 다시 세니 <strong>40칸이 다르고 rails 는 8칸이 2 %p 를 넘었습니다</strong> <span class="said">확인됨</span> (2026-09-12 codex 8회차 · <code>pit</code> d0.3 v0.5 는 18 %에서 31 %). 그 차이가 관측 부호 변경 때문인지는 <strong>미확인</strong>입니다. 실행 구성과 초기 상태까지 통제한 대조가 아닙니다.</p>
 <p>그러니 이 절의 옛 표는 <strong>어느 지형이든 성적으로 인용하지 마십시오.</strong></p>
 <p>기준선 한 점 옆에 <strong>난이도별 곡선</strong>을 세웁니다. 2026-09-10 에 실패 5종 19,000에피소드를 40분에 돌렸습니다.</p>
@@ -2136,60 +2110,7 @@ sim/eval/generalization_env_cfg.py:53`</code></pre>
 <text x="0.0" y="636.0" font-size="10.5" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif"><tspan font-weight="700">B 는 난이도 1.0 (틈 0.40 m) 까지 gap 100% 다.</tspan> floating_ring 은 난이도가 오를수록 고리가 내려가 «쉬워진다». 이 지형만 축의 뜻이 반대다</text>
 <text x="0.0" y="654.0" font-size="10.5" fill="var(--warn)" text-anchor="start" font-weight="600" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">stepping_stones 는 셋 다 0.2 에서 0 이 된다. 관측을 고쳐도 안 풀렸다. 뛰어야 넘는 지형이고, 위아래 출렁임 벌점(-2.00)이 그 동작과 부딪친다</text>
 </svg><figcaption>규격 2 난이도별 성공률 세 모델 비교</figcaption></figure>
-<p>난이도를 올리면 어디서 무너지나 · 세 모델 규격 2 · 1.0 m/s · 칸마다 에피소드 100회 · 세로축은 성공률 % · 가로축은 난이도</p>
-<p>gap</p>
-<p>0</p>
-<p>50</p>
-<p>100</p>
-<p>0.1 0.4 0.7 1.0 난이도</p>
-<p>pit</p>
-<p>0</p>
-<p>50</p>
-<p>100</p>
-<p>0.1 0.4 0.7 1.0 난이도</p>
-<p>floating_ring</p>
-<p>0</p>
-<p>50</p>
-<p>100</p>
-<p>0.1 0.4 0.7 1.0 난이도</p>
-<p>rails</p>
-<p>0</p>
-<p>50</p>
-<p>100</p>
-<p>0.1 0.4 0.7 1.0 난이도</p>
-<p>stepping_stones</p>
-<p>0</p>
-<p>50</p>
-<p>100</p>
-<p>0.1 0.4 0.7 1.0 난이도</p>
-<p>discrete_obstacles</p>
-<p>0</p>
-<p>50</p>
-<p>100</p>
-<p>0.1 0.4 0.7 1.0 난이도</p>
-<p>star</p>
-<p>0</p>
-<p>50</p>
-<p>100</p>
-<p>0.1 0.4 0.7 1.0 난이도</p>
-<p>repeated_boxes</p>
-<p>0</p>
-<p>50</p>
-<p>100</p>
-<p>0.1 0.4 0.7 1.0 난이도</p>
-<p>repeated_cylinders</p>
-<p>0</p>
-<p>50</p>
-<p>100</p>
-<p>0.1 0.4 0.7 1.0 난이도</p>
-<p>wave</p>
-<p>0</p>
-<p>50</p>
-<p>100</p>
-<p>0.1 0.4 0.7 1.0 난이도</p>
-<p>기준선 · NVIDIA</p>
-<p>A · 연습 틈 0.20 m</p>
-<p>B · 연습 틈 0.40 m B 는 난이도 1.0 (틈 0.40 m) 까지 gap 100% 다. floating_ring 은 난이도가 오를수록 고리가 내려가 «쉬워진다». 이 지형만 축의 뜻이 반대다 stepping_stones 는 셋 다 0.2 에서 0 이 된다. 관측을 고쳐도 안 풀렸다. 뛰어야 넘는 지형이고, 위아래 출렁임 벌점(-2.00)이 그 동작과 부딪친다 그림 · 규격 2 로 다시 잰 난이도 곡선. 회색이 기준선, 주황이 A(연습 틈 0.20 m), 파랑이 B(0.40 m)</p>
+<p>그림 · 규격 2 로 다시 잰 난이도 곡선. 회색이 기준선, 주황이 A(연습 틈 0.20 m), 파랑이 B(0.40 m)</p>
 <p><strong>이 그림은 2026-09-11 에 다시 그렸습니다.</strong> 그 전 그림은 <strong>규격 1</strong>(빗나간 광선 = -1) 로 잰 것이라 gap 이 세 모델 모두 0 근처로 평평했습니다. 구멍을 장애물이라고 알려 주고 잰 곡선이었습니다.</p>
 <h4>왜 스윕을 하나</h4>
 <p><strong>기준선 하나로는 「나아졌다」를 말할 수 없기 때문입니다.</strong></p>
@@ -2325,24 +2246,6 @@ sim/eval/generalization_env_cfg.py:53`</code></pre>
 <line x1="292" y1="346" x2="314" y2="346" stroke="var(--bad)" stroke-width="6" stroke-linecap="round"/>
 <text x="322" y="350" font-size="10.5" fill="var(--ink-2)" font-family="IBM Plex Sans KR, sans-serif">미경험 5종</text>
 </svg><figcaption>정본 조건에서 잰 11개 지형 성공률</figcaption></figure>
-<p>0</p>
-<p>25</p>
-<p>50</p>
-<p>75</p>
-<p>100 경사</p>
-<p>100 역경사</p>
-<p>100 계단</p>
-<p>100 random_rough</p>
-<p>80 boxes</p>
-<p>34 rails</p>
-<p>5 pit</p>
-<p>3 역계단</p>
-<p>0 floating_ring</p>
-<p>0 gap</p>
-<p>0 stepping_stones</p>
-<p>0</p>
-<p>기준선이 학습한 6종</p>
-<p>미경험 5종</p>
 <p>정본 조건(난이도 0.5 · 1.0 m/s · 지형마다 100 에피소드)에서 잰 성공률. 축을 자르지 않았습니다.</p>
 <p><strong>「학습한 지형이면 된다」가 성립하지 않습니다.</strong> <code>역계단</code> 은 기준선이 학습에 쓴 지형인데 <strong>미경험 5종과 같은 자리인 0%</strong> 에 있습니다. <code>boxes</code> 도 34% 로 중간에 걸쳐 있습니다.</p>
 <p><strong>경계는 「학습했나」가 아니라 「무엇이 어려운가」로 그어집니다.</strong></p>
@@ -2467,14 +2370,7 @@ foothold-v1.json 이 모델이 어떻게 만들어졌는지`</code></pre>
 <rect x="0" y="256" width="780" height="40" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
 <text x="12.0" y="281.0" font-size="11" fill="var(--ink)" text-anchor="start" font-weight="600" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">영상이 필요하면 «렌더를 따로 돌려야» 한다. 학습이나 평가가 영상을 남기지 않는다</text>
 </svg><figcaption>학습 평가 렌더 세 단계의 입출력과 소요 시간</figcaption></figure>
-<p>학습 · 평가 · 렌더는 각각 «다른 실행» 이다 하나를 돌린다고 다른 하나가 따라오지 않는다. 시간이 따로 든다</p>
-<p>학습 입력 NVIDIA checkpoint.pt 출력 model_1500.pt</p>
-<p>1,500회에 94분 32초 실측 2026-09-10 20:47 → 22:22 영상 안 나온다</p>
-<p>평가 입력 model.pt 출력 CSV</p>
-<p>에피소드마다 한 줄 한 칸 100회 109 ~ 323초 영상 안 나온다</p>
-<p>렌더 입력 model.pt 출력 mp4</p>
-<p>시뮬레이션을 처음부터 다시 돈다 4096 마리 20초 104 ~ 120초 성적 안 나온다</p>
-<p>영상이 필요하면 «렌더를 따로 돌려야» 한다. 학습이나 평가가 영상을 남기지 않는다 그림 · 셋은 각각 다른 실행이다. 학습이 끝나도 영상은 안 나온다</p>
+<p>그림 · 셋은 각각 다른 실행이다. 학습이 끝나도 영상은 안 나온다</p>
 <div class="tw"><table><thead><tr><th>단계</th><th>입력</th><th>출력</th><th>실측 시간</th></tr></thead><tbody><tr><td>학습</td><td>NVIDIA checkpoint.pt</td><td>model.pt</td><td>1,500회에 134분</td></tr><tr><td>평가</td><td>model.pt</td><td>CSV</td><td>에피소드당 0.25초 (1.0 m/s)</td></tr><tr><td>렌더</td><td>model.pt</td><td>mp4</td><td>4096마리 20초 컷에 104~120초</td></tr></tbody></table></div>
 <h4>무엇을 잘하라고 가르쳤나</h4>
 <p>보상은 <strong>몸의 어느 부분을 보느냐</strong>로 나뉩니다. 아래 값은 학습 실행이 저장한 params/env.yaml 에서 그대로 읽은 것입니다.</p>
@@ -2567,27 +2463,7 @@ foothold-v1.json 이 모델이 어떻게 만들어졌는지`</code></pre>
 <text x="12.0" y="604.0" font-size="10.5" fill="var(--ink)" text-anchor="start" font-weight="600" font-family="IBM Plex Mono, monospace">time_out</text>
 <text x="208.0" y="604.0" font-size="10.5" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">제한 시간이 지나면 끝. 실패 사유는 이것 아니면 base_contact 둘뿐</text>
 </svg><figcaption>Go2 몸의 어디에 어떤 보상이 걸리는가</figcaption></figure>
-<p>보상이 몸의 «어디에» 걸리나 학습 실행이 저장한 설정에서 그대로 읽은 값 · 가중치가 큰 것부터</p>
-<p>1</p>
-<p>2</p>
-<p>3 실제 평가 렌더에서 오린 것 · pit 지형 · 2.00초</p>
-<p>1 몸통 base</p>
-<p>track_lin_vel_xy_exp +1.50 명령한 앞뒤·좌우 속도를 맞추면 준다</p>
-<p>track_ang_vel_z_exp +0.75 명령한 제자리 회전을 맞추면 준다</p>
-<p>lin_vel_z_l2 -2.00 위아래로 출렁이면 뺀다. 가장 큰 벌점이다</p>
-<p>ang_vel_xy_l2 -0.05 앞뒤·좌우로 기우뚱거리면 뺀다</p>
-<p>flat_orientation_l2 0.00 수평 유지. 이 학습에서는 꺼져 있다</p>
-<p>2 관절 12개 joints</p>
-<p>dof_torques_l2 -0.0002 관절에 힘을 많이 쓰면 뺀다</p>
-<p>dof_acc_l2 -2.5e-07 관절이 급하게 가속하면 뺀다</p>
-<p>action_rate_l2 -0.01 명령이 프레임마다 크게 바뀌면 뺀다. 덜덜 떨림을 막는다</p>
-<p>dof_pos_limits 0.00 관절 한계를 넘으면 벌점. 이 학습에서는 꺼져 있다</p>
-<p>3 발 4개 .*_foot</p>
-<p>feet_air_time +0.01 발이 공중에 0.5초 넘게 떠 있으면 준다. 종종걸음을 막는다</p>
-<p>에피소드가 끝나는 조건 셋</p>
-<p>base_contact 몸통이 땅에 닿으면 그 자리에서 끝. 실패</p>
-<p>fell_below_terrain 지형보다 3 m 아래로 떨어지면 끝. 틈에 빠진 것</p>
-<p>time_out 제한 시간이 지나면 끝. 실패 사유는 이것 아니면 base_contact 둘뿐 그림 · 보상 10개와 종료 조건 3개가 몸의 어디에 걸리는지. 사진은 실제 평가 렌더에서 오린 것입니다</p>
+<p>그림 · 보상 10개와 종료 조건 3개가 몸의 어디에 걸리는지. 사진은 실제 평가 렌더에서 오린 것입니다</p>
 <p><strong>가장 큰 벌점이 lin_vel_z_l2 (-2.00) 입니다.</strong> 「위아래로 출렁이지 마라」가 「명령 속도를 맞춰라 (+1.50) 」보다 무겁습니다.</p>
 <p><strong>이것이 틈을 뛰어넘는 동작과 정면으로 부딪칩니다.</strong> 뛰려면 몸이 위아래로 움직여야 하는데, 그 동작에 가장 큰 벌점이 걸려 있습니다. gap 과 stepping_stones 를 볼 때 이 값을 같이 봐야 합니다.</p>
 <p>flat_orientation_l2 와 dof_pos_limits 는 <strong>가중치가 0</strong> 이라 이번 학습에서 아무 일도 하지 않았습니다. 설정에 이름은 있지만 꺼져 있습니다.</p>

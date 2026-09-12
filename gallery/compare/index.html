@@ -131,6 +131,13 @@
   .recent a{gap:.4rem}
   .recent .rt{flex-basis:100%}
 }
+
+/* 컷 길이. 세 열이 다른 것이 정상이라 그 까닭을 옆에 적는다. */
+.colscore .len{font-variant-numeric:tabular-nums}
+.colscore .len b{font-weight:700;color:var(--ink)}
+.cmpnote{font-size:.78rem;color:var(--ink-3);line-height:1.6;margin:10px 0 0;
+  padding:9px 12px;background:var(--card);border:1px solid var(--rule);
+  border-radius:8px}
 </style>
 <link rel="stylesheet" href="/assets/gnav.css">
 <script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script>
@@ -230,11 +237,33 @@
       return;
     }
 
-    // 아예 «안 준» 자리만 우리가 고른다
-    const latest = mans[index.latest];
-    const guess = [latest && latest.version + ':baseline',
-                   latest && latest.version + ':A',
-                   latest && latest.version + ':' + latest.main_model][i];
+    /* 아예 «안 준» 자리만 우리가 고른다.
+     *
+     * **기준선은 고정, 나머지 둘은 최근 두 판** (팀장 확정 2026-09-12).
+     * 판이 쌓이면 저절로 굴러간다.
+     *
+     *   지금      baseline · A · foothold-v1
+     *   v2 뒤     baseline · foothold-v1 · foothold-v2
+     *   v3 뒤     baseline · foothold-v2 · foothold-v3
+     *
+     * 「최근 두 판」은 `versions.json` 의 차례를 따른다. 손으로 안 고친다. */
+    const order = (index.versions || []).map(v => v.version);
+    const recent = order.slice(-2);
+    const mainOf = v => (mans[v] && mans[v].main_model) || null;
+    const picks = [];
+    picks.push((index.latest && index.latest + ':baseline') || null);
+
+    if (recent.length >= 2) {
+      picks.push(recent[0] + ':' + mainOf(recent[0]));
+      picks.push(recent[1] + ':' + mainOf(recent[1]));
+    } else {
+      /* 판이 하나뿐이면 그 판 안에서 견준다. */
+      const one = index.latest;
+      picks.push(one ? one + ':A' : null);
+      picks.push(one ? one + ':' + mainOf(one) : null);
+    }
+
+    const guess = picks[i];
     if (guess && pairs.find(p => p.id === guess)) { state[slot] = guess; guessed = true; }
   });
 
@@ -464,6 +493,18 @@
     SLOTS.forEach(slot => cmp.appendChild(column(slot)));
     body.appendChild(cmp);
 
+    /* **세 열의 길이가 왜 다른지 적는다.** 실측: 자리 48개 전부 해상도와
+     * 초당 장수는 같고 길이만 다르다 (중앙값 0.2초 · 최대 1.5초).
+     * 아무 말이 없으면 읽는 사람에게 「왜 다르지」로 남는다
+     * `확인됨` (2026-09-12 팀장 지적). */
+    body.appendChild(G.el('p', { class: 'cmpnote' }, [
+      G.el('b', { text: '세 열의 길이가 다른 것은 정상입니다. ' }),
+      G.el('span', { text: '해상도 1920x1080 · 초당 50장 · 카메라 시점은 세 열이 ' +
+        '같습니다 (시점은 모델이 아니라 지형이 정합니다). 길이만 다른데, ' +
+        '촬영이 「전진 5.0 m 에서 자른다」라 빨리 간 모델은 짧고 못 간 모델은 ' +
+        '시간 예산을 다 씁니다. 길이 차이가 곧 성적입니다.' })
+    ]));
+
     body.appendChild(G.el('div', { class: 'note' }, [
       G.el('span', { text: '「영상 없음」은 그 자리를 평가는 했지만 대표 영상을 뜨지 않았다는 뜻이고, ' +
         '「미평가」는 그 판이 그 자리를 아예 돌리지 않았다는 뜻입니다. 둘은 다릅니다.' })
@@ -500,6 +541,22 @@
       score.appendChild(G.el('span', { class: 'sub',
         text: ev.episodes + '판 중 ' + ev.successes + '판 · 참여도 ' +
               (ev.engagement === null ? '측정값 없음' : ev.engagement.toFixed(2)) }));
+
+      /* **컷 길이를 적는다.** 세 열의 길이가 다른 것은 결함이 아니라 성적이다.
+       * 촬영이 「전진 5.0 m 에서 자른다」라, 빨리 가면 짧고 못 가면 시간
+       * 예산을 다 쓴다. 아무 말이 없으면 「왜 다르지」로 남는다
+       * `확인됨` (2026-09-12 팀장: 「길이가 같은지도 모르겠다」). */
+      const one = ev.clips.length ? man.clips.find(c => c.id === ev.clips[0]) : null;
+
+      if (one) {
+        const full = one.seconds >= (man.protocol.eval_duration_s
+          ? Math.max.apply(null, [].concat(man.protocol.eval_duration_s)) - 0.15
+          : 99);
+        score.appendChild(G.el('span', { class: 'sub len' }, [
+          G.el('b', { text: one.seconds.toFixed(1) + '초' }),
+          G.el('span', { text: full ? ' · 시간 예산을 다 씀' : ' · 5 m 에서 잘림' })
+        ]));
+      }
     } else if (pair) {
       score.appendChild(G.el('span', { class: 'tag stop', text: '미평가' }));
       score.appendChild(G.el('span', { class: 'sub',
