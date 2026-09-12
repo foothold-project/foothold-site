@@ -376,7 +376,7 @@ python sim/eval/render_gallery.py \
 <h2><span class="n">08</span>근거 영상 전체</h2>
 <p>이 보고서에 실린 것은 주장마다 한두 장씩 고른 것입니다. 지형 16종 x 속도 3종 48컷과 모델 대조 36컷, 모두 84컷이 <strong>gallery-v1</strong> 에 있습니다. 보고서 1차와 gallery-v1 이 한 세트입니다.</p>
 <p>영상은 전진 5.0 m 에서 잘렸습니다. 난이도 0.5 에서 장애물 구간이 가장 멀리 가는 지형도 4.00 m 에서 끝나고 그 뒤는 평평한 테두리라 볼 것이 없기 때문입니다. 지형마다 구간이 달라 어떤 영상은 앞쪽에서 이미 볼 것이 끝납니다. 넘어져서 그만큼 못 간 판은 그대로 다 남아 있습니다. 배속 단추는 재생기의 <span class="mono">playbackRate</span> 를 바꿉니다. 다만 느리게 틀어도 새 프레임이 생기지는 않아, 원본 초당 50장이 0.25배에서는 12.5장으로 보입니다.</p>
-<p>있어야 할 칸은 <span class="mono">sim/eval/matrix.py</span> 가 선언합니다. 한 칸이라도 비면 실행기가 0 이 아닌 코드로 끝나고, 보고서 생성기도 거부합니다. 측정 규격과 판정 정의는 <span class="mono">docs/research/20260911-eval-protocol-v2.md</span> 가 정본입니다.</p>
+<p>있어야 할 칸은 <span class="mono">sim/eval/matrix.py</span> 가 선언합니다. 한 칸이라도 비면 실행기가 0 이 아닌 코드로 끝나고, 보고서 생성기도 거부합니다. 측정 규격과 판정 정의는 <a href="/research-20260911-eval-protocol-v2.html">평가 프로토콜 정본</a> 입니다 (저장소는 <span class="mono">docs/research/20260911-eval-protocol-v2.md</span>).</p>
 <table><thead><tr><th>무리</th><th class="num">칸</th><th class="num">선언한 판</th><th class="num">있는 판</th></tr></thead><tbody><tr><td>성적표 (난이도 0.5)</td><td class="num">18</td><td class="num">14,400</td><td class="num">14,400</td></tr><tr><td>난이도 곡선</td><td class="num">36</td><td class="num">28,800</td><td class="num">28,800</td></tr><tr><td><strong>합</strong></td><td class="num"><strong>54</strong></td><td class="num"><strong>43,200</strong></td><td class="num"><strong>43,200</strong></td></tr></tbody></table>
 <p>선언한 54칸이 모두 찼습니다. 본문의 성적표는 난이도 0.5 의 14,400 판이 분모이고, 난이도 곡선까지 합한 전체 원자료는 43,200 판입니다.</p>
 <script>

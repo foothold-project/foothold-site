@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>평가 프로토콜 정본 · 측정 규격 2 · FOOTHOLD</title>
+<meta name="description" content="측정 규격이 둘이다. 빗나간 광선을 +1(구멍)로 읽는 규격 2 가 기본이고, -1(벽)로 읽던 규격 1 숫자는 성적으로 인용하지 않는다. 규격은 날짜가 아니라 manifest 의 eval_spec_version 과 height_scan_miss_value 로 가른다.">
+<style>:root{
+  --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
+  --ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;
+  --rule:#d9d6cd;--brand:#0e7a6e;--dim-soft:#e0f0ed;
+  --note:#a86a08;--note-soft:#fbf0dc;
+  --stop:#a3342a;--stop-soft:#fbe9e7;
+  --grid:rgba(22,28,38,.04);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Pretendard','Malgun Gothic','Segoe UI',system-ui,sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.7;min-height:100vh;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+.wrap{max-width:1100px;margin:0 auto;
+  padding:clamp(32px,5vh,64px) clamp(18px,3vw,40px) 80px}
+a{color:var(--brand)}
+.mono,code{font-family:'JetBrains Mono',ui-monospace,'Consolas',monospace;
+  font-size:.92em}
+code{background:var(--paper-2);padding:1px 5px;border-radius:4px}
+.crumb{font-size:.78rem;color:var(--ink-3);margin-bottom:10px}
+.crumb a{text-decoration:none;font-weight:600}
+.crumb a:hover{text-decoration:underline}
+.eyebrow{font-size:.6rem;letter-spacing:.22em;font-weight:700;color:var(--brand);
+  text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.eyebrow::after{content:'';flex:1;height:1px;background:var(--rule)}
+h1{font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:800;letter-spacing:-.03em;
+  line-height:1.15;text-wrap:balance}
+header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:8px}
+.meta{display:grid;gap:4px;font-size:.82rem;color:var(--ink-2);
+  background:var(--card);border:1px solid var(--rule);border-radius:10px;
+  padding:14px 18px;margin:22px 0 30px}
+.meta b{color:var(--ink);font-weight:700;display:inline-block;min-width:3.2em}
+h2{font-size:1.24rem;font-weight:800;letter-spacing:-.02em;margin:44px 0 14px;
+  padding-top:18px;border-top:1px solid var(--rule);display:flex;
+  align-items:baseline;gap:12px}
+h2 .n{font-size:.72rem;color:var(--brand);font-weight:700;letter-spacing:.1em;
+  font-family:'JetBrains Mono',ui-monospace,monospace}
+h3{font-size:1rem;font-weight:700;margin:28px 0 10px;color:var(--ink)}
+p{margin:12px 0}
+strong{font-weight:700}
+.tw{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;background:var(--card)}
+th,td{border:1px solid var(--rule);padding:7px 11px;text-align:left;
+  vertical-align:top}
+th{background:var(--paper-2);font-weight:700;white-space:nowrap}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+pre{background:#161c26;color:#e8e6e0;border-radius:10px;padding:16px 18px;
+  overflow-x:auto;margin:16px 0;font-size:.84rem;line-height:1.6}
+pre code{background:none;color:inherit;padding:0}
+.said{background:var(--dim-soft);color:var(--brand);font-size:.7rem;
+  font-weight:700;padding:1px 7px;border-radius:4px;white-space:nowrap}
+blockquote{border-left:3px solid var(--brand);background:var(--card);
+  padding:12px 16px;margin:16px 0;border-radius:0 8px 8px 0;color:var(--ink-2)}
+hr{border:0;border-top:1px solid var(--rule);margin:34px 0}
+footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--ink);
+  font-size:.78rem;color:var(--ink-3);display:grid;gap:5px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="crumb"><a href="/">FOOTHOLD</a> · <a href="/research.html">연구</a> · 정본</div>
+<div class="eyebrow">Evaluation Protocol</div>
+<h1>평가 프로토콜 정본 · 측정 규격 2</h1>
+</header>
+<div class="meta">
+<div><b>분류</b> 가이드</div>
+<div><b>작성</b> 오흥재 · 2026-09-11 11:00</div>
+<div><b>근거</b> 실측 (<code>sim/eval/results/20260911-v3-fixedscan</code> 원자료를 직접 셈) · 코드 원문 · 코덱스 3차 검증</div>
+<div><b>요지</b> 측정 규격이 둘이다. 빗나간 광선을 +1(구멍)로 읽는 규격 2 가 기본이고, -1(벽)로 읽던 규격 1 숫자는 성적으로 인용하지 않는다. 규격은 날짜가 아니라 manifest 의 eval_spec_version 과 height_scan_miss_value 로 가른다.</div>
+<div><b>상태</b> 확정</div>
+</div>
+<p><strong>읽는 판은 아티팩트입니다.</strong> 도면과 설명이 다 들어 있습니다. 이 문서는 <strong>인용하는 판</strong>입니다. 숫자와 규격의 정본입니다.</p>
+<hr>
+<h2><span class="n">0.</span>한 줄</h2>
+<p><strong>구멍 위에서 광선이 빗나갈 때 학습은 <code>+1</code>, 평가는 <code>-1</code> 을 넣고 있었습니다.</strong> <code>-1</code> 은 「내 몸통보다 0.5 m 넘게 솟은 것」, 곧 벽입니다. <strong>구멍을 장애물이라고 알려 주고 재고 있었습니다.</strong></p>
+<p>고친 뒤 같은 모델로 다시 재니 이렇게 바뀝니다. 난이도 0.5 · 1.0 m/s · 각 100 에피소드.</p>
+<div class="tw"><table><thead><tr><th>모델</th><th>연습한 틈</th><th class="num">규격 1</th><th>규격 2</th></tr></thead><tbody><tr><td>기준선 · NVIDIA</td><td>없음</td><td class="num">0%</td><td>1%</td></tr><tr><td>A</td><td>0.05 ~ 0.20 m</td><td class="num">0%</td><td><strong>28%</strong></td></tr><tr><td><strong>B</strong> = <code>foothold-v1</code></td><td>0.15 ~ 0.40 m</td><td class="num">6%</td><td><strong>100%</strong></td></tr></tbody></table></div>
+<hr>
+<h2><span class="n">1.</span>측정 규격 둘</h2>
+<div class="tw"><table><thead><tr><th>규격</th><th>빗나간 광선</th><th>언제</th><th>어떻게 부르나</th></tr></thead><tbody><tr><td><strong>1</strong> (결함)</td><td><code>-1</code> · 장애물로 보임</td><td><code>--legacy_miss_scan</code> 을 줄 때</td><td><code>--legacy_miss_scan</code></td></tr><tr><td><strong>2</strong></td><td><code>+1</code> · 구멍으로 보임</td><td>지금 (기본값)</td><td>팔을 안 준다</td></tr></tbody></table></div>
+<p>규격은 <strong><code>run_manifest.json</code> 의 필드로만 가립니다.</strong> 날짜로도, <code>argv</code> 로도 가르지 않습니다.</p>
+<div class="tw"><table><thead><tr><th>manifest 에 있는 것</th><th>판정</th></tr></thead><tbody><tr><td><code>eval_spec_version</code> 이 있다</td><td>그 값이 정답입니다</td></tr><tr><td>없고 <code>height_scan_miss_value = 1.0</code></td><td>규격 2</td></tr><tr><td>없고 <code>height_scan_miss_value = null</code></td><td>규격 1</td></tr><tr><td>둘 다 없다</td><td><strong>미확정.</strong> 성적으로 인용하지 않습니다</td></tr></tbody></table></div>
+<p><code>argv</code> 의 <code>--gap_aware_scan</code> 은 <strong>가리는 데 쓰지 마십시오.</strong> 기본값이 뒤집힌 뒤로는 아무 일도 안 하는 호환용 팔입니다.</p>
+<p>저장소에 있는 <code>run_manifest.json</code> 328개를 이 규칙으로 세면 이렇습니다 <span class="said">확인됨</span>.</p>
+<div class="tw"><table><thead><tr><th>판정</th><th>실행 수</th></tr></thead><tbody><tr><td><code>eval_spec_version</code> 으로 확정 (전부 값 2)</td><td>12</td></tr><tr><td><code>height_scan_miss_value = 1.0</code> 으로 규격 2</td><td>87</td></tr><tr><td><code>height_scan_miss_value = null</code> 로 규격 1</td><td>12</td></tr><tr><td><strong>미확정</strong></td><td><strong>217</strong></td></tr><tr><td>합</td><td>328</td></tr></tbody></table></div>
+<p><strong>미확정이 3분의 2입니다.</strong> 기록을 넣는 코드가 늦게 들어갔기 때문입니다. 그 217개는 이 문서 어디에서도 성적으로 인용하지 않습니다. 이 문서가 인용하는 숫자는 규격 2 의 99개(12 + 87)와, 「고치기 전」 대조용으로 규격 1 의 12개뿐입니다.</p>
+<p>미확정 실행을 나중에 규격 1 로 «추정» 해서 채우지 마십시오. 그 실행을 돌린 코드로 입증할 수 있을 때만 근거를 붙여 보충합니다. 규격 1 결과 폴더에는 <code>_결함규격_읽어주세요.md</code> 를 넣었습니다.</p>
+<p><strong>규격 1 숫자를 성적으로 인용하지 않습니다.</strong> 지우지도 않습니다. 결함이 있었다는 증거이자 고쳤을 때 무엇이 달라졌는지의 대조군입니다.</p>
+<h3>어디에 영향이 있나</h3>
+<p>평가 10종 중 <strong><code>gap</code> 하나뿐</strong>입니다. 광선이 빗나가려면 바닥이 아예 없어야 하는데, 나머지 아홉은 바닥이 있습니다.</p>
+<p>!<a href="../assets/visual/eval-v2-scan-grid.svg">gap 지형 위 광선 187개와 빗나간 22개</a></p>
+<p>발판이 1.5 m 라 가장자리가 ±0.75 m 인데 격자는 ±0.80 m 까지 뻗습니다. <strong>맨 앞줄과 맨 뒷줄 11개씩, 모두 22개</strong>가 틈 위에 걸칩니다.</p>
+<div class="tw"><table><thead><tr><th>지형</th><th>빗나간 광선 (187 중)</th><th>낸 값</th></tr></thead><tbody><tr><td><strong><code>gap</code></strong></td><td><strong>22</strong></td><td><code>-1.00</code> ~ <code>-0.10</code></td></tr><tr><td><code>floating_ring</code></td><td>0</td><td><code>-0.33</code> ~ <code>-0.10</code></td></tr><tr><td><code>pit</code></td><td>0</td><td><code>-0.30</code> ~ <code>-0.10</code></td></tr><tr><td><code>rails</code></td><td>0</td><td><code>-0.22</code> ~ <code>-0.10</code></td></tr><tr><td><code>stepping_stones</code></td><td>0</td><td><code>-0.10</code> ~ <code>+0.97</code></td></tr><tr><td>나머지 다섯</td><td>0</td><td><code>-0.10</code> ~ <code>+0.11</code></td></tr></tbody></table></div>
+<p>재현은 <code>sim/eval/probe_height_scan.py</code> 입니다.</p>
+<h3>값이 무엇을 뜻하나</h3>
+<p>!<a href="../assets/visual/eval-v2-scan-meaning.svg">높이 스캔 값의 뜻</a></p>
+<p><code>값 = 몸통 높이 - 광선이 닿은 높이 - 0.5</code></p>
+<p>양수는 「바닥이 아래로 멀다」, 음수는 「위로 솟았다」입니다. 자르는 범위가 <code>(-1, 1)</code> 이라 <code>-1</code> 의 경계는 <code>닿은높이 = 몸통높이 + 0.5</code> 입니다.</p>
+<hr>
+<h2><span class="n">2.</span>측정 조건</h2>
+<div class="tw"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>난이도 기준선</td><td>0.5</td></tr><tr><td>거리 예산</td><td>6 m (고정)</td></tr><tr><td>통과선</td><td>3 m</td></tr><tr><td>좌우 이탈 한계</td><td>0.75 m</td></tr><tr><td>속도 MAE 한계</td><td>0.25 m/s</td></tr><tr><td>Random Seed</td><td>42</td></tr><tr><td>지형마다</td><td>100 에피소드</td></tr></tbody></table></div>
+<p><strong>제한 시간은 속도에 딸립니다.</strong> 거리 예산 6 m 를 속도로 나눕니다.</p>
+<div class="tw"><table><thead><tr><th>명령 속도</th><th>제한 시간</th></tr></thead><tbody><tr><td>0.5 m/s</td><td>12초</td></tr><tr><td>1.0 m/s</td><td><strong>6초</strong></td></tr><tr><td>1.5 m/s</td><td>4초</td></tr></tbody></table></div>
+<p>「6초」는 1.0 m/s 일 때만입니다. 세 속도가 <strong>같은 거리를 두고</strong> 겨룹니다.</p>
+<h3>판정은 네 축의 AND</h3>
+<p><code>survival</code> · <code>progress</code> · <code>tracking</code> · <code>direction</code> 이 <strong>모두 참</strong>일 때만 성공입니다. <code>termination_reason</code> 열의 값은 <code>timeout</code> 과 <code>base_contact</code> 둘뿐입니다. <strong>이것은 실패 사유가 아니라 종료 사유입니다.</strong></p>
+<p><strong>규격 2 실행 99개 · 에피소드 95,400 행 전수</strong>를 세어 본 값입니다 <span class="said">확인됨</span>.</p>
+<div class="tw"><table><thead><tr><th>값</th><th class="num">성공</th><th class="num">실패</th><th class="num">합</th><th>뜻</th></tr></thead><tbody><tr><td><code>timeout</code></td><td class="num">60,295</td><td class="num">21,185</td><td class="num">81,480</td><td>제한 시간을 다 채웠다. <strong>통과 여부를 전혀 말하지 않습니다</strong></td></tr><tr><td><code>base_contact</code></td><td class="num">0</td><td class="num">13,920</td><td class="num">13,920</td><td>몸통이 1 N 이상 닿아 시간 전에 끊겼다. 항상 실패입니다</td></tr><tr><td>합</td><td class="num">60,295</td><td class="num">35,105</td><td class="num">95,400</td><td></td></tr></tbody></table></div>
+<p>성공한 60,295 에피소드는 <strong>하나도 빠짐없이</strong> <code>timeout</code> 입니다. <code>timeout</code> 이 붙은 81,480 판 중 74 %가 성공입니다. 그러니 이 열로 「왜 실패했는가」를 물으면 답이 안 나옵니다. 실패 사유는 네 축(생존·전진·속도추종·방향) 중 무엇이 떨어졌는지가 말해 줍니다. 이 열은 <strong>어떻게 끝났는가</strong>만 말합니다.</p>
+<hr>
+<h2><span class="n">3.</span>foothold-v1 성적 · 규격 2</h2>
+<p><strong>난이도 0.5 · 지형마다 100 에피소드 · 원자료 행을 직접 셈.</strong></p>
+<div class="tw"><table><thead><tr><th>지형</th><th class="num">0.5 m/s</th><th class="num">1.0 m/s</th><th class="num">1.5 m/s</th></tr></thead><tbody><tr><td><code>gap</code></td><td class="num">90</td><td class="num">100</td><td class="num">68</td></tr><tr><td><code>pit</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>rails</code></td><td class="num">70</td><td class="num">48</td><td class="num">21</td></tr><tr><td><code>floating_ring</code></td><td class="num">95</td><td class="num">99</td><td class="num">87</td></tr><tr><td><code>stepping_stones</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr><tr><td><code>discrete_obstacles</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>star</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>repeated_boxes</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>repeated_cylinders</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>wave</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr></tbody></table></div>
+<h3>기존 험지 6종 · 난이도 0.5</h3>
+<div class="tw"><table><thead><tr><th>지형</th><th class="num">0.5 m/s</th><th class="num">1.0 m/s</th><th class="num">1.5 m/s</th></tr></thead><tbody><tr><td><code>boxes</code></td><td class="num">99</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>hf_pyramid_slope</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>hf_pyramid_slope_inv</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>pyramid_stairs</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>pyramid_stairs_inv</code></td><td class="num">100</td><td class="num">100</td><td class="num">100</td></tr><tr><td><code>random_rough</code></td><td class="num">99</td><td class="num">100</td><td class="num">90</td></tr></tbody></table></div>
+<hr>
+<h2><span class="n">4.</span>난이도 곡선 · 세 모델</h2>
+<p>!<a href="../assets/visual/eval-v2-curves.svg">규격 2 난이도별 성공률 세 모델</a></p>
+<p><strong><code>gap</code> · 1.0 m/s</strong></p>
+<div class="tw"><table><thead><tr><th>난이도</th><th>0.1</th><th>0.2</th><th>0.3</th><th>0.4</th><th>0.5</th><th>0.6</th><th>0.7</th><th>0.8</th><th>0.9</th><th>1.0</th></tr></thead><tbody><tr><td>기준선</td><td>25</td><td>7</td><td>5</td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>A</td><td>100</td><td>100</td><td>100</td><td>79</td><td>28</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td><strong>B</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>100</strong></td></tr></tbody></table></div>
+<p>A 는 연습한 폭(0.20 m)을 <strong>조금 넘어서까지</strong> 버팁니다. 난이도 0.3 이 평가 틈 0.225 m 이고 거기까지 100%, 0.4(0.25 m)에서 79%, 0.5(0.275 m)에서 28% 입니다. 연습 상한에서 딱 끊기는 것이 아니라 그 위로 서서히 떨어집니다. <strong>B 는 난이도 1.0(0.40 m)까지 전부 100%</strong> 입니다.</p>
+<hr>
+<h2><span class="n">5.</span>연습한 지형과 시험 보는 지형</h2>
+<p>!<a href="../assets/visual/eval-v2-gap-geometry.svg">학습 지형과 평가 지형의 거리 비교</a></p>
+<div class="tw"><table><thead><tr><th></th><th>학습 <code>forward_gap</code></th><th>평가 <code>gap</code></th></tr></thead><tbody><tr><td>틈 모양</td><td>앞을 가로지르는 도랑 하나</td><td>발판 사방을 두른 고리</td></tr><tr><td>출발점에서 틈까지</td><td>1.50 m</td><td>0.75 m</td></tr><tr><td>틈 폭 (난이도 0.5) · A</td><td>0.125 m</td><td>0.275 m</td></tr><tr><td>틈 폭 (난이도 0.5) · <strong>B</strong></td><td><strong>0.275 m</strong></td><td>0.275 m</td></tr><tr><td>넘은 뒤 착지면 · A</td><td>3.94 m</td><td>2.98 m</td></tr><tr><td>넘은 뒤 착지면 · <strong>B</strong></td><td><strong>3.86 m</strong></td><td>2.98 m</td></tr></tbody></table></div>
+<hr>
+<h2><span class="n">6.</span>보상이 몸의 어디에 걸리나</h2>
+<p>!<a href="../assets/visual/eval-v2-reward-map.svg">보상 지도</a></p>
+<p>가장 큰 벌점이 <code>lin_vel_z_l2</code> 의 <strong>-2.00</strong> 입니다. 「위아래로 출렁이지 마라」가 「명령 속도를 맞춰라(+1.50)」보다 무겁습니다.</p>
+<p><strong>이것이 뛰어넘는 동작과 부딪칩니다.</strong> <code>stepping_stones</code> 가 관측을 고쳐도 안 풀리는 이유로 이 값을 의심하고 있습니다.</p>
+<hr>
+<h2><span class="n">7.</span>아직 안 된 것</h2>
+<div class="tw"><table><thead><tr><th>무엇</th><th>상태</th></tr></thead><tbody><tr><td><code>stepping_stones</code></td><td>세 모델 다 난이도 0.2 부터 0%. 보상 구조가 다음 용의자</td></tr><tr><td><code>rails</code></td><td>난이도 0.5 에서 48% (1.0 m/s)</td></tr><tr><td>머리 위 천장</td><td>높이 스캔이 표현하지 못한다. 위쪽 광선 채널이 필요하다</td></tr><tr><td><code>head_contact_*</code> 세 열</td><td>첫 표본이 오염된다. 인용하지 말 것. 아래 주석</td></tr><tr><td>CSV 61열</td><td>설계만 나왔다. <code>docs/CSV-SPEC-v1.md</code></td></tr><tr><td>대표 영상</td><td><strong>찍었다.</strong> 14컷 · <code>sim/eval/results/20260911-v1-clips/</code></td></tr></tbody></table></div>
+<h3>머리 접촉 세 열에 대해</h3>
+<p><strong>머리 접촉 세 열(<code>head_contact_count</code> · <code>head_contact_peak_n</code> · <code>head_contact_first_s</code>)은 검증 전까지 인용하지 마십시오.</strong></p>
+<p>규격 2 실행 99개에서 <code>head_contact_first_s</code> 에 값이 있는 행은 25,296 이고, 그중 5,979 행(23.6 %)이 정확히 0.0 입니다 <span class="said">확인됨</span>.</p>
+<p><strong>이 23.6 %가 전부 거짓이라고 말하지 않습니다.</strong> 0.0 은 「앞 에피소드의 접촉력을 첫 표본이 물려받았다」일 수도 있고 「정말 첫 표본에서 닿았다」일 수도 있습니다. 둘을 갈라내지 않았습니다 (미확인). 첫 접촉 시각이 0.0 이라는 것만으로는 오염을 판별할 수 없습니다.</p>
+<p><strong>앞선 판의 두 숫자를 철회합니다.</strong></p>
+<div class="tw"><table><thead><tr><th>철회하는 것</th><th>왜</th></tr></thead><tbody><tr><td>「12,000 에피소드 중 18.7 %(2,241개)」</td><td>어느 실행에서 나온 값인지 특정하지 못했습니다</td></tr><tr><td>「규격 1 은 36,134 행 중 22.1 %」</td><td><strong>모집단을 잘못 잡았습니다.</strong> 규격 필드가 «없는» 미확정 실행 217개를 규격 1 로 셌습니다. 규격을 제대로 가리면 규격 1 은 실행 12개뿐이고 값이 있는 행이 169개라, 비율을 말할 표본이 못 됩니다</td></tr></tbody></table></div>
+<p><strong><code>count</code> 와 <code>peak</code> 도 영향을 받습니다.</strong> 오염된 첫 표본이 문턱을 넘으면 <code>head_contact_count</code> 가 1 오르고, 그 힘이 그 판의 최댓값이면 <code>head_contact_peak_n</code> 도 그 값이 됩니다 (<code>sim/eval/metrics.py:406~411</code>). 앞선 판에서 「count 와 peak 는 영향이 없다」고 한 것은 틀렸습니다.</p>
+<p>판정 네 축(생존·전진·속도추종·방향)은 이 열을 안 쓰므로 영향이 없습니다.</p>
+<hr>
+<h2><span class="n">7-2.</span>지형이 어디까지 있고, 로봇이 얼마나 탔나</h2>
+<p>팀장이 물었다. <strong>「discrete_obstacles 나 repeated_boxes 처럼 장애물이 무작위로 놓이는 지형은, 빗겨가서 평지만 걷다 끝나는 판도 있지 않겠나. 그러면 넘어지지 않아 성공이지만 애매한 험지 보행 아닌가.」</strong></p>
+<p>재 봤다. 맞았다.</p>
+<h3>지형은 앞으로 4~5 m 까지만 있다 <span class="said">확인됨</span></h3>
+<p><code>probe_terrain_extent.py</code> 로 높이 스캐너가 맞힌 지면 높이를 거리 구간별로 냈다. 난이도 0.5 · 12초 · 지형마다 8 환경.</p>
+<div class="tw"><table><thead><tr><th>지형</th><th class="num">0~1 m</th><th class="num">1~2</th><th class="num">2~3</th><th class="num">3~4</th><th class="num">4~5</th><th class="num">5~6</th><th class="num">6~11</th></tr></thead><tbody><tr><td><code>stepping_stones</code></td><td class="num">1.07</td><td class="num">1.06</td><td class="num">1.06</td><td class="num">.</td><td class="num">.</td><td class="num">.</td><td class="num">.</td></tr><tr><td><code>floating_ring</code></td><td class="num">0.23</td><td class="num">0.22</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td></tr><tr><td><code>pit</code></td><td class="num">0.20</td><td class="num">0.12</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td></tr><tr><td><code>discrete_obstacles</code></td><td class="num">0.09</td><td class="num">0.15</td><td class="num">0.15</td><td class="num">0.07</td><td class="num">0.04</td><td class="num">0.00</td><td class="num">0.00</td></tr><tr><td><code>wave</code></td><td class="num">0.12</td><td class="num">0.12</td><td class="num">0.12</td><td class="num">0.10</td><td class="num">0.04</td><td class="num">0.00</td><td class="num">0.00</td></tr><tr><td><code>star</code></td><td class="num">0.10</td><td class="num">0.11</td><td class="num">0.11</td><td class="num">0.11</td><td class="num">0.03</td><td class="num">0.00</td><td class="num">0.00</td></tr><tr><td><code>rails</code></td><td class="num">0.11</td><td class="num">0.10</td><td class="num">0.12</td><td class="num">0.09</td><td class="num">0.00</td><td class="num">0.00</td><td class="num">0.00</td></tr><tr><td><code>repeated_boxes</code></td><td class="num">0.07</td><td class="num">0.08</td><td class="num">0.07</td><td class="num">0.07</td><td class="num">0.04</td><td class="num">0.00</td><td class="num">0.00</td></tr><tr><td><code>repeated_cylinders</code></td><td class="num">0.06</td><td class="num">0.05</td><td class="num">0.05</td><td class="num">0.07</td><td class="num">0.05</td><td class="num">0.00</td><td class="num">0.00</td></tr></tbody></table></div>
+<p>단위는 m 이고, 스캔 187개의 (최대 - 최소) 평균이다. <strong>열 지형이 전부 4~5 m 에서 끝나고 6 m 부터는 0.00 이다.</strong></p>
+<p>설정을 보면 그래야 맞다.</p>
+<pre><code>타일        size = (8.0, 8.0) · num_rows = 1   -&gt;  출발점 앞으로 4 m
+발판        platform_width = 1.5               -&gt;  그중 앞 0.75 m 는 평평
+테두리      border_width = 20                  -&gt;  4 m 뒤로 평평한 바닥 20 m</code></pre>
+<p>6초 1.0 m/s 판에서 실제 전진은 약 5.7 m 다. 그중 <strong>장애물이 있을 수 있는 구간은 0.75~4.0 m 의 3.25 m</strong> 이고 나머지 2.45 m(43 %)는 발판이거나 테두리다. 성공 관문이 3.0 m 이므로 <strong>장애물 노출 2.25 m 만에 통과된다.</strong></p>
+<blockquote>설정 주석에 「20초 규격을 담으려고 테두리를 넓혔다」가 있다. 그러나 넓어진 것은 <strong>평평한 테두리</strong>다. 20초 규격으로 가면 지형 4 m 에 평지 16 m 가 된다. 「로봇이 세상 밖으로 나간다」는 막았지만 「지형이 떨어진다」는 안 봤다.</blockquote>
+<h3>그래서 열 셋을 더한다</h3>
+<div class="tw"><table><thead><tr><th>열</th><th>무엇</th></tr></thead><tbody><tr><td><code>terrain_relief_scan_m</code></td><td>몸 주변 1.6 x 1.0 m 안에 <strong>넘을 것이 있었나</strong></td></tr><tr><td><code>terrain_relief_underfoot_m</code></td><td>몸 <strong>바로 아래</strong> 지면이 위아래로 얼마나 움직였나</td></tr><tr><td><code>terrain_engagement_ratio</code></td><td>뒤를 앞으로 나눈 값. 1 이면 다 넘었고 0 이면 비켜 갔다</td></tr></tbody></table></div>
+<p>난이도 0.5 · 지형마다 20판으로 재면 이렇다 <span class="said">확인됨</span>.</p>
+<div class="tw"><table><thead><tr><th>지형</th><th class="num">주변 기복</th><th class="num">발로 탄 것</th><th>참여도</th><th class="num">성공률</th></tr></thead><tbody><tr><td><code>star</code></td><td class="num">0.105</td><td class="num">0.016</td><td><strong>0.15</strong></td><td class="num">100 %</td></tr><tr><td><code>discrete_obstacles</code></td><td class="num">0.188</td><td class="num">0.050</td><td><strong>0.27</strong></td><td class="num">100 %</td></tr><tr><td><code>wave</code></td><td class="num">0.131</td><td class="num">0.078</td><td>0.59</td><td class="num">100 %</td></tr><tr><td><code>stepping_stones</code></td><td class="num">1.103</td><td class="num">0.887</td><td>0.80</td><td class="num">0 %</td></tr><tr><td><code>repeated_boxes</code></td><td class="num">0.081</td><td class="num">0.065</td><td>0.81</td><td class="num">100 %</td></tr><tr><td><code>repeated_cylinders</code></td><td class="num">0.067</td><td class="num">0.062</td><td>0.93</td><td class="num">100 %</td></tr><tr><td><code>rails</code></td><td class="num">0.115</td><td class="num">0.115</td><td>1.00</td><td class="num">30 %</td></tr><tr><td><code>pit</code></td><td class="num">0.200</td><td class="num">0.200</td><td>1.00</td><td class="num">100 %</td></tr><tr><td><code>floating_ring</code></td><td class="num">0.225</td><td class="num">0.225</td><td>1.00</td><td class="num">95 %</td></tr><tr><td><code>gap</code></td><td class="num">0.000</td><td class="num">0.000</td><td>(못 잼)</td><td class="num">100 %</td></tr></tbody></table></div>
+<p><strong><code>star</code> 의 100 % 는 막대를 넘어서 받은 점수가 아니다.</strong> 주변에 0.105 m 짜리 막대가 있는데 발은 0.016 m 만 탔다. 골을 따라 걸어 나갔다. Isaac 의 star 는 막대가 중심에서 바깥으로 뻗으므로, 중심에서 방사 방향으로 걸으면 막대를 <strong>가로지를 일이 구조적으로 없다.</strong> <code>discrete_obstacles</code> 도 0.27 로 비슷하다.</p>
+<p>반대로 <code>rails</code> 와 <code>stepping_stones</code> 는 참여도가 1.00 과 0.80 인데 성공률이 30 %와 0 %다. <strong>제대로 타고 실패한 것</strong>이고, 그 실패는 정직하다.</p>
+<h3>이 열로 못 하는 것</h3>
+<p><strong><code>gap</code> 에는 안 통한다</strong> <span class="said">확인됨</span>. 구멍은 광선이 아무것도 못 맞히므로 스캔 기복이 0.000 으로 나온다. 구멍을 «성공적으로 건넌» 판과 «구멍이 없던» 판을 이 열로 구별할 수 없다. <code>gap</code> 과 <code>pit</code> 처럼 «안 딛고 넘는 것이 정답» 인 지형은 네 축이 이미 답하고 있으므로 이 열을 묻지 않는다.</p>
+<p>판정을 안 바꾼다. <code>overall_success</code> 는 여전히 네 축의 AND 다. 이 열은 <strong>나중에 「그 성공이 어떤 성공이었나」를 되물을 수 있게</strong> 남기는 것이다.</p>
+<h3>다음에 할 것</h3>
+<p>장애물 노출 구간 2.25 m 로는 「넘었다」와 「운이 좋았다」를 가르기 어렵다. 구간을 늘리려면 지형을 x 로 잇는 corridor 로 가야 하고(<code>num_rows</code> 를 키운다), 그러면 <strong>기존 성적과 비교가 안 되므로 전면 재실행</strong>이다. 임석헌의 평가가 그 방식이라 비교 가능해지는 이점도 있다. v2 에서 결정한다.</p>
+<hr>
+<h2><span class="n">8.</span>재현</h2>
+<pre><code># 규격 2 (기본값)
+python sim/eval/eval_generalization.py \
+  --checkpoint models/foothold-v1.pt \
+  --terrain_set unseen10 --terrains all \
+  --difficulty 0.5 --episodes 100 --envs_per_terrain 10 \
+  --eval_duration 6.0 --command_vx 1.0 \
+  --min_progress_m 3.0 --max_lateral_drift 0.75 --max_velocity_mae 0.25 \
+  --seed 42 --headless --device cuda:0 --output_dir &lt;어디에&gt;
+
+# 규격 1 을 재현할 때만
+#   --legacy_miss_scan 을 덧붙인다</code></pre>
+<p><strong>모델 SHA-256</strong> <code>c7612aef0b3c49b876c610d6d1c4f507eba666a4ffa03797760ad4a896ee7aca</code></p>
+<h3>규격 2 함수는 저장소 안에 있습니다</h3>
+<p><code>sim/eval/gap_observations.py</code> 입니다. <code>git pull origin main</code> 만 받으면 그대로 돕니다. IsaacLab 쪽 사본은 이제 안 봅니다.</p>
+<div class="tw"><table><thead><tr><th>물음</th><th>답</th></tr></thead><tbody><tr><td>아무 팔도 안 주면 어느 규격인가</td><td><strong>규격 2.</strong> <code>miss_value = +1.0</code> 입니다</td></tr><tr><td><code>--gap_aware_scan</code> 을 줘야 하나</td><td>아니요. 기본값이 뒤집히기 전의 팔이라 지금은 아무 일도 안 합니다</td></tr><tr><td>규격 1 로 돌리려면</td><td><code>--legacy_miss_scan</code>. manifest 에 <code>eval_spec_version = 1</code> 로 남습니다</td></tr><tr><td>Isaac 없이 확인할 수 있나</td><td>예. <code>python -m pytest sim/eval/tests/test_gap_observations.py</code></td></tr></tbody></table></div>
+<p>그 시험 9개가 기본값이 +1.0 인 것, 빗나간 광선에만 그 값이 들어가는 것, 맞힌 광선 계산이 IsaacLab 기본 함수와 같은 식인 것을 못 박습니다.</p>
+<hr>
+<h2><span class="n">9.</span>대표 영상을 직접 만들려면</h2>
+<p>저장소를 받은 사람이 <strong>옵션 없이 한 줄</strong>로 같은 영상 한 벌을 만듭니다.</p>
+<pre><code>git pull origin main
+pip install av        # Isaac 이 도는 파이썬에 «한 번만»
+
+python sim/eval/render_gallery.py \
+    --checkpoint models/foothold-v1.pt</code></pre>
+<p>결과는 <code>sim/eval/results/&lt;날짜&gt;-gallery/</code> 에 쌓이고 그 안에 <code>gallery.html</code> 이 생깁니다. 브라우저로 그냥 열면 됩니다.</p>
+<p><strong>그 페이지는 옆의 <code>web/</code> 폴더를 가리킵니다.</strong> 파일을 심지 않으므로 페이지만 따로 옮기면 영상이 안 나옵니다. 84컷을 심으면 194 MB 가 되어 브라우저가 못 엽니다 <span class="said">확인됨</span> (2026-09-12). 남에게 보낼 때는 폴더째 보내거나, 10절의 배포 명령으로 site 에 올립니다.</p>
+<h3>무엇이 기본값인가</h3>
+<div class="tw"><table><thead><tr><th>무엇</th><th>값</th><th>왜</th></tr></thead><tbody><tr><td>지형</td><td><strong>16종</strong> (기존 험지 6 + 미경험 험지 10)</td><td>안 무너졌는지와 일반화를 같이 본다</td></tr><tr><td>속도</td><td>0.5 · 1.0 · 1.5 m/s</td><td>속도가 성패를 가르는 지형이 있다</td></tr><tr><td>난이도</td><td>0.5</td><td>성적표와 같은 자리</td></tr><tr><td>길이</td><td>거리 예산 6 m 를 속도로 나눈 값</td><td>평가 하네스와 같은 규칙</td></tr><tr><td>시점</td><td><strong>지형이 정한다</strong></td><td>아래</td></tr><tr><td>자르는 자리</td><td>전진 5.0 m</td><td>지형이 끝나는 자리 (7-2절)</td></tr><tr><td>해상도</td><td>마스터 <strong>1920 x 1080</strong> · 웹도 1920 x 1080 (CRF 26)</td><td>아래</td></tr><tr><td>배속</td><td>안 만든다</td><td>갤러리의 재생기 단추가 맡는다</td></tr></tbody></table></div>
+<p><strong>웹에 싣는 것도 1080p 입니다.</strong> 예전에는 마스터를 720p 로 찍고 웹에 960 x 540 으로 줄여 실었습니다. 고DPI 화면에서 확대하면 깨졌습니다 <span class="said">확인됨</span> (2026-09-12 팀장 지적). 크기를 줄이는 대신 <strong>화질을 한 단계 낮추는</strong> 쪽이 같은 용량에서 더 선명합니다. <code>gap-v1</code> 한 컷을 실제로 구워 재 본 값입니다.</p>
+<div class="tw"><table><thead><tr><th>무엇</th><th>컷 하나</th><th>84컷</th><th>확대하면</th></tr></thead><tbody><tr><td>720p CRF 24</td><td>0.67 MB</td><td>78 MB</td><td>1.5배 늘려 그린다</td></tr><tr><td><strong>1080p CRF 26</strong></td><td><strong>1.25 MB</strong></td><td><strong>105 MB</strong></td><td><strong>원본 화소 그대로</strong></td></tr><tr><td>1080p CRF 24</td><td>1.59 MB</td><td>133 MB</td><td>원본 화소 그대로</td></tr></tbody></table></div>
+<p><strong>시점은 옵션이 아닙니다.</strong> <code>render_gallery.py</code> 의 <code>VIEW_BY_TERRAIN</code> 이 지형마다 적어 둡니다. 높이·깊이를 넘는 지형은 <code>track_side</code>, 발을 어디 놓느냐가 관건인 지형은 <code>track_high</code> 입니다. 새 지형을 더하면 거기 한 줄 더합니다. 시점을 모르는 지형이 있으면 <strong>찍기 전에</strong> 멈춥니다.</p>
+<h3>성공률과 참여도를 같이 얹으려면</h3>
+<pre><code>python sim/eval/render_gallery.py \
+    --checkpoint models/foothold-v1.pt \
+    --raw_csv sim/eval/results/20260911-v1-maindata</code></pre>
+<p>그 폴더 아래의 <code>generalization_raw.csv</code> 를 전부 읽어 지형별 성공률·참여도 표를 페이지 맨 위에 올립니다. 안 주면 영상만 나옵니다.</p>
+<h3>알아 둘 것</h3>
+<p><strong>중간에 끊겨도 같은 명령을 다시 주면 이어서 합니다.</strong> 이미 만든 컷은 건너뜁니다. GPU 두 대로 나눠 돌릴 때도 같은 <code>--out_dir</code> 을 주면 서로 겹치지 않습니다.</p>
+<p><strong>환경은 하나면 됩니다.</strong> 예전에는 촬영이 Isaac 환경, HUD 가 <code>av</code> 있는 다른 환경이라 두 번 나눠 돌려야 했고, 그것을 모르면 HUD 가 <strong>조용히 전부 실패</strong>했습니다 <span class="said">확인됨</span> (2026-09-11 · 14컷이 종료코드 0 에 mp4 만 없었다). <code>pip install av</code> 한 번으로 그 갈림이 없어집니다.</p>
+<p><strong>배속은 새 프레임을 만들지 않습니다.</strong> 원본이 초당 50장이라 0.25배에서는 초당 12.5장이 보입니다. 부드러운 슬로우모션이 필요하면 촬영을 200 Hz 로 해야 하고 (<code>record_terrain_demo.py --slowmo 4</code>), 실측 비용이 <strong>프레임당 약 100배</strong>입니다 <span class="said">확인됨</span>. 기본값이 아닌 이유입니다.</p>
+<h3>왜 50 Hz 인가</h3>
+<p>임의값이 아니라 <strong>정책이 결정을 내리는 주기</strong>입니다.</p>
+<pre><code>sim.dt = 0.005       물리 200 Hz
+decimation = 4       정책  50 Hz   (물리 4번에 결정 1번)
+render_interval = 4  렌더  50 Hz   (결정 1번에 프레임 1장)</code></pre>
+<p>「결정 한 번에 한 장」입니다. HUD 도 제어 스텝 단위 계측을 얹으므로 자리가 맞고, 50 fps 는 이미 부드러운 구간(30 fps 이상)입니다.</p>
+<hr>
+<h2><span class="n">10.</span>갤러리를 site 에 올리려면</h2>
+<p>영상과 성적을 웹에 올리는 것은 <strong>명령 하나</strong>입니다. 폴더만 복사하면 판 목록이 안 바뀝니다. 정적 페이지는 서버 폴더를 열거할 수 없기 때문입니다.</p>
+<pre><code>python sim/eval/publish_gallery.py     --gallery sim/eval/results/20260911-gallery-1080     --raw_csv sim/eval/results/maindata-v1     --version v1 --main_model foothold-v1     --site ../foothold-site</code></pre>
+<p>네 단계가 순서대로 돕니다.</p>
+<div class="tw"><table><thead><tr><th class="num">단계</th><th>하는 일</th><th>안 맞으면</th></tr></thead><tbody><tr><td class="num">1</td><td><code>gallery_manifest.py</code> 가 색인을 만든다</td><td>이름·꼬리표·지형이 규칙에 안 맞으면 죽는다</td></tr><tr><td class="num">2</td><td><code>web/*.mp4</code> 를 <code>&lt;site&gt;/gallery/vN/clips/</code> 로 옮긴다</td><td>색인이 적은 컷이 없으면 죽는다</td></tr><tr><td class="num">3</td><td>옮긴 것이 색인과 <strong>크기까지</strong> 같은지 센다</td><td>하나라도 다르면 판 목록에 안 넣는다</td></tr><tr><td class="num">4</td><td><code>gallery_versions.py</code> 가 판 목록을 다시 만든다</td><td>덜 올라간 판은 목록에서 빠진다</td></tr></tbody></table></div>
+<h3><code>--main_model</code> 은 기본값이 없습니다</h3>
+<p>v2 를 만들 때 이것을 빼먹으면 <strong>v2 영상에 v1 이름이 붙습니다.</strong> 그러면 원자료에 있는 v1 성적이 v2 컷에 붙어 정상처럼 보입니다. 그래서 필수 인자입니다.</p>
+<h3>색인이 담는 것 (schema 2)</h3>
+<div class="tw"><table><thead><tr><th>무리</th><th>무엇</th><th>왜</th></tr></thead><tbody><tr><td><code>models</code></td><td>모델별 체크포인트 SHA-256</td><td>같은 이름이 다른 파일을 뜻할 수 있다</td></tr><tr><td><code>protocol</code></td><td>규격 판 · Random Seed · 제한 시간 · 통과선 · 임계값</td><td>조건이 다르면 같은 시험이 아니다</td></tr><tr><td><code>evaluations</code></td><td><strong>평가한 칸 전부</strong> (난이도 0.5 에서 144칸)</td><td>영상이 없는 칸도 성적은 있다</td></tr><tr><td><code>clips</code></td><td>영상. <code>evaluation_id</code> 로 평가 칸에 걸린다</td><td>한 칸에 컷이 0개 이상</td></tr><tr><td><code>metrics</code></td><td>지표가 무엇을 재는지, 결측이 무슨 뜻인지</td><td>화면이 이 글을 그대로 보여 준다</td></tr></tbody></table></div>
+<p>컷 84개만 적던 1 판은 <strong>영상 없는 60칸을 통째로 버렸습니다.</strong> 그래서 비교 화면이 「평가는 했지만 영상을 안 뜬 자리」와 「아예 안 돌린 자리」를 구별하지 못했습니다 <span class="said">확인됨</span> (2026-09-12 설계 검토 · <code>boxes / 기준선 / 1.0 m/s</code> 는 34 % 를 실제로 측정했는데도 없는 것처럼 보였다).</p>
+<hr>
+<h2><span class="n">부록</span>검증 기록</h2>
+<div class="tw"><table><thead><tr><th>차수</th><th>모델</th><th>무엇을 잡았나</th></tr></thead><tbody><tr><td>1차</td><td><code>gpt-6-astra</code></td><td>관측 부호 불일치를 처음 지적</td></tr><tr><td>2차</td><td><code>gpt-6-astra</code></td><td>S3 원본으로 임석헌 평가도 <code>+1</code> 이었음을 확인 · 속도별 제한 시간 오류</td></tr><tr><td>3차</td><td><code>gpt-6-astra</code></td><td>문서 수치 오류 16건 · 격자 순서 · 대조 실험의 초기 상태 차이</td></tr><tr><td>4차</td><td><code>gpt-6-astra</code></td><td>manifest 가 규격을 안 남기던 것 · 영상 계측이 한 프레임 밀리던 것</td></tr><tr><td>5차</td><td><code>gpt-6-astra</code></td><td>공개를 막는 8건. 저장소 밖 의존성 · argv 로 규격을 가른다는 잘못된 안내 · 장수 관문이 예정치를 보던 것 · 날짜로 규격을 가르던 문장 · 미리보기 자리가 범위를 넘던 것</td></tr><tr><td>팀장</td><td>오흥재</td><td><code>stepping_stones</code> 영상에서 카메라가 z 축으로 도는 것을 지적 (2026-09-11)</td></tr></tbody></table></div>
+<p>세 차수 모두 <code>Claude/검증결과*.md</code> 에 남아 있습니다.</p>
+<footer>
+<div>이 문서는 <b>인용하는 판</b>입니다. 숫자와 규격의 정본입니다.</div>
+<div>원문 <span class="mono">docs/research/20260911-eval-protocol-v2.md</span> · foothold-lab 저장소가 정본이고 이 쪽은 그것을 옮긴 것입니다.</div>
+</footer>
+</div>
+</body>
+</html>
