@@ -646,7 +646,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--newbadge:v8--><style>
+<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--newbadge:v7--><style>
 span.fh-new{display:inline-block!important;margin-left:.45rem;vertical-align:.14em;
   background:var(--note)!important;color:#fff!important;font-size:.55rem!important;
   font-weight:800!important;letter-spacing:.1em!important;line-height:1.5!important;
@@ -657,16 +657,8 @@ span.fh-new{display:inline-block!important;margin-left:.45rem;vertical-align:.14
 (function(){
   var W=7*86400000,KEY='fh_seen';
   var TITLE='.t,.rt,.bt,.tlt3,.ex3,.pk3,.k,.hb3,b,strong,h2,h3';
-  function norm(s){
-    /* 2026-09-12. split('/').pop() 이 끝의 빈 조각을 집어
-       /gallery/ · /index.html · /team-meang/index.html 이 전부 'index' 로
-       뭉개졌다. 표지를 여는 순간 갤러리가 「봤음」이 돼 NEW 가 안 떴다. */
-    s=(s||'').split('#')[0].split('?')[0].replace(/\.html$/,'').replace(/\/+$/,'');
-    var p=s.split('/').filter(Boolean);
-    var last=p.pop()||'index';
-    if(last==='index'&&p.length)last=p.pop()+'/index';
-    return last;
-  }
+  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
+    .replace(/\.html$/,'');return s||'index'}
   function host(a){
     var h=a.querySelector(TITLE);
     if(h)return h;
@@ -881,7 +873,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=de5a23c7').then(function(r){
+    fetch('/assets/search-index.json?v=b750b653').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -964,34 +956,11 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 });
 </script>
-<style id="fig-svg">/* ASCII 도식을 걷어낸 자리 (2026-09-12 · DESIGN-GUIDE §3) */
-.figsvg{margin:18px 0;background:var(--card);border:1px solid var(--rule);
-  border-radius:10px;padding:14px 16px 10px;overflow-x:auto}
-.figsvg svg{width:100%;height:auto;display:block;min-width:520px}
-.figsvg figcaption{font-size:.78rem;color:var(--ink-3);margin-top:9px;
-  padding-top:9px;border-top:1px solid var(--rule)}
-.ftree{list-style:none;margin:14px 0;padding-left:0;font-family:ui-monospace,
-  Consolas,monospace;font-size:.84rem;line-height:1.8}
-.ftree ul{list-style:none;margin:0;padding-left:1.35rem;
-  border-left:1px solid var(--rule)}
-.ftree li{position:relative;padding-left:.5rem}
-.ftree .dir{font-weight:700;color:var(--ink)}
-.ftree .note{font-family:inherit;color:var(--ink-3);font-size:.92em;
-  margin-left:.5rem}
-</style>
-<style id="fig-chain">/* 여러 줄 화살표 사슬을 차례 목록으로 (2026-09-12) */
-.chain{margin:16px 0;padding-left:1.4rem;display:grid;gap:.3rem;
-  font-size:.9rem;line-height:1.65}
-.chain li{padding-left:.2rem}
-.chain li::marker{color:var(--ink-3);font-variant-numeric:tabular-nums}
-.chain .step{color:var(--ink-3);font-size:.86em;margin-left:.5rem;
-  font-family:ui-monospace,Consolas,monospace}
-</style>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="/gallery/">갤러리</a><a class="on" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="on" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 <main class="fh-doc">
-<p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 1단계) · 이식 2026-09-10 19:31 · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
+<p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 1단계) · 이식 2026-09-13 14:42 · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
 
 <div class="hero">
   <div class="eyebrow">내 담당 파트 · <code>B/인지</code> 주담당 · <code>nav/perception/</code></div>
@@ -1429,41 +1398,14 @@ cap.<span class="f">release</span>(); cv2.<span class="f">destroyAllWindows</spa
 <p class="sub"><span class="tag ch">학원 노트북 · 낮 고정</span> 목표: <strong>C3의 탐지 루프를 ROS 2 노드로 만들어, 입력 토픽을 launch 인자로 갈아 끼울 수 있게 한다.</strong> 그래야 웹캠으로 개발한 것이 나중에 Go2 카메라 토픽으로 <strong>코드 수정 없이</strong> 넘어간다.</p>
 
 <h3>전체 그림</h3>
-<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><figure class="figsvg"><svg viewBox="0 0 880 300" role="img"
-  aria-label="카메라 드라이버가 image_raw 와 camera_info 를 detector_node 로 보내고, detector_node 가 detections 와 오버레이 영상을 내보내며, TF 로 map 좌표로 바꾼 것이 RViz2 Marker 로 간다">
-  <g font-size="12.5">
-    <rect x="14" y="20" width="196" height="28" rx="6" fill="var(--paper-2)" stroke="var(--rule)"/>
-    <text x="112" y="39" text-anchor="middle" font-weight="700" fill="var(--ink)">카메라 드라이버</text>
-    <text x="112" y="62" text-anchor="middle" font-size="11" fill="var(--ink-3)">usb_cam / go2 sdk</text>
-    <rect x="330" y="20" width="180" height="28" rx="6" fill="var(--dim-soft)" stroke="var(--brand)"/>
-    <text x="420" y="39" text-anchor="middle" font-weight="700" fill="var(--brand)">detector_node</text>
-    <text x="420" y="62" text-anchor="middle" font-size="11" fill="var(--ink-3)">내가 만드는 것</text>
-    <rect x="640" y="20" width="220" height="28" rx="6" fill="var(--paper-2)" stroke="var(--rule)"/>
-    <text x="750" y="39" text-anchor="middle" font-weight="700" fill="var(--ink)">팀 · 시각화</text>
-  </g>
-  <g stroke="var(--ink-3)" stroke-width="1.4" fill="none" marker-end="url(#ar)">
-    <path d="M210 104 H330"/><path d="M210 146 H330"/>
-    <path d="M510 104 H640"/><path d="M510 146 H640"/><path d="M510 212 H640"/>
-  </g>
-  <defs><marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7"
-    markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="var(--ink-3)"/></marker></defs>
-  <g font-size="12" fill="var(--ink)">
-    <text x="216" y="99">/image_raw</text>
-    <text x="216" y="141">/camera_info</text>
-    <text x="516" y="99">/detections</text>
-    <text x="516" y="141">/detections/image</text>
-    <text x="516" y="207">map 좌표 Marker</text>
-  </g>
-  <g font-size="10.5" fill="var(--ink-3)">
-    <text x="216" y="115">sensor_msgs/Image</text>
-    <text x="216" y="157">sensor_msgs/CameraInfo</text>
-    <text x="516" y="115">vision_msgs</text>
-    <text x="516" y="157">오버레이 영상</text>
-    <text x="516" y="223">(C6) TF 로 변환</text>
-    <text x="646" y="115">rqt_image_view</text>
-    <text x="646" y="223">RViz2</text>
-  </g>
-</svg><figcaption>카메라에서 탐지 노드로, 탐지 노드에서 시각화로 무엇이 흐르나</figcaption></figure></div>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>[카메라 드라이버]                 [내 탐지 노드]              [팀 · 시각화]
+ usb_cam / go2 sdk                 detector_node
+      │                                 │
+      ├─ /image_raw ──────────────────▶ │ ──▶ /detections   (vision_msgs)
+      │  sensor_msgs/Image              │ ──▶ /detections/image  (오버레이)
+      └─ /camera_info ────────────────▶ │                          │
+         sensor_msgs/CameraInfo         │                     rqt_image_view
+                                        └──▶ (C6) TF로 map 좌표 변환 ──▶ RViz2 Marker</pre></div>
 
 <h3 id="C4-1"><span class="step">C4-1</span><code>usb_cam</code>으로 웹캠을 토픽으로 <span class="sub">← 08-28 낮</span></h3>
 <div class="cmd">
@@ -1888,26 +1830,14 @@ p_map = <span class="f">do_transform_point</span>(p, t)</pre></div>
 <p class="sub">채택이든 폐기든 결과는 <code>EXPERIMENTS.md</code>에 한 줄로 남긴다. <strong>폐기한 실험도 기록이 남으면 자산</strong>이다 · "이건 해 봤는데 안 됐다"가 다음 사람의 시간을 아낀다.</p></div>
 
 <h3 id="C7-2"><span class="step">C7-2</span>데이터셋 구조와 라벨 포맷</h3>
-<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><ul class="ftree">
-  <li><span class="dir">dataset/</span>
-    <ul>
-      <li>data.yaml</li>
-      <li><span class="dir">images/</span>
-        <ul>
-          <li><span class="dir">train/</span><span class="note">img001.jpg · img002.jpg …</span></li>
-          <li><span class="dir">val/</span><span class="note">img101.jpg …</span></li>
-        </ul>
-      </li>
-      <li><span class="dir">labels/</span>
-        <ul>
-          <li><span class="dir">train/</span><span class="note">img001.txt · img002.txt …</span></li>
-          <li><span class="dir">val/</span><span class="note">img101.txt …</span></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
-<p class="note">라벨 파일은 <strong>이미지와 같은 이름</strong>이고 확장자만 <code>.txt</code> 입니다.</p></div>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>dataset/
+├── data.yaml
+├── images/
+│   ├── train/   img001.jpg  img002.jpg ...
+│   └── val/     img101.jpg ...
+└── labels/
+    ├── train/   img001.txt  img002.txt ...   ← 이미지와 같은 이름, 확장자만 .txt
+    └── val/     img101.txt ...</pre></div>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre># data.yaml
 path: /abs/path/to/dataset
 train: images/train
@@ -1983,13 +1913,11 @@ print(r.box.map50, r.box.map)     # mAP50, mAP50-95</pre></div>
 
 <h3 id="C8-3"><span class="step">C8-3</span>융합의 원리 · 한 문단</h3>
 <p>LiDAR 점군의 각 점을 <strong><a href="#C5-1">C5-1</a>의 핀홀 식으로 이미지에 투영</strong>하면 "이 점이 화면 어디에 찍히는가"가 나온다. 그 픽셀이 <strong>탐지 박스 안</strong>이면, 그 점의 거리가 <strong>그 물체의 거리</strong>다.</p>
-<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><p><strong>LiDAR 점 (map/lidar 프레임)</strong></p>
-<ol class="chain">
-<li>TF로 camera_optical_frame 으로 옮긴다<span class="step">C6-6</span></li>
-<li>K 행렬로 (u, v) 픽셀에 투영한다<span class="step">C5-1</span></li>
-<li>그 (u,v)가 어느 탐지 박스 안인지 본다<span class="step">C4-5</span></li>
-<li>박스 안 점들의 거리 중앙값 = 그 물체의 거리</li>
-</ol></div>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>LiDAR 점 (map/lidar 프레임)
+   → TF로 camera_optical_frame 으로 옮긴다        (C6-6)
+   → K 행렬로 (u, v) 픽셀에 투영한다               (C5-1)
+   → 그 (u,v)가 어느 탐지 박스 안인지 본다          (C4-5)
+   → 박스 안 점들의 거리 중앙값 = 그 물체의 거리</pre></div>
 <p><strong>필요한 것이 전부 앞 절에 있다.</strong> C5의 <code>K</code>, C6의 TF, C4의 탐지 박스. <strong>C8은 새 기술이 아니라 앞의 셋을 잇는 절</strong>이라, 앞이 제대로 서 있으면 짧게 끝난다.</p>
 <p class="sub">가장 어려운 부분은 수학이 아니라 <strong>시간 동기화</strong>다 · LiDAR와 카메라는 다른 시각에 찍힌다. <code>message_filters</code>의 <code>ApproximateTimeSynchronizer</code>가 그 표준 도구다. <strong>필요해질 때 연다.</strong></p>
 
@@ -2088,5 +2016,5 @@ $</span> <span class="f">ros2</span><span class="k"> bag</span><span class="k"> 
 </table></div></div>
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-10 19:31</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-13 14:42</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

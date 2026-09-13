@@ -509,7 +509,7 @@ html[data-theme="light"] .gnav .lgr{display:none}
   .recent .rt{flex-basis:100%}
 }
 </style>
-<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--newbadge:v8--><style>
+<script id="fh-theme-boot">try{var _t=localStorage.getItem("foothold-theme")||localStorage.getItem("theme");if(_t)document.documentElement.dataset.theme=_t;else document.documentElement.dataset.theme="light"}catch(e){}</script><!--newbadge:v7--><style>
 span.fh-new{display:inline-block!important;margin-left:.45rem;vertical-align:.14em;
   background:var(--note)!important;color:#fff!important;font-size:.55rem!important;
   font-weight:800!important;letter-spacing:.1em!important;line-height:1.5!important;
@@ -520,16 +520,8 @@ span.fh-new{display:inline-block!important;margin-left:.45rem;vertical-align:.14
 (function(){
   var W=7*86400000,KEY='fh_seen';
   var TITLE='.t,.rt,.bt,.tlt3,.ex3,.pk3,.k,.hb3,b,strong,h2,h3';
-  function norm(s){
-    /* 2026-09-12. split('/').pop() 이 끝의 빈 조각을 집어
-       /gallery/ · /index.html · /team-meang/index.html 이 전부 'index' 로
-       뭉개졌다. 표지를 여는 순간 갤러리가 「봤음」이 돼 NEW 가 안 떴다. */
-    s=(s||'').split('#')[0].split('?')[0].replace(/\.html$/,'').replace(/\/+$/,'');
-    var p=s.split('/').filter(Boolean);
-    var last=p.pop()||'index';
-    if(last==='index'&&p.length)last=p.pop()+'/index';
-    return last;
-  }
+  function norm(s){s=(s||'').split('/').pop().split('#')[0].split('?')[0]
+    .replace(/\.html$/,'');return s||'index'}
   function host(a){
     var h=a.querySelector(TITLE);
     if(h)return h;
@@ -744,7 +736,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=de5a23c7').then(function(r){
+    fetch('/assets/search-index.json?v=b750b653').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -829,14 +821,14 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 </head>
 <body>
-<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="/gallery/">갤러리</a><a class="" href="hub-tech.html">기술</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
+<!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="hub-tech.html">기술</a><a class="on" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){}" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 <div class="wrap">
 
 <div class="hero">
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>평가 하네스 도해 · 무엇을 어떤 기준으로 재나</h1>
   <p class="lede">평가 하네스의 판정 구조를 SVG 넷으로 옮긴다. 네 축의 AND · 실패 사유 둘 · 방향 판정이 끝점에서 통과선으로 옮겨간 것 · 지형 10종과 평지를 뺀 자리.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">오흥재 · 2026-09-09 16:40</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / 20260909-eval-harness-diagram.md</span></div><div><span class="k">증거</span><span class="v">확인 6 · 추측 0 · 미측정 5</span></div></div>
+  <div class="meta"><div><span class="k">판</span><span class="v">v1.0</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-09-09 16:40</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / 20260909-eval-harness-diagram.md</span></div><div><span class="k">증거</span><span class="v">확인 6 · 추측 0 · 미측정 5</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -844,7 +836,8 @@ document.addEventListener('DOMContentLoaded',function(){
 작성: 오흥재 · 2026-09-09 16:40
 근거: 실측 (<code>sim/eval/</code> 코드 원문을 직접 읽음) · 원장 <code>docs/DECISIONS.md</code> · 기존 문서 <code>20260908-success-criteria-anatomy.md</code>
 요지: 평가 하네스의 판정 구조를 SVG 넷으로 옮긴다. 네 축의 AND · 실패 사유 둘 · 방향 판정이 끝점에서 통과선으로 옮겨간 것 · 지형 10종과 평지를 뺀 자리.
-상태: 초안</p></blockquote>
+상태: 초안
+판: v1.0</p></blockquote>
 </section>
 <section id="s1"><h2>왜 이 문서가 따로 있나</h2>
 <p><b>성공 기준의 숫자와 논증은 이미 있다.</b> <code>20260908-success-criteria-anatomy.md</code> 가 네 축을 해부하고 1,000판을 축별로 재집계해 두었다. 이 문서는 그것을 대체하지 않는다.</p>
@@ -876,7 +869,7 @@ gate_progress_m=min_progress,</pre></div>
 <p><b>셋째, 관측 열은 AND 밖이다.</b> <code>peak_lateral_drift_m</code>(경로 전체의 최대 좌우 이탈) · <code>lateral_drift_m</code>(끝점 이탈) · 머리 접촉 셋은 CSV 에 남지만 판정에 안 들어간다. 통과선 판정으로 옮긴 뒤로 <b>끝점 이탈은 판정에서 관측으로 내려왔다.</b></p>
 </section>
 <section id="s3"><span id="2"></span><h2>2. 실패 사유는 둘뿐이다</h2>
-<p><figure class="mdimg"><img src="assets/visual/eval-harness-termination.svg?v=8f5f6802" alt="실패 사유 열이 둘뿐인 구조" loading="lazy"><figcaption>실패 사유 열이 둘뿐인 구조</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/eval-harness-termination.svg?v=2859d4cf" alt="실패 사유 열이 둘뿐인 구조" loading="lazy"><figcaption>실패 사유 열이 둘뿐인 구조</figcaption></figure></p>
 <div class="cb"><div class="cb-h">Python<button class="copy" type="button" aria-label="복사">복사</button></div><pre><span class="c"># sim/eval/metrics.py:349</span>
 <span class="k">def</span> <span class="f">termination_reason</span>(timed_out):
     <span class="s">&quot;&quot;&quot;종료 사유. 스냅샷 537~541행.&quot;&quot;&quot;</span>
@@ -965,6 +958,9 @@ FLAT_TERRAIN_NAMES = (<span class="s">&quot;flat&quot;</span>,)</pre></div>
 <section id="s7"><h2>참고한 것</h2>
 <ul><li>코드 정본: <code>sim/eval/metrics.py</code> · <code>sim/eval/terrains.py</code> · <code>sim/eval/eval_generalization.py</code> · <code>sim/eval/generalization_env_cfg.py</code></li><li>시험: <code>sim/eval/tests/test_metrics.py</code> · <code>sim/eval/tests/test_terrains.py</code></li><li>원장: <code>docs/DECISIONS.md</code> 09-02 · 09-03 · 09-09 행</li><li>성공 기준 해부: <code>docs/research/20260908-success-criteria-anatomy.md</code></li><li>머리 접촉 관측: <code>docs/research/20260909-head-contact-observation.md</code></li><li>평지 기준선: <code>docs/research/flat-straight-baseline-10m.md</code></li></ul>
 </section>
+<section id="s8"><h2>판 이력</h2>
+<div class="tw"><table><thead><tr><th>판</th><th>언제</th><th>무엇이 바뀌었나</th><th>근거</th></tr></thead><tbody><tr><td>v1.0</td><td>2026-09-09</td><td>처음 씀. 판정 구조를 SVG 넷으로 옮겼다</td><td><code>sim/eval/</code> 코드 원문</td></tr></tbody></table></div>
+</section>
 
 </div>
 <script>
@@ -1004,5 +1000,5 @@ document.addEventListener('click', function(e){
 </script>
 <style>html[data-theme="light"]{--paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--rule:#d9d6cd;--brand:#0e7a6e;--dim:#0e7a6e;--dim-soft:#e0f0ed;--note:#a86a08;--note-soft:#fbf0dc;--stop:#a3342a;--stop-soft:#fbe9e7;--dim-ink:#0b6459;--grid:rgba(22,28,38,.04);--note-ink:#8a5600;}html[data-theme="dark"]{--paper:#12161d;--paper-2:#191e27;--card:#181d26;--ink:#e9e7e1;--ink-2:#adb5c1;--ink-3:#7d8693;--rule:#2b323d;--brand:#3ec7b4;--dim:#3ec7b4;--dim-soft:#11302c;--note:#dc9a30;--note-soft:#332710;--stop:#e56d5e;--stop-soft:#331c19}</style><!--dark:v1-->
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-10 19:31</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.0.0</span></span><span>이 페이지 갱신 <span class="sv">2026-09-13 14:42</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
