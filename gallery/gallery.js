@@ -185,6 +185,93 @@ G.chipRow = function (label, values, current, countOf, onPick) {
   return row;
 };
 
+/* 지형 무리 이름. 색인의 열쇠는 영어라 화면에 그대로 내지 않는다.
+ * **모르는 열쇠가 와도 지우지 않고 그 열쇠를 그대로 보여준다.** 조용히
+ * 빠지면 새 무리가 생겼을 때 아무도 모른다. */
+G.SET_NAME = { rough6: '기존 험지', unseen10: '미경험 험지' };
+
+/* 읽는 순서. 학습에 쓴 것을 먼저 놓고 안 본 것을 뒤에 놓는다. 여기 없는
+ * 무리는 색인이 적은 순서대로 뒤에 붙는다. 새 무리를 여기 안 적어도 나온다. */
+G.SET_ORDER = ['rough6', 'unseen10'];
+
+/* 지형 거르개. **한 줄에 16개를 늘어놓지 않는다.**
+ *
+ * 왜 (2026-09-13 팀장 지시): 지형 16종이 한 줄에 평평하게 깔려 있었고,
+ * 그 옆에 「지형 집합」 줄이 따로 있었다. 두 줄이 같은 것을 다르게 말한다.
+ * 그리고 **이 과제의 요점인 「학습에 쓴 것 / 한 번도 안 본 것」의 구분이
+ * 화면에 없다.** 목록만 보고는 gap 이 미경험인지 기존인지 알 수 없다.
+ *
+ * 그래서 두 줄을 하나로 합치고 무리로 접는다.
+ *
+ *   기존 험지 6종    [전부 54]  [boxes 9] [random_rough 9] ...
+ *   미경험 험지 10종 [전부 90]  [gap 9] [pit 9] [rails 9] ...
+ *
+ * 앞으로 쌓일 것 (팀장 질문 5번):
+ *   · 무리는 색인(`terrain_sets`)이 정한다. 새 무리가 생기면 저절로 줄이 는다
+ *   · 이름을 모르는 무리는 **열쇠를 그대로 써서** 보인다. 안 지운다
+ *   · **어느 무리에도 없는 지형은 「무리 미지정」 줄에 모은다.** 이것이 없으면
+ *     색인에 지형만 추가하고 무리에 안 넣었을 때 화면에서 통째로 사라진다.
+ *     그 부류로 이미 여러 번 당했다
+ *   · 줄은 넘치면 접힌다. 한 무리가 30종이 돼도 깨지지 않는다
+ */
+G.terrainRows = function (opts) {
+  const wrap = G.el('div', { class: 'tgrp' });
+  const sets = opts.sets || {};
+  const all = opts.terrains || [];
+  const placed = new Set();
+  Object.values(sets).forEach(list => (list || []).forEach(t => placed.add(t)));
+  const orphan = all.filter(t => !placed.has(t));
+
+  const keys = Object.keys(sets).slice().sort((a, b) => {
+    const ia = G.SET_ORDER.indexOf(a), ib = G.SET_ORDER.indexOf(b);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+  });
+  const groups = keys.map(key => ({
+    key: key,
+    list: (sets[key] || []).filter(t => all.indexOf(t) >= 0),
+    name: G.SET_NAME[key] || key
+  })).filter(g => g.list.length);
+  if (orphan.length) {
+    groups.push({ key: null, list: orphan, name: '무리 미지정' });
+  }
+
+  groups.forEach(g => {
+    const row = G.el('div', { class: 'frow tset' }, [
+      G.el('span', { class: 'flabel', text: g.name + ' ' + g.list.length + '종' })
+    ]);
+
+    if (g.key) {
+      const n = opts.countSet(g.key);
+      const on = opts.set === g.key && !opts.terrain;
+      const chip = G.el('button', {
+        class: 'chip whole', type: 'button',
+        'aria-pressed': on ? 'true' : 'false',
+        disabled: (n === 0 && !on) || null
+        /* 「전부」라 쓰지 않는다. 아래 줄들의 「전부」는 «조건 없음» 이고
+         * 이것은 «이 무리만» 이다. 같은 글자로 다른 뜻을 말하면 안 된다. */
+      }, [G.el('span', { text: '무리 전체' }),
+          G.el('span', { class: 'n', text: String(n) })]);
+      chip.addEventListener('click', () => opts.pickSet(on ? null : g.key));
+      row.appendChild(chip);
+    }
+
+    g.list.forEach(t => {
+      const n = opts.countTerrain(t);
+      const on = opts.terrain === t;
+      const chip = G.el('button', {
+        class: 'chip', type: 'button',
+        'aria-pressed': on ? 'true' : 'false',
+        disabled: (n === 0 && !on) || null
+      }, [G.el('span', { text: t }), G.el('span', { class: 'n', text: String(n) })]);
+      chip.addEventListener('click', () => opts.pickTerrain(on ? null : t));
+      row.appendChild(chip);
+    });
+
+    wrap.appendChild(row);
+  });
+  return wrap;
+};
+
 G.emptyBox = function (title, detail, onClear) {
   const box = G.el('div', { class: 'empty' }, [
     G.el('strong', { text: title }),
