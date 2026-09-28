@@ -1,0 +1,102 @@
+<svg viewBox="-20 -20 966 490" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block" role="img" aria-label="난이도별 성공률 · 두 묶음을 나란히" width="926" height="450">
+<!--selfcontained:v1-->
+<style>
+:root{--accent:#0e7a6e;--accent-soft:#e0f0ed;--bad:#a3342a;--bad-soft:#fbe9e7;--card:#ffffff;--deep:#112222;--dim:#0e7a6e;--dim-ink:#0b6459;--ink:#161c26;--ink-2:#4a5566;--ink-3:#7c8798;--ink-soft:#adb5c1;--ok:#0e7a6e;--ok-soft:#e0f0ed;--paper:#f6f5f1;--paper-2:#eeece6;--rule:#d9d6cd;--rule-2:#efede6;--warn:#a86a08;--warn-soft:#fbf0dc;}
+
+</style>
+
+<text x="0.0" y="14.0" font-size="14" fill="var(--ink)" text-anchor="start" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">어느 지형을 «미경험» 이라 부르냐에 따라 이야기가 뒤집힌다</text>
+<text x="0.0" y="33.0" font-size="11" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">세로는 성공률 % · 가로는 지형 난이도 · 두 묶음의 다른 점은 rails 와 gap 둘뿐이다</text>
+<rect x="0.0" y="49.0" width="11.0" height="9.0" rx="2" fill="var(--ink-3)" stroke="none"/>
+<text x="16.0" y="56.0" font-size="10.5" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">NVIDIA</text>
+<rect x="59.6" y="49.0" width="11.0" height="9.0" rx="2" fill="var(--ink-2)" stroke="none"/>
+<text x="75.6" y="56.0" font-size="10.5" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">foothold-v1</text>
+<rect x="152.2" y="49.0" width="11.0" height="9.0" rx="2" fill="var(--accent)" stroke="none"/>
+<text x="168.2" y="56.0" font-size="10.5" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">v2 (v2g2 @3000)</text>
+<text x="54.0" y="80.0" font-size="11.5" fill="var(--ink)" text-anchor="start" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">어느 판도 학습 안 한 8종</text>
+<text x="54.0" y="96.0" font-size="10" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">rails 와 gap 을 뺀 것</text>
+<line x1="54.0" y1="318.0" x2="440.0" y2="318.0" stroke="var(--rule-2)" stroke-width="1"/>
+<text x="44.0" y="322.0" font-size="9.5" fill="var(--ink-3)" text-anchor="end" font-weight="400" font-family="IBM Plex Mono, monospace">0</text>
+<line x1="54.0" y1="266.5" x2="440.0" y2="266.5" stroke="var(--rule-2)" stroke-width="1"/>
+<text x="44.0" y="270.5" font-size="9.5" fill="var(--ink-3)" text-anchor="end" font-weight="400" font-family="IBM Plex Mono, monospace">25</text>
+<line x1="54.0" y1="215.0" x2="440.0" y2="215.0" stroke="var(--rule-2)" stroke-width="1"/>
+<text x="44.0" y="219.0" font-size="9.5" fill="var(--ink-3)" text-anchor="end" font-weight="400" font-family="IBM Plex Mono, monospace">50</text>
+<line x1="54.0" y1="163.5" x2="440.0" y2="163.5" stroke="var(--rule-2)" stroke-width="1"/>
+<text x="44.0" y="167.5" font-size="9.5" fill="var(--ink-3)" text-anchor="end" font-weight="400" font-family="IBM Plex Mono, monospace">75</text>
+<line x1="54.0" y1="112.0" x2="440.0" y2="112.0" stroke="var(--rule-2)" stroke-width="1"/>
+<text x="44.0" y="116.0" font-size="9.5" fill="var(--ink-3)" text-anchor="end" font-weight="400" font-family="IBM Plex Mono, monospace">100</text>
+<text x="54.0" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.1</text>
+<text x="102.2" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.2</text>
+<text x="150.5" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.3</text>
+<text x="198.8" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.4</text>
+<text x="247.0" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.5</text>
+<text x="295.2" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.6</text>
+<text x="343.5" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.7</text>
+<text x="440.0" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.9</text>
+<circle cx="247.0" cy="227.6" r="5.4" fill="var(--ink-3)" stroke="var(--card)" stroke-width="1.6"/>
+<polyline points="54.0,139.3 102.2,160.5 150.5,154.1 198.8,145.6 247.0,139.4 295.2,138.1 343.5,138.7 440.0,145.7" fill="none" stroke="var(--ink-2)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="54.0" cy="139.3" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="102.2" cy="160.5" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="150.5" cy="154.1" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="198.8" cy="145.6" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="247.0" cy="139.4" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="295.2" cy="138.1" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="343.5" cy="138.7" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="440.0" cy="145.7" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<polyline points="54.0,125.4 102.2,143.0 150.5,138.7 198.8,135.7 247.0,135.8 295.2,137.8 343.5,137.8 440.0,138.3" fill="none" stroke="var(--accent)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="54.0" cy="125.4" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="102.2" cy="143.0" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="150.5" cy="138.7" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="198.8" cy="135.7" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="247.0" cy="135.8" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="295.2" cy="137.8" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="343.5" cy="137.8" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="440.0" cy="138.3" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<text x="259.0" y="231.6" font-size="9.5" fill="var(--ink-3)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">NVIDIA 43.9 · 이 한 점만 쟀다</text>
+<line x1="54.0" y1="106.0" x2="54.0" y2="318.0" stroke="var(--rule)" stroke-width="1"/>
+<line x1="54.0" y1="318.0" x2="440.0" y2="318.0" stroke="var(--rule)" stroke-width="1"/>
+<rect x="54.0" y="352.0" width="386.0" height="46.0" rx="6" fill="var(--paper-2)" stroke="var(--rule-2)"/>
+<text x="66.0" y="371.0" font-size="10.5" fill="var(--ink)" text-anchor="start" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">v2 - v1 은 +6.8 에서 시작해 +3.6 로 끝난다  (좁아진다)</text>
+<text x="66.0" y="387.0" font-size="10" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Mono, monospace">여덟 점의 폭 +0.2 ~ +8.5 %p</text>
+<text x="514.0" y="80.0" font-size="11.5" fill="var(--ink)" text-anchor="start" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">미경험 10종 (rails · gap 포함)</text>
+<text x="514.0" y="96.0" font-size="10" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">그 둘은 v2 가 학습한 지형이다</text>
+<line x1="514.0" y1="318.0" x2="900.0" y2="318.0" stroke="var(--rule-2)" stroke-width="1"/>
+<line x1="514.0" y1="266.5" x2="900.0" y2="266.5" stroke="var(--rule-2)" stroke-width="1"/>
+<line x1="514.0" y1="215.0" x2="900.0" y2="215.0" stroke="var(--rule-2)" stroke-width="1"/>
+<line x1="514.0" y1="163.5" x2="900.0" y2="163.5" stroke="var(--rule-2)" stroke-width="1"/>
+<line x1="514.0" y1="112.0" x2="900.0" y2="112.0" stroke="var(--rule-2)" stroke-width="1"/>
+<text x="514.0" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.1</text>
+<text x="562.2" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.2</text>
+<text x="610.5" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.3</text>
+<text x="658.8" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.4</text>
+<text x="707.0" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.5</text>
+<text x="755.2" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.6</text>
+<text x="803.5" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.7</text>
+<text x="900.0" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.9</text>
+<circle cx="707.0" cy="245.1" r="5.4" fill="var(--ink-3)" stroke="var(--card)" stroke-width="1.6"/>
+<polyline points="514.0,142.2 562.2,155.1 610.5,149.0 658.8,145.8 707.0,147.8 755.2,154.1 803.5,157.0 900.0,162.7" fill="none" stroke="var(--ink-2)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="514.0" cy="142.2" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="562.2" cy="155.1" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="610.5" cy="149.0" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="658.8" cy="145.8" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="707.0" cy="147.8" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="755.2" cy="154.1" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="803.5" cy="157.0" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="900.0" cy="162.7" r="3.4" fill="var(--ink-2)" stroke="var(--card)" stroke-width="1.6"/>
+<polyline points="514.0,123.0 562.2,137.3 610.5,134.5 658.8,131.1 707.0,131.2 755.2,133.6 803.5,135.1 900.0,138.6" fill="none" stroke="var(--accent)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="514.0" cy="123.0" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="562.2" cy="137.3" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="610.5" cy="134.5" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="658.8" cy="131.1" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="707.0" cy="131.2" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="755.2" cy="133.6" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="803.5" cy="135.1" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<circle cx="900.0" cy="138.6" r="3.4" fill="var(--accent)" stroke="var(--card)" stroke-width="1.6"/>
+<text x="719.0" y="249.1" font-size="9.5" fill="var(--ink-3)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">NVIDIA 35.4 · 이 한 점만 쟀다</text>
+<line x1="514.0" y1="106.0" x2="514.0" y2="318.0" stroke="var(--rule)" stroke-width="1"/>
+<line x1="514.0" y1="318.0" x2="900.0" y2="318.0" stroke="var(--rule)" stroke-width="1"/>
+<rect x="514.0" y="352.0" width="386.0" height="46.0" rx="6" fill="var(--paper-2)" stroke="var(--rule-2)"/>
+<text x="526.0" y="371.0" font-size="10.5" fill="var(--ink)" text-anchor="start" font-weight="700" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">v2 - v1 은 +9.3 에서 시작해 +11.7 로 끝난다  (벌어진다)</text>
+<text x="526.0" y="387.0" font-size="10" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Mono, monospace">여덟 점의 폭 +7.1 ~ +11.7 %p</text>
+<text x="0.0" y="442.0" font-size="10.5" fill="var(--ink-2)" text-anchor="start" font-weight="400" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif">시드만 바꿔도 1.25 %p 가 흔들린다 (멈출 기준 문서). 왼쪽 판의 중간 난이도 차이는 그 폭 안이라 구별되지 않는다</text>
+</svg>

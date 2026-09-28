@@ -1,8 +1,28 @@
 {
   "schema": "foothold-gallery-index/1",
-  "latest": "v1",
-  "count": 1,
+  "latest": "v2",
+  "count": 2,
   "versions": [
+    {
+      "version": "v2",
+      "folder": "v2",
+      "manifest": "v2/manifest.json",
+      "evaluated_at": "2026-09-25T14:30:47+00:00",
+      "built_at": "2026-09-28T17:08:06",
+      "main_model": "foothold-v2",
+      "difficulty": 0.5,
+      "models": {
+        "baseline": "f2aa77bf0349c10ec2a00071162e37123d0cf80f3447c3989c17a618e1b24ad2",
+        "foothold-v1": "c7612aef0b3c49b876c610d6d1c4f507eba666a4ffa03797760ad4a896ee7aca",
+        "foothold-v2": "e5c213219b4529464b7d3f3cce8f7a61c78fa4f2f7df7c64cfe12944c5ab2fee"
+      },
+      "clips": 48,
+      "evaluations": 144,
+      "terrains": 16,
+      "headline": "학습에 없던 지형 8종에서 NVIDIA 43.9 % -> v2 88.5 %. 못 넘는 것은 stepping_stones 하나뿐이고 (8 %) 나머지 7종은 100 % 다 (지형·속도마다 100판)",
+      "report": "/report-v2.html",
+      "note": "컷 48 편은 v2 것이다. 기준선 NVIDIA 와 foothold-v1 은 숫자만 싣고 영상은 v1 판에 있는 것을 쓴다 (같은 체크포인트 · sha 대조함). 평가 16종 중 rails 는 v2 가 «학습에 넣은» 지형이므로 미경험이 아니다. 성적표는 난이도 0.5 · 지형마다 100판. 영상은 그 자리의 시연 1회다."
+    },
     {
       "version": "v1",
       "folder": "v1",
