@@ -1,7 +1,7 @@
 {
   "schema": "foothold-gallery/2",
   "version": "v2",
-  "built_at": "2026-09-28T23:05:10",
+  "built_at": "2026-09-29T00:28:21",
   "evaluated_at": "2026-09-25T14:30:47+00:00",
   "main_model": "foothold-v2",
   "difficulty": 0.5,
@@ -82,9 +82,9 @@
     ]
   },
   "counts": {
-    "clips": 48,
+    "clips": 144,
     "evaluations": 144,
-    "evaluations_without_clip": 96,
+    "evaluations_without_clip": 0,
     "terrains": 16,
     "speeds": [
       0.5,
@@ -96,8 +96,8 @@
       "foothold-v1",
       "foothold-v2"
     ],
-    "comparison_clips": 0,
-    "with_poster": 48
+    "comparison_clips": 96,
+    "with_poster": 144
   },
   "facets": {
     "terrain": [
@@ -204,7 +204,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "boxes-v0.5-baseline"
+      ]
     },
     {
       "id": "boxes|baseline|1",
@@ -220,7 +222,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "boxes-v1-baseline"
+      ]
     },
     {
       "id": "boxes|baseline|1.5",
@@ -236,7 +240,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "boxes-v1.5-baseline"
+      ]
     },
     {
       "id": "boxes|foothold-v1|0.5",
@@ -252,7 +258,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "boxes-v0.5"
+      ]
     },
     {
       "id": "boxes|foothold-v1|1",
@@ -268,7 +276,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "boxes-v1"
+      ]
     },
     {
       "id": "boxes|foothold-v1|1.5",
@@ -284,7 +294,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "boxes-v1.5"
+      ]
     },
     {
       "id": "boxes|foothold-v2|0.5",
@@ -354,7 +366,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "discrete_obstacles-v0.5-baseline"
+      ]
     },
     {
       "id": "discrete_obstacles|baseline|1",
@@ -370,7 +384,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "discrete_obstacles-v1-baseline"
+      ]
     },
     {
       "id": "discrete_obstacles|baseline|1.5",
@@ -386,7 +402,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "discrete_obstacles-v1.5-baseline"
+      ]
     },
     {
       "id": "discrete_obstacles|foothold-v1|0.5",
@@ -402,7 +420,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "discrete_obstacles-v0.5"
+      ]
     },
     {
       "id": "discrete_obstacles|foothold-v1|1",
@@ -418,7 +438,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "discrete_obstacles-v1"
+      ]
     },
     {
       "id": "discrete_obstacles|foothold-v1|1.5",
@@ -434,7 +456,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "discrete_obstacles-v1.5"
+      ]
     },
     {
       "id": "discrete_obstacles|foothold-v2|0.5",
@@ -504,7 +528,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "floating_ring-v0.5-baseline"
+      ]
     },
     {
       "id": "floating_ring|baseline|1",
@@ -520,7 +546,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "floating_ring-v1-baseline"
+      ]
     },
     {
       "id": "floating_ring|baseline|1.5",
@@ -536,7 +564,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "floating_ring-v1.5-baseline"
+      ]
     },
     {
       "id": "floating_ring|foothold-v1|0.5",
@@ -552,7 +582,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "floating_ring-v0.5"
+      ]
     },
     {
       "id": "floating_ring|foothold-v1|1",
@@ -568,7 +600,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "floating_ring-v1"
+      ]
     },
     {
       "id": "floating_ring|foothold-v1|1.5",
@@ -584,7 +618,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "floating_ring-v1.5"
+      ]
     },
     {
       "id": "floating_ring|foothold-v2|0.5",
@@ -654,7 +690,9 @@
       "engagement_n": 3,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "gap-v0.5-baseline"
+      ]
     },
     {
       "id": "gap|baseline|1",
@@ -670,7 +708,9 @@
       "engagement_n": 1,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "gap-v1-baseline"
+      ]
     },
     {
       "id": "gap|baseline|1.5",
@@ -686,7 +726,9 @@
       "engagement_n": 0,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "gap-v1.5-baseline"
+      ]
     },
     {
       "id": "gap|foothold-v1|0.5",
@@ -702,7 +744,9 @@
       "engagement_n": 0,
       "run_id": "foothold-v1/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "gap-v0.5"
+      ]
     },
     {
       "id": "gap|foothold-v1|1",
@@ -718,7 +762,9 @@
       "engagement_n": 0,
       "run_id": "foothold-v1/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "gap-v1"
+      ]
     },
     {
       "id": "gap|foothold-v1|1.5",
@@ -734,7 +780,9 @@
       "engagement_n": 0,
       "run_id": "foothold-v1/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "gap-v1.5"
+      ]
     },
     {
       "id": "gap|foothold-v2|0.5",
@@ -804,7 +852,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v0.5-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope|baseline|1",
@@ -820,7 +870,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v1-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope|baseline|1.5",
@@ -836,7 +888,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v1.5-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope|foothold-v1|0.5",
@@ -852,7 +906,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v0.5"
+      ]
     },
     {
       "id": "hf_pyramid_slope|foothold-v1|1",
@@ -868,7 +924,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v1"
+      ]
     },
     {
       "id": "hf_pyramid_slope|foothold-v1|1.5",
@@ -884,7 +942,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope-v1.5"
+      ]
     },
     {
       "id": "hf_pyramid_slope|foothold-v2|0.5",
@@ -954,7 +1014,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v0.5-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|baseline|1",
@@ -970,7 +1032,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v1-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|baseline|1.5",
@@ -986,7 +1050,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v1.5-baseline"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|foothold-v1|0.5",
@@ -1002,7 +1068,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v0.5"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|foothold-v1|1",
@@ -1018,7 +1086,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v1"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|foothold-v1|1.5",
@@ -1034,7 +1104,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "hf_pyramid_slope_inv-v1.5"
+      ]
     },
     {
       "id": "hf_pyramid_slope_inv|foothold-v2|0.5",
@@ -1104,7 +1176,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "pit-v0.5-baseline"
+      ]
     },
     {
       "id": "pit|baseline|1",
@@ -1120,7 +1194,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "pit-v1-baseline"
+      ]
     },
     {
       "id": "pit|baseline|1.5",
@@ -1136,7 +1212,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "pit-v1.5-baseline"
+      ]
     },
     {
       "id": "pit|foothold-v1|0.5",
@@ -1152,7 +1230,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "pit-v0.5"
+      ]
     },
     {
       "id": "pit|foothold-v1|1",
@@ -1168,7 +1248,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "pit-v1"
+      ]
     },
     {
       "id": "pit|foothold-v1|1.5",
@@ -1184,7 +1266,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "pit-v1.5"
+      ]
     },
     {
       "id": "pit|foothold-v2|0.5",
@@ -1254,7 +1338,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v0.5-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs|baseline|1",
@@ -1270,7 +1356,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v1-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs|baseline|1.5",
@@ -1286,7 +1374,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v1.5-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs|foothold-v1|0.5",
@@ -1302,7 +1392,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v0.5"
+      ]
     },
     {
       "id": "pyramid_stairs|foothold-v1|1",
@@ -1318,7 +1410,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v1"
+      ]
     },
     {
       "id": "pyramid_stairs|foothold-v1|1.5",
@@ -1334,7 +1428,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs-v1.5"
+      ]
     },
     {
       "id": "pyramid_stairs|foothold-v2|0.5",
@@ -1404,7 +1500,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v0.5-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|baseline|1",
@@ -1420,7 +1518,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v1-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|baseline|1.5",
@@ -1436,7 +1536,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v1.5-baseline"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|foothold-v1|0.5",
@@ -1452,7 +1554,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v0.5"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|foothold-v1|1",
@@ -1468,7 +1572,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v1"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|foothold-v1|1.5",
@@ -1484,7 +1590,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "pyramid_stairs_inv-v1.5"
+      ]
     },
     {
       "id": "pyramid_stairs_inv|foothold-v2|0.5",
@@ -1554,7 +1662,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "rails-v0.5-baseline"
+      ]
     },
     {
       "id": "rails|baseline|1",
@@ -1570,7 +1680,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "rails-v1-baseline"
+      ]
     },
     {
       "id": "rails|baseline|1.5",
@@ -1586,7 +1698,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "rails-v1.5-baseline"
+      ]
     },
     {
       "id": "rails|foothold-v1|0.5",
@@ -1602,7 +1716,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "rails-v0.5"
+      ]
     },
     {
       "id": "rails|foothold-v1|1",
@@ -1618,7 +1734,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "rails-v1"
+      ]
     },
     {
       "id": "rails|foothold-v1|1.5",
@@ -1634,7 +1752,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "rails-v1.5"
+      ]
     },
     {
       "id": "rails|foothold-v2|0.5",
@@ -1704,7 +1824,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "random_rough-v0.5-baseline"
+      ]
     },
     {
       "id": "random_rough|baseline|1",
@@ -1720,7 +1842,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "random_rough-v1-baseline"
+      ]
     },
     {
       "id": "random_rough|baseline|1.5",
@@ -1736,7 +1860,9 @@
       "engagement_n": 100,
       "run_id": "baseline/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "random_rough-v1.5-baseline"
+      ]
     },
     {
       "id": "random_rough|foothold-v1|0.5",
@@ -1752,7 +1878,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "random_rough-v0.5"
+      ]
     },
     {
       "id": "random_rough|foothold-v1|1",
@@ -1768,7 +1896,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "random_rough-v1"
+      ]
     },
     {
       "id": "random_rough|foothold-v1|1.5",
@@ -1784,7 +1914,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/rough6/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "random_rough-v1.5"
+      ]
     },
     {
       "id": "random_rough|foothold-v2|0.5",
@@ -1854,7 +1986,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "repeated_boxes-v0.5-baseline"
+      ]
     },
     {
       "id": "repeated_boxes|baseline|1",
@@ -1870,7 +2004,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "repeated_boxes-v1-baseline"
+      ]
     },
     {
       "id": "repeated_boxes|baseline|1.5",
@@ -1886,7 +2022,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "repeated_boxes-v1.5-baseline"
+      ]
     },
     {
       "id": "repeated_boxes|foothold-v1|0.5",
@@ -1902,7 +2040,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "repeated_boxes-v0.5"
+      ]
     },
     {
       "id": "repeated_boxes|foothold-v1|1",
@@ -1918,7 +2058,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "repeated_boxes-v1"
+      ]
     },
     {
       "id": "repeated_boxes|foothold-v1|1.5",
@@ -1934,7 +2076,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "repeated_boxes-v1.5"
+      ]
     },
     {
       "id": "repeated_boxes|foothold-v2|0.5",
@@ -2004,7 +2148,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "repeated_cylinders-v0.5-baseline"
+      ]
     },
     {
       "id": "repeated_cylinders|baseline|1",
@@ -2020,7 +2166,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "repeated_cylinders-v1-baseline"
+      ]
     },
     {
       "id": "repeated_cylinders|baseline|1.5",
@@ -2036,7 +2184,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "repeated_cylinders-v1.5-baseline"
+      ]
     },
     {
       "id": "repeated_cylinders|foothold-v1|0.5",
@@ -2052,7 +2202,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "repeated_cylinders-v0.5"
+      ]
     },
     {
       "id": "repeated_cylinders|foothold-v1|1",
@@ -2068,7 +2220,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "repeated_cylinders-v1"
+      ]
     },
     {
       "id": "repeated_cylinders|foothold-v1|1.5",
@@ -2084,7 +2238,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "repeated_cylinders-v1.5"
+      ]
     },
     {
       "id": "repeated_cylinders|foothold-v2|0.5",
@@ -2154,7 +2310,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "star-v0.5-baseline"
+      ]
     },
     {
       "id": "star|baseline|1",
@@ -2170,7 +2328,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "star-v1-baseline"
+      ]
     },
     {
       "id": "star|baseline|1.5",
@@ -2186,7 +2346,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "star-v1.5-baseline"
+      ]
     },
     {
       "id": "star|foothold-v1|0.5",
@@ -2202,7 +2364,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "star-v0.5"
+      ]
     },
     {
       "id": "star|foothold-v1|1",
@@ -2218,7 +2382,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "star-v1"
+      ]
     },
     {
       "id": "star|foothold-v1|1.5",
@@ -2234,7 +2400,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "star-v1.5"
+      ]
     },
     {
       "id": "star|foothold-v2|0.5",
@@ -2304,7 +2472,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "stepping_stones-v0.5-baseline"
+      ]
     },
     {
       "id": "stepping_stones|baseline|1",
@@ -2320,7 +2490,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "stepping_stones-v1-baseline"
+      ]
     },
     {
       "id": "stepping_stones|baseline|1.5",
@@ -2336,7 +2508,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "stepping_stones-v1.5-baseline"
+      ]
     },
     {
       "id": "stepping_stones|foothold-v1|0.5",
@@ -2352,7 +2526,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "stepping_stones-v0.5"
+      ]
     },
     {
       "id": "stepping_stones|foothold-v1|1",
@@ -2368,7 +2544,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "stepping_stones-v1"
+      ]
     },
     {
       "id": "stepping_stones|foothold-v1|1.5",
@@ -2384,7 +2562,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "stepping_stones-v1.5"
+      ]
     },
     {
       "id": "stepping_stones|foothold-v2|0.5",
@@ -2454,7 +2634,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "wave-v0.5-baseline"
+      ]
     },
     {
       "id": "wave|baseline|1",
@@ -2470,7 +2652,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "wave-v1-baseline"
+      ]
     },
     {
       "id": "wave|baseline|1.5",
@@ -2486,7 +2670,9 @@
       "engagement_n": 100,
       "run_id": "baseline/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "wave-v1.5-baseline"
+      ]
     },
     {
       "id": "wave|foothold-v1|0.5",
@@ -2502,7 +2688,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v0.5",
       "eval_duration_s": 12.0,
-      "clips": []
+      "clips": [
+        "wave-v0.5"
+      ]
     },
     {
       "id": "wave|foothold-v1|1",
@@ -2518,7 +2706,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1",
       "eval_duration_s": 6.0,
-      "clips": []
+      "clips": [
+        "wave-v1"
+      ]
     },
     {
       "id": "wave|foothold-v1|1.5",
@@ -2534,7 +2724,9 @@
       "engagement_n": 100,
       "run_id": "foothold-v1/unseen10/d0.5/v1.5",
       "eval_duration_s": 4.0,
-      "clips": []
+      "clips": [
+        "wave-v1.5"
+      ]
     },
     {
       "id": "wave|foothold-v2|0.5",
@@ -3647,6 +3839,2310 @@
       "success_rate": 100.0,
       "engagement": 0.613,
       "episodes": 100
+    },
+    {
+      "id": "boxes-v0.5-baseline",
+      "file": "../v1/clips/boxes-v0.5-baseline.mp4",
+      "evaluation_id": "boxes|baseline|0.5",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 4256223,
+      "poster": "../v1/posters/boxes-v0.5-baseline.jpg",
+      "sha256": "b635000a24242c005714d6f514d5dcdc3975d34e19e47a4578285f21d3b4c1a7",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 76.0,
+      "engagement": 0.969,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "boxes-v1-baseline",
+      "file": "../v1/clips/boxes-v1-baseline.mp4",
+      "evaluation_id": "boxes|baseline|1",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2484800,
+      "poster": "../v1/posters/boxes-v1-baseline.jpg",
+      "sha256": "560a93f6bbf0160114bf32a31502f6ce9a694c52c5a52ec176753409c85718b6",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 34.0,
+      "engagement": 0.949,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "boxes-v1.5-baseline",
+      "file": "../v1/clips/boxes-v1.5-baseline.mp4",
+      "evaluation_id": "boxes|baseline|1.5",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1835791,
+      "poster": "../v1/posters/boxes-v1.5-baseline.jpg",
+      "sha256": "addf25ebc1b48ea5049d0ae68606ce776532d92c7b983b9e829435f48b5f5694",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.929,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "discrete_obstacles-v0.5-baseline",
+      "file": "../v1/clips/discrete_obstacles-v0.5-baseline.mp4",
+      "evaluation_id": "discrete_obstacles|baseline|0.5",
+      "terrain": "discrete_obstacles",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2652714,
+      "poster": "../v1/posters/discrete_obstacles-v0.5-baseline.jpg",
+      "sha256": "4c139c7b3c8f66b76f0d5a296ccce59205200cfe3ac3129fc63c4275bb29752a",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 94.0,
+      "engagement": 0.631,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "discrete_obstacles-v1-baseline",
+      "file": "../v1/clips/discrete_obstacles-v1-baseline.mp4",
+      "evaluation_id": "discrete_obstacles|baseline|1",
+      "terrain": "discrete_obstacles",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1952260,
+      "poster": "../v1/posters/discrete_obstacles-v1-baseline.jpg",
+      "sha256": "cf63e47c5e4f28dce3c120641ac8f96d47e33d3e48d3f89014c3cf452817a60e",
+      "frames": 278,
+      "seconds": 5.56,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 94.0,
+      "engagement": 0.658,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "discrete_obstacles-v1.5-baseline",
+      "file": "../v1/clips/discrete_obstacles-v1.5-baseline.mp4",
+      "evaluation_id": "discrete_obstacles|baseline|1.5",
+      "terrain": "discrete_obstacles",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1441410,
+      "poster": "../v1/posters/discrete_obstacles-v1.5-baseline.jpg",
+      "sha256": "ff3db3a735dc5707525dc23958f0e7556d4908d5dabf4646ab8a8125a53588c8",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.64,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "floating_ring-v0.5-baseline",
+      "file": "../v1/clips/floating_ring-v0.5-baseline.mp4",
+      "evaluation_id": "floating_ring|baseline|0.5",
+      "terrain": "floating_ring",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1516633,
+      "poster": "../v1/posters/floating_ring-v0.5-baseline.jpg",
+      "sha256": "aa35a362ce3e40cf59c29e6e3082d04821ff4b1326604f432217b8477142bbab",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 1.0,
+      "engagement": 0.68,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "floating_ring-v1-baseline",
+      "file": "../v1/clips/floating_ring-v1-baseline.mp4",
+      "evaluation_id": "floating_ring|baseline|1",
+      "terrain": "floating_ring",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 871223,
+      "poster": "../v1/posters/floating_ring-v1-baseline.jpg",
+      "sha256": "7fc0fdb46f7fd352e7e153bdfa2036d6c5bcfa45d15b92a7cdba86c283aaa58a",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.92,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "floating_ring-v1.5-baseline",
+      "file": "../v1/clips/floating_ring-v1.5-baseline.mp4",
+      "evaluation_id": "floating_ring|baseline|1.5",
+      "terrain": "floating_ring",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 911636,
+      "poster": "../v1/posters/floating_ring-v1.5-baseline.jpg",
+      "sha256": "fd63c2f8536c227fa8aede7e1f636f85b0a3165574dd46d0e287c3571306e22b",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.75,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "gap-v0.5-baseline",
+      "file": "../v1/clips/gap-v0.5-baseline.mp4",
+      "evaluation_id": "gap|baseline|0.5",
+      "terrain": "gap",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1838024,
+      "poster": "../v1/posters/gap-v0.5-baseline.jpg",
+      "sha256": "10786f45f2d7ebe78b703082bb178fa19204e37439965ef7c7412f1a37dac4b8",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.667,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "gap-v1-baseline",
+      "file": "../v1/clips/gap-v1-baseline.mp4",
+      "evaluation_id": "gap|baseline|1",
+      "terrain": "gap",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1455441,
+      "poster": "../v1/posters/gap-v1-baseline.jpg",
+      "sha256": "0fb87084680dc7457648b5e4b2ff2bbe796849c9ce46165904e7ea719433f07c",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 1.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "gap-v1.5-baseline",
+      "file": "../v1/clips/gap-v1.5-baseline.mp4",
+      "evaluation_id": "gap|baseline|1.5",
+      "terrain": "gap",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1091844,
+      "poster": "../v1/posters/gap-v1.5-baseline.jpg",
+      "sha256": "b7f8bf718e92fae7a7e0621096a3b6c9a048362d1d310101e2992ca32500940c",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": null,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope-v0.5-baseline",
+      "file": "../v1/clips/hf_pyramid_slope-v0.5-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope|baseline|0.5",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2454395,
+      "poster": "../v1/posters/hf_pyramid_slope-v0.5-baseline.jpg",
+      "sha256": "89d8f47c1f0f35cc98ae4cc5dc1260eec933745f6f9192f0331f384e903a6470",
+      "frames": 585,
+      "seconds": 11.7,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope-v1-baseline",
+      "file": "../v1/clips/hf_pyramid_slope-v1-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope|baseline|1",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1364318,
+      "poster": "../v1/posters/hf_pyramid_slope-v1-baseline.jpg",
+      "sha256": "d0a7e1ee032ca2444e3a501b54ebddfdf4a00f6e6c438ad0475176307610450e",
+      "frames": 271,
+      "seconds": 5.42,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope-v1.5-baseline",
+      "file": "../v1/clips/hf_pyramid_slope-v1.5-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope|baseline|1.5",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1072004,
+      "poster": "../v1/posters/hf_pyramid_slope-v1.5-baseline.jpg",
+      "sha256": "d3394b7ab86a16f215c250b5fce771d26f320d0bc509a38c7470f80bd3413200",
+      "frames": 191,
+      "seconds": 3.82,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope_inv-v0.5-baseline",
+      "file": "../v1/clips/hf_pyramid_slope_inv-v0.5-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|baseline|0.5",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2786633,
+      "poster": "../v1/posters/hf_pyramid_slope_inv-v0.5-baseline.jpg",
+      "sha256": "75d6f8221cf274b1dd7829f893f528d945705507860dd062932676a8c17c07b9",
+      "frames": 523,
+      "seconds": 10.46,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope_inv-v1-baseline",
+      "file": "../v1/clips/hf_pyramid_slope_inv-v1-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|baseline|1",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1821111,
+      "poster": "../v1/posters/hf_pyramid_slope_inv-v1-baseline.jpg",
+      "sha256": "a1b80a6876294fc2c6b85d84a89721bd7fc955309606689c79898b565191a79f",
+      "frames": 275,
+      "seconds": 5.5,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope_inv-v1.5-baseline",
+      "file": "../v1/clips/hf_pyramid_slope_inv-v1.5-baseline.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|baseline|1.5",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1446641,
+      "poster": "../v1/posters/hf_pyramid_slope_inv-v1.5-baseline.jpg",
+      "sha256": "211a227a461dc44817c265d5f408e07b959e6b5ab55bc9f0d3bbd4b43f4eb803",
+      "frames": 199,
+      "seconds": 3.98,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 24.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pit-v0.5-baseline",
+      "file": "../v1/clips/pit-v0.5-baseline.mp4",
+      "evaluation_id": "pit|baseline|0.5",
+      "terrain": "pit",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1433629,
+      "poster": "../v1/posters/pit-v0.5-baseline.jpg",
+      "sha256": "70811c2f961fca7315dc1b12ea0570488c8ba456fbcebd977831a1cf9adee3af",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 7.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pit-v1-baseline",
+      "file": "../v1/clips/pit-v1-baseline.mp4",
+      "evaluation_id": "pit|baseline|1",
+      "terrain": "pit",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 966937,
+      "poster": "../v1/posters/pit-v1-baseline.jpg",
+      "sha256": "807f09004bb4b5e247d088be14509e570de221de261cbbc13cf9f13631af0b9c",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 2.0,
+      "engagement": 0.98,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pit-v1.5-baseline",
+      "file": "../v1/clips/pit-v1.5-baseline.mp4",
+      "evaluation_id": "pit|baseline|1.5",
+      "terrain": "pit",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 715597,
+      "poster": "../v1/posters/pit-v1.5-baseline.jpg",
+      "sha256": "3ebb0b2fda17e6126c61cfc37b9ba3567fd6bf189680bd8cf34ac282f6efb62f",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs-v0.5-baseline",
+      "file": "../v1/clips/pyramid_stairs-v0.5-baseline.mp4",
+      "evaluation_id": "pyramid_stairs|baseline|0.5",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2832138,
+      "poster": "../v1/posters/pyramid_stairs-v0.5-baseline.jpg",
+      "sha256": "ab110503c9c535b8b6822be00d58ecd0a29cb588b47b58bcee0c46b73abed2fa",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 10.0,
+      "engagement": 0.835,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs-v1-baseline",
+      "file": "../v1/clips/pyramid_stairs-v1-baseline.mp4",
+      "evaluation_id": "pyramid_stairs|baseline|1",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1761075,
+      "poster": "../v1/posters/pyramid_stairs-v1-baseline.jpg",
+      "sha256": "ddfe0b7e76a487547c2283a208bd1cfd5d64716968e349f7554708570da127d8",
+      "frames": 294,
+      "seconds": 5.88,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs-v1.5-baseline",
+      "file": "../v1/clips/pyramid_stairs-v1.5-baseline.mp4",
+      "evaluation_id": "pyramid_stairs|baseline|1.5",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1314956,
+      "poster": "../v1/posters/pyramid_stairs-v1.5-baseline.jpg",
+      "sha256": "777a845ab641b3cc3ea907348265a1249871c5e82793011824f88fbb1c8665e6",
+      "frames": 196,
+      "seconds": 3.92,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 81.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs_inv-v0.5-baseline",
+      "file": "../v1/clips/pyramid_stairs_inv-v0.5-baseline.mp4",
+      "evaluation_id": "pyramid_stairs_inv|baseline|0.5",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2541234,
+      "poster": "../v1/posters/pyramid_stairs_inv-v0.5-baseline.jpg",
+      "sha256": "06fe8873c845e18b9619c25763ffa7950f1c8e02d3e1622f5ec51fe41f8e2ab3",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 24.0,
+      "engagement": 0.62,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs_inv-v1-baseline",
+      "file": "../v1/clips/pyramid_stairs_inv-v1-baseline.mp4",
+      "evaluation_id": "pyramid_stairs_inv|baseline|1",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2238723,
+      "poster": "../v1/posters/pyramid_stairs_inv-v1-baseline.jpg",
+      "sha256": "ff3ce83a3537c3e49cd4aaba42e8dc3598d33f11ee060498f520852c211aee3e",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.838,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs_inv-v1.5-baseline",
+      "file": "../v1/clips/pyramid_stairs_inv-v1.5-baseline.mp4",
+      "evaluation_id": "pyramid_stairs_inv|baseline|1.5",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1620241,
+      "poster": "../v1/posters/pyramid_stairs_inv-v1.5-baseline.jpg",
+      "sha256": "6634cc610367d845354ba88719037d6b6e1ed3f73b639892bda0afb4503a0645",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.706,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "rails-v0.5-baseline",
+      "file": "../v1/clips/rails-v0.5-baseline.mp4",
+      "evaluation_id": "rails|baseline|0.5",
+      "terrain": "rails",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1375086,
+      "poster": "../v1/posters/rails-v0.5-baseline.jpg",
+      "sha256": "b6d761ddf9ec0d145eb976b3b83e099fcd7f1e8e76b5dd606bf9577dabe70b1f",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "rails-v1-baseline",
+      "file": "../v1/clips/rails-v1-baseline.mp4",
+      "evaluation_id": "rails|baseline|1",
+      "terrain": "rails",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1471667,
+      "poster": "../v1/posters/rails-v1-baseline.jpg",
+      "sha256": "43455fc0d8a0607d42633dca990648c35640eafe631f65e6d3eaec7e30120ad6",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 8.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "rails-v1.5-baseline",
+      "file": "../v1/clips/rails-v1.5-baseline.mp4",
+      "evaluation_id": "rails|baseline|1.5",
+      "terrain": "rails",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 900554,
+      "poster": "../v1/posters/rails-v1.5-baseline.jpg",
+      "sha256": "53b491322773a0953d0adf73e676168eb5be9d57d863a5992cff5d89c350f6bc",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "random_rough-v0.5-baseline",
+      "file": "../v1/clips/random_rough-v0.5-baseline.mp4",
+      "evaluation_id": "random_rough|baseline|0.5",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 3509684,
+      "poster": "../v1/posters/random_rough-v0.5-baseline.jpg",
+      "sha256": "ba35ed49db3335e11c43d77144773f9b15e2347ac0669a0c539241b0401a3724",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 85.0,
+      "engagement": 0.985,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "random_rough-v1-baseline",
+      "file": "../v1/clips/random_rough-v1-baseline.mp4",
+      "evaluation_id": "random_rough|baseline|1",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2034152,
+      "poster": "../v1/posters/random_rough-v1-baseline.jpg",
+      "sha256": "7152c2c9679ee9c7d9721bc71020bcdd7a21cc8f23c707265999801345f1d52f",
+      "frames": 295,
+      "seconds": 5.9,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 80.0,
+      "engagement": 0.994,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "random_rough-v1.5-baseline",
+      "file": "../v1/clips/random_rough-v1.5-baseline.mp4",
+      "evaluation_id": "random_rough|baseline|1.5",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1514248,
+      "poster": "../v1/posters/random_rough-v1.5-baseline.jpg",
+      "sha256": "df6cb899546609f03518746e70216acbb01223db36bdbc4fd965aee1e9614f05",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.99,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_boxes-v0.5-baseline",
+      "file": "../v1/clips/repeated_boxes-v0.5-baseline.mp4",
+      "evaluation_id": "repeated_boxes|baseline|0.5",
+      "terrain": "repeated_boxes",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2497693,
+      "poster": "../v1/posters/repeated_boxes-v0.5-baseline.jpg",
+      "sha256": "99760f56075403c22513b70441d29d969dff3ab0e3eb8d9ce57fe6abcad551b7",
+      "frames": 559,
+      "seconds": 11.18,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.774,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_boxes-v1-baseline",
+      "file": "../v1/clips/repeated_boxes-v1-baseline.mp4",
+      "evaluation_id": "repeated_boxes|baseline|1",
+      "terrain": "repeated_boxes",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1390271,
+      "poster": "../v1/posters/repeated_boxes-v1-baseline.jpg",
+      "sha256": "952db183b05815cb98b7c993ac23326a962d4156dce28a5c1ab0f75f3bd4adf9",
+      "frames": 270,
+      "seconds": 5.4,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.725,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_boxes-v1.5-baseline",
+      "file": "../v1/clips/repeated_boxes-v1.5-baseline.mp4",
+      "evaluation_id": "repeated_boxes|baseline|1.5",
+      "terrain": "repeated_boxes",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 991705,
+      "poster": "../v1/posters/repeated_boxes-v1.5-baseline.jpg",
+      "sha256": "f8ca0347664793797e29b6e76a42b6dbb1045fddec186a4e3de071642ed94bbb",
+      "frames": 191,
+      "seconds": 3.82,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 1.0,
+      "engagement": 0.723,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_cylinders-v0.5-baseline",
+      "file": "../v1/clips/repeated_cylinders-v0.5-baseline.mp4",
+      "evaluation_id": "repeated_cylinders|baseline|0.5",
+      "terrain": "repeated_cylinders",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2385995,
+      "poster": "../v1/posters/repeated_cylinders-v0.5-baseline.jpg",
+      "sha256": "e6e2cebea9afe006abb72f6dfc1983abb0c1e6762643084c463289a2d0e9b428",
+      "frames": 543,
+      "seconds": 10.86,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 99.0,
+      "engagement": 0.92,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_cylinders-v1-baseline",
+      "file": "../v1/clips/repeated_cylinders-v1-baseline.mp4",
+      "evaluation_id": "repeated_cylinders|baseline|1",
+      "terrain": "repeated_cylinders",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1371304,
+      "poster": "../v1/posters/repeated_cylinders-v1-baseline.jpg",
+      "sha256": "460b2e63b94d326eebbb353ea7fdb4fef9e5b5aa80310c2f5a8ee9414414432f",
+      "frames": 269,
+      "seconds": 5.38,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.883,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_cylinders-v1.5-baseline",
+      "file": "../v1/clips/repeated_cylinders-v1.5-baseline.mp4",
+      "evaluation_id": "repeated_cylinders|baseline|1.5",
+      "terrain": "repeated_cylinders",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 966975,
+      "poster": "../v1/posters/repeated_cylinders-v1.5-baseline.jpg",
+      "sha256": "c16bac7b8001e8b1a804e5792a7a5eb669e46a4409fbf6273bd337e5184acc1c",
+      "frames": 191,
+      "seconds": 3.82,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 7.0,
+      "engagement": 0.871,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "star-v0.5-baseline",
+      "file": "../v1/clips/star-v0.5-baseline.mp4",
+      "evaluation_id": "star|baseline|0.5",
+      "terrain": "star",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 3541818,
+      "poster": "../v1/posters/star-v0.5-baseline.jpg",
+      "sha256": "cf9b1136860f8d40900f3b08a8fcc96c0826da4c709dbe215c40de79133246f5",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 86.0,
+      "engagement": 0.96,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "star-v1-baseline",
+      "file": "../v1/clips/star-v1-baseline.mp4",
+      "evaluation_id": "star|baseline|1",
+      "terrain": "star",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1903857,
+      "poster": "../v1/posters/star-v1-baseline.jpg",
+      "sha256": "cb4687e51e3213e7058fe44f0a769aa3457ee2dc050a0cb66c27e1e25fb3d649",
+      "frames": 268,
+      "seconds": 5.36,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.2,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "star-v1.5-baseline",
+      "file": "../v1/clips/star-v1.5-baseline.mp4",
+      "evaluation_id": "star|baseline|1.5",
+      "terrain": "star",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1396640,
+      "poster": "../v1/posters/star-v1.5-baseline.jpg",
+      "sha256": "cabfe5e65a9e8bdb8a891dc738e345b99d948ea08a92d5f0a2c7f06044c23b1a",
+      "frames": 191,
+      "seconds": 3.82,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 62.0,
+      "engagement": 0.3,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "stepping_stones-v0.5-baseline",
+      "file": "../v1/clips/stepping_stones-v0.5-baseline.mp4",
+      "evaluation_id": "stepping_stones|baseline|0.5",
+      "terrain": "stepping_stones",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 4734916,
+      "poster": "../v1/posters/stepping_stones-v0.5-baseline.jpg",
+      "sha256": "c6cc49c69fe0e5a72cb814f4949b78e5d98a8f4f66a206214c770901601af407",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.286,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "stepping_stones-v1-baseline",
+      "file": "../v1/clips/stepping_stones-v1-baseline.mp4",
+      "evaluation_id": "stepping_stones|baseline|1",
+      "terrain": "stepping_stones",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2181897,
+      "poster": "../v1/posters/stepping_stones-v1-baseline.jpg",
+      "sha256": "765d66ed60fd1b98f0012f69b0d2f5ebb9cadce67742c020f52c65ecdc1cf0b1",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.656,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "stepping_stones-v1.5-baseline",
+      "file": "../v1/clips/stepping_stones-v1.5-baseline.mp4",
+      "evaluation_id": "stepping_stones|baseline|1.5",
+      "terrain": "stepping_stones",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1082011,
+      "poster": "../v1/posters/stepping_stones-v1.5-baseline.jpg",
+      "sha256": "9f34f7905314930720cf7e8a902c7d54cf6eb5be383b3f71bb414339a0ccb731",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.881,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "wave-v0.5-baseline",
+      "file": "../v1/clips/wave-v0.5-baseline.mp4",
+      "evaluation_id": "wave|baseline|0.5",
+      "terrain": "wave",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 2340360,
+      "poster": "../v1/posters/wave-v0.5-baseline.jpg",
+      "sha256": "96af53c5c6a690d64ac70aef35b8abf0914a7e98300b7013d89f5f5a2ca560e0",
+      "frames": 538,
+      "seconds": 10.76,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.681,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "wave-v1-baseline",
+      "file": "../v1/clips/wave-v1-baseline.mp4",
+      "evaluation_id": "wave|baseline|1",
+      "terrain": "wave",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1436435,
+      "poster": "../v1/posters/wave-v1-baseline.jpg",
+      "sha256": "8401a7d63e0b81b391d64a1939f81b2005703697f58dfcf718483a8c6e4aa6d4",
+      "frames": 279,
+      "seconds": 5.58,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.731,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "wave-v1.5-baseline",
+      "file": "../v1/clips/wave-v1.5-baseline.mp4",
+      "evaluation_id": "wave|baseline|1.5",
+      "terrain": "wave",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "baseline",
+      "role": "compare",
+      "bytes": 1018709,
+      "poster": "../v1/posters/wave-v1.5-baseline.jpg",
+      "sha256": "e8c06c72b69c80281700be0e2472102c0d72d43cdeab7035937e9f3b454aaf23",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.732,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "boxes-v0.5",
+      "file": "../v1/clips/boxes-v0.5.mp4",
+      "evaluation_id": "boxes|foothold-v1|0.5",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 3503549,
+      "poster": "../v1/posters/boxes-v0.5.jpg",
+      "sha256": "4fb0e8bd7364c537ec470cb23e95cb090c941d3d6e9b8a3212506feb438357d8",
+      "frames": 541,
+      "seconds": 10.82,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 99.0,
+      "engagement": 0.975,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "boxes-v1",
+      "file": "../v1/clips/boxes-v1.mp4",
+      "evaluation_id": "boxes|foothold-v1|1",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2177258,
+      "poster": "../v1/posters/boxes-v1.jpg",
+      "sha256": "3f77fdd969b6f647defe4699bb65185eb61e19e516ae57ed609502b93b52e63a",
+      "frames": 274,
+      "seconds": 5.48,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.974,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "boxes-v1.5",
+      "file": "../v1/clips/boxes-v1.5.mp4",
+      "evaluation_id": "boxes|foothold-v1|1.5",
+      "terrain": "boxes",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1630511,
+      "poster": "../v1/posters/boxes-v1.5.jpg",
+      "sha256": "b88bbc93072994201e518b1e37933abc67652ab27dd4684360f3829a2ac49865",
+      "frames": 188,
+      "seconds": 3.76,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.964,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "discrete_obstacles-v0.5",
+      "file": "../v1/clips/discrete_obstacles-v0.5.mp4",
+      "evaluation_id": "discrete_obstacles|foothold-v1|0.5",
+      "terrain": "discrete_obstacles",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2856296,
+      "poster": "../v1/posters/discrete_obstacles-v0.5.jpg",
+      "sha256": "99b259dc4d4ebcf4b0314d5618b1e94e29e08175df8e582fb72915696a034aae",
+      "frames": 548,
+      "seconds": 10.96,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.383,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "discrete_obstacles-v1",
+      "file": "../v1/clips/discrete_obstacles-v1.mp4",
+      "evaluation_id": "discrete_obstacles|foothold-v1|1",
+      "terrain": "discrete_obstacles",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1753059,
+      "poster": "../v1/posters/discrete_obstacles-v1.jpg",
+      "sha256": "c44950c81af982a51bcdadc0fdb3515a0e41ad3c9c4d5b54278c2ded5b64d5cf",
+      "frames": 269,
+      "seconds": 5.38,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.314,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "discrete_obstacles-v1.5",
+      "file": "../v1/clips/discrete_obstacles-v1.5.mp4",
+      "evaluation_id": "discrete_obstacles|foothold-v1|1.5",
+      "terrain": "discrete_obstacles",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1338586,
+      "poster": "../v1/posters/discrete_obstacles-v1.5.jpg",
+      "sha256": "983b14ba53f7fbef19bc7bdb88f2ec697bfe76e456e953b00751e1863410c699",
+      "frames": 189,
+      "seconds": 3.78,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.345,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "floating_ring-v0.5",
+      "file": "../v1/clips/floating_ring-v0.5.mp4",
+      "evaluation_id": "floating_ring|foothold-v1|0.5",
+      "terrain": "floating_ring",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2123285,
+      "poster": "../v1/posters/floating_ring-v0.5.jpg",
+      "sha256": "0e71a895649b7fe98c3ae8789ac62636cbbc7a26bf7703ce22b54f529de32d3d",
+      "frames": 556,
+      "seconds": 11.12,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 95.0,
+      "engagement": 0.97,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "floating_ring-v1",
+      "file": "../v1/clips/floating_ring-v1.mp4",
+      "evaluation_id": "floating_ring|foothold-v1|1",
+      "terrain": "floating_ring",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1302701,
+      "poster": "../v1/posters/floating_ring-v1.jpg",
+      "sha256": "51f51fb2b6fcf3291cbb7977f303185b1bf1db13e76df08ab43d1eaae90977a8",
+      "frames": 285,
+      "seconds": 5.7,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 99.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "floating_ring-v1.5",
+      "file": "../v1/clips/floating_ring-v1.5.mp4",
+      "evaluation_id": "floating_ring|foothold-v1|1.5",
+      "terrain": "floating_ring",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 989280,
+      "poster": "../v1/posters/floating_ring-v1.5.jpg",
+      "sha256": "94ad3a698daf35499ee753fec8fcdeec4878bc01923b2b5c44cb917b7f9a4327",
+      "frames": 190,
+      "seconds": 3.8,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 87.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "gap-v0.5",
+      "file": "../v1/clips/gap-v0.5.mp4",
+      "evaluation_id": "gap|foothold-v1|0.5",
+      "terrain": "gap",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2037453,
+      "poster": "../v1/posters/gap-v0.5.jpg",
+      "sha256": "bf889f880d7edb471476a320c6c70ba31908f276b47d6714f4b4de47b03faea2",
+      "frames": 538,
+      "seconds": 10.76,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 90.0,
+      "engagement": null,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "gap-v1",
+      "file": "../v1/clips/gap-v1.mp4",
+      "evaluation_id": "gap|foothold-v1|1",
+      "terrain": "gap",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1212058,
+      "poster": "../v1/posters/gap-v1.jpg",
+      "sha256": "7ebd8a77a613483e7b28ed3e1666a2e718d3434ced800c8e5b34a3032d0060c2",
+      "frames": 266,
+      "seconds": 5.32,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": null,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "gap-v1.5",
+      "file": "../v1/clips/gap-v1.5.mp4",
+      "evaluation_id": "gap|foothold-v1|1.5",
+      "terrain": "gap",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 942799,
+      "poster": "../v1/posters/gap-v1.5.jpg",
+      "sha256": "168023ff37e0002b05cd606d6285ee2ab7c080c1bf26914205c92f11718ad043",
+      "frames": 190,
+      "seconds": 3.8,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 68.0,
+      "engagement": null,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope-v0.5",
+      "file": "../v1/clips/hf_pyramid_slope-v0.5.mp4",
+      "evaluation_id": "hf_pyramid_slope|foothold-v1|0.5",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2050230,
+      "poster": "../v1/posters/hf_pyramid_slope-v0.5.jpg",
+      "sha256": "e98a4ffd646c4b5eca6961ee40484ba4ca9e329f026769e9ae32e68f7d86a246",
+      "frames": 549,
+      "seconds": 10.98,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope-v1",
+      "file": "../v1/clips/hf_pyramid_slope-v1.mp4",
+      "evaluation_id": "hf_pyramid_slope|foothold-v1|1",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1197455,
+      "poster": "../v1/posters/hf_pyramid_slope-v1.jpg",
+      "sha256": "38f8b15c64f55b649cf6508803a358ce9e0aedf33f5e012284a6fc00698b24e8",
+      "frames": 267,
+      "seconds": 5.34,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope-v1.5",
+      "file": "../v1/clips/hf_pyramid_slope-v1.5.mp4",
+      "evaluation_id": "hf_pyramid_slope|foothold-v1|1.5",
+      "terrain": "hf_pyramid_slope",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 920837,
+      "poster": "../v1/posters/hf_pyramid_slope-v1.5.jpg",
+      "sha256": "55747ae615516ad7dd63c55f6f257a92451da1e76f99023be7db8656e1205529",
+      "frames": 186,
+      "seconds": 3.72,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope_inv-v0.5",
+      "file": "../v1/clips/hf_pyramid_slope_inv-v0.5.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|foothold-v1|0.5",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2852396,
+      "poster": "../v1/posters/hf_pyramid_slope_inv-v0.5.jpg",
+      "sha256": "417dae74ffdca84358cd5e70d129cd573c6a8ec2be505b309ddf8d8aa2ecfda3",
+      "frames": 545,
+      "seconds": 10.9,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope_inv-v1",
+      "file": "../v1/clips/hf_pyramid_slope_inv-v1.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|foothold-v1|1",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1744371,
+      "poster": "../v1/posters/hf_pyramid_slope_inv-v1.jpg",
+      "sha256": "f504042ded329b00fdee1f7cab7c094ca0fdf8bcb8c6376e9e2df770a7ea8c1a",
+      "frames": 269,
+      "seconds": 5.38,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "hf_pyramid_slope_inv-v1.5",
+      "file": "../v1/clips/hf_pyramid_slope_inv-v1.5.mp4",
+      "evaluation_id": "hf_pyramid_slope_inv|foothold-v1|1.5",
+      "terrain": "hf_pyramid_slope_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1349202,
+      "poster": "../v1/posters/hf_pyramid_slope_inv-v1.5.jpg",
+      "sha256": "bef2da5d0b95ef434d639cc89a3277d0a80de0a64590fd313f993d85db3f2f7f",
+      "frames": 189,
+      "seconds": 3.78,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pit-v0.5",
+      "file": "../v1/clips/pit-v0.5.mp4",
+      "evaluation_id": "pit|foothold-v1|0.5",
+      "terrain": "pit",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2108860,
+      "poster": "../v1/posters/pit-v0.5.jpg",
+      "sha256": "6d4687bfb5e1aebb2292620182983f7f2604827bf2a57efcc89d1d808afbb796",
+      "frames": 535,
+      "seconds": 10.7,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pit-v1",
+      "file": "../v1/clips/pit-v1.mp4",
+      "evaluation_id": "pit|foothold-v1|1",
+      "terrain": "pit",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1185700,
+      "poster": "../v1/posters/pit-v1.jpg",
+      "sha256": "61d6c2d69027bb6ea37b04380479f86a53d75d70d01b29437bc2723e3c137bff",
+      "frames": 266,
+      "seconds": 5.32,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pit-v1.5",
+      "file": "../v1/clips/pit-v1.5.mp4",
+      "evaluation_id": "pit|foothold-v1|1.5",
+      "terrain": "pit",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 928277,
+      "poster": "../v1/posters/pit-v1.5.jpg",
+      "sha256": "15946651030fdd1ee42dde3687ed2f2046ff59953b3694ea7af5c3d80f357f4e",
+      "frames": 187,
+      "seconds": 3.74,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs-v0.5",
+      "file": "../v1/clips/pyramid_stairs-v0.5.mp4",
+      "evaluation_id": "pyramid_stairs|foothold-v1|0.5",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2534209,
+      "poster": "../v1/posters/pyramid_stairs-v0.5.jpg",
+      "sha256": "ffde43c56de763cb2d0277bf5731206b4902992f3dcc447c8ef51453a98588da",
+      "frames": 578,
+      "seconds": 11.56,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs-v1",
+      "file": "../v1/clips/pyramid_stairs-v1.mp4",
+      "evaluation_id": "pyramid_stairs|foothold-v1|1",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1506492,
+      "poster": "../v1/posters/pyramid_stairs-v1.jpg",
+      "sha256": "52f41fd5f62408230dc0c954ec454b912f5fa8791809e1de5b1ea36ed690db66",
+      "frames": 285,
+      "seconds": 5.7,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs-v1.5",
+      "file": "../v1/clips/pyramid_stairs-v1.5.mp4",
+      "evaluation_id": "pyramid_stairs|foothold-v1|1.5",
+      "terrain": "pyramid_stairs",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1157472,
+      "poster": "../v1/posters/pyramid_stairs-v1.5.jpg",
+      "sha256": "e9ccc31c52e5d5a53bd8a6d6dd01bf4f51cdb0ec78c359168162b63f24c96b44",
+      "frames": 195,
+      "seconds": 3.9,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs_inv-v0.5",
+      "file": "../v1/clips/pyramid_stairs_inv-v0.5.mp4",
+      "evaluation_id": "pyramid_stairs_inv|foothold-v1|0.5",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 3310932,
+      "poster": "../v1/posters/pyramid_stairs_inv-v0.5.jpg",
+      "sha256": "82116035af2db87d59b59015c17a27fe09fa618fcdfc077f172128f2ec24bd2b",
+      "frames": 524,
+      "seconds": 10.48,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs_inv-v1",
+      "file": "../v1/clips/pyramid_stairs_inv-v1.mp4",
+      "evaluation_id": "pyramid_stairs_inv|foothold-v1|1",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2103176,
+      "poster": "../v1/posters/pyramid_stairs_inv-v1.jpg",
+      "sha256": "5f51526791d6d76a71c753b1e1daf1e9b19029fe72ff15fc2abe94c454339572",
+      "frames": 271,
+      "seconds": 5.42,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "pyramid_stairs_inv-v1.5",
+      "file": "../v1/clips/pyramid_stairs_inv-v1.5.mp4",
+      "evaluation_id": "pyramid_stairs_inv|foothold-v1|1.5",
+      "terrain": "pyramid_stairs_inv",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1647764,
+      "poster": "../v1/posters/pyramid_stairs_inv-v1.5.jpg",
+      "sha256": "630576c53128efa2504bcce4c41d010d222d6b87338b9049f7ad810e0642875c",
+      "frames": 194,
+      "seconds": 3.88,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "rails-v0.5",
+      "file": "../v1/clips/rails-v0.5.mp4",
+      "evaluation_id": "rails|foothold-v1|0.5",
+      "terrain": "rails",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2443961,
+      "poster": "../v1/posters/rails-v0.5.jpg",
+      "sha256": "bc140babdcc94ea1dd2c2db30e51bed8271b8384b99ace4b66f09f9704e48604",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 70.0,
+      "engagement": 0.995,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "rails-v1",
+      "file": "../v1/clips/rails-v1.mp4",
+      "evaluation_id": "rails|foothold-v1|1",
+      "terrain": "rails",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1523589,
+      "poster": "../v1/posters/rails-v1.jpg",
+      "sha256": "284e7bc3287d1000e66864be038854b7792bda44f7d5ffc7a9cee116ac2e1e93",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 48.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "rails-v1.5",
+      "file": "../v1/clips/rails-v1.5.mp4",
+      "evaluation_id": "rails|foothold-v1|1.5",
+      "terrain": "rails",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1083429,
+      "poster": "../v1/posters/rails-v1.5.jpg",
+      "sha256": "3f3244b891ba55dfaf0d0665ff39cff45672050ae55dc048c836c8d12cd77ec3",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 21.0,
+      "engagement": 1.0,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "random_rough-v0.5",
+      "file": "../v1/clips/random_rough-v0.5.mp4",
+      "evaluation_id": "random_rough|foothold-v1|0.5",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 3391017,
+      "poster": "../v1/posters/random_rough-v0.5.jpg",
+      "sha256": "c0a9de239bdde2fdcf18502964a3130a12b8fff0a7aef7a2c4fe31bf85238055",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 99.0,
+      "engagement": 0.998,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "random_rough-v1",
+      "file": "../v1/clips/random_rough-v1.mp4",
+      "evaluation_id": "random_rough|foothold-v1|1",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1825925,
+      "poster": "../v1/posters/random_rough-v1.jpg",
+      "sha256": "9f5fbdcd885ae9a76e56a5efd620b9f7a8c57db67a4fd8fd541375a884bb5e85",
+      "frames": 277,
+      "seconds": 5.54,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.996,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "random_rough-v1.5",
+      "file": "../v1/clips/random_rough-v1.5.mp4",
+      "evaluation_id": "random_rough|foothold-v1|1.5",
+      "terrain": "random_rough",
+      "terrain_set": "rough6",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1364840,
+      "poster": "../v1/posters/random_rough-v1.5.jpg",
+      "sha256": "b94d4fc3b60ce3d10d936e000072226f88839aa5a1662930148a946942f98236",
+      "frames": 192,
+      "seconds": 3.84,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 90.0,
+      "engagement": 0.991,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_boxes-v0.5",
+      "file": "../v1/clips/repeated_boxes-v0.5.mp4",
+      "evaluation_id": "repeated_boxes|foothold-v1|0.5",
+      "terrain": "repeated_boxes",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2049543,
+      "poster": "../v1/posters/repeated_boxes-v0.5.jpg",
+      "sha256": "ac91748d64927bbc2aceefc2a8a05cd578dce8a20fd8984ef2952553cf707d23",
+      "frames": 538,
+      "seconds": 10.76,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.796,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_boxes-v1",
+      "file": "../v1/clips/repeated_boxes-v1.mp4",
+      "evaluation_id": "repeated_boxes|foothold-v1|1",
+      "terrain": "repeated_boxes",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1197582,
+      "poster": "../v1/posters/repeated_boxes-v1.jpg",
+      "sha256": "4cd223a2703af21db6201f927a78989b3dd197d49af1daaa2a82a4ed571dd7fd",
+      "frames": 265,
+      "seconds": 5.3,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.801,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_boxes-v1.5",
+      "file": "../v1/clips/repeated_boxes-v1.5.mp4",
+      "evaluation_id": "repeated_boxes|foothold-v1|1.5",
+      "terrain": "repeated_boxes",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 909293,
+      "poster": "../v1/posters/repeated_boxes-v1.5.jpg",
+      "sha256": "de6a2fafe060d738b6e1e1d963a15ba5a1746cc3a2d45f7eaef0287ec92d13f2",
+      "frames": 185,
+      "seconds": 3.7,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.787,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_cylinders-v0.5",
+      "file": "../v1/clips/repeated_cylinders-v0.5.mp4",
+      "evaluation_id": "repeated_cylinders|foothold-v1|0.5",
+      "terrain": "repeated_cylinders",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2053614,
+      "poster": "../v1/posters/repeated_cylinders-v0.5.jpg",
+      "sha256": "d5d0865c7aa9930259354682b44ae9df1a91ca227addbbe086dd5655b4fd4630",
+      "frames": 546,
+      "seconds": 10.92,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.917,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_cylinders-v1",
+      "file": "../v1/clips/repeated_cylinders-v1.mp4",
+      "evaluation_id": "repeated_cylinders|foothold-v1|1",
+      "terrain": "repeated_cylinders",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1187742,
+      "poster": "../v1/posters/repeated_cylinders-v1.jpg",
+      "sha256": "cb0d6cdb6281620e6721396083508c442b41ae0d1b06092509212d60ca001adc",
+      "frames": 267,
+      "seconds": 5.34,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.925,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "repeated_cylinders-v1.5",
+      "file": "../v1/clips/repeated_cylinders-v1.5.mp4",
+      "evaluation_id": "repeated_cylinders|foothold-v1|1.5",
+      "terrain": "repeated_cylinders",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 892271,
+      "poster": "../v1/posters/repeated_cylinders-v1.5.jpg",
+      "sha256": "cbce0179a37396432c6b24f43be3e84356e239c4d6a540b0e9e52a81f13dd63a",
+      "frames": 183,
+      "seconds": 3.66,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.923,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "star-v0.5",
+      "file": "../v1/clips/star-v0.5.mp4",
+      "evaluation_id": "star|foothold-v1|0.5",
+      "terrain": "star",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2850821,
+      "poster": "../v1/posters/star-v0.5.jpg",
+      "sha256": "a43fd537373904188cd3a3a63b222d21c3fe235a9a0341bbb9c1abb6e4c465af",
+      "frames": 551,
+      "seconds": 11.02,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.35,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "star-v1",
+      "file": "../v1/clips/star-v1.mp4",
+      "evaluation_id": "star|foothold-v1|1",
+      "terrain": "star",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1680833,
+      "poster": "../v1/posters/star-v1.jpg",
+      "sha256": "2f3b0c668e805873187183dd170a1ed0eeb4728b6b44b9858914a5644d5593d7",
+      "frames": 261,
+      "seconds": 5.22,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.16,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "star-v1.5",
+      "file": "../v1/clips/star-v1.5.mp4",
+      "evaluation_id": "star|foothold-v1|1.5",
+      "terrain": "star",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1287670,
+      "poster": "../v1/posters/star-v1.5.jpg",
+      "sha256": "e89dad4090ec88513c150576c64a27326d527f8f96e8c8e074869789ab428faf",
+      "frames": 181,
+      "seconds": 3.62,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.21,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "stepping_stones-v0.5",
+      "file": "../v1/clips/stepping_stones-v0.5.mp4",
+      "evaluation_id": "stepping_stones|foothold-v1|0.5",
+      "terrain": "stepping_stones",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2099024,
+      "poster": "../v1/posters/stepping_stones-v0.5.jpg",
+      "sha256": "6df88462528ac54bc7419381e729852df08c4cc34c35a41cb60a0f985a41f0ce",
+      "frames": 600,
+      "seconds": 12.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.603,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "stepping_stones-v1",
+      "file": "../v1/clips/stepping_stones-v1.mp4",
+      "evaluation_id": "stepping_stones|foothold-v1|1",
+      "terrain": "stepping_stones",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1728928,
+      "poster": "../v1/posters/stepping_stones-v1.jpg",
+      "sha256": "0ef27c1ac3d0801b0ac1ef6c41a10293bb32563172f9daf6778cec665cffd738",
+      "frames": 300,
+      "seconds": 6.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.776,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "stepping_stones-v1.5",
+      "file": "../v1/clips/stepping_stones-v1.5.mp4",
+      "evaluation_id": "stepping_stones|foothold-v1|1.5",
+      "terrain": "stepping_stones",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1109778,
+      "poster": "../v1/posters/stepping_stones-v1.5.jpg",
+      "sha256": "2d4872a08c1a17787b21f0696b47254e2aea9c8dc2cfc9609e0ed60b406ed9ac",
+      "frames": 200,
+      "seconds": 4.0,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 0.0,
+      "engagement": 0.893,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "wave-v0.5",
+      "file": "../v1/clips/wave-v0.5.mp4",
+      "evaluation_id": "wave|foothold-v1|0.5",
+      "terrain": "wave",
+      "terrain_set": "unseen10",
+      "speed_mps": 0.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 2056441,
+      "poster": "../v1/posters/wave-v0.5.jpg",
+      "sha256": "2d35abeca4dacaa8f2253b8b1f53c77fb89ecf1a42d2718a5028da2c8b3d8028",
+      "frames": 547,
+      "seconds": 10.94,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.599,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "wave-v1",
+      "file": "../v1/clips/wave-v1.mp4",
+      "evaluation_id": "wave|foothold-v1|1",
+      "terrain": "wave",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.0,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 1201528,
+      "poster": "../v1/posters/wave-v1.jpg",
+      "sha256": "e72fdcd124e1c5fe78c00c733b8520e41cec0f03d1d2be278ea07be320db5ec9",
+      "frames": 266,
+      "seconds": 5.32,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.608,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
+    },
+    {
+      "id": "wave-v1.5",
+      "file": "../v1/clips/wave-v1.5.mp4",
+      "evaluation_id": "wave|foothold-v1|1.5",
+      "terrain": "wave",
+      "terrain_set": "unseen10",
+      "speed_mps": 1.5,
+      "model": "foothold-v1",
+      "role": "compare",
+      "bytes": 936680,
+      "poster": "../v1/posters/wave-v1.5.jpg",
+      "sha256": "2ad2a39f809bfc329ab0229f2359371bd23b4ff92834f9f90544f6f79ae271cd",
+      "frames": 189,
+      "seconds": 3.78,
+      "fps": 50.0,
+      "width": 1920,
+      "height": 1080,
+      "codec": "h264",
+      "success_rate": 100.0,
+      "engagement": 0.583,
+      "episodes": 100,
+      "reused": true,
+      "reused_from": "v1"
     }
   ]
 }

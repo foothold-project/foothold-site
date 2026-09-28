@@ -8,7 +8,7 @@
       "folder": "v2",
       "manifest": "v2/manifest.json",
       "evaluated_at": "2026-09-25T14:30:47+00:00",
-      "built_at": "2026-09-28T23:05:10",
+      "built_at": "2026-09-29T00:28:21",
       "main_model": "foothold-v2",
       "difficulty": 0.5,
       "models": {
@@ -16,7 +16,7 @@
         "foothold-v1": "c7612aef0b3c49b876c610d6d1c4f507eba666a4ffa03797760ad4a896ee7aca",
         "foothold-v2": "e5c213219b4529464b7d3f3cce8f7a61c78fa4f2f7df7c64cfe12944c5ab2fee"
       },
-      "clips": 48,
+      "clips": 144,
       "evaluations": 144,
       "terrains": 16,
       "headline": "학습에 없던 지형 8종에서 NVIDIA 43.9 % -> v2 88.5 %. 못 넘는 것은 stepping_stones 하나뿐이고 (8.0 %) 나머지 7종은 99.7 % 이상이다 (지형·속도마다 100판)",
