@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=b6ef6657').then(function(r){
+    fetch('/assets/search-index.json?v=144baf8e').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -661,8 +661,7 @@ document.addEventListener('DOMContentLoaded',function(){
                         G.el('span', { text: ' 컷' })]),
       G.el('a', { href: G.at('compare/') + '?terrain=' + encodeURIComponent(state.terrain || F.terrain[0]) +
                         '&speed=' + (state.speed !== undefined ? state.speed : 1) +
-                        '&left=' + man.version + ':baseline' +
-                        '&mid=' + man.version + ':' + man.main_model,
+                        '&v=' + encodeURIComponent(man.version),
                   class: 'btn', text: '이 조건으로 3열 비교' })
     ]));
     /* 좁은 화면에서는 거르개를 접는다.
