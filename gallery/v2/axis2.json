@@ -3,7 +3,7 @@
   "version": "v2",
   "axis": "command",
   "label": "축 2 · 명령 응답",
-  "built_at": "2026-09-29T16:42:01",
+  "built_at": "2026-09-29T17:12:34",
   "evaluated_at": "2026-09-29T02:23:14+00:00",
   "judged": false,
   "badge": "문턱 미정 · 기록",
@@ -74,6 +74,11 @@
   ],
   "scenarios": [
     {
+      "headline_threshold": {
+        "metric": "fell_ratio",
+        "op": "<=",
+        "limit": 0.03
+      },
       "id": "stop",
       "label": "정지",
       "group": "gate9",
@@ -83,6 +88,12 @@
       "skip_s": null,
       "headline_metric": "fell_ratio",
       "good": "low",
+      "watch": "4 초에 명령선이 0 으로 떨어진다. **그 뒤에 서는가, 넘어지는가.**",
+      "bar": {
+        "kind": "ratio0",
+        "min": 0.0,
+        "max": 1.0
+      },
       "thresholds": [
         {
           "metric": "fell_ratio",
@@ -92,6 +103,11 @@
       ]
     },
     {
+      "headline_threshold": {
+        "metric": "fell_ratio",
+        "op": "<=",
+        "limit": 0.03
+      },
       "id": "hold",
       "label": "정지 유지",
       "group": "gate9",
@@ -101,6 +117,12 @@
       "skip_s": null,
       "headline_metric": "fell_ratio",
       "good": "low",
+      "watch": "명령선이 20 초 내내 0 이다. **서 있는 동안 흔들리거나 미끄러지는가.**",
+      "bar": {
+        "kind": "ratio0",
+        "min": 0.0,
+        "max": 1.0
+      },
       "thresholds": [
         {
           "metric": "fell_ratio",
@@ -120,6 +142,11 @@
       ]
     },
     {
+      "headline_threshold": {
+        "metric": "fell_ratio",
+        "op": "<=",
+        "limit": 0.1
+      },
       "id": "turn",
       "label": "제자리 회전",
       "group": "gate9",
@@ -129,6 +156,12 @@
       "skip_s": null,
       "headline_metric": "fell_ratio",
       "good": "low",
+      "watch": "요 명령이 계단으로 오른다. **그 계단을 따라 도는가, 도는 중에 넘어지는가.**",
+      "bar": {
+        "kind": "ratio0",
+        "min": 0.0,
+        "max": 1.0
+      },
       "thresholds": [
         {
           "metric": "fell_ratio",
@@ -144,6 +177,7 @@
       ]
     },
     {
+      "headline_threshold": null,
       "id": "slow010",
       "label": "저속 0.10",
       "group": "ext",
@@ -153,9 +187,17 @@
       "skip_s": 5.0,
       "headline_metric": "tracking_ratio",
       "good": "one",
+      "watch": "연한 가로선(명령 0.10)과 흰 실선(실제)의 **거리**. 선 위로 넘어서는가 아래로 못 미치는가.",
+      "bar": {
+        "kind": "around1",
+        "min": 0.0,
+        "max": 2.0,
+        "mid": 1.0
+      },
       "thresholds": []
     },
     {
+      "headline_threshold": null,
       "id": "slow020",
       "label": "저속 0.20",
       "group": "ext",
@@ -165,9 +207,17 @@
       "skip_s": 5.0,
       "headline_metric": "tracking_ratio",
       "good": "one",
+      "watch": "연한 가로선(명령 0.20)과 흰 실선(실제)의 **거리**.",
+      "bar": {
+        "kind": "around1",
+        "min": 0.0,
+        "max": 2.0,
+        "mid": 1.0
+      },
       "thresholds": []
     },
     {
+      "headline_threshold": null,
       "id": "slow030",
       "label": "저속 0.30",
       "group": "ext",
@@ -177,9 +227,17 @@
       "skip_s": 5.0,
       "headline_metric": "tracking_ratio",
       "good": "one",
+      "watch": "연한 가로선(명령 0.30)과 흰 실선(실제)의 **거리**.",
+      "bar": {
+        "kind": "around1",
+        "min": 0.0,
+        "max": 2.0,
+        "mid": 1.0
+      },
       "thresholds": []
     },
     {
+      "headline_threshold": null,
       "id": "slow040",
       "label": "저속 0.40",
       "group": "ext",
@@ -189,9 +247,17 @@
       "skip_s": 5.0,
       "headline_metric": "tracking_ratio",
       "good": "one",
+      "watch": "연한 가로선(명령 0.40)과 흰 실선(실제)의 **거리**.",
+      "bar": {
+        "kind": "around1",
+        "min": 0.0,
+        "max": 2.0,
+        "mid": 1.0
+      },
       "thresholds": []
     },
     {
+      "headline_threshold": null,
       "id": "turn_rest",
       "label": "회전 · 쉼 넣기",
       "group": "ext",
@@ -201,9 +267,16 @@
       "skip_s": null,
       "headline_metric": "fell_ratio",
       "good": "low",
+      "watch": "회전 계단 사이에 1.5 초 쉼이 들어간다. **쉬면 안 넘어지는가.**",
+      "bar": {
+        "kind": "ratio0",
+        "min": 0.0,
+        "max": 1.0
+      },
       "thresholds": []
     },
     {
+      "headline_threshold": null,
       "id": "turn_rev",
       "label": "회전 · 순서 뒤집기",
       "group": "ext",
@@ -213,6 +286,12 @@
       "skip_s": null,
       "headline_metric": "fell_ratio",
       "good": "low",
+      "watch": "회전 계단 순서가 뒤집혀 +1.0 이 먼저 온다. **차례가 원인인가.**",
+      "bar": {
+        "kind": "ratio0",
+        "min": 0.0,
+        "max": 1.0
+      },
       "thresholds": []
     }
   ],
@@ -552,8 +631,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow010-nvidia.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow010-nvidia.jpg",
-        "bytes": 739531,
-        "sha256": "651716c37dfe44c67d74d49d880bffe445344cf2c042efd0460c4a5be72aad01",
+        "bytes": 726738,
+        "sha256": "5e94c45565cb1af11b16bce041f38c0e00a3d2f244af226180eea10165128a56",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/nvidia"
@@ -578,8 +657,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow020-nvidia.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow020-nvidia.jpg",
-        "bytes": 1578155,
-        "sha256": "1f8b6fca9233992577594729457ccd01118ccc644a601564634a95b6e0b22523",
+        "bytes": 1531246,
+        "sha256": "9fca29cf118f4f0c667ff271cd898757c4f6ee8fc3a86e8977759fd15238c585",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/nvidia"
@@ -604,8 +683,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow030-nvidia.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow030-nvidia.jpg",
-        "bytes": 2698066,
-        "sha256": "360df191a6eab5f4c343a719793578290224fcfef961f8e85712fe53dabac193",
+        "bytes": 2619001,
+        "sha256": "7608d4e1d2e3c770021872887b6dcba3a31d8dec198d72369759b5adf9691341",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/nvidia"
@@ -630,8 +709,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow040-nvidia.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow040-nvidia.jpg",
-        "bytes": 2879430,
-        "sha256": "3552d20cd2938728ee204856977648b982cb41d05ae67bd7f6a6974549942d3d",
+        "bytes": 2855621,
+        "sha256": "3b09be7620475dd87b155024681176d856b3288397ddebf0ebc85a042c44ea19",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/nvidia"
@@ -716,8 +795,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow010-v1.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow010-v1.jpg",
-        "bytes": 2771875,
-        "sha256": "8e213e44d25faf2f810205ee3f39291306bcd20586ef411bc71aee5db4241c8f",
+        "bytes": 2678624,
+        "sha256": "7f2c4156a82f864f1c47ed38da8f0036c8fad20fe63fe2c7d30810c2ac59bd16",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/v1"
@@ -742,8 +821,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow020-v1.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow020-v1.jpg",
-        "bytes": 2707286,
-        "sha256": "8f64a8c172949eb8d632a5ccb405fc219554c8e1bc729e329a00728a0e4df499",
+        "bytes": 2579815,
+        "sha256": "184dc14a0650f42c53374267b469d2e913bac7b7471691f7424a675c9484f548",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/v1"
@@ -768,8 +847,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow030-v1.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow030-v1.jpg",
-        "bytes": 2385846,
-        "sha256": "c451fd873945c4f7234e582856910b452b460905f387228799ef8f08751be34f",
+        "bytes": 2357174,
+        "sha256": "150e715b1506eed6838be740b3b24e86f623d332085ee622d7fb7ec72c67d712",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/v1"
@@ -794,8 +873,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow040-v1.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow040-v1.jpg",
-        "bytes": 2571387,
-        "sha256": "7f37d6f8fe5d0fc10d279d940d7846c16793f70b197ec476839814a5649bb315",
+        "bytes": 2550342,
+        "sha256": "2fb1254aa4266463e541f88ffd62c0d2e3f5aa61b51860184afcac60b2760635",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/v1"
@@ -877,8 +956,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow010-v2.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow010-v2.jpg",
-        "bytes": 2945497,
-        "sha256": "d6fa99cdec0c087b39fa5a3db2ce513676320e9c635211efc94f2e9da3c2c4af",
+        "bytes": 2822587,
+        "sha256": "367deec100dc9b7ef3e0a56cc70713c019128ea51674a660de56739696ce4a96",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/v2"
@@ -903,8 +982,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow020-v2.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow020-v2.jpg",
-        "bytes": 2879449,
-        "sha256": "b399b09b6684af49c610261ba815b9f2b289b1e164b52f67cc859a364529ce16",
+        "bytes": 2745518,
+        "sha256": "554d3eafb11da22ea8c2d7bce01c7e4f16a119a59bd16ea43b75f12277e72bba",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/v2"
@@ -929,8 +1008,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow030-v2.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow030-v2.jpg",
-        "bytes": 2731812,
-        "sha256": "03d4cd02fc37189767e324f9358e6eebc869f460afeae9c008e5b906f2f2c2ab",
+        "bytes": 2626655,
+        "sha256": "04b7403087bf94ebddb2aa2b2ea09e939b67e19e9383907bb292f2e2ef0ee183",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/v2"
@@ -955,8 +1034,8 @@
       "clip": {
         "file": "../../assets/video/v2/axis2ext-slow040-v2.mp4",
         "poster": "../../assets/video/v2/posters/axis2ext-slow040-v2.jpg",
-        "bytes": 2211421,
-        "sha256": "0118f923c73e57d2c7936e47a564626d04026dc25ced2a056b39e6da4423634e",
+        "bytes": 2205317,
+        "sha256": "5e340a6aac892ce0d0593dca10c1daeb67f0576e62e09ab35ae0725d0dce555d",
         "seconds": 20.0
       },
       "source": "sim/eval/results/20260929-axis2-ext-clips/v2"
