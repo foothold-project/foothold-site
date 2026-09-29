@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=4daff52a').then(function(r){
+    fetch('/assets/search-index.json?v=b6ef6657').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -444,6 +444,15 @@ document.addEventListener('DOMContentLoaded',function(){
   <p class="lede">정책을 새로 내놓을 때마다 <b>종합보고서 N차</b>와 <b>gallery-vN</b> 이
      한 벌로 쌓인다. 각 버전은 그 버전의 주인공 모델과 기준선 NVIDIA · A 를 같은 조건에서
      찍은 영상, 그리고 그 영상이 근거로 삼은 평가 성적을 함께 담는다.</p>
+
+  <!-- ★ 2026-09-29. **3 열 비교로 들어가는 자리.**
+       팀장 지적: 「/gallery/compare 페이지는 내가 찾아서 들어갈 수도 없어」.
+       판 카드의 단추뿐이라 «판을 안 고르고» 들어갈 길이 없었다. 여기서
+       바로 들어간다 (판을 안 주면 최신 계보로 열린다). -->
+  <div class="vlinks" style="margin-top:1rem">
+    <a class="btn go" href="compare/">세 열로 견주기</a>
+    <a class="btn" href="view/">지형 격자로 보기</a>
+  </div>
 </header>
 
 <div id="body"></div>
@@ -505,8 +514,14 @@ document.addEventListener('DOMContentLoaded',function(){
     const links = G.el('div', { class: 'vlinks' }, [
       G.el('a', { class: 'btn go', href: G.at('view/') + '?v=' + encodeURIComponent(v.version),
                   text: '영상 ' + v.clips + '컷 보기' }),
-      G.el('a', { class: 'btn', href: G.at('compare/') + '?left=' + encodeURIComponent(v.version) + ':baseline' +
-                  '&mid=' + encodeURIComponent(v.version) + ':' + encodeURIComponent(v.main_model),
+      /* **판 비교는 그 갤러리의 판으로 열린다** (팀장 지시 2026-09-29).
+       *
+       * 짧은 `?v=<판>` 하나만 넘긴다. 세 칸을 주소에 박으면 주소가
+       * 길어진다 (팀장 지적: 「왜 다른 곳으로 들어가면 url 이 compare 하고
+       * 깔끔하게 안되어있어?」). 어느 셋을 띄울지는 `compare` 가
+       * `G.defaultColumns` 로 정한다. 규칙이 한 곳에만 있다. */
+      G.el('a', { class: 'btn',
+                  href: G.at('compare/') + '?v=' + encodeURIComponent(v.version),
                   text: '판 비교' }),
       v.report ? G.el('a', { class: 'btn', href: v.report, text: '종합보고서' }) : null
     ]);
