@@ -802,7 +802,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=ad14e199').then(function(r){
+    fetch('/assets/search-index.json?v=eb8c06fd').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -917,7 +917,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <h3>독립 검증이 어떤 바이트를 보았는가</h3>
 <p>원본에는 독립 검증이 붙어 있다 (<code>inbox/jay/20260929-locomotion-direction/VERIFY-astra.md</code>). 그 검증서는 <b>판정 대상 파일의 SHA-256 을 박아 둔다</b> · <code>cb48a2d6b1cece11ac699bdbdabca57982ce77cfbd626b4573453a24d12b8604</code>. 그리고 「이 해시 이후의 수정에는 판정이 자동으로 이어지지 않는다」고 적었다.</p>
 <p><b>지금 원본은 그 해시가 아니다</b> <span class="ev ev-ok">확인됨</span>. 내가 163 행을 고쳤다.</p>
-<p>    검증서가 박은 해시   cb48a2d6b1cece11ac699bdbdabca57982ce77cfbd626b4573453a24d12b8604     지금 원본의 해시     6c83d46837600ca9ae910cbc4be4efc2cf002267b2d0838974aac39bc1e1a1d3</p>
+<div class="tw"><table><thead><tr><th>무엇의 해시</th><th>SHA-256</th></tr></thead><tbody><tr><td>검증서가 판정 대상으로 박은 것</td><td><code>cb48a2d6b1cece11ac699bdbdabca57982ce77cfbd626b4573453a24d12b8604</code></td></tr><tr><td>지금 저장소의 원본</td><td><code>6c83d46837600ca9ae910cbc4be4efc2cf002267b2d0838974aac39bc1e1a1d3</code></td></tr></tbody></table></div>
 <p>달라진 것은 <b>네 바이트</b> 다 · 163 행의 <code>실기 전이</code> 를 <code>«실기 전이»</code> 로 감싼 것 하나다. 줄끝(CRLF)과 나머지 192 행은 그대로다 <span class="ev ev-ok">확인됨</span>. 감싸기 전으로 되돌리면 검증서의 해시가 그대로 다시 나오는 것을 확인했다.</p>
 <p>그러니 <b>검증서의 판정은 이 한 자리의 표기에는 미치지 않는다.</b> 나는 그것을 「검증된 본문」이라고 말하지 않는다. 바뀐 내용이 없으니 판정이 유지된다고도 단정하지 않는다. 다시 붙이려면 검증자가 해시를 갱신해야 한다.</p>
 <h3>«실기 전이» 를 왜 지우지 않았는가</h3>
@@ -1107,5 +1107,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-09-29 15:31</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-09-29 16:11</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

@@ -1,0 +1,1053 @@
+{
+  "schema": "foothold-gallery-axis2/1",
+  "version": "v2",
+  "axis": "command",
+  "label": "축 2 · 명령 응답",
+  "built_at": "2026-09-29T16:05:47",
+  "evaluated_at": "2026-09-29T02:23:14+00:00",
+  "judged": false,
+  "badge": "문턱 미정 · 기록",
+  "why_not_judged": "팀장 결정으로 축 2 는 지금 «평가 대상이 아니라 기록» 이다. 앞으로 확장되면 평가 대상이 된다. 아홉 관문의 자는 칸마다 같이 적지만 이 화면은 통과·미달을 찍지 않는다",
+  "not_the_verdict": "이 칸들은 컷을 찍은 그 프로브 실행의 값이다 (env 64 · seed 42 · 평지). 배포 판정의 축 2 표본은 이것이 아니다. 판정은 종합보고서 9 절에 있다",
+  "protocol": {
+    "harness": "sim/eval/eval_command_response.py",
+    "num_envs": 64,
+    "seed": 42,
+    "terrain": "plane (무한 평면)",
+    "gate_cells": 9,
+    "yaw_ratio_min": 0.4
+  },
+  "models": {
+    "baseline": {
+      "checkpoint_sha256": "f2aa77bf0349c10ec2a00071162e37123d0cf80f3447c3989c17a618e1b24ad2"
+    },
+    "foothold-v1": {
+      "checkpoint_sha256": "c7612aef0b3c49b876c610d6d1c4f507eba666a4ffa03797760ad4a896ee7aca"
+    },
+    "foothold-v2": {
+      "checkpoint_sha256": "e5c213219b4529464b7d3f3cce8f7a61c78fa4f2f7df7c64cfe12944c5ab2fee"
+    }
+  },
+  "metrics": {
+    "fell_ratio": {
+      "label": "낙상 비율",
+      "unit": "",
+      "what": "넘어진 env / 전체 env. 낮을수록 좋다"
+    },
+    "tracking_ratio": {
+      "label": "추종비",
+      "unit": "",
+      "what": "실제 전진 속도 / 명령 속도. **1.00 이 딱 맞는 것**이고 1 보다 크면 넘어선 것, 작으면 못 미친 것이다"
+    },
+    "residual_speed_mps": {
+      "label": "잔류 속도",
+      "unit": "m/s",
+      "what": "끝 1 초의 평균 속도. 명령이 0 인 칸에서만 «낮을수록 좋다» 이다. 명령이 0 이 아니면 「안 움직였다」는 뜻이다"
+    },
+    "joint_target_delta_tail": {
+      "label": "끝 관절 떨림",
+      "unit": "",
+      "what": "끝 구간 관절 목표값의 변화량. 선 뒤에 떨지 않는가"
+    },
+    "tracked_vx_mps": {
+      "label": "실제 전진 속도",
+      "unit": "m/s",
+      "what": "측정 구간의 평균 전진 속도"
+    },
+    "stop_time_s": {
+      "label": "서는 데 걸린 시간",
+      "unit": "초",
+      "what": "명령이 0 이 된 뒤 «1 초 연속» 정지 문턱을 만족한 첫 시점. 문턱을 만족한 창이 없는 env 는 이 평균에서 빠진다"
+    }
+  },
+  "groups": [
+    {
+      "id": "gate9",
+      "label": "아홉 관문",
+      "note": "배포 판정이 쓰는 시나리오 셋. 자는 아래 칸마다 같이 적는다"
+    },
+    {
+      "id": "ext",
+      "label": "확장 · 문턱 미정",
+      "note": "하네스는 있는데 문턱을 아직 안 정했다. 결과를 본 뒤에 문턱을 정하면 그것은 자가 아니므로 기록만 한다"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "stop",
+      "label": "정지",
+      "group": "gate9",
+      "what": "4초 전진 뒤 명령 0. 정지와 정지 유지",
+      "duration_s": 10.0,
+      "commanded_vx_mps": null,
+      "skip_s": null,
+      "headline_metric": "fell_ratio",
+      "good": "low",
+      "thresholds": [
+        {
+          "metric": "fell_ratio",
+          "op": "<=",
+          "limit": 0.03
+        }
+      ]
+    },
+    {
+      "id": "hold",
+      "label": "정지 유지",
+      "group": "gate9",
+      "what": "20초 내내 전 명령 0. 얼음",
+      "duration_s": 20.0,
+      "commanded_vx_mps": null,
+      "skip_s": null,
+      "headline_metric": "fell_ratio",
+      "good": "low",
+      "thresholds": [
+        {
+          "metric": "fell_ratio",
+          "op": "<=",
+          "limit": 0.03
+        },
+        {
+          "metric": "joint_target_delta_tail",
+          "op": "<=",
+          "limit": 0.01
+        },
+        {
+          "metric": "residual_speed_mps",
+          "op": "<=",
+          "limit": 0.005
+        }
+      ]
+    },
+    {
+      "id": "turn",
+      "label": "제자리 회전",
+      "group": "gate9",
+      "what": "제자리 요레이트 계단 다섯. 회전 추종비",
+      "duration_s": 18.0,
+      "commanded_vx_mps": null,
+      "skip_s": null,
+      "headline_metric": "fell_ratio",
+      "good": "low",
+      "thresholds": [
+        {
+          "metric": "fell_ratio",
+          "op": "<=",
+          "limit": 0.1
+        },
+        {
+          "metric": "yaw_follow_ratio",
+          "op": ">=",
+          "limit": 0.4,
+          "per_step": true
+        }
+      ]
+    },
+    {
+      "id": "slow010",
+      "label": "저속 0.10",
+      "group": "ext",
+      "what": "전진 0.10 m/s 고정. 가속 구간 뒤 저속 추종",
+      "duration_s": 20.0,
+      "commanded_vx_mps": 0.1,
+      "skip_s": 5.0,
+      "headline_metric": "tracking_ratio",
+      "good": "one",
+      "thresholds": []
+    },
+    {
+      "id": "slow020",
+      "label": "저속 0.20",
+      "group": "ext",
+      "what": "전진 0.20 m/s 고정. 가속 구간 뒤 저속 추종",
+      "duration_s": 20.0,
+      "commanded_vx_mps": 0.2,
+      "skip_s": 5.0,
+      "headline_metric": "tracking_ratio",
+      "good": "one",
+      "thresholds": []
+    },
+    {
+      "id": "slow030",
+      "label": "저속 0.30",
+      "group": "ext",
+      "what": "전진 0.30 m/s 고정. 가속 구간 뒤 저속 추종",
+      "duration_s": 20.0,
+      "commanded_vx_mps": 0.3,
+      "skip_s": 5.0,
+      "headline_metric": "tracking_ratio",
+      "good": "one",
+      "thresholds": []
+    },
+    {
+      "id": "slow040",
+      "label": "저속 0.40",
+      "group": "ext",
+      "what": "전진 0.40 m/s 고정. 가속 구간 뒤 저속 추종",
+      "duration_s": 20.0,
+      "commanded_vx_mps": 0.4,
+      "skip_s": 5.0,
+      "headline_metric": "tracking_ratio",
+      "good": "one",
+      "thresholds": []
+    },
+    {
+      "id": "turn_rest",
+      "label": "회전 · 쉼 넣기",
+      "group": "ext",
+      "what": "회전 계단 · 칸 사이 1.5초 쉼. 쌓임이 원인인가",
+      "duration_s": 25.0,
+      "commanded_vx_mps": null,
+      "skip_s": null,
+      "headline_metric": "fell_ratio",
+      "good": "low",
+      "thresholds": []
+    },
+    {
+      "id": "turn_rev",
+      "label": "회전 · 순서 뒤집기",
+      "group": "ext",
+      "what": "회전 계단 · 순서 뒤집음(+1.0 이 처음). 자리가 원인인가",
+      "duration_s": 18.0,
+      "commanded_vx_mps": null,
+      "skip_s": null,
+      "headline_metric": "fell_ratio",
+      "good": "low",
+      "thresholds": []
+    }
+  ],
+  "runs": [
+    {
+      "model": "baseline",
+      "probe_label": "nvidia",
+      "group": "gate9",
+      "source": "sim/eval/results/20260929-axis2-fall",
+      "num_envs": 64,
+      "seed": 42,
+      "terrain": "plane (무한 평면)",
+      "finished_at_utc": "2026-09-29T00:12:02+00:00",
+      "policy_sha256": "f2aa77bf0349c10ec2a00071162e37123d0cf80f3447c3989c17a618e1b24ad2"
+    },
+    {
+      "model": "foothold-v1",
+      "probe_label": "v1",
+      "group": "gate9",
+      "source": "sim/eval/results/20260929-axis2-fall",
+      "num_envs": 64,
+      "seed": 42,
+      "terrain": "plane (무한 평면)",
+      "finished_at_utc": "2026-09-29T00:14:59+00:00",
+      "policy_sha256": "c7612aef0b3c49b876c610d6d1c4f507eba666a4ffa03797760ad4a896ee7aca"
+    },
+    {
+      "model": "foothold-v2",
+      "probe_label": "v2",
+      "group": "gate9",
+      "source": "sim/eval/results/20260929-axis2-fall",
+      "num_envs": 64,
+      "seed": 42,
+      "terrain": "plane (무한 평면)",
+      "finished_at_utc": "2026-09-29T00:18:48+00:00",
+      "policy_sha256": "e5c213219b4529464b7d3f3cce8f7a61c78fa4f2f7df7c64cfe12944c5ab2fee"
+    },
+    {
+      "model": "baseline",
+      "probe_label": "nvidia",
+      "group": "ext",
+      "source": "sim/eval/results/20260929-axis2-ext-clips",
+      "num_envs": 64,
+      "seed": 42,
+      "terrain": "plane (무한 평면)",
+      "finished_at_utc": "2026-09-29T02:06:08+00:00",
+      "policy_sha256": "f2aa77bf0349c10ec2a00071162e37123d0cf80f3447c3989c17a618e1b24ad2"
+    },
+    {
+      "model": "foothold-v1",
+      "probe_label": "v1",
+      "group": "ext",
+      "source": "sim/eval/results/20260929-axis2-ext-clips",
+      "num_envs": 64,
+      "seed": 42,
+      "terrain": "plane (무한 평면)",
+      "finished_at_utc": "2026-09-29T02:13:51+00:00",
+      "policy_sha256": "c7612aef0b3c49b876c610d6d1c4f507eba666a4ffa03797760ad4a896ee7aca"
+    },
+    {
+      "model": "foothold-v2",
+      "probe_label": "v2",
+      "group": "ext",
+      "source": "sim/eval/results/20260929-axis2-ext-clips",
+      "num_envs": 64,
+      "seed": 42,
+      "terrain": "plane (무한 평면)",
+      "finished_at_utc": "2026-09-29T02:23:14+00:00",
+      "policy_sha256": "e5c213219b4529464b7d3f3cce8f7a61c78fa4f2f7df7c64cfe12944c5ab2fee"
+    }
+  ],
+  "cells": [
+    {
+      "id": "stop|baseline",
+      "scenario": "stop",
+      "group": "gate9",
+      "model": "baseline",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.0,
+        "good": "low"
+      },
+      "extra": {
+        "stop_time_s": 0.74625,
+        "residual_speed_mps": 0.002116,
+        "joint_target_delta_tail": 0.002054
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2-stop-nvidia.mp4",
+        "poster": "../../assets/video/v2/posters/axis2-stop-nvidia.jpg",
+        "bytes": 1128833,
+        "sha256": "b501ea72176b4616c30eddc4d0151a31f84e11284d6f4d16938d004a564c05ad",
+        "seconds": 10.0
+      },
+      "source": "sim/eval/results/20260929-axis2-fall/nvidia"
+    },
+    {
+      "id": "hold|baseline",
+      "scenario": "hold",
+      "group": "gate9",
+      "model": "baseline",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.0,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.000956,
+        "joint_target_delta_tail": 0.001414
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2-hold-nvidia.mp4",
+        "poster": "../../assets/video/v2/posters/axis2-hold-nvidia.jpg",
+        "bytes": 927581,
+        "sha256": "a866b701d10ddb3ba9eaa06c06fbb72abac7ea3d40ca743a301ee938cc79846a",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-fall/nvidia"
+    },
+    {
+      "id": "turn|baseline",
+      "scenario": "turn",
+      "group": "gate9",
+      "model": "baseline",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.0625,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.050605
+      },
+      "yaw_follow_ratio": {
+        "+0.50": 0.520397,
+        "+1.00": 0.534934,
+        "-0.50": 0.6147,
+        "-1.00": 0.816702
+      },
+      "clip": {
+        "file": "../../assets/video/v2/axis2-turn-nvidia.mp4",
+        "poster": "../../assets/video/v2/posters/axis2-turn-nvidia.jpg",
+        "bytes": 2715266,
+        "sha256": "f484a063ee804ad400eff42c80e5bff71cc7bb0a8d7bcd757a744c94b4731959",
+        "seconds": 18.0
+      },
+      "source": "sim/eval/results/20260929-axis2-fall/nvidia"
+    },
+    {
+      "id": "stop|foothold-v1",
+      "scenario": "stop",
+      "group": "gate9",
+      "model": "foothold-v1",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.203125,
+        "good": "low"
+      },
+      "extra": {
+        "stop_time_s": 1.157358,
+        "residual_speed_mps": 0.094684,
+        "joint_target_delta_tail": 0.336976
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2-stop-v1.mp4",
+        "poster": "../../assets/video/v2/posters/axis2-stop-v1.jpg",
+        "bytes": 1601243,
+        "sha256": "881d7ac7b1aa5036cbbd7606ba67aadc39de16e2e1fcad7d256b8a4b30a55361",
+        "seconds": 10.0
+      },
+      "source": "sim/eval/results/20260929-axis2-fall/v1"
+    },
+    {
+      "id": "hold|foothold-v1",
+      "scenario": "hold",
+      "group": "gate9",
+      "model": "foothold-v1",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.078125,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.023549,
+        "joint_target_delta_tail": 0.103848
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2-hold-v1.mp4",
+        "poster": "../../assets/video/v2/posters/axis2-hold-v1.jpg",
+        "bytes": 1519019,
+        "sha256": "00a26325c8b2ae78c38c4f30d9091e13e434b44c6aefbafb8c6399be6d301bc7",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-fall/v1"
+    },
+    {
+      "id": "turn|foothold-v1",
+      "scenario": "turn",
+      "group": "gate9",
+      "model": "foothold-v1",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 1.0,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.426051
+      },
+      "yaw_follow_ratio": {
+        "-0.50": -0.394558,
+        "-1.00": 0.038044
+      },
+      "clip": {
+        "file": "../../assets/video/v2/axis2-turn-v1.mp4",
+        "poster": "../../assets/video/v2/posters/axis2-turn-v1.jpg",
+        "bytes": 1356524,
+        "sha256": "99b280c4281a9dea79ce89651aaa150962a9ea4d3bb0ca557c0b402d6375cdfc",
+        "seconds": 18.0
+      },
+      "source": "sim/eval/results/20260929-axis2-fall/v1"
+    },
+    {
+      "id": "stop|foothold-v2",
+      "scenario": "stop",
+      "group": "gate9",
+      "model": "foothold-v2",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.0,
+        "good": "low"
+      },
+      "extra": {
+        "stop_time_s": 2.474909,
+        "residual_speed_mps": 0.036795,
+        "joint_target_delta_tail": 0.061096
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2-stop-v2.mp4",
+        "poster": "../../assets/video/v2/posters/axis2-stop-v2.jpg",
+        "bytes": 1353892,
+        "sha256": "2eebdc77bd551d8eca3677daac80c261c5cabdf1d86a9c24aec62f968f7d5a44",
+        "seconds": 10.0
+      },
+      "source": "sim/eval/results/20260929-axis2-fall/v2"
+    },
+    {
+      "id": "hold|foothold-v2",
+      "scenario": "hold",
+      "group": "gate9",
+      "model": "foothold-v2",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.0,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.000534,
+        "joint_target_delta_tail": 0.000244
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2-hold-v2.mp4",
+        "poster": "../../assets/video/v2/posters/axis2-hold-v2.jpg",
+        "bytes": 705715,
+        "sha256": "49b6a6d91c5d8b30c4850e36e5f9bbd713f359abf4b2e89d64f23357e1019479",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-fall/v2"
+    },
+    {
+      "id": "turn|foothold-v2",
+      "scenario": "turn",
+      "group": "gate9",
+      "model": "foothold-v2",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.109375,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.090408
+      },
+      "yaw_follow_ratio": {
+        "+0.50": 0.467395,
+        "+1.00": 0.431617,
+        "-0.50": 0.401821,
+        "-1.00": 0.760357
+      },
+      "clip": {
+        "file": "../../assets/video/v2/axis2-turn-v2.mp4",
+        "poster": "../../assets/video/v2/posters/axis2-turn-v2.jpg",
+        "bytes": 2613231,
+        "sha256": "078c225ddb73bab43b808ed946dcc4e86a926ee513b2b14e5031dd3da2a20b37",
+        "seconds": 18.0
+      },
+      "source": "sim/eval/results/20260929-axis2-fall/v2"
+    },
+    {
+      "id": "slow010|baseline",
+      "scenario": "slow010",
+      "group": "ext",
+      "model": "baseline",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 0.062118,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.006212,
+        "fell_ratio": 0.0
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow010-nvidia.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow010-nvidia.jpg",
+        "bytes": 726738,
+        "sha256": "5e94c45565cb1af11b16bce041f38c0e00a3d2f244af226180eea10165128a56",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/nvidia"
+    },
+    {
+      "id": "slow020|baseline",
+      "scenario": "slow020",
+      "group": "ext",
+      "model": "baseline",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 0.303301,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.06066,
+        "fell_ratio": 0.0
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow020-nvidia.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow020-nvidia.jpg",
+        "bytes": 1531246,
+        "sha256": "9fca29cf118f4f0c667ff271cd898757c4f6ee8fc3a86e8977759fd15238c585",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/nvidia"
+    },
+    {
+      "id": "slow030|baseline",
+      "scenario": "slow030",
+      "group": "ext",
+      "model": "baseline",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 0.710273,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.213082,
+        "fell_ratio": 0.0
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow030-nvidia.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow030-nvidia.jpg",
+        "bytes": 2619001,
+        "sha256": "7608d4e1d2e3c770021872887b6dcba3a31d8dec198d72369759b5adf9691341",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/nvidia"
+    },
+    {
+      "id": "slow040|baseline",
+      "scenario": "slow040",
+      "group": "ext",
+      "model": "baseline",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 0.867798,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.347119,
+        "fell_ratio": 0.0
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow040-nvidia.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow040-nvidia.jpg",
+        "bytes": 2855621,
+        "sha256": "3b09be7620475dd87b155024681176d856b3288397ddebf0ebc85a042c44ea19",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/nvidia"
+    },
+    {
+      "id": "turn_rest|baseline",
+      "scenario": "turn_rest",
+      "group": "ext",
+      "model": "baseline",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.015625,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.017903
+      },
+      "yaw_follow_ratio": {
+        "+0.50": 0.501694,
+        "+1.00": 0.539493,
+        "-0.50": 0.658431,
+        "-1.00": 0.795817
+      },
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-turnrest-nvidia.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-turnrest-nvidia.jpg",
+        "bytes": 3500717,
+        "sha256": "3be114388fc303b4b85b4cd25e6d7e3dc3663006093050f4ae230eb013d88c29",
+        "seconds": 25.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/nvidia"
+    },
+    {
+      "id": "turn_rev|baseline",
+      "scenario": "turn_rev",
+      "group": "ext",
+      "model": "baseline",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.078125,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.054436
+      },
+      "yaw_follow_ratio": {
+        "+0.50": 0.426916,
+        "+1.00": 0.632609,
+        "-0.50": 0.472091,
+        "-1.00": 0.773789
+      },
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-turnrev-nvidia.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-turnrev-nvidia.jpg",
+        "bytes": 2852879,
+        "sha256": "84b1c5d442e42d21659f49c43b13339838964e4d250e8e45fb82c39f79963cbe",
+        "seconds": 18.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/nvidia"
+    },
+    {
+      "id": "slow010|foothold-v1",
+      "scenario": "slow010",
+      "group": "ext",
+      "model": "foothold-v1",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 0.915843,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.091584,
+        "fell_ratio": 0.359375
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow010-v1.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow010-v1.jpg",
+        "bytes": 2678624,
+        "sha256": "7f2c4156a82f864f1c47ed38da8f0036c8fad20fe63fe2c7d30810c2ac59bd16",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v1"
+    },
+    {
+      "id": "slow020|foothold-v1",
+      "scenario": "slow020",
+      "group": "ext",
+      "model": "foothold-v1",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 0.995321,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.199064,
+        "fell_ratio": 0.0
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow020-v1.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow020-v1.jpg",
+        "bytes": 2579815,
+        "sha256": "184dc14a0650f42c53374267b469d2e913bac7b7471691f7424a675c9484f548",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v1"
+    },
+    {
+      "id": "slow030|foothold-v1",
+      "scenario": "slow030",
+      "group": "ext",
+      "model": "foothold-v1",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 0.937053,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.281116,
+        "fell_ratio": 0.0
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow030-v1.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow030-v1.jpg",
+        "bytes": 2357174,
+        "sha256": "150e715b1506eed6838be740b3b24e86f623d332085ee622d7fb7ec72c67d712",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v1"
+    },
+    {
+      "id": "slow040|foothold-v1",
+      "scenario": "slow040",
+      "group": "ext",
+      "model": "foothold-v1",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 0.926617,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.370647,
+        "fell_ratio": 0.0
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow040-v1.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow040-v1.jpg",
+        "bytes": 2550342,
+        "sha256": "2fb1254aa4266463e541f88ffd62c0d2e3f5aa61b51860184afcac60b2760635",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v1"
+    },
+    {
+      "id": "turn_rest|foothold-v1",
+      "scenario": "turn_rest",
+      "group": "ext",
+      "model": "foothold-v1",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 1.0,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.420152
+      },
+      "yaw_follow_ratio": {
+        "-1.00": 0.054411
+      },
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-turnrest-v1.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-turnrest-v1.jpg",
+        "bytes": 967554,
+        "sha256": "81821b1d221df421f91fd00b74d33eb613a4cd5c9d4a057f7a7c2c71adb33192",
+        "seconds": 25.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v1"
+    },
+    {
+      "id": "turn_rev|foothold-v1",
+      "scenario": "turn_rev",
+      "group": "ext",
+      "model": "foothold-v1",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 1.0,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.380319
+      },
+      "yaw_follow_ratio": {
+        "+0.50": -0.003884,
+        "+1.00": 0.010144,
+        "-0.50": 0.781819,
+        "-1.00": -0.727507
+      },
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-turnrev-v1.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-turnrev-v1.jpg",
+        "bytes": 2413723,
+        "sha256": "2b564e92ad264898d90a66fe9ca12b516735e2df818d6cc081798d30746418a0",
+        "seconds": 18.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v1"
+    },
+    {
+      "id": "slow010|foothold-v2",
+      "scenario": "slow010",
+      "group": "ext",
+      "model": "foothold-v2",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 1.669807,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.166981,
+        "fell_ratio": 0.03125
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow010-v2.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow010-v2.jpg",
+        "bytes": 2822587,
+        "sha256": "367deec100dc9b7ef3e0a56cc70713c019128ea51674a660de56739696ce4a96",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v2"
+    },
+    {
+      "id": "slow020|foothold-v2",
+      "scenario": "slow020",
+      "group": "ext",
+      "model": "foothold-v2",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 1.326881,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.265376,
+        "fell_ratio": 0.0
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow020-v2.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow020-v2.jpg",
+        "bytes": 2745518,
+        "sha256": "554d3eafb11da22ea8c2d7bce01c7e4f16a119a59bd16ea43b75f12277e72bba",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v2"
+    },
+    {
+      "id": "slow030|foothold-v2",
+      "scenario": "slow030",
+      "group": "ext",
+      "model": "foothold-v2",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 1.038564,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.311569,
+        "fell_ratio": 0.0
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow030-v2.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow030-v2.jpg",
+        "bytes": 2626655,
+        "sha256": "04b7403087bf94ebddb2aa2b2ea09e939b67e19e9383907bb292f2e2ef0ee183",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v2"
+    },
+    {
+      "id": "slow040|foothold-v2",
+      "scenario": "slow040",
+      "group": "ext",
+      "model": "foothold-v2",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "tracking_ratio",
+        "value": 0.939356,
+        "good": "one"
+      },
+      "extra": {
+        "tracked_vx_mps": 0.375742,
+        "fell_ratio": 0.0
+      },
+      "yaw_follow_ratio": {},
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-slow040-v2.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-slow040-v2.jpg",
+        "bytes": 2205317,
+        "sha256": "5e340a6aac892ce0d0593dca10c1daeb67f0576e62e09ab35ae0725d0dce555d",
+        "seconds": 20.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v2"
+    },
+    {
+      "id": "turn_rest|foothold-v2",
+      "scenario": "turn_rest",
+      "group": "ext",
+      "model": "foothold-v2",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.078125,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.071825
+      },
+      "yaw_follow_ratio": {
+        "+0.50": 0.576719,
+        "+1.00": 0.502102,
+        "-0.50": 0.498087,
+        "-1.00": 0.758004
+      },
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-turnrest-v2.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-turnrest-v2.jpg",
+        "bytes": 3786348,
+        "sha256": "0eade97c3b7fefabc6c3f0f53cea2f202585589ac78e1dca6b7ec4a726ce335f",
+        "seconds": 25.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v2"
+    },
+    {
+      "id": "turn_rev|foothold-v2",
+      "scenario": "turn_rev",
+      "group": "ext",
+      "model": "foothold-v2",
+      "envs": 64,
+      "judged": false,
+      "headline": {
+        "metric": "fell_ratio",
+        "value": 0.15625,
+        "good": "low"
+      },
+      "extra": {
+        "residual_speed_mps": 0.115843
+      },
+      "yaw_follow_ratio": {
+        "+0.50": 0.010333,
+        "+1.00": 0.050398,
+        "-0.50": 0.481162,
+        "-1.00": 0.678167
+      },
+      "clip": {
+        "file": "../../assets/video/v2/axis2ext-turnrev-v2.mp4",
+        "poster": "../../assets/video/v2/posters/axis2ext-turnrev-v2.jpg",
+        "bytes": 2508096,
+        "sha256": "9fe4824e4be8663769cec7164974167e821babfdd9ef330306282f6422413f44",
+        "seconds": 18.0
+      },
+      "source": "sim/eval/results/20260929-axis2-ext-clips/v2"
+    }
+  ],
+  "counts": {
+    "cells": 27,
+    "scenarios": 9,
+    "models": 3,
+    "clips": 27
+  },
+  "facets": {
+    "scenario": [
+      "stop",
+      "hold",
+      "turn",
+      "slow010",
+      "slow020",
+      "slow030",
+      "slow040",
+      "turn_rest",
+      "turn_rev"
+    ],
+    "group": [
+      "ext",
+      "gate9"
+    ],
+    "model": [
+      "baseline",
+      "foothold-v1",
+      "foothold-v2"
+    ]
+  }
+}
