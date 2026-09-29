@@ -34,7 +34,7 @@
 <text x="311.3" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.7</text>
 <text x="354.2" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.8</text>
 <text x="397.1" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.9</text>
-<text x="440.0" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">1</text>
+<text x="440.0" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">1.0</text>
 <polyline points="54.0,207.4 96.9,218.6 139.8,222.5 182.7,227.6 225.6,227.6 268.4,232.5 311.3,235.8 354.2,242.6 397.1,247.1 440.0,252.3" fill="none" stroke="var(--ink-3)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
 <circle cx="54.0" cy="207.4" r="3.4" fill="var(--ink-3)" stroke="var(--card)" stroke-width="1.6"/>
 <circle cx="96.9" cy="218.6" r="3.4" fill="var(--ink-3)" stroke="var(--card)" stroke-width="1.6"/>
@@ -88,7 +88,7 @@
 <text x="771.3" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.7</text>
 <text x="814.2" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.8</text>
 <text x="857.1" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">0.9</text>
-<text x="900.0" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">1</text>
+<text x="900.0" y="336.0" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" font-weight="400" font-family="IBM Plex Mono, monospace">1.0</text>
 <polyline points="514.0,216.6 556.9,229.7 599.8,237.7 642.7,244.6 685.6,245.1 728.4,249.5 771.3,252.2 814.2,257.7 857.1,261.3 900.0,265.5" fill="none" stroke="var(--ink-3)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
 <circle cx="514.0" cy="216.6" r="3.4" fill="var(--ink-3)" stroke="var(--card)" stroke-width="1.6"/>
 <circle cx="556.9" cy="229.7" r="3.4" fill="var(--ink-3)" stroke="var(--card)" stroke-width="1.6"/>
