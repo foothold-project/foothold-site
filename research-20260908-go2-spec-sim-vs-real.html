@@ -802,7 +802,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=694c953d').then(function(r){
+    fetch('/assets/search-index.json?v=a788ae0b').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -909,7 +909,7 @@ document.addEventListener('DOMContentLoaded',function(){
 상태: 초안
 판: v1.1
 이슈: <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/296">#296</a> <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/332">#332</a></p></blockquote>
-<p><figure class="mdimg"><img src="assets/visual/20260908-go2-spec-diagram.svg?v=68fb2a74" data-themed alt="Go2 제원 그림" loading="lazy"><figcaption>Go2 제원 그림</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/20260908-go2-spec-diagram.svg?v=68fb2a74" alt="Go2 제원 그림" loading="lazy"><figcaption>Go2 제원 그림</figcaption></figure></p>
 </section>
 <section id="s1"><span id="0"></span><h2>0. 먼저 볼 것: 시뮬과 실기가 크게 다른 넷</h2>
 <p><b>이 표가 이 문서의 요점이다.</b> 나머지는 근거다.</p>
@@ -1151,11 +1151,11 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 <style>
 /* 2026-09-14. 아직 다크 색을 못 정한 손그림 그림은 밝은 판 위에 올린다.
    그림을 고치지 않고도 다크에서 읽힌다. 어느 그림이 여기 드는지는
-   `tools/svg_theme.py` 가 정하고 빌드가 를 붙인다. */
+   `tools/svg_theme.py` 가 정하고 빌드가 data-plate 를 붙인다. */
 [data-theme="dark"] img[data-plate]{background:#fff;border-radius:8px;
   padding:10px;box-sizing:border-box}
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-10-02 16:42</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-10-05 19:46</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

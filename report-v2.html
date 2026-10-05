@@ -802,7 +802,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=694c953d').then(function(r){
+    fetch('/assets/search-index.json?v=a788ae0b').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -934,7 +934,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p><b>펴는 것은 표시 방식이지 없는 요철을 만드는 것이 아니다.</b> 원본 스틸과 펴기 전후 값은 <code>sim/eval/results/20260928-terrain-shots/stills/index.json</code> 에 그대로 있다.</p>
 </section>
 <section id="s3"><span id="2"></span><h2>2. 일반화 성적 · 한 장</h2>
-<p><figure class="mdimg"><img src="assets/visual/v2-generalization-summary.svg?v=2df8b28f" data-plate data-themed alt="그림 2 · 네 묶음에서 세 판의 성공률. 어느 판도 학습 안 한 여덟 지형에서 NVIDIA 43.9 %가 v2 88.5 %가 됐습니다" loading="lazy"><figcaption>그림 2 · 네 묶음에서 세 판의 성공률. 어느 판도 학습 안 한 여덟 지형에서 NVIDIA 43.9 %가 v2 88.5 %가 됐습니다</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/v2-generalization-summary.svg?v=2df8b28f" alt="그림 2 · 네 묶음에서 세 판의 성공률. 어느 판도 학습 안 한 여덟 지형에서 NVIDIA 43.9 %가 v2 88.5 %가 됐습니다" loading="lazy"><figcaption>그림 2 · 네 묶음에서 세 판의 성공률. 어느 판도 학습 안 한 여덟 지형에서 NVIDIA 43.9 %가 v2 88.5 %가 됐습니다</figcaption></figure></p>
 <p>난이도 0.5 · 지형마다 속도마다 100 판. <b>칸은 지형 x 속도 셋</b>이다 (8종이면 8 x 3 = 24 칸). 곧 아래 값은 <b>세 속도(0.5 · 1.0 · 1.5 m/s)의 평균</b>이다.</p>
 <blockquote><p><b>허브 첫 화면 카드와 수가 다른 까닭.</b> 그 카드는 <b>1.0 m/s 한 속도</b>만 잰다 (카드에 조건이 적혀 있다). 같은 여덟 종이 거기서는 62 -&gt; 90 이고 여기서는 43.9 -&gt; 88.5 다. 둘 다 맞고 <b>재는 범위가 다르다.</b></p>
 <p>속도별로 펴 보면 까닭이 한 줄이다. 여덟 종 난이도 0.5 실측이다.</p>
@@ -1009,13 +1009,13 @@ document.addEventListener('DOMContentLoaded',function(){
 <b>안 쟀다</b> <span class="ev ev-todo">미확인</span>. 48 칸 표 전체에 이 폭을 곱해 읽지 말 것.</p>
 <p>자료 <code>sim/eval/results/20260929-seed-spread/</code> · 스크립트
 <code>_out/loop/seed_spread.sh</code></p></blockquote>
-<p><figure class="mdimg"><img src="assets/visual/v2-terrain-bars.svg?v=50f72fb0" data-plate data-themed alt="그림 3 · 지형 열여섯 종의 성공률. 왼쪽 꼬리표가 그 지형이 각 판에게 학습이었는지 미경험이었는지를 밝힙니다" loading="lazy"><figcaption>그림 3 · 지형 열여섯 종의 성공률. 왼쪽 꼬리표가 그 지형이 각 판에게 학습이었는지 미경험이었는지를 밝힙니다</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/v2-terrain-bars.svg?v=50f72fb0" alt="그림 3 · 지형 열여섯 종의 성공률. 왼쪽 꼬리표가 그 지형이 각 판에게 학습이었는지 미경험이었는지를 밝힙니다" loading="lazy"><figcaption>그림 3 · 지형 열여섯 종의 성공률. 왼쪽 꼬리표가 그 지형이 각 판에게 학습이었는지 미경험이었는지를 밝힙니다</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th>꼬리표</th><th>지형</th><th>NVIDIA</th><th>v1</th><th><b>v2</b></th><th>v2 - NVIDIA</th></tr></thead><tbody><tr><td>미경험</td><td><code>stepping_stones</code></td><td>0.0</td><td>0.0</td><td><b>8.0</b></td><td>+8.0</td></tr><tr><td>미경험</td><td><code>floating_ring</code></td><td>0.3</td><td>93.7</td><td><b>99.7</b></td><td>+99.3</td></tr><tr><td>미경험</td><td><code>discrete_obstacles</code></td><td>62.7</td><td>100.0</td><td><b>100.0</b></td><td>+37.3</td></tr><tr><td>미경험</td><td><code>pit</code></td><td>3.0</td><td>100.0</td><td><b>100.0</b></td><td>+97.0</td></tr><tr><td>미경험</td><td><code>repeated_boxes</code></td><td>67.0</td><td>100.0</td><td><b>100.0</b></td><td>+33.0</td></tr><tr><td>미경험</td><td><code>repeated_cylinders</code></td><td>68.7</td><td>100.0</td><td><b>100.0</b></td><td>+31.3</td></tr><tr><td>미경험</td><td><code>star</code></td><td>82.7</td><td>100.0</td><td><b>100.0</b></td><td>+17.3</td></tr><tr><td>미경험</td><td><code>wave</code></td><td>66.7</td><td>100.0</td><td><b>100.0</b></td><td>+33.3</td></tr><tr><td>친척 학습</td><td><code>gap</code></td><td>0.3</td><td>86.0</td><td><b>99.7</b></td><td>+99.3</td></tr><tr><td><b>v2 학습</b></td><td><code>rails</code></td><td>2.7</td><td>46.3</td><td><b>99.7</b></td><td>+97.0</td></tr><tr><td>셋 다 학습</td><td><code>boxes</code></td><td>36.7</td><td>99.7</td><td><b>100.0</b></td><td>+63.3</td></tr><tr><td>셋 다 학습</td><td><code>hf_pyramid_slope</code></td><td>66.7</td><td>100.0</td><td><b>100.0</b></td><td>+33.3</td></tr><tr><td>셋 다 학습</td><td><code>hf_pyramid_slope_inv</code></td><td>74.7</td><td>100.0</td><td><b>100.0</b></td><td>+25.3</td></tr><tr><td>셋 다 학습</td><td><code>pyramid_stairs</code></td><td>63.7</td><td>100.0</td><td><b>100.0</b></td><td>+36.3</td></tr><tr><td>셋 다 학습</td><td><code>pyramid_stairs_inv</code></td><td>8.0</td><td>100.0</td><td><b>100.0</b></td><td>+92.0</td></tr><tr><td>셋 다 학습</td><td><code>random_rough</code></td><td>55.0</td><td>96.3</td><td><b>100.0</b></td><td>+45.0</td></tr></tbody></table></div>
 <p><b><code>rails</code> 의 46.3 -&gt; 99.7 은 일반화가 아니라 학습이다.</b> v1 은 안 배웠고 v2 는 배웠다. 그래서 이 줄을 일반화 근거로 인용하지 않는다.</p>
 <p><b><code>pyramid_stairs_inv</code> 에서 NVIDIA 가 8.0 인 것</b>은 그것이 NVIDIA 의 학습 지형인데도 그렇다. 1500 회 배포본의 한계이지 우리 평가의 결함이 아니다 (같은 하네스에서 v1 과 v2 가 100.0 을 낸다).</p>
 </section>
 <section id="s6"><span id="5"></span><h2>5. 난이도를 올리면 어떻게 되나</h2>
-<p><figure class="mdimg"><img src="assets/visual/v2-difficulty-curve.svg?v=8edf902e" data-plate data-themed alt="그림 4 · 두 묶음을 나란히. 어느 지형을 미경험이라고 부르냐에 따라 v1 과의 차이가 벌어지기도 하고 좁아지기도 합니다" loading="lazy"><figcaption>그림 4 · 두 묶음을 나란히. 어느 지형을 미경험이라고 부르냐에 따라 v1 과의 차이가 벌어지기도 하고 좁아지기도 합니다</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/v2-difficulty-curve.svg?v=8edf902e" alt="그림 4 · 두 묶음을 나란히. 어느 지형을 미경험이라고 부르냐에 따라 v1 과의 차이가 벌어지기도 하고 좁아지기도 합니다" loading="lazy"><figcaption>그림 4 · 두 묶음을 나란히. 어느 지형을 미경험이라고 부르냐에 따라 v1 과의 차이가 벌어지기도 하고 좁아지기도 합니다</figcaption></figure></p>
 <p><b>어느 판도 학습 안 한 여덟 종</b></p>
 <div class="tw"><table><thead><tr><th>난이도</th><th>NVIDIA</th><th>v1</th><th><b>v2</b></th><th>v2 - NVIDIA</th></tr></thead><tbody><tr><td>0.1</td><td>53.7</td><td>86.8</td><td><b>93.5</b></td><td>+39.8</td></tr><tr><td>0.2</td><td>48.2</td><td>76.5</td><td><b>85.0</b></td><td>+36.7</td></tr><tr><td>0.3</td><td>46.4</td><td>79.6</td><td><b>87.0</b></td><td>+40.7</td></tr><tr><td>0.4</td><td>43.9</td><td>83.7</td><td><b>88.5</b></td><td>+44.6</td></tr><tr><td>0.5</td><td>43.9</td><td>86.7</td><td><b>88.5</b></td><td>+44.6</td></tr><tr><td>0.6</td><td>41.5</td><td>87.3</td><td><b>87.5</b></td><td>+46.0</td></tr><tr><td>0.7</td><td>39.9</td><td>87.0</td><td><b>87.5</b></td><td>+47.6</td></tr><tr><td>0.8</td><td>36.6</td><td>85.4</td><td><b>87.4</b></td><td>+50.8</td></tr><tr><td>0.9</td><td>34.4</td><td>83.6</td><td><b>87.2</b></td><td><b>+52.8</b></td></tr><tr><td>1.0</td><td>31.9</td><td>없음</td><td>없음</td><td></td></tr></tbody></table></div>
 <p><b>NVIDIA 는 53.7 에서 31.9 로 내려가고 v2 는 93.5 에서 87.2 로 버틴다.</b> 차이가 +39.8 에서 +52.8 로 <b>벌어진다.</b></p>
@@ -1029,7 +1029,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </section>
 <section id="s7"><span id="6"></span><h2>6. 여기까지 어떻게 왔나 · 문제 파악 · 가설 · 실험 · 검증</h2>
 <p>여기서부터가 <b>이 판이 어떻게 나왔는지</b>다. 숫자만 보면 어느 설정을 왜 건드렸는지 안 보인다.</p>
-<p><figure class="mdimg"><img src="assets/visual/v2-lineage.svg?v=ce12f925" data-plate data-themed alt="그림 5 · A 에서 v2g2 까지. 판마다 무엇을 한 칸 바꿨고 그때 48칸 평균이 얼마였나" loading="lazy"><figcaption>그림 5 · A 에서 v2g2 까지. 판마다 무엇을 한 칸 바꿨고 그때 48칸 평균이 얼마였나</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/v2-lineage.svg?v=ce12f925" alt="그림 5 · A 에서 v2g2 까지. 판마다 무엇을 한 칸 바꿨고 그때 48칸 평균이 얼마였나" loading="lazy"><figcaption>그림 5 · A 에서 v2g2 까지. 판마다 무엇을 한 칸 바꿨고 그때 48칸 평균이 얼마였나</figcaption></figure></p>
 <p><b>G 가 가장 낮고 (82.83) F 가 가장 높다 (89.71).</b> <code>heading</code> 을 아예 끄면 무너지고, 노출을 지형으로 옮긴 쪽이 이겼다. 아래에서 하나씩 본다.</p>
 <h3>6-0. 출발점 · NVIDIA Go2 rough</h3>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>학습 지형 6종   pyramid_stairs · pyramid_stairs_inv · boxes · random_rough
@@ -1180,7 +1180,7 @@ v2g2                           0.1     ( 10 배)</pre></div>
 <h3>6-12. 학습이 터진 기록 · <code>std</code> 와 NaN</h3>
 <p><b>앞 판에서는 이 절을 접어 두었다</b> (<code>&lt;details&gt;</code>). 펼치지 않으면 안 보이므로 <b>접어 둔 것은 안 남긴 것과 화면에서 같았다.</b> 팀장 지적으로 펼친다.</p>
 <p><b>볼 것: 열한 판이 목표 3000 회를 못 채우고 죽었다.</b> 막대가 마지막 저장 번호다. 원인은 아래에서 하나씩 가른다.</p>
-<p><figure class="mdimg"><img src="assets/visual/v2-blown-runs.svg?v=a4f73558" data-plate data-themed alt="그림 6 · 학습이 터진 열한 판. 막대는 목표 3000 회 중 마지막 저장 번호입니다" loading="lazy"><figcaption>그림 6 · 학습이 터진 열한 판. 막대는 목표 3000 회 중 마지막 저장 번호입니다</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/v2-blown-runs.svg?v=a4f73558" alt="그림 6 · 학습이 터진 열한 판. 막대는 목표 3000 회 중 마지막 저장 번호입니다" loading="lazy"><figcaption>그림 6 · 학습이 터진 열한 판. 막대는 목표 3000 회 중 마지막 저장 번호입니다</figcaption></figure></p>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>RuntimeError: normal expects all elements of std &gt;= 0.0</pre></div>
 <p><b>시드를 바꾸면 터지고 같은 설정이 다른 시드에서 완주했다.</b></p>
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>실패 로그 9 건 · 서로 다른 실행 이름 8 개</pre></div>
@@ -1343,7 +1343,7 @@ random_rough          0.15      rails                 0.10</pre></div>
 <p><code>v2b-r</code> 의 9/9 는 네 점 중 한 점이고 회전 낙상이 0.344 -&gt; 0.109 -&gt; <b>0.031</b> -&gt; 0.3125 로 한 점만 내려앉는다. <b>봉우리다.</b></p>
 </section>
 <section id="s12"><span id="11"></span><h2>11. 다음 단계</h2>
-<p><figure class="mdimg"><img src="assets/visual/v2-next-step.svg?v=13c30b09" data-plate data-themed alt="그림 7 · 지금 정책이 보는 여덟 항목, 신경망을 바꿔도 남는 것, 다음 단계가 답할 물음" loading="lazy"><figcaption>그림 7 · 지금 정책이 보는 여덟 항목, 신경망을 바꿔도 남는 것, 다음 단계가 답할 물음</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/v2-next-step.svg?v=13c30b09" alt="그림 7 · 지금 정책이 보는 여덟 항목, 신경망을 바꿔도 남는 것, 다음 단계가 답할 물음" loading="lazy"><figcaption>그림 7 · 지금 정책이 보는 여덟 항목, 신경망을 바꿔도 남는 것, 다음 단계가 답할 물음</figcaption></figure></p>
 <h3>지금 정책이 보는 것</h3>
 <p><figure class="mdimg"><img src="assets/visual/v2-height-scan.png?v=142b7383" alt="그림 8 · 실제 촬영 위에 그린 height_scan. 몸통 밑 1.6 x 1.0 m 를 0.1 m 간격 187 점으로 훑습니다. 레일 모서리가 스캔 범위를 가로지릅니다" loading="lazy"><figcaption>그림 8 · 실제 촬영 위에 그린 height_scan. 몸통 밑 1.6 x 1.0 m 를 0.1 m 간격 187 점으로 훑습니다. 레일 모서리가 스캔 범위를 가로지릅니다</figcaption></figure></p>
 <p>그림은 <b>실제 촬영 위에 실척으로 그린 것</b>이다. 카메라를 trace 에서 그대로 세워 점마다 투영했고 (<code>target</code> 이 화면 정중앙으로 떨어지는 것으로 검산했다), 격자 규격은 <code>params/env.yaml</code> 의 <code>height_scanner</code> 에서 읽었다.</p>
@@ -1601,11 +1601,11 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 <style>
 /* 2026-09-14. 아직 다크 색을 못 정한 손그림 그림은 밝은 판 위에 올린다.
    그림을 고치지 않고도 다크에서 읽힌다. 어느 그림이 여기 드는지는
-   `tools/svg_theme.py` 가 정하고 빌드가 를 붙인다. */
+   `tools/svg_theme.py` 가 정하고 빌드가 data-plate 를 붙인다. */
 [data-theme="dark"] img[data-plate]{background:#fff;border-radius:8px;
   padding:10px;box-sizing:border-box}
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-10-02 16:42</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-10-05 19:46</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
