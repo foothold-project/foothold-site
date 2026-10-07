@@ -7,73 +7,73 @@
  "source": "go2-technical-v4.blend + build_v6.py",
  "states": {
   "front6": {
-   "image": "go2-front6-v6g.png",
+   "image": "go2-front6-v6g.webp",
    "frame": 300,
    "width": 1600,
    "height": 1200
   },
   "side_grid6": {
-   "image": "go2-side_grid6-v6g.png",
+   "image": "go2-side_grid6-v6g.webp",
    "frame": 359,
    "width": 1600,
    "height": 1200
   },
   "scan_done": {
-   "image": "go2-scan_done-v6g.png",
+   "image": "go2-scan_done-v6g.webp",
    "frame": 431,
    "width": 1600,
    "height": 1200
   },
   "assembled6": {
-   "image": "go2-assembled6-v6g.png",
+   "image": "go2-assembled6-v6g.webp",
    "frame": 432,
    "width": 1600,
    "height": 1200
   },
   "joints_close": {
-   "image": "go2-joints_close-v6g.png",
+   "image": "go2-joints_close-v6g.webp",
    "frame": 503,
    "width": 1600,
    "height": 1200
   },
   "stance": {
-   "image": "go2-stance-v6g.png",
+   "image": "go2-stance-v6g.webp",
    "frame": 563,
    "width": 1600,
    "height": 1200
   },
   "feedback_end": {
-   "image": "go2-feedback_end-v6g.png",
+   "image": "go2-feedback_end-v6g.webp",
    "frame": 623,
    "width": 1600,
    "height": 1200
   },
   "sensors_end": {
-   "image": "go2-sensors_end-v6g.png",
+   "image": "go2-sensors_end-v6g.webp",
    "frame": 719,
    "width": 1600,
    "height": 1200
   },
   "commands_end": {
-   "image": "go2-commands_end-v6g.png",
+   "image": "go2-commands_end-v6g.webp",
    "frame": 863,
    "width": 1600,
    "height": 1200
   },
   "side_walk": {
-   "image": "go2-side_walk-v6g.png",
+   "image": "go2-side_walk-v6g.webp",
    "frame": 864,
    "width": 1600,
    "height": 1200
   },
   "commands_start": {
-   "image": "go2-commands_start-v6g.png",
+   "image": "go2-commands_start-v6g.webp",
    "frame": 959,
    "width": 1600,
    "height": 1200
   },
   "modules_end": {
-   "image": "go2-modules_end-v6g.png",
+   "image": "go2-modules_end-v6g.webp",
    "frame": 1319,
    "width": 1600,
    "height": 1200

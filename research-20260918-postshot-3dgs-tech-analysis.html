@@ -802,7 +802,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=44945ff8').then(function(r){
+    fetch('/assets/search-index.json?v=6b31de93').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -956,7 +956,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p>3절과 4절이 이 두 가지 「안 되는 것」의 원인이다. <b>둘은 원인이 다르다.</b></p>
 <h3>2-2. 그리고 로봇이 서는 자리가 비어 있었다</h3>
 <p>사진으로는 안 보이지만 더 심각한 것이 하나 더 있었다. <b>Go2 를 스폰시킨 바로 그 자리의 지면이 한 칸도 관측되지 않았다.</b></p>
-<p><figure class="mdimg"><img src="assets/visual/gs-real-blindspot.png?v=62b08268" alt="그림 3 · 스폰 지점 둘레. 어두운 영역이 관측 없이 지어낸 칸이고 별이 로봇이 서는 자리다" loading="lazy"><figcaption>그림 3 · 스폰 지점 둘레. 어두운 영역이 관측 없이 지어낸 칸이고 별이 로봇이 서는 자리다</figcaption></figure></p>
+<p><figure class="mdimg"><img src="assets/visual/gs-real-blindspot.webp?v=62b08268" alt="그림 3 · 스폰 지점 둘레. 어두운 영역이 관측 없이 지어낸 칸이고 별이 로봇이 서는 자리다" loading="lazy"><figcaption>그림 3 · 스폰 지점 둘레. 어두운 영역이 관측 없이 지어낸 칸이고 별이 로봇이 서는 자리다</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th>원점에서의 반경</th><th>칸 수</th><th>관측된 칸</th><th>지어낸 칸</th></tr></thead><tbody><tr><td><b>0.5 m</b></td><td>316</td><td><b>0 (0.0 %)</b></td><td>316 (100 %)</td></tr><tr><td>1.0 m</td><td>1,260</td><td>411 (32.6 %)</td><td>849 (67.4 %)</td></tr><tr><td>1.5 m</td><td>2,832</td><td>1,698 (60.0 %)</td><td>1,134 (40.0 %)</td></tr><tr><td>2.0 m</td><td>5,033</td><td>3,617 (71.9 %)</td><td>1,416 (28.1 %)</td></tr></tbody></table></div>
 <p><b>폰은 자기가 선 자리의 바닥을 못 본다.</b> 1.4 m 높이에서 앞을 보면 발밑은 화각 밖이다. 그런데 로봇은 바로 그 자리에 세워졌다.</p>
 <p><figure class="mdimg"><img src="assets/visual/gs-real-camgeom.png?v=183527fb" alt="그림 4 · 카메라 높이와 하향각에 따라 바닥이 보이기 시작하는 거리" loading="lazy"><figcaption>그림 4 · 카메라 높이와 하향각에 따라 바닥이 보이기 시작하는 거리</figcaption></figure></p>
@@ -1217,5 +1217,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-10-08 01:19</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-10-08 02:05</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

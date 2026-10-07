@@ -7,7 +7,7 @@
   "source": "go2-continuous-v5.blend",
   "states": {
     "front": {
-      "image": "go2-front-v5.png",
+      "image": "go2-front-v5.webp",
       "frame": 1,
       "width": 1600,
       "height": 1200,
@@ -120,7 +120,7 @@
       }
     },
     "three_quarter": {
-      "image": "go2-three_quarter-v5.png",
+      "image": "go2-three_quarter-v5.webp",
       "frame": 97,
       "width": 1600,
       "height": 1200,
@@ -233,7 +233,7 @@
       }
     },
     "four_legs": {
-      "image": "go2-four_legs-v5.png",
+      "image": "go2-four_legs-v5.webp",
       "frame": 145,
       "width": 1600,
       "height": 1200,
@@ -346,7 +346,7 @@
       }
     },
     "assembled": {
-      "image": "go2-assembled-v5.png",
+      "image": "go2-assembled-v5.webp",
       "frame": 193,
       "width": 1600,
       "height": 1200,
@@ -459,7 +459,7 @@
       }
     },
     "side_grid": {
-      "image": "go2-side_grid-v5.png",
+      "image": "go2-side_grid-v5.webp",
       "frame": 241,
       "width": 1600,
       "height": 1200,
@@ -1508,7 +1508,7 @@
       }
     },
     "scan": {
-      "image": "go2-scan-v5.png",
+      "image": "go2-scan-v5.webp",
       "frame": 265,
       "width": 1600,
       "height": 1200,

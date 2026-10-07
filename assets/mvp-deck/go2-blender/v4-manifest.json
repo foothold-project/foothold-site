@@ -3,22 +3,22 @@
   "source": "go2-technical-v4.blend",
   "states": {
     "front": {
-      "image": "go2-front-v4.png",
+      "image": "go2-front-v4.webp",
       "width": 1600,
       "height": 1600
     },
     "three_axes": {
-      "image": "go2-three-axes-v4.png",
+      "image": "go2-three-axes-v4.webp",
       "width": 1280,
       "height": 960
     },
     "single_leg": {
-      "image": "go2-fl-leg-v4.png",
+      "image": "go2-fl-leg-v4.webp",
       "width": 1280,
       "height": 960
     },
     "twelve_axes": {
-      "image": "go2-twelve-axes-v4.png",
+      "image": "go2-twelve-axes-v4.webp",
       "width": 1280,
       "height": 960
     }
@@ -38,7 +38,7 @@
       "fps": 24,
       "width": 960,
       "height": 720,
-      "poster": "go2-hip-v4.png",
+      "poster": "go2-hip-v4.webp",
       "preview": "go2-hip-v4.mp4",
       "verifiedFrames": 48,
       "verifiedRate": "24"
@@ -57,7 +57,7 @@
       "fps": 24,
       "width": 960,
       "height": 720,
-      "poster": "go2-thigh-v4.png",
+      "poster": "go2-thigh-v4.webp",
       "preview": "go2-thigh-v4.mp4",
       "verifiedFrames": 48,
       "verifiedRate": "24"
@@ -76,7 +76,7 @@
       "fps": 24,
       "width": 960,
       "height": 720,
-      "poster": "go2-calf-v4.png",
+      "poster": "go2-calf-v4.webp",
       "preview": "go2-calf-v4.mp4",
       "verifiedFrames": 48,
       "verifiedRate": "24"
@@ -95,7 +95,7 @@
       "fps": 24,
       "width": 960,
       "height": 720,
-      "poster": "go2-fl-v4.png",
+      "poster": "go2-fl-v4.webp",
       "preview": "go2-fl-v4.mp4",
       "verifiedFrames": 36,
       "verifiedRate": "24"
@@ -114,7 +114,7 @@
       "fps": 24,
       "width": 960,
       "height": 720,
-      "poster": "go2-fr-v4.png",
+      "poster": "go2-fr-v4.webp",
       "preview": "go2-fr-v4.mp4",
       "verifiedFrames": 36,
       "verifiedRate": "24"
@@ -133,7 +133,7 @@
       "fps": 24,
       "width": 960,
       "height": 720,
-      "poster": "go2-rl-v4.png",
+      "poster": "go2-rl-v4.webp",
       "preview": "go2-rl-v4.mp4",
       "verifiedFrames": 36,
       "verifiedRate": "24"
@@ -152,7 +152,7 @@
       "fps": 24,
       "width": 960,
       "height": 720,
-      "poster": "go2-rr-v4.png",
+      "poster": "go2-rr-v4.webp",
       "preview": "go2-rr-v4.mp4",
       "verifiedFrames": 36,
       "verifiedRate": "24"
@@ -169,7 +169,7 @@
       "fps": 24,
       "width": 960,
       "height": 720,
-      "poster": "go2-forward-v4.png",
+      "poster": "go2-forward-v4.webp",
       "preview": "go2-forward-v4.mp4",
       "verifiedFrames": 48,
       "verifiedRate": "24"
@@ -186,7 +186,7 @@
       "fps": 24,
       "width": 960,
       "height": 720,
-      "poster": "go2-lateral-v4.png",
+      "poster": "go2-lateral-v4.webp",
       "preview": "go2-lateral-v4.mp4",
       "verifiedFrames": 48,
       "verifiedRate": "24"
@@ -203,7 +203,7 @@
       "fps": 24,
       "width": 960,
       "height": 720,
-      "poster": "go2-yaw-v4.png",
+      "poster": "go2-yaw-v4.webp",
       "preview": "go2-yaw-v4.mp4",
       "verifiedFrames": 48,
       "verifiedRate": "24"
