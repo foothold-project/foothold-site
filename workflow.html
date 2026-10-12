@@ -827,7 +827,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=860a16b4').then(function(r){
+    fetch('/assets/search-index.json?v=f0bc0bc6').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -953,7 +953,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p><b>작업 영역이 폴더를 가리킨다.</b> 이슈에 <code>A/평가</code> 가 붙으면 코드는 <code>sim/eval/</code> 에 간다. <code>B/항법</code> 은 <code>nav/</code> 전체이고 그 안에 <code>nav/perception/</code>(<code>B/인지</code>)이 들어 있다. <code>C/기록</code> 의 <code>docs/</code> 는 <b>정본이라 직접 고치지 않는다.</b> <code>inbox/</code> 로 올리면 팀장이 승격한다.</p>
 </section>
 <section id="s4"><span id="2"></span><h2>2. 관문 (마일스톤)</h2>
-<div class="tw"><table><thead><tr><th>관문</th><th>기한</th><th>끝났다는 뜻</th></tr></thead><tbody><tr><td><code>기획발표</code></td><td>9/4</td><td>운영진 제출 3종: 프로젝트 기획서 · 브레인스토밍 · WBS</td></tr><tr><td><code>A-정책</code></td><td>9/12</td><td>우리 지형으로 학습한 정책과 지표 세트</td></tr><tr><td><code>MVP · 중간발표</code></td><td>9/30</td><td>트랙 A 완결. 일반화 평가표 + 트윈·렌더 시연물</td></tr><tr><td><code>NAV · 실기 항법</code></td><td>11/7</td><td>조선대 Go2 에서 SLAM 지도 + Nav2 경로가 한 번 돈다</td></tr><tr><td><code>FINAL · 최종발표</code></td><td>12/11</td><td>지정 코스 자율주행 시연 + 실증결과 보고서</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>관문</th><th>기한</th><th>끝났다는 뜻</th></tr></thead><tbody><tr><td><code>기획발표</code></td><td>9/4</td><td>운영진 제출 3종: 프로젝트 기획서 · 브레인스토밍 · WBS</td></tr><tr><td><code>A-정책</code></td><td>9/12</td><td>우리 지형으로 학습한 정책과 지표 세트</td></tr><tr><td><code>MVP · 중간발표</code></td><td>9/30</td><td>트랙 A 완결. 일반화 평가표 + 트윈·렌더 시연물</td></tr><tr><td><code>SIM · 시뮬 · 트윈 · 앱</code></td><td>11/7</td><td>시뮬 RL · 디지털 트윈 · dashboard · app 완성 (2026-10-12 팀장 확정)</td></tr><tr><td><code>NAV · 실기 항법</code></td><td>11/30</td><td>순정 보행 + 자율주행 SLAM · Nav2 완성 (2026-10-12 팀장 확정 · 전에는 11/7)</td></tr><tr><td><code>FINAL · 최종발표</code></td><td>12/7</td><td>완성 마감. 실제 발표는 12/9 또는 12/10 (학교 공유 대기) · 12/11 수료식 (2026-10-12 팀장 확정 · 전에는 12/11)</td></tr></tbody></table></div>
 <p>모르면 비워 둔다. 나중에 고를 수 있다.</p>
 </section>
 <section id="s5"><span id="3"></span><h2>3. 브랜치 이름</h2>
@@ -1098,5 +1098,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
   label();
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-10-09 01:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-10-12 15:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

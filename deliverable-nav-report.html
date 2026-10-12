@@ -827,7 +827,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=860a16b4').then(function(r){
+    fetch('/assets/search-index.json?v=f0bc0bc6').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -920,10 +920,10 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="wrap">
 
 <div class="hero">
-  <div class="eyebrow">산출물 · NAV 실기항법 · 11월 7일</div>
+  <div class="eyebrow">산출물 · NAV 실기항법 · 11월 30일</div>
   <h1>실기 항법 검증 리포트</h1>
   <p class="lede">실물 Go2 가 SLAM 으로 지도를 만들고 Nav2 로 경로를 완주한 기록.</p>
-  <div class="meta"><div><span class="k">관문</span><span class="v">NAV 실기항법 · 11월 7일</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-27 11:20</span></div><div><span class="k">상태</span><span class="v">대기</span></div><div><span class="k">원본</span><span class="v">foothold-lab / deliverables/final/nav-report.md</span></div></div>
+  <div class="meta"><div><span class="k">관문</span><span class="v">NAV 실기항법 · 11월 30일</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-08-27 11:20</span></div><div><span class="k">상태</span><span class="v">대기</span></div><div><span class="k">원본</span><span class="v">foothold-lab / deliverables/final/nav-report.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -935,7 +935,7 @@ document.addEventListener('DOMContentLoaded',function(){
 상태: 대기</p></blockquote>
 <blockquote><p><b>완료 기준</b>: §3 완주 기록이 영상·지도 파일·설정과 함께 남고, §4 실패 사례가
 정리되면 상태를 <code>확정</code> 으로 바꾼다.
-관문: <code>NAV · 실기 항법</code> (2026-11-07)</p>
+관문: <code>NAV · 실기 항법</code> (2026-11-30 · 2026-10-12 팀장 확정으로 11-07 에서 옮김)</p>
 <p><b>채우는 사람</b>: 오흥재 (B/항법). 오현민 (B/인지) 이 센서·지도 절을 채운다.
 채운 사람이 위 「작성」을 자기 이름과 그때 시각으로 바꾼다.</p></blockquote>
 </section>
@@ -1056,5 +1056,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
   label();
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-10-09 01:13</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-10-12 15:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
