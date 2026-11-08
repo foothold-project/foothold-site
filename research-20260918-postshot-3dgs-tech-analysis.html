@@ -213,6 +213,7 @@ section .addr .big{font-size:1.2rem}
 
 /* 마크다운 그림·영상: mdpage 가 만드는 <figure class="mdimg"> */
 .mdimg{margin:1.5rem 0;padding:0}
+.mdimg a.mdzoom{display:block;cursor:zoom-in}
 .mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
   border-radius:4px;background:var(--card)}
 .mdvid video{display:block;width:100%;height:auto;border:1px solid var(--rule);
@@ -802,7 +803,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=2df4feb0').then(function(r){
+    fetch('/assets/search-index.json?v=013cf82a').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -925,7 +926,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p>우리가 아는 3D 모델은 삼각형 메시다. 점을 찍고 삼각형으로 잇고 그 위에 사진을 입힌다. 이 방식은 <b>면이 분명한 것</b>에 강하다. 책상, 벽, 기계 부품.</p>
 <p>그런데 실제 장면에는 면이 분명하지 않은 것이 훨씬 많다. 나뭇잎, 잔디, 철망, 머리카락, 반투명한 유리. 삼각형으로 옮기려면 어마어마한 수가 필요하고, 그래도 잎사귀 가장자리는 톱니처럼 남는다.</p>
 <p><b>가우시안 스플래팅은 면을 포기한다.</b> 대신 <b>가운데가 진하고 가장자리로 갈수록 흐려지는 타원</b>을 공간에 수십만 개 띄운다. 그것을 겹쳐 칠해서 장면을 만든다. 잎사귀 한 장을 삼각형으로 재현하는 대신, 잎사귀처럼 보이는 흐릿한 얼룩을 그 자리에 두는 것이다.</p>
-<p><figure class="mdimg"><img src="assets/visual/gs-what-is.svg?v=dfdad6e0" data-themed alt="그림 1 · 가우시안 하나가 들고 있는 숫자 59개와, 그것이 화면에 찍히는 네 단계" loading="lazy"><figcaption>그림 1 · 가우시안 하나가 들고 있는 숫자 59개와, 그것이 화면에 찍히는 네 단계</figcaption></figure></p>
+<p><figure class="mdimg"><a class="mdzoom" href="assets/visual/gs-what-is.svg?v=dfdad6e0" target="_blank" rel="noopener" title="누르면 원본 크기로 열립니다"><img src="assets/visual/gs-what-is.svg?v=dfdad6e0" data-themed alt="그림 1 · 가우시안 하나가 들고 있는 숫자 59개와, 그것이 화면에 찍히는 네 단계" loading="lazy"></a><figcaption>그림 1 · 가우시안 하나가 들고 있는 숫자 59개와, 그것이 화면에 찍히는 네 단계</figcaption></figure></p>
 <h3>1-2. 숫자 59개</h3>
 <p>타원 하나가 들고 있는 것은 위 그림처럼 숫자 <b>59개</b>가 전부다.</p>
 <div class="tw"><table><thead><tr><th>무엇</th><th>개수</th><th>뜻</th></tr></thead><tbody><tr><td>위치</td><td>3</td><td>공간 어디에 있나</td></tr><tr><td>크기</td><td>3</td><td>세 축으로 각각 얼마나 퍼지나</td></tr><tr><td>회전</td><td>4</td><td>어느 쪽으로 누웠나</td></tr><tr><td>불투명도</td><td>1</td><td>얼마나 진한가</td></tr><tr><td>색</td><td>48</td><td><b>보는 각도마다 다른 색</b></td></tr></tbody></table></div>
@@ -947,7 +948,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </section>
 <section id="s3"><span id="2"></span><h2>2. 우리 자료로 보면 이렇다</h2>
 <p>말로만 하면 안 와닿는다. <b>우리가 실제로 찍고 돌린 결과</b>다.</p>
-<p><figure class="mdimg"><img src="assets/visual/gs-real-compare.jpg?v=8cad24f7" alt="그림 2 · 같은 장면의 네 모습. 왼쪽 위가 원본 영상, 오른쪽 위가 그것을 복원해 Isaac Sim 에서 렌더한 것, 아래 왼쪽이 스플랫 50만 개와 지면 메시, 아래 오른쪽이 지면 메시만" loading="lazy"><figcaption>그림 2 · 같은 장면의 네 모습. 왼쪽 위가 원본 영상, 오른쪽 위가 그것을 복원해 Isaac Sim 에서 렌더한 것, 아래 왼쪽이 스플랫 50만 개와 지면 메시, 아래 오른쪽이 지면 메시만</figcaption></figure></p>
+<p><figure class="mdimg"><a class="mdzoom" href="assets/visual/gs-real-compare.jpg?v=8cad24f7" target="_blank" rel="noopener" title="누르면 원본 크기로 열립니다"><img src="assets/visual/gs-real-compare.jpg?v=8cad24f7" alt="그림 2 · 같은 장면의 네 모습. 왼쪽 위가 원본 영상, 오른쪽 위가 그것을 복원해 Isaac Sim 에서 렌더한 것, 아래 왼쪽이 스플랫 50만 개와 지면 메시, 아래 오른쪽이 지면 메시만" loading="lazy"></a><figcaption>그림 2 · 같은 장면의 네 모습. 왼쪽 위가 원본 영상, 오른쪽 위가 그것을 복원해 Isaac Sim 에서 렌더한 것, 아래 왼쪽이 스플랫 50만 개와 지면 메시, 아래 오른쪽이 지면 메시만</figcaption></figure></p>
 <p>이 한 장에 세 가지가 들어 있다.</p>
 <p><b>되는 것</b> · 오른쪽 위를 보면 <b>발밑 노면과 노란 차선, 보도블록 이음매가 원본과 거의 구분이 안 된다.</b> 가까운 바닥은 정말 잘 나온다. 우리가 걷게 할 곳이 바로 거기라는 점에서 다행이다.</p>
 <p><b>안 되는 것 하나</b> · <b>원경 건물이 뭉개져 흐른다.</b> 원본에서 또렷하던 간판과 창문이 물감 번지듯 되어 있다.</p>
@@ -956,10 +957,10 @@ document.addEventListener('DOMContentLoaded',function(){
 <p>3절과 4절이 이 두 가지 「안 되는 것」의 원인이다. <b>둘은 원인이 다르다.</b></p>
 <h3>2-2. 그리고 로봇이 서는 자리가 비어 있었다</h3>
 <p>사진으로는 안 보이지만 더 심각한 것이 하나 더 있었다. <b>Go2 를 스폰시킨 바로 그 자리의 지면이 한 칸도 관측되지 않았다.</b></p>
-<p><figure class="mdimg"><img src="assets/visual/gs-real-blindspot.webp?v=62b08268" alt="그림 3 · 스폰 지점 둘레. 어두운 영역이 관측 없이 지어낸 칸이고 별이 로봇이 서는 자리다" loading="lazy"><figcaption>그림 3 · 스폰 지점 둘레. 어두운 영역이 관측 없이 지어낸 칸이고 별이 로봇이 서는 자리다</figcaption></figure></p>
+<p><figure class="mdimg"><a class="mdzoom" href="assets/visual/gs-real-blindspot.webp?v=62b08268" target="_blank" rel="noopener" title="누르면 원본 크기로 열립니다"><img src="assets/visual/gs-real-blindspot.webp?v=62b08268" alt="그림 3 · 스폰 지점 둘레. 어두운 영역이 관측 없이 지어낸 칸이고 별이 로봇이 서는 자리다" loading="lazy"></a><figcaption>그림 3 · 스폰 지점 둘레. 어두운 영역이 관측 없이 지어낸 칸이고 별이 로봇이 서는 자리다</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th>원점에서의 반경</th><th>칸 수</th><th>관측된 칸</th><th>지어낸 칸</th></tr></thead><tbody><tr><td><b>0.5 m</b></td><td>316</td><td><b>0 (0.0 %)</b></td><td>316 (100 %)</td></tr><tr><td>1.0 m</td><td>1,260</td><td>411 (32.6 %)</td><td>849 (67.4 %)</td></tr><tr><td>1.5 m</td><td>2,832</td><td>1,698 (60.0 %)</td><td>1,134 (40.0 %)</td></tr><tr><td>2.0 m</td><td>5,033</td><td>3,617 (71.9 %)</td><td>1,416 (28.1 %)</td></tr></tbody></table></div>
 <p><b>폰은 자기가 선 자리의 바닥을 못 본다.</b> 1.4 m 높이에서 앞을 보면 발밑은 화각 밖이다. 그런데 로봇은 바로 그 자리에 세워졌다.</p>
-<p><figure class="mdimg"><img src="assets/visual/gs-real-camgeom.png?v=183527fb" alt="그림 4 · 카메라 높이와 하향각에 따라 바닥이 보이기 시작하는 거리" loading="lazy"><figcaption>그림 4 · 카메라 높이와 하향각에 따라 바닥이 보이기 시작하는 거리</figcaption></figure></p>
+<p><figure class="mdimg"><a class="mdzoom" href="assets/visual/gs-real-camgeom.png?v=183527fb" target="_blank" rel="noopener" title="누르면 원본 크기로 열립니다"><img src="assets/visual/gs-real-camgeom.png?v=183527fb" alt="그림 4 · 카메라 높이와 하향각에 따라 바닥이 보이기 시작하는 거리" loading="lazy"></a><figcaption>그림 4 · 카메라 높이와 하향각에 따라 바닥이 보이기 시작하는 거리</figcaption></figure></p>
 <div class="tw"><table><thead><tr><th>설정</th><th>바닥이 보이기 시작</th><th>보이는 끝</th><th>가장 가까운 곳 해상도</th></tr></thead><tbody><tr><td><b>이번 촬영</b> 1.4 m · 하향 0도</td><td><b>2.17 m</b></td><td>지평선</td><td>1 px = 2.6 mm</td></tr><tr><td>1.4 m · 하향 30도</td><td>0.72 m</td><td>지평선</td><td>1 px = 0.9 mm</td></tr><tr><td><b>권장</b> 0.9 m · 하향 35도</td><td><b>0.37 m</b></td><td>24.2 m</td><td>1 px = 0.4 mm</td></tr><tr><td>0.9 m · 하향 45도</td><td>0.19 m</td><td><b>4.2 m</b></td><td>1 px = 0.2 mm</td></tr></tbody></table></div>
 <p>45도는 너무 숙인 것이다. <b>4.2 m 밖이 안 보이면 멀리 있는 건물과 표지판 같은 원경 특징점이 사라져 카메라 위치 추정 자체가 흔들린다.</b> 35도가 발밑과 원경을 함께 잡는 지점이다.</p>
 <h3>2-3. 관측이 없는 자리는 «지어낸다»</h3>
@@ -971,7 +972,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <section id="s4"><span id="3"></span><h2>3. 왜 원경이 뭉개졌나 · 시차</h2>
 <h3>3-1. 깊이는 «각» 에서 나온다</h3>
 <p>한 장의 사진만으로는 거리를 알 수 없다. 작은 것이 가까이 있는지 큰 것이 멀리 있는지 구분할 방법이 없다. 그래서 <b>두 자리에서 같은 점을 보고, 두 시선이 만나는 각으로 거리를 잰다.</b> 사람 눈이 둘인 이유와 같다.</p>
-<p><figure class="mdimg"><img src="assets/visual/gs-parallax.svg?v=bd23c972" data-themed alt="그림 5 · 두 시점이 멀면 광선이 또렷하게 만나고, 붙어 있으면 광선이 나란해져 만나는 자리가 길게 번진다" loading="lazy"><figcaption>그림 5 · 두 시점이 멀면 광선이 또렷하게 만나고, 붙어 있으면 광선이 나란해져 만나는 자리가 길게 번진다</figcaption></figure></p>
+<p><figure class="mdimg"><a class="mdzoom" href="assets/visual/gs-parallax.svg?v=bd23c972" target="_blank" rel="noopener" title="누르면 원본 크기로 열립니다"><img src="assets/visual/gs-parallax.svg?v=bd23c972" data-themed alt="그림 5 · 두 시점이 멀면 광선이 또렷하게 만나고, 붙어 있으면 광선이 나란해져 만나는 자리가 길게 번진다" loading="lazy"></a><figcaption>그림 5 · 두 시점이 멀면 광선이 또렷하게 만나고, 붙어 있으면 광선이 나란해져 만나는 자리가 길게 번진다</figcaption></figure></p>
 <p>각이 좁아지면 두 광선이 거의 나란해진다. 나란한 두 선은 <b>어디서 만나는지가 불분명하다.</b> 그림 오른쪽의 길쭉한 얼룩이 그 「불분명함」이다.</p>
 <p>관계는 간단하다. <b>깊이 오차는 각에 반비례하고, 거리와는 무관하다.</b></p>
 <div class="tw"><table><thead><tr><th>두 시점이 이루는 각</th><th>깊이 오차</th></tr></thead><tbody><tr><td>16도</td><td>0.18 %</td></tr><tr><td>1.5도</td><td>1.9 %</td></tr><tr><td>0.5도</td><td>5.7 %</td></tr><tr><td>0.1도</td><td><b>29 %</b></td></tr></tbody></table></div>
@@ -983,7 +984,7 @@ document.addEventListener('DOMContentLoaded',function(){
 defined for a moving camera.&quot;*</p></blockquote>
 <p>그리고 논문은 <b>그런 쌍에서는 아예 점을 만들지 않는다</b>고 적는다. 결과적으로 모든 쌍이 그렇게 분류되면 <b>유효한 시작 쌍을 영원히 못 찾는다.</b></p>
 <h3>3-3. 우리 촬영이 지탱할 수 있었던 거리</h3>
-<p><figure class="mdimg"><img src="assets/visual/gs-real-path.png?v=218941fe" alt="그림 6 · 왼쪽이 1차 촬영에서 폰이 실제로 움직인 궤적, 오른쪽이 같은 축척으로 그린 권장 경로" loading="lazy"><figcaption>그림 6 · 왼쪽이 1차 촬영에서 폰이 실제로 움직인 궤적, 오른쪽이 같은 축척으로 그린 권장 경로</figcaption></figure></p>
+<p><figure class="mdimg"><a class="mdzoom" href="assets/visual/gs-real-path.png?v=218941fe" target="_blank" rel="noopener" title="누르면 원본 크기로 열립니다"><img src="assets/visual/gs-real-path.png?v=218941fe" alt="그림 6 · 왼쪽이 1차 촬영에서 폰이 실제로 움직인 궤적, 오른쪽이 같은 축척으로 그린 권장 경로" loading="lazy"></a><figcaption>그림 6 · 왼쪽이 1차 촬영에서 폰이 실제로 움직인 궤적, 오른쪽이 같은 축척으로 그린 권장 경로</figcaption></figure></p>
 <p>1차 촬영을 다시 재어 보면 이렇다.</p>
 <div class="tw"><table><thead><tr><th>잰 것</th><th>값</th></tr></thead><tbody><tr><td>36초 동안 첫 프레임에서 가장 멀리 간 거리</td><td><b>0.80 m</b></td></tr><tr><td>프레임 사이 이동 중앙값</td><td>8.7 mm</td></tr><tr><td>누적 이동거리</td><td>3.28 m</td></tr></tbody></table></div>
 <p><b>누적 3.28 m 는 8.7 mm 씩 287 번 흔들린 합이다.</b> 폰은 사실상 한자리에 서서 둘러봤다.</p>
@@ -1005,7 +1006,7 @@ defined for a moving camera.&quot;*</p></blockquote>
 <i>&quot;The moving shadows create holes in the ground of the radiance field.&quot;</i></p></blockquote>
 <p><b>움직이는 그림자가 지면에 구멍을 낸다</b>고까지 말한다. 우리가 야외 보도를 찍을 때 정확히 걸릴 자리다.</p>
 <h3>4-2. 왜 카메라 한 대로는 원리적으로 안 되나</h3>
-<p><figure class="mdimg"><img src="assets/visual/gs-moving.svg?v=398cc4a0" data-themed alt="그림 7 · 정지한 것은 한 대가 걸어다니며 찍으면 광선 여럿이 한 점에서 만나지만, 움직이는 것은 같은 순간에 만날 두 광선이 없다" loading="lazy"><figcaption>그림 7 · 정지한 것은 한 대가 걸어다니며 찍으면 광선 여럿이 한 점에서 만나지만, 움직이는 것은 같은 순간에 만날 두 광선이 없다</figcaption></figure></p>
+<p><figure class="mdimg"><a class="mdzoom" href="assets/visual/gs-moving.svg?v=398cc4a0" target="_blank" rel="noopener" title="누르면 원본 크기로 열립니다"><img src="assets/visual/gs-moving.svg?v=398cc4a0" data-themed alt="그림 7 · 정지한 것은 한 대가 걸어다니며 찍으면 광선 여럿이 한 점에서 만나지만, 움직이는 것은 같은 순간에 만날 두 광선이 없다" loading="lazy"></a><figcaption>그림 7 · 정지한 것은 한 대가 걸어다니며 찍으면 광선 여럿이 한 점에서 만나지만, 움직이는 것은 같은 순간에 만날 두 광선이 없다</figcaption></figure></p>
 <p>정지한 대상은 내가 걸어다니는 동안 그대로 있으므로, 시각이 달라도 <b>같은 점</b>에 광선이 모인다. 움직이는 대상은 다르다. <b>어느 한 순간에 그 점을 보는 광선이 하나뿐</b>이다.</p>
 <p>0.5초 뒤 다른 각도에서 어깨를 다시 봐도 소용없다. 그것은 <b>다른 시각의 다른 위치의 어깨</b>다. 삼각측량할 두 광선이 영원히 생기지 않는다.</p>
 <p>그리고 광선이 하나뿐이면 <b>「깊이가 변한 것」과 「물체가 그 광선을 따라 움직인 것」이 구분되지 않는다.</b> 정보 자체가 없다.</p>
@@ -1029,7 +1030,7 @@ to one frame.&quot;*</p></blockquote>
 <p>주의할 것이 하나 있다. 논문들이 「모노큘러로 된다」고 말하는 데이터 상당수가 사실은 멀티뷰다. 피사체가 제자리에서 한 바퀴 도는 촬영은 <b>사람 기준으로 보면 턴테이블 스캔</b>이고, 21대 리그에서 한 대만 뽑아 쓴 것을 모노큘러라 부르기도 한다. 멀티뷰 단서가 진짜로 없으면 품질이 <b>1에서 2 dB, 복잡한 동작에서는 4에서 5 dB</b> 떨어진다는 측정이 있다. 4 dB 는 「조금 나쁨」이 아니라 다른 물건이다.</p>
 </section>
 <section id="s6"><span id="5"></span><h2>5. 그래서 트윈이 둘로 갈린다</h2>
-<p><figure class="mdimg"><img src="assets/visual/gs-real-ground.jpg?v=a437a73e" alt="그림 8 · 지면 메시만 남긴 모습. 보이는 품질과 무관하게 «발이 닿을 면» 은 따로 만들어야 한다" loading="lazy"><figcaption>그림 8 · 지면 메시만 남긴 모습. 보이는 품질과 무관하게 «발이 닿을 면» 은 따로 만들어야 한다</figcaption></figure></p>
+<p><figure class="mdimg"><a class="mdzoom" href="assets/visual/gs-real-ground.jpg?v=a437a73e" target="_blank" rel="noopener" title="누르면 원본 크기로 열립니다"><img src="assets/visual/gs-real-ground.jpg?v=a437a73e" alt="그림 8 · 지면 메시만 남긴 모습. 보이는 품질과 무관하게 «발이 닿을 면» 은 따로 만들어야 한다" loading="lazy"></a><figcaption>그림 8 · 지면 메시만 남긴 모습. 보이는 품질과 무관하게 «발이 닿을 면» 은 따로 만들어야 한다</figcaption></figure></p>
 <p>1-5 에서 말한 대로 가우시안은 표면이 아니다. 그래서 우리 파이프라인은 처음부터 둘로 갈라진다.</p>
 <div class="tw"><table><thead><tr><th></th><th>무엇</th><th>필요한 것</th></tr></thead><tbody><tr><td><b>충돌 지형</b></td><td>발이 닿는 면. 정책의 높이 스캔이 광선을 쏘는 대상</td><td><b>형상 정확도.</b> 1 cm 단차가 보행을 가른다</td></tr><tr><td><b>배경</b></td><td>사람과 카메라에게 보이는 것</td><td><b>보이는 품질</b></td></tr></tbody></table></div>
 <p>이것은 우리만의 발상이 아니다. <b>NVIDIA 공식 스테레오 파이프라인이 정확히 같은 구조</b>다. 깊이에서 메시를 만드는 경로와 외관을 학습하는 경로가 따로 돌고 하나의 파일에 정렬된 채로 담긴다.</p>
@@ -1217,5 +1218,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-08 22:16</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-08 23:39</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

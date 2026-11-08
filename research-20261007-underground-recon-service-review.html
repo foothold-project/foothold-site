@@ -213,6 +213,7 @@ section .addr .big{font-size:1.2rem}
 
 /* 마크다운 그림·영상: mdpage 가 만드는 <figure class="mdimg"> */
 .mdimg{margin:1.5rem 0;padding:0}
+.mdimg a.mdzoom{display:block;cursor:zoom-in}
 .mdimg img{display:block;width:100%;height:auto;border:1px solid var(--rule);
   border-radius:4px;background:var(--card)}
 .mdvid video{display:block;width:100%;height:auto;border:1px solid var(--rule);
@@ -802,7 +803,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=2df4feb0').then(function(r){
+    fetch('/assets/search-index.json?v=013cf82a').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -984,7 +985,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p><b>A2·A3 · 팀의 실제 분석 기록.</b> 본문의 활용 후보에 직접 연결되는 것은 아래의 실행 조건·낙상·정지 판정·조건별 보행 집계다. 평지 명령 수행과 험지 보행은 별도 시험이다. 이를 한 번의 점검 임무로 합치지 않는다.</p>
 <h3>평지 명령 시험</h3>
 <p>판단 근거 A2의 표는 2026년 9월 29일 v1·v2의 평지·시드 42·동작별 64개 환경 결과다. 시드는 난수 설정이며 이 환경들이 독립적인 실현장 64건인 것은 아니다. 4초 전진 뒤 정지 시험은 전체 10초, 정지 유지는 20초, 제자리 회전은 최대 18초다. per_env.json 6개·384행의 낙상 수를 manifest 집계와 대조하고 두 정책 파일 해시·실행 설정을 확인했다. <span class="ev ev-ok">확인됨</span> <a href="https://github.com/foothold-project/foothold-lab/tree/main/sim/eval/results/20260929-axis2-fall" target="_blank" rel="noopener">평가 원자료</a>.</p>
-<p><figure class="mdimg"><img src="assets/visual/20261007-command-falls.svg?v=53a7118b" data-themed alt="평지 명령 시험에서 낙상한 환경 수, 동작별 64개, v1과 v2의 같은 시뮬 조건 비교" loading="lazy"><figcaption>평지 명령 시험에서 낙상한 환경 수, 동작별 64개, v1과 v2의 같은 시뮬 조건 비교</figcaption></figure></p>
+<p><figure class="mdimg"><a class="mdzoom" href="assets/visual/20261007-command-falls.svg?v=53a7118b" target="_blank" rel="noopener" title="누르면 원본 크기로 열립니다"><img src="assets/visual/20261007-command-falls.svg?v=53a7118b" data-themed alt="평지 명령 시험에서 낙상한 환경 수, 동작별 64개, v1과 v2의 같은 시뮬 조건 비교" loading="lazy"></a><figcaption>평지 명령 시험에서 낙상한 환경 수, 동작별 64개, v1과 v2의 같은 시뮬 조건 비교</figcaption></figure></p>
 <p>원자료의 fell은 낙상 여부다. stop_time_s는 정지 명령 뒤 전 명령이 0인 상태에서 속도 <b>0.05 m/s 미만을 1초 연속 유지한 최초 시간</b>이다. 전진 후 정지 조건 도달은 v1 53 / 64개, v2 55 / 64개다. 그 후 넘어질 수 있으므로 조건 도달 수만으로 성공을 판정하지 않는다. 종료 시각까지 생존·정지 유지 여부를 함께 봐야 한다. <a href="https://github.com/foothold-project/foothold-lab/blob/main/sim/eval/command_response_metrics.py" target="_blank" rel="noopener">정지 판정 코드</a>.</p>
 <p>비교한 두 모델은 정지 학습·회전 명령·다방향 틈 노출 등 여러 설정이 달라 개별 변경 하나의 효과를 귀속하지 않는다. <a href="https://github.com/foothold-project/foothold-lab/blob/main/docs/research/20260928-v2-mvp-report.md" target="_blank" rel="noopener">팀 보고서 6·9·13절</a>.</p>
 <h3>별도 험지 집계와 선택 영상</h3>
@@ -1160,5 +1161,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-08 22:16</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-08 23:39</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
