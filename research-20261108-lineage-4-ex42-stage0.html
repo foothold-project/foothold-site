@@ -803,7 +803,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=74669926').then(function(r){
+    fetch('/assets/search-index.json?v=b9e95341').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -899,7 +899,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>[계보 4] EX-42 0 단계 · 복원 지도 1,000 회</h1>
   <p class="lede">정본 m12000 에서 복원 지도로 1,000 회를 더 배워 m13000 이 됐다. 어려운 지형 오차는 대체로 조금 줄었고 지도 끔 · 복원 쪽만 뚜렷이 준 것은 빠른 전진 1.0 하나다. 쉬운 지형 옆걸음 추종은 몇 cm/s 나빠졌으며, 생존은 같았다. 지형 레벨은 다시 시작했고 측정</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v1.1</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-11-08 22:50</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / 20261108-lineage-4-ex42-stage0.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 8</span></div></div>
+  <div class="meta"><div><span class="k">판</span><span class="v">v1.2</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-11-08 22:50</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / 20261108-lineage-4-ex42-stage0.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 8</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -909,7 +909,7 @@ document.addEventListener('DOMContentLoaded',function(){
 근거: 실측 (0 단계 학습 기록 1,000 줄 · 쉬운 지형 map64 6 판 · 어려운 지형 L3~L5 9 판 · analyst N21 판독 3e3312f7) · 코드 (ex42-prep.yaml 17bf4d2e · ex41-fixed5000.yaml)
 요지: 정본 m12000 에서 복원 지도로 1,000 회를 더 배워 m13000 이 됐다. 어려운 지형 오차는 대체로 조금 줄었고 지도 끔 · 복원 쪽만 뚜렷이 준 것은 빠른 전진 1.0 하나다. 쉬운 지형 옆걸음 추종은 몇 cm/s 나빠졌으며, 생존은 같았다. 지형 레벨은 다시 시작했고 측정 GPU 가 섞였으며 시드 하나다
 상태: 확정
-판: v1.1
+판: v1.2
 입구: result
 연재: m13000
 연재 제목: EX-42 0 단계
@@ -921,7 +921,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p>이전: [계보 3] <a href="research-20261107-ex41-canon-m12000.html">정본 m12000 · EX-41 이 끝난 자리와 EX-42 로 넘기는 것</a></p>
 </section>
 <section id="s2"><h2>한눈에</h2>
-<div class="tw"><table><thead><tr><th>무엇</th><th>값</th></tr></thead><tbody><tr><td>출발</td><td>정본 m12000 (EX-41 <code>model_6000.pt</code> · sha <code>1c6af631…</code>)</td></tr><tr><td>끝</td><td>m13000 (EX-42 0 단계 <code>model_1000.pt</code> · sha <code>20365a2c…</code>)</td></tr><tr><td>실행</td><td>11/08 12:39:16 시작 · <code>model_1000.pt</code> 저장 20:09 · 1,000/1,000 회 · 환경 step 73,728,000</td></tr><tr><td>복원 지도로 배운 양</td><td>EX-41 6,000 회 전체 2,234 만 step → 0 단계 1,000 회에서 4,984 만 step 더함. 누적 약 3.2 배</td></tr><tr><td>쉬운 지형 (L0~2)</td><td>생존 2,491 → 2,492 (/2,496) · 옆걸음 추종 오차 세 지도 모두 커짐</td></tr><tr><td>어려운 지형 (L3~5)</td><td>L5 빠른 전진 오차 복원 0.132 → 0.116 · 끔 0.145 → 0.110 · 전진 0.5 · 회전 +1.2 는 정답 지도까지 지도 셋 모두 조금 줄음 · 생존 비슷 · 부모 GPU0 · m13000 GPU1</td></tr><tr><td>판단</td><td>계획대로 E1 로 간다. 지형 상한 L5 → L9 를 한 단계씩</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>무엇</th><th>값</th></tr></thead><tbody><tr><td>출발</td><td>정본 m12000 (EX-41 <code>model_6000.pt</code> · sha <code>1c6af631…</code>)</td></tr><tr><td>끝</td><td>m13000 (EX-42 0 단계 <code>model_1000.pt</code> · sha <code>20365a2c…</code>)</td></tr><tr><td>실행</td><td>11/08 12:39:16 시작 · <code>model_1000.pt</code> 저장 20:09 · 1,000/1,000 회 · 환경 step 73,728,000</td></tr><tr><td>복원 지도로 배운 양</td><td>EX-41 6,000 회 전체 2,234 만 step → 0 단계 1,000 회에서 4,984 만 step 더함. 누적 약 3.2 배</td></tr><tr><td>쉬운 지형 (L0~2)</td><td>생존 2,491 → 2,492 (/2,496) · 옆걸음 추종 오차 세 지도 모두 커짐</td></tr><tr><td>어려운 지형 (L3~5)</td><td>L5 빠른 전진 오차 복원 0.132 → 0.116 · 끔 0.145 → 0.110 · 전진 0.5 · 회전 +1.2 는 정답 지도까지 지도 셋 모두 조금 줄음 · 생존 비슷 · 부모 GPU0 · m13000 GPU1</td></tr><tr><td>판단</td><td>계획대로 다음 단계로 간다. E0 (부모 · 지형 확인 250 회) 뒤 E1 에서 지형 상한 L5 → L9 를 한 단계씩</td></tr></tbody></table></div>
 <p>낱말 풀이.</p>
 <ul><li><b>회 (update)</b>: 로봇 3,072 마리가 함께 조금 걸어 보고, 그 경험으로 신경망을 한 번 고치는 단위다. 누적 회차 m12000 은 처음부터 12,000 번 고쳤다는 뜻이다.</li><li><b>정답 지도 · 복원 지도 · 지도 끔</b>: 로봇 발밑 높이 지도를 어떻게 주는가다. 정답 지도는 시뮬레이터가 아는 참값, 복원 지도는 깊이 카메라 영상으로 추정한 값, 지도 끔은 지도 없이 몸 감각만 쓰는 것이다. 실제 로봇에는 정답 지도가 없다.</li><li><b>추종 오차</b>: 명령한 속도와 실제 속도의 차이(m/s)다. 작을수록 말을 잘 듣는다.</li><li><b>DR (domain randomization)</b>: 무게 · 마찰 · 모터 세기 같은 물리값을 일부러 흔들어 학습시키는 것이다. DR 1.0 은 계획한 흔들기 폭을 다 쓴 상태다.</li></ul>
 <p>그래서 이 문서는 「실제 로봇처럼 추정한 지도로 1,000 회를 더 배우면 무엇이 달라지나」 에 답한다.</p>
@@ -969,8 +969,8 @@ document.addEventListener('DOMContentLoaded',function(){
 </section>
 <section id="s9"><span id="7"></span><h2>7. 판단과 다음</h2>
 <p>판단 (팀장 11/08 21:45 lead 창 직접 입력 「전진, 옆걸음, 크게 문제있는 상황인가? 즉 그냥 원래 우리 계획대로 진행해도 되지 않아?」 · lead 답 「계획대로 가도 된다」 · <code>decisions.tsv:372</code> 11/08 22:5x 줄. 원장 줄은 요약이고 인용 원문은 lead 창 입력을 lead 가 확인한 것).</p>
-<ul><li>어려운 지형 빠른 전진 1.0 에서 지도 끔 · 복원 지도 오차가 줄었다. 다른 명령은 정답 지도도 같이 줄었다(GPU 교란 아래 · 시드 하나).</li><li>쉬운 지형 옆걸음 추종은 몇 cm/s 나빠졌다.</li><li>생존은 그대로다.</li><li>시드 하나의 결과다.</li><li>계획대로 간다. <b>E1</b> 은 지형 상한을 L5 → L9 로 경계마다 한 단계씩 올린다(11/06 결정 · 11/08 19:0x 재확인, decisions 360 줄).</li><li>시드 반복 측정은 E1 을 막지 않고 Linux 에서 E1 과 나란히 돌리자는 것이 lead 권고다. 이 권고에 대한 팀장 답은 아직 없다.</li></ul>
-<p>그래서 0 단계는 「보완 목적은 이뤘고 대가는 작다」 로 닫고 E1 로 넘어간다.</p>
+<ul><li>어려운 지형 빠른 전진 1.0 에서 지도 끔 · 복원 지도 오차가 줄었다. 다른 명령은 정답 지도도 같이 줄었다(GPU 교란 아래 · 시드 하나).</li><li>쉬운 지형 옆걸음 추종은 몇 cm/s 나빠졌다.</li><li>생존은 그대로다.</li><li>시드 하나의 결과다.</li><li>계획대로 간다. 다음은 <b>E0</b> (부모 저장본 · 지형 메시 확인 250 회, ex42-prep.yaml 140 줄) 이고, 그 뒤 <b>E1</b> 은 지형 상한을 L5 → L9 로 경계마다 한 단계씩 올린다(11/06 결정 · 11/08 19:0x 재확인, decisions 360 줄).</li><li>시드 반복 측정은 E1 을 막지 않고 Linux 에서 E1 과 나란히 돌리자는 것이 lead 권고다. 이 권고에 대한 팀장 답은 아직 없다.</li></ul>
+<p>그래서 0 단계는 「보완 목적은 이뤘고 대가는 작다」 로 닫고 E0 를 거쳐 E1 로 넘어간다.</p>
 </section>
 <section id="s10"><span id="8"></span><h2>8. 더 볼 것 · 오른쪽 뒷다리 (RR)</h2>
 <p>RR 은 Go2 의 오른쪽 뒷발(<code>RR_foot</code>)이다. 새로 본 문제가 아니다. 10/30 D68 이 부모 S-B10 m1500 의 서 있기 RR 문제를 이미 짚었다(탐침 <code>s2_lab/rr_probe_20261030_lead01/data/rr_stance.json</code> · 부모 서 있기 RR 접지 비율 0.781 대 다른 발 0.967~0.987 · [계보 0] 6 절).</p>
@@ -995,7 +995,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <ul><li>0 단계 설정: <code>foothold_s2/curriculum/ex42-prep.yaml</code> 96~137 (17bf4d2e) · EX-41 계획 <code>ex41-fixed5000.yaml</code> 377~382</li><li>실행: <code>C:/Users/AI-WS01/s2_lab/ex42_main_20261108_123914/main/EX-42-B-stagezero_20261108_123914/</code> (manifest.json · map_stats.jsonl · map_switch.jsonl)</li><li>EX-41 비교: <code>C:/Users/AI-WS01/s2_lab/ex41_main_20261104_235522/main/EX-41-B-main_20261104_235522/</code> (map_stats.jsonl · map_switch.jsonl)</li><li>쉬운 지형: 부모 <code>ex41_main_20261104_235522/eval/score-watch/model_6000_1c6af6319c82/evaluation/map64/</code> · 0 단계 <code>D:/mai-tmp/lead/ex42_s0_map64/model_{100,250,500,750,1000}/map64/</code></li><li>어려운 지형: <code>D:/mai-tmp/lead/ex42_s0_map64/hard/</code> (m12000 · m12750) · <code>D:/mai-tmp/lead/ex42_s0_end/map64_L3~L5/</code> (m13000)</li><li>N21: analyst <code>_out/reports/REPORT-analyst-N21-s0end-1108.md</code> (fc3b90ce · 3e3312f7)</li><li>기록: <code>inbox/jay/20261104-ex41-restart/decisions.tsv</code> 321~374 줄 · <code>EX41R-INCIDENTS.md</code> I45~I52</li></ul>
 </section>
 <section id="s14"><h2>판 이력</h2>
-<ul><li>v1.0 (2026-11-08 22:57 첫 게시 d5e03a27): 처음 씀. 같은 판에서 23:06 3bf663df 가 8 절 RR 을 analyst 명령별 판독으로 다시 썼고, 23:17 dca1c073 가 그림과 9 절 틈 절을 더했다.</li><li>v1.1 (2026-11-09): 11/09 사실 감사 반영. 0 단계 지형 레벨이 0.99 에서 다시 시작한 것을 적고 「같은 조건」 을 바로잡음(그림 0 추가 · 3 절 교란으로 적음) · 「21~31 %」 의 틀린 원인 문장을 빼고 고친 숫자만 둠 · T0′ 진입 회차 5501 을 stage_log · ex41_application 으로 닫음 · 750 흐름 문장 · 어려운 지형 그림을 core 4 명령 전부로 다시 그리고 「끔 · 복원만 좋아짐」 을 빠른 전진 한정으로 · M91 조치를 미실행으로 · I51 원인 · 팀장 21:45 인용 근거를 decisions.tsv:372 로 · 22:3x 질문은 원장 요약으로 · RR 정의와 10/30 D68 연결 · RR 끌림 · 전진 뒤집힘을 analyst 보고에 맞춤 · 발별 힘 기록은 권고로 · 틈 지도 그림 추가와 정책 해석 완화 · 기록 범위 321~374.</li></ul>
+<ul><li>v1.0 (2026-11-08 22:57 첫 게시 d5e03a27): 처음 씀. 같은 판에서 23:06 3bf663df 가 8 절 RR 을 analyst 명령별 판독으로 다시 썼고, 23:17 dca1c073 가 그림과 9 절 틈 절을 더했다.</li><li>v1.1 (2026-11-09): 11/09 사실 감사 반영. 0 단계 지형 레벨이 0.99 에서 다시 시작한 것을 적고 「같은 조건」 을 바로잡음(그림 0 추가 · 3 절 교란으로 적음) · 「21~31 %」 의 틀린 원인 문장을 빼고 고친 숫자만 둠 · T0′ 진입 회차 5501 을 stage_log · ex41_application 으로 닫음 · 750 흐름 문장 · 어려운 지형 그림을 core 4 명령 전부로 다시 그리고 「끔 · 복원만 좋아짐」 을 빠른 전진 한정으로 · M91 조치를 미실행으로 · I51 원인 · 팀장 21:45 인용 근거를 decisions.tsv:372 로 · 22:3x 질문은 원장 요약으로 · RR 정의와 10/30 D68 연결 · RR 끌림 · 전진 뒤집힘을 analyst 보고에 맞춤 · 발별 힘 기록은 권고로 · 틈 지도 그림 추가와 정책 해석 완화 · 기록 범위 321~374.</li><li>v1.2 (2026-11-09 03:2x): 0 단계 다음을 「E1」 로만 적은 세 곳을 「E0 (250 회) 뒤 E1」 로 바로잡음 (ex42-prep.yaml stages 의 첫 단계는 E0 · 11/09 재귀 점검).</li></ul>
 </section>
 
 </div>
@@ -1105,5 +1105,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-09 01:41</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-09 03:19</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
