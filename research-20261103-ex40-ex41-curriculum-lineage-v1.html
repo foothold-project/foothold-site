@@ -803,7 +803,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=013cf82a').then(function(r){
+    fetch('/assets/search-index.json?v=74669926').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -899,24 +899,29 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>[계보 2] 첫 정본 계보 · EX-40 m0~m6000 에서 EX-41 로 넘길 때 (11/03 판)</h1>
   <p class="lede">EX-41 을 띄울 때 단계마다 무엇이 이어지고 무엇이 바뀌었는지, 왜 바꿨는지(m6000 의 무엇을 넘으려고)를 그림 다섯 장과 표로 모은 첫 판이다. EX-41 이 끝난 뒤의 판은 정본 m12000 문서다</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v1.1</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-11-03 21:15</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / 20261103-ex40-ex41-curriculum-lineage-v1.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 0</span></div></div>
+  <div class="meta"><div><span class="k">판</span><span class="v">v1.2</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-11-03 23:51</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / 20261103-ex40-ex41-curriculum-lineage-v1.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
 <!--H1:[계보 2] 첫 정본 계보 · EX-40 m0~m6000 에서 EX-41 로 넘길 때 (11/03 판)-->
 <blockquote><p>분류: 리서치
-작성: 오흥재 · 2026-11-03 21:15
+작성: 오흥재 · 2026-11-03 23:51
 근거: 코드 (ex40.yaml sha 66a519b2 · ex41-fixed5000.yaml sha 5f471936 · 두 실행의 env.yaml · agent.yaml) · 실측 (m6000 점수 · 밀기 사다리) · WORKLIST 결정 D57~D174
 요지: EX-41 을 띄울 때 단계마다 무엇이 이어지고 무엇이 바뀌었는지, 왜 바꿨는지(m6000 의 무엇을 넘으려고)를 그림 다섯 장과 표로 모은 첫 판이다. EX-41 이 끝난 뒤의 판은 정본 m12000 문서다
 상태: 보관 (11/03 EX-41 시작 때 판 그대로 · 이후 바뀐 것은 정본 m12000 문서)
-판: v1.1
-입구: result</p></blockquote>
+판: v1.2
+입구: result
+연재: 11/03 설계
+연재 제목: EX-41 을 띄울 때
+연재 설명: 단계표와 바꾼 이유</p></blockquote>
 </section>
 <section id="s1"><h2>연재 순서</h2>
-<ul><li>[계보 0] 왜 EX-40 으로 왔나 · <a href="research-20261108-lineage-0-why-ex40.html">문서</a></li><li>[계보 1] EX-40 · 처음부터 m6000 까지 · <a href="research-20261108-lineage-1-ex40.html">문서</a></li><li>[계보 2] 첫 정본 계보 · EX-41 을 띄울 때 (11/03 판) · <a href="research-20261103-ex40-ex41-curriculum-lineage-v1.html">문서</a></li><li>[계보 3] 정본 m12000 · EX-41 이 끝난 자리 · <a href="research-20261107-ex41-canon-m12000.html">문서</a></li><li>[계보 4] EX-42 0 단계 · 복원 지도 1,000 회 · <a href="research-20261108-lineage-4-ex42-stage0.html">문서</a></li></ul>
+<p>제목 앞 [계보 N] 순서로 읽는다. 새 편이 생기면 이 목록에 저절로 더해진다.</p>
+<ul><li>[계보 0] <a href="research-20261108-lineage-0-why-ex40.html">왜 EX-40 으로 왔나 · resume 에서 처음부터로, 이어 붙이기에서 한 판으로</a></li><li>[계보 1] <a href="research-20261108-lineage-1-ex40.html">EX-40 · 처음부터 m6000 까지</a></li><li><b>[계보 2] 첫 정본 계보 · EX-40 m0~m6000 에서 EX-41 로 넘길 때 (11/03 판) (이 문서)</b></li><li>[계보 3] <a href="research-20261107-ex41-canon-m12000.html">정본 m12000 · EX-41 이 끝난 자리와 EX-42 로 넘기는 것</a></li><li>[계보 4] <a href="research-20261108-lineage-4-ex42-stage0.html">EX-42 0 단계 · 복원 지도 1,000 회</a></li></ul>
+<p>이전: [계보 1] <a href="research-20261108-lineage-1-ex40.html">EX-40 · 처음부터 m6000 까지</a> · 다음: [계보 3] <a href="research-20261107-ex41-canon-m12000.html">정본 m12000 · EX-41 이 끝난 자리와 EX-42 로 넘기는 것</a></p>
 </section>
 <section id="s2"><h2>이 판의 자리</h2>
-<ul><li>이 문서는 <b>EX-41 을 시작할 때(11/03)</b> 쓴 첫 계보다. 6 절 「열린 것」 과 EX-41 단계 표는 그때의 설계와 예상이다.</li><li>EX-41 이 실제로 어떻게 끝났는지, 무엇이 설계와 달랐는지는 <a href="research-20261107-ex41-canon-m12000.html">정본 m12000 · EX-41 이 끝난 자리와 EX-42 로 넘기는 것</a> 에 있다. 그 문서의 그림은 이 판의 그림을 EX-41 실측으로 다시 그린 것이다.</li><li>9 월 말까지의 방향 전환은 <a href="research-20260928-rl-lineage.html">우리는 왜 여덟 번 방향을 틀었나</a> 에 있다.</li></ul>
+<ul><li>이 문서는 <b>EX-41 을 시작할 때(11/03)</b> 쓴 첫 계보다. 원본 머리의 상태는 「초안 v1」 이었다. 6 절 「열린 것」 과 EX-41 단계 표는 그때의 설계와 예상이다.</li><li>EX-41 이 실제로 어떻게 끝났는지, 무엇이 설계와 달랐는지는 <a href="research-20261107-ex41-canon-m12000.html">정본 m12000 · EX-41 이 끝난 자리와 EX-42 로 넘기는 것</a> 에 있다. 그 문서의 그림 1~5 는 이 판의 그림을 EX-41 실측으로 다시 그린 것이고(2 · 5 는 둘로 나눔), 그림 6(EX-42 계획)은 새로 더한 것이다.</li><li>9 월 말까지의 방향 전환은 <a href="research-20260928-rl-lineage.html">우리는 왜 여덟 번 방향을 틀었나</a> 에 있다.</li></ul>
 </section>
 <section id="s3"><h2>어떻게 읽나</h2>
 <ul><li>그림 1 은 흐름(언제 무엇이 오르고 바뀌나), 그림 2 는 단계 × 항목 전부, 그림 3 은 바꾼 이유, 그림 4 는 출발점 m6000 실측, 그림 5 는 단계 전환마다 「직전 과제 → 바꾼 설정 → 왜 푸나 → 결과 → 넘긴 과제」 흐름이다(EX-40 결과는 실측, EX-41 이후는 가정 설계의 예상, 보라 점선).</li><li>그림 2 색: 회색 = 앞 단계에서 이어짐 · 주황 = 이 단계에서 바뀜 · 파랑 = 이 단계에서 새로 생김 · 연한 주황 = 같은 규칙의 램프가 계속 오름(새 결정 아님).</li><li>회차는 두 가지로 적는다. 누적 회차 m(EX-40 m0 부터)과 EX-41 안의 로컬 회차 n(= 누적 − 6000).</li><li>숫자 등급: 표 안 설정값은 모두 「코드」(실행 설정 파일 · 코드 공식). m6000 숫자는 「실측」. 문턱값(61/64 · −3/64 · 0.8 · 90 %)과 스윙 −10 은 「가정」(결과 전에 정해 둔 값).</li></ul>
@@ -954,7 +959,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p>EX-40 yaml sha 가 실행 때와 다르면 멈춘다. 밀기 사다리 · m6000 점수 · EX-41 부모 sha 셋이 같은지도 확인한다.</p>
 </section>
 <section id="s11"><h2>판 이력</h2>
-<ul><li>v1.0 (2026-11-03 21:15 · 사이트 게시 2026-11-08): EX-41 시작 때 쓴 첫 계보. inbox/jay/20261103-curriculum-lineage 의 본문과 그림 다섯 장을 그대로 옮겼고, 머리와 「이 판의 자리」 절만 더했다. 내용 수정 없음.</li><li>v1.1 (2026-11-08): 제목 앞에 연재 번호 [계보 2] 를 달고 연재 순서 목록을 더함. 본문 그대로.</li></ul>
+<ul><li>v1.0 (첫 판 2026-11-03 21:15 · 옮긴 본문은 23:51 fc51abc1 판 · 사이트 게시 2026-11-08): EX-41 시작 때 쓴 첫 계보. inbox/jay/20261103-curriculum-lineage 의 23:51 판 본문과 그림 다섯 장을 그대로 옮겼고(21:15 첫 커밋 8dccdcd3 은 그림 넷, 그림 5 는 21:43 6ae9d804 에 더해짐), 머리와 「이 판의 자리」 절만 더했다. 내용 수정 없음.</li><li>v1.1 (2026-11-08): 제목 앞에 연재 번호 [계보 2] 를 닮. 이때 손으로 더한 연재 순서 목록은 f4c2b190(11/09)에서 지웠고, 지금은 사이트 빌드가 [계보 N] 제목에서 만든다. 본문 그대로.</li><li>v1.2 (2026-11-09): 11/09 사실 감사 반영(머리 · 이 판의 자리 · 판 이력만, 본문 그대로). 작성 시각을 옮긴 본문의 23:51(fc51abc1)로 고치고 첫 판 21:15 는 판 이력에 둠 · 원본 상태 「초안 v1」 을 적음 · 정본 m12000 그림이 「1~5 다시 그림 + 6 새로」 임을 적음 · v1.1 의 연재 순서 목록 줄을 지금 방식(빌드가 제목에서 생성)으로 바로잡음.</li></ul>
 </section>
 
 </div>
@@ -1064,5 +1069,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-08 23:39</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-09 01:41</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>

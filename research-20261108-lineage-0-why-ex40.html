@@ -803,7 +803,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=013cf82a').then(function(r){
+    fetch('/assets/search-index.json?v=74669926').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -899,7 +899,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="eyebrow">Research · 근거 기록</div>
   <h1>[계보 0] 왜 EX-40 으로 왔나 · resume 에서 처음부터로, 이어 붙이기에서 한 판으로</h1>
   <p class="lede">9 월에 「NVIDIA 에서 resume」 를 버리고 처음부터 학습으로 돌아섰고, 10 월에는 처음부터 1501 회 판 위에 부모 저장본을 이어 붙이며 명령을 늘렸다. EX-40 은 그 이어 붙이기를 m0 부터 한 프로세스 · 한 설정으로 다시 쌓고, 서 있기와 DR 을 처음부터 넣으려</p>
-  <div class="meta"><div><span class="k">판</span><span class="v">v1.0</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-11-08 22:50</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / 20261108-lineage-0-why-ex40.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 0</span></div></div>
+  <div class="meta"><div><span class="k">판</span><span class="v">v1.1</span></div><div><span class="k">작성</span><span class="v">오흥재 · 2026-11-08 22:50</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs / research / 20261108-lineage-0-why-ex40.md</span></div><div><span class="k">증거</span><span class="v">확인 0 · 추측 0 · 미측정 0</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
@@ -909,14 +909,18 @@ document.addEventListener('DOMContentLoaded',function(){
 근거: 9 월 문서 셋(<code>20260928-rl-lineage.md</code> · <code>20260928-scratch-vs-resume.md</code> · <code>20260929-locomotion-direction.md</code>) · 10 월 결과(<code>RESULT-EX32</code> · <code>EX34</code> · <code>EX35</code> · <code>EX36A-EX38</code>) · 실행 카드 <code>CARD-EX36-1029.md</code> · <code>WORKLIST.md</code> D40 · D54~D74 · W52 · W55 · W69 · <code>CURRICULUM-GATES.md</code> · <code>foothold_s2/curriculum/ex40.yaml</code> (커밋 2df419b0 · sha256 66a519b2)
 요지: 9 월에 「NVIDIA 에서 resume」 를 버리고 처음부터 학습으로 돌아섰고, 10 월에는 처음부터 1501 회 판 위에 부모 저장본을 이어 붙이며 명령을 늘렸다. EX-40 은 그 이어 붙이기를 m0 부터 한 프로세스 · 한 설정으로 다시 쌓고, 서 있기와 DR 을 처음부터 넣으려고 만든 판이다.
 상태: 확정
-판: v1.0
-입구: result</p></blockquote>
+판: v1.1
+입구: result
+연재: 9~10월
+연재 제목: 왜 EX-40 으로 왔나
+연재 설명: resume 에서 처음부터 학습으로</p></blockquote>
 <blockquote><p><b>이 페이지에서 가린 것</b>: 계약·대여 <b>금액 1곳</b>. 팀 내부에서는 저장소의
 원본(<code>foothold-lab / docs/research/20261108-lineage-0-why-ex40.md</code>)에 그대로 남아 있습니다. 금액은 상대가 있는 정보라 공개하지 않습니다.</p></blockquote>
 </section>
 <section id="s1"><h2>연재 순서</h2>
-<ul><li><b>[계보 0] 왜 EX-40 으로 왔나</b> (이 글)</li><li>[[계보 1] EX-40 · 처음부터 m6000 까지](research-20261108-lineage-1-ex40.html)</li><li>[[계보 2] 첫 정본 계보 · EX-41 을 띄울 때](research-20261103-ex40-ex41-curriculum-lineage-v1.html)</li><li>[[계보 3] 정본 m12000 · EX-41 이 끝난 자리](research-20261107-ex41-canon-m12000.html)</li><li>[[계보 4] EX-42 0 단계](research-20261108-lineage-4-ex42-stage0.html)</li></ul>
-<p>이 글은 EX-40 의 결과를 다루지 않는다. 결과는 [계보 1] 부터다.</p>
+<p>제목 앞 [계보 N] 순서로 읽는다. 새 편이 생기면 이 목록에 저절로 더해진다.</p>
+<ul><li><b>[계보 0] 왜 EX-40 으로 왔나 · resume 에서 처음부터로, 이어 붙이기에서 한 판으로 (이 문서)</b></li><li>[계보 1] <a href="research-20261108-lineage-1-ex40.html">EX-40 · 처음부터 m6000 까지</a></li><li>[계보 2] <a href="research-20261103-ex40-ex41-curriculum-lineage-v1.html">첫 정본 계보 · EX-40 m0~m6000 에서 EX-41 로 넘길 때 (11/03 판)</a></li><li>[계보 3] <a href="research-20261107-ex41-canon-m12000.html">정본 m12000 · EX-41 이 끝난 자리와 EX-42 로 넘기는 것</a></li><li>[계보 4] <a href="research-20261108-lineage-4-ex42-stage0.html">EX-42 0 단계 · 복원 지도 1,000 회</a></li></ul>
+<p>다음: [계보 1] <a href="research-20261108-lineage-1-ex40.html">EX-40 · 처음부터 m6000 까지</a></p>
 </section>
 <section id="s2"><span id="1"></span><h2>1. 먼저 낱말 다섯</h2>
 <div class="tw"><table><thead><tr><th>낱말</th><th>뜻</th></tr></thead><tbody><tr><td>PPO</td><td>우리가 쓰는 강화학습 방법. 로봇이 해 보고, 점수(reward)를 보고, 신경망을 조금씩 고친다</td></tr><tr><td>갱신 · m 번호</td><td>신경망을 한 번 고치는 것이 갱신 1 회다. 「m1500」 은 1500 회 고친 뒤 저장한 파일(저장본)이다</td></tr><tr><td>resume (이어 학습)</td><td>남이 이미 학습한 저장본을 불러와 그 위에서 계속 학습하는 것</td></tr><tr><td>처음부터 (scratch)</td><td>무작위 신경망 m0 에서 시작하는 것</td></tr><tr><td>DR</td><td>domain randomization. 무게 · 마찰 · 모터 세기 같은 물리 값을 판마다 조금씩 흔들어, 실제 로봇과 시뮬이 달라도 버티게 하는 것</td></tr></tbody></table></div>
@@ -932,14 +936,14 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>RuntimeError: normal expects all elements of std &gt;= 0.0</pre></div>
 <p>실패 로그 9 건 · 서로 다른 실행 이름 8 개다 (<code>20260928-rl-lineage.md</code> 10 절). 처음에는 「표준편차 매개화 탓」 이라고 보고 <code>log</code> 로 바꿨지만 그것도 터졌다 (같은 문서 11-1 절). 그리고 <code>rsl_rl</code> 의 actor/critic 코드에는 std 를 가두거나 NaN 을 검사하는 줄이 하나도 없었다 (같은 문서 11-2 절).</p>
 <h3>2-3. 팀장이 잡은 것</h3>
-<p>폭주한 판을 모두 펴 보니 <b>모든 판에 똑같이 있던 것</b> 이 resume 이었다. 팀장의 물음은 이랬다 (<code>20260928-rl-lineage.md:326-327</code>).</p>
+<p>폭주한 판을 모두 펴 보니 <b>모든 판에 똑같이 있던 것</b> 이 resume 이었다. 팀장의 물음은 이랬다 (<code>20260928-rl-lineage.md:327-328</code>).</p>
 <blockquote><p>resume 한다는 것은 그대로 학습 설정을 이어서 하는 것이 의미가 있는 것이지 않나? 즉, 우리도 처음부터 시작했어야 하지 않았을까?</p></blockquote>
 <p>다시 열어 보니 우리 설정 둘이 「fine-tuning 이라서」 정해진 값이었다. <code>learning_rate</code> 1.0e-4 (NVIDIA 는 1.0e-3) 와 초기 지형 난이도 상한 2 (NVIDIA 학습 클래스는 5) 다. <b>처음부터 학습하면 그 둘이 근거를 잃는다</b> (같은 문서 12 절). resume 하면 관측 폭 235 도 바꾸기 어렵다. 235 = 몸통 · 명령 · 관절 · 행동 48 + 높이 지도 187 이다.</p>
 <blockquote><p>비교 기준 (NVIDIA 를 같은 평가판에 올리는 것) 과 출발점 (우리 학습이 어디서 시작하나) 은 다른 것이다. 9 월 28 일 문서가 이 둘을 섞어 썼다고 스스로 적었다.</p></blockquote>
 <h3>2-4. 처음부터 두 판 (fs1 · fs2)</h3>
 <div class="tw"><table><thead><tr><th></th><th>v2g2-feetair01</th><th>fs1-scratch-f001</th><th>fs2-scratch-f01</th></tr></thead><tbody><tr><td>출발</td><td>NVIDIA 에서 resume</td><td>처음부터</td><td>처음부터</td></tr><tr><td><code>learning_rate</code></td><td>1.0e-4</td><td>1.0e-3</td><td>1.0e-3</td></tr><tr><td>돌린 회수</td><td>3001</td><td>4501</td><td>4501</td></tr><tr><td>std 폭주</td><td>없음</td><td>없음</td><td>없음</td></tr></tbody></table></div>
 <p>출처: <code>20260928-scratch-vs-resume.md:21-29</code>. 처음부터 두 판은 관문 없이 완주했다. 그러나 같은 문서는 두 가지를 못 박았다. 첫째, 완주는 좋은 성적이 아니다. <code>fs2</code> 는 4500 에서 회전 명령 때 64/64 가 넘어진다 (18 행). 둘째, 시드 하나 · 환경 하나라 「처음부터는 안 터진다」 고 일반화할 수 없고, resume 이 폭주의 원인이라는 근거도 없다 (31-32 행).</p>
-<p>그래서 9 월의 결론은 「처음부터가 더 낫다」 가 아니다. 「resume 이 물려준 값(낮은 학습률 · 고정 관측 폭)을 버리고, 출발점을 우리가 정한다」 였다.</p>
+<p>그래서 9 월의 결론은 「처음부터가 더 낫다」 가 아니다. resume 때문에 정해졌던 값을 우리 근거로 다시 정하고 출발점을 우리가 고른다는 쪽이었다. 그 가운데 fs1 · fs2 가 실제로 되돌린 것은 학습률(1.0e-4 → 1.0e-3) 하나다. 초기 지형 상한 2 는 「v2b 그대로」 두었고, 관측 폭 235 를 바꾼 기록은 없다 (<code>20260928-rl-lineage.md</code> 13 절 403-423 행. 12 절 367-375 행은 관측 폭을 「resume 이 물린 값」 으로 적었을 뿐이다).</p>
 </section>
 <section id="s4"><span id="3"></span><h2>3. 9 월 29 일 · 험지만이 아니라 기본 명령을 같이</h2>
 <p><code>20260929-locomotion-direction.md</code> 는 계획 문서다 (실행 결과가 아니다). 결론은 75 행 한 줄이다. <b>험지 통과와 기본 명령 수행을 함께 목표로 삼아야 한다.</b></p>
@@ -949,7 +953,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <p>그래서 10 월의 숙제가 정해졌다. 처음부터 출발해서, 서 있기 · 회전 · 후진 · 옆 · 저속을 <b>학습 분포 안에</b> 넣는 것.</p>
 </section>
 <section id="s5"><span id="4"></span><h2>4. 10 월 하순 · 처음부터 1501 회 판들 (EX-32 · 33 · 34)</h2>
-<p>10 월 하순의 판들은 새 코드(<code>foothold_s2</code>)와 높이 지도 입력 위에서 돌았다. 9 월 말에서 이 코드로 넘어온 과정은 이 글에서 열지 않았다 (미확인 · 다른 문서 몫).</p>
+<p>10 월 하순의 판들은 새 코드(<code>foothold_s2</code>) 위에서 돌았다. EX-33 · 34 는 높이 지도 입력을 썼고, EX-32 G0-B 는 지도 없이 배운 기준선이다 (<code>RESULT-EX32-G0B-1026.md:4</code>). 9 월 말에서 이 코드로 넘어온 과정은 이 글에서 열지 않았다 (미확인 · 다른 문서 몫).</p>
 <div class="tw"><table><thead><tr><th>판</th><th>무엇</th><th>출처</th></tr></thead><tbody><tr><td>EX-32 G0-B</td><td>지도 없이 처음부터 1501 회. m1500 에서 전진 0.5 명령 6 초 2.89 m · 64/64 생존. 회전은 약함 (좌 추종 0.41 · 우 0.30)</td><td><code>RESULT-EX32-G0B-1026.md:4</code></td></tr><tr><td>EX-33 S-B50</td><td>처음부터 1501 갱신. 지도를 reset 때 확률 0.5 로 끔</td><td><code>RESULT-EX33-SB50-1026.md:35</code> · <code>RESULT-EX34-SB10-1026.md:36</code></td></tr><tr><td>EX-34 S-B10</td><td>처음부터 · 시드 42 · 3072 환경 · 1501 갱신. 지도 끔 확률 0.1 (실제 평균 0.0988)</td><td><code>RESULT-EX34-SB10-1026.md:35-37</code></td></tr></tbody></table></div>
 <p>여기서 <b>출발선이 S-B10 m1500</b> 으로 정해졌다 (팀장 10/26 승인 · <code>RESULT-EX34-SB10-1026.md:159</code>). 같은 절은 「회전 학습은 다음 설계의 둘째 단계다」 · 「한 판에 한 축만 바꾼다」 고 적었다.</p>
 <p>그래서 10 월 하순은 처음부터 짧게 (1501 회) 걷기를 배운 저장본 하나를 고르고, 그 위에 무언가를 얹는 방식으로 시작했다.</p>
@@ -960,18 +964,18 @@ document.addEventListener('DOMContentLoaded',function(){
 <p>출처: <code>CARD-EX36-1029.md</code> 1 절 · <code>WORKLIST.md</code> D40 · D54 · D55 · D69.</p>
 <p>EX-36A 대 EX-38 한 표에서 부모 m1500 의 약점이 잘 보인다 (<code>RESULT-EX36A-EX38-1029.md</code>, 정답 지도 · 64 판 중 생존 수).</p>
 <div class="tw"><table><thead><tr><th>명령</th><th>부모 S-B10 m1500</th><th>EX-38 마지막 500 회 평균</th></tr></thead><tbody><tr><td>후진 0.5</td><td>40.0</td><td>64.0</td></tr><tr><td>후진 1.0</td><td>6.0</td><td>59.0</td></tr><tr><td>대각 뒤 · 옆+</td><td>41.0</td><td>47.0</td></tr><tr><td>정지</td><td>64.0</td><td>64.0</td></tr></tbody></table></div>
-<p><b>heading</b> 은 「몸 방향을 정해진 쪽으로 유지하도록 회전 명령을 자동으로 만드는 장치」 다. <b>W15</b> 는 평지에서 13 가지 명령을 64 판씩 주고 생존과 추종 오차를 재는 우리 평가 묶음이다.</p>
+<p><b>heading</b> 은 「몸 방향을 정해진 쪽으로 유지하도록 회전 명령을 자동으로 만드는 장치」 다. <b>W15</b> 는 13 가지 명령을 64 판씩 주고 생존과 추종 오차를 재는 우리 평가 묶음이다 (지형 종류별 64 env 기록 · <code>WORKLIST.md</code> W15). 어느 지형에서 쟀는지는 W15 결과 기록에 적혀 있지 않다 (미확인. 같은 64 env 크기의 map64 를 [계보 3] · [계보 4] 는 연속 지형 L0~2 로 적었다).</p>
 <p><figure class="mdimg"><a class="mdzoom" href="assets/visual/ex41-lineage/s0-1-ex38-survival.png?v=e528b889" target="_blank" rel="noopener" title="누르면 원본 크기로 열립니다"><img src="assets/visual/ex41-lineage/s0-1-ex38-survival.png?v=e528b889" alt="그림 1 · 부모 m1500 과 EX-38 의 명령별 생존 (64 판 중 · 정답 지도). 후진 1.0 은 6 → 59, 후진 0.5 는 40 → 64 로 올랐다. 원자료 inbox/jay/20261029-experiments/RESULT-EX36A-EX38-1029.md 표 · 그림 make_lineage_series.py" loading="lazy"></a><figcaption>그림 1 · 부모 m1500 과 EX-38 의 명령별 생존 (64 판 중 · 정답 지도). 후진 1.0 은 6 → 59, 후진 0.5 는 40 → 64 로 올랐다. 원자료 inbox/jay/20261029-experiments/RESULT-EX36A-EX38-1029.md 표 · 그림 make_lineage_series.py</figcaption></figure></p>
 <p>그래서 10 월 30 일에는 계보가 「S-B10 (m0~1500) → EX-38 (m1501~3000) → EX-39B (m3001~4500)」 세 프로세스를 이어 붙인 모양이 되었다.</p>
 </section>
 <section id="s7"><span id="6"></span><h2>6. 이어 붙이기에서 걸린 것 넷</h2>
-<div class="tw"><table><thead><tr><th>걸린 것</th><th>기록</th><th>EX-40 의 답</th></tr></thead><tbody><tr><td>① 판마다 인자 · 부모가 따로라 한 판으로 재현이 안 된다</td><td>W55 「지금은 판마다 인자 · 부모로 이어 붙임」</td><td>단계 전체를 설정 한 장(<code>ex40.yaml</code>)에 두고 한 코드가 단계를 넘긴다 (W55 · D68)</td></tr><tr><td>② 서 있기를 늦게 배운다</td><td>D68 「부모 S-B10 m1500 도 서 있기 RR 0.63」 (RR 정의는 이 글에서 열지 않음 · 미확인)</td><td>서 있기 명령을 m0 부터 넣는다 (D68)</td></tr><tr><td>③ DR 이 꺼진 채 이어졌다</td><td>W52 · 지연 · 이득 · 모터 세기 · 무게중심이 EX-23 계열에서 꺼진 채 기본 보행 계보로 이어짐</td><td>DR 을 m0 부터 등록하고 0 에서 천천히 넓힌다 (D73)</td></tr><tr><td>④ 「DR 은 맨 뒤」 계획</td><td>D73 이 D19 · D23 을 바꿈. 근거: 실기 Go2 EDU · 뒤에서 DR 을 켜면 무너질 위험</td><td>B1 부터 DR 램프 (D74)</td></tr></tbody></table></div>
-<p>①이 가장 크다. 이 글 2 절에서 「resume 이 물린 값」 을 버렸는데, 10 월에는 우리 자신의 부모를 resume 하고 있었다. 설정은 우리가 정한 것이라 9 월과 같은 문제는 아니다. 그러나 「m4500 이 무엇을 배웠나」 를 말하려면 세 판의 설정을 따로 열어야 했다.</p>
+<div class="tw"><table><thead><tr><th>걸린 것</th><th>기록</th><th>EX-40 의 답</th></tr></thead><tbody><tr><td>① 판마다 인자 · 부모가 따로라 한 판으로 재현이 안 된다</td><td>W55 「지금은 판마다 인자 · 부모로 이어 붙임」</td><td>단계 전체를 설정 한 장(<code>ex40.yaml</code>)에 두고 한 코드가 단계를 넘긴다 (W55 · D68)</td></tr><tr><td>② 서 있기를 늦게 배운다</td><td>D68 「부모 S-B10 m1500 도 서 있기 RR 0.63」. RR 은 오른쪽 뒷발이다 (탐침 <code>s2_lab/rr_probe_20261030_lead01/data/rr_stance.json</code> 의 <code>mapping.feet</code> 의 <code>RR_foot</code>). 다만 0.63 이라는 값은 이 탐침 파일의 부모 칸에서 찾지 못했다 (부모 RR 접지 비율 0.781 · 거울 입력 0.606 · 0.630 은 EX-38 거울 입력의 FR). 0.63 의 출처는 미확인</td><td>서 있기 명령을 m0 부터 넣는다 (D68)</td></tr><tr><td>③ DR 이 꺼진 채 이어졌다</td><td>W52 · 지연 · 이득 · 모터 세기 · 무게중심이 EX-23 계열에서 꺼진 채 기본 보행 계보로 이어짐</td><td>DR 을 m0 부터 등록하고 0 에서 천천히 넓힌다 (D73)</td></tr><tr><td>④ 「DR 은 맨 뒤」 계획</td><td>D73 이 D19 · D23 을 바꿈. 근거: 실기 Go2 EDU · 뒤에서 DR 을 켜면 무너질 위험</td><td>B1 부터 DR 램프 (D74)</td></tr></tbody></table></div>
+<p>①이 가장 크다. 이 글 2 절에서 「resume 이 물린 값」 을 우리 근거로 다시 정하자고 했는데, 10 월에는 우리 자신의 부모를 resume 하고 있었다. 설정은 우리가 정한 것이라 9 월과 같은 문제는 아니다. 그러나 「m4500 이 무엇을 배웠나」 를 말하려면 세 판의 설정을 따로 열어야 했다.</p>
 <p>그래서 EX-40 은 「새 기술을 더하는 판」 이 아니라 「이미 확인한 것들을 m0 부터 한 줄로 다시 쌓는 판」 이다.</p>
 </section>
 <section id="s8"><span id="7"></span><h2>7. EX-40 이 정한 것 한 장</h2>
 <p>모든 숫자는 <code>foothold_s2/curriculum/ex40.yaml</code> (커밋 2df419b0) 에서 읽었다. 2 행이 <code>start: scratch</code> 다.</p>
-<div class="tw"><table><thead><tr><th>단계</th><th>시작 회차</th><th>새로 여는 명령 · 바뀌는 범위</th><th>yaml 행</th></tr></thead><tbody><tr><td>B0</td><td>0</td><td>전진 72 % · 제자리 회전 9+9 % · 서 있기 10 %. 전진 0.3~1.5 · 회전 0.5~1.2</td><td>34-50</td></tr><tr><td>B1</td><td>1501</td><td>+ 걸으며 돌기 5+5 · 후진 10 · 옆 5+5 %. 전진은 40 % 로</td><td>51-64</td></tr><tr><td>B2</td><td>3001</td><td>+ 대각 넷 1.5 % 씩. 회전 상한 1.5 · 후진 −1.0 · 옆 0.6</td><td>65-80</td></tr><tr><td>B3a</td><td>4501</td><td>걸으며 돌기 7.5+7.5 %, 그 회전 폭 상한 1.0</td><td>81-95</td></tr><tr><td>B3b</td><td>5001</td><td>제자리 회전 하한 0.5 → 0.3</td><td>96-110</td></tr><tr><td>B3c</td><td>5501</td><td>전진 하한 0.3 → 0.1 · 저속 전진 몫 0.20</td><td>111-126</td></tr><tr><td>D</td><td>6001</td><td>명령 그대로, DR 전체 범위</td><td>127-142</td></tr><tr><td>T0</td><td>7501</td><td>높이 지도를 정답 대신 복원 지도로 (<code>force_gt: false</code>)</td><td>143-159</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>단계</th><th>시작 회차</th><th>새로 여는 명령 · 바뀌는 범위</th><th>yaml 행</th></tr></thead><tbody><tr><td>B0</td><td>0</td><td>전진 72 % · 제자리 회전 9+9 % · 서 있기 10 %. 전진 0.3~1.5 · 회전 0.5~1.2</td><td>34-50</td></tr><tr><td>B1</td><td>1501</td><td>+ 걸으며 돌기 5+5 · 후진 10 · 옆 5+5 %. 전진은 40 % 로</td><td>51-64</td></tr><tr><td>B2</td><td>3001</td><td>+ 대각 넷 1.5 % 씩. 회전 상한 1.5 · 후진 −1.0 · 옆 0.6</td><td>65-80</td></tr><tr><td>B3a</td><td>4501</td><td>걸으며 돌기 7.5+7.5 %, 그 회전 폭 상한 1.0</td><td>81-95</td></tr><tr><td>B3b</td><td>5001</td><td>제자리 회전 하한 0.5 → 0.3</td><td>96-110</td></tr><tr><td>B3c</td><td>5501</td><td>전진 하한 0.3 → 0.1 · 저속 전진 몫 0.20</td><td>111-126</td></tr><tr><td>D</td><td>6001</td><td>명령 그대로, DR 전체 범위</td><td>127-142</td></tr><tr><td>T0</td><td>7501</td><td>높이 지도를 정답 대신 복원 지도로 (<code>force_gt: false</code>)</td><td>143-158</td></tr></tbody></table></div>
 <p><b>커리큘럼</b> 은 쉬운 과제부터 순서대로 여는 학습 일정이다. EX-40 은 단계를 <b>회차로</b> 넘긴다 (<code>promotion: fixed</code>, 5 행). 성과 판정은 기록만 하고 승급에 쓰지 않는다 (<code>shadow_gate: true</code>, 6 행 · D72).</p>
 <p>B0 의 reward 는 8 항이다 (38 행). 추종 2.0 (평면 속도) · 1.0 (회전), 관절 가속 −1e−7, hip −0.05, thigh · calf −0.01, 정지 때 네 발 접촉 0.1, 정지 간격 −0.2, 정지 하중 −0.1.</p>
 <p>DR 은 두 갈래다 (11-32 행 · <code>CURRICULUM-GATES.md</code> 일정 표).</p>
@@ -981,11 +985,11 @@ document.addEventListener('DOMContentLoaded',function(){
 <p>그래서 EX-40 이 고치려 한 것을 한 줄로 쓰면 이렇다. 10 월에 세 판으로 흩어 배운 기본 명령을, 서 있기와 DR 을 앞에 두고, m0 부터 한 프로세스로 다시 배운다.</p>
 </section>
 <section id="s9"><span id="8"></span><h2>8. 이 글이 확인하지 않은 것</h2>
-<div class="tw"><table><thead><tr><th>항목</th><th>상태</th></tr></thead><tbody><tr><td>resume 이 9 월 폭주의 원인이었나</td><td>미확인. 9 월 문서도 근거 없음이라 적었다</td></tr><tr><td>9 월 말 v2 계열에서 10 월 <code>foothold_s2</code> 로 넘어온 과정</td><td>이 글에서 열지 않음 · 미확인</td></tr><tr><td>서 있기 「RR 0.63」 의 정의</td><td>미확인</td></tr><tr><td>처음부터 한 판(EX-40)이 이어 붙인 계보(EX-39B m4501)보다 나은가</td><td>이 글의 범위 밖. [계보 1] 에서 다룬다</td></tr><tr><td>EX-40 이 m8000 까지 간 뒤 무엇을 부모로 넘겼나</td><td>[계보 2] 가 m6000 이라 적었다. 이 글에서 다시 재지 않음</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>항목</th><th>상태</th></tr></thead><tbody><tr><td>resume 이 9 월 폭주의 원인이었나</td><td>미확인. 9 월 문서도 근거 없음이라 적었다</td></tr><tr><td>9 월 말 v2 계열에서 10 월 <code>foothold_s2</code> 로 넘어온 과정</td><td>이 글에서 열지 않음 · 미확인</td></tr><tr><td>서 있기 「RR 0.63」 의 수치 출처</td><td>미확인. RR 이 오른쪽 뒷발이라는 정의는 탐침 <code>rr_stance.json</code> 으로 확인했다. 같은 RR 문제는 [계보 4] 8 절에서 다시 나온다</td></tr><tr><td>처음부터 한 판(EX-40)이 이어 붙인 계보(EX-39B m4501)보다 나은가</td><td>이 글의 범위 밖. [계보 1] 에서 다룬다</td></tr><tr><td>EX-40 이 m8000 까지 간 뒤 무엇을 부모로 넘겼나</td><td>[계보 2] 가 m6000 이라 적었다. 이 글에서 다시 재지 않음</td></tr></tbody></table></div>
 <p>그래서 이 글은 「왜 그렇게 설계했나」 까지만 말한다. 「설계가 맞았나」 는 [계보 1] 부터의 실측이 답한다.</p>
 </section>
 <section id="s10"><h2>판 이력</h2>
-<ul><li>v1.0 (2026-11-08): 처음 씀.</li></ul>
+<ul><li>v1.0 (2026-11-08): 처음 씀.</li><li>v1.1 (2026-11-09): 11/09 사실 감사 반영. 팀장 물음 인용 행 327-328 로 · 9 월 결론 문장을 인용이 아닌 요약으로 바꾸고 fs1 · fs2 가 실제로 되돌린 값(학습률 하나)만 적음 · 「높이 지도 입력 위에서」 를 EX-33 · 34 로 좁힘 · W15 「평지」 를 지형 미확인으로 · RR 을 오른쪽 뒷발로 정의(0.63 출처는 미확인 유지) · T0 yaml 행 143-158.</li></ul>
 </section>
 
 </div>
@@ -1095,5 +1099,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-08 23:39</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-09 01:41</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
