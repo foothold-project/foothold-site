@@ -802,7 +802,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=8ccd64e3').then(function(r){
+    fetch('/assets/search-index.json?v=2df4feb0').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -908,14 +908,15 @@ document.addEventListener('DOMContentLoaded',function(){
 근거: 실측 (EX-41 경계 기록 26 줄 · 250 경계 점수 24 개 · 단계 끝 밀기 판정 6 번 · 학습 중 밀기 측정) · 코드 (실제 기동판 ex41-fixed5000.yaml 2b01df9a)
 요지: EX-41 마지막 저장본 m12000 을 정본으로 채택한다. 기본 명령 보행은 DR 1.0 · 지형 L5 · 복원 지도에서 유지 판정을 통과했고, 1.5 m/s 밀기는 다섯 단계 연속 통과했다. 후진 1.0 과 좌우 대칭은 EX-42 로 넘긴다
 상태: 확정 (정본 채택 팀장 2026-11-07 08:5x)
-판: v1.3</p></blockquote>
+판: v1.3
+입구: result</p></blockquote>
 </section>
 <section id="s1"><h2>한눈에</h2>
 <div class="tw"><table><thead><tr><th>무엇</th><th>값</th></tr></thead><tbody><tr><td>정본</td><td>EX-41 <code>model_6000.pt</code> · 누적 회차 <b>m12000</b> · sha256 <code>1c6af6319c823c718af4965064f1c312b0d25177f5223a49c323aab3b6f1e613</code></td></tr><tr><td>부모</td><td>EX-40 m6000 (DR 0.5 마지막 저장본 · sha <code>d5e9ec40…</code>)</td></tr><tr><td>다음</td><td>EX-42 의 부모. 0 단계 T0′ 보완 1,000 회 뒤 지형 40,000 회</td></tr><tr><td>유지 판정</td><td><span class="ev ev-ok">확인됨</span> 통과 · 생존 최저 63/64 · 서기 64/64 (지도 정답 · 복원 · 끔 모두)</td></tr><tr><td>0.15 넘은 칸</td><td><span class="ev ev-ok">확인됨</span> 정답 0 · 복원 0 · 끔 1 (후진 1.0, 0.155)</td></tr><tr><td>밀기 1.5 m/s</td><td><span class="ev ev-ok">확인됨</span> 9 칸 모두 통과 · 가장 약한 칸 계단 · 복원 0.938 (64 판 중 60)</td></tr><tr><td>지도 셋</td><td><span class="ev ev-ok">확인됨</span> 복원 - 정답 평균 오차 차 -0.001 · 끔 - 정답 -0.002 (map64 명령 시험 · 연속 지형 L0~2 · 선속도와 회전을 섞은 평균). 오차 차는 작지만 걷는 모양이 같은지는 <span class="ev ev-todo">미확인</span></td></tr><tr><td>계단에서 지도</td><td><span class="ev ev-ok">확인됨</span> 계단 종류에 따라 반대. 역형 계단(L2 · L5)은 정답 · 복원 지도를 켠 쪽이 이동 비 +0.09 ~ +0.13 (네 방향 모두), 정방향 계단은 지도를 끈 쪽이 +0.12 ~ +0.15 (네 방향 모두). 복원과 정답 차는 최대 0.032. 지도로 단차를 미리 읽는지는 <span class="ev ev-todo">미확인</span> (<a href="https://github.com/foothold-project/foothold-lab/blob/359615b1/inbox/jay/20261106-ex41-stage-reports/W18-W10-FINAL-NOTE.md" target="_blank" rel="noopener">analyst 대조</a> 359615b1)</td></tr><tr><td>넘기는 과제</td><td>후진 1.0 이 0.15 언저리를 오르내림 · 좌우 대칭 S 가 끝에서 낮아짐(0.8 미만 4 칸) · 계단 밀기 여유 · 정방향 계단에서 지도가 손해 · 마지막 구간에 계단 왼쪽 옆걸음 12/12 칸 감소</td></tr></tbody></table></div>
 <p>읽는 법. <b>0.15</b> 는 명령을 얼마나 정확히 따르는지 재는 경계 보고의 기록선이다(오차 m/s 또는 rad/s). 생존 판정과 다르다. <b>밀기 1.5 m/s</b> 는 걷는 중인 로봇을 8 방향으로 밀어 가장 나쁜 방향의 생존 비율을 본다. 지도 셋 가운데 가장 낮은 값이 0.9 이상이면 통과다(D179). <b>지도 셋</b> 은 정답 지도(eval_gt) · 깊이 영상으로 복원한 지도(eval_pred) · 지도 끔(probe_prop_only) 이다.</p>
 </section>
 <section id="s2"><span id="1"></span><h2>1. 계보 · 어디서 와서 어디로 가나</h2>
-<ul><li>9 월 말까지의 방향 전환과 처음부터 학습으로 간 까닭은 <a href="research-20260928-rl-lineage.html">우리는 왜 여덟 번 방향을 틀었나</a> 에 있다.</li><li>EX-40 은 처음부터(m0) 기본 명령 보행을 쌓아 m6000(DR 0.5)까지 왔다. EX-41 은 그 m6000 을 부모로 받아 DR 을 1.0 까지 올리고, 밀기 · 후진 · 끌림을 고치고, 지형 레벨을 성과로 올린 뒤, 마지막에 복원 지도로 바꿨다.</li><li>이 문서의 정본 m12000 이 EX-42(지형 적응과 미션) 의 출발점이다.</li></ul>
+<ul><li>9 월 말까지의 방향 전환과 처음부터 학습으로 간 까닭은 <a href="research-20260928-rl-lineage.html">우리는 왜 여덟 번 방향을 틀었나</a> 에 있다.</li><li>EX-41 을 시작할 때(11/03) 쓴 첫 계보는 <a href="research-20261103-ex40-ex41-curriculum-lineage-v1.html">첫 정본 계보 · EX-40 m0~m6000 에서 EX-41 로 넘길 때</a> 에 그대로 남겨 두었다. 이 문서의 그림은 그 판을 EX-41 실측으로 다시 그린 것이다.</li><li>EX-40 은 처음부터(m0) 기본 명령 보행을 쌓아 m6000(DR 0.5)까지 왔다. EX-41 은 그 m6000 을 부모로 받아 DR 을 1.0 까지 올리고, 밀기 · 후진 · 끌림을 고치고, 지형 레벨을 성과로 올린 뒤, 마지막에 복원 지도로 바꿨다.</li><li>이 문서의 정본 m12000 이 EX-42(지형 적응과 미션) 의 출발점이다.</li></ul>
 <p><figure class="mdimg"><img src="assets/visual/ex41-lineage/01-timeline-v3.webp?v=42922836" alt="그림 1 · EX-40 m0 부터 EX-41 m12000 까지 실제로 무엇이 언제 바뀌었나. 노란 띠는 DR 이 증거 누락으로 멈춘 1,000 회, 맨 아래 줄은 단계 끝 밀기 판정과 0.15 넘은 칸 수" loading="lazy"><figcaption>그림 1 · EX-40 m0 부터 EX-41 m12000 까지 실제로 무엇이 언제 바뀌었나. 노란 띠는 DR 이 증거 누락으로 멈춘 1,000 회, 맨 아래 줄은 단계 끝 밀기 판정과 0.15 넘은 칸 수</figcaption></figure></p>
 </section>
 <section id="s3"><span id="2"></span><h2>2. 계획과 다르게 간 것</h2>
@@ -1062,5 +1063,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-08 20:17</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-08 22:16</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
