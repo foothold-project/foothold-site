@@ -1148,7 +1148,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=e521276a').then(function(r){
+    fetch('/assets/search-index.json?v=c69f2623').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -1239,7 +1239,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="/gallery/">갤러리</a><a class="on" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){};if(window.fhFigs)window.fhFigs(t)" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 <main class="fh-doc">
-<p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 1단계) · 이식 2026-11-19 20:05 · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
+<p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 1단계) · 이식 2026-11-19 20:54 · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
 
 <!-- nav:crumb -->
 <nav class="crumb" aria-label="현재 위치"><ol><li>처음</li><li>기술 문서</li><li>센서·자율주행</li><li><span aria-current="page">SLAM · Nav2</span></li></ol></nav>
@@ -1411,7 +1411,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <ul>
 <li><strong>go2_ros2_sdk</strong> (비공식) · Wi-Fi(WebRTC)·이더넷(CycloneDDS), IMU·L1 포인트클라우드(~7Hz)·카메라·LaserScan 변환·텔레옵에 slam_toolbox + Nav2 통합. <a href="https://github.com/abizovnuralem/go2_ros2_sdk">GitHub</a></li>
 <li><strong>unitree_ros2</strong> (공식) · SDK2의 DDS 토픽을 ROS 2에서 직접 구독/발행. EDU 전제. <a href="https://github.com/unitreerobotics/unitree_ros2">GitHub</a></li>
-<li>배포판 Ubuntu 24.04 + Jazzy. 이더넷 직결 시 <code>192.168.123.x</code>, <code>RMW_IMPLEMENTATION=rmw_cyclonedds_cpp</code>. 커뮤니티 자료는 Humble 기준이 많아 Jazzy 빌드 검증 필요. 펌웨어 버전에 따라 WebRTC 연결이 깨지는 이슈.</li>
+<li>배포판 Ubuntu 24.04 + Jazzy. 커뮤니티 자료는 Humble 기준이 많아 Jazzy 빌드 검증 필요. 펌웨어 버전에 따라 WebRTC 연결이 깨지는 이슈.</li>
 </ul>
 <h3>SLAM · 2D 메인, 3D 확장</h3>
 <ul>
@@ -1441,5 +1441,5 @@ document.addEventListener('DOMContentLoaded',function(){
 </section><!-- links:end -->
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-19 20:05</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-19 20:54</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
