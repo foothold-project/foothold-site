@@ -803,7 +803,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=c69f2623').then(function(r){
+    fetch('/assets/search-index.json?v=adb83d70').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -917,8 +917,8 @@ document.addEventListener('DOMContentLoaded',function(){
 </section>
 <section id="s1"><h2>연재 순서</h2>
 <p>제목 앞 [계보 N] 순서로 읽는다. 새 편이 생기면 이 목록에 저절로 더해진다.</p>
-<ul><li>[계보 0] <a href="research-20261108-lineage-0-why-ex40.html">왜 EX-40 으로 왔나 · resume 에서 처음부터로, 이어 붙이기에서 한 판으로</a></li><li>[계보 1] <a href="research-20261108-lineage-1-ex40.html">EX-40 · 처음부터 m6000 까지</a></li><li>[계보 2] <a href="research-20261103-ex40-ex41-curriculum-lineage-v1.html">첫 정본 계보 · EX-40 m0~m6000 에서 EX-41 로 넘길 때 (11/03 판)</a></li><li>[계보 3] <a href="research-20261107-ex41-canon-m12000.html">정본 m12000 · EX-41 이 끝난 자리와 EX-42 로 넘기는 것</a></li><li><b>[계보 4] EX-42 0 단계 · 복원 지도 1,000 회 (이 문서)</b></li></ul>
-<p>이전: [계보 3] <a href="research-20261107-ex41-canon-m12000.html">정본 m12000 · EX-41 이 끝난 자리와 EX-42 로 넘기는 것</a></p>
+<ul><li>[계보 0] <a href="research-20261108-lineage-0-why-ex40.html">왜 EX-40 으로 왔나 · resume 에서 처음부터로, 이어 붙이기에서 한 판으로</a></li><li>[계보 1] <a href="research-20261108-lineage-1-ex40.html">EX-40 · 처음부터 m6000 까지</a></li><li>[계보 2] <a href="research-20261103-ex40-ex41-curriculum-lineage-v1.html">첫 정본 계보 · EX-40 m0~m6000 에서 EX-41 로 넘길 때 (11/03 판)</a></li><li>[계보 3] <a href="research-20261107-ex41-canon-m12000.html">정본 m12000 · EX-41 이 끝난 자리와 EX-42 로 넘기는 것</a></li><li><b>[계보 4] EX-42 0 단계 · 복원 지도 1,000 회 (이 문서)</b></li><li>[계보 5] <a href="research-20261119-lineage-5-ex42-m12000-to-m15500.html">정본 m12000 에서 m15500 까지 · EX-42 기본 보행 구간 (E0 · E1 · E1F)</a></li><li>[계보 6] <a href="research-20261119-lineage-6-canon3-m15500.html">정본 3 · m15500 · 지형을 배우기 직전의 기본 보행</a></li><li>[계보 7] <a href="research-20261119-lineage-7-ex42-terrain-1119.html">EX-42 지형 학습 · 정본 3 뒤부터 11/19 새 설계까지</a></li></ul>
+<p>이전: [계보 3] <a href="research-20261107-ex41-canon-m12000.html">정본 m12000 · EX-41 이 끝난 자리와 EX-42 로 넘기는 것</a> · 다음: [계보 5] <a href="research-20261119-lineage-5-ex42-m12000-to-m15500.html">정본 m12000 에서 m15500 까지 · EX-42 기본 보행 구간 (E0 · E1 · E1F)</a></p>
 </section>
 <section id="s2"><h2>한눈에</h2>
 <div class="tw"><table><thead><tr><th>무엇</th><th>값</th></tr></thead><tbody><tr><td>출발</td><td>정본 m12000 (EX-41 <code>model_6000.pt</code> · sha <code>1c6af631…</code>)</td></tr><tr><td>끝</td><td>m13000 (EX-42 0 단계 <code>model_1000.pt</code> · sha <code>20365a2c…</code>)</td></tr><tr><td>실행</td><td>11/08 12:39:16 시작 · <code>model_1000.pt</code> 저장 20:09 · 1,000/1,000 회 · 환경 step 73,728,000</td></tr><tr><td>복원 지도로 배운 양</td><td>EX-41 6,000 회 전체 2,234 만 step → 0 단계 1,000 회에서 4,984 만 step 더함. 누적 약 3.2 배</td></tr><tr><td>쉬운 지형 (L0~2)</td><td>생존 2,491 → 2,492 (/2,496) · 옆걸음 추종 오차 세 지도 모두 커짐</td></tr><tr><td>어려운 지형 (L3~5)</td><td>L5 빠른 전진 오차 복원 0.132 → 0.116 · 끔 0.145 → 0.110 · 전진 0.5 · 회전 +1.2 는 정답 지도까지 지도 셋 모두 조금 줄음 · 생존 비슷 · 부모 GPU0 · m13000 GPU1</td></tr><tr><td>판단</td><td>계획대로 다음 단계로 간다. E0 (부모 · 지형 확인 250 회) 뒤 E1 에서 지형 상한 L5 → L9 를 한 단계씩</td></tr></tbody></table></div>
@@ -1105,5 +1105,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-19 20:54</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-20 00:33</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
