@@ -1148,7 +1148,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=b9e95341').then(function(r){
+    fetch('/assets/search-index.json?v=e521276a').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -1239,10 +1239,10 @@ document.addEventListener('DOMContentLoaded',function(){
 <body>
 <!--gnav:v1--><div class="gnav"><div class="in"><a class="home" href="index.html"><img class="lgi" src="assets/brand/foothold-wordmark-ink.svg?v=2f73499c" alt="FOOTHOLD" height="15"><img class="lgr" src="assets/brand/foothold-wordmark-reverse.svg?v=4113d295" alt="" height="15"></a><a class="" href="hub-proposal.html">기획</a><a class="" href="hub-schedule.html">일정</a><a class="" href="hub-meeting.html">회의</a><a class="" href="hub-research.html">연구</a><a class="" href="/gallery/">갤러리</a><a class="on" href="hub-tech.html">기술</a><a class="" href="hub-pipeline.html">파이프라인</a><span class="sp"></span><a class="q" href="chosun-materials.html">팀 자료실</a><a class="q" href="encyclopedia.html">도메인 백과</a><a class="q" href="curriculum.html">학습 커리큘럼</a><a class="q" href="budget.html">예산안</a><span class="navctl"><button id="themeBtn" type="button" aria-label="테마 전환" onclick="var h=document.documentElement,t=h.dataset.theme==='dark'?'light':'dark';h.dataset.theme=t;try{localStorage.setItem('foothold-theme',t)}catch(e){};if(window.fhFigs)window.fhFigs(t)" style="cursor:pointer;background:var(--card);color:var(--ink-3);border:1px solid var(--rule);border-radius:99px">테마</button></span></div></div><!--/gnav:v1-->
 <main class="fh-doc">
-<p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 1단계) · 이식 2026-11-09 03:19 · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
+<p style="font-size:.74rem;color:var(--ink-3,#8b949e);border:1px dashed var(--rule,#30363d);border-radius:7px;padding:.55rem .9rem">작성 오현민 · foothold-wiki 에서 이식 (<a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/72">#72</a> 1단계) · 이식 2026-11-19 20:05 · 고칠 것이 있으면 이슈로. md 정본화(2단계)가 남아 있다</p>
 
 <!-- nav:crumb -->
-<nav class="crumb" aria-label="현재 위치"><ol><li><a href="tech-rl.html">기술 문서</a></li><li>센서·자율주행</li><li aria-current="page">SLAM · Nav2</li></ol></nav>
+<nav class="crumb" aria-label="현재 위치"><ol><li>처음</li><li>기술 문서</li><li>센서·자율주행</li><li><span aria-current="page">SLAM · Nav2</span></li></ol></nav>
 <!-- /nav:crumb -->
 
 <div class="hero">
@@ -1434,8 +1434,12 @@ document.addEventListener('DOMContentLoaded',function(){
 </div></details>
 
 <!-- nav:pagerow -->
-<!-- /nav:pagerow -->
+<!-- links:start --><section id="links" class="links" aria-labelledby="links-h">
+<div class="sec-h"><h2 id="links-h">연결된 쪽</h2><p>본문 링크에서 자동으로 모읍니다</p></div>
+<h3 class="links__h">이 쪽을 가리키는 쪽 <span class="num">12</span></h3><ul class="back"><li>SLAM과 Nav2<p>자율주행 학습 로드맵, <mark>기술 문서: SLAM과 Nav2</mark></p></li><li>이전 홈 · 계획<p>… 48 + height_scan 187 만 받는다. 두 흐름은 속도 명령 한 자리에서만 만난다 · 그림과 요구사항은 <mark>14 <abbr>SLAM</abbr> · Nav2</mark>. 실기 배포(내장 보행 vs 자체 정책)는 별도 갈래이며 확정되지 않았다.</p></li><li><abbr>SLAM</abbr> · Nav2 교재<p>… 손에 안 붙었으면 04 <abbr>ROS</abbr> 2 의 L1~L3 를 먼저 편다. <abbr>SLAM</abbr>·Nav2 를 왜 쓰는지의 배경과 5단계 구상은<mark>기술 문서 · <abbr>SLAM</abbr> · Nav2</mark>, 센서 자체는 C0 센서 원리. 이 페이지는 «어떻게 하나» 만 다룬다. 배지 뜻: 확인 공식 문서·패키지 색인으로 2026-09-17 확인 · 미실행 코드를 …</p></li><li>Ch00 최종 목표·구조·Phase<p>… 의존성 A/B/C 표(이 표가 Ch16 체크리스트의 원형이다) · exp-corridornav «Nav2 가 아니다» · <mark>nav.html 5 단계 두 정보 흐름</mark>.</p></li><li>Ch13 Elevation Map<p>기존 위키 재사용: Ch03 /points · Ch05 odom · Ch07 RViz 설정 · <mark>nav.html 두 정보 흐름</mark>.</p></li><li>Go2 자율주행 학습 로드맵<p><mark><abbr>SLAM</abbr>·Nav2 설계 문서</mark>의 제안 구조는 현재 코드를 이해한 뒤 “교체할 목표 구조”로 읽는다.</p></li><li><a href="tech-cv.html">컴퓨터 비전</a><p>… → 탐지 → <abbr>ROS</abbr> 2 → 기하 → 좌표)이고, 시뮬 Go2 코드 전문은 28 Go2 CV·LiDAR 시리즈, 전체 구조는 <mark>14 <abbr>SLAM</abbr> · Nav2</mark> 에 있다.</p></li><li><a href="tech-ros2-ref.html"><abbr>ROS</abbr> 2 레퍼런스</a><p>… Go2 의 카메라·LiDAR 를 내보내는 브릿지(28 Go2 CV·LiDAR)나 실기용 go2_ros2_sdk(채택 미확정, <mark>14 §7</mark>)도 결국 &quot;Go2의 센서를 <abbr>ROS</abbr> 2 메시지로 바꿔 내보내는 노드 묶음&quot;이고, Nav2도 &quot;경로를 계산해 속도 명령 메시지를 내보내는 노드 묶음&quot;이다. 이 …</p></li><li>학습 커리큘럼<p>RL 은 팀원에게 인계. 센서 · CV · <abbr>ROS</abbr> 2 (교재 28 시리즈, 구조 <mark>14</mark>)</p></li><li>좁은 통로 목적지 우회<p>후속: <mark>Nav2 연결</mark> 때 이 planner 자리에 Nav2 costmap/controller 를 넣는다</p></li><li>빈 ㄱ자 센서 Nav 1.0<p>후속: <mark>Nav2 연결</mark></p></li><li>링크 모음<p>(2026-08 조사 · 실기 보행 경로는 미확정, <mark>14 §7</mark>) go2_ros2_sdk: github.com/abizovnuralem/go2_ros2_sdk · unitree_ros2: …</p></li></ul>
+<h3 class="links__h">이 쪽에서 나가는 링크 <span class="num">13</span></h3><ul class="outs"><li><span class="outs__k">문서</span><ul><li><abbr>SLAM</abbr> · Nav2 교재</li><li>Ch00 최종 목표·구조·Phase</li><li>Ch03 Isaac Sim ↔ <abbr>ROS</abbr> 2</li><li>Ch13 Elevation Map</li><li>Ch14 height_scan proxy</li><li>Ch15 소거 실험 A/B/C/D</li><li>C3 3D 관측 비교</li><li>강화학습 대시보드</li><li><a href="tech-cv.html">컴퓨터 비전</a></li><li>Ch04 <abbr>TF2</abbr> 트리</li><li>평가 실행</li><li>시리즈 소개</li><li>C0 센서 원리와 선정</li></ul></li></ul>
+</section><!-- links:end -->
 
 </main>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-09 03:19</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-19 20:05</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
