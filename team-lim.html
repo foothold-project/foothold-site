@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>임석헌 · FOOTHOLD</title>
-<meta name="description" content="모델 학습·데이터 구축 · 파인튜닝 R&amp;D">
+<meta name="description" content="AME-2 사족보행 이식 · 험지 정책 학습">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -803,7 +803,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=adb83d70').then(function(r){
+    fetch('/assets/search-index.json?v=7b3653ba').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -898,8 +898,8 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="hero">
   <div class="eyebrow">Team · 팀원 소개</div>
   <h1>임석헌</h1>
-  <p class="lede">모델 학습·데이터 구축 · 파인튜닝 R&amp;D</p>
-  <div class="meta"><div><span class="k">역할</span><span class="v">Policy</span></div><div><span class="k">팀</span><span class="v">FOOTHOLD</span></div></div>
+  <p class="lede">AME-2 사족보행 이식 · 험지 정책 학습</p>
+  <div class="meta"><div><span class="k">역할</span><span class="v">Robot Learning Engineer</span></div><div><span class="k">팀</span><span class="v">FOOTHOLD</span></div></div>
 </div>
 
 <section id="s1"><h2>맡은 것</h2>
@@ -1030,5 +1030,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
 </style>
 
 <!--/dark:v1-->
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-20 00:33</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-20 17:48</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
