@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>브랜드 자산 안내: 앱 · 대시보드를 만들 때 쓰는 공식 로고 · 색 · 글꼴 · FOOTHOLD</title>
-<meta name="description" content="브랜드 저장소를 10/12 상태로 갱신했다. app · dashboard · 발표 자료를 만들 때 로고 · 3도 기울기 · 글꼴 · 색을 새로 고르지 말고 이 저장소에서 가져다 쓴다.">
+<title>[Go2 X 실기] runner.env 갈아 끼우기 · 리모컨 조작 정본 · Jetson 저수준 제어 · FOOTHOLD</title>
+<meta name="description" content="Jetson runner.env 갈아 끼우기 · 리모컨 조작 정본 · 오늘 바뀐 것 · 저수준 실행 지도 · 실기 기록 창고 · Jetson 공유 사항">
 <style>
 :root{
   --paper:#f6f5f1;--paper-2:#eeece6;--card:#fff;
@@ -667,7 +667,7 @@ body>*{flex-shrink:0}
    좀은 화면에서는 width 를 다시 auto 로 돌려 마진이 폭을 «빼가게» 한다. */
 @media (max-width:640px){.bstamp{width:auto;margin:28px 14px 18px}}
 </style>
-<!--search:v8--><style>
+<style>a.ilink{color:var(--dim);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--dim) 35%,transparent);font-variant-numeric:tabular-nums;white-space:nowrap}a.ilink:hover{border-bottom-color:var(--dim)}</style><!--search:v8--><style>
 @media (max-width:640px){
   .top .row{flex-wrap:nowrap}
   .top .row .doc{flex:0 1 auto;min-width:0;overflow:hidden;
@@ -828,7 +828,7 @@ document.addEventListener('DOMContentLoaded',function(){
      상대경로면 team-meang/assets/... 를 찾아 항상 실패한다. */
   var IDXERR=null;
   function load(cb){if(IDX)return cb();
-    fetch('/assets/search-index.json?v=a23676d0').then(function(r){
+    fetch('/assets/search-index.json?v=ba4f4e79').then(function(r){
         if(!r.ok)throw new Error('HTTP '+r.status);
         return r.json();})
       .then(function(j){
@@ -922,25 +922,41 @@ document.addEventListener('DOMContentLoaded',function(){
 
 <div class="hero">
   <div class="eyebrow">Notice · 팀 공지</div>
-  <h1>브랜드 자산 안내: 앱 · 대시보드를 만들 때 쓰는 공식 로고 · 색 · 글꼴</h1>
-  <p class="lede">브랜드 저장소를 10/12 상태로 갱신했다. app · dashboard · 발표 자료를 만들 때 로고 · 3도 기울기 · 글꼴 · 색을 새로 고르지 말고 이 저장소에서 가져다 쓴다.</p>
-  <div class="meta"><div><span class="k">작성</span><span class="v">오흥재 · 2026-10-12 21:00</span></div><div><span class="k">상태</span><span class="v">확정</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/notices/2026-10-12.md</span></div></div>
+  <h1>[Go2 X 실기] runner.env 갈아 끼우기 · 리모컨 조작 정본 · Jetson 저수준 제어</h1>
+  <p class="lede">Jetson runner.env 갈아 끼우기 · 리모컨 조작 정본 · 오늘 바뀐 것 · 저수준 실행 지도 · 실기 기록 창고 · Jetson 공유 사항</p>
+  <div class="meta"><div><span class="k">작성</span><span class="v">Claude 세션 (오흥재 지시, lead-lx) · 2026-11-25 12:30</span></div><div><span class="k">상태</span><span class="v">확정 (팀장 11/25 12:22 지시)</span></div><div><span class="k">원본</span><span class="v">foothold-lab / docs/notices/2026-11-25.md</span></div></div>
   <div class="evlegend"><span><span class="ev ev-ok">확인됨</span> 직접 확인·실측</span><span><span class="ev ev-guess">추측</span> 근거는 있으나 미검증</span><span><span class="ev ev-todo">미측정</span> 아직 하지 않음</span></div>
 </div>
 
-<blockquote><p>분류: 운영
-작성: 오흥재 · 2026-10-12 21:00
-근거: foothold-brand main (f8ea3c38) · tokens/foothold.tokens.json · BRAND_BIBLE.md · assets/logo/v1 · assets/ASSET_INDEX.md
-요지: 브랜드 저장소를 10/12 상태로 갱신했다. app · dashboard · 발표 자료를 만들 때 로고 · 3도 기울기 · 글꼴 · 색을 새로 고르지 말고 이 저장소에서 가져다 쓴다.
-상태: 확정</p></blockquote>
-<p>📢 <b>브랜드 자산 안내: app · dashboard 만들 때 이것을 쓰세요</b></p>
-<p>FOOTHOLD 브랜드 저장소를 10/12 상태로 갱신했습니다. 앞으로 app · dashboard · 발표 자료 · 포스터를 만들 때는 로고, 색, 글꼴을 따로 고르지 말고 여기 정해 둔 것을 그대로 가져다 쓰면 됩니다. 그래야 어느 화면을 열어도 같은 FOOTHOLD 로 보입니다.</p>
-<p><b>정해 둔 것</b></p>
-<ul><li><b>로고</b>: 심볼 + FOOTHOLD 글자(워드마크) SVG. 가로형 · 축약형 · 정사각형(세로로 쌓은 것)이 있고, 각각 밝은 바탕용 · 어두운 바탕용이 있습니다. 폴더 <code>assets/logo/v1/</code></li><li><b>기울기</b>: 워드마크 글자는 앞쪽으로 3도 기울어져 있습니다. SVG 에 이미 들어 있으니 글꼴로 다시 쳐서 만들거나 따로 기울이지 마세요.</li><li><b>글꼴</b>: 화면 글자는 Pretendard. 없으면 맑은 고딕 · Segoe UI 순서로 씁니다.</li><li><b>색</b></li><ul><li>브랜드 청록 <code>#0E7A6E</code>: 로고 · 강조 · 「확인됨 · 채택」 표시</li><li>바탕 종이색 <code>#F6F5F1</code> · 글자 먹색 <code>#161C26</code></li><li>호박색 <code>#A86A08</code>: 주의 · 아직 확인 안 됨</li><li>빨강 <code>#A3342A</code>: 실패 · 금지</li></ul><li><b>바로 쓰는 CSS</b>: <code>tokens/foothold.tokens.css</code> 를 불러오면 <code>var(--brand)</code> · <code>var(--paper)</code> · <code>var(--ink)</code> 처럼 바로 쓸 수 있습니다. 다크 모드 색도 같이 들어 있습니다.</li></ul>
-<p><b>쓸 때 지킬 것</b></p>
-<ul><li>로고는 손대지 않습니다. 그라데이션 · 그림자 · 테두리 · 회전 · 가로세로 비율 바꾸기 모두 하지 않습니다. 기본은 청록이고, 어두운 바탕에서만 흰색(종이색)을 씁니다.</li><li>부제는 「Terrain-Adaptive Locomotion Policy」 입니다. 옛 PNG 에 있던 「AI-Powered Safe Navigation &amp; Physical AI Platform」 은 쓰지 않습니다.</li><li><code>assets/exports/v1</code> 과 <code>drafts</code> 폴더는 옛 시안입니다. 매체별 완성본은 <code>assets/osmu/v1.2</code> (아래 ZIP) 을 씁니다.</li><li>팀 밖에 공개하는 결과물에 로고 · 이름을 쓸 때는 저장소의 <code>TRADEMARKS.md</code> 를 먼저 봐 주세요.</li></ul>
-<p><b>링크</b></p>
-<ul><li>브랜드 저장소: https://github.com/foothold-project/foothold-brand</li><li>자산 목록 · 내려받기 안내: https://github.com/foothold-project/foothold-brand/blob/main/assets/ASSET_INDEX.md</li><li>로고 SVG 폴더: https://github.com/foothold-project/foothold-brand/tree/main/assets/logo/v1</li><li>색 · 글꼴 CSS: https://github.com/foothold-project/foothold-brand/blob/main/tokens/foothold.tokens.css</li><li>매체별 완성본 묶음 (웹 · GitHub · 발표 · 포스터 · 소셜 · 스티커): https://github.com/foothold-project/foothold-brand/raw/main/assets/FOOTHOLD_OSMU_V1_2.zip</li><li>한눈에 보기 (Figma Master Board): https://www.figma.com/design/m5qkVCvqPW76J7pnY3vFEP?node-id=16-70</li><ul><li>열리지 않으면 팀장에게 보기 권한을 요청해 주세요.</li></ul></ul><style>.nl{margin:2.6rem 0 0;border-top:1px solid var(--rule);padding-top:1.1rem}.nl>h2{font-size:1rem;font-weight:800;margin:0 0 .7rem}.nl-row{display:flex;gap:.9rem;align-items:baseline;padding:.5rem 0;border-bottom:1px solid var(--rule);text-decoration:none;color:inherit}.nl-row b{font-size:.78rem;font-weight:700;min-width:6.2rem;font-variant-numeric:tabular-nums}.nl-row span{font-size:.74rem;color:var(--ink-3);flex:1}.nl-row i{font-style:normal;font-size:.6rem;font-weight:800;letter-spacing:.1em;color:var(--dim)}a.nl-row:hover b{color:var(--dim)}</style><div class="nl"><h2>지난 공지 18개</h2><div class="nl-row nl-cur"><b>2026-10-12</b><span>브랜드 저장소를 10/12 상태로 갱신했다. app · dashboard · 발표 자료를 만들 때 로고 · 3도 기울기 · 글</span><i>지금 보는 공지</i></div><a class="nl-row" href="notice-20261007.html"><b>2026-10-07</b><span>팀원 진행 상황 보고 요청 공지 원고. 양식과 올릴 곳, 마감을 알린다.</span></a><a class="nl-row" href="notice-20260929.html"><b>2026-09-29</b><span>foothold-v2 를 정본으로 냅니다. 어느 판도 학습에 안 쓴 여덟 지형에서 기준선 43.88 % 가 88.46 % 가 </span></a><a class="nl-row" href="notice-20260912.html"><b>2026-09-12</b><span>foothold-v1 을 배포하고, 보고서 1차 · 갤러리 144컷 · 평가 정본을 한 벌로 냅니다</span></a><a class="nl-row" href="notice-20260902.html"><b>2026-09-02</b><span>프로젝트 웹이 v2.0.0 으로 다시 만들어졌다. 무엇이 어떻게 바뀌었나.</span></a><a class="nl-row" href="notice-20260827.html"><b>2026-08-27</b><span>8/26~27 에 바뀐 작업 방식 전부. 팀에 보내는 공지.</span></a><a class="nl-row" href="notice-20260826.html"><b>2026-08-26</b><span>팀 공통 규율 · AI 로 작업할 때 반드시 지킬 것</span></a><a class="nl-row" href="notice-20260825.html"><b>2026-08-25</b><span>📢 자동화 지도 · 프로젝트 웹에 올렸습니다 (2026-08-25)</span></a><a class="nl-row" href="notice-20260824.html"><b>2026-08-24</b><span>📢 자기소개, 각자 원하는 방식으로 (오늘 오후 3시 박철제 멘토님 미팅 전)</span></a><a class="nl-row" href="notice-20260823.html"><b>2026-08-23</b><span>📢 조선대 3주차 자료 «ROS2 Python 프로그래밍» 자료실 업로드 (2026-08-23)</span></a><a class="nl-row" href="notice-20260822.html"><b>2026-08-22</b><span>📢 인프라 가이드 2편 게시 + 월요일 준비물 (2026-08-22)</span></a><a class="nl-row" href="notice-20260820.html"><b>2026-08-20</b><span>📢 전담 현직자 멘토(제6의 멤버) 킥오프: 오늘 8/20(목) 16:00 줌 (2026-08-20</span></a><a class="nl-row" href="notice-20260818.html"><b>2026-08-18</b><span>📢 GPU 서버 계정 발급 (보충): 웹에도 정리했습니다 (2026-08-14)</span></a><a class="nl-row" href="notice-20260814.html"><b>2026-08-14</b><span>📢 현장 확인: 저수준 제어가 이 프로젝트의 관문입니다 (2026-08-14)</span></a><a class="nl-row" href="notice-20260813.html"><b>2026-08-13</b><span>📢 이제 진짜로 올릴 수 있습니다: 시작 가이드 (2026-08-13)</span></a><a class="nl-row" href="notice-20260812.html"><b>2026-08-12</b><span>📢 자료 제출함(inbox)이 열렸습니다 (2026-08-12)</span></a><a class="nl-row" href="notice-20260811.html"><b>2026-08-11</b><span>📢 FOOTHOLD 공지 · 협업 시스템 오픈 + 첫 실측 결과 (2026-08-11)</span></a><a class="nl-row" href="notice-20260809.html"><b>2026-08-09</b><span>FOOTHOLD 협업 시스템 오픈</span></a></div>
+<blockquote><p>분류: 운영 · 실기 Go2 X
+작성: Claude 세션 (오흥재 지시, lead-lx) · 2026-11-25 12:30
+근거: app-lx realrobot-learn-list-and-site-1125 2 절 · foothold-app <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/472">#472</a> runner.env.example · <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/475">#475</a> apps/agent/runner_cpp/REMOTE.md · 저수준 실행 지도 v13 · Discord #foothold-notice 11/25 12:26 발송
+요지: Jetson runner.env 갈아 끼우기 · 리모컨 조작 정본 · 오늘 바뀐 것 · 저수준 실행 지도 · 실기 기록 창고 · Jetson 공유 사항
+상태: 확정 (팀장 11/25 12:22 지시)</p></blockquote>
+<p><b>[Go2 X 실기] Jetson 실행기 설정 갈아 끼우기 · 리모컨 조작 정리 (11/25)</b></p>
+<ol><li>runner.env 갈아 끼우기</li><li>아래 파일 내용을 그대로 Jetson <code>~/foothold-policy-1122/runner.env</code> 에 넣고 <code>chmod 600</code> 하세요. 비밀값은 없습니다.</li><li>그 뒤 Go2 를 껐다 켜면 자동으로 적용됩니다.</li></ol>
+<div class="cb"><div class="cb-h">출력<button class="copy" type="button" aria-label="복사">복사</button></div><pre>FH_GO2_DIRECT_ENABLED=1
+FH_GO2_DIRECT_NIC=enP8p1s0
+RUNNER_ARGS=--folder ../policy/start-m15500-app --mode off --nic enP8p1s0 --live --armed-by-remote --trace-dir ../trace --stop-mode sit --fwd-max 1.2 --status 5 --debug-est ../policy/start-m15500-debug-est</pre></div>
+<ul><li>예시 원본: foothold-app <code>apps/agent/installer/policy-runner/runner.env.example</code></li></ul>
+<ol><li>리모컨 (START C++ 실행기)</li></ol>
+<div class="tw"><table><thead><tr><th>조합</th><th>하는 일</th></tr></thead><tbody><tr><td>위 + start</td><td>순정 → START 모드로 서기</td></tr><tr><td>L2 + A</td><td>START 중 앉기</td></tr><tr><td>L2 + A (앉은 상태)</td><td>바로 서서 START 정책 (약 4 초)</td></tr><tr><td>L2 + B</td><td>비상: 즉시 힘 빼기</td></tr><tr><td>start + 왼쪽 / 오른쪽</td><td>앉은 뒤 순정 free walk / Classic 으로 넘김</td></tr><tr><td>아래 + start</td><td>AME-2 자리 (지금은 알림만)</td></tr></tbody></table></div>
+<ul><li>속도: 전진은 끝까지 밀면 1.2 m/s 이고 제곱 곡선이라 반만 밀면 0.3 입니다. 후진 1.3 · 옆 0.8 · 회전 1.5 rad/s.</li><li>자세한 값 (섞인 명령의 상한, 가감속): <code>apps/agent/runner_cpp/REMOTE.md</code></li></ul>
+<ol><li>오늘 바뀐 것</li><li>앉은 상태에서 L2+A 를 누르면 접기 없이 바로 섭니다. 일어서는 중에 다시 눌러도 앉지 않습니다.</li><li>Go2 를 켜면 C++ 실행기가 본체 선이 붙기를 기다렸다가 저절로 켜집니다 (약 19 초).</li><li>기록 상한이 4 GB 로 늘었습니다. 2 GB 가 넘으면 ai-lx01 이 자동으로 백업합니다.</li></ol>
+<ol><li>함께 볼 것</li><li><a href="/assets/go2x/lowlevel-map.html">Go2 X 저수준 실행 지도</a> (실행기 구조 · 상태와 리모컨 · 안전 · 코어 나눔 · 켜면 저절로 · 앉기 서기 Kp/Kd · 결정 기록 · 11/24 v13 원문 그대로)</li><li><a href="/assets/go2x/realrobot-logs.html">Go2 실기 기록 창고</a> (11/23 50 Hz 관절 기록 · Classic · Sport · START 대조 · 실기 대 시뮬 · 원문 그대로)</li><li>리모컨 · 속도 정본: foothold-app <code>apps/agent/runner_cpp/REMOTE.md</code> (PR <a class="ilink" href="https://github.com/foothold-project/foothold-lab/issues/475">#475</a>)</li><li>11/24 실측 속도 (전진 / 후진 m/s · 회전 rad/s): START 0.67 / 0.67 / 1.38 · Sport 0.94 / 0.57 / 2.14 · Classic 0.39 / 0.40 / 1.26</li></ol>
+<ol><li>Jetson 저수준 제어 공유 사항</li></ol>
+<p><b>실행기</b></p>
+<ul><li>Go2 를 켜면 Jetson 의 C++ 실행기가 저절로 켜집니다. 본체 선 (enP8p1s0) 에 IP 가 잡힐 때까지 기다렸다가 약 19 초 뒤 준비됩니다. 실패하면 3 초 뒤 다시 시작합니다.</li><li>정책은 START m15500 (지도 끔) 입니다. 주기는 50 Hz, 제어는 200 Hz 입니다.</li><li>코어 나눔: 제어는 코어 4 (FIFO 40), 감각은 코어 5~7 (FIFO 30), 기록은 코어 0~3 입니다.</li></ul>
+<p><b>환경 파일 runner.env</b></p>
+<ul><li>foothold-app <code>apps/agent/installer/policy-runner/runner.env.example</code> 을 Jetson <code>~/foothold-policy-1122/runner.env</code> 로 복사하고 chmod 600 합니다. 비밀값은 없습니다.</li></ul>
+<p><b>리모컨 (정본 <code>apps/agent/runner_cpp/REMOTE.md</code>)</b></p>
+<ul><li>위 + start: START 로 서기</li><li>L2 + A: 앉기. 앉은 상태에서 다시 누르면 바로 섬 (약 4 초)</li><li>L2 + B: 비상 힘 빼기</li><li>start + 왼쪽 / 오른쪽: 순정 free walk / Classic 으로 넘김</li><li>속도: 전진 1.2 (제곱 곡선) · 후진 1.3 · 옆 0.8 · 회전 1.5</li></ul>
+<p><b>앉기 · 서기</b></p>
+<ul><li>Classic 의 관절 궤적을 그대로 씁니다.</li><li>전환 게인은 Kp 60 · Kd 5 입니다. Kp 25 · Kd 0.5 에서는 앉다가 넘어졌습니다.</li><li>정책 게인은 Kp 25 · Kd 0.5 입니다.</li></ul>
+<p><b>기록</b></p>
+<ul><li>실행기는 50 Hz 로 관절 · 토크 · 온도 · 배터리 · 몸 높이 (h_kin) · 정책 속도 추정 (est_v) 을 남깁니다. 순정 모드 기록, 깊이, 유선 상태도 따로 남습니다.</li><li>기록 폴더 상한은 4 GB 입니다. 2 GB 가 넘으면 ai-lx01 이 10 분마다 자동으로 백업하고, 확인된 파일만 Jetson 의 보관 폴더로 옮깁니다. 지우지 않습니다.</li></ul>
+<p><b>안전</b></p>
+<ul><li>로봇이 켜진 동안 Jetson 에서 새 DDS 프로그램을 띄우지 않습니다. 11/24 에 이 때문에 본체 통신이 멈췄습니다.</li><li>실기 중에는 Jetson 파일을 읽기만 합니다.</li><li>Go2 X 는 켠 채 충전할 수 없습니다. 배터리를 빼서 충전합니다.</li><li>넘어지면 실행기가 힘을 빼고 순정 RecoveryStand 로 넘깁니다.</li></ul><style>.nl{margin:2.6rem 0 0;border-top:1px solid var(--rule);padding-top:1.1rem}.nl>h2{font-size:1rem;font-weight:800;margin:0 0 .7rem}.nl-row{display:flex;gap:.9rem;align-items:baseline;padding:.5rem 0;border-bottom:1px solid var(--rule);text-decoration:none;color:inherit}.nl-row b{font-size:.78rem;font-weight:700;min-width:6.2rem;font-variant-numeric:tabular-nums}.nl-row span{font-size:.74rem;color:var(--ink-3);flex:1}.nl-row i{font-style:normal;font-size:.6rem;font-weight:800;letter-spacing:.1em;color:var(--dim)}a.nl-row:hover b{color:var(--dim)}</style><div class="nl"><h2>지난 공지 19개</h2><div class="nl-row nl-cur"><b>2026-11-25</b><span>Jetson runner.env 갈아 끼우기 · 리모컨 조작 정본 · 오늘 바뀐 것 · 저수준 실행 지도 · 실기 기록 창고 </span><i>지금 보는 공지</i></div><a class="nl-row" href="notice-20261012.html"><b>2026-10-12</b><span>브랜드 저장소를 10/12 상태로 갱신했다. app · dashboard · 발표 자료를 만들 때 로고 · 3도 기울기 · 글</span></a><a class="nl-row" href="notice-20261007.html"><b>2026-10-07</b><span>팀원 진행 상황 보고 요청 공지 원고. 양식과 올릴 곳, 마감을 알린다.</span></a><a class="nl-row" href="notice-20260929.html"><b>2026-09-29</b><span>foothold-v2 를 정본으로 냅니다. 어느 판도 학습에 안 쓴 여덟 지형에서 기준선 43.88 % 가 88.46 % 가 </span></a><a class="nl-row" href="notice-20260912.html"><b>2026-09-12</b><span>foothold-v1 을 배포하고, 보고서 1차 · 갤러리 144컷 · 평가 정본을 한 벌로 냅니다</span></a><a class="nl-row" href="notice-20260902.html"><b>2026-09-02</b><span>프로젝트 웹이 v2.0.0 으로 다시 만들어졌다. 무엇이 어떻게 바뀌었나.</span></a><a class="nl-row" href="notice-20260827.html"><b>2026-08-27</b><span>8/26~27 에 바뀐 작업 방식 전부. 팀에 보내는 공지.</span></a><a class="nl-row" href="notice-20260826.html"><b>2026-08-26</b><span>팀 공통 규율 · AI 로 작업할 때 반드시 지킬 것</span></a><a class="nl-row" href="notice-20260825.html"><b>2026-08-25</b><span>📢 자동화 지도 · 프로젝트 웹에 올렸습니다 (2026-08-25)</span></a><a class="nl-row" href="notice-20260824.html"><b>2026-08-24</b><span>📢 자기소개, 각자 원하는 방식으로 (오늘 오후 3시 박철제 멘토님 미팅 전)</span></a><a class="nl-row" href="notice-20260823.html"><b>2026-08-23</b><span>📢 조선대 3주차 자료 «ROS2 Python 프로그래밍» 자료실 업로드 (2026-08-23)</span></a><a class="nl-row" href="notice-20260822.html"><b>2026-08-22</b><span>📢 인프라 가이드 2편 게시 + 월요일 준비물 (2026-08-22)</span></a><a class="nl-row" href="notice-20260820.html"><b>2026-08-20</b><span>📢 전담 현직자 멘토(제6의 멤버) 킥오프: 오늘 8/20(목) 16:00 줌 (2026-08-20</span></a><a class="nl-row" href="notice-20260818.html"><b>2026-08-18</b><span>📢 GPU 서버 계정 발급 (보충): 웹에도 정리했습니다 (2026-08-14)</span></a><a class="nl-row" href="notice-20260814.html"><b>2026-08-14</b><span>📢 현장 확인: 저수준 제어가 이 프로젝트의 관문입니다 (2026-08-14)</span></a><a class="nl-row" href="notice-20260813.html"><b>2026-08-13</b><span>📢 이제 진짜로 올릴 수 있습니다: 시작 가이드 (2026-08-13)</span></a><a class="nl-row" href="notice-20260812.html"><b>2026-08-12</b><span>📢 자료 제출함(inbox)이 열렸습니다 (2026-08-12)</span></a><a class="nl-row" href="notice-20260811.html"><b>2026-08-11</b><span>📢 FOOTHOLD 공지 · 협업 시스템 오픈 + 첫 실측 결과 (2026-08-11)</span></a><a class="nl-row" href="notice-20260809.html"><b>2026-08-09</b><span>FOOTHOLD 협업 시스템 오픈</span></a></div>
 
 </div>
 <script>
@@ -1039,5 +1055,5 @@ document.querySelectorAll('[data-vcmp]').forEach(function (box) {
   label();
 });
 </script>
-<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-21 00:55</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
+<!--stamp:v1--><div class="bstamp"><span><b>FOOTHOLD</b> 프로젝트 웹 <span class="sv">v2.1.7</span></span><span>이 페이지 갱신 <span class="sv">2026-11-25 12:50</span></span><span class="gap"></span><span>바뀐 내용은 <a href="notice-latest.html">팀 공지</a>와 <a href="decisions-log.html">결정 로그</a>에</span></div><!--/stamp:v1--></body>
 </html>
